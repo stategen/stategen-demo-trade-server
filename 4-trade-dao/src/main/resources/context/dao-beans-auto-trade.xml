@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:osgi="http://www.springframework.org/schema/osgi"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd"
+    default-autowire="byName"
+>
+    <!-- ============================================================ -->
+    <!-- DAO configs: auto generate by dalgen======================== -->
+    <!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+    <!-- ============================================================ -->
+
+    <bean id="menuDao" class="com.mycompany.biz.dao.impl.MenuDaoImpl" parent="SqlMapClientDAO-trade" />
+    <bean id="roleDao" class="com.mycompany.biz.dao.impl.RoleDaoImpl" parent="SqlMapClientDAO-trade" />
+    <bean id="roleMenuDao" class="com.mycompany.biz.dao.impl.RoleMenuDaoImpl" parent="SqlMapClientDAO-trade" />
+    <bean id="userDao" class="com.mycompany.biz.dao.impl.UserDaoImpl" parent="SqlMapClientDAO-trade" />
+    <bean id="userRoleDao" class="com.mycompany.biz.dao.impl.UserRoleDaoImpl" parent="SqlMapClientDAO-trade" />
+
+</beans>
