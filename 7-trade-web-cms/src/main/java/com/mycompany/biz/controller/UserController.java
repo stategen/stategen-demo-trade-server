@@ -56,6 +56,7 @@ public class UserController extends UserControllerBase {
         if (createTimeMax == null) {
             user.setCreateTimeMax(DatetimeUtil.current());
         }
+        //技巧，api参数 .在dao中已自动化生成,从以下getUserPageListByDefaultQuery 帮助文件中 点开See also直接复制过来，
         PageList<User> userList = this.userService.getUserPageListByDefaultQuery(user, pagination.getPageSize(), pagination.getPage());
         return new AntdPageList<User>(userList);
     }
