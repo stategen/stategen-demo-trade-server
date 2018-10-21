@@ -111,16 +111,6 @@ public class MenuServiceImpl implements MenuService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.MenuDao#deleteByMenuId
-     * @see com.mycompany.biz.service.MenuService#deleteByMenuId
-     */
-    @Override
-    public Long deleteByMenuId(Long menuId) {
-        return menuDao.deleteByMenuId(menuId);
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.MenuDao#update
      * @see com.mycompany.biz.service.MenuService#update
      */
@@ -165,7 +155,7 @@ public class MenuServiceImpl implements MenuService {
      * @see com.mycompany.biz.service.MenuService#deleteByMenuIds
      */
     @Override
-    public Long deleteByMenuIds(java.util.List<Long> menuIds) {
+    public List<Long> deleteByMenuIds(java.util.List<Long> menuIds) {
         return menuDao.deleteByMenuIds(menuIds);
     }
 
@@ -230,5 +220,15 @@ public class MenuServiceImpl implements MenuService {
             this.saveMenu(menu);
         }
         return menus;
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.MenuDao#delete
+     * @see com.mycompany.biz.service.MenuService#delete
+     */
+    @Override
+    public Long delete(Long menuId) {
+        return menuDao.delete(menuId);
     }
 }

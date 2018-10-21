@@ -16,7 +16,7 @@
     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
 >
     <!--
-        <bean id="remoteConfigProvidor" class="com.mycompany.win.provider.RemoteConfigProvidor">
+        <bean id="remoteConfigProvidor" class="com.mycompany.biz.provider.RemoteConfigProvidor">
         <property name="notifyName" value="${project.name}" />
         <property name="tableName" value="remote_config"/>
         <property name="useCodeAsDefaultMessage" value="true"/>

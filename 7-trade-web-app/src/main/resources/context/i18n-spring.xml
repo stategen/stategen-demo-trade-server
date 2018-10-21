@@ -17,7 +17,7 @@
 >
 
     <!--
-        <bean id="appapiBundleProvidor" class="com.mycompany.win.i18n.DatabaseBundleProvidor">
+        <bean id="appapiBundleProvidor" class="com.mycompany.biz.i18n.DatabaseBundleProvidor">
         <property name="notifyName" value="${project.name}"/>
         <property name="tableName" value="translate"/>
         <property name="useCodeAsDefaultMessage" value="true"/>

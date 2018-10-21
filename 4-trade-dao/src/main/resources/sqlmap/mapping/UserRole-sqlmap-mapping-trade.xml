@@ -38,7 +38,7 @@
             </selectKey>
 	</insert>
 	
-	<update id="deleteById.UserRole.trade">
+	<update id="delete.UserRole.trade">
 		UPDATE user_role SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)

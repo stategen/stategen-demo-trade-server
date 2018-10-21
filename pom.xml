@@ -20,7 +20,7 @@
         <module>4-trade-dao</module>
         <module>5-trade-service</module>
         <module>6-trade-web-base</module>
-        <module>7-trade-web-app</module>
+        <!-- <module>7-trade-web-app</module> -->
         <module>7-trade-web-cms</module>
     </modules>
 

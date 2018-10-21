@@ -11,13 +11,12 @@
     <properties>
         <frontend>app-frontend</frontend>
         <warName>tradeApp</warName>
-        <projectName>app</projectName>
     </properties>
 
-    <artifactId>trade-web-${projectName}</artifactId>
+    <artifactId>trade-web-app</artifactId>
     <version>${systemVersion}</version>
     <packaging>war</packaging>
-    <name>7-trade-web-${projectName}</name>
+    <name>7-trade-web-app</name>
 
     <dependencies>
         <dependency>
@@ -134,7 +133,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.mycompany.biz.facadegen.FacadeProcessor</mainClass>
+                            <mainClass>com.mycompany.biz.facadegen.UmiFacadeProcessor</mainClass>
                             <classpathScope>test</classpathScope>
                         </configuration>
                     </execution>

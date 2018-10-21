@@ -35,7 +35,7 @@
             </selectKey>
 	</insert>
 	
-	<update id="deleteById.RoleMenu.trade">
+	<update id="delete.RoleMenu.trade">
 		UPDATE role_menu SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
