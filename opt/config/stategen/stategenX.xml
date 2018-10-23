@@ -8,8 +8,8 @@
     <entry key="swagger.enable">true</entry>
 
     <entry key="mysql.ip.port">jdbc:mysql://localhost:3306/trade?useUnicode=true&amp;characterEncoding=utf8</entry>
-	<entry key="mysql.username">dalgen</entry>
-	<entry key="mysql.password">dalgen</entry>
+	<entry key="mysql.username">stategen</entry>
+	<entry key="mysql.password">stategen</entry>
         
 
     <entry key="common.zk.ip.port">zookeeper://${THIS_IP}:2181</entry>

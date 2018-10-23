@@ -5,7 +5,6 @@ import java.util.InvalidPropertiesFormatException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.junit.Test;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.stategen.framework.lite.Pagination;
 import org.stategen.framework.progen.BaseGenFacadeProcessor;
@@ -34,7 +33,6 @@ public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
         }
     }
 
-    @Test
     public void gen() {
         main(null);
     }

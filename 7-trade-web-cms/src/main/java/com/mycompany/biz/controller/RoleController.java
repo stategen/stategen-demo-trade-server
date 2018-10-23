@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiParam;
 public class RoleController extends RoleControllerBase {
 
 
-    @ApiRequestMappingAutoWithMethodName(name = "角色分页列表,多条件", method = RequestMethod.POST,genQueryForm=true)
+    @ApiRequestMappingAutoWithMethodName(name = "角色分页列表,多条件", method = RequestMethod.POST,genForm=true)
     @VisitCheck
     @State(init = true, operation = StateOperation.FULL_REPLACE)
     @HideAreaEditorModal

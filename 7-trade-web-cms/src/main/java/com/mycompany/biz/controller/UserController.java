@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
-import org.stategen.framework.annotation.GenQueryForm;
+import org.stategen.framework.annotation.GenForm;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.annotation.VisitCheck;
 import org.stategen.framework.enums.StateOperation;
@@ -41,7 +41,7 @@ public class UserController extends UserControllerBase {
     @ApiRequestMappingAutoWithMethodName(name = "用户列表", method = RequestMethod.GET)
     @VisitCheck
     @State(init = true)
-    @GenQueryForm
+    @GenForm
     public AntdPageList<User> getUserPageListByDefaultQuery(@ApiParam() @RequestParam(required = false, name = "userIds") ArrayList<String> userIds,
                                                             @ApiParam() String usernameLike, @ApiParam() String passwordLike,
                                                             @ApiParam() @RequestParam(required = false, name = "roleTypes") ArrayList<RoleType> roleTypes,
