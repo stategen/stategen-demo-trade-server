@@ -13,15 +13,18 @@ import org.stategen.framework.web.cookie.RequestUtil;
 @RequestMapping
 public class DefaultController {
     private static final String INDEX_HTML = "pages/index.html";
+    private static final String PAGES = "pages";
+    private static final String PAGES_SLASH = "pages/";
+    
 
-    @RequestMapping(value = { "/", "", "/index.html", INDEX_HTML, "/pages/" })
+    @RequestMapping(value = { "/", "", "/index.html", INDEX_HTML, PAGES })
     public void index(HttpServletResponse response) throws IOException {
         String requestAppName = RequestUtil.getRequestAppName();
-        String result = new StringBuffer(requestAppName).append("pages").toString();
+        String result = new StringBuffer(requestAppName).append(PAGES_SLASH).toString();
         response.sendRedirect(result);
     }
 
-    @RequestMapping(value = { "/pages" })
+    @RequestMapping(value =  PAGES_SLASH )
     public String pages(HttpServletResponse response) throws IOException {
         return INDEX_HTML;
     }

@@ -47,7 +47,7 @@ public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
         GenContext.registIgnoreParamAnnotationClz(CookieValue.class);
         GenContext.addStaticUtil(StringUtil.class);
         GenContext.addStaticUtil(CollectionUtil.class);
-        GenContext.tempDir ="/umi-ts";
+        GenContext.tempDir ="/umi-ts-m";
         GenContext.outDir="app-frontend/src/intergrade/";
         GenContext.outConfigDir="configs";
 

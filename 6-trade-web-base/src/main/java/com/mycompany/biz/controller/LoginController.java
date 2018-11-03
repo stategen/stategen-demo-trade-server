@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiParam;
 @RequestMapping("/api/login")
 @Wrap
 public class LoginController {
-    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
+    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(LoginController.class);
     final static String USER_ID = "userId";    
 
     
