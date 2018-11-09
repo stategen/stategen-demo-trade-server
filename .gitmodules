@@ -3,4 +3,4 @@
 url=https://github.com/stategen/stategen-demo-trade-cms-frontend
 [submodule "7-trade-web-app/app-frontend"]
 	path = 7-trade-web-app/app-frontend
-url=https://github.com/stategen/stategen-demo-trade-app-frontend
+	url = ./7-trade-web-app/app-frontend/.git
