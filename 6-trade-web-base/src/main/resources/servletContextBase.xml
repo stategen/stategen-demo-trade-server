@@ -7,7 +7,7 @@
     http://www.springframework.org/schema/context  
     http://www.springframework.org/schema/context/spring-context.xsd  
     http://www.springframework.org/schema/mvc  
-    http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+    http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
     http://www.springframework.org/schema/tx 
     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
     http://www.springframework.org/schema/task  
@@ -19,7 +19,8 @@
     <aop:aspectj-autoproxy />
 
     <bean id="viewResolver" class="org.stategen.framework.spring.mvc.MultiViewResolver">
-        <property name="defaultViewResolver" ref="thymeleafResolver" />
+        <property name="defaultViewResolver" ref="jspViewResolver" />
+        <property name="order" value="0" />
         <property name="viewResolverMap">
             <map>
                 <entry>
@@ -42,14 +43,14 @@
                     <ref bean="thymeleafResolver" />
                 </entry>
 
-                <entry>
+<!--                 <entry>
                     <key>
                         <set>
                             <value>.js</value>
                         </set>
                     </key>
                     <ref bean="freeMarkerViewResolver" />
-                </entry>
+                </entry> -->
             </map>
         </property>
     </bean>
@@ -153,9 +154,16 @@
 
     <!-- 前端静态页面转前端页面 -->
     <mvc:resources mapping="/pages/static/**" location="pages/static/" />
-    <mvc:resources mapping="/static/**" location="pages/static/" />
-    <mvc:resources mapping="/pages/service-worker.js" location="pages/" />
-
+    <!-- 因为umi@2生成的js,css等与index.html是平行的，刷新页面等会有问题，需要以下配置才能解决，希望umi改进 -->
+    <mvc:resources mapping="/pages/{:.*}/static/**" location="pages/static/">
+        <mvc:resource-chain resource-cache="true">
+            <mvc:resolvers>
+                <bean class="org.stategen.framework.spring.mvc.MultiPathResourceResolver">
+                    <property name="trimTo" value="static/" />
+                </bean>
+            </mvc:resolvers>
+        </mvc:resource-chain>
+    </mvc:resources>
 
     <import resource="classpath*:servlet/*-spring.xml" />
 </beans>
