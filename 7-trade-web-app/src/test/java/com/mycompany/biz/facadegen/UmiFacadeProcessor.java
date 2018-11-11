@@ -1,6 +1,7 @@
 package com.mycompany.biz.facadegen;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.InvalidPropertiesFormatException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +48,7 @@ public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
         GenContext.registIgnoreParamAnnotationClz(CookieValue.class);
         GenContext.addStaticUtil(StringUtil.class);
         GenContext.addStaticUtil(CollectionUtil.class);
-        GenContext.tempDir ="/umi-ts-m";
+        GenContext.tempDirs =Arrays.asList("/umi-ts","/umi-ts-m");
         GenContext.outDir="app-frontend/src/intergrade/";
         GenContext.outConfigDir="configs";
 

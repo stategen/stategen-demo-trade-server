@@ -81,7 +81,7 @@ public class UserController extends UserControllerBase {
 
     @ApiRequestMappingAutoWithMethodName(path = "/{userId}", name = "删除用户", method = RequestMethod.DELETE)
     @VisitCheck
-    @State(operation = StateOperation.DELETE_IF_EXIST)
+    @State(area=User.class,operation = StateOperation.DELETE_IF_EXIST)
     public String delete(@PathVariable String userId) {
         return userService.delete(userId);
     }
