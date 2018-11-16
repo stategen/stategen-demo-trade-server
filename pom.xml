@@ -184,6 +184,13 @@
             </dependency>
 
             <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <scope>runtime</scope>
@@ -522,7 +529,7 @@
                 <artifactId>httpmime</artifactId>
                 <version>4.5.1</version>
             </dependency>
-
+            
             <dependency>
                 <groupId>org.apache.ibatis</groupId>
                 <artifactId>ibatis-sqlmap</artifactId>

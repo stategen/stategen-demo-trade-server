@@ -31,6 +31,10 @@
     <sqlMap resource="sqlmap/mapping/Menu-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/Role-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/RoleMenu-sqlmap-mapping-trade.xml" />
+    <sqlMap resource="sqlmap/mapping/Topic-sqlmap-mapping-trade.xml" />
+    <sqlMap resource="sqlmap/mapping/TopicAuthor-sqlmap-mapping-trade.xml" />
+    <sqlMap resource="sqlmap/mapping/TopicReply-sqlmap-mapping-trade.xml" />
+    <sqlMap resource="sqlmap/mapping/TopicUp-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/User-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/UserRole-sqlmap-mapping-trade.xml" />
 </sqlMapConfig>

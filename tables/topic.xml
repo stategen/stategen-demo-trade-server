@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "http://sources.alipay.net/svn/dtd/table-config-1.0.dtd">
+<table sqlName="topic" className="Topic">
+   
+    <!-- 不需要配置的列请删除-->
+    <!-- <column name="currency_Unit" javaType="java.util.Currency"/> -->
+    <!-- <column name="status" javaType="aa.bb.cc.StatusEnum"/> -->
+    <!-- <column name="sex" javaType="aa.bb.cc.SexEnum"/> -->
+
+
+    <operation name="insert" paramType="object" remarks="">
+      <!-- 临时方案，请在 field或 value 两边加上空格,以方便dalgen解析 -->
+        <sql>
+            insert into topic (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
+            <isNotNull prepend="," property="authorId"> author_id </isNotNull>
+            <isNotNull prepend="," property="tab"> tab </isNotNull>
+            <isNotNull prepend="," property="content"> content </isNotNull>
+            <isNotNull prepend="," property="title"> title </isNotNull>
+            <isNotNull prepend="," property="lastReplyAt"> last_reply_at </isNotNull>
+            <isNotNull prepend="," property="good"> good </isNotNull>
+            <isNotNull prepend="," property="top"> top </isNotNull>
+            <isNotNull prepend="," property="visitCount"> visit_count </isNotNull>
+            <isNotNull prepend="," property="createAt"> create_at </isNotNull>
+            ) VALUES (
+            CURRENT_TIMESTAMP(6)
+            , CURRENT_TIMESTAMP(6)
+            , 0
+            <isNotNull prepend="," property="topicId"> ?  </isNotNull>
+            <isNotNull prepend="," property="authorId"> ?  </isNotNull>
+            <isNotNull prepend="," property="tab"> ?  </isNotNull>
+            <isNotNull prepend="," property="content"> ?  </isNotNull>
+            <isNotNull prepend="," property="title"> ?  </isNotNull>
+            <isNotNull prepend="," property="lastReplyAt"> ?  </isNotNull>
+            <isNotNull prepend="," property="good"> ?  </isNotNull>
+            <isNotNull prepend="," property="top"> ?  </isNotNull>
+            <isNotNull prepend="," property="visitCount"> ?  </isNotNull>
+            <isNotNull prepend="," property="createAt"> ?  </isNotNull>
+            )
+            <selectKey keyProperty="topicId" resultClass="String" type="pre">
+                select if((#topicId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#topicId# ) as topicId
+            </selectKey>
+        </sql>
+    </operation>
+
+    <operation name="delete" remarks="">
+        <sql>
+            UPDATE topic SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and topic_id = ?
+        </sql>
+    </operation>
+
+    <operation name="update" paramType="object" remarks="">
+        <sql>
+            UPDATE topic
+            SET update_time= CURRENT_TIMESTAMP(6)
+            <dynamic>
+                <isNotNull property="authorId" prepend=",">
+                    author_id =  ?
+                </isNotNull>
+                <isNotNull property="tab" prepend=",">
+                    tab =  ?
+                </isNotNull>
+                <isNotNull property="content" prepend=",">
+                    content =  ?
+                </isNotNull>
+                <isNotNull property="title" prepend=",">
+                    title =  ?
+                </isNotNull>
+                <isNotNull property="lastReplyAt" prepend=",">
+                    last_reply_at =  ?
+                </isNotNull>
+                <isNotNull property="good" prepend=",">
+                    good =  ?
+                </isNotNull>
+                <isNotNull property="top" prepend=",">
+                    top =  ?
+                </isNotNull>
+                <isNotNull property="visitCount" prepend=",">
+                    visit_count =  ?
+                </isNotNull>
+                <isNotNull property="createAt" prepend=",">
+                    create_at =  ?
+                </isNotNull>
+            </dynamic>
+            where
+            delete_flag = 0
+            and topic_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getTopicByTopicId" multiplicity="one" remarks="">
+        <sql>
+            select
+            a.topic_id,
+            a.author_id,
+            a.tab,
+            a.content,
+            a.title,
+            a.last_reply_at,
+            a.good,
+            a.top,
+            a.visit_count,
+            a.create_at,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from topic a
+            where
+            a.delete_flag = 0
+            and a.topic_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getTopicPageListByDefaultQuery" paramType="object" multiplicity="paging" remarks="">
+        <sql>
+            select
+            a.topic_id,
+            a.author_id,
+            a.tab,
+            a.content,
+            a.title,
+            a.last_reply_at,
+            a.good,
+            a.top,
+            a.visit_count,
+            a.create_at,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from topic a
+            where
+            a.delete_flag = 0
+            <isNotNull property="topicId" open="and">
+               a.topic_id=?
+            </isNotNull>
+            <isNotEmpty property="topicIds" open="and">
+                a.topic_id in
+                <iterate property="topicIds" conjunction="," open="(" close=")">
+                    #topicIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="authorId" open="and">
+               a.author_id=?
+            </isNotNull>
+            <isNotEmpty property="authorIds" open="and">
+                a.author_id in
+                <iterate property="authorIds" conjunction="," open="(" close=")">
+                    #authorIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="tab" open="and">
+            a.tab=?
+          </isNotNull>
+            <isNotEmpty property="tabLike" open="and">
+                a.tab like CONCAT('%',#tabLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="content" open="and">
+            a.content=?
+          </isNotNull>
+            <isNotEmpty property="contentLike" open="and">
+                a.content like CONCAT('%',#contentLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="title" open="and">
+            a.title=?
+          </isNotNull>
+            <isNotEmpty property="titleLike" open="and">
+                a.title like CONCAT('%',#titleLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="lastReplyAt" open="and">
+            a.last_reply_at=?
+          </isNotNull>
+            <isNotEmpty property="lastReplyAtLike" open="and">
+                a.last_reply_at like CONCAT('%',#lastReplyAtLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="good" open="and">
+            a.good=?
+          </isNotNull>
+            <isNotEmpty property="goodLike" open="and">
+                a.good like CONCAT('%',#goodLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="top" open="and">
+            a.top=?
+          </isNotNull>
+            <isNotEmpty property="topLike" open="and">
+                a.top like CONCAT('%',#topLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="visitCountMin" open="and">
+                a.visit_count >=#visitCountMin#
+            </isNotNull>
+            <isNotNull property="visitCountMax" open="and">
+                a.visit_count &lt;#visitCountMax#
+            </isNotNull>
+          <isNotNull property="createAt" open="and">
+            a.create_at=?
+          </isNotNull>
+            <isNotEmpty property="createAtLike" open="and">
+                a.create_at like CONCAT('%',#createAtLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="createTimeMin" open="and">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax" open="and">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin" open="and">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax" open="and">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="topicId">
+            <isEmpty property="topicIds">
+            <isNull property="authorId">
+            <isEmpty property="authorIds">
+            <isNull property="tab">
+            <isEmpty property="tabLike">
+            <isNull property="content">
+            <isEmpty property="contentLike">
+            <isNull property="title">
+            <isEmpty property="titleLike">
+            <isNull property="lastReplyAt">
+            <isEmpty property="lastReplyAtLike">
+            <isNull property="good">
+            <isEmpty property="goodLike">
+            <isNull property="top">
+            <isEmpty property="topLike">
+            <isNull property="visitCountMin">
+            <isNull property="visitCountMax">
+            <isNull property="createAt">
+            <isEmpty property="createAtLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+        </sql>
+    </operation>
+
+    <operation name="getTopicsByTopicIds" multiplicity="many" remarks="">
+        <sql>
+            select
+            a.topic_id,
+            a.author_id,
+            a.tab,
+            a.content,
+            a.title,
+            a.last_reply_at,
+            a.good,
+            a.top,
+            a.visit_count,
+            a.create_at,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from topic a
+            where
+            a.delete_flag = 0
+            <isEmpty property="topicIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="topicIds" open="and">
+                a.topic_id in
+                <iterate property="topicIds" conjunction="," open="(" close=")">
+                    #topicIds[]#
+                </iterate>
+            </isNotEmpty>
+        </sql>
+    </operation>
+
+    <operation name="deleteByTopicIds" remarks="">
+        <sql>
+            UPDATE topic SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="topicIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="topicIds" open="and">
+                topic_id in
+                <iterate property="topicIds" conjunction="," open="(" close=")">
+                    #topicIds[]#
+                </iterate>
+            </isNotEmpty>
+        </sql>
+    </operation>
+
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table topic -e 再复制再粘贴覆盖-->
+
+</table>

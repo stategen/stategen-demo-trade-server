@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "http://sources.alipay.net/svn/dtd/table-config-1.0.dtd">
+<table sqlName="topic_up" className="TopicUp">
+   
+    <!-- 不需要配置的列请删除-->
+    <!-- <column name="currency_Unit" javaType="java.util.Currency"/> -->
+    <!-- <column name="status" javaType="aa.bb.cc.StatusEnum"/> -->
+    <!-- <column name="sex" javaType="aa.bb.cc.SexEnum"/> -->
+
+    
+    <operation name="insert" paramType="object" remarks="">
+      <!-- 临时方案，请在 field或 value 两边加上空格,以方便dalgen解析 -->
+        <sql>
+            insert into topic_up (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="upId"> up_id </isNotNull>
+            <isNotNull prepend="," property="topicOrReplyId"> topic_or_reply_id </isNotNull>
+            <isNotNull prepend="," property="authorId"> author_id </isNotNull>
+            ) VALUES (
+            CURRENT_TIMESTAMP(6)
+            , CURRENT_TIMESTAMP(6)
+            , 0
+            <isNotNull prepend="," property="upId"> ?  </isNotNull>
+            <isNotNull prepend="," property="topicOrReplyId"> ?  </isNotNull>
+            <isNotNull prepend="," property="authorId"> ?  </isNotNull>
+            )
+            <selectKey keyProperty="upId" resultClass="String" type="pre">
+                select if((#upId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#upId# ) as upId
+            </selectKey>
+        </sql>
+    </operation>
+
+    <operation name="delete" remarks="">
+        <sql>
+            UPDATE topic_up SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and up_id = ?
+        </sql>
+    </operation>
+
+    <operation name="update" paramType="object" remarks="">
+        <sql>
+            UPDATE topic_up
+            SET update_time= CURRENT_TIMESTAMP(6)
+            <dynamic>
+                <isNotNull property="topicOrReplyId" prepend=",">
+                    topic_or_reply_id =  ?
+                </isNotNull>
+                <isNotNull property="authorId" prepend=",">
+                    author_id =  ?
+                </isNotNull>
+            </dynamic>
+            where
+            delete_flag = 0
+            and up_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getTopicUpByUpId" multiplicity="one" remarks="">
+        <sql>
+            select
+            a.up_id,
+            a.topic_or_reply_id,
+            a.author_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from topic_up a
+            where
+            a.delete_flag = 0
+            and a.up_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getTopicUpPageListByDefaultQuery" paramType="object" multiplicity="paging" remarks="">
+        <sql>
+            select
+            a.up_id,
+            a.topic_or_reply_id,
+            a.author_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from topic_up a
+            where
+            a.delete_flag = 0
+            <isNotEmpty property="upIds" open="and">
+                a.up_id in
+                <iterate property="upIds" conjunction="," open="(" close=")">
+                    #upIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotEmpty property="topicOrReplyIds" open="and">
+                a.topic_or_reply_id in
+                <iterate property="topicOrReplyIds" conjunction="," open="(" close=")">
+                    #topicOrReplyIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotEmpty property="authorIds" open="and">
+                a.author_id in
+                <iterate property="authorIds" conjunction="," open="(" close=")">
+                    #authorIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin" open="and">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax" open="and">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin" open="and">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax" open="and">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isEmpty property="upIds">
+            <isEmpty property="topicOrReplyIds">
+            <isEmpty property="authorIds">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isEmpty>
+            </isEmpty>
+        </sql>
+    </operation>
+
+    <operation name="getTopicUpsByUpIds" multiplicity="many" remarks="">
+        <sql>
+            select
+            a.up_id,
+            a.topic_or_reply_id,
+            a.author_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from topic_up a
+            where
+            a.delete_flag = 0
+            and a.up_id in
+            <iterate property="upIds" conjunction="," open="(" close=")">
+                #upIds[]#
+            </iterate>
+        </sql>
+    </operation>
+
+    <operation name="deleteByUpIds" remarks="">
+        <sql>
+            UPDATE topic_up SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and up_id in
+            <iterate property="upIds" conjunction="," open="(" close=")">
+                #upIds[]#
+            </iterate>
+        </sql>
+    </operation>
+
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table topic_up -e 再复制再粘贴覆盖-->
+    
+    <operation name="getTopicUpsGroupCountByTopicId" resultClass="object">
+      <sql>
+        SELECT
+          tu.topic_or_reply_id,
+          COUNT(*) AS cnt
+        FROM
+          topic_up tu
+        LEFT JOIN topic_reply tr ON tr.topic_reply_id = tu.topic_or_reply_id
+        LEFT JOIN topic t ON t.topic_id = tr.topic_id
+        WHERE
+          t.topic_id = ?
+        GROUP BY
+          tu.topic_or_reply_id
+      </sql>    
+    </operation>
+
+</table>
