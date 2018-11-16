@@ -14,7 +14,7 @@ import com.mycompany.biz.service.TopicService;
 @ApiConfig
 @Wrap
 @RequestMapping("api/topic")
-public class TopicDetail_$idContoller {
+public class TopicDetail_$idController {
     
     @Resource
     private TopicService topicService;
