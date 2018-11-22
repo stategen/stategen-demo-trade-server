@@ -8,7 +8,7 @@
     <resultMap id="Topic.trade.RM" class="com.mycompany.biz.domain.Topic">
         <result property="topicId" column="topic_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="authorId" column="author_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
-        <result property="tab" column="tab" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="topicType" column="topic_type" javaType="com.mycompany.biz.enums.TopicType" jdbcType="VARCHAR"  />
         <result property="content" column="content" javaType="java.lang.String" jdbcType="LONGVARCHAR"  />
         <result property="title" column="title" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="lastReplyAt" column="last_reply_at" javaType="java.lang.String" jdbcType="VARCHAR"  />
@@ -32,7 +32,7 @@
             , delete_flag
             <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
             <isNotNull prepend="," property="authorId"> author_id </isNotNull>
-            <isNotNull prepend="," property="tab"> tab </isNotNull>
+            <isNotNull prepend="," property="topicType"> topic_type </isNotNull>
             <isNotNull prepend="," property="content"> content </isNotNull>
             <isNotNull prepend="," property="title"> title </isNotNull>
             <isNotNull prepend="," property="lastReplyAt"> last_reply_at </isNotNull>
@@ -43,7 +43,7 @@
             ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="topicId"> #topicId# </isNotNull> 
             <isNotNull prepend="," property="authorId"> #authorId# </isNotNull> 
-            <isNotNull prepend="," property="tab"> #tab# </isNotNull> 
+            <isNotNull prepend="," property="topicType"> #topicType# </isNotNull> 
             <isNotNull prepend="," property="content"> #content# </isNotNull> 
             <isNotNull prepend="," property="title"> #title# </isNotNull> 
             <isNotNull prepend="," property="lastReplyAt"> #lastReplyAt# </isNotNull> 
@@ -74,8 +74,8 @@
                 <isNotNull prepend="," property="authorId">
                     author_id =  #authorId#
                 </isNotNull>
-                <isNotNull prepend="," property="tab">
-                    tab =  #tab#
+                <isNotNull prepend="," property="topicType">
+                    topic_type =  #topicType#
                 </isNotNull>
                 <isNotNull prepend="," property="content">
                     content =  #content#
@@ -110,7 +110,7 @@
     	select
  /* getTopicByTopicId.Topic.trade */             a.topic_id,
             a.author_id,
-            a.tab,
+            a.topic_type,
             a.content,
             a.title,
             a.last_reply_at,
@@ -136,7 +136,7 @@
     	select
  /* getTopicPageListByDefaultQuery.Topic.trade */             a.topic_id,
             a.author_id,
-            a.tab,
+            a.topic_type,
             a.content,
             a.title,
             a.last_reply_at,
@@ -168,11 +168,14 @@
                     #authorIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull open="and" property="tab">
-            a.tab=#tab#
-          </isNotNull>
-            <isNotEmpty open="and" property="tabLike">
-                a.tab like CONCAT('%',#tabLike#,'%')
+            <isNotNull open="and" property="topicType">
+               a.topic_type=#topicType#
+            </isNotNull>
+            <isNotEmpty open="and" property="topicTypes">
+                a.topic_type in
+                <iterate close=")" conjunction="," open="(" property="topicTypes">
+                    #topicTypes[]#
+                </iterate>
             </isNotEmpty>
           <isNotNull open="and" property="content">
             a.content=#content#
@@ -232,8 +235,8 @@
             <isEmpty property="topicIds">
             <isNull property="authorId">
             <isEmpty property="authorIds">
-            <isNull property="tab">
-            <isEmpty property="tabLike">
+            <isNull property="topicType">
+            <isEmpty property="topicTypes">
             <isNull property="content">
             <isEmpty property="contentLike">
             <isNull property="title">
@@ -302,11 +305,14 @@
                     #authorIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull open="and" property="tab">
-            a.tab=#tab#
-          </isNotNull>
-            <isNotEmpty open="and" property="tabLike">
-                a.tab like CONCAT('%',#tabLike#,'%')
+            <isNotNull open="and" property="topicType">
+               a.topic_type=#topicType#
+            </isNotNull>
+            <isNotEmpty open="and" property="topicTypes">
+                a.topic_type in
+                <iterate close=")" conjunction="," open="(" property="topicTypes">
+                    #topicTypes[]#
+                </iterate>
             </isNotEmpty>
           <isNotNull open="and" property="content">
             a.content=#content#
@@ -366,8 +372,8 @@
             <isEmpty property="topicIds">
             <isNull property="authorId">
             <isEmpty property="authorIds">
-            <isNull property="tab">
-            <isEmpty property="tabLike">
+            <isNull property="topicType">
+            <isEmpty property="topicTypes">
             <isNull property="content">
             <isEmpty property="contentLike">
             <isNull property="title">
@@ -421,7 +427,7 @@
     	select
  /* getTopicsByTopicIds.Topic.trade */             a.topic_id,
             a.author_id,
-            a.tab,
+            a.topic_type,
             a.content,
             a.title,
             a.last_reply_at,

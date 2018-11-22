@@ -5,6 +5,7 @@
 package com.mycompany.biz.service.impl;
 
 import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -120,15 +121,6 @@ public class UserServiceImpl implements UserService {
         return userDao.deleteByEmails(emails);
     }
 
-    /**
-     * 
-     * @see com.mycompany.biz.dao.UserDao#login
-     * @see com.mycompany.biz.service.UserService#login
-     */
-    @Override
-    public User login(String username, String password) {
-        return userDao.login(username, password);
-    }
 
     /*** 保存user,有id时更新，没有id时插入,并带回新的id，返回 user*/
     @Override
@@ -171,5 +163,45 @@ public class UserServiceImpl implements UserService {
     @Override
     public String delete(String userId) {
         return userDao.delete(userId);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#deleteByUsername
+     * @see com.mycompany.biz.service.UserService#deleteByUsername
+     */
+    @Override
+    public Long deleteByUsername(String username) {
+        return userDao.deleteByUsername(username);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#getUserByUsername
+     * @see com.mycompany.biz.service.UserService#getUserByUsername
+     */
+    @Override
+    public User getUserByUsername(String username) {
+        return userDao.getUserByUsername(username);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#getUsersByUsernames
+     * @see com.mycompany.biz.service.UserService#getUsersByUsernames
+     */
+    @Override
+    public List<User> getUsersByUsernames(java.util.List<String> usernames) {
+        return userDao.getUsersByUsernames(usernames);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#deleteByUsernames
+     * @see com.mycompany.biz.service.UserService#deleteByUsernames
+     */
+    @Override
+    public Long deleteByUsernames(java.util.List<String> usernames) {
+        return userDao.deleteByUsernames(usernames);
     }
 }

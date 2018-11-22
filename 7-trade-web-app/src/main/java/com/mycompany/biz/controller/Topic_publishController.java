@@ -14,7 +14,7 @@ import com.mycompany.biz.service.TopicService;
 @ApiConfig
 @Wrap
 @RequestMapping("api")
-public class PublishController {
+public class Topic_publishController {
     
     @Resource
     private TopicService topicService;

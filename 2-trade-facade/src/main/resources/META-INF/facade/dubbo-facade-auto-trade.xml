@@ -14,7 +14,6 @@
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="roleService" interface="com.mycompany.biz.service.RoleServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="roleMenuService" interface="com.mycompany.biz.service.RoleMenuServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicService" interface="com.mycompany.biz.service.TopicServiceFacade"/>
-    <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicAuthorService" interface="com.mycompany.biz.service.TopicAuthorServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicReplyService" interface="com.mycompany.biz.service.TopicReplyServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicUpService" interface="com.mycompany.biz.service.TopicUpServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="userService" interface="com.mycompany.biz.service.UserServiceFacade"/>

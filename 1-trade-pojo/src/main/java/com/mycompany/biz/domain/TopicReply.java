@@ -32,7 +32,7 @@ import lombok.Setter;
 @Setter
 public class TopicReply implements java.io.Serializable {
 
-    private TopicAuthor author;
+    private User author;
 
     private List<String> ups;
 

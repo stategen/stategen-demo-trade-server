@@ -20,15 +20,16 @@ import com.mycompany.biz.domain.Menu;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.service.MenuService;
 import com.mycompany.biz.service.UserService;
+import com.mycompany.biz.utils.SysConsts;
 
 @ApiConfig(menu = false)
 @RequestMapping("/api/app")
 public class AppController {
-    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
-    final static String USER_ID = "userId";
+    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AppController.class);
+    
 
     @Resource
-    private CookieGroup baseCookieGroup;
+    private CookieGroup loginCookieGroup;
 
     @Resource(name = "userService")
     private UserService userService;
@@ -38,14 +39,14 @@ public class AppController {
 
     @ApiRequestMappingAutoWithMethodName(name = "", method = RequestMethod.GET)
     public SimpleResponse logout(HttpServletResponse response) {
-        baseCookieGroup.expireAllCookies();
+        loginCookieGroup.expireAllCookies();
         return new SimpleResponse(true, "退出成功");
     }
 
     @ApiRequestMappingAutoWithMethodName(name = "", method = RequestMethod.GET)
     @State(init = true, initCheck = false, operation = StateOperation.FULL_REPLACE)
     public User getCookieUser() {
-        String userId = this.baseCookieGroup.getCookieValue(USER_ID);
+        String userId = this.loginCookieGroup.getCookieValue(SysConsts.USER_ID);
         if (StringUtil.isEmpty(userId)) {
             return null;
         }

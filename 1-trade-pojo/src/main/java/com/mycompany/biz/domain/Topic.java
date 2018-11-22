@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
+
+import com.mycompany.biz.enums.TopicType;
 import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Getter;
@@ -34,9 +36,13 @@ public class Topic implements java.io.Serializable {
 
     private List<TopicReply> replies;
 
-    private TopicAuthor author;
+    private User author;
 
     private Long replyCount;
+
+    /*** tabLike in getTopicPageListByDefaultQuery */
+    @ApiModelProperty("tabLike")
+    private transient String tabLike;
 
     private static final long serialVersionUID = -5216457518046898601L;
 
@@ -51,10 +57,9 @@ public class Topic implements java.io.Serializable {
     @Max(64)
     private String authorId;
 
-    /***tab   db_column: tab VARCHAR */
-    @ApiModelProperty("tab")
-    @Max(64)
-    private String tab;
+    /***topicType   db_column: topic_type VARCHAR */
+    @ApiModelProperty("topicType")
+    private TopicType topicType;
 
     /***content   db_column: content LONGVARCHAR */
     @ApiModelProperty("content")
@@ -111,7 +116,7 @@ public class Topic implements java.io.Serializable {
         sb.append('{');
         sb.append("topicIds=").append(topicIds).append('\n');
         sb.append("authorIds=").append(authorIds).append('\n');
-        sb.append("tabLike=").append(tabLike).append('\n');
+        sb.append("topicTypes=").append(topicTypes).append('\n');
         sb.append("contentLike=").append(contentLike).append('\n');
         sb.append("titleLike=").append(titleLike).append('\n');
         sb.append("lastReplyAtLike=").append(lastReplyAtLike).append('\n');
@@ -126,7 +131,7 @@ public class Topic implements java.io.Serializable {
         sb.append("updateTimeMax=").append(updateTimeMax != null ? df.format(updateTimeMax) : null).append('\n');
         sb.append("topicId=").append(topicId).append('\n');
         sb.append("authorId=").append(authorId).append('\n');
-        sb.append("tab=").append(tab).append('\n');
+        sb.append("topicType=").append(topicType).append('\n');
         sb.append("content=").append(content).append('\n');
         sb.append("title=").append(title).append('\n');
         sb.append("lastReplyAt=").append(lastReplyAt).append('\n');
@@ -149,9 +154,9 @@ public class Topic implements java.io.Serializable {
     @ApiModelProperty("authorIds")
     private transient java.util.List<String> authorIds;
 
-    /*** tabLike in getTopicPageListByDefaultQuery */
-    @ApiModelProperty("tabLike")
-    private transient String tabLike;
+    /*** topicTypes in getTopicPageListByDefaultQuery */
+    @ApiModelProperty("topicTypes")
+    private transient java.util.List<com.mycompany.biz.enums.TopicType> topicTypes;
 
     /*** contentLike in getTopicPageListByDefaultQuery */
     @ApiModelProperty("contentLike")

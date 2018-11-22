@@ -15,7 +15,7 @@
         <result property="age" column="age" javaType="java.lang.Integer" jdbcType="INTEGER"  />
         <result property="address" column="address" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="isMale" column="isMale" javaType="java.lang.Boolean" jdbcType="BIT"  />
-        <result property="avatar" column="avatar" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="avatarUrl" column="avatar_url" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="email" column="email" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
@@ -40,7 +40,7 @@
             <isNotNull prepend="," property="age"> age </isNotNull>
             <isNotNull prepend="," property="address"> address </isNotNull>
             <isNotNull prepend="," property="isMale"> isMale </isNotNull>
-            <isNotNull prepend="," property="avatar"> avatar </isNotNull>
+            <isNotNull prepend="," property="avatarUrl"> avatar_url </isNotNull>
             <isNotNull prepend="," property="email"> email </isNotNull>
             ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="userId"> #userId# </isNotNull> 
@@ -52,7 +52,7 @@
             <isNotNull prepend="," property="age"> #age# </isNotNull> 
             <isNotNull prepend="," property="address"> #address# </isNotNull> 
             <isNotNull prepend="," property="isMale"> #isMale# </isNotNull> 
-            <isNotNull prepend="," property="avatar"> #avatar# </isNotNull> 
+            <isNotNull prepend="," property="avatarUrl"> #avatarUrl# </isNotNull> 
             <isNotNull prepend="," property="email"> #email# </isNotNull>)
             <selectKey keyProperty="userId" resultClass="String" type="pre">
                 select if((#userId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#userId# ) as userId
@@ -66,6 +66,17 @@
             where
             delete_flag = 0
             and user_id = #userId#
+	</update>
+	
+    
+	
+	<update id="deleteByUsername.User.trade">
+		UPDATE user SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and username = #username#
 	</update>
 	
     
@@ -109,8 +120,8 @@
                 <isNotNull prepend="," property="isMale">
                     isMale =  #isMale#
                 </isNotNull>
-                <isNotNull prepend="," property="avatar">
-                    avatar =  #avatar#
+                <isNotNull prepend="," property="avatarUrl">
+                    avatar_url =  #avatarUrl#
                 </isNotNull>
                 <isNotNull prepend="," property="email">
                     email =  #email#
@@ -134,7 +145,7 @@
             a.age,
             a.address,
             a.isMale,
-            a.avatar,
+            a.avatar_url,
             a.email,
             a.create_time,
             a.update_time,
@@ -143,6 +154,33 @@
             where
             a.delete_flag = 0
             and a.user_id = #userId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="getUserByUsername.User.trade" resultMap="User.trade.RM" >
+    	select
+ /* getUserByUsername.User.trade */             a.user_id,
+            a.username,
+            a.password,
+            a.role_type,
+            a.name,
+            a.nickName,
+            a.age,
+            a.address,
+            a.isMale,
+            a.avatar_url,
+            a.email,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from user a
+            where
+            a.delete_flag = 0
+            and a.username = #username#
 	</select>	
 
 	    
@@ -161,7 +199,7 @@
             a.age,
             a.address,
             a.isMale,
-            a.avatar,
+            a.avatar_url,
             a.email,
             a.create_time,
             a.update_time,
@@ -188,7 +226,7 @@
             a.age,
             a.address,
             a.isMale,
-            a.avatar,
+            a.avatar_url,
             a.email,
             a.create_time,
             a.update_time,
@@ -196,27 +234,45 @@
             from user a
             where
             a.delete_flag = 0
+            <isNotNull open="and" property="userId">
+               a.user_id=#userId#
+            </isNotNull>
             <isNotEmpty open="and" property="userIds">
                 a.user_id in
                 <iterate close=")" conjunction="," open="(" property="userIds">
                     #userIds[]#
                 </iterate>
             </isNotEmpty>
+          <isNotNull open="and" property="username">
+            a.username=#username#
+          </isNotNull>
             <isNotEmpty open="and" property="usernameLike">
                 a.username like CONCAT('%',#usernameLike#,'%')
             </isNotEmpty>
+          <isNotNull open="and" property="password">
+            a.password=#password#
+          </isNotNull>
             <isNotEmpty open="and" property="passwordLike">
                 a.password like CONCAT('%',#passwordLike#,'%')
             </isNotEmpty>
+            <isNotNull open="and" property="roleType">
+               a.role_type=#roleType#
+            </isNotNull>
             <isNotEmpty open="and" property="roleTypes">
                 a.role_type in
                 <iterate close=")" conjunction="," open="(" property="roleTypes">
                     #roleTypes[]#
                 </iterate>
             </isNotEmpty>
+          <isNotNull open="and" property="name">
+            a.name=#name#
+          </isNotNull>
             <isNotEmpty open="and" property="nameLike">
                 a.name like CONCAT('%',#nameLike#,'%')
             </isNotEmpty>
+          <isNotNull open="and" property="nickName">
+            a.nickName=#nickName#
+          </isNotNull>
             <isNotEmpty open="and" property="nickNameLike">
                 a.nickName like CONCAT('%',#nickNameLike#,'%')
             </isNotEmpty>
@@ -226,12 +282,15 @@
             <isNotNull open="and" property="ageMax">
                 a.age &lt;#ageMax#
             </isNotNull>
+          <isNotNull open="and" property="address">
+            a.address=#address#
+          </isNotNull>
             <isNotEmpty open="and" property="addressLike">
                 a.address like CONCAT('%',#addressLike#,'%')
             </isNotEmpty>
-            <isNotEmpty open="and" property="avatarLike">
-                a.avatar like CONCAT('%',#avatarLike#,'%')
-            </isNotEmpty>
+          <isNotNull open="and" property="email">
+            a.email=#email#
+          </isNotNull>
             <isNotEmpty open="and" property="emailLike">
                 a.email like CONCAT('%',#emailLike#,'%')
             </isNotEmpty>
@@ -247,16 +306,23 @@
             <isNotNull open="and" property="updateTimeMax">
                 a.update_time &lt;#updateTimeMax#
             </isNotNull>
+            <isNull property="userId">
             <isEmpty property="userIds">
+            <isNull property="username">
             <isEmpty property="usernameLike">
+            <isNull property="password">
             <isEmpty property="passwordLike">
+            <isNull property="roleType">
             <isEmpty property="roleTypes">
+            <isNull property="name">
             <isEmpty property="nameLike">
+            <isNull property="nickName">
             <isEmpty property="nickNameLike">
             <isNull property="ageMin">
             <isNull property="ageMax">
+            <isNull property="address">
             <isEmpty property="addressLike">
-            <isEmpty property="avatarLike">
+            <isNull property="email">
             <isEmpty property="emailLike">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
@@ -268,16 +334,23 @@
             </isNull>
             </isNull>
             </isEmpty>
-            </isEmpty>
+            </isNull>
             </isEmpty>
             </isNull>
             </isNull>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
 			limit #offset#,#limit#
 	</select>	
 
@@ -285,27 +358,45 @@
     	select  /* getUserPageListByDefaultQuery.User.trade.count */ count(*)  from user a
             where
             a.delete_flag = 0
+            <isNotNull open="and" property="userId">
+               a.user_id=#userId#
+            </isNotNull>
             <isNotEmpty open="and" property="userIds">
                 a.user_id in
                 <iterate close=")" conjunction="," open="(" property="userIds">
                     #userIds[]#
                 </iterate>
             </isNotEmpty>
+          <isNotNull open="and" property="username">
+            a.username=#username#
+          </isNotNull>
             <isNotEmpty open="and" property="usernameLike">
                 a.username like CONCAT('%',#usernameLike#,'%')
             </isNotEmpty>
+          <isNotNull open="and" property="password">
+            a.password=#password#
+          </isNotNull>
             <isNotEmpty open="and" property="passwordLike">
                 a.password like CONCAT('%',#passwordLike#,'%')
             </isNotEmpty>
+            <isNotNull open="and" property="roleType">
+               a.role_type=#roleType#
+            </isNotNull>
             <isNotEmpty open="and" property="roleTypes">
                 a.role_type in
                 <iterate close=")" conjunction="," open="(" property="roleTypes">
                     #roleTypes[]#
                 </iterate>
             </isNotEmpty>
+          <isNotNull open="and" property="name">
+            a.name=#name#
+          </isNotNull>
             <isNotEmpty open="and" property="nameLike">
                 a.name like CONCAT('%',#nameLike#,'%')
             </isNotEmpty>
+          <isNotNull open="and" property="nickName">
+            a.nickName=#nickName#
+          </isNotNull>
             <isNotEmpty open="and" property="nickNameLike">
                 a.nickName like CONCAT('%',#nickNameLike#,'%')
             </isNotEmpty>
@@ -315,12 +406,15 @@
             <isNotNull open="and" property="ageMax">
                 a.age &lt;#ageMax#
             </isNotNull>
+          <isNotNull open="and" property="address">
+            a.address=#address#
+          </isNotNull>
             <isNotEmpty open="and" property="addressLike">
                 a.address like CONCAT('%',#addressLike#,'%')
             </isNotEmpty>
-            <isNotEmpty open="and" property="avatarLike">
-                a.avatar like CONCAT('%',#avatarLike#,'%')
-            </isNotEmpty>
+          <isNotNull open="and" property="email">
+            a.email=#email#
+          </isNotNull>
             <isNotEmpty open="and" property="emailLike">
                 a.email like CONCAT('%',#emailLike#,'%')
             </isNotEmpty>
@@ -336,16 +430,23 @@
             <isNotNull open="and" property="updateTimeMax">
                 a.update_time &lt;#updateTimeMax#
             </isNotNull>
+            <isNull property="userId">
             <isEmpty property="userIds">
+            <isNull property="username">
             <isEmpty property="usernameLike">
+            <isNull property="password">
             <isEmpty property="passwordLike">
+            <isNull property="roleType">
             <isEmpty property="roleTypes">
+            <isNull property="name">
             <isEmpty property="nameLike">
+            <isNull property="nickName">
             <isEmpty property="nickNameLike">
             <isNull property="ageMin">
             <isNull property="ageMax">
+            <isNull property="address">
             <isEmpty property="addressLike">
-            <isEmpty property="avatarLike">
+            <isNull property="email">
             <isEmpty property="emailLike">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
@@ -357,16 +458,23 @@
             </isNull>
             </isNull>
             </isEmpty>
-            </isEmpty>
+            </isNull>
             </isEmpty>
             </isNull>
             </isNull>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
 	</select>
 	    
 	
@@ -384,7 +492,7 @@
             a.age,
             a.address,
             a.isMale,
-            a.avatar,
+            a.avatar_url,
             a.email,
             a.create_time,
             a.update_time,
@@ -392,10 +500,50 @@
             from user a
             where
             a.delete_flag = 0
-            and a.user_id in
-            <iterate close=")" conjunction="," open="(" property="userIds">
-                #userIds[]#
-            </iterate>
+            <isEmpty open="and" property="userIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="userIds">
+                a.user_id in
+                <iterate close=")" conjunction="," open="(" property="userIds">
+                    #userIds[]#
+                </iterate>
+            </isNotEmpty>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="getUsersByUsernames.User.trade" resultMap="User.trade.RM" >
+    	select
+ /* getUsersByUsernames.User.trade */             a.user_id,
+            a.username,
+            a.password,
+            a.role_type,
+            a.name,
+            a.nickName,
+            a.age,
+            a.address,
+            a.isMale,
+            a.avatar_url,
+            a.email,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from user a
+            where
+            a.delete_flag = 0
+            <isEmpty open="and" property="usernames">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="usernames">
+                a.username in
+                <iterate close=")" conjunction="," open="(" property="usernames">
+                    #usernames[]#
+                </iterate>
+            </isNotEmpty>
 	</select>	
 
 	    
@@ -414,7 +562,7 @@
             a.age,
             a.address,
             a.isMale,
-            a.avatar,
+            a.avatar_url,
             a.email,
             a.create_time,
             a.update_time,
@@ -422,10 +570,15 @@
             from user a
             where
             a.delete_flag = 0
-            and a.email in
-            <iterate close=")" conjunction="," open="(" property="emails">
-                #emails[]#
-            </iterate>
+            <isEmpty open="and" property="emails">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="emails">
+                a.email in
+                <iterate close=")" conjunction="," open="(" property="emails">
+                    #emails[]#
+                </iterate>
+            </isNotEmpty>
 	</select>	
 
 	    
@@ -439,10 +592,34 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            and user_id in
-            <iterate close=")" conjunction="," open="(" property="userIds">
-                #userIds[]#
-            </iterate>
+            <isEmpty open="and" property="userIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="userIds">
+                user_id in
+                <iterate close=")" conjunction="," open="(" property="userIds">
+                    #userIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+	
+	<update id="deleteByUsernames.User.trade">
+		UPDATE user SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty open="and" property="usernames">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="usernames">
+                username in
+                <iterate close=")" conjunction="," open="(" property="usernames">
+                    #usernames[]#
+                </iterate>
+            </isNotEmpty>
 	</update>
 	
     
@@ -453,39 +630,16 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            and email in
-            <iterate close=")" conjunction="," open="(" property="emails">
-                #emails[]#
-            </iterate>
+            <isEmpty open="and" property="emails">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="emails">
+                email in
+                <iterate close=")" conjunction="," open="(" property="emails">
+                    #emails[]#
+                </iterate>
+            </isNotEmpty>
 	</update>
-	
-    
-	
-	<select id="login.User.trade" resultMap="User.trade.RM" >
-    	select
- /* login.User.trade */             a.user_id,
-            a.username,
-            a.password,
-            a.role_type,
-            a.name,
-            a.nickName,
-            a.age,
-            a.address,
-            a.isMale,
-            a.avatar,
-            a.email,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from user a
-            where
-            a.delete_flag = 0
-            and a.username=#username#
-            and a.password=#password#
-	</select>	
-
-	    
-	
 	
     
 

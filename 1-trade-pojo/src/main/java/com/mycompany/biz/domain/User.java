@@ -15,9 +15,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.RoleType;
-import io.swagger.annotations.ApiModelProperty;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,12 +50,14 @@ public class User implements java.io.Serializable {
 
     /***用户名   db_column: username VARCHAR */
     @ApiModelProperty("用户名")
+    @NotNull
     @Max(64)
     private String username;
 
     /***密码，测试，明文   db_column: password VARCHAR */
     @ApiModelProperty("密码，测试，明文")
     @Max(64)
+    @JSONField(serialize=false)
     private String password;
 
     /***用户角色 ADMIN,DEFAULT,DEVELOPER   db_column: role_type VARCHAR */
@@ -84,10 +87,10 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("isMale")
     private Boolean isMale;
 
-    /***avatar   db_column: avatar VARCHAR */
-    @ApiModelProperty("avatar")
+    /***avatarUrl   db_column: avatar_url VARCHAR */
+    @ApiModelProperty("avatarUrl")
     @Max(255)
-    private String avatar;
+    private String avatarUrl;
 
     /***邮箱   db_column: email VARCHAR */
     @ApiModelProperty("邮箱")
@@ -124,7 +127,6 @@ public class User implements java.io.Serializable {
         sb.append("ageMin=").append(ageMin).append('\n');
         sb.append("ageMax=").append(ageMax).append('\n');
         sb.append("addressLike=").append(addressLike).append('\n');
-        sb.append("avatarLike=").append(avatarLike).append('\n');
         sb.append("emailLike=").append(emailLike).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
@@ -139,7 +141,7 @@ public class User implements java.io.Serializable {
         sb.append("age=").append(age).append('\n');
         sb.append("address=").append(address).append('\n');
         sb.append("isMale=").append(isMale).append('\n');
-        sb.append("avatar=").append(avatar).append('\n');
+        sb.append("avatarUrl=").append(avatarUrl).append('\n');
         sb.append("email=").append(email).append('\n');
         sb.append("createTime=").append(createTime != null ? df.format(createTime) : null).append('\n');
         sb.append("updateTime=").append(updateTime != null ? df.format(updateTime) : null).append('\n');
@@ -183,10 +185,6 @@ public class User implements java.io.Serializable {
     /*** addressLike in getUserPageListByDefaultQuery */
     @ApiModelProperty("addressLike")
     private transient String addressLike;
-
-    /*** avatarLike in getUserPageListByDefaultQuery */
-    @ApiModelProperty("avatarLike")
-    private transient String avatarLike;
 
     /*** 邮箱Like in getUserPageListByDefaultQuery */
     @ApiModelProperty("邮箱Like")

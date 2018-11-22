@@ -27,7 +27,7 @@ public interface TopicDao {
     <pre>
     &#64;ApiParam() String topicId,
     &#64;ApiParam() String authorId,
-    &#64;ApiParam() String tab,
+    &#64;ApiParam() TopicType topicType,
     &#64;ApiParam() String content,
     &#64;ApiParam() String title,
     &#64;ApiParam() String lastReplyAt,
@@ -39,7 +39,7 @@ public interface TopicDao {
     
     </pre>
 	 * 
-	 * sql:insert into topic ( create_time , update_time , delete_flag , topic_id , author_id , tab , content , title , last_reply_at , good , top , visit_count , create_at ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?)
+	 * sql:insert into topic ( create_time , update_time , delete_flag , topic_id , author_id , topic_type , content , title , last_reply_at , good , top , visit_count , create_at ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?)
 	 */
 	public Topic insert(Topic topic) throws DataAccessException;
 	
@@ -56,12 +56,12 @@ public interface TopicDao {
 	/**
     <pre>
     &#64;ApiParam() String authorId,
-    &#64;ApiParam() String tab,
+    &#64;ApiParam() TopicType topicType,
     &#64;ApiParam() String content,
     &#64;ApiParam() String title,
     &#64;ApiParam() String lastReplyAt,
     &#64;ApiParam() String good,
-    &#64;ApiParam() String top,
+    &#64;ApiParam() TopicType top,
     &#64;ApiParam() Long visitCount,
     &#64;ApiParam() String createAt,
     &#64;ApiParam() String topicId,
@@ -69,7 +69,7 @@ public interface TopicDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE topic SET update_time= CURRENT_TIMESTAMP(6) , author_id = ? , tab = ? , content = ? , title = ? , last_reply_at = ? , good = ? , top = ? , visit_count = ? , create_at = ? where delete_flag = 0 and topic_id = ?
+	 * sql:UPDATE topic SET update_time= CURRENT_TIMESTAMP(6) , author_id = ? , topic_type = ? , content = ? , title = ? , last_reply_at = ? , good = ? , top = ? , visit_count = ? , create_at = ? where delete_flag = 0 and topic_id = ?
 	 */
 	public Topic update(Topic topic) throws DataAccessException;
 	
@@ -79,7 +79,7 @@ public interface TopicDao {
     
     </pre>
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.tab, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_at, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id = ?
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_at, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id = ?
 	 */
 	public Topic getTopicByTopicId(String topicId) throws DataAccessException;
 	
@@ -89,8 +89,8 @@ public interface TopicDao {
     &#64;ApiParam()&#64;RequestParam(required =false,name="topicIds") ArrayList&lt;String&gt; topicIds,
     &#64;ApiParam() String authorId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="authorIds") ArrayList&lt;String&gt; authorIds,
-    &#64;ApiParam() String tab,
-    &#64;ApiParam() String tabLike,
+    &#64;ApiParam() TopicType topicType,
+    &#64;ApiParam()&#64;RequestParam(required =false,name="topicTypes") ArrayList&lt;TopicType&gt; topicTypes,
     &#64;ApiParam() String content,
     &#64;ApiParam() String contentLike,
     &#64;ApiParam() String title,
@@ -110,10 +110,10 @@ public interface TopicDao {
     &#64;ApiParam() Date updateTimeMin,
     &#64;ApiParam() Date updateTimeMax,
     &#64;ApiParam(hidden = true) Topic topic,
-    &#64;ApiParam(hidden = true) Pagination pagination
+    Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.tab, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_at, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.tab=? and a.tab like CONCAT('%',?,'%') and a.content=? and a.content like CONCAT('%',?,'%') and a.title=? and a.title like CONCAT('%',?,'%') and a.last_reply_at=? and a.last_reply_at like CONCAT('%',?,'%') and a.good=? and a.good like CONCAT('%',?,'%') and a.top=? and a.top like CONCAT('%',?,'%') and a.visit_count >=? and a.visit_count <? and a.create_at=? and a.create_at like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_at, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.topic_type=? and a.topic_type in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.title=? and a.title like CONCAT('%',?,'%') and a.last_reply_at=? and a.last_reply_at like CONCAT('%',?,'%') and a.good=? and a.good like CONCAT('%',?,'%') and a.top=? and a.top like CONCAT('%',?,'%') and a.visit_count >=? and a.visit_count <? and a.create_at=? and a.create_at like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
 	 */
 	public PageList<Topic> getTopicPageListByDefaultQuery(Topic topic, int pageSize, int pageNum) throws DataAccessException;
 	
@@ -123,7 +123,7 @@ public interface TopicDao {
     
     </pre>
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.tab, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_at, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? )
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_at, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? )
 	 */
 	public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds) throws DataAccessException;
 	

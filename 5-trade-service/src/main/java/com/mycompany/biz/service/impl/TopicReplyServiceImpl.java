@@ -14,11 +14,11 @@ import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.TopicReplyDao;
-import com.mycompany.biz.domain.TopicAuthor;
 import com.mycompany.biz.domain.TopicReply;
-import com.mycompany.biz.service.TopicAuthorService;
+import com.mycompany.biz.domain.User;
 import com.mycompany.biz.service.TopicReplyService;
 import com.mycompany.biz.service.TopicUpService;
+import com.mycompany.biz.service.UserService;
 
 /**
  * TopicReplyServiceImpl
@@ -37,7 +37,7 @@ public class TopicReplyServiceImpl implements TopicReplyService {
     TopicReplyDao topicReplyDao;
     
     @Resource
-    TopicAuthorService topicAuthorService;
+    UserService userService;
     
     @Resource
     TopicUpService topicUpService;
@@ -94,8 +94,8 @@ public class TopicReplyServiceImpl implements TopicReplyService {
         PageList<TopicReply> topicReplyPageList = topicReplyDao.getTopicReplyPageListByDefaultQuery(topicReply, pageSize, pageNum);
         List<TopicReply> topicRelies = topicReplyPageList.getItems();
         List<String> authorIds = CollectionUtil.toList(topicRelies, TopicReply::getAuthorId);
-        List<TopicAuthor> topicAuthors = this.topicAuthorService.getTopicAuthorsByAuthorIds(authorIds);
-        CollectionUtil.setModelByList(topicRelies, topicAuthors, TopicReply::getAuthorId, TopicReply::setAuthor, TopicAuthor::getAuthorId);
+        List<User> topicAuthors = this.userService.getUsersByUserIds(authorIds);
+        CollectionUtil.setModelByList(topicRelies, topicAuthors, TopicReply::getAuthorId, TopicReply::setAuthor, User::getUserId);
         CollectionUtil.setListValue(topicRelies, CollectionUtil.newEmptyList(), TopicReply::setUps);
         return topicReplyPageList;
     }

@@ -25,7 +25,7 @@ import com.mycompany.biz.enums.RoleType;
 
 import io.swagger.annotations.ApiParam;
 
-@ApiConfig(name = "角色设置", breadParent = DashboardController.class)
+@ApiConfig(name = "角色设置", breadParent = HomeController.class)
 public class RoleController extends RoleControllerBase {
 
 
@@ -48,7 +48,7 @@ public class RoleController extends RoleControllerBase {
                                                             @ApiParam() Date showDateTimeMin,
                                                             @ApiParam() Date showDateTimeMax,
                                                             @ApiParam(hidden = true) Role role,
-                                                            @ApiParam(hidden = true) Pagination pagination
+                                                            Pagination pagination
 
 ) {
         if (createTimeMax==null){

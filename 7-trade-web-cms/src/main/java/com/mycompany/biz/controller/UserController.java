@@ -30,7 +30,7 @@ import com.mycompany.biz.enums.RoleType;
 
 import io.swagger.annotations.ApiParam;
 
-@ApiConfig(name = "用户", breadParent = DashboardController.class)
+@ApiConfig(name = "用户", breadParent = HomeController.class)
 @VisitCheck
 public class UserController extends UserControllerBase {
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
@@ -50,7 +50,7 @@ public class UserController extends UserControllerBase {
                                                             @ApiParam() String emailLike, @ApiParam() Date createTimeMin,
                                                             @ApiParam() Date createTimeMax, @ApiParam() Date updateTimeMin,
                                                             @ApiParam() Date updateTimeMax, @ApiParam(hidden = true) User user, 
-                                                            @ApiParam(hidden = true) Pagination pagination
+                                                            Pagination pagination
 
     ) {
         if (createTimeMax == null) {
@@ -63,6 +63,7 @@ public class UserController extends UserControllerBase {
 
     @ApiRequestMappingAutoWithMethodName(name = "批量删除用户", method = RequestMethod.DELETE)
     @VisitCheck
+    @State(operation=StateOperation.DELETE_IF_EXIST,area=User.class)
     public List<String> deleteByUserIds(@RequestParam(name = "userIds", required = false) ArrayList<String> userIds, HttpServletResponse response) {
         return this.userService.deleteByUserIds(userIds);
     }
@@ -71,7 +72,7 @@ public class UserController extends UserControllerBase {
     @VisitCheck
     public User createUser(@RequestBody User user) {
         user.setCreateTime(DatetimeUtil.current());
-        user.setAvatar("http://dummyimage.com/100x100/79e6f2/757575.png&text=" + user.getNickName().substring(0, 1));
+        user.setAvatarUrl("http://dummyimage.com/100x100/79e6f2/757575.png&text=" + user.getNickName().substring(0, 1));
         this.userService.insert(user);
         if (logger.isInfoEnabled()) {
             logger.info(new StringBuffer("输出info信息: user:").append(user).toString());

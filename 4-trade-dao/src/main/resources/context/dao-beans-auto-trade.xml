@@ -13,7 +13,6 @@
     <bean id="roleDao" class="com.mycompany.biz.dao.impl.RoleDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="roleMenuDao" class="com.mycompany.biz.dao.impl.RoleMenuDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="topicDao" class="com.mycompany.biz.dao.impl.TopicDaoImpl" parent="SqlMapClientDAO-trade" />
-    <bean id="topicAuthorDao" class="com.mycompany.biz.dao.impl.TopicAuthorDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="topicReplyDao" class="com.mycompany.biz.dao.impl.TopicReplyDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="topicUpDao" class="com.mycompany.biz.dao.impl.TopicUpDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="userDao" class="com.mycompany.biz.dao.impl.UserDaoImpl" parent="SqlMapClientDAO-trade" />

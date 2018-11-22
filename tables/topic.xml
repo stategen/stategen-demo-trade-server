@@ -7,8 +7,8 @@
     <!-- <column name="status" javaType="aa.bb.cc.StatusEnum"/> -->
     <!-- <column name="sex" javaType="aa.bb.cc.SexEnum"/> -->
 
-
-    <operation name="insert" paramType="object" remarks="">
+     <column name="topic_type" javaType="com.mycompany.biz.enums.TopicType"/>
+     <operation name="insert" paramType="object" remarks="">
       <!-- 临时方案，请在 field或 value 两边加上空格,以方便dalgen解析 -->
         <sql>
             insert into topic (
@@ -17,7 +17,7 @@
             , delete_flag
             <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
             <isNotNull prepend="," property="authorId"> author_id </isNotNull>
-            <isNotNull prepend="," property="tab"> tab </isNotNull>
+            <isNotNull prepend="," property="topicType"> topic_type </isNotNull>
             <isNotNull prepend="," property="content"> content </isNotNull>
             <isNotNull prepend="," property="title"> title </isNotNull>
             <isNotNull prepend="," property="lastReplyAt"> last_reply_at </isNotNull>
@@ -31,7 +31,7 @@
             , 0
             <isNotNull prepend="," property="topicId"> ?  </isNotNull>
             <isNotNull prepend="," property="authorId"> ?  </isNotNull>
-            <isNotNull prepend="," property="tab"> ?  </isNotNull>
+            <isNotNull prepend="," property="topicType"> ?  </isNotNull>
             <isNotNull prepend="," property="content"> ?  </isNotNull>
             <isNotNull prepend="," property="title"> ?  </isNotNull>
             <isNotNull prepend="," property="lastReplyAt"> ?  </isNotNull>
@@ -65,8 +65,8 @@
                 <isNotNull property="authorId" prepend=",">
                     author_id =  ?
                 </isNotNull>
-                <isNotNull property="tab" prepend=",">
-                    tab =  ?
+                <isNotNull property="topicType" prepend=",">
+                    topic_type =  ?
                 </isNotNull>
                 <isNotNull property="content" prepend=",">
                     content =  ?
@@ -101,7 +101,7 @@
             select
             a.topic_id,
             a.author_id,
-            a.tab,
+            a.topic_type,
             a.content,
             a.title,
             a.last_reply_at,
@@ -124,7 +124,7 @@
             select
             a.topic_id,
             a.author_id,
-            a.tab,
+            a.topic_type,
             a.content,
             a.title,
             a.last_reply_at,
@@ -156,11 +156,14 @@
                     #authorIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="tab" open="and">
-            a.tab=?
-          </isNotNull>
-            <isNotEmpty property="tabLike" open="and">
-                a.tab like CONCAT('%',#tabLike#,'%')
+            <isNotNull property="topicType" open="and">
+               a.topic_type=?
+            </isNotNull>
+            <isNotEmpty property="topicTypes" open="and">
+                a.topic_type in
+                <iterate property="topicTypes" conjunction="," open="(" close=")">
+                    #topicTypes[]#
+                </iterate>
             </isNotEmpty>
           <isNotNull property="content" open="and">
             a.content=?
@@ -220,8 +223,8 @@
             <isEmpty property="topicIds">
             <isNull property="authorId">
             <isEmpty property="authorIds">
-            <isNull property="tab">
-            <isEmpty property="tabLike">
+            <isNull property="topicType">
+            <isEmpty property="topicTypes">
             <isNull property="content">
             <isEmpty property="contentLike">
             <isNull property="title">
@@ -273,7 +276,7 @@
             select
             a.topic_id,
             a.author_id,
-            a.tab,
+            a.topic_type,
             a.content,
             a.title,
             a.last_reply_at,
@@ -319,5 +322,6 @@
     </operation>
 
     <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table topic -e 再复制再粘贴覆盖-->
+
 
 </table>

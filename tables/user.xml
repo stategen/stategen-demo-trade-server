@@ -24,7 +24,7 @@
             <isNotNull prepend="," property="age"> age </isNotNull>
             <isNotNull prepend="," property="address"> address </isNotNull>
             <isNotNull prepend="," property="isMale"> isMale </isNotNull>
-            <isNotNull prepend="," property="avatar"> avatar </isNotNull>
+            <isNotNull prepend="," property="avatarUrl"> avatar_url </isNotNull>
             <isNotNull prepend="," property="email"> email </isNotNull>
             ) VALUES (
             CURRENT_TIMESTAMP(6)
@@ -39,7 +39,7 @@
             <isNotNull prepend="," property="age"> ?  </isNotNull>
             <isNotNull prepend="," property="address"> ?  </isNotNull>
             <isNotNull prepend="," property="isMale"> ?  </isNotNull>
-            <isNotNull prepend="," property="avatar"> ?  </isNotNull>
+            <isNotNull prepend="," property="avatarUrl"> ?  </isNotNull>
             <isNotNull prepend="," property="email"> ?  </isNotNull>
             )
             <selectKey keyProperty="userId" resultClass="String" type="pre">
@@ -56,6 +56,17 @@
             where
             delete_flag = 0
             and user_id = ?
+        </sql>
+    </operation>
+
+    <operation name="deleteByUsername" remarks="">
+        <sql>
+            UPDATE user SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and username = ?
         </sql>
     </operation>
 
@@ -99,8 +110,8 @@
                 <isNotNull property="isMale" prepend=",">
                     isMale =  ?
                 </isNotNull>
-                <isNotNull property="avatar" prepend=",">
-                    avatar =  ?
+                <isNotNull property="avatarUrl" prepend=",">
+                    avatar_url =  ?
                 </isNotNull>
                 <isNotNull property="email" prepend=",">
                     email =  ?
@@ -124,7 +135,7 @@
             a.age,
             a.address,
             a.isMale,
-            a.avatar,
+            a.avatar_url,
             a.email,
             a.create_time,
             a.update_time,
@@ -133,6 +144,30 @@
             where
             a.delete_flag = 0
             and a.user_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getUserByUsername" multiplicity="one" remarks="">
+        <sql>
+            select
+            a.user_id,
+            a.username,
+            a.password,
+            a.role_type,
+            a.name,
+            a.nickName,
+            a.age,
+            a.address,
+            a.isMale,
+            a.avatar_url,
+            a.email,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from user a
+            where
+            a.delete_flag = 0
+            and a.username = ?
         </sql>
     </operation>
 
@@ -148,7 +183,7 @@
             a.age,
             a.address,
             a.isMale,
-            a.avatar,
+            a.avatar_url,
             a.email,
             a.create_time,
             a.update_time,
@@ -172,7 +207,7 @@
             a.age,
             a.address,
             a.isMale,
-            a.avatar,
+            a.avatar_url,
             a.email,
             a.create_time,
             a.update_time,
@@ -180,27 +215,45 @@
             from user a
             where
             a.delete_flag = 0
+            <isNotNull property="userId" open="and">
+               a.user_id=?
+            </isNotNull>
             <isNotEmpty property="userIds" open="and">
                 a.user_id in
                 <iterate property="userIds" conjunction="," open="(" close=")">
                     #userIds[]#
                 </iterate>
             </isNotEmpty>
+          <isNotNull property="username" open="and">
+            a.username=?
+          </isNotNull>
             <isNotEmpty property="usernameLike" open="and">
                 a.username like CONCAT('%',#usernameLike#,'%')
             </isNotEmpty>
+          <isNotNull property="password" open="and">
+            a.password=?
+          </isNotNull>
             <isNotEmpty property="passwordLike" open="and">
                 a.password like CONCAT('%',#passwordLike#,'%')
             </isNotEmpty>
+            <isNotNull property="roleType" open="and">
+               a.role_type=?
+            </isNotNull>
             <isNotEmpty property="roleTypes" open="and">
                 a.role_type in
                 <iterate property="roleTypes" conjunction="," open="(" close=")">
                     #roleTypes[]#
                 </iterate>
             </isNotEmpty>
+          <isNotNull property="name" open="and">
+            a.name=?
+          </isNotNull>
             <isNotEmpty property="nameLike" open="and">
                 a.name like CONCAT('%',#nameLike#,'%')
             </isNotEmpty>
+          <isNotNull property="nickName" open="and">
+            a.nickName=?
+          </isNotNull>
             <isNotEmpty property="nickNameLike" open="and">
                 a.nickName like CONCAT('%',#nickNameLike#,'%')
             </isNotEmpty>
@@ -210,12 +263,15 @@
             <isNotNull property="ageMax" open="and">
                 a.age &lt;#ageMax#
             </isNotNull>
+          <isNotNull property="address" open="and">
+            a.address=?
+          </isNotNull>
             <isNotEmpty property="addressLike" open="and">
                 a.address like CONCAT('%',#addressLike#,'%')
             </isNotEmpty>
-            <isNotEmpty property="avatarLike" open="and">
-                a.avatar like CONCAT('%',#avatarLike#,'%')
-            </isNotEmpty>
+          <isNotNull property="email" open="and">
+            a.email=?
+          </isNotNull>
             <isNotEmpty property="emailLike" open="and">
                 a.email like CONCAT('%',#emailLike#,'%')
             </isNotEmpty>
@@ -231,16 +287,23 @@
             <isNotNull property="updateTimeMax" open="and">
                 a.update_time &lt;#updateTimeMax#
             </isNotNull>
+            <isNull property="userId">
             <isEmpty property="userIds">
+            <isNull property="username">
             <isEmpty property="usernameLike">
+            <isNull property="password">
             <isEmpty property="passwordLike">
+            <isNull property="roleType">
             <isEmpty property="roleTypes">
+            <isNull property="name">
             <isEmpty property="nameLike">
+            <isNull property="nickName">
             <isEmpty property="nickNameLike">
             <isNull property="ageMin">
             <isNull property="ageMax">
+            <isNull property="address">
             <isEmpty property="addressLike">
-            <isEmpty property="avatarLike">
+            <isNull property="email">
             <isEmpty property="emailLike">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
@@ -252,16 +315,23 @@
             </isNull>
             </isNull>
             </isEmpty>
-            </isEmpty>
+            </isNull>
             </isEmpty>
             </isNull>
             </isNull>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
         </sql>
     </operation>
 
@@ -277,7 +347,7 @@
             a.age,
             a.address,
             a.isMale,
-            a.avatar,
+            a.avatar_url,
             a.email,
             a.create_time,
             a.update_time,
@@ -285,10 +355,47 @@
             from user a
             where
             a.delete_flag = 0
-            and a.user_id in
-            <iterate property="userIds" conjunction="," open="(" close=")">
-                #userIds[]#
-            </iterate>
+            <isEmpty property="userIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="userIds" open="and">
+                a.user_id in
+                <iterate property="userIds" conjunction="," open="(" close=")">
+                    #userIds[]#
+                </iterate>
+            </isNotEmpty>
+        </sql>
+    </operation>
+
+    <operation name="getUsersByUsernames" multiplicity="many" remarks="">
+        <sql>
+            select
+            a.user_id,
+            a.username,
+            a.password,
+            a.role_type,
+            a.name,
+            a.nickName,
+            a.age,
+            a.address,
+            a.isMale,
+            a.avatar_url,
+            a.email,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from user a
+            where
+            a.delete_flag = 0
+            <isEmpty property="usernames" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="usernames" open="and">
+                a.username in
+                <iterate property="usernames" conjunction="," open="(" close=")">
+                    #usernames[]#
+                </iterate>
+            </isNotEmpty>
         </sql>
     </operation>
 
@@ -304,7 +411,7 @@
             a.age,
             a.address,
             a.isMale,
-            a.avatar,
+            a.avatar_url,
             a.email,
             a.create_time,
             a.update_time,
@@ -312,10 +419,15 @@
             from user a
             where
             a.delete_flag = 0
-            and a.email in
-            <iterate property="emails" conjunction="," open="(" close=")">
-                #emails[]#
-            </iterate>
+            <isEmpty property="emails" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="emails" open="and">
+                a.email in
+                <iterate property="emails" conjunction="," open="(" close=")">
+                    #emails[]#
+                </iterate>
+            </isNotEmpty>
         </sql>
     </operation>
 
@@ -326,10 +438,34 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            and user_id in
-            <iterate property="userIds" conjunction="," open="(" close=")">
-                #userIds[]#
-            </iterate>
+            <isEmpty property="userIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="userIds" open="and">
+                user_id in
+                <iterate property="userIds" conjunction="," open="(" close=")">
+                    #userIds[]#
+                </iterate>
+            </isNotEmpty>
+        </sql>
+    </operation>
+
+    <operation name="deleteByUsernames" remarks="">
+        <sql>
+            UPDATE user SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="usernames" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="usernames" open="and">
+                username in
+                <iterate property="usernames" conjunction="," open="(" close=")">
+                    #usernames[]#
+                </iterate>
+            </isNotEmpty>
         </sql>
     </operation>
 
@@ -340,41 +476,18 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            and email in
-            <iterate property="emails" conjunction="," open="(" close=")">
-                #emails[]#
-            </iterate>
+            <isEmpty property="emails" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="emails" open="and">
+                email in
+                <iterate property="emails" conjunction="," open="(" close=")">
+                    #emails[]#
+                </iterate>
+            </isNotEmpty>
         </sql>
     </operation>
 
     <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table user -e 再复制再粘贴覆盖-->
-
-
-
-
-    <operation name="login" multiplicity="one" remarks="">
-        <sql>
-            select
-            a.user_id,
-            a.username,
-            a.password,
-            a.role_type,
-            a.name,
-            a.nickName,
-            a.age,
-            a.address,
-            a.isMale,
-            a.avatar,
-            a.email,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from user a
-            where
-            a.delete_flag = 0
-            and a.username=?
-            and a.password=?
-        </sql>
-    </operation>
 
 </table>

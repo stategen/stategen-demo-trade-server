@@ -15,11 +15,11 @@ import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.TopicDao;
 import com.mycompany.biz.domain.Topic;
-import com.mycompany.biz.domain.TopicAuthor;
 import com.mycompany.biz.domain.TopicReply;
-import com.mycompany.biz.service.TopicAuthorService;
+import com.mycompany.biz.domain.User;
 import com.mycompany.biz.service.TopicReplyService;
 import com.mycompany.biz.service.TopicService;
+import com.mycompany.biz.service.UserService;
 
 /**
  * TopicServiceImpl
@@ -38,7 +38,7 @@ public class TopicServiceImpl implements TopicService {
     TopicDao topicDao;
 
     @Resource
-    TopicAuthorService topicAuthorService;
+    UserService userService;
 
     @Resource
     TopicReplyService topicReplyService;
@@ -109,8 +109,8 @@ public class TopicServiceImpl implements TopicService {
 
     private void setTopicsAuthor(List<Topic> topics) {
         List<String> authorIds = CollectionUtil.toList(topics, Topic::getAuthorId);
-        List<TopicAuthor> topicAuthors = topicAuthorService.getTopicAuthorsByAuthorIds(authorIds);
-        CollectionUtil.setModelByList(topics, topicAuthors, Topic::getAuthorId, Topic::setAuthor, TopicAuthor::getAuthorId);
+        List<User> topicAuthors = userService.getUsersByUserIds(authorIds);
+        CollectionUtil.setModelByList(topics, topicAuthors, Topic::getAuthorId, Topic::setAuthor, User::getUserId);
     }
 
     /**

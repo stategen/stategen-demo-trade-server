@@ -14,7 +14,6 @@
     <bean id="roleService" class="com.mycompany.biz.service.impl.RoleServiceImpl" />
     <bean id="roleMenuService" class="com.mycompany.biz.service.impl.RoleMenuServiceImpl" />
     <bean id="topicService" class="com.mycompany.biz.service.impl.TopicServiceImpl" />
-    <bean id="topicAuthorService" class="com.mycompany.biz.service.impl.TopicAuthorServiceImpl" />
     <bean id="topicReplyService" class="com.mycompany.biz.service.impl.TopicReplyServiceImpl" />
     <bean id="topicUpService" class="com.mycompany.biz.service.impl.TopicUpServiceImpl" />
     <bean id="userService" class="com.mycompany.biz.service.impl.UserServiceImpl" />

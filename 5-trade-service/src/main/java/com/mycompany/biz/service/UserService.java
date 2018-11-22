@@ -5,6 +5,7 @@
 package com.mycompany.biz.service;
 
 import java.util.List;
+
 import org.stategen.framework.lite.PageList;
 
 import com.mycompany.biz.domain.User;
@@ -90,13 +91,31 @@ public interface UserService extends UserServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.UserDao#login
-     */
-    public User login(String username, String password);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.UserDao#delete
      */
     public String delete(String userId);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#deleteByUsername
+     */
+    public Long deleteByUsername(String username);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#getUserByUsername
+     */
+    public User getUserByUsername(String username);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#getUsersByUsernames
+     */
+    public List<User> getUsersByUsernames(java.util.List<String> usernames);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#deleteByUsernames
+     */
+    public Long deleteByUsernames(java.util.List<String> usernames);
 }

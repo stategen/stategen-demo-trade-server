@@ -15,6 +15,7 @@ import org.stategen.framework.web.cookie.CookieGroup;
 
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.service.UserService;
+import com.mycompany.biz.utils.SysConsts;
 
 import io.swagger.annotations.ApiParam;
 
@@ -23,11 +24,9 @@ import io.swagger.annotations.ApiParam;
 @Wrap
 public class LoginController {
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(LoginController.class);
-    final static String USER_ID = "userId";    
-
     
     @Resource
-    private CookieGroup baseCookieGroup;
+    private CookieGroup loginCookieGroup;
 
     @Resource(name = "userService")
     private UserService userService;
@@ -39,9 +38,11 @@ public class LoginController {
     public SimpleResponse login(@ApiParam("用户名") @RequestParam() String username,
                                 @ApiParam("密码") @RequestParam() String password, @ApiParam(hidden = true) User user) {
         BusinessAssert.mustNotNull(user, "用户数据不能为空");
-        User loginUser = this.userService.login(username, password);
+        User loginUser = this.userService.getUserByUsername(username);
         if (loginUser != null) {
-            baseCookieGroup.addCookie(USER_ID, loginUser.getUserId());
+            String userPassword = loginUser.getPassword();
+            BusinessAssert.mustEqual(String.class, userPassword, password,"密码不正确");
+            loginCookieGroup.addCookie(SysConsts.USER_ID, loginUser.getUserId());
             return new SimpleResponse(true, "登录成功");
         }
         return new SimpleResponse(false, "用户不存在");

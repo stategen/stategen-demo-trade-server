@@ -16,9 +16,9 @@ import org.stategen.framework.spring.util.JSONUtil;
 @Controller
 @ApiConfig
 @Wrap
-@RequestMapping("/api/dashboard")
-public class DashboardController {
-    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(DashboardController.class);
+@RequestMapping("/api/home")
+public class HomeController {
+    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(HomeController.class);
     @Autowired
     private ServletContext servletContext;
 

@@ -34,13 +34,13 @@ public interface UserDao {
     &#64;ApiParam() Integer age,
     &#64;ApiParam() String address,
     &#64;ApiParam() Boolean isMale,
-    &#64;ApiParam() String avatar,
+    &#64;ApiParam() String avatarUrl,
     &#64;ApiParam() String email,
     &#64;ApiParam(hidden = true) User user,
     
     </pre>
 	 * 
-	 * sql:insert into user ( create_time , update_time , delete_flag , user_id , username , password , role_type , name , nickName , age , address , isMale , avatar , email ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?)
+	 * sql:insert into user ( create_time , update_time , delete_flag , user_id , username , password , role_type , name , nickName , age , address , isMale , avatar_url , email ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?)
 	 */
 	public User insert(User user) throws DataAccessException;
 	
@@ -53,6 +53,16 @@ public interface UserDao {
 	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and user_id = ?
 	 */
 	public String delete(String userId) throws DataAccessException;
+	
+	/**
+    <pre>
+    &#64;ApiParam("用户名") String username,
+    
+    </pre>
+	 * 
+	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and username = ?
+	 */
+	public Long deleteByUsername(String username) throws DataAccessException;
 	
 	/**
     <pre>
@@ -74,14 +84,14 @@ public interface UserDao {
     &#64;ApiParam() Integer age,
     &#64;ApiParam() String address,
     &#64;ApiParam() Boolean isMale,
-    &#64;ApiParam() String avatar,
+    &#64;ApiParam() String avatarUrl,
     &#64;ApiParam() String email,
     &#64;ApiParam() String userId,
     &#64;ApiParam(hidden = true) User user,
     
     </pre>
 	 * 
-	 * sql:UPDATE user SET update_time= CURRENT_TIMESTAMP(6) , username = ? , password = ? , role_type = ? , name = ? , nickName = ? , age = ? , address = ? , isMale = ? , avatar = ? , email = ? where delete_flag = 0 and user_id = ?
+	 * sql:UPDATE user SET update_time= CURRENT_TIMESTAMP(6) , username = ? , password = ? , role_type = ? , name = ? , nickName = ? , age = ? , address = ? , isMale = ? , avatar_url = ? , email = ? where delete_flag = 0 and user_id = ?
 	 */
 	public User update(User user) throws DataAccessException;
 	
@@ -91,9 +101,19 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id = ?
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id = ?
 	 */
 	public User getUserByUserId(String userId) throws DataAccessException;
+	
+	/**
+    <pre>
+    &#64;ApiParam("用户名") String username,
+    
+    </pre>
+	 * 
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.username = ?
+	 */
+	public User getUserByUsername(String username) throws DataAccessException;
 	
 	/**
     <pre>
@@ -101,22 +121,29 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.email = ?
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.email = ?
 	 */
 	public User getUserByEmail(String email) throws DataAccessException;
 	
 	/**
     <pre>
+    &#64;ApiParam() String userId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="userIds") ArrayList&lt;String&gt; userIds,
+    &#64;ApiParam() String username,
     &#64;ApiParam() String usernameLike,
+    &#64;ApiParam() String password,
     &#64;ApiParam() String passwordLike,
+    &#64;ApiParam() RoleType roleType,
     &#64;ApiParam()&#64;RequestParam(required =false,name="roleTypes") ArrayList&lt;RoleType&gt; roleTypes,
+    &#64;ApiParam() String name,
     &#64;ApiParam() String nameLike,
+    &#64;ApiParam() String nickName,
     &#64;ApiParam() String nickNameLike,
     &#64;ApiParam() Integer ageMin,
     &#64;ApiParam() Integer ageMax,
+    &#64;ApiParam() String address,
     &#64;ApiParam() String addressLike,
-    &#64;ApiParam() String avatarLike,
+    &#64;ApiParam() String email,
     &#64;ApiParam() String emailLike,
     &#64;ApiParam() Date createTimeMin,
     &#64;ApiParam() Date createTimeMax,
@@ -126,7 +153,7 @@ public interface UserDao {
     &#64;ApiParam(hidden = true) Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id in ( ? ) and a.username like CONCAT('%',?,'%') and a.password like CONCAT('%',?,'%') and a.role_type in ( ? ) and a.name like CONCAT('%',?,'%') and a.nickName like CONCAT('%',?,'%') and a.age >=? and a.age <? and a.address like CONCAT('%',?,'%') and a.avatar like CONCAT('%',?,'%') and a.email like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id=? and a.user_id in ( ? ) and a.username=? and a.username like CONCAT('%',?,'%') and a.password=? and a.password like CONCAT('%',?,'%') and a.role_type=? and a.role_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.nickName=? and a.nickName like CONCAT('%',?,'%') and a.age >=? and a.age <? and a.address=? and a.address like CONCAT('%',?,'%') and a.email=? and a.email like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
 	 */
 	public PageList<User> getUserPageListByDefaultQuery(User user, int pageSize, int pageNum) throws DataAccessException;
 	
@@ -136,9 +163,19 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id in ( ? )
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.user_id in ( ? )
 	 */
 	public List<User> getUsersByUserIds(java.util.List<String> userIds) throws DataAccessException;
+	
+	/**
+    <pre>
+    &#64;ApiParam("用户名")&#64;RequestParam(required =false,name="usernames") ArrayList&lt;String&gt; usernames,
+    
+    </pre>
+	 * 
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.username in ( ? )
+	 */
+	public List<User> getUsersByUsernames(java.util.List<String> usernames) throws DataAccessException;
 	
 	/**
     <pre>
@@ -146,7 +183,7 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.email in ( ? )
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.email in ( ? )
 	 */
 	public List<User> getUsersByEmails(java.util.List<String> emails) throws DataAccessException;
 	
@@ -156,9 +193,19 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and user_id in ( ? )
+	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and user_id in ( ? )
 	 */
 	public java.util.List<String> deleteByUserIds(java.util.List<String> userIds) throws DataAccessException;
+	
+	/**
+    <pre>
+    &#64;ApiParam("用户名")&#64;RequestParam(required =false,name="usernames") ArrayList&lt;String&gt; usernames,
+    
+    </pre>
+	 * 
+	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and username in ( ? )
+	 */
+	public Long deleteByUsernames(java.util.List<String> usernames) throws DataAccessException;
 	
 	/**
     <pre>
@@ -166,20 +213,9 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and email in ( ? )
+	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and email in ( ? )
 	 */
 	public Long deleteByEmails(java.util.List<String> emails) throws DataAccessException;
-	
-	/**
-    <pre>
-    &#64;ApiParam("用户名") String username,
-    &#64;ApiParam("密码") String password,
-    
-    </pre>
-	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.username=? and a.password=?
-	 */
-	public User login(String username, String password) throws DataAccessException;
 	
 
 }

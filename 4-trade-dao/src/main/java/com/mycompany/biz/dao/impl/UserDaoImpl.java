@@ -31,7 +31,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:insert into user ( create_time , update_time , delete_flag , user_id , username , password , role_type , name , nickName , age , address , isMale , avatar , email ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?)
+	 * sql:insert into user ( create_time , update_time , delete_flag , user_id , username , password , role_type , name , nickName , age , address , isMale , avatar_url , email ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?)
 	 */
     public User insert(User user) throws DataAccessException {
         if (user == null) {
@@ -54,6 +54,16 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
+	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and username = ?
+	 */
+    public Long deleteByUsername(String username) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("username", username);
+        return (long) getSqlMapClientTemplate().update("deleteByUsername.User.trade", params);
+    }
+
+    /**
+	 * 
 	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and email = ?
 	 */
     public Long deleteByEmail(String email) throws DataAccessException {
@@ -64,7 +74,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:UPDATE user SET update_time= CURRENT_TIMESTAMP(6) , username = ? , password = ? , role_type = ? , name = ? , nickName = ? , age = ? , address = ? , isMale = ? , avatar = ? , email = ? where delete_flag = 0 and user_id = ?
+	 * sql:UPDATE user SET update_time= CURRENT_TIMESTAMP(6) , username = ? , password = ? , role_type = ? , name = ? , nickName = ? , age = ? , address = ? , isMale = ? , avatar_url = ? , email = ? where delete_flag = 0 and user_id = ?
 	 */
     public User update(User user) throws DataAccessException {
         if (user == null) {
@@ -76,7 +86,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id = ?
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id = ?
 	 */
     public User getUserByUserId(String userId) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
@@ -86,7 +96,17 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.email = ?
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.username = ?
+	 */
+    public User getUserByUsername(String username) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("username", username);
+        return (User) getSqlMapClientTemplate().queryForObject("getUserByUsername.User.trade", params);
+    }
+
+    /**
+	 * 
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.email = ?
 	 */
     public User getUserByEmail(String email) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
@@ -96,7 +116,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id in ( ? ) and a.username like CONCAT('%',?,'%') and a.password like CONCAT('%',?,'%') and a.role_type in ( ? ) and a.name like CONCAT('%',?,'%') and a.nickName like CONCAT('%',?,'%') and a.age >=? and a.age <? and a.address like CONCAT('%',?,'%') and a.avatar like CONCAT('%',?,'%') and a.email like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id=? and a.user_id in ( ? ) and a.username=? and a.username like CONCAT('%',?,'%') and a.password=? and a.password like CONCAT('%',?,'%') and a.role_type=? and a.role_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.nickName=? and a.nickName like CONCAT('%',?,'%') and a.age >=? and a.age <? and a.address=? and a.address like CONCAT('%',?,'%') and a.email=? and a.email like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
 	 */
     @SuppressWarnings("unchecked")
     public PageList<User> getUserPageListByDefaultQuery(User user, int pageSize, int pageNum) throws DataAccessException {
@@ -105,7 +125,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id in ( ? )
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.user_id in ( ? )
 	 */
     @SuppressWarnings("unchecked")
     public List<User> getUsersByUserIds(java.util.List<String> userIds) throws DataAccessException {
@@ -116,7 +136,18 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.email in ( ? )
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.username in ( ? )
+	 */
+    @SuppressWarnings("unchecked")
+    public List<User> getUsersByUsernames(java.util.List<String> usernames) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("usernames", usernames);
+        return (List<User>) getSqlMapClientTemplate().queryForList("getUsersByUsernames.User.trade", params);
+    }
+
+    /**
+	 * 
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.email in ( ? )
 	 */
     @SuppressWarnings("unchecked")
     public List<User> getUsersByEmails(java.util.List<String> emails) throws DataAccessException {
@@ -127,7 +158,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and user_id in ( ? )
+	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and user_id in ( ? )
 	 */
     public java.util.List<String> deleteByUserIds(java.util.List<String> userIds) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
@@ -138,22 +169,21 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and email in ( ? )
+	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and username in ( ? )
+	 */
+    public Long deleteByUsernames(java.util.List<String> usernames) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("usernames", usernames);
+        return (long) getSqlMapClientTemplate().update("deleteByUsernames.User.trade", params);
+    }
+
+    /**
+	 * 
+	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and email in ( ? )
 	 */
     public Long deleteByEmails(java.util.List<String> emails) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("emails", emails);
         return (long) getSqlMapClientTemplate().update("deleteByEmails.User.trade", params);
-    }
-
-    /**
-	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.username=? and a.password=?
-	 */
-    public User login(String username, String password) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(2);
-        params.put("username", username);
-        params.put("password", password);
-        return (User) getSqlMapClientTemplate().queryForObject("login.User.trade", params);
     }
 }
