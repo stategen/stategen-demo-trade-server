@@ -7,18 +7,16 @@ package com.mycompany.biz.service.impl;
 
 import java.util.Arrays;
 import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.TopicDao;
 import com.mycompany.biz.domain.Topic;
-import com.mycompany.biz.domain.TopicReply;
-import com.mycompany.biz.domain.User;
-import com.mycompany.biz.service.TopicReplyService;
 import com.mycompany.biz.service.TopicService;
+import com.mycompany.biz.service.TopicUpService;
 import com.mycompany.biz.service.UserService;
 
 /**
@@ -39,9 +37,9 @@ public class TopicServiceImpl implements TopicService {
 
     @Resource
     UserService userService;
-
+    
     @Resource
-    TopicReplyService topicReplyService;
+    TopicUpService topicUpService;
 
     /**
      * 
@@ -81,17 +79,8 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public Topic getTopicByTopicId(String topicId) {
         Topic topic = topicDao.getTopicByTopicId(topicId);
-        setTopicsAuthor(Arrays.asList(topic));
-        setTopicsReplies(Arrays.asList(topic));
+        userService.setTopicsAuthor(Arrays.asList(topic));
         return topic;
-    }
-
-    private void setTopicsReplies(List<Topic> topics) {
-        List<String> topicIds = CollectionUtil.toList(topics, Topic::getTopicId);
-        TopicReply topicReply = new TopicReply();
-        topicReply.setTopicIds(topicIds);
-        PageList<TopicReply> topicReplyPageList = this.topicReplyService.getTopicReplyPageListByDefaultQuery(topicReply, 2000, 1);
-        CollectionUtil.setListByList(topics, topicReplyPageList.getItems(), Topic::getTopicId, Topic::setReplies, TopicReply::getTopicId);
     }
 
     /**
@@ -103,14 +92,8 @@ public class TopicServiceImpl implements TopicService {
     public PageList<Topic> getTopicPageListByDefaultQuery(Topic topic, int pageSize, int pageNum) {
         PageList<Topic> topicPageList = topicDao.getTopicPageListByDefaultQuery(topic, pageSize, pageNum);
         List<Topic> items = topicPageList.getItems();
-        setTopicsAuthor(items);
+        userService.setTopicsAuthor(items);
         return topicPageList;
-    }
-
-    private void setTopicsAuthor(List<Topic> topics) {
-        List<String> authorIds = CollectionUtil.toList(topics, Topic::getAuthorId);
-        List<User> topicAuthors = userService.getUsersByUserIds(authorIds);
-        CollectionUtil.setModelByList(topics, topicAuthors, Topic::getAuthorId, Topic::setAuthor, User::getUserId);
     }
 
     /**

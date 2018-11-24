@@ -7,7 +7,7 @@
     <!-- <column name="status" javaType="aa.bb.cc.StatusEnum"/> -->
     <!-- <column name="sex" javaType="aa.bb.cc.SexEnum"/> -->
 
-    
+
     <operation name="insert" paramType="object" remarks="">
       <!-- 临时方案，请在 field或 value 两边加上空格,以方便dalgen解析 -->
         <sql>
@@ -16,18 +16,19 @@
             , update_time
             , delete_flag
             <isNotNull prepend="," property="upId"> up_id </isNotNull>
-            <isNotNull prepend="," property="topicOrReplyId"> topic_or_reply_id </isNotNull>
+            <isNotNull prepend="," property="objectId"> object_id </isNotNull>
             <isNotNull prepend="," property="authorId"> author_id </isNotNull>
             ) VALUES (
             CURRENT_TIMESTAMP(6)
             , CURRENT_TIMESTAMP(6)
             , 0
             <isNotNull prepend="," property="upId"> ?  </isNotNull>
-            <isNotNull prepend="," property="topicOrReplyId"> ?  </isNotNull>
+            <isNotNull prepend="," property="objectId"> ?  </isNotNull>
             <isNotNull prepend="," property="authorId"> ?  </isNotNull>
             )
             <selectKey keyProperty="upId" resultClass="String" type="pre">
-                select if((#upId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#upId# ) as upId
+                select if((#upId# is null)
+                ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#upId# ) as upId
             </selectKey>
         </sql>
     </operation>
@@ -48,11 +49,11 @@
             UPDATE topic_up
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
-                <isNotNull property="topicOrReplyId" prepend=",">
-                    topic_or_reply_id =  ?
+                <isNotNull property="objectId" prepend=",">
+                    object_id = ?
                 </isNotNull>
                 <isNotNull property="authorId" prepend=",">
-                    author_id =  ?
+                    author_id = ?
                 </isNotNull>
             </dynamic>
             where
@@ -65,7 +66,7 @@
         <sql>
             select
             a.up_id,
-            a.topic_or_reply_id,
+            a.object_id,
             a.author_id,
             a.create_time,
             a.update_time,
@@ -81,7 +82,7 @@
         <sql>
             select
             a.up_id,
-            a.topic_or_reply_id,
+            a.object_id,
             a.author_id,
             a.create_time,
             a.update_time,
@@ -89,18 +90,27 @@
             from topic_up a
             where
             a.delete_flag = 0
+            <isNotNull property="upId" open="and">
+                a.up_id=?
+            </isNotNull>
             <isNotEmpty property="upIds" open="and">
                 a.up_id in
                 <iterate property="upIds" conjunction="," open="(" close=")">
                     #upIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotEmpty property="topicOrReplyIds" open="and">
-                a.topic_or_reply_id in
-                <iterate property="topicOrReplyIds" conjunction="," open="(" close=")">
-                    #topicOrReplyIds[]#
+            <isNotNull property="objectId" open="and">
+                a.object_id=?
+            </isNotNull>
+            <isNotEmpty property="objectIds" open="and">
+                a.object_id in
+                <iterate property="objectIds" conjunction="," open="(" close=")">
+                    #objectIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull property="authorId" open="and">
+                a.author_id=?
+            </isNotNull>
             <isNotEmpty property="authorIds" open="and">
                 a.author_id in
                 <iterate property="authorIds" conjunction="," open="(" close=")">
@@ -119,21 +129,27 @@
             <isNotNull property="updateTimeMax" open="and">
                 a.update_time &lt;#updateTimeMax#
             </isNotNull>
-            <isEmpty property="upIds">
-            <isEmpty property="topicOrReplyIds">
-            <isEmpty property="authorIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
+            <isNull property="upId">
+                <isEmpty property="upIds">
+                    <isNull property="objectId">
+                        <isEmpty property="objectIds">
+                            <isNull property="authorId">
+                                <isEmpty property="authorIds">
+                                    <isNull property="createTimeMin">
+                                        <isNull property="createTimeMax">
+                                            <isNull property="updateTimeMin">
+                                                <isNull property="updateTimeMax">
+                                                    and 0 = 1
+                                                </isNull>
+                                            </isNull>
+                                        </isNull>
+                                    </isNull>
+                                </isEmpty>
+                            </isNull>
+                        </isEmpty>
+                    </isNull>
+                </isEmpty>
             </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isEmpty>
-            </isEmpty>
         </sql>
     </operation>
 
@@ -141,7 +157,7 @@
         <sql>
             select
             a.up_id,
-            a.topic_or_reply_id,
+            a.object_id,
             a.author_id,
             a.create_time,
             a.update_time,
@@ -149,43 +165,76 @@
             from topic_up a
             where
             a.delete_flag = 0
-            and a.up_id in
-            <iterate property="upIds" conjunction="," open="(" close=")">
-                #upIds[]#
-            </iterate>
+            <isEmpty property="upIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="upIds" open="and">
+                a.up_id in
+                <iterate property="upIds" conjunction="," open="(" close=")">
+                    #upIds[]#
+                </iterate>
+            </isNotEmpty>
         </sql>
     </operation>
 
     <operation name="deleteByUpIds" remarks="">
         <sql>
             UPDATE topic_up SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            and up_id in
-            <iterate property="upIds" conjunction="," open="(" close=")">
-                #upIds[]#
-            </iterate>
+            <isEmpty property="upIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="upIds" open="and">
+                up_id in
+                <iterate property="upIds" conjunction="," open="(" close=")">
+                    #upIds[]#
+                </iterate>
+            </isNotEmpty>
         </sql>
     </operation>
 
     <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table topic_up -e 再复制再粘贴覆盖-->
-    
-    <operation name="getTopicUpsGroupCountByTopicId" resultClass="object">
-      <sql>
-        SELECT
-          tu.topic_or_reply_id,
-          COUNT(*) AS cnt
-        FROM
-          topic_up tu
-        LEFT JOIN topic_reply tr ON tr.topic_reply_id = tu.topic_or_reply_id
-        LEFT JOIN topic t ON t.topic_id = tr.topic_id
-        WHERE
-          t.topic_id = ?
-        GROUP BY
-          tu.topic_or_reply_id
-      </sql>    
+    <operation name="getTopicUpsGroupCountByTopicIds" resultClass="object" multiplicity="many">
+        <sql>
+            SELECT
+            tu.object_id,
+            COUNT(*) AS upCount
+            FROM
+            topic_up tu
+            LEFT JOIN topic_reply tr ON tr.reply_id = tu.object_id
+            WHERE
+            tu.delete_flag=0
+            and tr.delete_flag=0
+            and tu.object_id in
+            <iterate property="objectIds" conjunction="," open="(" close=")">
+                #objectIds[]#
+            </iterate>
+            <isNotEmpty property="authorId">
+                and tu.author_id =?
+            </isNotEmpty>
+            GROUP BY
+            tu.object_id
+        </sql>
     </operation>
 
+
+    <operation name="getTopicUpByObjectIdAndAuthorId"  multiplicity="many" remarks="">
+        <sql>
+            select
+            a.up_id,
+            a.object_id,
+            a.author_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from topic_up a
+            where
+            a.delete_flag = 0
+            and a.object_id=?
+            and a.author_id=?
+        </sql>
+    </operation>
 </table>

@@ -31,7 +31,7 @@ public class TopicUpDaoImpl extends SqlMapClientDaoSupport implements TopicUpDao
 
     /**
 	 * 
-	 * sql:insert into topic_up ( create_time , update_time , delete_flag , up_id , topic_or_reply_id , author_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
+	 * sql:insert into topic_up ( create_time , update_time , delete_flag , up_id , object_id , author_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
     public TopicUp insert(TopicUp topicUp) throws DataAccessException {
         if (topicUp == null) {
@@ -54,7 +54,7 @@ public class TopicUpDaoImpl extends SqlMapClientDaoSupport implements TopicUpDao
 
     /**
 	 * 
-	 * sql:UPDATE topic_up SET update_time= CURRENT_TIMESTAMP(6) , topic_or_reply_id = ? , author_id = ? where delete_flag = 0 and up_id = ?
+	 * sql:UPDATE topic_up SET update_time= CURRENT_TIMESTAMP(6) , object_id = ? , author_id = ? where delete_flag = 0 and up_id = ?
 	 */
     public TopicUp update(TopicUp topicUp) throws DataAccessException {
         if (topicUp == null) {
@@ -66,7 +66,7 @@ public class TopicUpDaoImpl extends SqlMapClientDaoSupport implements TopicUpDao
 
     /**
 	 * 
-	 * sql:select a.up_id, a.topic_or_reply_id, a.author_id, a.create_time, a.update_time, a.delete_flag from topic_up a where a.delete_flag = 0 and a.up_id = ?
+	 * sql:select a.up_id, a.object_id, a.author_id, a.create_time, a.update_time, a.delete_flag from topic_up a where a.delete_flag = 0 and a.up_id = ?
 	 */
     public TopicUp getTopicUpByUpId(String upId) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
@@ -76,7 +76,7 @@ public class TopicUpDaoImpl extends SqlMapClientDaoSupport implements TopicUpDao
 
     /**
 	 * 
-	 * sql:select a.up_id, a.topic_or_reply_id, a.author_id, a.create_time, a.update_time, a.delete_flag from topic_up a where a.delete_flag = 0 and a.up_id in ( ? ) and a.topic_or_reply_id in ( ? ) and a.author_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
+	 * sql:select a.up_id, a.object_id, a.author_id, a.create_time, a.update_time, a.delete_flag from topic_up a where a.delete_flag = 0 and a.up_id=? and a.up_id in ( ? ) and a.object_id=? and a.object_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
 	 */
     @SuppressWarnings("unchecked")
     public PageList<TopicUp> getTopicUpPageListByDefaultQuery(TopicUp topicUp, int pageSize, int pageNum) throws DataAccessException {
@@ -85,7 +85,7 @@ public class TopicUpDaoImpl extends SqlMapClientDaoSupport implements TopicUpDao
 
     /**
 	 * 
-	 * sql:select a.up_id, a.topic_or_reply_id, a.author_id, a.create_time, a.update_time, a.delete_flag from topic_up a where a.delete_flag = 0 and a.up_id in ( ? )
+	 * sql:select a.up_id, a.object_id, a.author_id, a.create_time, a.update_time, a.delete_flag from topic_up a where a.delete_flag = 0 and 1=0 and a.up_id in ( ? )
 	 */
     @SuppressWarnings("unchecked")
     public List<TopicUp> getTopicUpsByUpIds(java.util.List<String> upIds) throws DataAccessException {
@@ -96,7 +96,7 @@ public class TopicUpDaoImpl extends SqlMapClientDaoSupport implements TopicUpDao
 
     /**
 	 * 
-	 * sql:UPDATE topic_up SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and up_id in ( ? )
+	 * sql:UPDATE topic_up SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and up_id in ( ? )
 	 */
     public java.util.List<String> deleteByUpIds(java.util.List<String> upIds) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
@@ -107,11 +107,25 @@ public class TopicUpDaoImpl extends SqlMapClientDaoSupport implements TopicUpDao
 
     /**
 	 * 
-	 * sql:SELECT tu.topic_or_reply_id, COUNT(*) AS cnt FROM topic_up tu LEFT JOIN topic_reply tr ON tr.topic_reply_id = tu.topic_or_reply_id LEFT JOIN topic t ON t.topic_id = tr.topic_id WHERE t.topic_id = ? GROUP BY tu.topic_or_reply_id
+	 * sql:SELECT tu.object_id, COUNT(*) AS upCount FROM topic_up tu LEFT JOIN topic_reply tr ON tr.reply_id = tu.object_id WHERE tu.delete_flag=0 and tr.delete_flag=0 and tu.object_id in ( ? ) and tu.author_id =? GROUP BY tu.object_id
 	 */
-    public TopicUp getTopicUpsGroupCountByTopicId(String topicId) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("topicId", topicId);
-        return (TopicUp) getSqlMapClientTemplate().queryForObject("getTopicUpsGroupCountByTopicId.TopicUp.trade", params);
+    @SuppressWarnings("unchecked")
+    public List<TopicUp> getTopicUpsGroupCountByTopicIds(java.util.List<String> objectIds, String authorId) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(2);
+        params.put("objectIds", objectIds);
+        params.put("authorId", authorId);
+        return (List<TopicUp>) getSqlMapClientTemplate().queryForList("getTopicUpsGroupCountByTopicIds.TopicUp.trade", params);
+    }
+
+    /**
+	 * 
+	 * sql:select a.up_id, a.object_id, a.author_id, a.create_time, a.update_time, a.delete_flag from topic_up a where a.delete_flag = 0 and a.object_id=? and a.author_id=?
+	 */
+    @SuppressWarnings("unchecked")
+    public List<TopicUp> getTopicUpByObjectIdAndAuthorId(String objectId, String authorId) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(2);
+        params.put("objectId", objectId);
+        params.put("authorId", authorId);
+        return (List<TopicUp>) getSqlMapClientTemplate().queryForList("getTopicUpByObjectIdAndAuthorId.TopicUp.trade", params);
     }
 }

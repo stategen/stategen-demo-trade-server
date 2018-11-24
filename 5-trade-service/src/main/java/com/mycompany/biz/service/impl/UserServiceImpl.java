@@ -9,9 +9,11 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.UserDao;
+import com.mycompany.biz.domain.IAuthored;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.service.UserService;
 
@@ -203,5 +205,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Long deleteByUsernames(java.util.List<String> usernames) {
         return userDao.deleteByUsernames(usernames);
+    }
+    
+    @Override
+    public void setTopicsAuthor(List<? extends IAuthored> iAuthoreds) {
+        List<String> authorIds = CollectionUtil.toList(iAuthoreds, IAuthored::getAuthorId);
+        List<User> topicAuthors = this.getUsersByUserIds(authorIds);
+        CollectionUtil.setModelByList(iAuthoreds, topicAuthors, IAuthored::getAuthorId, IAuthored::setAuthor, User::getUserId);
     }
 }

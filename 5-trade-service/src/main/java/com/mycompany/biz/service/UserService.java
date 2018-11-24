@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.stategen.framework.lite.PageList;
 
+import com.mycompany.biz.domain.IAuthored;
 import com.mycompany.biz.domain.User;
 
 /**
@@ -118,4 +119,6 @@ public interface UserService extends UserServiceFacade {
      * @see com.mycompany.biz.dao.UserDao#deleteByUsernames
      */
     public Long deleteByUsernames(java.util.List<String> usernames);
+
+    void setTopicsAuthor(List<? extends IAuthored> iAuthoreds);
 }

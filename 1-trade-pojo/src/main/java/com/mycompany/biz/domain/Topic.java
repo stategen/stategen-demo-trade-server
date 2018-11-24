@@ -6,7 +6,6 @@
 package com.mycompany.biz.domain;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import javax.persistence.Id;
 import javax.persistence.Temporal;
@@ -14,8 +13,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 
 import com.mycompany.biz.enums.TopicType;
-import io.swagger.annotations.ApiModelProperty;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,9 +31,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Topic implements java.io.Serializable {
+public class Topic implements java.io.Serializable,IAuthored {
 
-    private List<TopicReply> replies;
 
     private User author;
 

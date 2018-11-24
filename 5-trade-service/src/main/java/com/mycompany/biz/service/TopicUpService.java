@@ -73,7 +73,13 @@ public interface TopicUpService extends TopicUpServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpsGroupCountByTopicId
+     * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpsGroupCountByTopicIds
      */
-    public TopicUp getTopicUpsGroupCountByTopicId(String topicId);
+    public List<TopicUp> getTopicUpsGroupCountByTopicIds(java.util.List<String> objectIds, String authorId);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpByObjectIdAndAuthorId
+     */
+    public List<TopicUp> getTopicUpByObjectIdAndAuthorId(String objectId, String authorId);
 }

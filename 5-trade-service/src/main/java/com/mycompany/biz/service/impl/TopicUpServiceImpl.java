@@ -126,11 +126,21 @@ public class TopicUpServiceImpl implements TopicUpService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpsGroupCountByTopicId
-     * @see com.mycompany.biz.service.TopicUpService#getTopicUpsGroupCountByTopicId
+     * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpsGroupCountByTopicIds
+     * @see com.mycompany.biz.service.TopicUpService#getTopicUpsGroupCountByTopicIds
      */
     @Override
-    public TopicUp getTopicUpsGroupCountByTopicId(String topicId) {
-        return topicUpDao.getTopicUpsGroupCountByTopicId(topicId);
+    public List<TopicUp> getTopicUpsGroupCountByTopicIds(java.util.List<String> objectIds, String authorId) {
+        return topicUpDao.getTopicUpsGroupCountByTopicIds(objectIds, authorId);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpByObjectIdAndAuthorId
+     * @see com.mycompany.biz.service.TopicUpService#getTopicUpByObjectIdAndAuthorId
+     */
+    @Override
+    public List<TopicUp> getTopicUpByObjectIdAndAuthorId(String objectId, String authorId) {
+        return topicUpDao.getTopicUpByObjectIdAndAuthorId(objectId, authorId);
     }
 }

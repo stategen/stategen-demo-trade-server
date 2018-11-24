@@ -5,7 +5,9 @@
  */
 package com.mycompany.biz.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -15,7 +17,7 @@ import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.TopicReplyDao;
 import com.mycompany.biz.domain.TopicReply;
-import com.mycompany.biz.domain.User;
+import com.mycompany.biz.domain.TopicUp;
 import com.mycompany.biz.service.TopicReplyService;
 import com.mycompany.biz.service.TopicUpService;
 import com.mycompany.biz.service.UserService;
@@ -35,14 +37,12 @@ public class TopicReplyServiceImpl implements TopicReplyService {
 
     @Resource(name = "topicReplyDao")
     TopicReplyDao topicReplyDao;
-    
-    @Resource
-    UserService userService;
-    
+
     @Resource
     TopicUpService topicUpService;
-    
-    
+
+    @Resource
+    UserService userService;
 
     /**
      * 
@@ -60,8 +60,8 @@ public class TopicReplyServiceImpl implements TopicReplyService {
      * @see com.mycompany.biz.service.TopicReplyService#delete
      */
     @Override
-    public String delete(String topicReplyId) {
-        return topicReplyDao.delete(topicReplyId);
+    public String delete(String replyId) {
+        return topicReplyDao.delete(replyId);
     }
 
     /**
@@ -76,12 +76,12 @@ public class TopicReplyServiceImpl implements TopicReplyService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplyByTopicReplyId
-     * @see com.mycompany.biz.service.TopicReplyService#getTopicReplyByTopicReplyId
+     * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplyByReplyId
+     * @see com.mycompany.biz.service.TopicReplyService#getTopicReplyByReplyId
      */
     @Override
-    public TopicReply getTopicReplyByTopicReplyId(String topicReplyId) {
-        return topicReplyDao.getTopicReplyByTopicReplyId(topicReplyId);
+    public TopicReply getTopicReplyByReplyId(String replyId) {
+        return topicReplyDao.getTopicReplyByReplyId(replyId);
     }
 
     /**
@@ -90,42 +90,73 @@ public class TopicReplyServiceImpl implements TopicReplyService {
      * @see com.mycompany.biz.service.TopicReplyService#getTopicReplyPageListByDefaultQuery
      */
     @Override
-    public PageList<TopicReply> getTopicReplyPageListByDefaultQuery(TopicReply topicReply, int pageSize, int pageNum) {
-        PageList<TopicReply> topicReplyPageList = topicReplyDao.getTopicReplyPageListByDefaultQuery(topicReply, pageSize, pageNum);
-        List<TopicReply> topicRelies = topicReplyPageList.getItems();
-        List<String> authorIds = CollectionUtil.toList(topicRelies, TopicReply::getAuthorId);
-        List<User> topicAuthors = this.userService.getUsersByUserIds(authorIds);
-        CollectionUtil.setModelByList(topicRelies, topicAuthors, TopicReply::getAuthorId, TopicReply::setAuthor, User::getUserId);
-        CollectionUtil.setListValue(topicRelies, CollectionUtil.newEmptyList(), TopicReply::setUps);
-        return topicReplyPageList;
+    public PageList<TopicReply> getTopicReplyPageListByDefaultQuery(TopicReply topicReply, String authorId, int pageSize, int pageNum) {
+        PageList<TopicReply> topicReplyList = topicReplyDao.getTopicReplyPageListByDefaultQuery(topicReply, pageSize, pageNum);
+        List<TopicReply> replies = topicReplyList.getItems();
+        assignRepliesExtraProperties(authorId, replies);
+        return topicReplyList;
+    }
+
+    @Override
+    public void assignRepliesExtraProperties(String authorId, List<TopicReply> replies) {
+        userService.setTopicsAuthor(replies);
+        List<String> replyIds = CollectionUtil.toList(replies, TopicReply::getReplyId);
+        List<TopicUp> topicUpCounts = this.topicUpService.getTopicUpsGroupCountByTopicIds(replyIds, null);
+        Map<String, TopicUp> upCountMap = CollectionUtil.toMap(topicUpCounts, TopicUp::getObjectId);
+        CollectionUtil.setFeildToFieldByMap(replies, upCountMap, TopicReply::getReplyId, TopicUp::getUpCount, TopicReply::setUpCount);
+        if (StringUtil.isNotEmpty(authorId)) {
+            topicUpCounts = this.topicUpService.getTopicUpsGroupCountByTopicIds(replyIds, authorId);
+            upCountMap = CollectionUtil.toMap(topicUpCounts, TopicUp::getObjectId);
+            for (TopicReply tr : replies) {
+                tr.setIsUped(upCountMap.containsKey(tr.getReplyId()));
+            }
+        }
+    }
+    
+    @Override
+    public TopicReply replyUp(String replyId,String authorId){
+        List<TopicUp> topicUps = this.topicUpService.getTopicUpByObjectIdAndAuthorId(replyId, authorId);
+        if (CollectionUtil.isNotEmpty(topicUps)){
+            topicUpService.deleteByUpIds(CollectionUtil.toList(topicUps, TopicUp::getUpId));
+        } else {
+            TopicUp topicUp =new TopicUp();
+            topicUp.setObjectId(replyId);
+            topicUp.setAuthorId(authorId);
+            this.topicUpService.insert(topicUp);
+        }
+        TopicReply topicReply = this.getTopicReplyByReplyId(replyId);
+        if (topicReply!=null){
+            this.assignRepliesExtraProperties(authorId,Arrays.asList(topicReply));
+        }
+        return topicReply;
     }
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplysByTopicReplyIds
-     * @see com.mycompany.biz.service.TopicReplyService#getTopicReplysByTopicReplyIds
+     * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplysByReplyIds
+     * @see com.mycompany.biz.service.TopicReplyService#getTopicReplysByReplyIds
      */
     @Override
-    public List<TopicReply> getTopicReplysByTopicReplyIds(java.util.List<String> topicReplyIds) {
-        return topicReplyDao.getTopicReplysByTopicReplyIds(topicReplyIds);
+    public List<TopicReply> getTopicReplysByReplyIds(java.util.List<String> replyIds) {
+        return topicReplyDao.getTopicReplysByReplyIds(replyIds);
     }
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicReplyDao#deleteByTopicReplyIds
-     * @see com.mycompany.biz.service.TopicReplyService#deleteByTopicReplyIds
+     * @see com.mycompany.biz.dao.TopicReplyDao#deleteByReplyIds
+     * @see com.mycompany.biz.service.TopicReplyService#deleteByReplyIds
      */
     @Override
-    public java.util.List<String> deleteByTopicReplyIds(java.util.List<String> topicReplyIds) {
-        return topicReplyDao.deleteByTopicReplyIds(topicReplyIds);
+    public java.util.List<String> deleteByReplyIds(java.util.List<String> replyIds) {
+        return topicReplyDao.deleteByReplyIds(replyIds);
     }
 
     /*** 保存topicReply,有id时更新，没有id时插入,并带回新的id，返回 topicReply*/
     @Override
     public TopicReply saveTopicReply(TopicReply topicReply) {
         if (topicReply != null) {
-            java.lang.String topicReplyId = topicReply.getTopicReplyId();
-            if (StringUtil.isBlank(topicReplyId)) {
+            java.lang.String replyId = topicReply.getReplyId();
+            if (StringUtil.isBlank(replyId)) {
                 insert(topicReply);
             } else {
                 update(topicReply);

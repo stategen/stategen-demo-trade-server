@@ -31,7 +31,7 @@ import lombok.Setter;
 @Setter
 public class TopicUp implements java.io.Serializable {
 
-    private Long cnt;
+    private Long upCount;
 
     private static final long serialVersionUID = -5216457518046898601L;
 
@@ -41,10 +41,10 @@ public class TopicUp implements java.io.Serializable {
     @Max(64)
     private String upId;
 
-    /***topicOrReplyId   db_column: topic_or_reply_id VARCHAR */
-    @ApiModelProperty("topicOrReplyId")
+    /***objectId   db_column: object_id VARCHAR */
+    @ApiModelProperty("objectId")
     @Max(64)
-    private String topicOrReplyId;
+    private String objectId;
 
     /***authorId   db_column: author_id VARCHAR */
     @ApiModelProperty("authorId")
@@ -71,14 +71,14 @@ public class TopicUp implements java.io.Serializable {
         StringBuffer sb = new StringBuffer(1024);
         sb.append('{');
         sb.append("upIds=").append(upIds).append('\n');
-        sb.append("topicOrReplyIds=").append(topicOrReplyIds).append('\n');
+        sb.append("objectIds=").append(objectIds).append('\n');
         sb.append("authorIds=").append(authorIds).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin=").append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
         sb.append("updateTimeMax=").append(updateTimeMax != null ? df.format(updateTimeMax) : null).append('\n');
         sb.append("upId=").append(upId).append('\n');
-        sb.append("topicOrReplyId=").append(topicOrReplyId).append('\n');
+        sb.append("objectId=").append(objectId).append('\n');
         sb.append("authorId=").append(authorId).append('\n');
         sb.append("createTime=").append(createTime != null ? df.format(createTime) : null).append('\n');
         sb.append("updateTime=").append(updateTime != null ? df.format(updateTime) : null).append('\n');
@@ -91,9 +91,9 @@ public class TopicUp implements java.io.Serializable {
     @ApiModelProperty("upIds")
     private transient java.util.List<String> upIds;
 
-    /*** topicOrReplyIds in getTopicUpPageListByDefaultQuery */
-    @ApiModelProperty("topicOrReplyIds")
-    private transient java.util.List<String> topicOrReplyIds;
+    /*** objectIds in getTopicUpPageListByDefaultQuery */
+    @ApiModelProperty("objectIds")
+    private transient java.util.List<String> objectIds;
 
     /*** authorIds in getTopicUpPageListByDefaultQuery */
     @ApiModelProperty("authorIds")

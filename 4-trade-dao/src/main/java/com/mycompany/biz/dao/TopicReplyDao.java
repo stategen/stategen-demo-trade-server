@@ -25,29 +25,29 @@ public interface TopicReplyDao {
 
 	/**
     <pre>
-    &#64;ApiParam() String topicReplyId,
+    &#64;ApiParam() String replyId,
     &#64;ApiParam() String topicId,
     &#64;ApiParam() String authorId,
     &#64;ApiParam() String content,
     &#64;ApiParam() String createAt,
-    &#64;ApiParam() String replyId,
+    &#64;ApiParam() String parentReplyId,
     &#64;ApiParam(hidden = true) TopicReply topicReply,
     
     </pre>
 	 * 
-	 * sql:insert into topic_reply ( create_time , update_time , delete_flag , topic_reply_id , topic_id , author_id , content , create_at , reply_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?)
+	 * sql:insert into topic_reply ( create_time , update_time , delete_flag , reply_id , topic_id , author_id , content , create_at , parent_reply_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?)
 	 */
 	public TopicReply insert(TopicReply topicReply) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("topicReplyId") String topicReplyId,
+    &#64;ApiParam("replyId") String replyId,
     
     </pre>
 	 * 
-	 * sql:UPDATE topic_reply SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and topic_reply_id = ?
+	 * sql:UPDATE topic_reply SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and reply_id = ?
 	 */
-	public String delete(String topicReplyId) throws DataAccessException;
+	public String delete(String replyId) throws DataAccessException;
 	
 	/**
     <pre>
@@ -55,65 +55,71 @@ public interface TopicReplyDao {
     &#64;ApiParam() String authorId,
     &#64;ApiParam() String content,
     &#64;ApiParam() String createAt,
+    &#64;ApiParam() String parentReplyId,
     &#64;ApiParam() String replyId,
-    &#64;ApiParam() String topicReplyId,
     &#64;ApiParam(hidden = true) TopicReply topicReply,
     
     </pre>
 	 * 
-	 * sql:UPDATE topic_reply SET update_time= CURRENT_TIMESTAMP(6) , topic_id = ? , author_id = ? , content = ? , create_at = ? , reply_id = ? where delete_flag = 0 and topic_reply_id = ?
+	 * sql:UPDATE topic_reply SET update_time= CURRENT_TIMESTAMP(6) , topic_id = ? , author_id = ? , content = ? , create_at = ? , parent_reply_id = ? where delete_flag = 0 and reply_id = ?
 	 */
 	public TopicReply update(TopicReply topicReply) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("topicReplyId") String topicReplyId,
+    &#64;ApiParam("replyId") String replyId,
     
     </pre>
 	 * 
-	 * sql:select a.topic_reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.topic_reply_id = ?
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.reply_id = ?
 	 */
-	public TopicReply getTopicReplyByTopicReplyId(String topicReplyId) throws DataAccessException;
+	public TopicReply getTopicReplyByReplyId(String replyId) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam()&#64;RequestParam(required =false,name="topicReplyIds") ArrayList&lt;String&gt; topicReplyIds,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="topicIds") ArrayList&lt;String&gt; topicIds,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="authorIds") ArrayList&lt;String&gt; authorIds,
-    &#64;ApiParam() String contentLike,
-    &#64;ApiParam() String createAtLike,
+    &#64;ApiParam() String replyId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="replyIds") ArrayList&lt;String&gt; replyIds,
+    &#64;ApiParam() String topicId,
+    &#64;ApiParam()&#64;RequestParam(required =false,name="topicIds") ArrayList&lt;String&gt; topicIds,
+    &#64;ApiParam() String authorId,
+    &#64;ApiParam()&#64;RequestParam(required =false,name="authorIds") ArrayList&lt;String&gt; authorIds,
+    &#64;ApiParam() String content,
+    &#64;ApiParam() String contentLike,
+    &#64;ApiParam() String createAt,
+    &#64;ApiParam() String createAtLike,
+    &#64;ApiParam() String parentReplyId,
+    &#64;ApiParam()&#64;RequestParam(required =false,name="parentReplyIds") ArrayList&lt;String&gt; parentReplyIds,
     &#64;ApiParam() Date createTimeMin,
     &#64;ApiParam() Date createTimeMax,
     &#64;ApiParam() Date updateTimeMin,
     &#64;ApiParam() Date updateTimeMax,
     &#64;ApiParam(hidden = true) TopicReply topicReply,
-    &#64;ApiParam(hidden = true) Pagination pagination
+    Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.topic_reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.topic_reply_id in ( ? ) and a.topic_id in ( ? ) and a.author_id in ( ? ) and a.content like CONCAT('%',?,'%') and a.create_at like CONCAT('%',?,'%') and a.reply_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.reply_id=? and a.reply_id in ( ? ) and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.create_at=? and a.create_at like CONCAT('%',?,'%') and a.parent_reply_id=? and a.parent_reply_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
 	 */
 	public PageList<TopicReply> getTopicReplyPageListByDefaultQuery(TopicReply topicReply, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("topicReplyId")&#64;RequestParam(required =false,name="topicReplyIds") ArrayList&lt;String&gt; topicReplyIds,
+    &#64;ApiParam("replyId")&#64;RequestParam(required =false,name="replyIds") ArrayList&lt;String&gt; replyIds,
     
     </pre>
 	 * 
-	 * sql:select a.topic_reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.topic_reply_id in ( ? )
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and 1=0 and a.reply_id in ( ? )
 	 */
-	public List<TopicReply> getTopicReplysByTopicReplyIds(java.util.List<String> topicReplyIds) throws DataAccessException;
+	public List<TopicReply> getTopicReplysByReplyIds(java.util.List<String> replyIds) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("topicReplyId")&#64;RequestParam(required =false,name="topicReplyIds") ArrayList&lt;String&gt; topicReplyIds,
+    &#64;ApiParam("replyId")&#64;RequestParam(required =false,name="replyIds") ArrayList&lt;String&gt; replyIds,
     
     </pre>
 	 * 
-	 * sql:UPDATE topic_reply SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and topic_reply_id in ( ? )
+	 * sql:UPDATE topic_reply SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and reply_id in ( ? )
 	 */
-	public java.util.List<String> deleteByTopicReplyIds(java.util.List<String> topicReplyIds) throws DataAccessException;
+	public java.util.List<String> deleteByReplyIds(java.util.List<String> replyIds) throws DataAccessException;
 	
 
 }

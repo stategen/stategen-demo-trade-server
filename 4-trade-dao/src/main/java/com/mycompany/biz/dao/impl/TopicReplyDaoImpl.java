@@ -31,7 +31,7 @@ public class TopicReplyDaoImpl extends SqlMapClientDaoSupport implements TopicRe
 
     /**
 	 * 
-	 * sql:insert into topic_reply ( create_time , update_time , delete_flag , topic_reply_id , topic_id , author_id , content , create_at , reply_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?)
+	 * sql:insert into topic_reply ( create_time , update_time , delete_flag , reply_id , topic_id , author_id , content , create_at , parent_reply_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?)
 	 */
     public TopicReply insert(TopicReply topicReply) throws DataAccessException {
         if (topicReply == null) {
@@ -43,18 +43,18 @@ public class TopicReplyDaoImpl extends SqlMapClientDaoSupport implements TopicRe
 
     /**
 	 * 
-	 * sql:UPDATE topic_reply SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and topic_reply_id = ?
+	 * sql:UPDATE topic_reply SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and reply_id = ?
 	 */
-    public String delete(String topicReplyId) throws DataAccessException {
+    public String delete(String replyId) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("topicReplyId", topicReplyId);
+        params.put("replyId", replyId);
         getSqlMapClientTemplate().update("delete.TopicReply.trade", params);
-        return topicReplyId;
+        return replyId;
     }
 
     /**
 	 * 
-	 * sql:UPDATE topic_reply SET update_time= CURRENT_TIMESTAMP(6) , topic_id = ? , author_id = ? , content = ? , create_at = ? , reply_id = ? where delete_flag = 0 and topic_reply_id = ?
+	 * sql:UPDATE topic_reply SET update_time= CURRENT_TIMESTAMP(6) , topic_id = ? , author_id = ? , content = ? , create_at = ? , parent_reply_id = ? where delete_flag = 0 and reply_id = ?
 	 */
     public TopicReply update(TopicReply topicReply) throws DataAccessException {
         if (topicReply == null) {
@@ -66,17 +66,17 @@ public class TopicReplyDaoImpl extends SqlMapClientDaoSupport implements TopicRe
 
     /**
 	 * 
-	 * sql:select a.topic_reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.topic_reply_id = ?
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.reply_id = ?
 	 */
-    public TopicReply getTopicReplyByTopicReplyId(String topicReplyId) throws DataAccessException {
+    public TopicReply getTopicReplyByReplyId(String replyId) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("topicReplyId", topicReplyId);
-        return (TopicReply) getSqlMapClientTemplate().queryForObject("getTopicReplyByTopicReplyId.TopicReply.trade", params);
+        params.put("replyId", replyId);
+        return (TopicReply) getSqlMapClientTemplate().queryForObject("getTopicReplyByReplyId.TopicReply.trade", params);
     }
 
     /**
 	 * 
-	 * sql:select a.topic_reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.topic_reply_id in ( ? ) and a.topic_id in ( ? ) and a.author_id in ( ? ) and a.content like CONCAT('%',?,'%') and a.create_at like CONCAT('%',?,'%') and a.reply_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.reply_id=? and a.reply_id in ( ? ) and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.create_at=? and a.create_at like CONCAT('%',?,'%') and a.parent_reply_id=? and a.parent_reply_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
 	 */
     @SuppressWarnings("unchecked")
     public PageList<TopicReply> getTopicReplyPageListByDefaultQuery(TopicReply topicReply, int pageSize, int pageNum) throws DataAccessException {
@@ -85,23 +85,23 @@ public class TopicReplyDaoImpl extends SqlMapClientDaoSupport implements TopicRe
 
     /**
 	 * 
-	 * sql:select a.topic_reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.topic_reply_id in ( ? )
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and 1=0 and a.reply_id in ( ? )
 	 */
     @SuppressWarnings("unchecked")
-    public List<TopicReply> getTopicReplysByTopicReplyIds(java.util.List<String> topicReplyIds) throws DataAccessException {
+    public List<TopicReply> getTopicReplysByReplyIds(java.util.List<String> replyIds) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("topicReplyIds", topicReplyIds);
-        return (List<TopicReply>) getSqlMapClientTemplate().queryForList("getTopicReplysByTopicReplyIds.TopicReply.trade", params);
+        params.put("replyIds", replyIds);
+        return (List<TopicReply>) getSqlMapClientTemplate().queryForList("getTopicReplysByReplyIds.TopicReply.trade", params);
     }
 
     /**
 	 * 
-	 * sql:UPDATE topic_reply SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and topic_reply_id in ( ? )
+	 * sql:UPDATE topic_reply SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and reply_id in ( ? )
 	 */
-    public java.util.List<String> deleteByTopicReplyIds(java.util.List<String> topicReplyIds) throws DataAccessException {
+    public java.util.List<String> deleteByReplyIds(java.util.List<String> replyIds) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("topicReplyIds", topicReplyIds);
-        getSqlMapClientTemplate().update("deleteByTopicReplyIds.TopicReply.trade", params);
-        return topicReplyIds;
+        params.put("replyIds", replyIds);
+        getSqlMapClientTemplate().update("deleteByReplyIds.TopicReply.trade", params);
+        return replyIds;
     }
 }

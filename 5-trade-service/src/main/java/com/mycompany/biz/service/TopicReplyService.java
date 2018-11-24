@@ -6,6 +6,7 @@
 package com.mycompany.biz.service;
 
 import java.util.List;
+
 import org.stategen.framework.lite.PageList;
 
 import com.mycompany.biz.domain.TopicReply;
@@ -33,7 +34,7 @@ public interface TopicReplyService extends TopicReplyServiceFacade {
      * 
      * @see com.mycompany.biz.dao.TopicReplyDao#delete
      */
-    public String delete(String topicReplyId);
+    public String delete(String replyId);
 
     /**
      * 
@@ -43,31 +44,35 @@ public interface TopicReplyService extends TopicReplyServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplyByTopicReplyId
+     * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplyByReplyId
      */
-    public TopicReply getTopicReplyByTopicReplyId(String topicReplyId);
+    public TopicReply getTopicReplyByReplyId(String replyId);
 
     /**
      * 
      * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplyPageListByDefaultQuery
      */
-    public PageList<TopicReply> getTopicReplyPageListByDefaultQuery(TopicReply topicReply, int pageSize, int pageNum);
+    public PageList<TopicReply> getTopicReplyPageListByDefaultQuery(TopicReply topicReply, String authorId, int pageSize, int pageNum);
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplysByTopicReplyIds
+     * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplysByReplyIds
      */
-    public List<TopicReply> getTopicReplysByTopicReplyIds(java.util.List<String> topicReplyIds);
+    public List<TopicReply> getTopicReplysByReplyIds(java.util.List<String> replyIds);
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicReplyDao#deleteByTopicReplyIds
+     * @see com.mycompany.biz.dao.TopicReplyDao#deleteByReplyIds
      */
-    public java.util.List<String> deleteByTopicReplyIds(java.util.List<String> topicReplyIds);
+    public java.util.List<String> deleteByReplyIds(java.util.List<String> replyIds);
 
     /*** 保存topicReply,有id时更新，没有id时插入,并带回新的id，返回 topicReply*/
     public TopicReply saveTopicReply(TopicReply topicReply);
 
     /*** 批量保存topicReplys,有id时更新，没有id时插入,并带回新的id，返回 topicReplys*/
     public List<TopicReply> saveTopicReplys(List<TopicReply> topicReplys);
+
+    TopicReply replyUp(String replyId, String authorId);
+
+    void assignRepliesExtraProperties(String authorId, List<TopicReply> replies);
 }

@@ -7,7 +7,7 @@
 
     <resultMap id="TopicUp.trade.RM" class="com.mycompany.biz.domain.TopicUp">
         <result property="upId" column="up_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
-        <result property="topicOrReplyId" column="topic_or_reply_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="objectId" column="object_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="authorId" column="author_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
@@ -24,14 +24,15 @@
             , update_time
             , delete_flag
             <isNotNull prepend="," property="upId"> up_id </isNotNull>
-            <isNotNull prepend="," property="topicOrReplyId"> topic_or_reply_id </isNotNull>
+            <isNotNull prepend="," property="objectId"> object_id </isNotNull>
             <isNotNull prepend="," property="authorId"> author_id </isNotNull>
             ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="upId"> #upId# </isNotNull> 
-            <isNotNull prepend="," property="topicOrReplyId"> #topicOrReplyId# </isNotNull> 
+            <isNotNull prepend="," property="objectId"> #objectId# </isNotNull> 
             <isNotNull prepend="," property="authorId"> #authorId# </isNotNull>)
             <selectKey keyProperty="upId" resultClass="String" type="pre">
-                select if((#upId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#upId# ) as upId
+                select if((#upId# is null)
+                ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#upId# ) as upId
             </selectKey>
 	</insert>
 	
@@ -50,11 +51,11 @@
 		UPDATE topic_up
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
-                <isNotNull prepend="," property="topicOrReplyId">
-                    topic_or_reply_id =  #topicOrReplyId#
+                <isNotNull prepend="," property="objectId">
+                    object_id = #objectId#
                 </isNotNull>
                 <isNotNull prepend="," property="authorId">
-                    author_id =  #authorId#
+                    author_id = #authorId#
                 </isNotNull>
             </dynamic>
             where
@@ -67,7 +68,7 @@
 	<select id="getTopicUpByUpId.TopicUp.trade" resultMap="TopicUp.trade.RM" >
     	select
  /* getTopicUpByUpId.TopicUp.trade */             a.up_id,
-            a.topic_or_reply_id,
+            a.object_id,
             a.author_id,
             a.create_time,
             a.update_time,
@@ -86,7 +87,7 @@
 	<select id="getTopicUpPageListByDefaultQuery.TopicUp.trade" resultMap="TopicUp.trade.RM" >
     	select
  /* getTopicUpPageListByDefaultQuery.TopicUp.trade */             a.up_id,
-            a.topic_or_reply_id,
+            a.object_id,
             a.author_id,
             a.create_time,
             a.update_time,
@@ -94,18 +95,27 @@
             from topic_up a
             where
             a.delete_flag = 0
+            <isNotNull open="and" property="upId">
+                a.up_id=#upId#
+            </isNotNull>
             <isNotEmpty open="and" property="upIds">
                 a.up_id in
                 <iterate close=")" conjunction="," open="(" property="upIds">
                     #upIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotEmpty open="and" property="topicOrReplyIds">
-                a.topic_or_reply_id in
-                <iterate close=")" conjunction="," open="(" property="topicOrReplyIds">
-                    #topicOrReplyIds[]#
+            <isNotNull open="and" property="objectId">
+                a.object_id=#objectId#
+            </isNotNull>
+            <isNotEmpty open="and" property="objectIds">
+                a.object_id in
+                <iterate close=")" conjunction="," open="(" property="objectIds">
+                    #objectIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="authorId">
+                a.author_id=#authorId#
+            </isNotNull>
             <isNotEmpty open="and" property="authorIds">
                 a.author_id in
                 <iterate close=")" conjunction="," open="(" property="authorIds">
@@ -124,21 +134,27 @@
             <isNotNull open="and" property="updateTimeMax">
                 a.update_time &lt;#updateTimeMax#
             </isNotNull>
-            <isEmpty property="upIds">
-            <isEmpty property="topicOrReplyIds">
-            <isEmpty property="authorIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
+            <isNull property="upId">
+                <isEmpty property="upIds">
+                    <isNull property="objectId">
+                        <isEmpty property="objectIds">
+                            <isNull property="authorId">
+                                <isEmpty property="authorIds">
+                                    <isNull property="createTimeMin">
+                                        <isNull property="createTimeMax">
+                                            <isNull property="updateTimeMin">
+                                                <isNull property="updateTimeMax">
+                                                    and 0 = 1
+                                                </isNull>
+                                            </isNull>
+                                        </isNull>
+                                    </isNull>
+                                </isEmpty>
+                            </isNull>
+                        </isEmpty>
+                    </isNull>
+                </isEmpty>
             </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isEmpty>
-            </isEmpty>
 			limit #offset#,#limit#
 	</select>	
 
@@ -146,18 +162,27 @@
     	select  /* getTopicUpPageListByDefaultQuery.TopicUp.trade.count */ count(*)  from topic_up a
             where
             a.delete_flag = 0
+            <isNotNull open="and" property="upId">
+                a.up_id=#upId#
+            </isNotNull>
             <isNotEmpty open="and" property="upIds">
                 a.up_id in
                 <iterate close=")" conjunction="," open="(" property="upIds">
                     #upIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotEmpty open="and" property="topicOrReplyIds">
-                a.topic_or_reply_id in
-                <iterate close=")" conjunction="," open="(" property="topicOrReplyIds">
-                    #topicOrReplyIds[]#
+            <isNotNull open="and" property="objectId">
+                a.object_id=#objectId#
+            </isNotNull>
+            <isNotEmpty open="and" property="objectIds">
+                a.object_id in
+                <iterate close=")" conjunction="," open="(" property="objectIds">
+                    #objectIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="authorId">
+                a.author_id=#authorId#
+            </isNotNull>
             <isNotEmpty open="and" property="authorIds">
                 a.author_id in
                 <iterate close=")" conjunction="," open="(" property="authorIds">
@@ -176,21 +201,27 @@
             <isNotNull open="and" property="updateTimeMax">
                 a.update_time &lt;#updateTimeMax#
             </isNotNull>
-            <isEmpty property="upIds">
-            <isEmpty property="topicOrReplyIds">
-            <isEmpty property="authorIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
+            <isNull property="upId">
+                <isEmpty property="upIds">
+                    <isNull property="objectId">
+                        <isEmpty property="objectIds">
+                            <isNull property="authorId">
+                                <isEmpty property="authorIds">
+                                    <isNull property="createTimeMin">
+                                        <isNull property="createTimeMax">
+                                            <isNull property="updateTimeMin">
+                                                <isNull property="updateTimeMax">
+                                                    and 0 = 1
+                                                </isNull>
+                                            </isNull>
+                                        </isNull>
+                                    </isNull>
+                                </isEmpty>
+                            </isNull>
+                        </isEmpty>
+                    </isNull>
+                </isEmpty>
             </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isEmpty>
-            </isEmpty>
 	</select>
 	    
 	
@@ -200,7 +231,7 @@
 	<select id="getTopicUpsByUpIds.TopicUp.trade" resultMap="TopicUp.trade.RM" >
     	select
  /* getTopicUpsByUpIds.TopicUp.trade */             a.up_id,
-            a.topic_or_reply_id,
+            a.object_id,
             a.author_id,
             a.create_time,
             a.update_time,
@@ -208,10 +239,15 @@
             from topic_up a
             where
             a.delete_flag = 0
-            and a.up_id in
-            <iterate close=")" conjunction="," open="(" property="upIds">
-                #upIds[]#
-            </iterate>
+            <isEmpty open="and" property="upIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="upIds">
+                a.up_id in
+                <iterate close=")" conjunction="," open="(" property="upIds">
+                    #upIds[]#
+                </iterate>
+            </isNotEmpty>
 	</select>	
 
 	    
@@ -221,31 +257,66 @@
 	
 	<update id="deleteByUpIds.TopicUp.trade">
 		UPDATE topic_up SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            and up_id in
-            <iterate close=")" conjunction="," open="(" property="upIds">
-                #upIds[]#
-            </iterate>
+            <isEmpty open="and" property="upIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="upIds">
+                up_id in
+                <iterate close=")" conjunction="," open="(" property="upIds">
+                    #upIds[]#
+                </iterate>
+            </isNotEmpty>
 	</update>
 	
     
-    <resultMap id="getTopicUpsGroupCountByTopicId.object.trade.RM" class="com.mycompany.biz.domain.TopicUp">
-        <result property="topicOrReplyId" column="topic_or_reply_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
-        <result property="cnt" column="cnt" javaType="java.lang.Long" jdbcType="BIGINT"  />
+    <resultMap id="getTopicUpsGroupCountByTopicIds.object.trade.RM" class="com.mycompany.biz.domain.TopicUp">
+        <result property="objectId" column="object_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="upCount" column="upCount" javaType="java.lang.Long" jdbcType="BIGINT"  />
     </resultMap>
 	
-	<select id="getTopicUpsGroupCountByTopicId.TopicUp.trade" resultMap="getTopicUpsGroupCountByTopicId.object.trade.RM" >
-    	select  /* getTopicUpsGroupCountByTopicId.TopicUp.trade */ topic_or_reply_id,cnt  FROM
-          topic_up tu
-        LEFT JOIN topic_reply tr ON tr.topic_reply_id = tu.topic_or_reply_id
-        LEFT JOIN topic t ON t.topic_id = tr.topic_id
-        WHERE
-          t.topic_id = #topicId#
-        GROUP BY
-          tu.topic_or_reply_id
+	<select id="getTopicUpsGroupCountByTopicIds.TopicUp.trade" resultMap="getTopicUpsGroupCountByTopicIds.object.trade.RM" >
+    	SELECT
+ /* getTopicUpsGroupCountByTopicIds.TopicUp.trade */             tu.object_id,
+            COUNT(*) AS upCount
+            FROM
+            topic_up tu
+            LEFT JOIN topic_reply tr ON tr.reply_id = tu.object_id
+            WHERE
+            tu.delete_flag=0
+            and tr.delete_flag=0
+            and tu.object_id in
+            <iterate close=")" conjunction="," open="(" property="objectIds">
+                #objectIds[]#
+            </iterate>
+            <isNotEmpty property="authorId">
+                and tu.author_id =#authorId#
+            </isNotEmpty>
+            GROUP BY
+            tu.object_id
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="getTopicUpByObjectIdAndAuthorId.TopicUp.trade" resultMap="TopicUp.trade.RM" >
+    	select
+ /* getTopicUpByObjectIdAndAuthorId.TopicUp.trade */             a.up_id,
+            a.object_id,
+            a.author_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from topic_up a
+            where
+            a.delete_flag = 0
+            and a.object_id=#objectId#
+            and a.author_id=#authorId#
 	</select>	
 
 	    

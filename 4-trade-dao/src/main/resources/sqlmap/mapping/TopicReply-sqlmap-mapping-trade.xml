@@ -6,12 +6,12 @@
 
 
     <resultMap id="TopicReply.trade.RM" class="com.mycompany.biz.domain.TopicReply">
-        <result property="topicReplyId" column="topic_reply_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="replyId" column="reply_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="topicId" column="topic_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="authorId" column="author_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="content" column="content" javaType="java.lang.String" jdbcType="LONGVARCHAR"  />
         <result property="createAt" column="create_at" javaType="java.lang.String" jdbcType="VARCHAR"  />
-        <result property="replyId" column="reply_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="parentReplyId" column="parent_reply_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
@@ -26,21 +26,21 @@
             create_time
             , update_time
             , delete_flag
-            <isNotNull prepend="," property="topicReplyId"> topic_reply_id </isNotNull>
+            <isNotNull prepend="," property="replyId"> reply_id </isNotNull>
             <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
             <isNotNull prepend="," property="authorId"> author_id </isNotNull>
             <isNotNull prepend="," property="content"> content </isNotNull>
             <isNotNull prepend="," property="createAt"> create_at </isNotNull>
-            <isNotNull prepend="," property="replyId"> reply_id </isNotNull>
+            <isNotNull prepend="," property="parentReplyId"> parent_reply_id </isNotNull>
             ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
-            <isNotNull prepend="," property="topicReplyId"> #topicReplyId# </isNotNull> 
+            <isNotNull prepend="," property="replyId"> #replyId# </isNotNull> 
             <isNotNull prepend="," property="topicId"> #topicId# </isNotNull> 
             <isNotNull prepend="," property="authorId"> #authorId# </isNotNull> 
             <isNotNull prepend="," property="content"> #content# </isNotNull> 
             <isNotNull prepend="," property="createAt"> #createAt# </isNotNull> 
-            <isNotNull prepend="," property="replyId"> #replyId# </isNotNull>)
-            <selectKey keyProperty="topicReplyId" resultClass="String" type="pre">
-                select if((#topicReplyId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#topicReplyId# ) as topicReplyId
+            <isNotNull prepend="," property="parentReplyId"> #parentReplyId# </isNotNull>)
+            <selectKey keyProperty="replyId" resultClass="String" type="pre">
+                select if((#replyId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#replyId# ) as replyId
             </selectKey>
 	</insert>
 	
@@ -50,7 +50,7 @@
             , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            and topic_reply_id = #topicReplyId#
+            and reply_id = #replyId#
 	</update>
 	
     
@@ -71,32 +71,32 @@
                 <isNotNull prepend="," property="createAt">
                     create_at =  #createAt#
                 </isNotNull>
-                <isNotNull prepend="," property="replyId">
-                    reply_id =  #replyId#
+                <isNotNull prepend="," property="parentReplyId">
+                    parent_reply_id =  #parentReplyId#
                 </isNotNull>
             </dynamic>
             where
             delete_flag = 0
-            and topic_reply_id = #topicReplyId#
+            and reply_id = #replyId#
 	</update>
 	
     
 	
-	<select id="getTopicReplyByTopicReplyId.TopicReply.trade" resultMap="TopicReply.trade.RM" >
+	<select id="getTopicReplyByReplyId.TopicReply.trade" resultMap="TopicReply.trade.RM" >
     	select
- /* getTopicReplyByTopicReplyId.TopicReply.trade */             a.topic_reply_id,
+ /* getTopicReplyByReplyId.TopicReply.trade */             a.reply_id,
             a.topic_id,
             a.author_id,
             a.content,
             a.create_at,
-            a.reply_id,
+            a.parent_reply_id,
             a.create_time,
             a.update_time,
             a.delete_flag
             from topic_reply a
             where
             a.delete_flag = 0
-            and a.topic_reply_id = #topicReplyId#
+            and a.reply_id = #replyId#
 	</select>	
 
 	    
@@ -106,46 +106,64 @@
 	
 	<select id="getTopicReplyPageListByDefaultQuery.TopicReply.trade" resultMap="TopicReply.trade.RM" >
     	select
- /* getTopicReplyPageListByDefaultQuery.TopicReply.trade */             a.topic_reply_id,
+ /* getTopicReplyPageListByDefaultQuery.TopicReply.trade */             a.reply_id,
             a.topic_id,
             a.author_id,
             a.content,
             a.create_at,
-            a.reply_id,
+            a.parent_reply_id,
             a.create_time,
             a.update_time,
             a.delete_flag
             from topic_reply a
             where
             a.delete_flag = 0
-            <isNotEmpty open="and" property="topicReplyIds">
-                a.topic_reply_id in
-                <iterate close=")" conjunction="," open="(" property="topicReplyIds">
-                    #topicReplyIds[]#
+            <isNotNull open="and" property="replyId">
+               a.reply_id=#replyId#
+            </isNotNull>
+            <isNotEmpty open="and" property="replyIds">
+                a.reply_id in
+                <iterate close=")" conjunction="," open="(" property="replyIds">
+                    #replyIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="topicId">
+               a.topic_id=#topicId#
+            </isNotNull>
             <isNotEmpty open="and" property="topicIds">
                 a.topic_id in
                 <iterate close=")" conjunction="," open="(" property="topicIds">
                     #topicIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="authorId">
+               a.author_id=#authorId#
+            </isNotNull>
             <isNotEmpty open="and" property="authorIds">
                 a.author_id in
                 <iterate close=")" conjunction="," open="(" property="authorIds">
                     #authorIds[]#
                 </iterate>
             </isNotEmpty>
+          <isNotNull open="and" property="content">
+            a.content=#content#
+          </isNotNull>
             <isNotEmpty open="and" property="contentLike">
                 a.content like CONCAT('%',#contentLike#,'%')
             </isNotEmpty>
+          <isNotNull open="and" property="createAt">
+            a.create_at=#createAt#
+          </isNotNull>
             <isNotEmpty open="and" property="createAtLike">
                 a.create_at like CONCAT('%',#createAtLike#,'%')
             </isNotEmpty>
-            <isNotEmpty open="and" property="replyIds">
-                a.reply_id in
-                <iterate close=")" conjunction="," open="(" property="replyIds">
-                    #replyIds[]#
+            <isNotNull open="and" property="parentReplyId">
+               a.parent_reply_id=#parentReplyId#
+            </isNotNull>
+            <isNotEmpty open="and" property="parentReplyIds">
+                a.parent_reply_id in
+                <iterate close=")" conjunction="," open="(" property="parentReplyIds">
+                    #parentReplyIds[]#
                 </iterate>
             </isNotEmpty>
             <isNotNull open="and" property="createTimeMin">
@@ -160,12 +178,18 @@
             <isNotNull open="and" property="updateTimeMax">
                 a.update_time &lt;#updateTimeMax#
             </isNotNull>
-            <isEmpty property="topicReplyIds">
-            <isEmpty property="topicIds">
-            <isEmpty property="authorIds">
-            <isEmpty property="contentLike">
-            <isEmpty property="createAtLike">
+            <isNull property="replyId">
             <isEmpty property="replyIds">
+            <isNull property="topicId">
+            <isEmpty property="topicIds">
+            <isNull property="authorId">
+            <isEmpty property="authorIds">
+            <isNull property="content">
+            <isEmpty property="contentLike">
+            <isNull property="createAt">
+            <isEmpty property="createAtLike">
+            <isNull property="parentReplyId">
+            <isEmpty property="parentReplyIds">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
@@ -176,11 +200,17 @@
             </isNull>
             </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
 			limit #offset#,#limit#
 	</select>	
 
@@ -188,34 +218,52 @@
     	select  /* getTopicReplyPageListByDefaultQuery.TopicReply.trade.count */ count(*)  from topic_reply a
             where
             a.delete_flag = 0
-            <isNotEmpty open="and" property="topicReplyIds">
-                a.topic_reply_id in
-                <iterate close=")" conjunction="," open="(" property="topicReplyIds">
-                    #topicReplyIds[]#
+            <isNotNull open="and" property="replyId">
+               a.reply_id=#replyId#
+            </isNotNull>
+            <isNotEmpty open="and" property="replyIds">
+                a.reply_id in
+                <iterate close=")" conjunction="," open="(" property="replyIds">
+                    #replyIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="topicId">
+               a.topic_id=#topicId#
+            </isNotNull>
             <isNotEmpty open="and" property="topicIds">
                 a.topic_id in
                 <iterate close=")" conjunction="," open="(" property="topicIds">
                     #topicIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="authorId">
+               a.author_id=#authorId#
+            </isNotNull>
             <isNotEmpty open="and" property="authorIds">
                 a.author_id in
                 <iterate close=")" conjunction="," open="(" property="authorIds">
                     #authorIds[]#
                 </iterate>
             </isNotEmpty>
+          <isNotNull open="and" property="content">
+            a.content=#content#
+          </isNotNull>
             <isNotEmpty open="and" property="contentLike">
                 a.content like CONCAT('%',#contentLike#,'%')
             </isNotEmpty>
+          <isNotNull open="and" property="createAt">
+            a.create_at=#createAt#
+          </isNotNull>
             <isNotEmpty open="and" property="createAtLike">
                 a.create_at like CONCAT('%',#createAtLike#,'%')
             </isNotEmpty>
-            <isNotEmpty open="and" property="replyIds">
-                a.reply_id in
-                <iterate close=")" conjunction="," open="(" property="replyIds">
-                    #replyIds[]#
+            <isNotNull open="and" property="parentReplyId">
+               a.parent_reply_id=#parentReplyId#
+            </isNotNull>
+            <isNotEmpty open="and" property="parentReplyIds">
+                a.parent_reply_id in
+                <iterate close=")" conjunction="," open="(" property="parentReplyIds">
+                    #parentReplyIds[]#
                 </iterate>
             </isNotEmpty>
             <isNotNull open="and" property="createTimeMin">
@@ -230,12 +278,18 @@
             <isNotNull open="and" property="updateTimeMax">
                 a.update_time &lt;#updateTimeMax#
             </isNotNull>
-            <isEmpty property="topicReplyIds">
-            <isEmpty property="topicIds">
-            <isEmpty property="authorIds">
-            <isEmpty property="contentLike">
-            <isEmpty property="createAtLike">
+            <isNull property="replyId">
             <isEmpty property="replyIds">
+            <isNull property="topicId">
+            <isEmpty property="topicIds">
+            <isNull property="authorId">
+            <isEmpty property="authorIds">
+            <isNull property="content">
+            <isEmpty property="contentLike">
+            <isNull property="createAt">
+            <isEmpty property="createAtLike">
+            <isNull property="parentReplyId">
+            <isEmpty property="parentReplyIds">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
@@ -246,35 +300,46 @@
             </isNull>
             </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
 	</select>
 	    
 	
 	
     
 	
-	<select id="getTopicReplysByTopicReplyIds.TopicReply.trade" resultMap="TopicReply.trade.RM" >
+	<select id="getTopicReplysByReplyIds.TopicReply.trade" resultMap="TopicReply.trade.RM" >
     	select
- /* getTopicReplysByTopicReplyIds.TopicReply.trade */             a.topic_reply_id,
+ /* getTopicReplysByReplyIds.TopicReply.trade */             a.reply_id,
             a.topic_id,
             a.author_id,
             a.content,
             a.create_at,
-            a.reply_id,
+            a.parent_reply_id,
             a.create_time,
             a.update_time,
             a.delete_flag
             from topic_reply a
             where
             a.delete_flag = 0
-            and a.topic_reply_id in
-            <iterate close=")" conjunction="," open="(" property="topicReplyIds">
-                #topicReplyIds[]#
-            </iterate>
+            <isEmpty open="and" property="replyIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="replyIds">
+                a.reply_id in
+                <iterate close=")" conjunction="," open="(" property="replyIds">
+                    #replyIds[]#
+                </iterate>
+            </isNotEmpty>
 	</select>	
 
 	    
@@ -282,16 +347,21 @@
 	
     
 	
-	<update id="deleteByTopicReplyIds.TopicReply.trade">
+	<update id="deleteByReplyIds.TopicReply.trade">
 		UPDATE topic_reply SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            and topic_reply_id in
-            <iterate close=")" conjunction="," open="(" property="topicReplyIds">
-                #topicReplyIds[]#
-            </iterate>
+            <isEmpty open="and" property="replyIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="replyIds">
+                reply_id in
+                <iterate close=")" conjunction="," open="(" property="replyIds">
+                    #replyIds[]#
+                </iterate>
+            </isNotEmpty>
 	</update>
 	
     
