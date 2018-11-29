@@ -6,7 +6,7 @@ import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.annotation.Wrap;
-import org.stategen.framework.enums.StateOperation;
+import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.AntdPageList;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.Pagination;
@@ -26,7 +26,7 @@ public class TopicController extends TopicControllerBase {
     
     @ApiRequestMappingAutoWithMethodName
     @RequestMapping(value="topics",method=RequestMethod.GET)
-    @State(init=true,operation=StateOperation.APPEND_OR_UPDATE_CURRENT)
+    @State(init=true,dataOpt=DataOpt.APPEND_OR_UPDATE)
     public AntdPageList<Topic> getTopics(TopicType topicType,Boolean mdrender,@ApiParam(hidden=true) Topic topic, Pagination pagination){
         if (topicType==TopicType.all){
             topic.setTopicType(null);

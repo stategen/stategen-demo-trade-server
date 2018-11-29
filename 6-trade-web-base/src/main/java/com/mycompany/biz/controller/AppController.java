@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.State;
-import org.stategen.framework.enums.StateOperation;
+import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.SimpleResponse;
 import org.stategen.framework.lite.enums.VisitType;
 import org.stategen.framework.util.StringUtil;
@@ -38,13 +38,14 @@ public class AppController {
     private MenuService menuService;
 
     @ApiRequestMappingAutoWithMethodName(name = "", method = RequestMethod.GET)
+    @State(area=User.class)
     public SimpleResponse logout(HttpServletResponse response) {
         loginCookieGroup.expireAllCookies();
         return new SimpleResponse(true, "退出成功");
     }
 
     @ApiRequestMappingAutoWithMethodName(name = "", method = RequestMethod.GET)
-    @State(init = true, initCheck = false, operation = StateOperation.FULL_REPLACE)
+    @State(init = true, initCheck = false, dataOpt = DataOpt.FULL_REPLACE)
     public User getCookieUser() {
         String userId = this.loginCookieGroup.getCookieValue(SysConsts.USER_ID);
         if (StringUtil.isEmpty(userId)) {
@@ -62,7 +63,7 @@ public class AppController {
     }
 
     @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET, name = "获所所有菜单")
-    @State(init = true, initCheck = false, operation = StateOperation.FULL_REPLACE)
+    @State(init = true, initCheck = false, dataOpt = DataOpt.FULL_REPLACE)
     public List<Menu> getAllMenus() {
         return this.menuService.getAllMenus();
     }

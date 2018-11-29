@@ -14,7 +14,7 @@ import org.stategen.framework.annotation.ShowEditorModal;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.annotation.StateExtraProp;
 import org.stategen.framework.annotation.VisitCheck;
-import org.stategen.framework.enums.StateOperation;
+import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.AntdPageList;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.Pagination;
@@ -31,7 +31,7 @@ public class RoleController extends RoleControllerBase {
 
     @ApiRequestMappingAutoWithMethodName(name = "角色分页列表,多条件", method = RequestMethod.POST,genForm=true)
     @VisitCheck
-    @State(init = true, operation = StateOperation.FULL_REPLACE)
+    @State(init = true, dataOpt = DataOpt.FULL_REPLACE)
     @HideAreaEditorModal
     public AntdPageList<Role> getRolePageListByDefaultQuery(@ApiParam()@RequestParam(required =false,name="roleIds") ArrayList<String> roleIds,
                                                             @ApiParam() String roleNameLike,
@@ -94,7 +94,7 @@ public class RoleController extends RoleControllerBase {
     //    }
     @ApiRequestMappingAutoWithMethodName(name = "删除角色", method = RequestMethod.POST)
     @VisitCheck
-    @State(operation = StateOperation.DELETE_IF_EXIST, area = Role.class)
+    @State(dataOpt = DataOpt.DELETE_IF_EXIST, area = Role.class)
     public String delete(String roleId) {
         this.roleService.delete(roleId);
         return roleId;
@@ -102,7 +102,7 @@ public class RoleController extends RoleControllerBase {
 
     @ApiRequestMappingAutoWithMethodName(name = "批量删除角色", method = RequestMethod.POST)
     @VisitCheck
-    @State(operation = StateOperation.DELETE_IF_EXIST, area = Role.class)
+    @State(dataOpt = DataOpt.DELETE_IF_EXIST, area = Role.class)
     public List<String> deleteByRoleIds(@RequestParam("roleIds") ArrayList<String> roleIds) {
         this.roleService.deleteByRoleIds(roleIds);
         return roleIds;

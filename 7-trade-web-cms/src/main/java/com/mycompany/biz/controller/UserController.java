@@ -16,7 +16,7 @@ import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.GenForm;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.annotation.VisitCheck;
-import org.stategen.framework.enums.StateOperation;
+import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.AntdPageList;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.Pagination;
@@ -63,7 +63,7 @@ public class UserController extends UserControllerBase {
 
     @ApiRequestMappingAutoWithMethodName(name = "批量删除用户", method = RequestMethod.DELETE)
     @VisitCheck
-    @State(operation=StateOperation.DELETE_IF_EXIST,area=User.class)
+    @State(dataOpt=DataOpt.DELETE_IF_EXIST,area=User.class)
     public List<String> deleteByUserIds(@RequestParam(name = "userIds", required = false) ArrayList<String> userIds, HttpServletResponse response) {
         return this.userService.deleteByUserIds(userIds);
     }
@@ -82,7 +82,7 @@ public class UserController extends UserControllerBase {
 
     @ApiRequestMappingAutoWithMethodName(path = "/{userId}", name = "删除用户", method = RequestMethod.DELETE)
     @VisitCheck
-    @State(area=User.class,operation = StateOperation.DELETE_IF_EXIST)
+    @State(area=User.class,dataOpt = DataOpt.DELETE_IF_EXIST)
     public String delete(@PathVariable String userId) {
         return userService.delete(userId);
     }

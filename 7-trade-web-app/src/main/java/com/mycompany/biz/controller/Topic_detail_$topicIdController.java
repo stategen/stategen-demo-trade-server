@@ -10,7 +10,7 @@ import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.annotation.Wrap;
-import org.stategen.framework.enums.StateOperation;
+import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.Pagination;
 import org.stategen.framework.web.cookie.CookieGroup;
@@ -44,7 +44,7 @@ public class Topic_detail_$topicIdController extends TopicControllerBase {
 
     @ApiRequestMappingAutoWithMethodName
     @RequestMapping("/{topicId}")
-    @State(init = true, operation = StateOperation.FULL_REPLACE)
+    @State(init = true, dataOpt = DataOpt.FULL_REPLACE,genRefresh=true)
     public Topic getTopicDetail(@PathVariable("topicId") String topicId) {
         Topic topic = this.topicService.getTopicByTopicId(topicId);
         return topic;
@@ -52,7 +52,7 @@ public class Topic_detail_$topicIdController extends TopicControllerBase {
 
     @ApiRequestMappingAutoWithMethodName
     @RequestMapping("/{topicId}/getReplies")
-    @State(init = true, operation = StateOperation.APPEND_OR_UPDATE_CURRENT)
+    @State(init = true, dataOpt = DataOpt.APPEND_OR_UPDATE,genRefresh=true)
     public PageList<TopicReply> getTopicReplies(@PathVariable("topicId") String topicId, @ApiParam(hidden = true) TopicReply topicReply,
                                                 Pagination pagination) {
 
@@ -78,9 +78,6 @@ public class Topic_detail_$topicIdController extends TopicControllerBase {
         String userId = loginCookieGroup.getCookieValue(SysConsts.USER_ID);
         topicReply.setAuthorId(userId);
         this.topicReplyService.saveTopicReply(topicReply);
-        if (logger.isInfoEnabled()) {
-            logger.info(new StringBuffer("输出info信息: topicReply:").append(topicReply).toString());
-        }
         topicReplyService.assignRepliesExtraProperties(userId, Arrays.asList(topicReply));
         return topicReply;
     }

@@ -107,7 +107,7 @@ public class TopicUpDaoImpl extends SqlMapClientDaoSupport implements TopicUpDao
 
     /**
 	 * 
-	 * sql:SELECT tu.object_id, COUNT(*) AS upCount FROM topic_up tu LEFT JOIN topic_reply tr ON tr.reply_id = tu.object_id WHERE tu.delete_flag=0 and tr.delete_flag=0 and tu.object_id in ( ? ) and tu.author_id =? GROUP BY tu.object_id
+	 * sql:SELECT tu.object_id, COUNT(*) AS upCount FROM topic_up tu LEFT JOIN topic_reply tr ON tr.reply_id = tu.object_id WHERE tu.delete_flag=0 and tr.delete_flag=0 and tu.object_id in ( ? ) and 1=0 and tu.author_id =? GROUP BY tu.object_id
 	 */
     @SuppressWarnings("unchecked")
     public List<TopicUp> getTopicUpsGroupCountByTopicIds(java.util.List<String> objectIds, String authorId) throws DataAccessException {
