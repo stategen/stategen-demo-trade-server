@@ -15,6 +15,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
+import org.stategen.framework.annotation.Editor;
+import org.stategen.framework.lite.enums.EditorType;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.RoleType;
 
@@ -58,6 +61,7 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("密码，测试，明文")
     @Max(64)
     @JSONField(serialize=false)
+    @Editor(EditorType.password)
     private String password;
 
     /***用户角色 ADMIN,DEFAULT,DEVELOPER   db_column: role_type VARCHAR */

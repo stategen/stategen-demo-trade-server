@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
+import org.stategen.framework.annotation.GenForm;
 import org.stategen.framework.annotation.HideAreaEditorModal;
 import org.stategen.framework.annotation.ShowEditorModal;
 import org.stategen.framework.annotation.State;
@@ -29,10 +30,11 @@ import io.swagger.annotations.ApiParam;
 public class RoleController extends RoleControllerBase {
 
 
-    @ApiRequestMappingAutoWithMethodName(name = "角色分页列表,多条件", method = RequestMethod.POST,genForm=true)
+    @ApiRequestMappingAutoWithMethodName(name = "角色分页列表,多条件", method = RequestMethod.POST)
     @VisitCheck
     @State(init = true, dataOpt = DataOpt.FULL_REPLACE)
     @HideAreaEditorModal
+    @GenForm
     public AntdPageList<Role> getRolePageListByDefaultQuery(@ApiParam()@RequestParam(required =false,name="roleIds") ArrayList<String> roleIds,
                                                             @ApiParam() String roleNameLike,
                                                             @ApiParam() String descriptionLike,

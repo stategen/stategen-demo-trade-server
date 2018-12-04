@@ -27,7 +27,6 @@ import io.swagger.annotations.ApiParam;
 
 @ApiConfig
 @Wrap
-@RequestMapping("api/topic")
 public class Topic_detail_$topicIdController extends TopicControllerBase {
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Topic_detail_$topicIdController.class);
 

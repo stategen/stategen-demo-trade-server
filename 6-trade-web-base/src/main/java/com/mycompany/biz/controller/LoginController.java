@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
+import org.stategen.framework.annotation.State;
 import org.stategen.framework.annotation.Wrap;
 import org.stategen.framework.lite.SimpleResponse;
 import org.stategen.framework.util.BusinessAssert;
@@ -33,8 +34,9 @@ public class LoginController {
     
 
     
-    @ApiRequestMappingAutoWithMethodName(name = "", method = RequestMethod.POST,genForm=true)
+    @ApiRequestMappingAutoWithMethodName(name = "", method = RequestMethod.POST)
     @ResponseBody
+    @State(genForm=true)
     public SimpleResponse login(@ApiParam("用户名") @RequestParam() String username,
                                 @ApiParam("密码") @RequestParam() String password, @ApiParam(hidden = true) User user) {
         BusinessAssert.mustNotNull(user, "用户数据不能为空");

@@ -1,5 +1,7 @@
 package com.mycompany.biz.controller;
 
+import javax.annotation.Resource;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.stategen.framework.annotation.ApiConfig;
@@ -11,6 +13,7 @@ import org.stategen.framework.lite.AntdPageList;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.Pagination;
 import org.stategen.framework.util.DatetimeUtil;
+import org.stategen.framework.web.cookie.CookieGroup;
 
 import com.mycompany.biz.domain.Topic;
 import com.mycompany.biz.enums.TopicType;
@@ -19,10 +22,11 @@ import io.swagger.annotations.ApiParam;
 
 @ApiConfig
 @Wrap
-@RequestMapping("api")
 public class TopicController extends TopicControllerBase {
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TopicController.class);
     
+    @Resource
+    private CookieGroup loginCookieGroup;
     
     @ApiRequestMappingAutoWithMethodName
     @RequestMapping(value="topics",method=RequestMethod.GET)

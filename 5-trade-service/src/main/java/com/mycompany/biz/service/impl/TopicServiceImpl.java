@@ -7,7 +7,6 @@ package com.mycompany.biz.service.impl;
 
 import java.util.Arrays;
 import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -37,7 +36,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Resource
     UserService userService;
-    
+
     @Resource
     TopicUpService topicUpService;
 

@@ -12,6 +12,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 
+import org.stategen.framework.annotation.Editor;
+import org.stategen.framework.lite.enums.EditorType;
+
 import com.mycompany.biz.enums.TopicType;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -31,8 +34,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Topic implements java.io.Serializable,IAuthored {
-
+public class Topic implements java.io.Serializable, IAuthored {
 
     private User author;
 
@@ -48,6 +50,7 @@ public class Topic implements java.io.Serializable,IAuthored {
     @ApiModelProperty("topicId")
     @Id
     @Max(64)
+    @Editor(EditorType.hidden)
     private String topicId;
 
     /***authorId   db_column: author_id VARCHAR */
@@ -62,6 +65,7 @@ public class Topic implements java.io.Serializable,IAuthored {
     /***content   db_column: content LONGVARCHAR */
     @ApiModelProperty("content")
     @Max(65535)
+    @Editor(EditorType.textarea)
     private String content;
 
     /***title   db_column: title VARCHAR */
@@ -208,36 +212,12 @@ public class Topic implements java.io.Serializable,IAuthored {
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMax;
 
-    public String getAuthor_id() {
-        return authorId;
-    }
-
-    public void setAuthor_id(String id) {
-        this.authorId = id;
-    }
-
     public String getLast_reply_at() {
         return lastReplyAt;
     }
 
     public void setLast_reply_at(String id) {
         this.lastReplyAt = id;
-    }
-
-    public Long getReply_count() {
-        return replyCount;
-    }
-
-    public void setReply_count(Long id) {
-        this.replyCount = id;
-    }
-
-    public Long getVisit_count() {
-        return visitCount;
-    }
-
-    public void setVisit_count(Long id) {
-        this.visitCount = id;
     }
 
     public String getCreate_at() {
@@ -248,11 +228,4 @@ public class Topic implements java.io.Serializable,IAuthored {
         this.createAt = id;
     }
 
-    public String getId() {
-        return topicId;
-    }
-
-    public void setId(String id) {
-        this.topicId = id;
-    }
 }
