@@ -16,8 +16,8 @@ import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.lite.enums.EditorType;
 
 import com.mycompany.biz.enums.TopicType;
-
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -60,7 +60,8 @@ public class Topic implements java.io.Serializable, IAuthored {
 
     /***topicType   db_column: topic_type VARCHAR */
     @ApiModelProperty("topicType")
-    private TopicType topicType;
+    @Max(64)
+    private String topicType;
 
     /***content   db_column: content LONGVARCHAR */
     @ApiModelProperty("content")
@@ -97,6 +98,26 @@ public class Topic implements java.io.Serializable, IAuthored {
     @Max(255)
     private String createAt;
 
+    /***testTimestamp   db_column: test_timestamp TIMESTAMP */
+    @ApiModelProperty("testTimestamp")
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date testTimestamp;
+
+    /***testDatetime   db_column: test_datetime TIMESTAMP */
+    @ApiModelProperty("testDatetime")
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date testDatetime;
+
+    /***测式日期   db_column: test_date DATE */
+    @ApiModelProperty("测式日期")
+    @Temporal(TemporalType.DATE)
+    private java.util.Date testDate;
+
+    /***测试时间   db_column: test_time TIME */
+    @ApiModelProperty("测试时间")
+    @Temporal(TemporalType.TIME)
+    private java.util.Date testTime;
+
     /***创建时间   db_column: create_time TIMESTAMP */
     @ApiModelProperty(value = "创建时间", hidden = true)
     @Temporal(TemporalType.TIMESTAMP)
@@ -127,6 +148,14 @@ public class Topic implements java.io.Serializable, IAuthored {
         sb.append("visitCountMin=").append(visitCountMin).append('\n');
         sb.append("visitCountMax=").append(visitCountMax).append('\n');
         sb.append("createAtLike=").append(createAtLike).append('\n');
+        sb.append("testTimestampMin=").append(testTimestampMin != null ? df.format(testTimestampMin) : null).append('\n');
+        sb.append("testTimestampMax=").append(testTimestampMax != null ? df.format(testTimestampMax) : null).append('\n');
+        sb.append("testDatetimeMin=").append(testDatetimeMin != null ? df.format(testDatetimeMin) : null).append('\n');
+        sb.append("testDatetimeMax=").append(testDatetimeMax != null ? df.format(testDatetimeMax) : null).append('\n');
+        sb.append("testDateMin=").append(testDateMin != null ? df.format(testDateMin) : null).append('\n');
+        sb.append("testDateMax=").append(testDateMax != null ? df.format(testDateMax) : null).append('\n');
+        sb.append("testTimeMin=").append(testTimeMin != null ? df.format(testTimeMin) : null).append('\n');
+        sb.append("testTimeMax=").append(testTimeMax != null ? df.format(testTimeMax) : null).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin=").append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
@@ -141,6 +170,10 @@ public class Topic implements java.io.Serializable, IAuthored {
         sb.append("top=").append(top).append('\n');
         sb.append("visitCount=").append(visitCount).append('\n');
         sb.append("createAt=").append(createAt).append('\n');
+        sb.append("testTimestamp=").append(testTimestamp != null ? df.format(testTimestamp) : null).append('\n');
+        sb.append("testDatetime=").append(testDatetime != null ? df.format(testDatetime) : null).append('\n');
+        sb.append("testDate=").append(testDate != null ? df.format(testDate) : null).append('\n');
+        sb.append("testTime=").append(testTime != null ? df.format(testTime) : null).append('\n');
         sb.append("createTime=").append(createTime != null ? df.format(createTime) : null).append('\n');
         sb.append("updateTime=").append(updateTime != null ? df.format(updateTime) : null).append('\n');
         sb.append("deleteFlag=").append(deleteFlag);
@@ -158,7 +191,7 @@ public class Topic implements java.io.Serializable, IAuthored {
 
     /*** topicTypes in getTopicPageListByDefaultQuery */
     @ApiModelProperty("topicTypes")
-    private transient java.util.List<com.mycompany.biz.enums.TopicType> topicTypes;
+    private transient java.util.List<String> topicTypes;
 
     /*** contentLike in getTopicPageListByDefaultQuery */
     @ApiModelProperty("contentLike")
@@ -191,6 +224,46 @@ public class Topic implements java.io.Serializable, IAuthored {
     /*** createAtLike in getTopicPageListByDefaultQuery */
     @ApiModelProperty("createAtLike")
     private transient String createAtLike;
+
+    /*** testTimestampMin in getTopicPageListByDefaultQuery */
+    @ApiModelProperty("testTimestampMin")
+    @Temporal(TemporalType.TIMESTAMP)
+    private transient java.util.Date testTimestampMin;
+
+    /*** testTimestampMax in getTopicPageListByDefaultQuery */
+    @ApiModelProperty("testTimestampMax")
+    @Temporal(TemporalType.TIMESTAMP)
+    private transient java.util.Date testTimestampMax;
+
+    /*** testDatetimeMin in getTopicPageListByDefaultQuery */
+    @ApiModelProperty("testDatetimeMin")
+    @Temporal(TemporalType.TIMESTAMP)
+    private transient java.util.Date testDatetimeMin;
+
+    /*** testDatetimeMax in getTopicPageListByDefaultQuery */
+    @ApiModelProperty("testDatetimeMax")
+    @Temporal(TemporalType.TIMESTAMP)
+    private transient java.util.Date testDatetimeMax;
+
+    /*** 测式日期Min in getTopicPageListByDefaultQuery */
+    @ApiModelProperty("测式日期Min")
+    @Temporal(TemporalType.DATE)
+    private transient java.util.Date testDateMin;
+
+    /*** 测式日期Max in getTopicPageListByDefaultQuery */
+    @ApiModelProperty("测式日期Max")
+    @Temporal(TemporalType.DATE)
+    private transient java.util.Date testDateMax;
+
+    /*** 测试时间Min in getTopicPageListByDefaultQuery */
+    @ApiModelProperty("测试时间Min")
+    @Temporal(TemporalType.TIME)
+    private transient java.util.Date testTimeMin;
+
+    /*** 测试时间Max in getTopicPageListByDefaultQuery */
+    @ApiModelProperty("测试时间Max")
+    @Temporal(TemporalType.TIME)
+    private transient java.util.Date testTimeMax;
 
     /*** 创建时间Min in getTopicPageListByDefaultQuery */
     @ApiModelProperty("创建时间Min")
@@ -227,5 +300,4 @@ public class Topic implements java.io.Serializable, IAuthored {
     public void setCreate_at(String id) {
         this.createAt = id;
     }
-
 }

@@ -65,9 +65,13 @@ public interface TopicService extends TopicServiceFacade {
      */
     public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds);
 
-    /*** 保存topic,有id时更新，没有id时插入,并带回新的id，返回 topic*/
+    /*** 保存topic,有id时更新，没有id时插入,并带回新的id，返回 topic
+     * @see com.mycompany.biz.dao.TopicDao#insert
+     */
     public Topic saveTopic(Topic topic);
 
-    /*** 批量保存topics,有id时更新，没有id时插入,并带回新的id，返回 topics*/
+    /** 批量保存topics,有id时更新，没有id时插入,并带回新的id，返回 topics
+     * @see com.mycompany.biz.dao.TopicDao#insert
+     */
     public List<Topic> saveTopics(List<Topic> topics);
 }

@@ -7,7 +7,7 @@
     <!-- <column name="status" javaType="aa.bb.cc.StatusEnum"/> -->
     <!-- <column name="sex" javaType="aa.bb.cc.SexEnum"/> -->
 
-     <column name="topic_type" javaType="com.mycompany.biz.enums.TopicType"/>
+
      <operation name="insert" paramType="object" remarks="">
       <!-- 临时方案，请在 field或 value 两边加上空格,以方便dalgen解析 -->
         <sql>
@@ -25,6 +25,10 @@
             <isNotNull prepend="," property="top"> top </isNotNull>
             <isNotNull prepend="," property="visitCount"> visit_count </isNotNull>
             <isNotNull prepend="," property="createAt"> create_at </isNotNull>
+            <isNotNull prepend="," property="testTimestamp"> test_timestamp </isNotNull>
+            <isNotNull prepend="," property="testDatetime"> test_datetime </isNotNull>
+            <isNotNull prepend="," property="testDate"> test_date </isNotNull>
+            <isNotNull prepend="," property="testTime"> test_time </isNotNull>
             ) VALUES (
             CURRENT_TIMESTAMP(6)
             , CURRENT_TIMESTAMP(6)
@@ -39,6 +43,10 @@
             <isNotNull prepend="," property="top"> ?  </isNotNull>
             <isNotNull prepend="," property="visitCount"> ?  </isNotNull>
             <isNotNull prepend="," property="createAt"> ?  </isNotNull>
+            <isNotNull prepend="," property="testTimestamp"> ?  </isNotNull>
+            <isNotNull prepend="," property="testDatetime"> ?  </isNotNull>
+            <isNotNull prepend="," property="testDate"> ?  </isNotNull>
+            <isNotNull prepend="," property="testTime"> ?  </isNotNull>
             )
             <selectKey keyProperty="topicId" resultClass="String" type="pre">
                 select if((#topicId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#topicId# ) as topicId
@@ -89,6 +97,18 @@
                 <isNotNull property="createAt" prepend=",">
                     create_at =  ?
                 </isNotNull>
+                <isNotNull property="testTimestamp" prepend=",">
+                    test_timestamp =  ?
+                </isNotNull>
+                <isNotNull property="testDatetime" prepend=",">
+                    test_datetime =  ?
+                </isNotNull>
+                <isNotNull property="testDate" prepend=",">
+                    test_date =  ?
+                </isNotNull>
+                <isNotNull property="testTime" prepend=",">
+                    test_time =  ?
+                </isNotNull>
             </dynamic>
             where
             delete_flag = 0
@@ -109,6 +129,10 @@
             a.top,
             a.visit_count,
             a.create_at,
+            a.test_timestamp,
+            a.test_datetime,
+            a.test_date,
+            a.test_time,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -132,6 +156,10 @@
             a.top,
             a.visit_count,
             a.create_at,
+            a.test_timestamp,
+            a.test_datetime,
+            a.test_date,
+            a.test_time,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -207,6 +235,30 @@
             <isNotEmpty property="createAtLike" open="and">
                 a.create_at like CONCAT('%',#createAtLike#,'%')
             </isNotEmpty>
+            <isNotNull property="testTimestampMin" open="and">
+                a.test_timestamp >=#testTimestampMin#
+            </isNotNull>
+            <isNotNull property="testTimestampMax" open="and">
+                a.test_timestamp &lt;#testTimestampMax#
+            </isNotNull>
+            <isNotNull property="testDatetimeMin" open="and">
+                a.test_datetime >=#testDatetimeMin#
+            </isNotNull>
+            <isNotNull property="testDatetimeMax" open="and">
+                a.test_datetime &lt;#testDatetimeMax#
+            </isNotNull>
+            <isNotNull property="testDateMin" open="and">
+                a.test_date >=#testDateMin#
+            </isNotNull>
+            <isNotNull property="testDateMax" open="and">
+                a.test_date &lt;#testDateMax#
+            </isNotNull>
+            <isNotNull property="testTimeMin" open="and">
+                a.test_time >=#testTimeMin#
+            </isNotNull>
+            <isNotNull property="testTimeMax" open="and">
+                a.test_time &lt;#testTimeMax#
+            </isNotNull>
             <isNotNull property="createTimeMin" open="and">
                 a.create_time >=#createTimeMin#
             </isNotNull>
@@ -239,11 +291,27 @@
             <isNull property="visitCountMax">
             <isNull property="createAt">
             <isEmpty property="createAtLike">
+            <isNull property="testTimestampMin">
+            <isNull property="testTimestampMax">
+            <isNull property="testDatetimeMin">
+            <isNull property="testDatetimeMax">
+            <isNull property="testDateMin">
+            <isNull property="testDateMax">
+            <isNull property="testTimeMin">
+            <isNull property="testTimeMax">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
             <isNull property="updateTimeMax">
               and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
             </isNull>
             </isNull>
             </isNull>
@@ -284,6 +352,10 @@
             a.top,
             a.visit_count,
             a.create_at,
+            a.test_timestamp,
+            a.test_datetime,
+            a.test_date,
+            a.test_time,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -322,6 +394,8 @@
     </operation>
 
     <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table topic -e 再复制再粘贴覆盖-->
+
+
 
 
 </table>

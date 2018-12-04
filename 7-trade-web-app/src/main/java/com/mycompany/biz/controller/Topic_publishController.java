@@ -1,5 +1,7 @@
 package com.mycompany.biz.controller;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +37,10 @@ public class Topic_publishController extends TopicControllerBase {
                          @ApiParam() TopicType topicType,
                          @ApiParam() String content,
                          @ApiParam() String title,
+                         @ApiParam() Date testTimestamp,
+                         @ApiParam() Date testDatetime,
+                         @ApiParam() Date testDate,
+                         @ApiParam() Date testTime,
                          @ApiParam(hidden = true) Topic topic){
         String userId = loginCookieGroup.getCookieValue(SysConsts.USER_ID);
         topic.setAuthorId(userId);
