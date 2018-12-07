@@ -13,9 +13,12 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
-import com.mycompany.biz.enums.RoleType;
-import io.swagger.annotations.ApiModelProperty;
+import org.stategen.framework.annotation.Editor;
+import org.stategen.framework.lite.enums.EditorType;
 
+import com.mycompany.biz.enums.RoleType;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,6 +43,7 @@ public class Role implements java.io.Serializable {
     @ApiModelProperty("角色ID")
     @Id
     @Max(64)
+    @Editor(EditorType.hidden)
     private String roleId;
 
     /***角色名称   db_column: role_name VARCHAR */
