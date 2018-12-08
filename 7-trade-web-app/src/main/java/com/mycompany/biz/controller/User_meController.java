@@ -14,7 +14,7 @@ import com.mycompany.biz.utils.SysConsts;
 
 @ApiConfig
 @LoginCheck
-public class UserController extends UserControllerBase {
+public class User_meController extends UserControllerBase {
     
     @Resource
     private CookieGroup loginCookieGroup;

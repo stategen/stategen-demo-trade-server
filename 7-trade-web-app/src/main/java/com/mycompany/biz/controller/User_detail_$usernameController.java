@@ -13,7 +13,7 @@ import com.mycompany.biz.domain.User;
 @ApiConfig
 @Wrap
 @RequestMapping("api/userDetail")
-public class User_$usernameController extends UserController {
+public class User_detail_$usernameController extends User_meController {
 
     @ApiRequestMappingAutoWithMethodName
     @RequestMapping("/{username}")
