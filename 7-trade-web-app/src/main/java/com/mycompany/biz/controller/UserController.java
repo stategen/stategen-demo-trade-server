@@ -2,28 +2,29 @@ package com.mycompany.biz.controller;
 
 import javax.annotation.Resource;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.enums.DataOpt;
+import org.stategen.framework.web.cookie.CookieGroup;
 
 import com.mycompany.biz.checker.LoginCheck;
 import com.mycompany.biz.domain.User;
-import com.mycompany.biz.service.UserService;
+import com.mycompany.biz.utils.SysConsts;
 
 @ApiConfig
 @LoginCheck
 public class UserController extends UserControllerBase {
+    
     @Resource
-    private UserService userService;
-
+    private CookieGroup loginCookieGroup;
+    
     @ApiRequestMappingAutoWithMethodName
-    @RequestMapping("/{username}")
     @State(init=true,dataOpt=DataOpt.FULL_REPLACE)
-    public User getUserData(@PathVariable("username") String username) {
-        User topicAuthor = this.userService.getUserByUsername(username);
+    @LoginCheck
+    public User getCurrentUser() {
+        String userId = loginCookieGroup.getCookieValue(SysConsts.USER_ID);
+        User topicAuthor = this.userService.getUserByUserId(userId);
         return topicAuthor;
     }
 }
