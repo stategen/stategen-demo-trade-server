@@ -1,5 +1,7 @@
 package com.mycompany.biz.controller;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,16 +31,32 @@ public class TopicController extends TopicControllerBase {
     private CookieGroup loginCookieGroup;
     
     @ApiRequestMappingAutoWithMethodName
-    @RequestMapping(value="topics",method=RequestMethod.GET)
     @State(init=true,dataOpt=DataOpt.APPEND_OR_UPDATE)
-    public AntdPageList<Topic> getTopics(TopicType topicType,Boolean mdrender,@ApiParam(hidden=true) Topic topic, Pagination pagination){
-        if (topicType==TopicType.all){
-            topic.setTopicType(null);
-        }
+    public AntdPageList<Topic> getTopicPageList(TopicType topicType,Boolean mdrender,@ApiParam(hidden=true) Topic topic, Pagination pagination){
         topic.setCreateTimeMax(DatetimeUtil.current());
         
-        PageList<Topic> topicPageList = this.topicService.getTopicPageListByDefaultQuery(topic, pagination.getPageSize(), pagination.getPage());
+        PageList<Topic> topicPageList = this.topicService.getTopicPageList(topic, pagination.getPageSize(), pagination.getPage());
         return new AntdPageList<Topic>(topicPageList);
+    }
+    
+    @ApiRequestMappingAutoWithMethodName
+    @State
+    public Topic update(@ApiParam() String authorId,
+                        @ApiParam() String topicType,
+                        @ApiParam() String content,
+                        @ApiParam() String title,
+                        @ApiParam() String lastReplyAt,
+                        @ApiParam() String good,
+                        @ApiParam() String top,
+                        @ApiParam() Long visitCount,
+                        @ApiParam() String createAt,
+                        @ApiParam() Date testTimestamp,
+                        @ApiParam() Date testDatetime,
+                        @ApiParam() Date testDate,
+                        @ApiParam() Date testTime,
+                        @ApiParam() String topicId,
+                        @ApiParam(hidden = true) Topic topic) {
+        return this.topicService.update(topic);
     }
 
 }

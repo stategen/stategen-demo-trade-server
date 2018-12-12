@@ -6,7 +6,6 @@
 package com.mycompany.biz.domain;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Id;
@@ -17,8 +16,8 @@ import javax.validation.constraints.Max;
 import org.stategen.framework.lite.IMenu;
 import org.stategen.framework.lite.Image;
 import org.stategen.framework.lite.TreeNode;
+import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.lite.enums.VisitCheckType;
-import org.stategen.framework.lite.enums.VisitType;
 import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Getter;
@@ -38,13 +37,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<Menu> {
-
-    private List<Menu> breadChildren = null;
-
-    /***不起作用，用来排除ibatis启动错误*/
-    private transient Menu menuParent;
-
-    private transient Menu breadParent;
 
     private String roleId;
 
@@ -101,9 +93,9 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
     @Max(64)
     private String route;
 
-    /***visitType   db_column: visit_type VARCHAR */
-    @ApiModelProperty("visitType")
-    private VisitType visitType;
+    /***menuType   db_column: menu_type VARCHAR */
+    @ApiModelProperty("menuType")
+    private MenuType menuType;
 
     /***checkType   db_column: check_type VARCHAR */
     @ApiModelProperty("checkType")
@@ -134,10 +126,9 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
         sb.append("projectNameLike=").append(projectNameLike).append('\n');
         sb.append("controllerNameLike=").append(controllerNameLike).append('\n');
         sb.append("methodNameLike=").append(methodNameLike).append('\n');
-        sb.append("urlLike=").append(urlLike).append('\n');
         sb.append("nameLike=").append(nameLike).append('\n');
         sb.append("routeLike=").append(routeLike).append('\n');
-        sb.append("visitTypes=").append(visitTypes).append('\n');
+        sb.append("menuTypes=").append(menuTypes).append('\n');
         sb.append("checkTypes=").append(checkTypes).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
@@ -153,7 +144,7 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
         sb.append("icon=").append(icon).append('\n');
         sb.append("name=").append(name).append('\n');
         sb.append("route=").append(route).append('\n');
-        sb.append("visitType=").append(visitType).append('\n');
+        sb.append("menuType=").append(menuType).append('\n');
         sb.append("checkType=").append(checkType).append('\n');
         sb.append("createTime=").append(createTime != null ? df.format(createTime) : null).append('\n');
         sb.append("updateTime=").append(updateTime != null ? df.format(updateTime) : null).append('\n');
@@ -162,66 +153,62 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
         return sb.toString();
     }
 
-    /*** menuIds in getMenuPageListByDefaultQuery */
+    /*** menuIds in getMenuPageList */
     @ApiModelProperty("menuIds")
     private transient java.util.List<Long> menuIds;
 
-    /*** menuId与bpid组成树图s in getMenuPageListByDefaultQuery */
+    /*** menuId与bpid组成树图s in getMenuPageList */
     @ApiModelProperty("menuId与bpid组成树图s")
     private transient java.util.List<Long> bpids;
 
-    /*** 大部分情况下与bpid相同，当为动态目录时，mpid=-1s in getMenuPageListByDefaultQuery */
+    /*** 大部分情况下与bpid相同，当为动态目录时，mpid=-1s in getMenuPageList */
     @ApiModelProperty("大部分情况下与bpid相同s")
     private transient java.util.List<Long> mpids;
 
-    /*** 对应的项目idLike in getMenuPageListByDefaultQuery */
+    /*** 对应的项目idLike in getMenuPageList */
     @ApiModelProperty("对应的项目idLike")
     private transient String projectNameLike;
 
-    /*** 对应后台系统controlle名称Like in getMenuPageListByDefaultQuery */
+    /*** 对应后台系统controlle名称Like in getMenuPageList */
     @ApiModelProperty("对应后台系统controlle名称Like")
     private transient String controllerNameLike;
 
-    /*** 对应后台系统method名称Like in getMenuPageListByDefaultQuery */
+    /*** 对应后台系统method名称Like in getMenuPageList */
     @ApiModelProperty("对应后台系统method名称Like")
     private transient String methodNameLike;
 
-    /*** 对应的api路径Like in getMenuPageListByDefaultQuery */
-    @ApiModelProperty("对应的api路径Like")
-    private transient String urlLike;
-
-    /*** 对应的项目idnameLike in getMenuPageListByDefaultQuery */
+    /*** 对应的项目idnameLike in getMenuPageList */
     @ApiModelProperty("对应的项目idnameLike")
     private transient String nameLike;
 
-    /*** routeLike in getMenuPageListByDefaultQuery */
+    /*** routeLike in getMenuPageList */
     @ApiModelProperty("routeLike")
     private transient String routeLike;
 
-    /*** visitTypes in getMenuPageListByDefaultQuery */
-    @ApiModelProperty("visitTypes")
-    private transient java.util.List<org.stategen.framework.lite.enums.VisitType> visitTypes;
+    /*** menuTypes in getMenuPageList */
+    @ApiModelProperty("menuTypes")
+    private transient java.util.List<org.stategen.framework.lite.enums.MenuType> menuTypes;
 
-    /*** checkTypes in getMenuPageListByDefaultQuery */
+    /*** checkTypes in getMenuPageList */
     @ApiModelProperty("checkTypes")
     private transient java.util.List<org.stategen.framework.lite.enums.VisitCheckType> checkTypes;
 
-    /*** 数据创建时间Min in getMenuPageListByDefaultQuery */
+    /*** 数据创建时间Min in getMenuPageList */
     @ApiModelProperty("数据创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date createTimeMin;
 
-    /*** 数据创建时间Max in getMenuPageListByDefaultQuery */
+    /*** 数据创建时间Max in getMenuPageList */
     @ApiModelProperty("数据创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date createTimeMax;
 
-    /*** 数据更新时间Min in getMenuPageListByDefaultQuery */
+    /*** 数据更新时间Min in getMenuPageList */
     @ApiModelProperty("数据更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMin;
 
-    /*** 数据更新时间Max in getMenuPageListByDefaultQuery */
+    /*** 数据更新时间Max in getMenuPageList */
     @ApiModelProperty("数据更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMax;
@@ -235,30 +222,8 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
         return getMenuId();
     }
 
-    public void setMenuParent(Menu menuParent) {
-        setParent(breadParent);
-    }
-
     public List<Menu> getMenuChildren() {
-        return super.get_Children();
-    }
-
-    public void setBreadParent(Menu breadParent) {
-        if (this.breadParent == breadParent) {
-            return;
-        }
-        if (this.breadParent != null) {
-            if (this.breadParent.breadChildren != null) {
-                this.breadParent.breadChildren.remove(this);
-            }
-        }
-        this.breadParent = breadParent;
-        if (this.breadParent != null) {
-            if (this.breadParent.breadChildren == null) {
-                this.breadParent.breadChildren = new ArrayList<Menu>();
-            }
-            this.breadParent.breadChildren.add(this);
-        }
+        return super.getChildren();
     }
 
     @ApiModelProperty(value = "打开顺序，前端model存储用", hidden = true)

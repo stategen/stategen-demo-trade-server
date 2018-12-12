@@ -17,6 +17,14 @@
         <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
     </resultMap>
     
+	<sql id="getTopicReplyPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getTopicReplysByReplyIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
 
 	
 	
@@ -60,19 +68,19 @@
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="topicId">
-                    topic_id =  #topicId#
+                    topic_id =  #topicId# 
                 </isNotNull>
                 <isNotNull prepend="," property="authorId">
-                    author_id =  #authorId#
+                    author_id =  #authorId# 
                 </isNotNull>
                 <isNotNull prepend="," property="content">
-                    content =  #content#
+                    content =  #content# 
                 </isNotNull>
                 <isNotNull prepend="," property="createAt">
-                    create_at =  #createAt#
+                    create_at =  #createAt# 
                 </isNotNull>
                 <isNotNull prepend="," property="parentReplyId">
-                    parent_reply_id =  #parentReplyId#
+                    parent_reply_id =  #parentReplyId# 
                 </isNotNull>
             </dynamic>
             where
@@ -104,9 +112,9 @@
 	
     
 	
-	<select id="getTopicReplyPageListByDefaultQuery.TopicReply.trade" resultMap="TopicReply.trade.RM" >
+	<select id="getTopicReplyPageList.TopicReply.trade" resultMap="TopicReply.trade.RM" >
     	select
- /* getTopicReplyPageListByDefaultQuery.TopicReply.trade */             a.reply_id,
+ /* getTopicReplyPageList.TopicReply.trade */             a.reply_id,
             a.topic_id,
             a.author_id,
             a.content,
@@ -211,11 +219,13 @@
             </isNull>
             </isEmpty>
             </isNull>
+            order by
+            <include refid="getTopicReplyPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getTopicReplyPageListByDefaultQuery.TopicReply.trade.count" resultClass="long" >
-    	select  /* getTopicReplyPageListByDefaultQuery.TopicReply.trade.count */ count(*)  from topic_reply a
+	<select id="getTopicReplyPageList.TopicReply.trade.count" resultClass="long" >
+    	select  /* getTopicReplyPageList.TopicReply.trade.count */ count(*)  from topic_reply a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="replyId">
@@ -340,6 +350,8 @@
                     #replyIds[]#
                 </iterate>
             </isNotEmpty>
+            order by
+            <include refid="getTopicReplysByReplyIdsOrderBy"/>
 	</select>	
 
 	    

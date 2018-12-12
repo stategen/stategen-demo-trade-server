@@ -76,16 +76,16 @@ public class RoleDaoImpl extends SqlMapClientDaoSupport implements RoleDao {
 
     /**
 	 * 
-	 * sql:select a.role_id, a.role_name, a.description, a.create_time, a.update_time, a.delete_flag, a.role_type from role a where a.delete_flag = 0 and a.role_id in ( ? ) and a.role_name like CONCAT('%',?,'%') and a.description like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and a.role_type in ( ? ) and 0 = 1
+	 * sql:select a.role_id, a.role_name, a.description, a.create_time, a.update_time, a.delete_flag, a.role_type from role a where a.delete_flag = 0 and a.role_id=? and a.role_id in ( ? ) and a.role_name=? and a.role_name like CONCAT('%',?,'%') and a.description=? and a.description like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and a.role_type=? and a.role_type in ( ? ) and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
-    public PageList<Role> getRolePageListByDefaultQuery(Role role, int pageSize, int pageNum) throws DataAccessException {
-        return (PageList<Role>) PageQueryUtils.pageQuery(getSqlMapClientTemplate(), "getRolePageListByDefaultQuery.Role.trade", role, pageNum, pageSize);
+    public PageList<Role> getRolePageList(Role role, int pageSize, int pageNum) throws DataAccessException {
+        return (PageList<Role>) PageQueryUtils.pageQuery(getSqlMapClientTemplate(), "getRolePageList.Role.trade", role, pageNum, pageSize);
     }
 
     /**
 	 * 
-	 * sql:select a.role_id, a.role_name, a.description, a.create_time, a.update_time, a.delete_flag, a.role_type from role a where a.delete_flag = 0 and a.role_id in ( ? )
+	 * sql:select a.role_id, a.role_name, a.description, a.create_time, a.update_time, a.delete_flag, a.role_type from role a where a.delete_flag = 0 and 1=0 and a.role_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
     public List<Role> getRolesByRoleIds(java.util.List<String> roleIds) throws DataAccessException {
@@ -96,7 +96,7 @@ public class RoleDaoImpl extends SqlMapClientDaoSupport implements RoleDao {
 
     /**
 	 * 
-	 * sql:UPDATE role SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and role_id in ( ? )
+	 * sql:UPDATE role SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and role_id in ( ? )
 	 */
     public java.util.List<String> deleteByRoleIds(java.util.List<String> roleIds) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);

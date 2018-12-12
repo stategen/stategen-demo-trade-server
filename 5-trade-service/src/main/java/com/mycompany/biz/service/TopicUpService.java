@@ -49,12 +49,6 @@ public interface TopicUpService extends TopicUpServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpPageListByDefaultQuery
-     */
-    public PageList<TopicUp> getTopicUpPageListByDefaultQuery(TopicUp topicUp, int pageSize, int pageNum);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpsByUpIds
      */
     public List<TopicUp> getTopicUpsByUpIds(java.util.List<String> upIds);
@@ -82,4 +76,10 @@ public interface TopicUpService extends TopicUpServiceFacade {
      * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpByObjectIdAndAuthorId
      */
     public List<TopicUp> getTopicUpByObjectIdAndAuthorId(String objectId, String authorId);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpPageList
+     */
+    public PageList<TopicUp> getTopicUpPageList(TopicUp topicUp, int pageSize, int pageNum);
 }

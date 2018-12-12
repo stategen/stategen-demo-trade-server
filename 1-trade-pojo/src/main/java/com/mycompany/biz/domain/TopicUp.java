@@ -87,34 +87,34 @@ public class TopicUp implements java.io.Serializable {
         return sb.toString();
     }
 
-    /*** upIds in getTopicUpPageListByDefaultQuery */
+    /*** upIds in getTopicUpPageList */
     @ApiModelProperty("upIds")
     private transient java.util.List<String> upIds;
 
-    /*** objectIds in getTopicUpPageListByDefaultQuery */
+    /*** objectIds in getTopicUpPageList */
     @ApiModelProperty("objectIds")
     private transient java.util.List<String> objectIds;
 
-    /*** authorIds in getTopicUpPageListByDefaultQuery */
+    /*** authorIds in getTopicUpPageList */
     @ApiModelProperty("authorIds")
     private transient java.util.List<String> authorIds;
 
-    /*** 创建时间Min in getTopicUpPageListByDefaultQuery */
+    /*** 创建时间Min in getTopicUpPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getTopicUpPageListByDefaultQuery */
+    /*** 创建时间Max in getTopicUpPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getTopicUpPageListByDefaultQuery */
+    /*** 更新时间Min in getTopicUpPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getTopicUpPageListByDefaultQuery */
+    /*** 更新时间Max in getTopicUpPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMax;

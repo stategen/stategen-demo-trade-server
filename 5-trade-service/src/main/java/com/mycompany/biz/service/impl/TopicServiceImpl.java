@@ -84,19 +84,6 @@ public class TopicServiceImpl implements TopicService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicDao#getTopicPageListByDefaultQuery
-     * @see com.mycompany.biz.service.TopicService#getTopicPageListByDefaultQuery
-     */
-    @Override
-    public PageList<Topic> getTopicPageListByDefaultQuery(Topic topic, int pageSize, int pageNum) {
-        PageList<Topic> topicPageList = topicDao.getTopicPageListByDefaultQuery(topic, pageSize, pageNum);
-        List<Topic> items = topicPageList.getItems();
-        userService.setTopicsAuthor(items);
-        return topicPageList;
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.TopicDao#getTopicsByTopicIds
      * @see com.mycompany.biz.service.TopicService#getTopicsByTopicIds
      */
@@ -136,5 +123,18 @@ public class TopicServiceImpl implements TopicService {
             this.saveTopic(topic);
         }
         return topics;
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.TopicDao#getTopicPageList
+     * @see com.mycompany.biz.service.TopicService#getTopicPageList
+     */
+    @Override
+    public PageList<Topic> getTopicPageList(Topic topic, int pageSize, int pageNum) {
+        PageList<Topic> topicPageList = topicDao.getTopicPageList(topic, pageSize, pageNum);
+        List<Topic> items = topicPageList.getItems();
+        userService.setTopicsAuthor(items);
+        return topicPageList;
     }
 }

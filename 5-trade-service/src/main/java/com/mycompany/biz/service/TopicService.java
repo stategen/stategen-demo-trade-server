@@ -49,12 +49,6 @@ public interface TopicService extends TopicServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicDao#getTopicPageListByDefaultQuery
-     */
-    public PageList<Topic> getTopicPageListByDefaultQuery(Topic topic, int pageSize, int pageNum);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.TopicDao#getTopicsByTopicIds
      */
     public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds);
@@ -74,4 +68,10 @@ public interface TopicService extends TopicServiceFacade {
      * @see com.mycompany.biz.dao.TopicDao#insert
      */
     public List<Topic> saveTopics(List<Topic> topics);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.TopicDao#getTopicPageList
+     */
+    public PageList<Topic> getTopicPageList(Topic topic, int pageSize, int pageNum);
 }

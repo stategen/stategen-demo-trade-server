@@ -24,7 +24,7 @@ public interface MenuService extends MenuServiceFacade {
 
     String getProjectName();
 
-    public boolean updateMenus(List<Menu> allControllerMenus);
+    public List<Menu> updateMenus(List<Menu> allControllerMenus);
 
     public List<Menu> getAllMenus();
 
@@ -48,12 +48,6 @@ public interface MenuService extends MenuServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.MenuDao#getMenuPageListByDefaultQuery
-     */
-    public PageList<Menu> getMenuPageListByDefaultQuery(Menu menu, int pageSize, int pageNum);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.MenuDao#getMenusByMenuIds
      */
     public List<Menu> getMenusByMenuIds(java.util.List<Long> menuIds);
@@ -66,21 +60,9 @@ public interface MenuService extends MenuServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.MenuDao#getMenusByVisitType
-     */
-    public List<Menu> getMenusByVisitType(org.stategen.framework.lite.enums.VisitType visitType, String projectName);
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.MenuDao#getMenusByProjectName
-     */
-    public List<Menu> getMenusByProjectName(String projectName);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.MenuDao#getMenusByUserId
      */
-    public List<Long> getMenusByUserId(String userId, org.stategen.framework.lite.enums.VisitType visitType);
+    public List<Long> getMenusByUserId(String userId, org.stategen.framework.lite.enums.MenuType menuType);
 
     /**
      * 
@@ -99,4 +81,16 @@ public interface MenuService extends MenuServiceFacade {
      * @see com.mycompany.biz.dao.MenuDao#delete
      */
     public Long delete(Long menuId);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.MenuDao#getMenuPageList
+     */
+    public PageList<Menu> getMenuPageList(Menu menu, int pageSize, int pageNum);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.MenuDao#getMenusByProjectName
+     */
+    public List<Menu> getMenusByProjectName(String projectName, org.stategen.framework.lite.enums.MenuType menuType);
 }

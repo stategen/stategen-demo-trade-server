@@ -5,7 +5,6 @@
 package com.mycompany.biz.service.impl;
 
 import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -75,16 +74,6 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.UserDao#getUserPageListByDefaultQuery
-     * @see com.mycompany.biz.service.UserService#getUserPageListByDefaultQuery
-     */
-    @Override
-    public PageList<User> getUserPageListByDefaultQuery(User user, int pageSize, int pageNum) {
-        return userDao.getUserPageListByDefaultQuery(user, pageSize, pageNum);
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.UserDao#getUsersByUserIds
      * @see com.mycompany.biz.service.UserService#getUsersByUserIds
      */
@@ -122,7 +111,6 @@ public class UserServiceImpl implements UserService {
     public Long deleteByEmails(java.util.List<String> emails) {
         return userDao.deleteByEmails(emails);
     }
-
 
     /*** 保存user,有id时更新，没有id时插入,并带回新的id，返回 user*/
     @Override
@@ -206,11 +194,21 @@ public class UserServiceImpl implements UserService {
     public Long deleteByUsernames(java.util.List<String> usernames) {
         return userDao.deleteByUsernames(usernames);
     }
-    
+
     @Override
     public void setTopicsAuthor(List<? extends IAuthored> iAuthoreds) {
         List<String> authorIds = CollectionUtil.toList(iAuthoreds, IAuthored::getAuthorId);
         List<User> topicAuthors = this.getUsersByUserIds(authorIds);
         CollectionUtil.setModelByList(iAuthoreds, topicAuthors, IAuthored::getAuthorId, IAuthored::setAuthor, User::getUserId);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#getUserPageList
+     * @see com.mycompany.biz.service.UserService#getUserPageList
+     */
+    @Override
+    public PageList<User> getUserPageList(User user, int pageSize, int pageNum) {
+        return userDao.getUserPageList(user, pageSize, pageNum);
     }
 }

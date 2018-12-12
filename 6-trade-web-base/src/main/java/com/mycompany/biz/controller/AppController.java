@@ -12,7 +12,7 @@ import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.SimpleResponse;
-import org.stategen.framework.lite.enums.VisitType;
+import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.util.StringUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
 
@@ -57,7 +57,7 @@ public class AppController {
             return null;
         }
 
-        List<Long> visitsIds = this.menuService.getMenusByUserId(user.getUserId(), VisitType.MENU);
+        List<Long> visitsIds = this.menuService.getMenusByUserId(user.getUserId(), MenuType.MENU);
         user.setVisitsIds(visitsIds);
         return user;
     }

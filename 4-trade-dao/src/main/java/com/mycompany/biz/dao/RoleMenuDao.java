@@ -27,8 +27,8 @@ public interface RoleMenuDao {
     <pre>
     &#64;ApiParam() Long id,
     &#64;ApiParam() String roleId,
-    &#64;ApiParam() Long menuId,
-    &#64;ApiParam(hidden = true) RoleMenu roleMenu,
+    &#64;ApiParam() Long menuId
+    ,&#64;ApiParam(hidden = true) RoleMenu roleMenu
     
     </pre>
 	 * 
@@ -38,7 +38,7 @@ public interface RoleMenuDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("id") Long id,
+    &#64;ApiParam("id") Long id
     
     </pre>
 	 * 
@@ -50,8 +50,8 @@ public interface RoleMenuDao {
     <pre>
     &#64;ApiParam() String roleId,
     &#64;ApiParam() Long menuId,
-    &#64;ApiParam() Long id,
-    &#64;ApiParam(hidden = true) RoleMenu roleMenu,
+    &#64;ApiParam() Long id
+    ,&#64;ApiParam(hidden = true) RoleMenu roleMenu
     
     </pre>
 	 * 
@@ -61,7 +61,7 @@ public interface RoleMenuDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("id") Long id,
+    &#64;ApiParam("id") Long id
     
     </pre>
 	 * 
@@ -71,44 +71,47 @@ public interface RoleMenuDao {
 	
 	/**
     <pre>
+    &#64;ApiParam() Long id,
     &#64;ApiParam()&#64;RequestParam(required =false,name="ids") ArrayList&lt;Long&gt; ids,
+    &#64;ApiParam() String roleId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="roleIds") ArrayList&lt;String&gt; roleIds,
+    &#64;ApiParam() Long menuId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="menuIds") ArrayList&lt;Long&gt; menuIds,
     &#64;ApiParam() Date createTimeMin,
     &#64;ApiParam() Date createTimeMax,
     &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax,
-    &#64;ApiParam(hidden = true) RoleMenu roleMenu,
-    &#64;ApiParam(hidden = true) Pagination pagination
+    &#64;ApiParam() Date updateTimeMax
+    ,&#64;ApiParam(hidden = true) RoleMenu roleMenu
+    ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.id, a.role_id, a.menu_id, a.create_time, a.update_time, a.delete_flag from role_menu a where a.delete_flag = 0 and a.id in ( ? ) and a.role_id in ( ? ) and a.menu_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
+	 * sql:select a.id, a.role_id, a.menu_id, a.create_time, a.update_time, a.delete_flag from role_menu a where a.delete_flag = 0 and a.id=? and a.id in ( ? ) and a.role_id=? and a.role_id in ( ? ) and a.menu_id=? and a.menu_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<RoleMenu> getRoleMenuPageListByDefaultQuery(RoleMenu roleMenu, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<RoleMenu> getRoleMenuPageList(RoleMenu roleMenu, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("id")&#64;RequestParam(required =false,name="ids") ArrayList&lt;Long&gt; ids,
+    &#64;ApiParam("id")&#64;RequestParam(required =false,name="ids") ArrayList&lt;Long&gt; ids
     
     </pre>
 	 * 
-	 * sql:select a.id, a.role_id, a.menu_id, a.create_time, a.update_time, a.delete_flag from role_menu a where a.delete_flag = 0 and a.id in ( ? )
+	 * sql:select a.id, a.role_id, a.menu_id, a.create_time, a.update_time, a.delete_flag from role_menu a where a.delete_flag = 0 and 1=0 and a.id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<RoleMenu> getRoleMenusByIds(java.util.List<Long> ids) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("id")&#64;RequestParam(required =false,name="ids") ArrayList&lt;Long&gt; ids,
+    &#64;ApiParam("id")&#64;RequestParam(required =false,name="ids") ArrayList&lt;Long&gt; ids
     
     </pre>
 	 * 
-	 * sql:UPDATE role_menu SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and id in ( ? )
+	 * sql:UPDATE role_menu SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and id in ( ? )
 	 */
 	public java.util.List<Long> deleteByIds(java.util.List<Long> ids) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("menuId")&#64;RequestParam(required =false,name="menuIds") ArrayList&lt;Long&gt; menuIds,
+    &#64;ApiParam("menuId")&#64;RequestParam(required =false,name="menuIds") ArrayList&lt;Long&gt; menuIds
     
     </pre>
 	 * 

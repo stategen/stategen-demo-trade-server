@@ -61,16 +61,6 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.UserRoleDao#getUserRolePageListByDefaultQuery
-     * @see com.mycompany.biz.service.UserRoleService#getUserRolePageListByDefaultQuery
-     */
-    @Override
-    public PageList<UserRole> getUserRolePageListByDefaultQuery(UserRole userRole, int pageSize, int pageNum) {
-        return userRoleDao.getUserRolePageListByDefaultQuery(userRole, pageSize, pageNum);
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.UserRoleDao#getUserRolesByIds
      * @see com.mycompany.biz.service.UserRoleService#getUserRolesByIds
      */
@@ -120,5 +110,15 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public List<Long> deleteByIds(java.util.List<Long> ids) {
         return userRoleDao.deleteByIds(ids);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserRoleDao#getUserRolePageList
+     * @see com.mycompany.biz.service.UserRoleService#getUserRolePageList
+     */
+    @Override
+    public PageList<UserRole> getUserRolePageList(UserRole userRole, int pageSize, int pageNum) {
+        return userRoleDao.getUserRolePageList(userRole, pageSize, pageNum);
     }
 }

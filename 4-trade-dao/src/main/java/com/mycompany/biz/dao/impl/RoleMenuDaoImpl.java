@@ -76,16 +76,16 @@ public class RoleMenuDaoImpl extends SqlMapClientDaoSupport implements RoleMenuD
 
     /**
 	 * 
-	 * sql:select a.id, a.role_id, a.menu_id, a.create_time, a.update_time, a.delete_flag from role_menu a where a.delete_flag = 0 and a.id in ( ? ) and a.role_id in ( ? ) and a.menu_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
+	 * sql:select a.id, a.role_id, a.menu_id, a.create_time, a.update_time, a.delete_flag from role_menu a where a.delete_flag = 0 and a.id=? and a.id in ( ? ) and a.role_id=? and a.role_id in ( ? ) and a.menu_id=? and a.menu_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
-    public PageList<RoleMenu> getRoleMenuPageListByDefaultQuery(RoleMenu roleMenu, int pageSize, int pageNum) throws DataAccessException {
-        return (PageList<RoleMenu>) PageQueryUtils.pageQuery(getSqlMapClientTemplate(), "getRoleMenuPageListByDefaultQuery.RoleMenu.trade", roleMenu, pageNum, pageSize);
+    public PageList<RoleMenu> getRoleMenuPageList(RoleMenu roleMenu, int pageSize, int pageNum) throws DataAccessException {
+        return (PageList<RoleMenu>) PageQueryUtils.pageQuery(getSqlMapClientTemplate(), "getRoleMenuPageList.RoleMenu.trade", roleMenu, pageNum, pageSize);
     }
 
     /**
 	 * 
-	 * sql:select a.id, a.role_id, a.menu_id, a.create_time, a.update_time, a.delete_flag from role_menu a where a.delete_flag = 0 and a.id in ( ? )
+	 * sql:select a.id, a.role_id, a.menu_id, a.create_time, a.update_time, a.delete_flag from role_menu a where a.delete_flag = 0 and 1=0 and a.id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
     public List<RoleMenu> getRoleMenusByIds(java.util.List<Long> ids) throws DataAccessException {
@@ -96,7 +96,7 @@ public class RoleMenuDaoImpl extends SqlMapClientDaoSupport implements RoleMenuD
 
     /**
 	 * 
-	 * sql:UPDATE role_menu SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and id in ( ? )
+	 * sql:UPDATE role_menu SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and id in ( ? )
 	 */
     public java.util.List<Long> deleteByIds(java.util.List<Long> ids) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);

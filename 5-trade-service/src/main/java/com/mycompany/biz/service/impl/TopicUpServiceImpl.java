@@ -73,16 +73,6 @@ public class TopicUpServiceImpl implements TopicUpService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpPageListByDefaultQuery
-     * @see com.mycompany.biz.service.TopicUpService#getTopicUpPageListByDefaultQuery
-     */
-    @Override
-    public PageList<TopicUp> getTopicUpPageListByDefaultQuery(TopicUp topicUp, int pageSize, int pageNum) {
-        return topicUpDao.getTopicUpPageListByDefaultQuery(topicUp, pageSize, pageNum);
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpsByUpIds
      * @see com.mycompany.biz.service.TopicUpService#getTopicUpsByUpIds
      */
@@ -142,5 +132,15 @@ public class TopicUpServiceImpl implements TopicUpService {
     @Override
     public List<TopicUp> getTopicUpByObjectIdAndAuthorId(String objectId, String authorId) {
         return topicUpDao.getTopicUpByObjectIdAndAuthorId(objectId, authorId);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpPageList
+     * @see com.mycompany.biz.service.TopicUpService#getTopicUpPageList
+     */
+    @Override
+    public PageList<TopicUp> getTopicUpPageList(TopicUp topicUp, int pageSize, int pageNum) {
+        return topicUpDao.getTopicUpPageList(topicUp, pageSize, pageNum);
     }
 }

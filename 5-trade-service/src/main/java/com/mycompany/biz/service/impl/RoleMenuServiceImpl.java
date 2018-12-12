@@ -61,16 +61,6 @@ public class RoleMenuServiceImpl implements RoleMenuService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.RoleMenuDao#getRoleMenuPageListByDefaultQuery
-     * @see com.mycompany.biz.service.RoleMenuService#getRoleMenuPageListByDefaultQuery
-     */
-    @Override
-    public PageList<RoleMenu> getRoleMenuPageListByDefaultQuery(RoleMenu roleMenu, int pageSize, int pageNum) {
-        return roleMenuDao.getRoleMenuPageListByDefaultQuery(roleMenu, pageSize, pageNum);
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.RoleMenuDao#getRoleMenusByIds
      * @see com.mycompany.biz.service.RoleMenuService#getRoleMenusByIds
      */
@@ -130,5 +120,15 @@ public class RoleMenuServiceImpl implements RoleMenuService {
     @Override
     public Long delete(Long id) {
         return roleMenuDao.delete(id);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.RoleMenuDao#getRoleMenuPageList
+     * @see com.mycompany.biz.service.RoleMenuService#getRoleMenuPageList
+     */
+    @Override
+    public PageList<RoleMenu> getRoleMenuPageList(RoleMenu roleMenu, int pageSize, int pageNum) {
+        return roleMenuDao.getRoleMenuPageList(roleMenu, pageSize, pageNum);
     }
 }

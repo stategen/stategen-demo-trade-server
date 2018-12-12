@@ -5,7 +5,6 @@
 package com.mycompany.biz.service;
 
 import java.util.List;
-
 import org.stategen.framework.lite.PageList;
 
 import com.mycompany.biz.domain.IAuthored;
@@ -62,12 +61,6 @@ public interface UserService extends UserServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.UserDao#getUserPageListByDefaultQuery
-     */
-    public PageList<User> getUserPageListByDefaultQuery(User user, int pageSize, int pageNum);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.UserDao#getUsersByUserIds
      */
     public List<User> getUsersByUserIds(java.util.List<String> userIds);
@@ -121,4 +114,10 @@ public interface UserService extends UserServiceFacade {
     public Long deleteByUsernames(java.util.List<String> usernames);
 
     void setTopicsAuthor(List<? extends IAuthored> iAuthoreds);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#getUserPageList
+     */
+    public PageList<User> getUserPageList(User user, int pageSize, int pageNum);
 }

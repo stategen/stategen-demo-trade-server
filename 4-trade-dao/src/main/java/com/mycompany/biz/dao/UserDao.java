@@ -28,15 +28,15 @@ public interface UserDao {
     &#64;ApiParam() String userId,
     &#64;ApiParam() String username,
     &#64;ApiParam() String password,
-    &#64;ApiParam() RoleType roleType,
+    &#64;ApiParam() String roleType,
     &#64;ApiParam() String name,
     &#64;ApiParam() String nickName,
     &#64;ApiParam() Integer age,
     &#64;ApiParam() String address,
     &#64;ApiParam() Boolean isMale,
     &#64;ApiParam() String avatarUrl,
-    &#64;ApiParam() String email,
-    &#64;ApiParam(hidden = true) User user,
+    &#64;ApiParam() String email
+    ,&#64;ApiParam(hidden = true) User user
     
     </pre>
 	 * 
@@ -46,7 +46,7 @@ public interface UserDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("用户ID") String userId,
+    &#64;ApiParam("用户ID") String userId
     
     </pre>
 	 * 
@@ -56,7 +56,7 @@ public interface UserDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("用户名") String username,
+    &#64;ApiParam("用户名") String username
     
     </pre>
 	 * 
@@ -66,7 +66,7 @@ public interface UserDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("邮箱") String email,
+    &#64;ApiParam("邮箱") String email
     
     </pre>
 	 * 
@@ -78,7 +78,7 @@ public interface UserDao {
     <pre>
     &#64;ApiParam() String username,
     &#64;ApiParam() String password,
-    &#64;ApiParam() RoleType roleType,
+    &#64;ApiParam() String roleType,
     &#64;ApiParam() String name,
     &#64;ApiParam() String nickName,
     &#64;ApiParam() Integer age,
@@ -86,8 +86,8 @@ public interface UserDao {
     &#64;ApiParam() Boolean isMale,
     &#64;ApiParam() String avatarUrl,
     &#64;ApiParam() String email,
-    &#64;ApiParam() String userId,
-    &#64;ApiParam(hidden = true) User user,
+    &#64;ApiParam() String userId
+    ,&#64;ApiParam(hidden = true) User user
     
     </pre>
 	 * 
@@ -97,7 +97,7 @@ public interface UserDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("用户ID") String userId,
+    &#64;ApiParam("用户ID") String userId
     
     </pre>
 	 * 
@@ -107,7 +107,7 @@ public interface UserDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("用户名") String username,
+    &#64;ApiParam("用户名") String username
     
     </pre>
 	 * 
@@ -117,7 +117,7 @@ public interface UserDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("邮箱") String email,
+    &#64;ApiParam("邮箱") String email
     
     </pre>
 	 * 
@@ -133,8 +133,8 @@ public interface UserDao {
     &#64;ApiParam() String usernameLike,
     &#64;ApiParam() String password,
     &#64;ApiParam() String passwordLike,
-    &#64;ApiParam() RoleType roleType,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="roleTypes") ArrayList&lt;RoleType&gt; roleTypes,
+    &#64;ApiParam() String roleType,
+    &#64;ApiParam()&#64;RequestParam(required =false,name="roleTypes") ArrayList&lt;String&gt; roleTypes,
     &#64;ApiParam() String name,
     &#64;ApiParam() String nameLike,
     &#64;ApiParam() String nickName,
@@ -148,48 +148,48 @@ public interface UserDao {
     &#64;ApiParam() Date createTimeMin,
     &#64;ApiParam() Date createTimeMax,
     &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax,
-    &#64;ApiParam(hidden = true) User user,
-    &#64;ApiParam(hidden = true) Pagination pagination
+    &#64;ApiParam() Date updateTimeMax
+    ,&#64;ApiParam(hidden = true) User user
+    ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id=? and a.user_id in ( ? ) and a.username=? and a.username like CONCAT('%',?,'%') and a.password=? and a.password like CONCAT('%',?,'%') and a.role_type=? and a.role_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.nickName=? and a.nickName like CONCAT('%',?,'%') and a.age >=? and a.age <? and a.address=? and a.address like CONCAT('%',?,'%') and a.email=? and a.email like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id=? and a.user_id in ( ? ) and a.username=? and a.username like CONCAT('%',?,'%') and a.password=? and a.password like CONCAT('%',?,'%') and a.role_type=? and a.role_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.nickName=? and a.nickName like CONCAT('%',?,'%') and a.age >=? and a.age <? and a.address=? and a.address like CONCAT('%',?,'%') and a.email=? and a.email like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<User> getUserPageListByDefaultQuery(User user, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<User> getUserPageList(User user, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("用户ID")&#64;RequestParam(required =false,name="userIds") ArrayList&lt;String&gt; userIds,
+    &#64;ApiParam("用户ID")&#64;RequestParam(required =false,name="userIds") ArrayList&lt;String&gt; userIds
     
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.user_id in ( ? )
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.user_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<User> getUsersByUserIds(java.util.List<String> userIds) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("用户名")&#64;RequestParam(required =false,name="usernames") ArrayList&lt;String&gt; usernames,
+    &#64;ApiParam("用户名")&#64;RequestParam(required =false,name="usernames") ArrayList&lt;String&gt; usernames
     
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.username in ( ? )
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.username in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<User> getUsersByUsernames(java.util.List<String> usernames) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("邮箱")&#64;RequestParam(required =false,name="emails") ArrayList&lt;String&gt; emails,
+    &#64;ApiParam("邮箱")&#64;RequestParam(required =false,name="emails") ArrayList&lt;String&gt; emails
     
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.email in ( ? )
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.email in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<User> getUsersByEmails(java.util.List<String> emails) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("用户ID")&#64;RequestParam(required =false,name="userIds") ArrayList&lt;String&gt; userIds,
+    &#64;ApiParam("用户ID")&#64;RequestParam(required =false,name="userIds") ArrayList&lt;String&gt; userIds
     
     </pre>
 	 * 
@@ -199,7 +199,7 @@ public interface UserDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("用户名")&#64;RequestParam(required =false,name="usernames") ArrayList&lt;String&gt; usernames,
+    &#64;ApiParam("用户名")&#64;RequestParam(required =false,name="usernames") ArrayList&lt;String&gt; usernames
     
     </pre>
 	 * 
@@ -209,7 +209,7 @@ public interface UserDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("邮箱")&#64;RequestParam(required =false,name="emails") ArrayList&lt;String&gt; emails,
+    &#64;ApiParam("邮箱")&#64;RequestParam(required =false,name="emails") ArrayList&lt;String&gt; emails
     
     </pre>
 	 * 

@@ -2,6 +2,7 @@ package com.mycompany.biz.checker;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -23,6 +24,7 @@ import com.mycompany.biz.utils.SysConsts;
 @Documented
 @Check
 @CookieCheck(cookieTypeClz =CookieType.BASE.class,responseStatusClzOfCheckFail = ResponseStatus.NOT_LOGIN.class , cookieName =SysConsts.USER_ID)
+@Inherited
 public @interface LoginCheck {
     
 }

@@ -20,8 +20,8 @@ import org.stategen.framework.lite.enums.EditorType;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.RoleType;
-
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -60,13 +60,14 @@ public class User implements java.io.Serializable {
     /***密码，测试，明文   db_column: password VARCHAR */
     @ApiModelProperty("密码，测试，明文")
     @Max(64)
-    @JSONField(serialize=false)
+    @JSONField(serialize = false)
     @Editor(EditorType.password)
     private String password;
 
     /***用户角色 ADMIN,DEFAULT,DEVELOPER   db_column: role_type VARCHAR */
     @ApiModelProperty("用户角色 ADMIN,DEFAULT,DEVELOPER")
-    private RoleType roleType;
+    @Max(32)
+    private String roleType;
 
     /***name   db_column: name VARCHAR */
     @ApiModelProperty("name")
@@ -154,62 +155,62 @@ public class User implements java.io.Serializable {
         return sb.toString();
     }
 
-    /*** 用户IDs in getUserPageListByDefaultQuery */
+    /*** 用户IDs in getUserPageList */
     @ApiModelProperty("用户IDs")
     private transient java.util.List<String> userIds;
 
-    /*** 用户名Like in getUserPageListByDefaultQuery */
+    /*** 用户名Like in getUserPageList */
     @ApiModelProperty("用户名Like")
     private transient String usernameLike;
 
-    /*** 密码，测试，明文Like in getUserPageListByDefaultQuery */
+    /*** 密码，测试，明文Like in getUserPageList */
     @ApiModelProperty("密码Like")
     private transient String passwordLike;
 
-    /*** 用户角色 ADMIN,DEFAULT,DEVELOPERs in getUserPageListByDefaultQuery */
+    /*** 用户角色 ADMIN,DEFAULT,DEVELOPERs in getUserPageList */
     @ApiModelProperty("用户角色s")
-    private transient java.util.List<com.mycompany.biz.enums.RoleType> roleTypes;
+    private transient java.util.List<String> roleTypes;
 
-    /*** 用户名nameLike in getUserPageListByDefaultQuery */
+    /*** 用户名nameLike in getUserPageList */
     @ApiModelProperty("用户名nameLike")
     private transient String nameLike;
 
-    /*** nickNameLike in getUserPageListByDefaultQuery */
+    /*** nickNameLike in getUserPageList */
     @ApiModelProperty("nickNameLike")
     private transient String nickNameLike;
 
-    /*** ageMin in getUserPageListByDefaultQuery */
+    /*** ageMin in getUserPageList */
     @ApiModelProperty("ageMin")
     private transient Integer ageMin;
 
-    /*** ageMax in getUserPageListByDefaultQuery */
+    /*** ageMax in getUserPageList */
     @ApiModelProperty("ageMax")
     private transient Integer ageMax;
 
-    /*** addressLike in getUserPageListByDefaultQuery */
+    /*** addressLike in getUserPageList */
     @ApiModelProperty("addressLike")
     private transient String addressLike;
 
-    /*** 邮箱Like in getUserPageListByDefaultQuery */
+    /*** 邮箱Like in getUserPageList */
     @ApiModelProperty("邮箱Like")
     private transient String emailLike;
 
-    /*** 创建时间Min in getUserPageListByDefaultQuery */
+    /*** 创建时间Min in getUserPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getUserPageListByDefaultQuery */
+    /*** 创建时间Max in getUserPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getUserPageListByDefaultQuery */
+    /*** 更新时间Min in getUserPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getUserPageListByDefaultQuery */
+    /*** 更新时间Max in getUserPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMax;

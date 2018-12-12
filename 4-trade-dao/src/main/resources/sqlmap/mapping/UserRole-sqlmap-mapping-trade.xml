@@ -15,6 +15,14 @@
         <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
     </resultMap>
     
+	<sql id="getUserRolePageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getUserRolesByIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
 
 	
 	
@@ -54,13 +62,13 @@
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="userId">
-                    user_id =  #userId#
+                    user_id =  #userId# 
                 </isNotNull>
                 <isNotNull prepend="," property="roleId">
-                    role_id =  #roleId#
+                    role_id =  #roleId# 
                 </isNotNull>
                 <isNotNull prepend="," property="roleType">
-                    role_type =  #roleType#
+                    role_type =  #roleType# 
                 </isNotNull>
             </dynamic>
             where
@@ -90,9 +98,9 @@
 	
     
 	
-	<select id="getUserRolePageListByDefaultQuery.UserRole.trade" resultMap="UserRole.trade.RM" >
+	<select id="getUserRolePageList.UserRole.trade" resultMap="UserRole.trade.RM" >
     	select
- /* getUserRolePageListByDefaultQuery.UserRole.trade */             a.id,
+ /* getUserRolePageList.UserRole.trade */             a.id,
             a.user_id,
             a.role_id,
             a.role_type,
@@ -102,24 +110,36 @@
             from user_role a
             where
             a.delete_flag = 0
+            <isNotNull open="and" property="id">
+               a.id=#id#
+            </isNotNull>
             <isNotEmpty open="and" property="ids">
                 a.id in
                 <iterate close=")" conjunction="," open="(" property="ids">
                     #ids[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="userId">
+               a.user_id=#userId#
+            </isNotNull>
             <isNotEmpty open="and" property="userIds">
                 a.user_id in
                 <iterate close=")" conjunction="," open="(" property="userIds">
                     #userIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="roleId">
+               a.role_id=#roleId#
+            </isNotNull>
             <isNotEmpty open="and" property="roleIds">
                 a.role_id in
                 <iterate close=")" conjunction="," open="(" property="roleIds">
                     #roleIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="roleType">
+               a.role_type=#roleType#
+            </isNotNull>
             <isNotEmpty open="and" property="roleTypes">
                 a.role_type in
                 <iterate close=")" conjunction="," open="(" property="roleTypes">
@@ -138,9 +158,13 @@
             <isNotNull open="and" property="updateTimeMax">
                 a.update_time &lt;#updateTimeMax#
             </isNotNull>
+            <isNull property="id">
             <isEmpty property="ids">
+            <isNull property="userId">
             <isEmpty property="userIds">
+            <isNull property="roleId">
             <isEmpty property="roleIds">
+            <isNull property="roleType">
             <isEmpty property="roleTypes">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
@@ -152,34 +176,52 @@
             </isNull>
             </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
+            order by
+            <include refid="getUserRolePageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getUserRolePageListByDefaultQuery.UserRole.trade.count" resultClass="long" >
-    	select  /* getUserRolePageListByDefaultQuery.UserRole.trade.count */ count(*)  from user_role a
+	<select id="getUserRolePageList.UserRole.trade.count" resultClass="long" >
+    	select  /* getUserRolePageList.UserRole.trade.count */ count(*)  from user_role a
             where
             a.delete_flag = 0
+            <isNotNull open="and" property="id">
+               a.id=#id#
+            </isNotNull>
             <isNotEmpty open="and" property="ids">
                 a.id in
                 <iterate close=")" conjunction="," open="(" property="ids">
                     #ids[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="userId">
+               a.user_id=#userId#
+            </isNotNull>
             <isNotEmpty open="and" property="userIds">
                 a.user_id in
                 <iterate close=")" conjunction="," open="(" property="userIds">
                     #userIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="roleId">
+               a.role_id=#roleId#
+            </isNotNull>
             <isNotEmpty open="and" property="roleIds">
                 a.role_id in
                 <iterate close=")" conjunction="," open="(" property="roleIds">
                     #roleIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="roleType">
+               a.role_type=#roleType#
+            </isNotNull>
             <isNotEmpty open="and" property="roleTypes">
                 a.role_type in
                 <iterate close=")" conjunction="," open="(" property="roleTypes">
@@ -198,9 +240,13 @@
             <isNotNull open="and" property="updateTimeMax">
                 a.update_time &lt;#updateTimeMax#
             </isNotNull>
+            <isNull property="id">
             <isEmpty property="ids">
+            <isNull property="userId">
             <isEmpty property="userIds">
+            <isNull property="roleId">
             <isEmpty property="roleIds">
+            <isNull property="roleType">
             <isEmpty property="roleTypes">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
@@ -212,9 +258,13 @@
             </isNull>
             </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
             </isEmpty>
+            </isNull>
 	</select>
 	    
 	
@@ -233,10 +283,17 @@
             from user_role a
             where
             a.delete_flag = 0
-            and a.id in
-            <iterate close=")" conjunction="," open="(" property="ids">
-                #ids[]#
-            </iterate>
+            <isEmpty open="and" property="ids">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="ids">
+                a.id in
+                <iterate close=")" conjunction="," open="(" property="ids">
+                    #ids[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getUserRolesByIdsOrderBy"/>
 	</select>	
 
 	    
@@ -250,10 +307,15 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            and id in
-            <iterate close=")" conjunction="," open="(" property="ids">
-                #ids[]#
-            </iterate>
+            <isEmpty open="and" property="ids">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="ids">
+                id in
+                <iterate close=")" conjunction="," open="(" property="ids">
+                    #ids[]#
+                </iterate>
+            </isNotEmpty>
 	</update>
 	
     

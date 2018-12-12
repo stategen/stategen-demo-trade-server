@@ -52,11 +52,11 @@ public class Topic_detail_$topicIdController extends TopicControllerBase {
     @ApiRequestMappingAutoWithMethodName
     @RequestMapping("/{topicId}/getReplies")
     @State(init = true, dataOpt = DataOpt.APPEND_OR_UPDATE,genRefresh=true)
-    public PageList<TopicReply> getTopicReplies(@PathVariable("topicId") String topicId, @ApiParam(hidden = true) TopicReply topicReply,
+    public PageList<TopicReply> getTopicReplyPageList(@PathVariable("topicId") String topicId, @ApiParam(hidden = true) TopicReply topicReply,
                                                 Pagination pagination) {
 
         String userId = loginCookieGroup.getCookieValue(SysConsts.USER_ID);
-        PageList<TopicReply> topicReplyPageList = topicReplyService.getTopicReplyPageListByDefaultQuery(topicReply, userId, pagination.getPageSize(),
+        PageList<TopicReply> topicReplyPageList = topicReplyService.getTopicReplyPageList(topicReply, userId, pagination.getPageSize(),
             pagination.getPage());
         return topicReplyPageList;
     }

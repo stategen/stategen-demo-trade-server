@@ -14,8 +14,8 @@ import javax.validation.constraints.Max;
 
 import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.lite.enums.EditorType;
-
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,10 +37,6 @@ public class Topic implements java.io.Serializable, IAuthored {
     private User author;
 
     private Long replyCount;
-
-    /*** tabLike in getTopicPageListByDefaultQuery */
-    @ApiModelProperty("tabLike")
-    private transient String tabLike;
 
     private static final long serialVersionUID = -5216457518046898601L;
 
@@ -72,29 +68,22 @@ public class Topic implements java.io.Serializable, IAuthored {
     @Max(64)
     private String title;
 
-    /***lastReplyAt   db_column: last_reply_at VARCHAR */
+    /***lastReplyAt   db_column: last_reply_at TIMESTAMP */
     @ApiModelProperty("lastReplyAt")
-    @Max(64)
-    private String lastReplyAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date lastReplyAt;
 
-    /***good   db_column: good VARCHAR */
+    /***good   db_column: good BIGINT */
     @ApiModelProperty("good")
-    @Max(255)
-    private String good;
+    private Long good;
 
-    /***top   db_column: top VARCHAR */
+    /***top   db_column: top BIGINT */
     @ApiModelProperty("top")
-    @Max(255)
-    private String top;
+    private Long top;
 
     /***visitCount   db_column: visit_count BIGINT */
     @ApiModelProperty("visitCount")
     private Long visitCount;
-
-    /***createAt   db_column: create_at VARCHAR */
-    @ApiModelProperty("createAt")
-    @Max(255)
-    private String createAt;
 
     /***testTimestamp   db_column: test_timestamp TIMESTAMP */
     @ApiModelProperty("testTimestamp")
@@ -140,12 +129,14 @@ public class Topic implements java.io.Serializable, IAuthored {
         sb.append("topicTypes=").append(topicTypes).append('\n');
         sb.append("contentLike=").append(contentLike).append('\n');
         sb.append("titleLike=").append(titleLike).append('\n');
-        sb.append("lastReplyAtLike=").append(lastReplyAtLike).append('\n');
-        sb.append("goodLike=").append(goodLike).append('\n');
-        sb.append("topLike=").append(topLike).append('\n');
+        sb.append("lastReplyAtMin=").append(lastReplyAtMin != null ? df.format(lastReplyAtMin) : null).append('\n');
+        sb.append("lastReplyAtMax=").append(lastReplyAtMax != null ? df.format(lastReplyAtMax) : null).append('\n');
+        sb.append("goodMin=").append(goodMin).append('\n');
+        sb.append("goodMax=").append(goodMax).append('\n');
+        sb.append("topMin=").append(topMin).append('\n');
+        sb.append("topMax=").append(topMax).append('\n');
         sb.append("visitCountMin=").append(visitCountMin).append('\n');
         sb.append("visitCountMax=").append(visitCountMax).append('\n');
-        sb.append("createAtLike=").append(createAtLike).append('\n');
         sb.append("testTimestampMin=").append(testTimestampMin != null ? df.format(testTimestampMin) : null).append('\n');
         sb.append("testTimestampMax=").append(testTimestampMax != null ? df.format(testTimestampMax) : null).append('\n');
         sb.append("testDatetimeMin=").append(testDatetimeMin != null ? df.format(testDatetimeMin) : null).append('\n');
@@ -163,11 +154,10 @@ public class Topic implements java.io.Serializable, IAuthored {
         sb.append("topicType=").append(topicType).append('\n');
         sb.append("content=").append(content).append('\n');
         sb.append("title=").append(title).append('\n');
-        sb.append("lastReplyAt=").append(lastReplyAt).append('\n');
+        sb.append("lastReplyAt=").append(lastReplyAt != null ? df.format(lastReplyAt) : null).append('\n');
         sb.append("good=").append(good).append('\n');
         sb.append("top=").append(top).append('\n');
         sb.append("visitCount=").append(visitCount).append('\n');
-        sb.append("createAt=").append(createAt).append('\n');
         sb.append("testTimestamp=").append(testTimestamp != null ? df.format(testTimestamp) : null).append('\n');
         sb.append("testDatetime=").append(testDatetime != null ? df.format(testDatetime) : null).append('\n');
         sb.append("testDate=").append(testDate != null ? df.format(testDate) : null).append('\n');
@@ -179,123 +169,117 @@ public class Topic implements java.io.Serializable, IAuthored {
         return sb.toString();
     }
 
-    /*** topicIds in getTopicPageListByDefaultQuery */
+    /*** topicIds in getTopicPageList */
     @ApiModelProperty("topicIds")
     private transient java.util.List<String> topicIds;
 
-    /*** authorIds in getTopicPageListByDefaultQuery */
+    /*** authorIds in getTopicPageList */
     @ApiModelProperty("authorIds")
     private transient java.util.List<String> authorIds;
 
-    /*** topicTypes in getTopicPageListByDefaultQuery */
+    /*** topicTypes in getTopicPageList */
     @ApiModelProperty("topicTypes")
     private transient java.util.List<String> topicTypes;
 
-    /*** contentLike in getTopicPageListByDefaultQuery */
+    /*** contentLike in getTopicPageList */
     @ApiModelProperty("contentLike")
     private transient String contentLike;
 
-    /*** titleLike in getTopicPageListByDefaultQuery */
+    /*** titleLike in getTopicPageList */
     @ApiModelProperty("titleLike")
     private transient String titleLike;
 
-    /*** lastReplyAtLike in getTopicPageListByDefaultQuery */
-    @ApiModelProperty("lastReplyAtLike")
-    private transient String lastReplyAtLike;
+    /*** lastReplyAtMin in getTopicPageList */
+    @ApiModelProperty("lastReplyAtMin")
+    @Temporal(TemporalType.TIMESTAMP)
+    private transient java.util.Date lastReplyAtMin;
 
-    /*** goodLike in getTopicPageListByDefaultQuery */
-    @ApiModelProperty("goodLike")
-    private transient String goodLike;
+    /*** lastReplyAtMax in getTopicPageList */
+    @ApiModelProperty("lastReplyAtMax")
+    @Temporal(TemporalType.TIMESTAMP)
+    private transient java.util.Date lastReplyAtMax;
 
-    /*** topLike in getTopicPageListByDefaultQuery */
-    @ApiModelProperty("topLike")
-    private transient String topLike;
+    /*** goodMin in getTopicPageList */
+    @ApiModelProperty("goodMin")
+    private transient Long goodMin;
 
-    /*** visitCountMin in getTopicPageListByDefaultQuery */
+    /*** goodMax in getTopicPageList */
+    @ApiModelProperty("goodMax")
+    private transient Long goodMax;
+
+    /*** topMin in getTopicPageList */
+    @ApiModelProperty("topMin")
+    private transient Long topMin;
+
+    /*** topMax in getTopicPageList */
+    @ApiModelProperty("topMax")
+    private transient Long topMax;
+
+    /*** visitCountMin in getTopicPageList */
     @ApiModelProperty("visitCountMin")
     private transient Long visitCountMin;
 
-    /*** visitCountMax in getTopicPageListByDefaultQuery */
+    /*** visitCountMax in getTopicPageList */
     @ApiModelProperty("visitCountMax")
     private transient Long visitCountMax;
 
-    /*** createAtLike in getTopicPageListByDefaultQuery */
-    @ApiModelProperty("createAtLike")
-    private transient String createAtLike;
-
-    /*** testTimestampMin in getTopicPageListByDefaultQuery */
+    /*** testTimestampMin in getTopicPageList */
     @ApiModelProperty("testTimestampMin")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date testTimestampMin;
 
-    /*** testTimestampMax in getTopicPageListByDefaultQuery */
+    /*** testTimestampMax in getTopicPageList */
     @ApiModelProperty("testTimestampMax")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date testTimestampMax;
 
-    /*** testDatetimeMin in getTopicPageListByDefaultQuery */
+    /*** testDatetimeMin in getTopicPageList */
     @ApiModelProperty("testDatetimeMin")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date testDatetimeMin;
 
-    /*** testDatetimeMax in getTopicPageListByDefaultQuery */
+    /*** testDatetimeMax in getTopicPageList */
     @ApiModelProperty("testDatetimeMax")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date testDatetimeMax;
 
-    /*** 测式日期Min in getTopicPageListByDefaultQuery */
+    /*** 测式日期Min in getTopicPageList */
     @ApiModelProperty("测式日期Min")
     @Temporal(TemporalType.DATE)
     private transient java.util.Date testDateMin;
 
-    /*** 测式日期Max in getTopicPageListByDefaultQuery */
+    /*** 测式日期Max in getTopicPageList */
     @ApiModelProperty("测式日期Max")
     @Temporal(TemporalType.DATE)
     private transient java.util.Date testDateMax;
 
-    /*** 测试时间Min in getTopicPageListByDefaultQuery */
+    /*** 测试时间Min in getTopicPageList */
     @ApiModelProperty("测试时间Min")
     @Temporal(TemporalType.TIME)
     private transient java.util.Date testTimeMin;
 
-    /*** 测试时间Max in getTopicPageListByDefaultQuery */
+    /*** 测试时间Max in getTopicPageList */
     @ApiModelProperty("测试时间Max")
     @Temporal(TemporalType.TIME)
     private transient java.util.Date testTimeMax;
 
-    /*** 创建时间Min in getTopicPageListByDefaultQuery */
+    /*** 创建时间Min in getTopicPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getTopicPageListByDefaultQuery */
+    /*** 创建时间Max in getTopicPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getTopicPageListByDefaultQuery */
+    /*** 更新时间Min in getTopicPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getTopicPageListByDefaultQuery */
+    /*** 更新时间Max in getTopicPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMax;
-
-    public String getLast_reply_at() {
-        return lastReplyAt;
-    }
-
-    public void setLast_reply_at(String id) {
-        this.lastReplyAt = id;
-    }
-
-    public String getCreate_at() {
-        return createAt;
-    }
-
-    public void setCreate_at(String id) {
-        this.createAt = id;
-    }
 }

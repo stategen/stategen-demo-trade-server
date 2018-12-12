@@ -30,7 +30,7 @@ import com.mycompany.biz.enums.RoleType;
 
 import io.swagger.annotations.ApiParam;
 
-@ApiConfig(name = "用户", breadParent = HomeController.class)
+@ApiConfig(name = "用户")
 @VisitCheck
 public class UserController extends UserControllerBase {
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
@@ -42,7 +42,7 @@ public class UserController extends UserControllerBase {
     @VisitCheck
     @State(init = true)
     @GenForm
-    public AntdPageList<User> getUserPageListByDefaultQuery(@ApiParam() @RequestParam(required = false, name = "userIds") ArrayList<String> userIds,
+    public AntdPageList<User> getUserPageList(@ApiParam() @RequestParam(required = false, name = "userIds") ArrayList<String> userIds,
                                                             @ApiParam() String usernameLike, @ApiParam() String passwordLike,
                                                             @ApiParam() @RequestParam(required = false, name = "roleTypes") ArrayList<RoleType> roleTypes,
                                                             @ApiParam() String nameLike, @ApiParam() String nickNameLike, @ApiParam() Integer ageMin,
@@ -56,8 +56,8 @@ public class UserController extends UserControllerBase {
         if (createTimeMax == null) {
             user.setCreateTimeMax(DatetimeUtil.current());
         }
-        //技巧，api参数 .在dao中已自动化生成,从以下getUserPageListByDefaultQuery 帮助文件中 点开See also直接复制过来，
-        PageList<User> userList = this.userService.getUserPageListByDefaultQuery(user, pagination.getPageSize(), pagination.getPage());
+        //技巧，api参数 .在dao中已自动化生成,从以下getUserPageList 帮助文件中 点开See also直接复制过来，
+        PageList<User> userList = this.userService.getUserPageList(user, pagination.getPageSize(), pagination.getPage());
         return new AntdPageList<User>(userList);
     }
 

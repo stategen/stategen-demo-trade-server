@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
+
+import org.stategen.framework.annotation.Editor;
+import org.stategen.framework.lite.enums.EditorType;
 import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Getter;
@@ -61,6 +64,7 @@ public class TopicReply implements java.io.Serializable, IAuthored {
     /***content   db_column: content LONGVARCHAR */
     @ApiModelProperty("content")
     @Max(255)
+    @Editor(EditorType.textarea)
     private String content;
 
     /***createAt   db_column: create_at VARCHAR */
@@ -115,46 +119,46 @@ public class TopicReply implements java.io.Serializable, IAuthored {
         return sb.toString();
     }
 
-    /*** replyIds in getTopicReplyPageListByDefaultQuery */
+    /*** replyIds in getTopicReplyPageList */
     @ApiModelProperty("replyIds")
     private transient java.util.List<String> replyIds;
 
-    /*** topicIds in getTopicReplyPageListByDefaultQuery */
+    /*** topicIds in getTopicReplyPageList */
     @ApiModelProperty("topicIds")
     private transient java.util.List<String> topicIds;
 
-    /*** authorIds in getTopicReplyPageListByDefaultQuery */
+    /*** authorIds in getTopicReplyPageList */
     @ApiModelProperty("authorIds")
     private transient java.util.List<String> authorIds;
 
-    /*** contentLike in getTopicReplyPageListByDefaultQuery */
+    /*** contentLike in getTopicReplyPageList */
     @ApiModelProperty("contentLike")
     private transient String contentLike;
 
-    /*** createAtLike in getTopicReplyPageListByDefaultQuery */
+    /*** createAtLike in getTopicReplyPageList */
     @ApiModelProperty("createAtLike")
     private transient String createAtLike;
 
-    /*** parentReplyIds in getTopicReplyPageListByDefaultQuery */
+    /*** parentReplyIds in getTopicReplyPageList */
     @ApiModelProperty("parentReplyIds")
     private transient java.util.List<String> parentReplyIds;
 
-    /*** 创建时间Min in getTopicReplyPageListByDefaultQuery */
+    /*** 创建时间Min in getTopicReplyPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getTopicReplyPageListByDefaultQuery */
+    /*** 创建时间Max in getTopicReplyPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getTopicReplyPageListByDefaultQuery */
+    /*** 更新时间Min in getTopicReplyPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getTopicReplyPageListByDefaultQuery */
+    /*** 更新时间Max in getTopicReplyPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMax;

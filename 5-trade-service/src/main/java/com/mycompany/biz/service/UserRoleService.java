@@ -42,12 +42,6 @@ public interface UserRoleService extends UserRoleServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.UserRoleDao#getUserRolePageListByDefaultQuery
-     */
-    public PageList<UserRole> getUserRolePageListByDefaultQuery(UserRole userRole, int pageSize, int pageNum);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.UserRoleDao#getUserRolesByIds
      */
     public List<UserRole> getUserRolesByIds(java.util.List<Long> ids);
@@ -69,4 +63,10 @@ public interface UserRoleService extends UserRoleServiceFacade {
      * @see com.mycompany.biz.dao.UserRoleDao#delete
      */
     public Long delete(Long id);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserRoleDao#getUserRolePageList
+     */
+    public PageList<UserRole> getUserRolePageList(UserRole userRole, int pageSize, int pageNum);
 }

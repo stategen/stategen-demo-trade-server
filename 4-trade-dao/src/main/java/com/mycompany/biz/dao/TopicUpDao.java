@@ -27,8 +27,8 @@ public interface TopicUpDao {
     <pre>
     &#64;ApiParam() String upId,
     &#64;ApiParam() String objectId,
-    &#64;ApiParam() String authorId,
-    &#64;ApiParam(hidden = true) TopicUp topicUp,
+    &#64;ApiParam() String authorId
+    ,&#64;ApiParam(hidden = true) TopicUp topicUp
     
     </pre>
 	 * 
@@ -38,7 +38,7 @@ public interface TopicUpDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("upId") String upId,
+    &#64;ApiParam("upId") String upId
     
     </pre>
 	 * 
@@ -50,8 +50,8 @@ public interface TopicUpDao {
     <pre>
     &#64;ApiParam() String objectId,
     &#64;ApiParam() String authorId,
-    &#64;ApiParam() String upId,
-    &#64;ApiParam(hidden = true) TopicUp topicUp,
+    &#64;ApiParam() String upId
+    ,&#64;ApiParam(hidden = true) TopicUp topicUp
     
     </pre>
 	 * 
@@ -61,7 +61,7 @@ public interface TopicUpDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("upId") String upId,
+    &#64;ApiParam("upId") String upId
     
     </pre>
 	 * 
@@ -80,28 +80,28 @@ public interface TopicUpDao {
     &#64;ApiParam() Date createTimeMin,
     &#64;ApiParam() Date createTimeMax,
     &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax,
-    &#64;ApiParam(hidden = true) TopicUp topicUp,
-    Pagination pagination
+    &#64;ApiParam() Date updateTimeMax
+    ,&#64;ApiParam(hidden = true) TopicUp topicUp
+    ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.up_id, a.object_id, a.author_id, a.create_time, a.update_time, a.delete_flag from topic_up a where a.delete_flag = 0 and a.up_id=? and a.up_id in ( ? ) and a.object_id=? and a.object_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
+	 * sql:select a.up_id, a.object_id, a.author_id, a.create_time, a.update_time, a.delete_flag from topic_up a where a.delete_flag = 0 and a.up_id=? and a.up_id in ( ? ) and a.object_id=? and a.object_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<TopicUp> getTopicUpPageListByDefaultQuery(TopicUp topicUp, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<TopicUp> getTopicUpPageList(TopicUp topicUp, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("upId")&#64;RequestParam(required =false,name="upIds") ArrayList&lt;String&gt; upIds,
+    &#64;ApiParam("upId")&#64;RequestParam(required =false,name="upIds") ArrayList&lt;String&gt; upIds
     
     </pre>
 	 * 
-	 * sql:select a.up_id, a.object_id, a.author_id, a.create_time, a.update_time, a.delete_flag from topic_up a where a.delete_flag = 0 and 1=0 and a.up_id in ( ? )
+	 * sql:select a.up_id, a.object_id, a.author_id, a.create_time, a.update_time, a.delete_flag from topic_up a where a.delete_flag = 0 and 1=0 and a.up_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<TopicUp> getTopicUpsByUpIds(java.util.List<String> upIds) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("upId")&#64;RequestParam(required =false,name="upIds") ArrayList&lt;String&gt; upIds,
+    &#64;ApiParam("upId")&#64;RequestParam(required =false,name="upIds") ArrayList&lt;String&gt; upIds
     
     </pre>
 	 * 
@@ -112,7 +112,7 @@ public interface TopicUpDao {
 	/**
     <pre>
     &#64;ApiParam("objectId")&#64;RequestParam(required =false,name="objectIds") ArrayList&lt;String&gt; objectIds,
-    &#64;ApiParam("authorId") String authorId,
+    &#64;ApiParam("authorId") String authorId
     
     </pre>
 	 * 
@@ -123,7 +123,7 @@ public interface TopicUpDao {
 	/**
     <pre>
     &#64;ApiParam("objectId") String objectId,
-    &#64;ApiParam("authorId") String authorId,
+    &#64;ApiParam("authorId") String authorId
     
     </pre>
 	 * 

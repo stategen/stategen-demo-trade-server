@@ -42,12 +42,6 @@ public interface RoleMenuService extends RoleMenuServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.RoleMenuDao#getRoleMenuPageListByDefaultQuery
-     */
-    public PageList<RoleMenu> getRoleMenuPageListByDefaultQuery(RoleMenu roleMenu, int pageSize, int pageNum);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.RoleMenuDao#getRoleMenusByIds
      */
     public List<RoleMenu> getRoleMenusByIds(java.util.List<Long> ids);
@@ -75,4 +69,10 @@ public interface RoleMenuService extends RoleMenuServiceFacade {
      * @see com.mycompany.biz.dao.RoleMenuDao#delete
      */
     public Long delete(Long id);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.RoleMenuDao#getRoleMenuPageList
+     */
+    public PageList<RoleMenu> getRoleMenuPageList(RoleMenu roleMenu, int pageSize, int pageNum);
 }

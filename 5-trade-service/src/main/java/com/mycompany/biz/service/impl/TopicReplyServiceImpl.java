@@ -8,7 +8,6 @@ package com.mycompany.biz.service.impl;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -84,19 +83,6 @@ public class TopicReplyServiceImpl implements TopicReplyService {
         return topicReplyDao.getTopicReplyByReplyId(replyId);
     }
 
-    /**
-     * 
-     * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplyPageListByDefaultQuery
-     * @see com.mycompany.biz.service.TopicReplyService#getTopicReplyPageListByDefaultQuery
-     */
-    @Override
-    public PageList<TopicReply> getTopicReplyPageListByDefaultQuery(TopicReply topicReply, String authorId, int pageSize, int pageNum) {
-        PageList<TopicReply> topicReplyList = topicReplyDao.getTopicReplyPageListByDefaultQuery(topicReply, pageSize, pageNum);
-        List<TopicReply> replies = topicReplyList.getItems();
-        assignRepliesExtraProperties(authorId, replies);
-        return topicReplyList;
-    }
-
     @Override
     public void assignRepliesExtraProperties(String authorId, List<TopicReply> replies) {
         userService.setTopicsAuthor(replies);
@@ -112,21 +98,21 @@ public class TopicReplyServiceImpl implements TopicReplyService {
             }
         }
     }
-    
+
     @Override
-    public TopicReply replyUp(String replyId,String authorId){
+    public TopicReply replyUp(String replyId, String authorId) {
         List<TopicUp> topicUps = this.topicUpService.getTopicUpByObjectIdAndAuthorId(replyId, authorId);
-        if (CollectionUtil.isNotEmpty(topicUps)){
+        if (CollectionUtil.isNotEmpty(topicUps)) {
             topicUpService.deleteByUpIds(CollectionUtil.toList(topicUps, TopicUp::getUpId));
         } else {
-            TopicUp topicUp =new TopicUp();
+            TopicUp topicUp = new TopicUp();
             topicUp.setObjectId(replyId);
             topicUp.setAuthorId(authorId);
             this.topicUpService.insert(topicUp);
         }
         TopicReply topicReply = this.getTopicReplyByReplyId(replyId);
-        if (topicReply!=null){
-            this.assignRepliesExtraProperties(authorId,Arrays.asList(topicReply));
+        if (topicReply != null) {
+            this.assignRepliesExtraProperties(authorId, Arrays.asList(topicReply));
         }
         return topicReply;
     }
@@ -172,5 +158,18 @@ public class TopicReplyServiceImpl implements TopicReplyService {
             this.saveTopicReply(topicReply);
         }
         return topicReplys;
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplyPageList
+     * @see com.mycompany.biz.service.TopicReplyService#getTopicReplyPageList
+     */
+    @Override
+    public PageList<TopicReply> getTopicReplyPageList(TopicReply topicReply, String authorId, int pageSize, int pageNum) {
+        PageList<TopicReply> topicReplyList = topicReplyDao.getTopicReplyPageList(topicReply, pageSize, pageNum);
+        List<TopicReply> replies = topicReplyList.getItems();
+        assignRepliesExtraProperties(authorId, replies);
+        return topicReplyList;
     }
 }

@@ -91,38 +91,38 @@ public class UserRole implements java.io.Serializable {
         return sb.toString();
     }
 
-    /*** ids in getUserRolePageListByDefaultQuery */
+    /*** ids in getUserRolePageList */
     @ApiModelProperty("ids")
     private transient java.util.List<Long> ids;
 
-    /*** userIds in getUserRolePageListByDefaultQuery */
+    /*** userIds in getUserRolePageList */
     @ApiModelProperty("userIds")
     private transient java.util.List<String> userIds;
 
-    /*** roleIds in getUserRolePageListByDefaultQuery */
+    /*** roleIds in getUserRolePageList */
     @ApiModelProperty("roleIds")
     private transient java.util.List<String> roleIds;
 
-    /*** roleTypes in getUserRolePageListByDefaultQuery */
+    /*** roleTypes in getUserRolePageList */
     @ApiModelProperty("roleTypes")
     private transient java.util.List<String> roleTypes;
 
-    /*** 创建时间Min in getUserRolePageListByDefaultQuery */
+    /*** 创建时间Min in getUserRolePageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getUserRolePageListByDefaultQuery */
+    /*** 创建时间Max in getUserRolePageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getUserRolePageListByDefaultQuery */
+    /*** 更新时间Min in getUserRolePageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getUserRolePageListByDefaultQuery */
+    /*** 更新时间Max in getUserRolePageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMax;

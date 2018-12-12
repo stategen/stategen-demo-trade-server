@@ -4,7 +4,6 @@ import org.stategen.framework.lite.ValuedEnum;
 
 public enum TopicType implements ValuedEnum<String>{
     
-    all( "全部"),
     good( "精华"),
     share( "分享"),
     ask( "问答"),

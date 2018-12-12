@@ -1,259 +1,36 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE table SYSTEM "http://sources.alipay.net/svn/dtd/table-config-1.0.dtd">
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE
+    table SYSTEM "http://sources.alipay.net/svn/dtd/table-config-1.0.dtd"
+    [<!ENTITY TOPICREPLY SYSTEM "topic_reply.xml.xhtml">
+]>
 <table sqlName="topic_reply" className="TopicReply">
-   
     <!-- 不需要配置的列请删除-->
     <!-- <column name="currency_Unit" javaType="java.util.Currency"/> -->
     <!-- <column name="status" javaType="aa.bb.cc.StatusEnum"/> -->
     <!-- <column name="sex" javaType="aa.bb.cc.SexEnum"/> -->
 
-    
-     <operation name="insert" paramType="object" remarks="">
-      <!-- 临时方案，请在 field或 value 两边加上空格,以方便dalgen解析 -->
+    <sql id="getTopicReplyPageListOrderBy">
+        a.update_time desc, a.create_time desc
+    </sql>
+    <sql id="getTopicReplysByReplyIdsOrderBy">
+        a.update_time desc, a.create_time desc
+    </sql>
+
+    <!-- 引用 topic_reply.xml.xhml ,表修改后，需重新执行 gen.sh table topic_reply -e -->
+    &TOPICREPLY;
+    <!-- 引用 topic_reply.xml.xhml 结束 -->
+
+    <!-- 自定义方法请写在下面 需要自动提示，请将dalgenX目录下的 gen.schemas-1.0.dtd 配到 eclipse 或 idea中
+      file:gen.schemas-1.0.dtd
+      System Id
+      http://sources.alipay.net/svn/dtd/table-config-1.0.dtd
+    -->
+    <!--
+    <operation name="..." remarks="">
         <sql>
-            insert into topic_reply (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="replyId"> reply_id </isNotNull>
-            <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
-            <isNotNull prepend="," property="authorId"> author_id </isNotNull>
-            <isNotNull prepend="," property="content"> content </isNotNull>
-            <isNotNull prepend="," property="createAt"> create_at </isNotNull>
-            <isNotNull prepend="," property="parentReplyId"> parent_reply_id </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="replyId"> ?  </isNotNull>
-            <isNotNull prepend="," property="topicId"> ?  </isNotNull>
-            <isNotNull prepend="," property="authorId"> ?  </isNotNull>
-            <isNotNull prepend="," property="content"> ?  </isNotNull>
-            <isNotNull prepend="," property="createAt"> ?  </isNotNull>
-            <isNotNull prepend="," property="parentReplyId"> ?  </isNotNull>
-            )
-            <selectKey keyProperty="replyId" resultClass="String" type="pre">
-                select if((#replyId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#replyId# ) as replyId
-            </selectKey>
+            ...
         </sql>
     </operation>
-
-    <operation name="delete" remarks="">
-        <sql>
-            UPDATE topic_reply SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and reply_id = ?
-        </sql>
-    </operation>
-
-    <operation name="update" paramType="object" remarks="">
-        <sql>
-            UPDATE topic_reply
-            SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
-                <isNotNull property="topicId" prepend=",">
-                    topic_id =  ?
-                </isNotNull>
-                <isNotNull property="authorId" prepend=",">
-                    author_id =  ?
-                </isNotNull>
-                <isNotNull property="content" prepend=",">
-                    content =  ?
-                </isNotNull>
-                <isNotNull property="createAt" prepend=",">
-                    create_at =  ?
-                </isNotNull>
-                <isNotNull property="parentReplyId" prepend=",">
-                    parent_reply_id =  ?
-                </isNotNull>
-            </dynamic>
-            where
-            delete_flag = 0
-            and reply_id = ?
-        </sql>
-    </operation>
-
-    <operation name="getTopicReplyByReplyId" multiplicity="one" remarks="">
-        <sql>
-            select
-            a.reply_id,
-            a.topic_id,
-            a.author_id,
-            a.content,
-            a.create_at,
-            a.parent_reply_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from topic_reply a
-            where
-            a.delete_flag = 0
-            and a.reply_id = ?
-        </sql>
-    </operation>
-
-    <operation name="getTopicReplyPageListByDefaultQuery" paramType="object" multiplicity="paging" remarks="">
-        <sql>
-            select
-            a.reply_id,
-            a.topic_id,
-            a.author_id,
-            a.content,
-            a.create_at,
-            a.parent_reply_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from topic_reply a
-            where
-            a.delete_flag = 0
-            <isNotNull property="replyId" open="and">
-               a.reply_id=?
-            </isNotNull>
-            <isNotEmpty property="replyIds" open="and">
-                a.reply_id in
-                <iterate property="replyIds" conjunction="," open="(" close=")">
-                    #replyIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="topicId" open="and">
-               a.topic_id=?
-            </isNotNull>
-            <isNotEmpty property="topicIds" open="and">
-                a.topic_id in
-                <iterate property="topicIds" conjunction="," open="(" close=")">
-                    #topicIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="authorId" open="and">
-               a.author_id=?
-            </isNotNull>
-            <isNotEmpty property="authorIds" open="and">
-                a.author_id in
-                <iterate property="authorIds" conjunction="," open="(" close=")">
-                    #authorIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="content" open="and">
-            a.content=?
-          </isNotNull>
-            <isNotEmpty property="contentLike" open="and">
-                a.content like CONCAT('%',#contentLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="createAt" open="and">
-            a.create_at=?
-          </isNotNull>
-            <isNotEmpty property="createAtLike" open="and">
-                a.create_at like CONCAT('%',#createAtLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="parentReplyId" open="and">
-               a.parent_reply_id=?
-            </isNotNull>
-            <isNotEmpty property="parentReplyIds" open="and">
-                a.parent_reply_id in
-                <iterate property="parentReplyIds" conjunction="," open="(" close=")">
-                    #parentReplyIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="replyId">
-            <isEmpty property="replyIds">
-            <isNull property="topicId">
-            <isEmpty property="topicIds">
-            <isNull property="authorId">
-            <isEmpty property="authorIds">
-            <isNull property="content">
-            <isEmpty property="contentLike">
-            <isNull property="createAt">
-            <isEmpty property="createAtLike">
-            <isNull property="parentReplyId">
-            <isEmpty property="parentReplyIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-        </sql>
-    </operation>
-
-    <operation name="getTopicReplysByReplyIds" multiplicity="many" remarks="">
-        <sql>
-            select
-            a.reply_id,
-            a.topic_id,
-            a.author_id,
-            a.content,
-            a.create_at,
-            a.parent_reply_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from topic_reply a
-            where
-            a.delete_flag = 0
-            <isEmpty property="replyIds" open="and">
-                1=0
-            </isEmpty>
-            <isNotEmpty property="replyIds" open="and">
-                a.reply_id in
-                <iterate property="replyIds" conjunction="," open="(" close=")">
-                    #replyIds[]#
-                </iterate>
-            </isNotEmpty>
-        </sql>
-    </operation>
-
-    <operation name="deleteByReplyIds" remarks="">
-        <sql>
-            UPDATE topic_reply SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="replyIds" open="and">
-                1=0
-            </isEmpty>
-            <isNotEmpty property="replyIds" open="and">
-                reply_id in
-                <iterate property="replyIds" conjunction="," open="(" close=")">
-                    #replyIds[]#
-                </iterate>
-            </isNotEmpty>
-        </sql>
-    </operation>
-
-    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table topic_reply -e 再复制再粘贴覆盖-->
-    
-
+    -->
 
 </table>

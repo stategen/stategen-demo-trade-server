@@ -66,7 +66,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Menu> getAllMenusWithRoleChecked(String roleId) {
-        List<Menu> menus = this.menuService.getMenusByProjectName(menuService.getProjectName());
+        List<Menu> menus = this.menuService.getMenusByProjectName(menuService.getProjectName(), null);
         List<Long> menuIds = CollectionUtil.toList(menus, Menu::getMenuId);
         List<RoleMenu> roleMenus = this.roleMenuService.getRoleMenusByMenuIds(menuIds);
         Map<Long, RoleMenu> menuIdRoleMenuMap = CollectionUtil.toMap(roleMenus, RoleMenu::getMenuId);
@@ -110,16 +110,6 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.RoleDao#getRolePageListByDefaultQuery
-     * @see com.mycompany.biz.service.RoleService#getRolePageListByDefaultQuery
-     */
-    @Override
-    public PageList<Role> getRolePageListByDefaultQuery(Role role, int pageSize, int pageNum) {
-        return roleDao.getRolePageListByDefaultQuery(role, pageSize, pageNum);
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.RoleDao#getRolesByRoleIds
      * @see com.mycompany.biz.service.RoleService#getRolesByRoleIds
      */
@@ -146,5 +136,15 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<String> deleteByRoleIds(java.util.List<String> roleIds) {
         return roleDao.deleteByRoleIds(roleIds);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.RoleDao#getRolePageList
+     * @see com.mycompany.biz.service.RoleService#getRolePageList
+     */
+    @Override
+    public PageList<Role> getRolePageList(Role role, int pageSize, int pageNum) {
+        return roleDao.getRolePageList(role, pageSize, pageNum);
     }
 }

@@ -9,7 +9,7 @@
         <result property="userId" column="user_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="username" column="username" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="password" column="password" javaType="java.lang.String" jdbcType="VARCHAR"  />
-        <result property="roleType" column="role_type" javaType="com.mycompany.biz.enums.RoleType" jdbcType="VARCHAR"  />
+        <result property="roleType" column="role_type" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="nickName" column="nickName" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="age" column="age" javaType="java.lang.Integer" jdbcType="INTEGER"  />
@@ -22,6 +22,22 @@
         <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
     </resultMap>
     
+	<sql id="getUserPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getUsersByUserIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getUsersByUsernamesOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getUsersByEmailsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
 
 	
 	
@@ -97,34 +113,34 @@
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="username">
-                    username =  #username#
+                    username =  #username# 
                 </isNotNull>
                 <isNotNull prepend="," property="password">
-                    password =  #password#
+                    password =  #password# 
                 </isNotNull>
                 <isNotNull prepend="," property="roleType">
-                    role_type =  #roleType#
+                    role_type =  #roleType# 
                 </isNotNull>
                 <isNotNull prepend="," property="name">
-                    name =  #name#
+                    name =  #name# 
                 </isNotNull>
                 <isNotNull prepend="," property="nickName">
-                    nickName =  #nickName#
+                    nickName =  #nickName# 
                 </isNotNull>
                 <isNotNull prepend="," property="age">
-                    age =  #age#
+                    age =  #age# 
                 </isNotNull>
                 <isNotNull prepend="," property="address">
-                    address =  #address#
+                    address =  #address# 
                 </isNotNull>
                 <isNotNull prepend="," property="isMale">
-                    isMale =  #isMale#
+                    isMale =  #isMale# 
                 </isNotNull>
                 <isNotNull prepend="," property="avatarUrl">
-                    avatar_url =  #avatarUrl#
+                    avatar_url =  #avatarUrl# 
                 </isNotNull>
                 <isNotNull prepend="," property="email">
-                    email =  #email#
+                    email =  #email# 
                 </isNotNull>
             </dynamic>
             where
@@ -215,9 +231,9 @@
 	
     
 	
-	<select id="getUserPageListByDefaultQuery.User.trade" resultMap="User.trade.RM" >
+	<select id="getUserPageList.User.trade" resultMap="User.trade.RM" >
     	select
- /* getUserPageListByDefaultQuery.User.trade */             a.user_id,
+ /* getUserPageList.User.trade */             a.user_id,
             a.username,
             a.password,
             a.role_type,
@@ -351,11 +367,13 @@
             </isNull>
             </isEmpty>
             </isNull>
+            order by
+            <include refid="getUserPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getUserPageListByDefaultQuery.User.trade.count" resultClass="long" >
-    	select  /* getUserPageListByDefaultQuery.User.trade.count */ count(*)  from user a
+	<select id="getUserPageList.User.trade.count" resultClass="long" >
+    	select  /* getUserPageList.User.trade.count */ count(*)  from user a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="userId">
@@ -509,6 +527,8 @@
                     #userIds[]#
                 </iterate>
             </isNotEmpty>
+            order by
+            <include refid="getUsersByUserIdsOrderBy"/>
 	</select>	
 
 	    
@@ -544,6 +564,8 @@
                     #usernames[]#
                 </iterate>
             </isNotEmpty>
+            order by
+            <include refid="getUsersByUsernamesOrderBy"/>
 	</select>	
 
 	    
@@ -579,6 +601,8 @@
                     #emails[]#
                 </iterate>
             </isNotEmpty>
+            order by
+            <include refid="getUsersByEmailsOrderBy"/>
 	</select>	
 
 	    

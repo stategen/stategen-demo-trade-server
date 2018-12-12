@@ -6,7 +6,6 @@
 package com.mycompany.biz.service;
 
 import java.util.List;
-
 import org.stategen.framework.lite.PageList;
 
 import com.mycompany.biz.domain.TopicReply;
@@ -50,12 +49,6 @@ public interface TopicReplyService extends TopicReplyServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplyPageListByDefaultQuery
-     */
-    public PageList<TopicReply> getTopicReplyPageListByDefaultQuery(TopicReply topicReply, String authorId, int pageSize, int pageNum);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplysByReplyIds
      */
     public List<TopicReply> getTopicReplysByReplyIds(java.util.List<String> replyIds);
@@ -75,4 +68,10 @@ public interface TopicReplyService extends TopicReplyServiceFacade {
     TopicReply replyUp(String replyId, String authorId);
 
     void assignRepliesExtraProperties(String authorId, List<TopicReply> replies);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplyPageList
+     */
+    public PageList<TopicReply> getTopicReplyPageList(TopicReply topicReply, String authorId, int pageSize, int pageNum);
 }

@@ -76,16 +76,16 @@ public class TopicReplyDaoImpl extends SqlMapClientDaoSupport implements TopicRe
 
     /**
 	 * 
-	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.reply_id=? and a.reply_id in ( ? ) and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.create_at=? and a.create_at like CONCAT('%',?,'%') and a.parent_reply_id=? and a.parent_reply_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.reply_id=? and a.reply_id in ( ? ) and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.create_at=? and a.create_at like CONCAT('%',?,'%') and a.parent_reply_id=? and a.parent_reply_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
-    public PageList<TopicReply> getTopicReplyPageListByDefaultQuery(TopicReply topicReply, int pageSize, int pageNum) throws DataAccessException {
-        return (PageList<TopicReply>) PageQueryUtils.pageQuery(getSqlMapClientTemplate(), "getTopicReplyPageListByDefaultQuery.TopicReply.trade", topicReply, pageNum, pageSize);
+    public PageList<TopicReply> getTopicReplyPageList(TopicReply topicReply, int pageSize, int pageNum) throws DataAccessException {
+        return (PageList<TopicReply>) PageQueryUtils.pageQuery(getSqlMapClientTemplate(), "getTopicReplyPageList.TopicReply.trade", topicReply, pageNum, pageSize);
     }
 
     /**
 	 * 
-	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and 1=0 and a.reply_id in ( ? )
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and 1=0 and a.reply_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
     public List<TopicReply> getTopicReplysByReplyIds(java.util.List<String> replyIds) throws DataAccessException {

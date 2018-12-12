@@ -11,11 +11,10 @@
         <result property="topicType" column="topic_type" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="content" column="content" javaType="java.lang.String" jdbcType="LONGVARCHAR"  />
         <result property="title" column="title" javaType="java.lang.String" jdbcType="VARCHAR"  />
-        <result property="lastReplyAt" column="last_reply_at" javaType="java.lang.String" jdbcType="VARCHAR"  />
-        <result property="good" column="good" javaType="java.lang.String" jdbcType="VARCHAR"  />
-        <result property="top" column="top" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="lastReplyAt" column="last_reply_at" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="good" column="good" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="top" column="top" javaType="java.lang.Long" jdbcType="BIGINT"  />
         <result property="visitCount" column="visit_count" javaType="java.lang.Long" jdbcType="BIGINT"  />
-        <result property="createAt" column="create_at" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="testTimestamp" column="test_timestamp" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="testDatetime" column="test_datetime" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="testDate" column="test_date" javaType="java.util.Date" jdbcType="DATE"  />
@@ -25,6 +24,14 @@
         <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
     </resultMap>
     
+	<sql id="getTopicPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getTopicsByTopicIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
 
 	
 	
@@ -43,7 +50,6 @@
             <isNotNull prepend="," property="good"> good </isNotNull>
             <isNotNull prepend="," property="top"> top </isNotNull>
             <isNotNull prepend="," property="visitCount"> visit_count </isNotNull>
-            <isNotNull prepend="," property="createAt"> create_at </isNotNull>
             <isNotNull prepend="," property="testTimestamp"> test_timestamp </isNotNull>
             <isNotNull prepend="," property="testDatetime"> test_datetime </isNotNull>
             <isNotNull prepend="," property="testDate"> test_date </isNotNull>
@@ -58,7 +64,6 @@
             <isNotNull prepend="," property="good"> #good# </isNotNull> 
             <isNotNull prepend="," property="top"> #top# </isNotNull> 
             <isNotNull prepend="," property="visitCount"> #visitCount# </isNotNull> 
-            <isNotNull prepend="," property="createAt"> #createAt# </isNotNull> 
             <isNotNull prepend="," property="testTimestamp"> #testTimestamp# </isNotNull> 
             <isNotNull prepend="," property="testDatetime"> #testDatetime# </isNotNull> 
             <isNotNull prepend="," property="testDate"> #testDate# </isNotNull> 
@@ -84,43 +89,40 @@
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="authorId">
-                    author_id =  #authorId#
+                    author_id =  #authorId# 
                 </isNotNull>
                 <isNotNull prepend="," property="topicType">
-                    topic_type =  #topicType#
+                    topic_type =  #topicType# 
                 </isNotNull>
                 <isNotNull prepend="," property="content">
-                    content =  #content#
+                    content =  #content# 
                 </isNotNull>
                 <isNotNull prepend="," property="title">
-                    title =  #title#
+                    title =  #title# 
                 </isNotNull>
                 <isNotNull prepend="," property="lastReplyAt">
-                    last_reply_at =  #lastReplyAt#
+                    last_reply_at =  #lastReplyAt# 
                 </isNotNull>
                 <isNotNull prepend="," property="good">
-                    good =  #good#
+                    good =  #good# 
                 </isNotNull>
                 <isNotNull prepend="," property="top">
-                    top =  #top#
+                    top =  #top# 
                 </isNotNull>
                 <isNotNull prepend="," property="visitCount">
-                    visit_count =  #visitCount#
-                </isNotNull>
-                <isNotNull prepend="," property="createAt">
-                    create_at =  #createAt#
+                    visit_count =  #visitCount# 
                 </isNotNull>
                 <isNotNull prepend="," property="testTimestamp">
-                    test_timestamp =  #testTimestamp#
+                    test_timestamp =  #testTimestamp# 
                 </isNotNull>
                 <isNotNull prepend="," property="testDatetime">
-                    test_datetime =  #testDatetime#
+                    test_datetime =  #testDatetime# 
                 </isNotNull>
                 <isNotNull prepend="," property="testDate">
-                    test_date =  #testDate#
+                    test_date =  #testDate# 
                 </isNotNull>
                 <isNotNull prepend="," property="testTime">
-                    test_time =  #testTime#
+                    test_time =  #testTime# 
                 </isNotNull>
             </dynamic>
             where
@@ -141,7 +143,6 @@
             a.good,
             a.top,
             a.visit_count,
-            a.create_at,
             a.test_timestamp,
             a.test_datetime,
             a.test_date,
@@ -160,9 +161,9 @@
 	
     
 	
-	<select id="getTopicPageListByDefaultQuery.Topic.trade" resultMap="Topic.trade.RM" >
+	<select id="getTopicPageList.Topic.trade" resultMap="Topic.trade.RM" >
     	select
- /* getTopicPageListByDefaultQuery.Topic.trade */             a.topic_id,
+ /* getTopicPageList.Topic.trade */             a.topic_id,
             a.author_id,
             a.topic_type,
             a.content,
@@ -171,7 +172,6 @@
             a.good,
             a.top,
             a.visit_count,
-            a.create_at,
             a.test_timestamp,
             a.test_datetime,
             a.test_date,
@@ -221,36 +221,30 @@
             <isNotEmpty open="and" property="titleLike">
                 a.title like CONCAT('%',#titleLike#,'%')
             </isNotEmpty>
-          <isNotNull open="and" property="lastReplyAt">
-            a.last_reply_at=#lastReplyAt#
-          </isNotNull>
-            <isNotEmpty open="and" property="lastReplyAtLike">
-                a.last_reply_at like CONCAT('%',#lastReplyAtLike#,'%')
-            </isNotEmpty>
-          <isNotNull open="and" property="good">
-            a.good=#good#
-          </isNotNull>
-            <isNotEmpty open="and" property="goodLike">
-                a.good like CONCAT('%',#goodLike#,'%')
-            </isNotEmpty>
-          <isNotNull open="and" property="top">
-            a.top=#top#
-          </isNotNull>
-            <isNotEmpty open="and" property="topLike">
-                a.top like CONCAT('%',#topLike#,'%')
-            </isNotEmpty>
+            <isNotNull open="and" property="lastReplyAtMin">
+                a.last_reply_at >=#lastReplyAtMin#
+            </isNotNull>
+            <isNotNull open="and" property="lastReplyAtMax">
+                a.last_reply_at &lt;#lastReplyAtMax#
+            </isNotNull>
+            <isNotNull open="and" property="goodMin">
+                a.good >=#goodMin#
+            </isNotNull>
+            <isNotNull open="and" property="goodMax">
+                a.good &lt;#goodMax#
+            </isNotNull>
+            <isNotNull open="and" property="topMin">
+                a.top >=#topMin#
+            </isNotNull>
+            <isNotNull open="and" property="topMax">
+                a.top &lt;#topMax#
+            </isNotNull>
             <isNotNull open="and" property="visitCountMin">
                 a.visit_count >=#visitCountMin#
             </isNotNull>
             <isNotNull open="and" property="visitCountMax">
                 a.visit_count &lt;#visitCountMax#
             </isNotNull>
-          <isNotNull open="and" property="createAt">
-            a.create_at=#createAt#
-          </isNotNull>
-            <isNotEmpty open="and" property="createAtLike">
-                a.create_at like CONCAT('%',#createAtLike#,'%')
-            </isNotEmpty>
             <isNotNull open="and" property="testTimestampMin">
                 a.test_timestamp >=#testTimestampMin#
             </isNotNull>
@@ -297,16 +291,14 @@
             <isEmpty property="contentLike">
             <isNull property="title">
             <isEmpty property="titleLike">
-            <isNull property="lastReplyAt">
-            <isEmpty property="lastReplyAtLike">
-            <isNull property="good">
-            <isEmpty property="goodLike">
-            <isNull property="top">
-            <isEmpty property="topLike">
+            <isNull property="lastReplyAtMin">
+            <isNull property="lastReplyAtMax">
+            <isNull property="goodMin">
+            <isNull property="goodMax">
+            <isNull property="topMin">
+            <isNull property="topMax">
             <isNull property="visitCountMin">
             <isNull property="visitCountMax">
-            <isNull property="createAt">
-            <isEmpty property="createAtLike">
             <isNull property="testTimestampMin">
             <isNull property="testTimestampMax">
             <isNull property="testDatetimeMin">
@@ -332,17 +324,13 @@
             </isNull>
             </isNull>
             </isNull>
-            </isEmpty>
             </isNull>
             </isNull>
             </isNull>
-            </isEmpty>
             </isNull>
-            </isEmpty>
             </isNull>
-            </isEmpty>
             </isNull>
-            </isEmpty>
+            </isNull>
             </isNull>
             </isEmpty>
             </isNull>
@@ -352,11 +340,15 @@
             </isNull>
             </isEmpty>
             </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getTopicPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getTopicPageListByDefaultQuery.Topic.trade.count" resultClass="long" >
-    	select  /* getTopicPageListByDefaultQuery.Topic.trade.count */ count(*)  from topic a
+	<select id="getTopicPageList.Topic.trade.count" resultClass="long" >
+    	select  /* getTopicPageList.Topic.trade.count */ count(*)  from topic a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="topicId">
@@ -398,36 +390,30 @@
             <isNotEmpty open="and" property="titleLike">
                 a.title like CONCAT('%',#titleLike#,'%')
             </isNotEmpty>
-          <isNotNull open="and" property="lastReplyAt">
-            a.last_reply_at=#lastReplyAt#
-          </isNotNull>
-            <isNotEmpty open="and" property="lastReplyAtLike">
-                a.last_reply_at like CONCAT('%',#lastReplyAtLike#,'%')
-            </isNotEmpty>
-          <isNotNull open="and" property="good">
-            a.good=#good#
-          </isNotNull>
-            <isNotEmpty open="and" property="goodLike">
-                a.good like CONCAT('%',#goodLike#,'%')
-            </isNotEmpty>
-          <isNotNull open="and" property="top">
-            a.top=#top#
-          </isNotNull>
-            <isNotEmpty open="and" property="topLike">
-                a.top like CONCAT('%',#topLike#,'%')
-            </isNotEmpty>
+            <isNotNull open="and" property="lastReplyAtMin">
+                a.last_reply_at >=#lastReplyAtMin#
+            </isNotNull>
+            <isNotNull open="and" property="lastReplyAtMax">
+                a.last_reply_at &lt;#lastReplyAtMax#
+            </isNotNull>
+            <isNotNull open="and" property="goodMin">
+                a.good >=#goodMin#
+            </isNotNull>
+            <isNotNull open="and" property="goodMax">
+                a.good &lt;#goodMax#
+            </isNotNull>
+            <isNotNull open="and" property="topMin">
+                a.top >=#topMin#
+            </isNotNull>
+            <isNotNull open="and" property="topMax">
+                a.top &lt;#topMax#
+            </isNotNull>
             <isNotNull open="and" property="visitCountMin">
                 a.visit_count >=#visitCountMin#
             </isNotNull>
             <isNotNull open="and" property="visitCountMax">
                 a.visit_count &lt;#visitCountMax#
             </isNotNull>
-          <isNotNull open="and" property="createAt">
-            a.create_at=#createAt#
-          </isNotNull>
-            <isNotEmpty open="and" property="createAtLike">
-                a.create_at like CONCAT('%',#createAtLike#,'%')
-            </isNotEmpty>
             <isNotNull open="and" property="testTimestampMin">
                 a.test_timestamp >=#testTimestampMin#
             </isNotNull>
@@ -474,16 +460,14 @@
             <isEmpty property="contentLike">
             <isNull property="title">
             <isEmpty property="titleLike">
-            <isNull property="lastReplyAt">
-            <isEmpty property="lastReplyAtLike">
-            <isNull property="good">
-            <isEmpty property="goodLike">
-            <isNull property="top">
-            <isEmpty property="topLike">
+            <isNull property="lastReplyAtMin">
+            <isNull property="lastReplyAtMax">
+            <isNull property="goodMin">
+            <isNull property="goodMax">
+            <isNull property="topMin">
+            <isNull property="topMax">
             <isNull property="visitCountMin">
             <isNull property="visitCountMax">
-            <isNull property="createAt">
-            <isEmpty property="createAtLike">
             <isNull property="testTimestampMin">
             <isNull property="testTimestampMax">
             <isNull property="testDatetimeMin">
@@ -509,15 +493,13 @@
             </isNull>
             </isNull>
             </isNull>
-            </isEmpty>
             </isNull>
             </isNull>
             </isNull>
-            </isEmpty>
             </isNull>
-            </isEmpty>
             </isNull>
-            </isEmpty>
+            </isNull>
+            </isNull>
             </isNull>
             </isEmpty>
             </isNull>
@@ -546,7 +528,6 @@
             a.good,
             a.top,
             a.visit_count,
-            a.create_at,
             a.test_timestamp,
             a.test_datetime,
             a.test_date,
@@ -566,6 +547,8 @@
                     #topicIds[]#
                 </iterate>
             </isNotEmpty>
+            order by
+            <include refid="getTopicsByTopicIdsOrderBy"/>
 	</select>	
 
 	    

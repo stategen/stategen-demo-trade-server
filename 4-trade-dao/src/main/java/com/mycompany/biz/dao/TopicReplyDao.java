@@ -30,8 +30,8 @@ public interface TopicReplyDao {
     &#64;ApiParam() String authorId,
     &#64;ApiParam() String content,
     &#64;ApiParam() String createAt,
-    &#64;ApiParam() String parentReplyId,
-    &#64;ApiParam(hidden = true) TopicReply topicReply,
+    &#64;ApiParam() String parentReplyId
+    ,&#64;ApiParam(hidden = true) TopicReply topicReply
     
     </pre>
 	 * 
@@ -41,7 +41,7 @@ public interface TopicReplyDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("replyId") String replyId,
+    &#64;ApiParam("replyId") String replyId
     
     </pre>
 	 * 
@@ -56,8 +56,8 @@ public interface TopicReplyDao {
     &#64;ApiParam() String content,
     &#64;ApiParam() String createAt,
     &#64;ApiParam() String parentReplyId,
-    &#64;ApiParam() String replyId,
-    &#64;ApiParam(hidden = true) TopicReply topicReply,
+    &#64;ApiParam() String replyId
+    ,&#64;ApiParam(hidden = true) TopicReply topicReply
     
     </pre>
 	 * 
@@ -67,7 +67,7 @@ public interface TopicReplyDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("replyId") String replyId,
+    &#64;ApiParam("replyId") String replyId
     
     </pre>
 	 * 
@@ -92,28 +92,28 @@ public interface TopicReplyDao {
     &#64;ApiParam() Date createTimeMin,
     &#64;ApiParam() Date createTimeMax,
     &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax,
-    &#64;ApiParam(hidden = true) TopicReply topicReply,
-    Pagination pagination
+    &#64;ApiParam() Date updateTimeMax
+    ,&#64;ApiParam(hidden = true) TopicReply topicReply
+    ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.reply_id=? and a.reply_id in ( ? ) and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.create_at=? and a.create_at like CONCAT('%',?,'%') and a.parent_reply_id=? and a.parent_reply_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.reply_id=? and a.reply_id in ( ? ) and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.create_at=? and a.create_at like CONCAT('%',?,'%') and a.parent_reply_id=? and a.parent_reply_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<TopicReply> getTopicReplyPageListByDefaultQuery(TopicReply topicReply, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<TopicReply> getTopicReplyPageList(TopicReply topicReply, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("replyId")&#64;RequestParam(required =false,name="replyIds") ArrayList&lt;String&gt; replyIds,
+    &#64;ApiParam("replyId")&#64;RequestParam(required =false,name="replyIds") ArrayList&lt;String&gt; replyIds
     
     </pre>
 	 * 
-	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and 1=0 and a.reply_id in ( ? )
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and 1=0 and a.reply_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<TopicReply> getTopicReplysByReplyIds(java.util.List<String> replyIds) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("replyId")&#64;RequestParam(required =false,name="replyIds") ArrayList&lt;String&gt; replyIds,
+    &#64;ApiParam("replyId")&#64;RequestParam(required =false,name="replyIds") ArrayList&lt;String&gt; replyIds
     
     </pre>
 	 * 

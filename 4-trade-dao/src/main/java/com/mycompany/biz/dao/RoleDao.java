@@ -28,8 +28,8 @@ public interface RoleDao {
     &#64;ApiParam() String roleId,
     &#64;ApiParam() String roleName,
     &#64;ApiParam() String description,
-    &#64;ApiParam() RoleType roleType,
-    &#64;ApiParam(hidden = true) Role role,
+    &#64;ApiParam() String roleType
+    ,&#64;ApiParam(hidden = true) Role role
     
     </pre>
 	 * 
@@ -39,7 +39,7 @@ public interface RoleDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("角色ID") String roleId,
+    &#64;ApiParam("角色ID") String roleId
     
     </pre>
 	 * 
@@ -51,9 +51,9 @@ public interface RoleDao {
     <pre>
     &#64;ApiParam() String roleName,
     &#64;ApiParam() String description,
-    &#64;ApiParam() RoleType roleType,
-    &#64;ApiParam() String roleId,
-    &#64;ApiParam(hidden = true) Role role,
+    &#64;ApiParam() String roleType,
+    &#64;ApiParam() String roleId
+    ,&#64;ApiParam(hidden = true) Role role
     
     </pre>
 	 * 
@@ -63,7 +63,7 @@ public interface RoleDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("角色ID") String roleId,
+    &#64;ApiParam("角色ID") String roleId
     
     </pre>
 	 * 
@@ -73,39 +73,43 @@ public interface RoleDao {
 	
 	/**
     <pre>
+    &#64;ApiParam() String roleId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="roleIds") ArrayList&lt;String&gt; roleIds,
+    &#64;ApiParam() String roleName,
     &#64;ApiParam() String roleNameLike,
+    &#64;ApiParam() String description,
     &#64;ApiParam() String descriptionLike,
     &#64;ApiParam() Date createTimeMin,
     &#64;ApiParam() Date createTimeMax,
     &#64;ApiParam() Date updateTimeMin,
     &#64;ApiParam() Date updateTimeMax,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="roleTypes") ArrayList&lt;RoleType&gt; roleTypes,
-    &#64;ApiParam(hidden = true) Role role,
-    &#64;ApiParam(hidden = true) Pagination pagination
+    &#64;ApiParam() String roleType,
+    &#64;ApiParam()&#64;RequestParam(required =false,name="roleTypes") ArrayList&lt;String&gt; roleTypes
+    ,&#64;ApiParam(hidden = true) Role role
+    ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.role_id, a.role_name, a.description, a.create_time, a.update_time, a.delete_flag, a.role_type from role a where a.delete_flag = 0 and a.role_id in ( ? ) and a.role_name like CONCAT('%',?,'%') and a.description like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and a.role_type in ( ? ) and 0 = 1
+	 * sql:select a.role_id, a.role_name, a.description, a.create_time, a.update_time, a.delete_flag, a.role_type from role a where a.delete_flag = 0 and a.role_id=? and a.role_id in ( ? ) and a.role_name=? and a.role_name like CONCAT('%',?,'%') and a.description=? and a.description like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and a.role_type=? and a.role_type in ( ? ) and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<Role> getRolePageListByDefaultQuery(Role role, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<Role> getRolePageList(Role role, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("角色ID")&#64;RequestParam(required =false,name="roleIds") ArrayList&lt;String&gt; roleIds,
+    &#64;ApiParam("角色ID")&#64;RequestParam(required =false,name="roleIds") ArrayList&lt;String&gt; roleIds
     
     </pre>
 	 * 
-	 * sql:select a.role_id, a.role_name, a.description, a.create_time, a.update_time, a.delete_flag, a.role_type from role a where a.delete_flag = 0 and a.role_id in ( ? )
+	 * sql:select a.role_id, a.role_name, a.description, a.create_time, a.update_time, a.delete_flag, a.role_type from role a where a.delete_flag = 0 and 1=0 and a.role_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<Role> getRolesByRoleIds(java.util.List<String> roleIds) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("角色ID")&#64;RequestParam(required =false,name="roleIds") ArrayList&lt;String&gt; roleIds,
+    &#64;ApiParam("角色ID")&#64;RequestParam(required =false,name="roleIds") ArrayList&lt;String&gt; roleIds
     
     </pre>
 	 * 
-	 * sql:UPDATE role SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and role_id in ( ? )
+	 * sql:UPDATE role SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and role_id in ( ? )
 	 */
 	public java.util.List<String> deleteByRoleIds(java.util.List<String> roleIds) throws DataAccessException;
 	

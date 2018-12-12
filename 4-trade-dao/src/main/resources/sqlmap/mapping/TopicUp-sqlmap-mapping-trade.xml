@@ -14,6 +14,14 @@
         <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
     </resultMap>
     
+	<sql id="getTopicUpPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getTopicUpsByUpIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
 
 	
 	
@@ -31,8 +39,7 @@
             <isNotNull prepend="," property="objectId"> #objectId# </isNotNull> 
             <isNotNull prepend="," property="authorId"> #authorId# </isNotNull>)
             <selectKey keyProperty="upId" resultClass="String" type="pre">
-                select if((#upId# is null)
-                ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#upId# ) as upId
+                select if((#upId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#upId# ) as upId
             </selectKey>
 	</insert>
 	
@@ -52,10 +59,10 @@
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="objectId">
-                    object_id = #objectId#
+                    object_id =  #objectId# 
                 </isNotNull>
                 <isNotNull prepend="," property="authorId">
-                    author_id = #authorId#
+                    author_id =  #authorId# 
                 </isNotNull>
             </dynamic>
             where
@@ -84,9 +91,9 @@
 	
     
 	
-	<select id="getTopicUpPageListByDefaultQuery.TopicUp.trade" resultMap="TopicUp.trade.RM" >
+	<select id="getTopicUpPageList.TopicUp.trade" resultMap="TopicUp.trade.RM" >
     	select
- /* getTopicUpPageListByDefaultQuery.TopicUp.trade */             a.up_id,
+ /* getTopicUpPageList.TopicUp.trade */             a.up_id,
             a.object_id,
             a.author_id,
             a.create_time,
@@ -96,7 +103,7 @@
             where
             a.delete_flag = 0
             <isNotNull open="and" property="upId">
-                a.up_id=#upId#
+               a.up_id=#upId#
             </isNotNull>
             <isNotEmpty open="and" property="upIds">
                 a.up_id in
@@ -105,7 +112,7 @@
                 </iterate>
             </isNotEmpty>
             <isNotNull open="and" property="objectId">
-                a.object_id=#objectId#
+               a.object_id=#objectId#
             </isNotNull>
             <isNotEmpty open="and" property="objectIds">
                 a.object_id in
@@ -114,7 +121,7 @@
                 </iterate>
             </isNotEmpty>
             <isNotNull open="and" property="authorId">
-                a.author_id=#authorId#
+               a.author_id=#authorId#
             </isNotNull>
             <isNotEmpty open="and" property="authorIds">
                 a.author_id in
@@ -135,35 +142,37 @@
                 a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="upId">
-                <isEmpty property="upIds">
-                    <isNull property="objectId">
-                        <isEmpty property="objectIds">
-                            <isNull property="authorId">
-                                <isEmpty property="authorIds">
-                                    <isNull property="createTimeMin">
-                                        <isNull property="createTimeMax">
-                                            <isNull property="updateTimeMin">
-                                                <isNull property="updateTimeMax">
-                                                    and 0 = 1
-                                                </isNull>
-                                            </isNull>
-                                        </isNull>
-                                    </isNull>
-                                </isEmpty>
-                            </isNull>
-                        </isEmpty>
-                    </isNull>
-                </isEmpty>
+            <isEmpty property="upIds">
+            <isNull property="objectId">
+            <isEmpty property="objectIds">
+            <isNull property="authorId">
+            <isEmpty property="authorIds">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
             </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getTopicUpPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getTopicUpPageListByDefaultQuery.TopicUp.trade.count" resultClass="long" >
-    	select  /* getTopicUpPageListByDefaultQuery.TopicUp.trade.count */ count(*)  from topic_up a
+	<select id="getTopicUpPageList.TopicUp.trade.count" resultClass="long" >
+    	select  /* getTopicUpPageList.TopicUp.trade.count */ count(*)  from topic_up a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="upId">
-                a.up_id=#upId#
+               a.up_id=#upId#
             </isNotNull>
             <isNotEmpty open="and" property="upIds">
                 a.up_id in
@@ -172,7 +181,7 @@
                 </iterate>
             </isNotEmpty>
             <isNotNull open="and" property="objectId">
-                a.object_id=#objectId#
+               a.object_id=#objectId#
             </isNotNull>
             <isNotEmpty open="and" property="objectIds">
                 a.object_id in
@@ -181,7 +190,7 @@
                 </iterate>
             </isNotEmpty>
             <isNotNull open="and" property="authorId">
-                a.author_id=#authorId#
+               a.author_id=#authorId#
             </isNotNull>
             <isNotEmpty open="and" property="authorIds">
                 a.author_id in
@@ -202,25 +211,25 @@
                 a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="upId">
-                <isEmpty property="upIds">
-                    <isNull property="objectId">
-                        <isEmpty property="objectIds">
-                            <isNull property="authorId">
-                                <isEmpty property="authorIds">
-                                    <isNull property="createTimeMin">
-                                        <isNull property="createTimeMax">
-                                            <isNull property="updateTimeMin">
-                                                <isNull property="updateTimeMax">
-                                                    and 0 = 1
-                                                </isNull>
-                                            </isNull>
-                                        </isNull>
-                                    </isNull>
-                                </isEmpty>
-                            </isNull>
-                        </isEmpty>
-                    </isNull>
-                </isEmpty>
+            <isEmpty property="upIds">
+            <isNull property="objectId">
+            <isEmpty property="objectIds">
+            <isNull property="authorId">
+            <isEmpty property="authorIds">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
             </isNull>
 	</select>
 	    
@@ -248,6 +257,8 @@
                     #upIds[]#
                 </iterate>
             </isNotEmpty>
+            order by
+            <include refid="getTopicUpsByUpIdsOrderBy"/>
 	</select>	
 
 	    
@@ -257,8 +268,8 @@
 	
 	<update id="deleteByUpIds.TopicUp.trade">
 		UPDATE topic_up SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
             <isEmpty open="and" property="upIds">

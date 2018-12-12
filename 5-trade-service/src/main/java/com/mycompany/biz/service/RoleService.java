@@ -51,12 +51,6 @@ public interface RoleService extends RoleServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.RoleDao#getRolePageListByDefaultQuery
-     */
-    public PageList<Role> getRolePageListByDefaultQuery(Role role, int pageSize, int pageNum);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.RoleDao#getRolesByRoleIds
      */
     public List<Role> getRolesByRoleIds(java.util.List<String> roleIds);
@@ -72,4 +66,10 @@ public interface RoleService extends RoleServiceFacade {
      * @see com.mycompany.biz.dao.RoleDao#deleteByRoleIds
      */
     public List<String> deleteByRoleIds(java.util.List<String> roleIds);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.RoleDao#getRolePageList
+     */
+    public PageList<Role> getRolePageList(Role role, int pageSize, int pageNum);
 }
