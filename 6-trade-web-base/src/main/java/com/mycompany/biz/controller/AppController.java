@@ -17,8 +17,10 @@ import org.stategen.framework.util.StringUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
 
 import com.mycompany.biz.domain.Menu;
+import com.mycompany.biz.domain.Province;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.service.MenuService;
+import com.mycompany.biz.service.ProvinceService;
 import com.mycompany.biz.service.UserService;
 import com.mycompany.biz.utils.SysConsts;
 
@@ -36,6 +38,11 @@ public class AppController {
 
     @Resource
     private MenuService menuService;
+    
+    
+    @Resource
+    private ProvinceService provinceService;
+    
 
     @ApiRequestMappingAutoWithMethodName(name = "", method = RequestMethod.GET)
     @State(area=User.class)
@@ -66,6 +73,12 @@ public class AppController {
     @State(init = true, initCheck = false, dataOpt = DataOpt.FULL_REPLACE)
     public List<Menu> getAllMenus() {
         return this.menuService.getAllMenus();
+    }
+
+    
+    @ApiRequestMappingAutoWithMethodName(name="省份")
+    public List<Province> getProvinces(){
+        return this.provinceService.getProvinces();
     }
 
 }

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="City.trade.RM" class="com.mycompany.biz.domain.City">
+        <result property="cityId" column="city_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="pycode" column="pycode" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="provinceId" column="province_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="postcode" column="postcode" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="areacode" column="areacode" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getCityPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getCitysByCityIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="insert.City.trade">
+		insert into city (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="cityId"> city_id </isNotNull>
+            <isNotNull prepend="," property="name"> name </isNotNull>
+            <isNotNull prepend="," property="pycode"> pycode </isNotNull>
+            <isNotNull prepend="," property="provinceId"> province_id </isNotNull>
+            <isNotNull prepend="," property="postcode"> postcode </isNotNull>
+            <isNotNull prepend="," property="areacode"> areacode </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="cityId"> #cityId# </isNotNull> 
+            <isNotNull prepend="," property="name"> #name# </isNotNull> 
+            <isNotNull prepend="," property="pycode"> #pycode# </isNotNull> 
+            <isNotNull prepend="," property="provinceId"> #provinceId# </isNotNull> 
+            <isNotNull prepend="," property="postcode"> #postcode# </isNotNull> 
+            <isNotNull prepend="," property="areacode"> #areacode# </isNotNull>)
+            <selectKey keyProperty="cityId" resultClass="String" type="pre">
+                select if((#cityId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#cityId# ) as cityId
+            </selectKey>
+	</insert>
+	
+	<update id="delete.City.trade">
+		UPDATE city SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and city_id = #cityId#
+	</update>
+	
+    
+	
+	<update id="update.City.trade">
+		UPDATE city
+            SET update_time= CURRENT_TIMESTAMP(6)
+            <dynamic>
+                <isNotNull prepend="," property="name">
+                    name =  #name# 
+                </isNotNull>
+                <isNotNull prepend="," property="pycode">
+                    pycode =  #pycode# 
+                </isNotNull>
+                <isNotNull prepend="," property="provinceId">
+                    province_id =  #provinceId# 
+                </isNotNull>
+                <isNotNull prepend="," property="postcode">
+                    postcode =  #postcode# 
+                </isNotNull>
+                <isNotNull prepend="," property="areacode">
+                    areacode =  #areacode# 
+                </isNotNull>
+            </dynamic>
+            where
+            delete_flag = 0
+            and city_id = #cityId#
+	</update>
+	
+    
+	
+	<select id="getCityByCityId.City.trade" resultMap="City.trade.RM" >
+    	select
+ /* getCityByCityId.City.trade */             a.city_id,
+            a.name,
+            a.pycode,
+            a.province_id,
+            a.postcode,
+            a.areacode,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from city a
+            where
+            a.delete_flag = 0
+            and a.city_id = #cityId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="getCityPageList.City.trade" resultMap="City.trade.RM" >
+    	select
+ /* getCityPageList.City.trade */             a.city_id,
+            a.name,
+            a.pycode,
+            a.province_id,
+            a.postcode,
+            a.areacode,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from city a
+            where
+            a.delete_flag = 0
+            <isNotNull open="and" property="cityId">
+               a.city_id=#cityId#
+            </isNotNull>
+            <isNotEmpty open="and" property="cityIds">
+                a.city_id in
+                <iterate close=")" conjunction="," open="(" property="cityIds">
+                    #cityIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="name">
+            a.name=#name#
+          </isNotNull>
+            <isNotEmpty open="and" property="nameLike">
+                a.name like CONCAT('%',#nameLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="pycode">
+            a.pycode=#pycode#
+          </isNotNull>
+            <isNotEmpty open="and" property="pycodeLike">
+                a.pycode like CONCAT('%',#pycodeLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="provinceId">
+               a.province_id=#provinceId#
+            </isNotNull>
+            <isNotEmpty open="and" property="provinceIds">
+                a.province_id in
+                <iterate close=")" conjunction="," open="(" property="provinceIds">
+                    #provinceIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="postcode">
+            a.postcode=#postcode#
+          </isNotNull>
+            <isNotEmpty open="and" property="postcodeLike">
+                a.postcode like CONCAT('%',#postcodeLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="areacode">
+            a.areacode=#areacode#
+          </isNotNull>
+            <isNotEmpty open="and" property="areacodeLike">
+                a.areacode like CONCAT('%',#areacodeLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="createTimeMin">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="createTimeMax">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMin">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMax">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="cityId">
+            <isEmpty property="cityIds">
+            <isNull property="name">
+            <isEmpty property="nameLike">
+            <isNull property="pycode">
+            <isEmpty property="pycodeLike">
+            <isNull property="provinceId">
+            <isEmpty property="provinceIds">
+            <isNull property="postcode">
+            <isEmpty property="postcodeLike">
+            <isNull property="areacode">
+            <isEmpty property="areacodeLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getCityPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="getCityPageList.City.trade.count" resultClass="long" >
+    	select  /* getCityPageList.City.trade.count */ count(*)  from city a
+            where
+            a.delete_flag = 0
+            <isNotNull open="and" property="cityId">
+               a.city_id=#cityId#
+            </isNotNull>
+            <isNotEmpty open="and" property="cityIds">
+                a.city_id in
+                <iterate close=")" conjunction="," open="(" property="cityIds">
+                    #cityIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="name">
+            a.name=#name#
+          </isNotNull>
+            <isNotEmpty open="and" property="nameLike">
+                a.name like CONCAT('%',#nameLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="pycode">
+            a.pycode=#pycode#
+          </isNotNull>
+            <isNotEmpty open="and" property="pycodeLike">
+                a.pycode like CONCAT('%',#pycodeLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="provinceId">
+               a.province_id=#provinceId#
+            </isNotNull>
+            <isNotEmpty open="and" property="provinceIds">
+                a.province_id in
+                <iterate close=")" conjunction="," open="(" property="provinceIds">
+                    #provinceIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="postcode">
+            a.postcode=#postcode#
+          </isNotNull>
+            <isNotEmpty open="and" property="postcodeLike">
+                a.postcode like CONCAT('%',#postcodeLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="areacode">
+            a.areacode=#areacode#
+          </isNotNull>
+            <isNotEmpty open="and" property="areacodeLike">
+                a.areacode like CONCAT('%',#areacodeLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="createTimeMin">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="createTimeMax">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMin">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMax">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="cityId">
+            <isEmpty property="cityIds">
+            <isNull property="name">
+            <isEmpty property="nameLike">
+            <isNull property="pycode">
+            <isEmpty property="pycodeLike">
+            <isNull property="provinceId">
+            <isEmpty property="provinceIds">
+            <isNull property="postcode">
+            <isEmpty property="postcodeLike">
+            <isNull property="areacode">
+            <isEmpty property="areacodeLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="getCitysByCityIds.City.trade" resultMap="City.trade.RM" >
+    	select
+ /* getCitysByCityIds.City.trade */             a.city_id,
+            a.name,
+            a.pycode,
+            a.province_id,
+            a.postcode,
+            a.areacode,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from city a
+            where
+            a.delete_flag = 0
+            <isEmpty open="and" property="cityIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="cityIds">
+                a.city_id in
+                <iterate close=")" conjunction="," open="(" property="cityIds">
+                    #cityIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getCitysByCityIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="deleteByCityIds.City.trade">
+		UPDATE city SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty open="and" property="cityIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="cityIds">
+                city_id in
+                <iterate close=")" conjunction="," open="(" property="cityIds">
+                    #cityIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+    <resultMap id="getCitys.object.trade.RM" class="com.mycompany.biz.domain.City">
+        <result property="value" column="value" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="label" column="label" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="provinceId" column="province_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+    </resultMap>
+	
+	<select id="getCitys.City.trade" resultMap="getCitys.object.trade.RM" >
+    	select
+ /* getCitys.City.trade */             a.city_id as value,
+            a.name as label,
+            a.province_id
+            from city a
+            where
+            a.delete_flag = 0
+            and a.province_id = #provinceId#
+	</select>	
+
+	    
+	
+	
+    
+
+</sqlMap>
+

@@ -10,7 +10,9 @@
     <!-- dubbo facade configs: 自动提供对外服务，自身系统不引用,   不要手动修改本文件,否则将会在下次生成时被时被覆盖 -->
     <!-- ======================================================================================================= -->
     
+    <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="cityService" interface="com.mycompany.biz.service.CityServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="menuService" interface="com.mycompany.biz.service.MenuServiceFacade"/>
+    <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="provinceService" interface="com.mycompany.biz.service.ProvinceServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="roleService" interface="com.mycompany.biz.service.RoleServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="roleMenuService" interface="com.mycompany.biz.service.RoleMenuServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicService" interface="com.mycompany.biz.service.TopicServiceFacade"/>
