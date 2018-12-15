@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="Province.trade.RM" class="com.mycompany.biz.domain.Province">
+        <result property="provinceId" column="province_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="pycode" column="pycode" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getProvincePageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getProvincesByProvinceIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="insert.Province.trade">
+		insert into province (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="provinceId"> province_id </isNotNull>
+            <isNotNull prepend="," property="name"> name </isNotNull>
+            <isNotNull prepend="," property="pycode"> pycode </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="provinceId"> #provinceId# </isNotNull> 
+            <isNotNull prepend="," property="name"> #name# </isNotNull> 
+            <isNotNull prepend="," property="pycode"> #pycode# </isNotNull>)
+            <selectKey keyProperty="provinceId" resultClass="String" type="pre">
+                select if((#provinceId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#provinceId# ) as provinceId
+            </selectKey>
+	</insert>
+	
+	<update id="delete.Province.trade">
+		UPDATE province SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and province_id = #provinceId#
+	</update>
+	
+    
+	
+	<update id="update.Province.trade">
+		UPDATE province
+            SET update_time= CURRENT_TIMESTAMP(6)
+            <dynamic>
+                <isNotNull prepend="," property="name">
+                    name =  #name# 
+                </isNotNull>
+                <isNotNull prepend="," property="pycode">
+                    pycode =  #pycode# 
+                </isNotNull>
+            </dynamic>
+            where
+            delete_flag = 0
+            and province_id = #provinceId#
+	</update>
+	
+    
+	
+	<select id="getProvinceByProvinceId.Province.trade" resultMap="Province.trade.RM" >
+    	select
+ /* getProvinceByProvinceId.Province.trade */             a.province_id,
+            a.name,
+            a.pycode,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from province a
+            where
+            a.delete_flag = 0
+            and a.province_id = #provinceId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="getProvincePageList.Province.trade" resultMap="Province.trade.RM" >
+    	select
+ /* getProvincePageList.Province.trade */             a.province_id,
+            a.name,
+            a.pycode,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from province a
+            where
+            a.delete_flag = 0
+            <isNotNull open="and" property="provinceId">
+               a.province_id=#provinceId#
+            </isNotNull>
+            <isNotEmpty open="and" property="provinceIds">
+                a.province_id in
+                <iterate close=")" conjunction="," open="(" property="provinceIds">
+                    #provinceIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="name">
+            a.name=#name#
+          </isNotNull>
+            <isNotEmpty open="and" property="nameLike">
+                a.name like CONCAT('%',#nameLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="pycode">
+            a.pycode=#pycode#
+          </isNotNull>
+            <isNotEmpty open="and" property="pycodeLike">
+                a.pycode like CONCAT('%',#pycodeLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="createTimeMin">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="createTimeMax">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMin">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMax">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="provinceId">
+            <isEmpty property="provinceIds">
+            <isNull property="name">
+            <isEmpty property="nameLike">
+            <isNull property="pycode">
+            <isEmpty property="pycodeLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getProvincePageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="getProvincePageList.Province.trade.count" resultClass="long" >
+    	select  /* getProvincePageList.Province.trade.count */ count(*)  from province a
+            where
+            a.delete_flag = 0
+            <isNotNull open="and" property="provinceId">
+               a.province_id=#provinceId#
+            </isNotNull>
+            <isNotEmpty open="and" property="provinceIds">
+                a.province_id in
+                <iterate close=")" conjunction="," open="(" property="provinceIds">
+                    #provinceIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="name">
+            a.name=#name#
+          </isNotNull>
+            <isNotEmpty open="and" property="nameLike">
+                a.name like CONCAT('%',#nameLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="pycode">
+            a.pycode=#pycode#
+          </isNotNull>
+            <isNotEmpty open="and" property="pycodeLike">
+                a.pycode like CONCAT('%',#pycodeLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="createTimeMin">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="createTimeMax">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMin">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMax">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="provinceId">
+            <isEmpty property="provinceIds">
+            <isNull property="name">
+            <isEmpty property="nameLike">
+            <isNull property="pycode">
+            <isEmpty property="pycodeLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="getProvincesByProvinceIds.Province.trade" resultMap="Province.trade.RM" >
+    	select
+ /* getProvincesByProvinceIds.Province.trade */             a.province_id,
+            a.name,
+            a.pycode,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from province a
+            where
+            a.delete_flag = 0
+            <isEmpty open="and" property="provinceIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="provinceIds">
+                a.province_id in
+                <iterate close=")" conjunction="," open="(" property="provinceIds">
+                    #provinceIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getProvincesByProvinceIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="deleteByProvinceIds.Province.trade">
+		UPDATE province SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty open="and" property="provinceIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="provinceIds">
+                province_id in
+                <iterate close=")" conjunction="," open="(" property="provinceIds">
+                    #provinceIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+    <resultMap id="getProvinces.object.trade.RM" class="com.mycompany.biz.domain.Province">
+        <result property="value" column="value" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="label" column="label" javaType="java.lang.String" jdbcType="VARCHAR"  />
+    </resultMap>
+	
+	<select id="getProvinces.Province.trade" resultMap="getProvinces.object.trade.RM" >
+    	select
+ /* getProvinces.Province.trade */             a.province_id as value,
+            a.name as label
+            from province a
+            where
+            a.delete_flag = 0
+	</select>	
+
+	    
+	
+	
+    
+
+</sqlMap>
+

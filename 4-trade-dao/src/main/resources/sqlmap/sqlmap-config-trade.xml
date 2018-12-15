@@ -28,7 +28,9 @@
     
 
     <sqlMap resource="sqlmap/mapping/_common-sqlmap-mapping-trade.xml" />
+    <sqlMap resource="sqlmap/mapping/City-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/Menu-sqlmap-mapping-trade.xml" />
+    <sqlMap resource="sqlmap/mapping/Province-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/Role-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/RoleMenu-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/Topic-sqlmap-mapping-trade.xml" />
