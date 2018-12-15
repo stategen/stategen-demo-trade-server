@@ -8,7 +8,7 @@
     <resultMap id="Topic.trade.RM" class="com.mycompany.biz.domain.Topic">
         <result property="topicId" column="topic_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="authorId" column="author_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
-        <result property="topicType" column="topic_type" javaType="com.mycompany.biz.enums.TopicType" jdbcType="VARCHAR"  />
+        <result property="topicType" column="topic_type" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="content" column="content" javaType="java.lang.String" jdbcType="LONGVARCHAR"  />
         <result property="title" column="title" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="lastReplyAt" column="last_reply_at" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
@@ -19,8 +19,6 @@
         <result property="testDatetime" column="test_datetime" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="testDate" column="test_date" javaType="java.util.Date" jdbcType="DATE"  />
         <result property="testTime" column="test_time" javaType="java.util.Date" jdbcType="TIME"  />
-        <result property="provinceId" column="province_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
-        <result property="cityId" column="city_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
@@ -56,8 +54,6 @@
             <isNotNull prepend="," property="testDatetime"> test_datetime </isNotNull>
             <isNotNull prepend="," property="testDate"> test_date </isNotNull>
             <isNotNull prepend="," property="testTime"> test_time </isNotNull>
-            <isNotNull prepend="," property="provinceId"> province_id </isNotNull>
-            <isNotNull prepend="," property="cityId"> city_id </isNotNull>
             ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="topicId"> #topicId# </isNotNull> 
             <isNotNull prepend="," property="authorId"> #authorId# </isNotNull> 
@@ -71,9 +67,7 @@
             <isNotNull prepend="," property="testTimestamp"> #testTimestamp# </isNotNull> 
             <isNotNull prepend="," property="testDatetime"> #testDatetime# </isNotNull> 
             <isNotNull prepend="," property="testDate"> #testDate# </isNotNull> 
-            <isNotNull prepend="," property="testTime"> #testTime# </isNotNull> 
-            <isNotNull prepend="," property="provinceId"> #provinceId# </isNotNull> 
-            <isNotNull prepend="," property="cityId"> #cityId# </isNotNull>)
+            <isNotNull prepend="," property="testTime"> #testTime# </isNotNull>)
             <selectKey keyProperty="topicId" resultClass="String" type="pre">
                 select if((#topicId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#topicId# ) as topicId
             </selectKey>
@@ -130,12 +124,6 @@
                 <isNotNull prepend="," property="testTime">
                     test_time =  #testTime# 
                 </isNotNull>
-                <isNotNull prepend="," property="provinceId">
-                    province_id =  #provinceId# 
-                </isNotNull>
-                <isNotNull prepend="," property="cityId">
-                    city_id =  #cityId# 
-                </isNotNull>
             </dynamic>
             where
             delete_flag = 0
@@ -159,8 +147,6 @@
             a.test_datetime,
             a.test_date,
             a.test_time,
-            a.province_id,
-            a.city_id,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -190,8 +176,6 @@
             a.test_datetime,
             a.test_date,
             a.test_time,
-            a.province_id,
-            a.city_id,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -285,24 +269,6 @@
             <isNotNull open="and" property="testTimeMax">
                 a.test_time &lt;#testTimeMax#
             </isNotNull>
-            <isNotNull open="and" property="provinceId">
-               a.province_id=#provinceId#
-            </isNotNull>
-            <isNotEmpty open="and" property="provinceIds">
-                a.province_id in
-                <iterate close=")" conjunction="," open="(" property="provinceIds">
-                    #provinceIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull open="and" property="cityId">
-               a.city_id=#cityId#
-            </isNotNull>
-            <isNotEmpty open="and" property="cityIds">
-                a.city_id in
-                <iterate close=")" conjunction="," open="(" property="cityIds">
-                    #cityIds[]#
-                </iterate>
-            </isNotEmpty>
             <isNotNull open="and" property="createTimeMin">
                 a.create_time >=#createTimeMin#
             </isNotNull>
@@ -341,10 +307,6 @@
             <isNull property="testDateMax">
             <isNull property="testTimeMin">
             <isNull property="testTimeMax">
-            <isNull property="provinceId">
-            <isEmpty property="provinceIds">
-            <isNull property="cityId">
-            <isEmpty property="cityIds">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
@@ -353,10 +315,6 @@
             </isNull>
             </isNull>
             </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
             </isNull>
             </isNull>
             </isNull>
@@ -480,24 +438,6 @@
             <isNotNull open="and" property="testTimeMax">
                 a.test_time &lt;#testTimeMax#
             </isNotNull>
-            <isNotNull open="and" property="provinceId">
-               a.province_id=#provinceId#
-            </isNotNull>
-            <isNotEmpty open="and" property="provinceIds">
-                a.province_id in
-                <iterate close=")" conjunction="," open="(" property="provinceIds">
-                    #provinceIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull open="and" property="cityId">
-               a.city_id=#cityId#
-            </isNotNull>
-            <isNotEmpty open="and" property="cityIds">
-                a.city_id in
-                <iterate close=")" conjunction="," open="(" property="cityIds">
-                    #cityIds[]#
-                </iterate>
-            </isNotEmpty>
             <isNotNull open="and" property="createTimeMin">
                 a.create_time >=#createTimeMin#
             </isNotNull>
@@ -536,10 +476,6 @@
             <isNull property="testDateMax">
             <isNull property="testTimeMin">
             <isNull property="testTimeMax">
-            <isNull property="provinceId">
-            <isEmpty property="provinceIds">
-            <isNull property="cityId">
-            <isEmpty property="cityIds">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
@@ -548,10 +484,6 @@
             </isNull>
             </isNull>
             </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
             </isNull>
             </isNull>
             </isNull>
@@ -600,8 +532,6 @@
             a.test_datetime,
             a.test_date,
             a.test_time,
-            a.province_id,
-            a.city_id,
             a.create_time,
             a.update_time,
             a.delete_flag

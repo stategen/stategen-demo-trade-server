@@ -31,7 +31,7 @@ public class TopicDaoImpl extends SqlMapClientDaoSupport implements TopicDao {
 
     /**
 	 * 
-	 * sql:insert into topic ( create_time , update_time , delete_flag , topic_id , author_id , topic_type , content , title , last_reply_at , good , top , visit_count , test_timestamp , test_datetime , test_date , test_time , province_id , city_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+	 * sql:insert into topic ( create_time , update_time , delete_flag , topic_id , author_id , topic_type , content , title , last_reply_at , good , top , visit_count , test_timestamp , test_datetime , test_date , test_time ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
     public Topic insert(Topic topic) throws DataAccessException {
         if (topic == null) {
@@ -54,7 +54,7 @@ public class TopicDaoImpl extends SqlMapClientDaoSupport implements TopicDao {
 
     /**
 	 * 
-	 * sql:UPDATE topic SET update_time= CURRENT_TIMESTAMP(6) , author_id = ? , topic_type = ? , content = ? , title = ? , last_reply_at = ? , good = ? , top = ? , visit_count = ? , test_timestamp = ? , test_datetime = ? , test_date = ? , test_time = ? , province_id = ? , city_id = ? where delete_flag = 0 and topic_id = ?
+	 * sql:UPDATE topic SET update_time= CURRENT_TIMESTAMP(6) , author_id = ? , topic_type = ? , content = ? , title = ? , last_reply_at = ? , good = ? , top = ? , visit_count = ? , test_timestamp = ? , test_datetime = ? , test_date = ? , test_time = ? where delete_flag = 0 and topic_id = ?
 	 */
     public Topic update(Topic topic) throws DataAccessException {
         if (topic == null) {
@@ -66,7 +66,7 @@ public class TopicDaoImpl extends SqlMapClientDaoSupport implements TopicDao {
 
     /**
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.test_timestamp, a.test_datetime, a.test_date, a.test_time, a.province_id, a.city_id, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id = ?
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.test_timestamp, a.test_datetime, a.test_date, a.test_time, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id = ?
 	 */
     public Topic getTopicByTopicId(String topicId) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
@@ -76,7 +76,7 @@ public class TopicDaoImpl extends SqlMapClientDaoSupport implements TopicDao {
 
     /**
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.test_timestamp, a.test_datetime, a.test_date, a.test_time, a.province_id, a.city_id, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.topic_type=? and a.topic_type in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.title=? and a.title like CONCAT('%',?,'%') and a.last_reply_at >=? and a.last_reply_at <? and a.good >=? and a.good <? and a.top >=? and a.top <? and a.visit_count >=? and a.visit_count <? and a.test_timestamp >=? and a.test_timestamp <? and a.test_datetime >=? and a.test_datetime <? and a.test_date >=? and a.test_date <? and a.test_time >=? and a.test_time <? and a.province_id=? and a.province_id in ( ? ) and a.city_id=? and a.city_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.test_timestamp, a.test_datetime, a.test_date, a.test_time, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.topic_type=? and a.topic_type in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.title=? and a.title like CONCAT('%',?,'%') and a.last_reply_at >=? and a.last_reply_at <? and a.good >=? and a.good <? and a.top >=? and a.top <? and a.visit_count >=? and a.visit_count <? and a.test_timestamp >=? and a.test_timestamp <? and a.test_datetime >=? and a.test_datetime <? and a.test_date >=? and a.test_date <? and a.test_time >=? and a.test_time <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
     public PageList<Topic> getTopicPageList(Topic topic, int pageSize, int pageNum) throws DataAccessException {
@@ -85,7 +85,7 @@ public class TopicDaoImpl extends SqlMapClientDaoSupport implements TopicDao {
 
     /**
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.test_timestamp, a.test_datetime, a.test_date, a.test_time, a.province_id, a.city_id, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.test_timestamp, a.test_datetime, a.test_date, a.test_time, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
     public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds) throws DataAccessException {

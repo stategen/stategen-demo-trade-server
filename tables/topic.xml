@@ -8,8 +8,6 @@
     <!-- <column name="currency_Unit" javaType="java.util.Currency"/> -->
     <!-- <column name="status" javaType="aa.bb.cc.StatusEnum"/> -->
     <!-- <column name="sex" javaType="aa.bb.cc.SexEnum"/> -->
-    
-    <column name="topic_type" javaType="com.mycompany.biz.enums.TopicType"/>
 
     <sql id="getTopicPageListOrderBy">
         a.update_time desc, a.create_time desc

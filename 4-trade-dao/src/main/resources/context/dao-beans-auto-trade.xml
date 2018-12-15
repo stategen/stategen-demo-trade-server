@@ -9,9 +9,7 @@
     <!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
     <!-- ============================================================ -->
 
-    <bean id="cityDao" class="com.mycompany.biz.dao.impl.CityDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="menuDao" class="com.mycompany.biz.dao.impl.MenuDaoImpl" parent="SqlMapClientDAO-trade" />
-    <bean id="provinceDao" class="com.mycompany.biz.dao.impl.ProvinceDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="roleDao" class="com.mycompany.biz.dao.impl.RoleDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="roleMenuDao" class="com.mycompany.biz.dao.impl.RoleMenuDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="topicDao" class="com.mycompany.biz.dao.impl.TopicDaoImpl" parent="SqlMapClientDAO-trade" />

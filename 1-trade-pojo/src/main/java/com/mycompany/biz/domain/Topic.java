@@ -14,8 +14,6 @@ import javax.validation.constraints.Max;
 
 import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.lite.enums.EditorType;
-
-import com.mycompany.biz.enums.TopicType;
 import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Getter;
@@ -40,10 +38,6 @@ public class Topic implements java.io.Serializable, IAuthored {
 
     private Long replyCount;
 
-    private City city;
-
-    private Province province;
-
     private static final long serialVersionUID = -5216457518046898601L;
 
     /***topicId   db_column: topic_id VARCHAR */
@@ -60,7 +54,8 @@ public class Topic implements java.io.Serializable, IAuthored {
 
     /***topicType   db_column: topic_type VARCHAR */
     @ApiModelProperty("topicType")
-    private TopicType topicType;
+    @Max(64)
+    private String topicType;
 
     /***content   db_column: content LONGVARCHAR */
     @ApiModelProperty("content")
@@ -110,16 +105,6 @@ public class Topic implements java.io.Serializable, IAuthored {
     @Temporal(TemporalType.TIME)
     private java.util.Date testTime;
 
-    /***provinceId   db_column: province_id VARCHAR */
-    @ApiModelProperty("provinceId")
-    @Max(64)
-    private String provinceId;
-
-    /***cityId   db_column: city_id VARCHAR */
-    @ApiModelProperty("cityId")
-    @Max(64)
-    private String cityId;
-
     /***创建时间   db_column: create_time TIMESTAMP */
     @ApiModelProperty(value = "创建时间", hidden = true)
     @Temporal(TemporalType.TIMESTAMP)
@@ -160,8 +145,6 @@ public class Topic implements java.io.Serializable, IAuthored {
         sb.append("testDateMax=").append(testDateMax != null ? df.format(testDateMax) : null).append('\n');
         sb.append("testTimeMin=").append(testTimeMin != null ? df.format(testTimeMin) : null).append('\n');
         sb.append("testTimeMax=").append(testTimeMax != null ? df.format(testTimeMax) : null).append('\n');
-        sb.append("provinceIds=").append(provinceIds).append('\n');
-        sb.append("cityIds=").append(cityIds).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin=").append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
@@ -179,8 +162,6 @@ public class Topic implements java.io.Serializable, IAuthored {
         sb.append("testDatetime=").append(testDatetime != null ? df.format(testDatetime) : null).append('\n');
         sb.append("testDate=").append(testDate != null ? df.format(testDate) : null).append('\n');
         sb.append("testTime=").append(testTime != null ? df.format(testTime) : null).append('\n');
-        sb.append("provinceId=").append(provinceId).append('\n');
-        sb.append("cityId=").append(cityId).append('\n');
         sb.append("createTime=").append(createTime != null ? df.format(createTime) : null).append('\n');
         sb.append("updateTime=").append(updateTime != null ? df.format(updateTime) : null).append('\n');
         sb.append("deleteFlag=").append(deleteFlag);
@@ -198,7 +179,7 @@ public class Topic implements java.io.Serializable, IAuthored {
 
     /*** topicTypes in getTopicPageList */
     @ApiModelProperty("topicTypes")
-    private transient java.util.List<com.mycompany.biz.enums.TopicType> topicTypes;
+    private transient java.util.List<String> topicTypes;
 
     /*** contentLike in getTopicPageList */
     @ApiModelProperty("contentLike")
@@ -281,14 +262,6 @@ public class Topic implements java.io.Serializable, IAuthored {
     @ApiModelProperty("测试时间Max")
     @Temporal(TemporalType.TIME)
     private transient java.util.Date testTimeMax;
-
-    /*** provinceIds in getTopicPageList */
-    @ApiModelProperty("provinceIds")
-    private transient java.util.List<String> provinceIds;
-
-    /*** cityIds in getTopicPageList */
-    @ApiModelProperty("cityIds")
-    private transient java.util.List<String> cityIds;
 
     /*** 创建时间Min in getTopicPageList */
     @ApiModelProperty("创建时间Min")

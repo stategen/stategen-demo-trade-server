@@ -18,8 +18,6 @@
             <isNotNull prepend="," property="testDatetime"> test_datetime </isNotNull>
             <isNotNull prepend="," property="testDate"> test_date </isNotNull>
             <isNotNull prepend="," property="testTime"> test_time </isNotNull>
-            <isNotNull prepend="," property="provinceId"> province_id </isNotNull>
-            <isNotNull prepend="," property="cityId"> city_id </isNotNull>
             ) VALUES (
             CURRENT_TIMESTAMP(6)
             , CURRENT_TIMESTAMP(6)
@@ -37,8 +35,6 @@
             <isNotNull prepend="," property="testDatetime"> ?  </isNotNull>
             <isNotNull prepend="," property="testDate"> ?  </isNotNull>
             <isNotNull prepend="," property="testTime"> ?  </isNotNull>
-            <isNotNull prepend="," property="provinceId"> ?  </isNotNull>
-            <isNotNull prepend="," property="cityId"> ?  </isNotNull>
             )
             <selectKey keyProperty="topicId" resultClass="String" type="pre">
                 select if((#topicId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#topicId# ) as topicId
@@ -98,12 +94,6 @@
                 <isNotNull property="testTime" prepend=",">
                     test_time =  ? 
                 </isNotNull>
-                <isNotNull property="provinceId" prepend=",">
-                    province_id =  ? 
-                </isNotNull>
-                <isNotNull property="cityId" prepend=",">
-                    city_id =  ? 
-                </isNotNull>
             </dynamic>
             where
             delete_flag = 0
@@ -127,8 +117,6 @@
             a.test_datetime,
             a.test_date,
             a.test_time,
-            a.province_id,
-            a.city_id,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -155,8 +143,6 @@
             a.test_datetime,
             a.test_date,
             a.test_time,
-            a.province_id,
-            a.city_id,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -250,24 +236,6 @@
             <isNotNull property="testTimeMax" open="and">
                 a.test_time &lt;#testTimeMax#
             </isNotNull>
-            <isNotNull property="provinceId" open="and">
-               a.province_id=?
-            </isNotNull>
-            <isNotEmpty property="provinceIds" open="and">
-                a.province_id in
-                <iterate property="provinceIds" conjunction="," open="(" close=")">
-                    #provinceIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="cityId" open="and">
-               a.city_id=?
-            </isNotNull>
-            <isNotEmpty property="cityIds" open="and">
-                a.city_id in
-                <iterate property="cityIds" conjunction="," open="(" close=")">
-                    #cityIds[]#
-                </iterate>
-            </isNotEmpty>
             <isNotNull property="createTimeMin" open="and">
                 a.create_time >=#createTimeMin#
             </isNotNull>
@@ -306,10 +274,6 @@
             <isNull property="testDateMax">
             <isNull property="testTimeMin">
             <isNull property="testTimeMax">
-            <isNull property="provinceId">
-            <isEmpty property="provinceIds">
-            <isNull property="cityId">
-            <isEmpty property="cityIds">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
@@ -318,10 +282,6 @@
             </isNull>
             </isNull>
             </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
             </isNull>
             </isNull>
             </isNull>
@@ -370,8 +330,6 @@
             a.test_datetime,
             a.test_date,
             a.test_time,
-            a.province_id,
-            a.city_id,
             a.create_time,
             a.update_time,
             a.delete_flag
