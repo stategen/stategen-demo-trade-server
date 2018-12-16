@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
-import org.stategen.framework.annotation.SelectProvidor;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.AntdPageList;
@@ -18,7 +17,6 @@ import org.stategen.framework.lite.Pagination;
 import org.stategen.framework.util.DatetimeUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
 
-import com.mycompany.biz.domain.Province;
 import com.mycompany.biz.domain.Topic;
 import com.mycompany.biz.enums.TopicType;
 
@@ -37,7 +35,7 @@ public class Bbs_topicController extends TopicControllerBase {
                                                 @ApiParam()@RequestParam(required =false,name="topicIds") ArrayList<String> topicIds,
                                                 @ApiParam()@RequestParam(required =false,name="authorIds") ArrayList<String> authorIds,
                                                 @ApiParam() TopicType topicType,
-                                                @ApiParam()@RequestParam(required =false,name="topicTypes") ArrayList<String> topicTypes,
+                                                @ApiParam()@RequestParam(required =false,name="topicTypes") ArrayList<TopicType> topicTypes,
                                                 @ApiParam() String title,
                                                 @ApiParam() String titleLike,
                                                 @ApiParam() Long visitCountMin,
@@ -50,8 +48,8 @@ public class Bbs_topicController extends TopicControllerBase {
                                                 @ApiParam() Date testDateMax,
                                                 @ApiParam() Date testTimeMin,
                                                 @ApiParam() Date testTimeMax,
+                                                @ApiParam() String provinceId,
                                                 
-                                                @SelectProvidor(Province.class)
                                                 @ApiParam()@RequestParam(required =false,name="provinceIds") ArrayList<String> provinceIds,
                                                 
                                                 @ApiParam()@RequestParam(required =false,name="cityIds") ArrayList<String> cityIds

@@ -13,11 +13,12 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 
 import org.stategen.framework.annotation.Editor;
+import org.stategen.framework.annotation.SelectProvidor;
 import org.stategen.framework.lite.enums.EditorType;
 
 import com.mycompany.biz.enums.TopicType;
-import io.swagger.annotations.ApiModelProperty;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -113,11 +114,13 @@ public class Topic implements java.io.Serializable, IAuthored {
     /***provinceId   db_column: province_id VARCHAR */
     @ApiModelProperty("provinceId")
     @Max(64)
+    @SelectProvidor(Province.class)
     private String provinceId;
 
     /***cityId   db_column: city_id VARCHAR */
     @ApiModelProperty("cityId")
     @Max(64)
+    @SelectProvidor(City.class)
     private String cityId;
 
     /***创建时间   db_column: create_time TIMESTAMP */
@@ -284,10 +287,12 @@ public class Topic implements java.io.Serializable, IAuthored {
 
     /*** provinceIds in getTopicPageList */
     @ApiModelProperty("provinceIds")
+    @SelectProvidor(Province.class)
     private transient java.util.List<String> provinceIds;
 
     /*** cityIds in getTopicPageList */
     @ApiModelProperty("cityIds")
+    @SelectProvidor(City.class)
     private transient java.util.List<String> cityIds;
 
     /*** 创建时间Min in getTopicPageList */
