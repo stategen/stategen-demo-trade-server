@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.VisitCheck;
@@ -35,7 +34,7 @@ public class MenuController extends MenuControllerBase {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    @ApiRequestMappingAutoWithMethodName(name = "扫描系统菜单", method = RequestMethod.GET)
+    @ApiRequestMappingAutoWithMethodName(name = "扫描系统菜单")
     @VisitCheck
     public List<Menu> scanMenus() throws InstantiationException, IllegalAccessException {
         List<Menu> allMenus = ControllerHelpers.genAllControllerMenus(Menu.class, requestMappingHandlerMapping);
@@ -50,14 +49,14 @@ public class MenuController extends MenuControllerBase {
      * @param roleId
      * @return
      */
-    @ApiRequestMappingAutoWithMethodName(name = "获取角色", method = RequestMethod.GET)
+    @ApiRequestMappingAutoWithMethodName(name = "获取角色")
     @VisitCheck
     public List<Menu> getAllMenusWithRoleChecked(String roleId){
         return this.roleService.getAllMenusWithRoleChecked(roleId);
     }
 
     
-    @ApiRequestMappingAutoWithMethodName(name = "保存角色和菜单对应关系", method = RequestMethod.POST)
+    @ApiRequestMappingAutoWithMethodName(name = "保存角色和菜单对应关系")
     @VisitCheck
     public List<RoleMenu> saveRoleMenus(List<RoleMenu> roleMenus){
        return this.roleMenuService.saveRoleMenus(roleMenus);

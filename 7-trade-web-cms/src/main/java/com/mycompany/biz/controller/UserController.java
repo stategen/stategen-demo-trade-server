@@ -38,7 +38,7 @@ public class UserController extends UserControllerBase {
     @Resource
     private CookieGroup baseCookieGroup;
 
-    @ApiRequestMappingAutoWithMethodName(name = "用户列表", method = RequestMethod.GET)
+    @ApiRequestMappingAutoWithMethodName(name = "用户列表")
     @VisitCheck
     @State(init = true)
     @GenForm
