@@ -114,13 +114,13 @@ public class Topic implements java.io.Serializable, IAuthored {
     /***provinceId   db_column: province_id VARCHAR */
     @ApiModelProperty("provinceId")
     @Max(64)
-    @OptionConfig(bean=Province.class)
+    @OptionConfig(bean=Province.class,defaultOption="province")
     private String provinceId;
 
     /***cityId   db_column: city_id VARCHAR */
     @ApiModelProperty("cityId")
     @Max(64)
-    @OptionConfig(bean=City.class,changeBy="provinceId")
+    @OptionConfig(bean=City.class,changeBy="provinceId",defaultOption="city")
     private String cityId;
 
     /***创建时间   db_column: create_time TIMESTAMP */

@@ -1,11 +1,11 @@
 package com.mycompany.biz.controller;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.State;
@@ -30,14 +30,21 @@ public class TopicController extends TopicControllerBase {
     @Resource
     private CookieGroup loginCookieGroup;
     
+
+    
+    
     @ApiRequestMappingAutoWithMethodName
     @State(init=true,dataOpt=DataOpt.APPEND_OR_UPDATE)
     public AntdPageList<Topic> getTopicPageList(TopicType topicType,Boolean mdrender,@ApiParam(hidden=true) Topic topic, Pagination pagination){
         topic.setCreateTimeMax(DatetimeUtil.current());
         
         PageList<Topic> topicPageList = this.topicService.getTopicPageList(topic, pagination.getPageSize(), pagination.getPage());
+        List<Topic> topics = topicPageList.getItems();
+        setTopicModels(topics);
         return new AntdPageList<Topic>(topicPageList);
     }
+
+
     
     @ApiRequestMappingAutoWithMethodName
     @State
@@ -56,7 +63,9 @@ public class TopicController extends TopicControllerBase {
                         @ApiParam() Date testTime,
                         @ApiParam() String topicId,
                         @ApiParam(hidden = true) Topic topic) {
-        return this.topicService.update(topic);
+        topic = this.topicService.update(topic);
+        setTopicModels(Arrays.asList(topic));
+        return topic;
     }
 
 }

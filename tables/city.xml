@@ -36,8 +36,8 @@
     <operation name="getCitys" multiplicity="many" remarks="">
         <sql>
             select
-            a.city_id as value,
-            a.name as label,
+            a.city_id,
+            a.name,
             a.province_id
             from city a
             where

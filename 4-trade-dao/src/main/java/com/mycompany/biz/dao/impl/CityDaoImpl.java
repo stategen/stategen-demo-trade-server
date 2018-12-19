@@ -107,7 +107,7 @@ public class CityDaoImpl extends SqlMapClientDaoSupport implements CityDao {
 
     /**
 	 * 
-	 * sql:select a.city_id as value, a.name as label, a.province_id from city a where a.delete_flag = 0 and a.province_id = ?
+	 * sql:select a.city_id, a.name, a.province_id from city a where a.delete_flag = 0 and a.province_id = ?
 	 */
     @SuppressWarnings("unchecked")
     public List<City> getCitys(String provinceId) throws DataAccessException {

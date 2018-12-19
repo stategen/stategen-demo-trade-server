@@ -12,7 +12,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 
+import org.stategen.framework.lite.IOption;
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,11 +31,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Province  implements java.io.Serializable {
-    
-    private String label;
-    private String value;
-    
+public class Province implements java.io.Serializable, IOption {
+
     private static final long serialVersionUID = -5216457518046898601L;
 
     /***provinceId   db_column: province_id VARCHAR */
@@ -87,9 +86,6 @@ public class Province  implements java.io.Serializable {
         sb.append('}');
         return sb.toString();
     }
-    public String getTitle(){
-        return this.getLabel();
-    }
 
     /*** provinceIds in getProvincePageList */
     @ApiModelProperty("provinceIds")
@@ -122,4 +118,24 @@ public class Province  implements java.io.Serializable {
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMax;
+
+    public String getTitle() {
+        return this.getLabel();
+    }
+
+    @Override
+    public String getLabel() {
+        if (name != null) {
+            return name;
+        }
+        return null;
+    }
+
+    @Override
+    public String getValue() {
+        if (provinceId != null) {
+            return provinceId;
+        }
+        return null;
+    }
 }

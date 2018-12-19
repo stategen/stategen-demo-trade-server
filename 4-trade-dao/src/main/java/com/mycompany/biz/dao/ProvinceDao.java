@@ -114,7 +114,7 @@ public interface ProvinceDao {
     
     </pre>
 	 * 
-	 * sql:select a.province_id as value, a.name as label from province a where a.delete_flag = 0
+	 * sql:select a.province_id, a.name from province a where a.delete_flag = 0
 	 */
 	public List<Province> getProvinces() throws DataAccessException;
 	

@@ -365,16 +365,16 @@
 	</update>
 	
     
-    <resultMap id="getCitys.GetCitysResult.trade.RM" class="com.mycompany.biz.domain.City">
-        <result property="value" column="value" javaType="java.lang.String" jdbcType="VARCHAR"  />
-        <result property="label" column="label" javaType="java.lang.String" jdbcType="VARCHAR"  />
+    <resultMap id="getCitys.City.trade.RM" class="com.mycompany.biz.domain.City">
+        <result property="cityId" column="city_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="provinceId" column="province_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
     </resultMap>
 	
-	<select id="getCitys.City.trade" resultMap="getCitys.GetCitysResult.trade.RM" >
+	<select id="getCitys.City.trade" resultMap="getCitys.City.trade.RM" >
     	select
- /* getCitys.City.trade */             a.city_id as value,
-            a.name as label,
+ /* getCitys.City.trade */             a.city_id,
+            a.name,
             a.province_id
             from city a
             where

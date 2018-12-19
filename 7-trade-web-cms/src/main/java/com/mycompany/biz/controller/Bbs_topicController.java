@@ -1,6 +1,7 @@
 package com.mycompany.biz.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -68,6 +69,9 @@ public class Bbs_topicController extends TopicControllerBase {
         topic.setCreateTimeMax(DatetimeUtil.current());
 
         PageList<Topic> topicPageList = this.topicService.getTopicPageList(topic, pagination.getPageSize(), pagination.getPage());
+        
+        setTopicModels(topicPageList.getItems());
+        
         return new AntdPageList<Topic>(topicPageList);
     }
 
@@ -102,7 +106,9 @@ public class Bbs_topicController extends TopicControllerBase {
                         @ApiParam() String cityId
                         ,@ApiParam(hidden = true) Topic topic
 ) {
-        return this.topicService.insert(topic);
+        topic = topicService.insert(topic);
+        setTopicModels(Arrays.asList(topic));
+        return topic;
     }
 
     @ApiRequestMappingAutoWithMethodName
@@ -123,7 +129,9 @@ public class Bbs_topicController extends TopicControllerBase {
                         @ApiParam() String cityId,
                         @ApiParam() String topicId
                         ,@ApiParam(hidden = true) Topic topic) {
-        return this.topicService.update(topic);
+        topic=topicService.update(topic);
+        setTopicModels(Arrays.asList(topic));
+        return topic;
     }
 
 }

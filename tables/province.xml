@@ -36,8 +36,8 @@
     <operation name="getProvinces" multiplicity="many" remarks="" resultClass="object">
         <sql>
             select
-            a.province_id as value,
-            a.name as label
+            a.province_id,
+            a.name
             from province a
             where
             a.delete_flag = 0
