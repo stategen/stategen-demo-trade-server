@@ -31,7 +31,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:insert into user ( create_time , update_time , delete_flag , user_id , username , password , role_type , name , nickName , age , address , isMale , avatar_url , email ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?)
+	 * sql:insert into user ( create_time , update_time , delete_flag , user_id , username , password , role_type , name , nickName , age , address , avatar_url , email , vali_datetime , birthday_date , work_time , province_id , city_id , status , grade , sex , post_address_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
     public User insert(User user) throws DataAccessException {
         if (user == null) {
@@ -74,7 +74,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:UPDATE user SET update_time= CURRENT_TIMESTAMP(6) , username = ? , password = ? , role_type = ? , name = ? , nickName = ? , age = ? , address = ? , isMale = ? , avatar_url = ? , email = ? where delete_flag = 0 and user_id = ?
+	 * sql:UPDATE user SET update_time= CURRENT_TIMESTAMP(6) , username = ? , password = ? , role_type = ? , name = ? , nickName = ? , age = ? , address = ? , avatar_url = ? , email = ? , vali_datetime = ? , birthday_date = ? , work_time = ? , province_id = ? , city_id = ? , status = ? , grade = ? , sex = ? , post_address_id = ? where delete_flag = 0 and user_id = ?
 	 */
     public User update(User user) throws DataAccessException {
         if (user == null) {
@@ -86,7 +86,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id = ?
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_url, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id = ?
 	 */
     public User getUserByUserId(String userId) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
@@ -96,7 +96,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.username = ?
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_url, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.username = ?
 	 */
     public User getUserByUsername(String username) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
@@ -106,7 +106,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.email = ?
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_url, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.email = ?
 	 */
     public User getUserByEmail(String email) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
@@ -116,7 +116,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id=? and a.user_id in ( ? ) and a.username=? and a.username like CONCAT('%',?,'%') and a.password=? and a.password like CONCAT('%',?,'%') and a.role_type=? and a.role_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.nickName=? and a.nickName like CONCAT('%',?,'%') and a.age >=? and a.age <? and a.address=? and a.address like CONCAT('%',?,'%') and a.email=? and a.email like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_url, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id=? and a.user_id in ( ? ) and a.username=? and a.username like CONCAT('%',?,'%') and a.password=? and a.password like CONCAT('%',?,'%') and a.role_type=? and a.role_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.nickName=? and a.nickName like CONCAT('%',?,'%') and a.age >=? and a.age <? and a.address=? and a.address like CONCAT('%',?,'%') and a.email=? and a.email like CONCAT('%',?,'%') and a.vali_datetime >=? and a.vali_datetime <? and a.birthday_date >=? and a.birthday_date <? and a.work_time >=? and a.work_time <? and a.province_id=? and a.province_id in ( ? ) and a.city_id=? and a.city_id in ( ? ) and a.status=? and a.status in ( ? ) and a.grade >=? and a.grade <? and a.post_address_id=? and a.post_address_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
     public PageList<User> getUserPageList(User user, int pageSize, int pageNum) throws DataAccessException {
@@ -125,7 +125,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.user_id in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_url, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.user_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
     public List<User> getUsersByUserIds(java.util.List<String> userIds) throws DataAccessException {
@@ -136,7 +136,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.username in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_url, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.username in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
     public List<User> getUsersByUsernames(java.util.List<String> usernames) throws DataAccessException {
@@ -147,7 +147,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
     /**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.isMale, a.avatar_url, a.email, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.email in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_url, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.email in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
     public List<User> getUsersByEmails(java.util.List<String> emails) throws DataAccessException {

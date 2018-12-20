@@ -6,7 +6,9 @@
 package com.mycompany.biz.service;
 
 import java.util.List;
+
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.AssignSerice;
 
 import com.mycompany.biz.domain.City;
 
@@ -21,7 +23,7 @@ import com.mycompany.biz.domain.City;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface CityService extends CityServiceFacade {
+public interface CityService extends CityServiceFacade, AssignSerice<City, String> {
 
     /**
      * 
@@ -77,7 +79,7 @@ public interface CityService extends CityServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.CityDao#getCitys
+     * @see com.mycompany.biz.dao.CityDao#getCityOptions
      */
-    public List<City> getCitys(String provinceId);
+    public List<City> getCityOptions(String provinceId);
 }

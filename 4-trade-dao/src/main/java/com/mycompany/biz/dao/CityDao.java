@@ -129,7 +129,7 @@ public interface CityDao {
 	 * 
 	 * sql:select a.city_id, a.name, a.province_id from city a where a.delete_flag = 0 and a.province_id = ?
 	 */
-	public List<City> getCitys(String provinceId) throws DataAccessException;
+	public List<City> getCityOptions(String provinceId) throws DataAccessException;
 	
 
 }

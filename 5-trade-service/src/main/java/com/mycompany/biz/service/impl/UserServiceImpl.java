@@ -4,7 +4,13 @@
  */
 package com.mycompany.biz.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -12,7 +18,6 @@ import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.UserDao;
-import com.mycompany.biz.domain.IAuthored;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.service.UserService;
 
@@ -195,12 +200,7 @@ public class UserServiceImpl implements UserService {
         return userDao.deleteByUsernames(usernames);
     }
 
-    @Override
-    public void setTopicsAuthor(List<? extends IAuthored> iAuthoreds) {
-        List<String> authorIds = CollectionUtil.toList(iAuthoreds, IAuthored::getAuthorId);
-        List<User> topicAuthors = this.getUsersByUserIds(authorIds);
-        CollectionUtil.setModelByList(iAuthoreds, topicAuthors, IAuthored::getAuthorId, IAuthored::setAuthor, User::getUserId);
-    }
+
 
     /**
      * 
@@ -210,5 +210,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageList<User> getUserPageList(User user, int pageSize, int pageNum) {
         return userDao.getUserPageList(user, pageSize, pageNum);
+    }
+
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, User> destSetMethod) {
+        if (CollectionUtil.isNotEmpty(dests)) {
+            Set<String> userIds = CollectionUtil.toSet(dests, destGetMethod);
+            List<User> users = this.getUsersByUserIds(new ArrayList<String>(userIds));
+            if (CollectionUtil.isNotEmpty(users)) {
+                CollectionUtil.setModelByList(dests, users, destGetMethod, destSetMethod, User::getUserId);
+            }
+        }
     }
 }

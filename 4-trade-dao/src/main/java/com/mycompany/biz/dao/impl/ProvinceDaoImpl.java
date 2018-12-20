@@ -110,7 +110,7 @@ public class ProvinceDaoImpl extends SqlMapClientDaoSupport implements ProvinceD
 	 * sql:select a.province_id, a.name from province a where a.delete_flag = 0
 	 */
     @SuppressWarnings("unchecked")
-    public List<Province> getProvinces() throws DataAccessException {
-        return (List<Province>) getSqlMapClientTemplate().queryForList("getProvinces.Province.trade", null);
+    public List<Province> getProvinceOptions() throws DataAccessException {
+        return (List<Province>) getSqlMapClientTemplate().queryForList("getProvinceOptions.Province.trade", null);
     }
 }

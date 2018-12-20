@@ -6,7 +6,9 @@
 package com.mycompany.biz.service;
 
 import java.util.List;
+
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.AssignSerice;
 
 import com.mycompany.biz.domain.Province;
 
@@ -21,7 +23,7 @@ import com.mycompany.biz.domain.Province;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface ProvinceService extends ProvinceServiceFacade {
+public interface ProvinceService extends ProvinceServiceFacade, AssignSerice<Province, String> {
 
     /**
      * 
@@ -77,7 +79,7 @@ public interface ProvinceService extends ProvinceServiceFacade {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.ProvinceDao#getProvinces
+     * @see com.mycompany.biz.dao.ProvinceDao#getProvinceOptions
      */
-    public List<Province> getProvinces();
+    public List<Province> getProvinceOptions();
 }

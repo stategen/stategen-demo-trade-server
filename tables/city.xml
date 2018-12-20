@@ -33,7 +33,7 @@
     </operation>
     -->
     
-    <operation name="getCitys" multiplicity="many" remarks="">
+    <operation name="getCityOptions" multiplicity="many" remarks="">
         <sql>
             select
             a.city_id,

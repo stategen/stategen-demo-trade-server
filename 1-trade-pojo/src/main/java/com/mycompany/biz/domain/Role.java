@@ -15,8 +15,6 @@ import javax.validation.constraints.NotNull;
 
 import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.lite.enums.EditorType;
-
-import com.mycompany.biz.enums.RoleType;
 import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Getter;
@@ -43,7 +41,7 @@ public class Role implements java.io.Serializable {
     @ApiModelProperty("角色ID")
     @Id
     @Max(64)
-    @Editor(EditorType.hidden)
+    @Editor(EditorType.Hidden.class)
     private String roleId;
 
     /***角色名称   db_column: role_name VARCHAR */

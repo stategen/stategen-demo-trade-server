@@ -13,9 +13,17 @@
             <isNotNull prepend="," property="nickName"> nickName </isNotNull>
             <isNotNull prepend="," property="age"> age </isNotNull>
             <isNotNull prepend="," property="address"> address </isNotNull>
-            <isNotNull prepend="," property="isMale"> isMale </isNotNull>
             <isNotNull prepend="," property="avatarUrl"> avatar_url </isNotNull>
             <isNotNull prepend="," property="email"> email </isNotNull>
+            <isNotNull prepend="," property="valiDatetime"> vali_datetime </isNotNull>
+            <isNotNull prepend="," property="birthdayDate"> birthday_date </isNotNull>
+            <isNotNull prepend="," property="workTime"> work_time </isNotNull>
+            <isNotNull prepend="," property="provinceId"> province_id </isNotNull>
+            <isNotNull prepend="," property="cityId"> city_id </isNotNull>
+            <isNotNull prepend="," property="status"> status </isNotNull>
+            <isNotNull prepend="," property="grade"> grade </isNotNull>
+            <isNotNull prepend="," property="sex"> sex </isNotNull>
+            <isNotNull prepend="," property="postAddressId"> post_address_id </isNotNull>
             ) VALUES (
             CURRENT_TIMESTAMP(6)
             , CURRENT_TIMESTAMP(6)
@@ -28,9 +36,17 @@
             <isNotNull prepend="," property="nickName"> ?  </isNotNull>
             <isNotNull prepend="," property="age"> ?  </isNotNull>
             <isNotNull prepend="," property="address"> ?  </isNotNull>
-            <isNotNull prepend="," property="isMale"> ?  </isNotNull>
             <isNotNull prepend="," property="avatarUrl"> ?  </isNotNull>
             <isNotNull prepend="," property="email"> ?  </isNotNull>
+            <isNotNull prepend="," property="valiDatetime"> ?  </isNotNull>
+            <isNotNull prepend="," property="birthdayDate"> ?  </isNotNull>
+            <isNotNull prepend="," property="workTime"> ?  </isNotNull>
+            <isNotNull prepend="," property="provinceId"> ?  </isNotNull>
+            <isNotNull prepend="," property="cityId"> ?  </isNotNull>
+            <isNotNull prepend="," property="status"> ?  </isNotNull>
+            <isNotNull prepend="," property="grade"> ?  </isNotNull>
+            <isNotNull prepend="," property="sex"> ?  </isNotNull>
+            <isNotNull prepend="," property="postAddressId"> ?  </isNotNull>
             )
             <selectKey keyProperty="userId" resultClass="String" type="pre">
                 select if((#userId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#userId# ) as userId
@@ -97,14 +113,38 @@
                 <isNotNull property="address" prepend=",">
                     address =  ? 
                 </isNotNull>
-                <isNotNull property="isMale" prepend=",">
-                    isMale =  ? 
-                </isNotNull>
                 <isNotNull property="avatarUrl" prepend=",">
                     avatar_url =  ? 
                 </isNotNull>
                 <isNotNull property="email" prepend=",">
                     email =  ? 
+                </isNotNull>
+                <isNotNull property="valiDatetime" prepend=",">
+                    vali_datetime =  ? 
+                </isNotNull>
+                <isNotNull property="birthdayDate" prepend=",">
+                    birthday_date =  ? 
+                </isNotNull>
+                <isNotNull property="workTime" prepend=",">
+                    work_time =  ? 
+                </isNotNull>
+                <isNotNull property="provinceId" prepend=",">
+                    province_id =  ? 
+                </isNotNull>
+                <isNotNull property="cityId" prepend=",">
+                    city_id =  ? 
+                </isNotNull>
+                <isNotNull property="status" prepend=",">
+                    status =  ? 
+                </isNotNull>
+                <isNotNull property="grade" prepend=",">
+                    grade =  ? 
+                </isNotNull>
+                <isNotNull property="sex" prepend=",">
+                    sex =  ? 
+                </isNotNull>
+                <isNotNull property="postAddressId" prepend=",">
+                    post_address_id =  ? 
                 </isNotNull>
             </dynamic>
             where
@@ -124,9 +164,17 @@
             a.nickName,
             a.age,
             a.address,
-            a.isMale,
             a.avatar_url,
             a.email,
+            a.vali_datetime,
+            a.birthday_date,
+            a.work_time,
+            a.province_id,
+            a.city_id,
+            a.status,
+            a.grade,
+            a.sex,
+            a.post_address_id,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -148,9 +196,17 @@
             a.nickName,
             a.age,
             a.address,
-            a.isMale,
             a.avatar_url,
             a.email,
+            a.vali_datetime,
+            a.birthday_date,
+            a.work_time,
+            a.province_id,
+            a.city_id,
+            a.status,
+            a.grade,
+            a.sex,
+            a.post_address_id,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -172,9 +228,17 @@
             a.nickName,
             a.age,
             a.address,
-            a.isMale,
             a.avatar_url,
             a.email,
+            a.vali_datetime,
+            a.birthday_date,
+            a.work_time,
+            a.province_id,
+            a.city_id,
+            a.status,
+            a.grade,
+            a.sex,
+            a.post_address_id,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -196,9 +260,17 @@
             a.nickName,
             a.age,
             a.address,
-            a.isMale,
             a.avatar_url,
             a.email,
+            a.vali_datetime,
+            a.birthday_date,
+            a.work_time,
+            a.province_id,
+            a.city_id,
+            a.status,
+            a.grade,
+            a.sex,
+            a.post_address_id,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -265,6 +337,66 @@
             <isNotEmpty property="emailLike" open="and">
                 a.email like CONCAT('%',#emailLike#,'%')
             </isNotEmpty>
+            <isNotNull property="valiDatetimeMin" open="and">
+                a.vali_datetime >=#valiDatetimeMin#
+            </isNotNull>
+            <isNotNull property="valiDatetimeMax" open="and">
+                a.vali_datetime &lt;#valiDatetimeMax#
+            </isNotNull>
+            <isNotNull property="birthdayDateMin" open="and">
+                a.birthday_date >=#birthdayDateMin#
+            </isNotNull>
+            <isNotNull property="birthdayDateMax" open="and">
+                a.birthday_date &lt;#birthdayDateMax#
+            </isNotNull>
+            <isNotNull property="workTimeMin" open="and">
+                a.work_time >=#workTimeMin#
+            </isNotNull>
+            <isNotNull property="workTimeMax" open="and">
+                a.work_time &lt;#workTimeMax#
+            </isNotNull>
+            <isNotNull property="provinceId" open="and">
+               a.province_id=?
+            </isNotNull>
+            <isNotEmpty property="provinceIds" open="and">
+                a.province_id in
+                <iterate property="provinceIds" conjunction="," open="(" close=")">
+                    #provinceIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="cityId" open="and">
+               a.city_id=?
+            </isNotNull>
+            <isNotEmpty property="cityIds" open="and">
+                a.city_id in
+                <iterate property="cityIds" conjunction="," open="(" close=")">
+                    #cityIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="status" open="and">
+               a.status=?
+            </isNotNull>
+            <isNotEmpty property="statuss" open="and">
+                a.status in
+                <iterate property="statuss" conjunction="," open="(" close=")">
+                    #statuss[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="gradeMin" open="and">
+                a.grade >=#gradeMin#
+            </isNotNull>
+            <isNotNull property="gradeMax" open="and">
+                a.grade &lt;#gradeMax#
+            </isNotNull>
+            <isNotNull property="postAddressId" open="and">
+               a.post_address_id=?
+            </isNotNull>
+            <isNotEmpty property="postAddressIds" open="and">
+                a.post_address_id in
+                <iterate property="postAddressIds" conjunction="," open="(" close=")">
+                    #postAddressIds[]#
+                </iterate>
+            </isNotEmpty>
             <isNotNull property="createTimeMin" open="and">
                 a.create_time >=#createTimeMin#
             </isNotNull>
@@ -295,11 +427,43 @@
             <isEmpty property="addressLike">
             <isNull property="email">
             <isEmpty property="emailLike">
+            <isNull property="valiDatetimeMin">
+            <isNull property="valiDatetimeMax">
+            <isNull property="birthdayDateMin">
+            <isNull property="birthdayDateMax">
+            <isNull property="workTimeMin">
+            <isNull property="workTimeMax">
+            <isNull property="provinceId">
+            <isEmpty property="provinceIds">
+            <isNull property="cityId">
+            <isEmpty property="cityIds">
+            <isNull property="status">
+            <isEmpty property="statuss">
+            <isNull property="gradeMin">
+            <isNull property="gradeMax">
+            <isNull property="postAddressId">
+            <isEmpty property="postAddressIds">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
             <isNull property="updateTimeMax">
               and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
             </isNull>
             </isNull>
             </isNull>
@@ -338,9 +502,17 @@
             a.nickName,
             a.age,
             a.address,
-            a.isMale,
             a.avatar_url,
             a.email,
+            a.vali_datetime,
+            a.birthday_date,
+            a.work_time,
+            a.province_id,
+            a.city_id,
+            a.status,
+            a.grade,
+            a.sex,
+            a.post_address_id,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -372,9 +544,17 @@
             a.nickName,
             a.age,
             a.address,
-            a.isMale,
             a.avatar_url,
             a.email,
+            a.vali_datetime,
+            a.birthday_date,
+            a.work_time,
+            a.province_id,
+            a.city_id,
+            a.status,
+            a.grade,
+            a.sex,
+            a.post_address_id,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -406,9 +586,17 @@
             a.nickName,
             a.age,
             a.address,
-            a.isMale,
             a.avatar_url,
             a.email,
+            a.vali_datetime,
+            a.birthday_date,
+            a.work_time,
+            a.province_id,
+            a.city_id,
+            a.status,
+            a.grade,
+            a.sex,
+            a.post_address_id,
             a.create_time,
             a.update_time,
             a.delete_flag

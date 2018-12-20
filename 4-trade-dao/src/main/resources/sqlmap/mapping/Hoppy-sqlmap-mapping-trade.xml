@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="Hoppy.trade.RM" class="com.mycompany.biz.domain.Hoppy">
+        <result property="hoppyId" column="hoppy_id" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+        <result property="hoppyName" column="hoppy_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getHoppyPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getHoppysByHoppyIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="insert.Hoppy.trade">
+		insert into hoppy (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="hoppyId"> hoppy_id </isNotNull>
+            <isNotNull prepend="," property="hoppyName"> hoppy_name </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="hoppyId"> #hoppyId# </isNotNull> 
+            <isNotNull prepend="," property="hoppyName"> #hoppyName# </isNotNull>)
+            <selectKey keyProperty="hoppyId" resultClass="long">
+                select  LAST_INSERT_ID()
+            </selectKey>
+	</insert>
+	
+	<update id="delete.Hoppy.trade">
+		UPDATE hoppy SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and hoppy_id = #hoppyId#
+	</update>
+	
+    
+	
+	<update id="update.Hoppy.trade">
+		UPDATE hoppy
+            SET update_time= CURRENT_TIMESTAMP(6)
+            <dynamic>
+                <isNotNull prepend="," property="hoppyName">
+                    hoppy_name =  #hoppyName# 
+                </isNotNull>
+            </dynamic>
+            where
+            delete_flag = 0
+            and hoppy_id = #hoppyId#
+	</update>
+	
+    
+	
+	<select id="getHoppyByHoppyId.Hoppy.trade" resultMap="Hoppy.trade.RM" >
+    	select
+ /* getHoppyByHoppyId.Hoppy.trade */             a.hoppy_id,
+            a.hoppy_name,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from hoppy a
+            where
+            a.delete_flag = 0
+            and a.hoppy_id = #hoppyId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="getHoppyPageList.Hoppy.trade" resultMap="Hoppy.trade.RM" >
+    	select
+ /* getHoppyPageList.Hoppy.trade */             a.hoppy_id,
+            a.hoppy_name,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from hoppy a
+            where
+            a.delete_flag = 0
+            <isNotNull open="and" property="hoppyId">
+               a.hoppy_id=#hoppyId#
+            </isNotNull>
+            <isNotEmpty open="and" property="hoppyIds">
+                a.hoppy_id in
+                <iterate close=")" conjunction="," open="(" property="hoppyIds">
+                    #hoppyIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="hoppyName">
+            a.hoppy_name=#hoppyName#
+          </isNotNull>
+            <isNotEmpty open="and" property="hoppyNameLike">
+                a.hoppy_name like CONCAT('%',#hoppyNameLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="createTimeMin">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="createTimeMax">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMin">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMax">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="hoppyId">
+            <isEmpty property="hoppyIds">
+            <isNull property="hoppyName">
+            <isEmpty property="hoppyNameLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getHoppyPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="getHoppyPageList.Hoppy.trade.count" resultClass="long" >
+    	select  /* getHoppyPageList.Hoppy.trade.count */ count(*)  from hoppy a
+            where
+            a.delete_flag = 0
+            <isNotNull open="and" property="hoppyId">
+               a.hoppy_id=#hoppyId#
+            </isNotNull>
+            <isNotEmpty open="and" property="hoppyIds">
+                a.hoppy_id in
+                <iterate close=")" conjunction="," open="(" property="hoppyIds">
+                    #hoppyIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="hoppyName">
+            a.hoppy_name=#hoppyName#
+          </isNotNull>
+            <isNotEmpty open="and" property="hoppyNameLike">
+                a.hoppy_name like CONCAT('%',#hoppyNameLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="createTimeMin">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="createTimeMax">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMin">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMax">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="hoppyId">
+            <isEmpty property="hoppyIds">
+            <isNull property="hoppyName">
+            <isEmpty property="hoppyNameLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="getHoppysByHoppyIds.Hoppy.trade" resultMap="Hoppy.trade.RM" >
+    	select
+ /* getHoppysByHoppyIds.Hoppy.trade */             a.hoppy_id,
+            a.hoppy_name,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from hoppy a
+            where
+            a.delete_flag = 0
+            <isEmpty open="and" property="hoppyIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="hoppyIds">
+                a.hoppy_id in
+                <iterate close=")" conjunction="," open="(" property="hoppyIds">
+                    #hoppyIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getHoppysByHoppyIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="deleteByHoppyIds.Hoppy.trade">
+		UPDATE hoppy SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty open="and" property="hoppyIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="hoppyIds">
+                hoppy_id in
+                <iterate close=")" conjunction="," open="(" property="hoppyIds">
+                    #hoppyIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+
+</sqlMap>
+

@@ -116,7 +116,7 @@ public interface ProvinceDao {
 	 * 
 	 * sql:select a.province_id, a.name from province a where a.delete_flag = 0
 	 */
-	public List<Province> getProvinces() throws DataAccessException;
+	public List<Province> getProvinceOptions() throws DataAccessException;
 	
 
 }

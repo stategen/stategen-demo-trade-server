@@ -16,12 +16,13 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 import org.stategen.framework.annotation.Editor;
+import org.stategen.framework.annotation.OptionConfig;
 import org.stategen.framework.lite.enums.EditorType;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.mycompany.biz.enums.RoleType;
-import io.swagger.annotations.ApiModelProperty;
+import com.mycompany.biz.enums.StatusEnum;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,6 +43,14 @@ public class User implements java.io.Serializable {
 
     @ApiModelProperty("用户可访问的节点")
     private List<Long> visitsIds;
+    
+    private Province province;
+    
+    private City city;
+
+    /*** colorTypes in getUserPageList */
+    @ApiModelProperty("colorTypes")
+    private java.util.List<com.mycompany.biz.enums.ColorType> colorTypes;
 
     private static final long serialVersionUID = -5216457518046898601L;
 
@@ -61,7 +70,7 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("密码，测试，明文")
     @Max(64)
     @JSONField(serialize = false)
-    @Editor(EditorType.password)
+    @Editor(EditorType.Password.class)
     private String password;
 
     /***用户角色 ADMIN,DEFAULT,DEVELOPER   db_column: role_type VARCHAR */
@@ -88,10 +97,6 @@ public class User implements java.io.Serializable {
     @Max(255)
     private String address;
 
-    /***isMale   db_column: isMale BIT */
-    @ApiModelProperty("isMale")
-    private Boolean isMale;
-
     /***avatarUrl   db_column: avatar_url VARCHAR */
     @ApiModelProperty("avatarUrl")
     @Max(255)
@@ -103,6 +108,51 @@ public class User implements java.io.Serializable {
     @Email
     @Max(128)
     private String email;
+
+    /***认证时间   db_column: vali_datetime TIMESTAMP */
+    @ApiModelProperty("认证时间")
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date valiDatetime;
+
+    /***出生日期   db_column: birthday_date DATE */
+    @ApiModelProperty("出生日期")
+    @Temporal(TemporalType.DATE)
+    private java.util.Date birthdayDate;
+
+    /***工作时间   db_column: work_time TIME */
+    @ApiModelProperty("工作时间")
+    @Temporal(TemporalType.TIME)
+    private java.util.Date workTime;
+
+    /***省份 ID   db_column: province_id VARCHAR */
+    @ApiModelProperty("省份 ID")
+    @Max(64)
+    @OptionConfig
+    private String provinceId;
+
+    /***城市 ID   db_column: city_id VARCHAR */
+    @ApiModelProperty("城市 ID")
+    @Max(64)
+    @OptionConfig(changeBy = "provinceId")
+    private String cityId;
+
+    /***状态 enum   db_column: status VARCHAR */
+    @ApiModelProperty("状态 enum")
+    @Max(64)
+    private StatusEnum status;
+
+    /***grade   db_column: grade BIGINT */
+    @ApiModelProperty("grade")
+    private Long grade;
+
+    /***sex   db_column: sex BIT */
+    @ApiModelProperty("sex")
+    private Boolean sex;
+
+    /***postAddressId   db_column: post_address_id VARCHAR */
+    @ApiModelProperty("postAddressId")
+    @Max(64)
+    private String postAddressId;
 
     /***创建时间   db_column: create_time TIMESTAMP */
     @ApiModelProperty("创建时间")
@@ -133,6 +183,18 @@ public class User implements java.io.Serializable {
         sb.append("ageMax=").append(ageMax).append('\n');
         sb.append("addressLike=").append(addressLike).append('\n');
         sb.append("emailLike=").append(emailLike).append('\n');
+        sb.append("valiDatetimeMin=").append(valiDatetimeMin != null ? df.format(valiDatetimeMin) : null).append('\n');
+        sb.append("valiDatetimeMax=").append(valiDatetimeMax != null ? df.format(valiDatetimeMax) : null).append('\n');
+        sb.append("birthdayDateMin=").append(birthdayDateMin != null ? df.format(birthdayDateMin) : null).append('\n');
+        sb.append("birthdayDateMax=").append(birthdayDateMax != null ? df.format(birthdayDateMax) : null).append('\n');
+        sb.append("workTimeMin=").append(workTimeMin != null ? df.format(workTimeMin) : null).append('\n');
+        sb.append("workTimeMax=").append(workTimeMax != null ? df.format(workTimeMax) : null).append('\n');
+        sb.append("provinceIds=").append(provinceIds).append('\n');
+        sb.append("cityIds=").append(cityIds).append('\n');
+        sb.append("statuss=").append(statuss).append('\n');
+        sb.append("gradeMin=").append(gradeMin).append('\n');
+        sb.append("gradeMax=").append(gradeMax).append('\n');
+        sb.append("postAddressIds=").append(postAddressIds).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin=").append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
@@ -145,9 +207,17 @@ public class User implements java.io.Serializable {
         sb.append("nickName=").append(nickName).append('\n');
         sb.append("age=").append(age).append('\n');
         sb.append("address=").append(address).append('\n');
-        sb.append("isMale=").append(isMale).append('\n');
         sb.append("avatarUrl=").append(avatarUrl).append('\n');
         sb.append("email=").append(email).append('\n');
+        sb.append("valiDatetime=").append(valiDatetime != null ? df.format(valiDatetime) : null).append('\n');
+        sb.append("birthdayDate=").append(birthdayDate != null ? df.format(birthdayDate) : null).append('\n');
+        sb.append("workTime=").append(workTime != null ? df.format(workTime) : null).append('\n');
+        sb.append("provinceId=").append(provinceId).append('\n');
+        sb.append("cityId=").append(cityId).append('\n');
+        sb.append("status=").append(status).append('\n');
+        sb.append("grade=").append(grade).append('\n');
+        sb.append("sex=").append(sex).append('\n');
+        sb.append("postAddressId=").append(postAddressId).append('\n');
         sb.append("createTime=").append(createTime != null ? df.format(createTime) : null).append('\n');
         sb.append("updateTime=").append(updateTime != null ? df.format(updateTime) : null).append('\n');
         sb.append("deleteFlag=").append(deleteFlag);
@@ -194,6 +264,62 @@ public class User implements java.io.Serializable {
     /*** 邮箱Like in getUserPageList */
     @ApiModelProperty("邮箱Like")
     private transient String emailLike;
+
+    /*** 认证时间Min in getUserPageList */
+    @ApiModelProperty("认证时间Min")
+    @Temporal(TemporalType.TIMESTAMP)
+    private transient java.util.Date valiDatetimeMin;
+
+    /*** 认证时间Max in getUserPageList */
+    @ApiModelProperty("认证时间Max")
+    @Temporal(TemporalType.TIMESTAMP)
+    private transient java.util.Date valiDatetimeMax;
+
+    /*** 出生日期Min in getUserPageList */
+    @ApiModelProperty("出生日期Min")
+    @Temporal(TemporalType.DATE)
+    private transient java.util.Date birthdayDateMin;
+
+    /*** 出生日期Max in getUserPageList */
+    @ApiModelProperty("出生日期Max")
+    @Temporal(TemporalType.DATE)
+    private transient java.util.Date birthdayDateMax;
+
+    /*** 工作时间Min in getUserPageList */
+    @ApiModelProperty("工作时间Min")
+    @Temporal(TemporalType.TIME)
+    private transient java.util.Date workTimeMin;
+
+    /*** 工作时间Max in getUserPageList */
+    @ApiModelProperty("工作时间Max")
+    @Temporal(TemporalType.TIME)
+    private transient java.util.Date workTimeMax;
+
+    /*** 省份 IDs in getUserPageList */
+    @ApiModelProperty("省份s")
+    @OptionConfig
+    private transient java.util.List<String> provinceIds;
+
+    /*** 城市 IDs in getUserPageList */
+    @ApiModelProperty("城市s")
+    @OptionConfig(changeBy = "provinceId")
+    private transient java.util.List<String> cityIds;
+
+    /*** 状态 enums in getUserPageList */
+    @ApiModelProperty("状态s")
+    private transient java.util.List<com.mycompany.biz.enums.StatusEnum> statuss;
+
+    /*** gradeMin in getUserPageList */
+    @ApiModelProperty("gradeMin")
+    private transient Long gradeMin;
+
+    /*** gradeMax in getUserPageList */
+    @ApiModelProperty("gradeMax")
+    private transient Long gradeMax;
+
+    /*** postAddressIds in getUserPageList */
+    @ApiModelProperty("postAddressIds")
+    private transient java.util.List<String> postAddressIds;
 
     /*** 创建时间Min in getUserPageList */
     @ApiModelProperty("创建时间Min")

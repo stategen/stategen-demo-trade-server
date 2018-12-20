@@ -51,7 +51,7 @@ public class Topic implements java.io.Serializable, IAuthored {
     @ApiModelProperty("topicId")
     @Id
     @Max(64)
-    @Editor(EditorType.hidden)
+    @Editor(EditorType.Hidden.class)
     private String topicId;
 
     /***authorId   db_column: author_id VARCHAR */
@@ -66,7 +66,7 @@ public class Topic implements java.io.Serializable, IAuthored {
     /***content   db_column: content LONGVARCHAR */
     @ApiModelProperty("content")
     @Max(65535)
-    @Editor(EditorType.textarea)
+    @Editor(EditorType.Textarea.class)
     private String content;
 
     /***title   db_column: title VARCHAR */
@@ -114,13 +114,13 @@ public class Topic implements java.io.Serializable, IAuthored {
     /***provinceId   db_column: province_id VARCHAR */
     @ApiModelProperty("provinceId")
     @Max(64)
-    @OptionConfig(bean=Province.class,defaultOption="province")
+    @OptionConfig(api = "getProvinces")
     private String provinceId;
 
     /***cityId   db_column: city_id VARCHAR */
     @ApiModelProperty("cityId")
     @Max(64)
-    @OptionConfig(bean=City.class,changeBy="provinceId",defaultOption="city")
+    @OptionConfig(changeBy = "provinceId")
     private String cityId;
 
     /***创建时间   db_column: create_time TIMESTAMP */
@@ -287,12 +287,12 @@ public class Topic implements java.io.Serializable, IAuthored {
 
     /*** provinceIds in getTopicPageList */
     @ApiModelProperty("provinceIds")
-    @OptionConfig(bean=Province.class)
+    @OptionConfig()
     private transient java.util.List<String> provinceIds;
 
     /*** cityIds in getTopicPageList */
     @ApiModelProperty("cityIds")
-    @OptionConfig(bean=City.class)
+    @OptionConfig()
     private transient java.util.List<String> cityIds;
 
     /*** 创建时间Min in getTopicPageList */

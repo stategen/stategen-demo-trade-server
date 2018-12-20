@@ -19,8 +19,6 @@ import org.stategen.framework.lite.Pagination;
 import org.stategen.framework.util.DatetimeUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
 
-import com.mycompany.biz.domain.City;
-import com.mycompany.biz.domain.Province;
 import com.mycompany.biz.domain.Topic;
 import com.mycompany.biz.enums.TopicType;
 
@@ -53,10 +51,10 @@ public class Bbs_topicController extends TopicControllerBase {
                                                 @ApiParam() Date testTimeMin,
                                                 @ApiParam() Date testTimeMax,
                                                 
-                                                @OptionConfig(bean=Province.class)
+                                                @OptionConfig()
                                                 @ApiParam() String provinceId,
                                                 
-                                                @OptionConfig(bean=City.class,changeBy="provinceId")
+                                                @OptionConfig(changeBy="provinceId")
                                                 @ApiParam()@RequestParam(required =false,name="cityIds") ArrayList<String> cityIds,
                                                 
                                                 @ApiParam()@RequestParam(required =false,name="provinceIds") ArrayList<String> provinceIds
@@ -76,13 +74,13 @@ public class Bbs_topicController extends TopicControllerBase {
     }
 
     @ApiRequestMappingAutoWithMethodName
-    @State(dataOpt = DataOpt.DELETE_IF_EXIST)
+    @State(dataOpt = DataOpt.DELETE_IF_EXIST,area=Topic.class)
     public String delete(String topicId) {
         return this.topicService.delete(topicId);
     }
 
     @ApiRequestMappingAutoWithMethodName
-    @State(dataOpt = DataOpt.DELETE_IF_EXIST)
+    @State(dataOpt = DataOpt.DELETE_IF_EXIST,area=Topic.class)
     public List<String> deleteByTopicIds(@ApiParam("topicId") @RequestParam(required = false, name = "topicIds") ArrayList<String> topicIds) {
         return this.topicService.deleteByTopicIds(topicIds);
     }

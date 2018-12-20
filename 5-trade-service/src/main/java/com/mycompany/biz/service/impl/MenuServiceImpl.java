@@ -4,8 +4,13 @@
  */
 package com.mycompany.biz.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +18,7 @@ import org.springframework.util.LinkedCaseInsensitiveMap;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.MenuDao;
 import com.mycompany.biz.domain.Menu;
@@ -207,5 +213,16 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Menu> getMenusByProjectName(String projectName, org.stategen.framework.lite.enums.MenuType menuType) {
         return menuDao.getMenusByProjectName(projectName, menuType);
+    }
+
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod, BiConsumer<D, Menu> destSetMethod) {
+        if (CollectionUtil.isNotEmpty(dests)) {
+            Set<Long> menuIds = CollectionUtil.toSet(dests, destGetMethod);
+            List<Menu> menus = this.getMenusByMenuIds(new ArrayList<Long>(menuIds));
+            if (CollectionUtil.isNotEmpty(menus)) {
+                CollectionUtil.setModelByList(dests, menus, destGetMethod, destSetMethod, Menu::getMenuId);
+            }
+        }
     }
 }

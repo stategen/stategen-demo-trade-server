@@ -6,7 +6,9 @@
 package com.mycompany.biz.service;
 
 import java.util.List;
+
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.AssignSerice;
 
 import com.mycompany.biz.domain.TopicUp;
 
@@ -21,7 +23,7 @@ import com.mycompany.biz.domain.TopicUp;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface TopicUpService extends TopicUpServiceFacade {
+public interface TopicUpService extends TopicUpServiceFacade, AssignSerice<TopicUp, String> {
 
     /**
      * 

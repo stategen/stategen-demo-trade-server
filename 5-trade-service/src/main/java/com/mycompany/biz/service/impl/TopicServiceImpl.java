@@ -5,11 +5,18 @@
  */
 package com.mycompany.biz.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.TopicDao;
@@ -78,7 +85,7 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public Topic getTopicByTopicId(String topicId) {
         Topic topic = topicDao.getTopicByTopicId(topicId);
-        userService.setTopicsAuthor(Arrays.asList(topic));
+        userService.assignBeanTo(Arrays.asList(topic), Topic::getAuthorId, Topic::setAuthor);
         return topic;
     }
 
@@ -133,8 +140,18 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public PageList<Topic> getTopicPageList(Topic topic, int pageSize, int pageNum) {
         PageList<Topic> topicPageList = topicDao.getTopicPageList(topic, pageSize, pageNum);
-        List<Topic> items = topicPageList.getItems();
-        userService.setTopicsAuthor(items);
+        userService.assignBeanTo(topicPageList.getItems(), Topic::getAuthorId, Topic::setAuthor);
         return topicPageList;
+    }
+
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, Topic> destSetMethod) {
+        if (CollectionUtil.isNotEmpty(dests)) {
+            Set<String> topicIds = CollectionUtil.toSet(dests, destGetMethod);
+            List<Topic> topics = this.getTopicsByTopicIds(new ArrayList<String>(topicIds));
+            if (CollectionUtil.isNotEmpty(topics)) {
+                CollectionUtil.setModelByList(dests, topics, destGetMethod, destSetMethod, Topic::getTopicId);
+            }
+        }
     }
 }

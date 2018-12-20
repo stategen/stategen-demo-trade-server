@@ -5,10 +5,16 @@
  */
 package com.mycompany.biz.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.ProvinceDao;
@@ -126,11 +132,22 @@ public class ProvinceServiceImpl implements ProvinceService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.ProvinceDao#getProvinces
-     * @see com.mycompany.biz.service.ProvinceService#getProvinces
+     * @see com.mycompany.biz.dao.ProvinceDao#getProvinceOptions
+     * @see com.mycompany.biz.service.ProvinceService#getProvinceOptions
      */
     @Override
-    public List<Province> getProvinces() {
-        return provinceDao.getProvinces();
+    public List<Province> getProvinceOptions() {
+        return provinceDao.getProvinceOptions();
+    }
+
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, Province> destSetMethod) {
+        if (CollectionUtil.isNotEmpty(dests)) {
+            Set<String> provinceIds = CollectionUtil.toSet(dests, destGetMethod);
+            List<Province> provinces = this.getProvincesByProvinceIds(new ArrayList<String>(provinceIds));
+            if (CollectionUtil.isNotEmpty(provinces)) {
+                CollectionUtil.setModelByList(dests, provinces, destGetMethod, destSetMethod, Province::getProvinceId);
+            }
+        }
     }
 }

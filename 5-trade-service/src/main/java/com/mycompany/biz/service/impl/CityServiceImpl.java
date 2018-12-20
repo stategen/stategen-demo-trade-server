@@ -5,10 +5,16 @@
  */
 package com.mycompany.biz.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.CityDao;
@@ -126,11 +132,22 @@ public class CityServiceImpl implements CityService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.CityDao#getCitys
-     * @see com.mycompany.biz.service.CityService#getCitys
+     * @see com.mycompany.biz.dao.CityDao#getCityOptions
+     * @see com.mycompany.biz.service.CityService#getCityOptions
      */
     @Override
-    public List<City> getCitys(String provinceId) {
-        return cityDao.getCitys(provinceId);
+    public List<City> getCityOptions(String provinceId) {
+        return cityDao.getCityOptions(provinceId);
+    }
+
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, City> destSetMethod) {
+        if (CollectionUtil.isNotEmpty(dests)) {
+            Set<String> cityIds = CollectionUtil.toSet(dests, destGetMethod);
+            List<City> citys = this.getCitysByCityIds(new ArrayList<String>(cityIds));
+            if (CollectionUtil.isNotEmpty(citys)) {
+                CollectionUtil.setModelByList(dests, citys, destGetMethod, destSetMethod, City::getCityId);
+            }
+        }
     }
 }

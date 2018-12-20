@@ -5,9 +5,15 @@
  */
 package com.mycompany.biz.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -85,7 +91,7 @@ public class TopicReplyServiceImpl implements TopicReplyService {
 
     @Override
     public void assignRepliesExtraProperties(String authorId, List<TopicReply> replies) {
-        userService.setTopicsAuthor(replies);
+        userService.assignBeanTo(replies, TopicReply::getAuthorId, TopicReply::setAuthor);
         List<String> replyIds = CollectionUtil.toList(replies, TopicReply::getReplyId);
         List<TopicUp> topicUpCounts = this.topicUpService.getTopicUpsGroupCountByTopicIds(replyIds, null);
         Map<String, TopicUp> upCountMap = CollectionUtil.toMap(topicUpCounts, TopicUp::getObjectId);
@@ -171,5 +177,16 @@ public class TopicReplyServiceImpl implements TopicReplyService {
         List<TopicReply> replies = topicReplyList.getItems();
         assignRepliesExtraProperties(authorId, replies);
         return topicReplyList;
+    }
+
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, TopicReply> destSetMethod) {
+        if (CollectionUtil.isNotEmpty(dests)) {
+            Set<String> replyIds = CollectionUtil.toSet(dests, destGetMethod);
+            List<TopicReply> topicReplys = this.getTopicReplysByReplyIds(new ArrayList<String>(replyIds));
+            if (CollectionUtil.isNotEmpty(topicReplys)) {
+                CollectionUtil.setModelByList(dests, topicReplys, destGetMethod, destSetMethod, TopicReply::getReplyId);
+            }
+        }
     }
 }

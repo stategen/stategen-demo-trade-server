@@ -33,7 +33,7 @@
     </operation>
     -->
     
-    <operation name="getProvinces" multiplicity="many" remarks="" resultClass="object">
+    <operation name="getProvinceOptions" multiplicity="many" remarks="" resultClass="object">
         <sql>
             select
             a.province_id,

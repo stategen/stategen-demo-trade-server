@@ -83,13 +83,13 @@ public class AppController {
 
     
     @ApiRequestMappingAutoWithMethodName(name="省份")
-    public List<Province> getProvinces(){
-        return this.provinceService.getProvinces();
+    public List<Province> getProvinceOptions(){
+        return this.provinceService.getProvinceOptions();
     }
     
     @ApiRequestMappingAutoWithMethodName(name="城市")
-    public List<City> getCitys(@ApiParam("provinceId") String provinceId) {
-        return this.cityService.getCitys(provinceId);
+    public List<City> getCityOptions(@ApiParam("provinceId") String provinceId) {
+        return this.cityService.getCityOptions(provinceId);
     }
 
 }

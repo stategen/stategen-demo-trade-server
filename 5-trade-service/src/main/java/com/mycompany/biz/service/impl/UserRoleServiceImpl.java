@@ -4,10 +4,17 @@
  */
 package com.mycompany.biz.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import javax.annotation.Resource;
+
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.UserRoleDao;
 import com.mycompany.biz.domain.UserRole;
@@ -120,5 +127,16 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public PageList<UserRole> getUserRolePageList(UserRole userRole, int pageSize, int pageNum) {
         return userRoleDao.getUserRolePageList(userRole, pageSize, pageNum);
+    }
+
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod, BiConsumer<D, UserRole> destSetMethod) {
+        if (CollectionUtil.isNotEmpty(dests)) {
+            Set<Long> ids = CollectionUtil.toSet(dests, destGetMethod);
+            List<UserRole> userRoles = this.getUserRolesByIds(new ArrayList<Long>(ids));
+            if (CollectionUtil.isNotEmpty(userRoles)) {
+                CollectionUtil.setModelByList(dests, userRoles, destGetMethod, destSetMethod, UserRole::getId);
+            }
+        }
     }
 }

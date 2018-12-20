@@ -5,7 +5,9 @@
 package com.mycompany.biz.service;
 
 import java.util.List;
+
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.AssignSerice;
 
 import com.mycompany.biz.domain.Menu;
 import com.mycompany.biz.domain.Role;
@@ -21,7 +23,7 @@ import com.mycompany.biz.domain.Role;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface RoleService extends RoleServiceFacade {
+public interface RoleService extends RoleServiceFacade, AssignSerice<Role, String> {
 
     /*** 保存role,有id时更新，没有id时插入，返回 role*/
     public Role saveRole(Role role);

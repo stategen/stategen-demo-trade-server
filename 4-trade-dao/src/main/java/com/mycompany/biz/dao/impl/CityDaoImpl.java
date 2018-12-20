@@ -110,9 +110,9 @@ public class CityDaoImpl extends SqlMapClientDaoSupport implements CityDao {
 	 * sql:select a.city_id, a.name, a.province_id from city a where a.delete_flag = 0 and a.province_id = ?
 	 */
     @SuppressWarnings("unchecked")
-    public List<City> getCitys(String provinceId) throws DataAccessException {
+    public List<City> getCityOptions(String provinceId) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("provinceId", provinceId);
-        return (List<City>) getSqlMapClientTemplate().queryForList("getCitys.City.trade", params);
+        return (List<City>) getSqlMapClientTemplate().queryForList("getCityOptions.City.trade", params);
     }
 }

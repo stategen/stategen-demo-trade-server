@@ -272,14 +272,14 @@
 	</update>
 	
     
-    <resultMap id="getProvinces.object.trade.RM" class="com.mycompany.biz.domain.Province">
+    <resultMap id="getProvinceOptions.object.trade.RM" class="com.mycompany.biz.domain.Province">
         <result property="provinceId" column="province_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
     </resultMap>
 	
-	<select id="getProvinces.Province.trade" resultMap="getProvinces.object.trade.RM" >
+	<select id="getProvinceOptions.Province.trade" resultMap="getProvinceOptions.object.trade.RM" >
     	select
- /* getProvinces.Province.trade */             a.province_id,
+ /* getProvinceOptions.Province.trade */             a.province_id,
             a.name
             from province a
             where

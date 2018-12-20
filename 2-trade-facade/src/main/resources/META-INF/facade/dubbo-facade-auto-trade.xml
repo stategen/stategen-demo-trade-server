@@ -11,6 +11,7 @@
     <!-- ======================================================================================================= -->
     
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="cityService" interface="com.mycompany.biz.service.CityServiceFacade"/>
+    <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="hoppyService" interface="com.mycompany.biz.service.HoppyServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="menuService" interface="com.mycompany.biz.service.MenuServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="provinceService" interface="com.mycompany.biz.service.ProvinceServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="roleService" interface="com.mycompany.biz.service.RoleServiceFacade"/>
@@ -19,6 +20,8 @@
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicReplyService" interface="com.mycompany.biz.service.TopicReplyServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicUpService" interface="com.mycompany.biz.service.TopicUpServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="userService" interface="com.mycompany.biz.service.UserServiceFacade"/>
+    <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="userColorService" interface="com.mycompany.biz.service.UserColorServiceFacade"/>
+    <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="userHoppyService" interface="com.mycompany.biz.service.UserHoppyServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="userRoleService" interface="com.mycompany.biz.service.UserRoleServiceFacade"/>
 	
 </beans>

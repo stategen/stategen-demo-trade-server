@@ -64,7 +64,7 @@ public class TopicReply implements java.io.Serializable, IAuthored {
     /***content   db_column: content LONGVARCHAR */
     @ApiModelProperty("content")
     @Max(255)
-    @Editor(EditorType.textarea)
+    @Editor(EditorType.Textarea.class)
     private String content;
 
     /***createAt   db_column: create_at VARCHAR */
