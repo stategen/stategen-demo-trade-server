@@ -19,7 +19,6 @@ import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.annotation.OptionConfig;
 import org.stategen.framework.lite.enums.EditorType;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.StatusEnum;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -69,9 +68,8 @@ public class User implements java.io.Serializable {
     /***密码，测试，明文   db_column: password VARCHAR */
     @ApiModelProperty("密码，测试，明文")
     @Max(64)
-    @JSONField(serialize = false)
     @Editor(EditorType.Password.class)
-    private String password;
+    private transient String password;
 
     /***用户角色 ADMIN,DEFAULT,DEVELOPER   db_column: role_type VARCHAR */
     @ApiModelProperty("用户角色 ADMIN,DEFAULT,DEVELOPER")
@@ -90,6 +88,7 @@ public class User implements java.io.Serializable {
 
     /***age   db_column: age INTEGER */
     @ApiModelProperty("age")
+    @Editor(EditorType.Number.class)
     private Integer age;
 
     /***address   db_column: address VARCHAR */
@@ -139,6 +138,7 @@ public class User implements java.io.Serializable {
     /***状态 enum   db_column: status VARCHAR */
     @ApiModelProperty("状态 enum")
     @Max(64)
+    @Editor(EditorType.RadioGroup.class)
     private StatusEnum status;
 
     /***grade   db_column: grade BIGINT */
