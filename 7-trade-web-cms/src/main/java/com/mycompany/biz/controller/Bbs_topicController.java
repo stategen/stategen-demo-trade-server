@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
+import org.stategen.framework.annotation.GenForm;
 import org.stategen.framework.annotation.OptionConfig;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.enums.DataOpt;
@@ -87,6 +88,7 @@ public class Bbs_topicController extends TopicControllerBase {
 
     @ApiRequestMappingAutoWithMethodName
     @State(dataOpt = DataOpt.APPEND_OR_UPDATE)
+    @GenForm
     public Topic insert(@ApiParam() String topicId,
                         @ApiParam() String authorId,
                         @ApiParam() TopicType topicType,
@@ -111,6 +113,7 @@ public class Bbs_topicController extends TopicControllerBase {
 
     @ApiRequestMappingAutoWithMethodName
     @State(dataOpt = DataOpt.APPEND_OR_UPDATE)
+    @GenForm
     public Topic update(@ApiParam() String authorId,
                         @ApiParam() TopicType topicType,
                         @ApiParam() String content,

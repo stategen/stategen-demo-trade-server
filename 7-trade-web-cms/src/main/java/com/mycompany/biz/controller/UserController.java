@@ -94,6 +94,7 @@ public class UserController extends UserControllerBase {
 
     @ApiRequestMappingAutoWithMethodName(name = "创建用户", method = RequestMethod.POST)
     @VisitCheck
+    @GenForm
     public User insert(@ApiParam() String userId,
                        @ApiParam() String username,
                        @ApiParam() String password,
@@ -134,6 +135,7 @@ public class UserController extends UserControllerBase {
 
     @ApiRequestMappingAutoWithMethodName(name = "修改用户", method = RequestMethod.PATCH)
     @VisitCheck
+    @GenForm
     public User update(@ApiParam() String username,
                        @ApiParam() String password,
                        @ApiParam() String roleType,

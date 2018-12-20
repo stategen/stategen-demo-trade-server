@@ -56,7 +56,12 @@ public class RoleController extends RoleControllerBase {
     @VisitCheck
     @HideAreaEditorModal
     @State()
-    public Role insert(Role role) {
+    @GenForm
+    public Role insert(@ApiParam() String roleId,
+                       @ApiParam() String roleName,
+                       @ApiParam() String description,
+                       @ApiParam() String roleType
+                       ,@ApiParam(hidden = true) Role role) {
         this.roleService.insert(role);
         role = this.roleService.getRoleByRoleId(role.getRoleId());
         return role;
@@ -66,7 +71,12 @@ public class RoleController extends RoleControllerBase {
     @VisitCheck
     @HideAreaEditorModal
     @State()
-    public Role update(Role role) {
+    @GenForm
+    public Role update(@ApiParam() String roleName,
+                       @ApiParam() String description,
+                       @ApiParam() String roleType,
+                       @ApiParam() String roleId
+                       ,@ApiParam(hidden = true) Role role) {
         this.roleService.update(role);
         role = this.roleService.getRoleByRoleId(role.getRoleId());
         return role;
