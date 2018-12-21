@@ -42,7 +42,7 @@ public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
         //这里注册的将替代supper中的注册
         GenContext.registSimpleClz(Void.TYPE, "void");
         GenContext.registSimpleClz(Class.class, "string");
-        GenContext.registSimpleClz(Pagination.class, "PaginationProps","import {PaginationProps} from \"antd/lib/pagination\"");
+        GenContext.registSimpleClz(Pagination.class, "PaginationProps","import {PaginationProps} from \"antd/es/pagination\"");
         
         GenContext.registIgnoreParamClz(HttpServletRequest.class);
         GenContext.registIgnoreParamAnnotationClz(CookieValue.class);

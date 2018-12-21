@@ -16,10 +16,12 @@ import org.stategen.framework.util.StringUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
 
 import com.mycompany.biz.domain.City;
+import com.mycompany.biz.domain.Hoppy;
 import com.mycompany.biz.domain.Menu;
 import com.mycompany.biz.domain.Province;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.service.CityService;
+import com.mycompany.biz.service.HoppyService;
 import com.mycompany.biz.service.MenuService;
 import com.mycompany.biz.service.ProvinceService;
 import com.mycompany.biz.service.UserService;
@@ -48,6 +50,9 @@ public class AppController {
     
     @Resource
     private CityService cityService;
+    
+    @Resource
+    private HoppyService hoppyService;
     
 
     @ApiRequestMappingAutoWithMethodName(name = "")
@@ -90,6 +95,11 @@ public class AppController {
     @ApiRequestMappingAutoWithMethodName(name="城市")
     public List<City> getCityOptions(@ApiParam("provinceId") String provinceId) {
         return this.cityService.getCityOptions(provinceId);
+    }
+    
+    @ApiRequestMappingAutoWithMethodName(name="喜好")
+    public List<Hoppy> getHoppyOptions() {
+        return this.hoppyService.getHoppyOptions();
     }
 
 }

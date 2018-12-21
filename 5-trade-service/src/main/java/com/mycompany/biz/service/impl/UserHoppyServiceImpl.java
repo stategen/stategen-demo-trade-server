@@ -53,7 +53,7 @@ public class UserHoppyServiceImpl implements UserHoppyService {
      * @see com.mycompany.biz.service.UserHoppyService#delete
      */
     @Override
-    public Integer delete(Integer id) {
+    public Long delete(Long id) {
         return userHoppyDao.delete(id);
     }
 
@@ -73,7 +73,7 @@ public class UserHoppyServiceImpl implements UserHoppyService {
      * @see com.mycompany.biz.service.UserHoppyService#getUserHoppyById
      */
     @Override
-    public UserHoppy getUserHoppyById(Integer id) {
+    public UserHoppy getUserHoppyById(Long id) {
         return userHoppyDao.getUserHoppyById(id);
     }
 
@@ -93,8 +93,18 @@ public class UserHoppyServiceImpl implements UserHoppyService {
      * @see com.mycompany.biz.service.UserHoppyService#getUserHoppysByIds
      */
     @Override
-    public List<UserHoppy> getUserHoppysByIds(java.util.List<Integer> ids) {
+    public List<UserHoppy> getUserHoppysByIds(java.util.List<Long> ids) {
         return userHoppyDao.getUserHoppysByIds(ids);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserHoppyDao#getUserHoppysByUserIds
+     * @see com.mycompany.biz.service.UserHoppyService#getUserHoppysByUserIds
+     */
+    @Override
+    public List<UserHoppy> getUserHoppysByUserIds(java.util.List<String> userIds) {
+        return userHoppyDao.getUserHoppysByUserIds(userIds);
     }
 
     /**
@@ -103,7 +113,7 @@ public class UserHoppyServiceImpl implements UserHoppyService {
      * @see com.mycompany.biz.service.UserHoppyService#deleteByIds
      */
     @Override
-    public java.util.List<Integer> deleteByIds(java.util.List<Integer> ids) {
+    public java.util.List<Long> deleteByIds(java.util.List<Long> ids) {
         return userHoppyDao.deleteByIds(ids);
     }
 
@@ -111,7 +121,7 @@ public class UserHoppyServiceImpl implements UserHoppyService {
     @Override
     public UserHoppy saveUserHoppy(UserHoppy userHoppy) {
         if (userHoppy != null) {
-            java.lang.Integer id = userHoppy.getId();
+            java.lang.Long id = userHoppy.getId();
             if (id != null) {
                 insert(userHoppy);
             } else {
@@ -131,10 +141,10 @@ public class UserHoppyServiceImpl implements UserHoppyService {
     }
 
     @Override
-    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, Integer> destGetMethod, BiConsumer<D, UserHoppy> destSetMethod) {
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod, BiConsumer<D, UserHoppy> destSetMethod) {
         if (CollectionUtil.isNotEmpty(dests)) {
-            Set<Integer> ids = CollectionUtil.toSet(dests, destGetMethod);
-            List<UserHoppy> userHoppys = this.getUserHoppysByIds(new ArrayList<Integer>(ids));
+            Set<Long> ids = CollectionUtil.toSet(dests, destGetMethod);
+            List<UserHoppy> userHoppys = this.getUserHoppysByIds(new ArrayList<Long>(ids));
             if (CollectionUtil.isNotEmpty(userHoppys)) {
                 CollectionUtil.setModelByList(dests, userHoppys, destGetMethod, destSetMethod, UserHoppy::getId);
             }

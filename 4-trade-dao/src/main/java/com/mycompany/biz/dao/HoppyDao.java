@@ -25,7 +25,7 @@ public interface HoppyDao {
 
 	/**
     <pre>
-    &#64;ApiParam() Integer hoppyId,
+    &#64;ApiParam() Long hoppyId,
     &#64;ApiParam() String hoppyName
     ,&#64;ApiParam(hidden = true) Hoppy hoppy
     
@@ -37,18 +37,18 @@ public interface HoppyDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("hoppyId") Integer hoppyId
+    &#64;ApiParam("hoppyId") Long hoppyId
     
     </pre>
 	 * 
 	 * sql:UPDATE hoppy SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and hoppy_id = ?
 	 */
-	public Integer delete(Integer hoppyId) throws DataAccessException;
+	public Long delete(Long hoppyId) throws DataAccessException;
 	
 	/**
     <pre>
     &#64;ApiParam() String hoppyName,
-    &#64;ApiParam() Integer hoppyId
+    &#64;ApiParam() Long hoppyId
     ,&#64;ApiParam(hidden = true) Hoppy hoppy
     
     </pre>
@@ -59,18 +59,18 @@ public interface HoppyDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("hoppyId") Integer hoppyId
+    &#64;ApiParam("hoppyId") Long hoppyId
     
     </pre>
 	 * 
 	 * sql:select a.hoppy_id, a.hoppy_name, a.create_time, a.update_time, a.delete_flag from hoppy a where a.delete_flag = 0 and a.hoppy_id = ?
 	 */
-	public Hoppy getHoppyByHoppyId(Integer hoppyId) throws DataAccessException;
+	public Hoppy getHoppyByHoppyId(Long hoppyId) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam() Integer hoppyId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="hoppyIds") ArrayList&lt;Integer&gt; hoppyIds,
+    &#64;ApiParam() Long hoppyId,
+    &#64;ApiParam()&#64;RequestParam(required =false,name="hoppyIds") ArrayList&lt;Long&gt; hoppyIds,
     &#64;ApiParam() String hoppyName,
     &#64;ApiParam() String hoppyNameLike,
     &#64;ApiParam() Date createTimeMin,
@@ -87,23 +87,32 @@ public interface HoppyDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("hoppyId")&#64;RequestParam(required =false,name="hoppyIds") ArrayList&lt;Integer&gt; hoppyIds
+    &#64;ApiParam("hoppyId")&#64;RequestParam(required =false,name="hoppyIds") ArrayList&lt;Long&gt; hoppyIds
     
     </pre>
 	 * 
 	 * sql:select a.hoppy_id, a.hoppy_name, a.create_time, a.update_time, a.delete_flag from hoppy a where a.delete_flag = 0 and 1=0 and a.hoppy_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
-	public List<Hoppy> getHoppysByHoppyIds(java.util.List<Integer> hoppyIds) throws DataAccessException;
+	public List<Hoppy> getHoppysByHoppyIds(java.util.List<Long> hoppyIds) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("hoppyId")&#64;RequestParam(required =false,name="hoppyIds") ArrayList&lt;Integer&gt; hoppyIds
+    &#64;ApiParam("hoppyId")&#64;RequestParam(required =false,name="hoppyIds") ArrayList&lt;Long&gt; hoppyIds
     
     </pre>
 	 * 
 	 * sql:UPDATE hoppy SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and hoppy_id in ( ? )
 	 */
-	public java.util.List<Integer> deleteByHoppyIds(java.util.List<Integer> hoppyIds) throws DataAccessException;
+	public java.util.List<Long> deleteByHoppyIds(java.util.List<Long> hoppyIds) throws DataAccessException;
+	
+	/**
+    <pre>
+    
+    </pre>
+	 * 
+	 * sql:select a.hoppy_id, a.hoppy_name from hoppy a where a.delete_flag = 0
+	 */
+	public List<Hoppy> getHoppyOptions() throws DataAccessException;
 	
 
 }

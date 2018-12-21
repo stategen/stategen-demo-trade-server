@@ -43,10 +43,15 @@ public class User implements java.io.Serializable {
 
     @ApiModelProperty("用户可访问的节点")
     private List<Long> visitsIds;
-    
+
     private Province province;
-    
+
     private City city;
+
+    //用id存储到表中
+    @OptionConfig
+    @Editor(EditorType.CheckboxGroup.class)
+    private List<Long> hoppyIds;
 
     /*** colorTypes in getUserPageList */
     @ApiModelProperty("colorTypes")
@@ -70,7 +75,7 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("密码，测试，明文")
     @Max(64)
     @Editor(EditorType.Password.class)
-    private transient String password;
+    private String password;
 
     /***用户角色 ADMIN,DEFAULT,DEVELOPER   db_column: role_type VARCHAR */
     @ApiModelProperty("用户角色 ADMIN,DEFAULT,DEVELOPER")
@@ -126,12 +131,14 @@ public class User implements java.io.Serializable {
 
     /***省份 ID   db_column: province_id VARCHAR */
     @ApiModelProperty("省份 ID")
+    @NotNull
     @Max(64)
     @OptionConfig
     private String provinceId;
 
     /***城市 ID   db_column: city_id VARCHAR */
     @ApiModelProperty("城市 ID")
+    @NotNull
     @Max(64)
     @OptionConfig()
     @ChangeBy("provinceId")
@@ -310,6 +317,7 @@ public class User implements java.io.Serializable {
 
     /*** 状态 enums in getUserPageList */
     @ApiModelProperty("状态s")
+    @Editor(EditorType.CheckboxGroup.class)
     private transient java.util.List<com.mycompany.biz.enums.StatusEnum> statuss;
 
     /*** gradeMin in getUserPageList */

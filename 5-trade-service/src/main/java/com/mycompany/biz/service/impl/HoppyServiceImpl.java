@@ -53,7 +53,7 @@ public class HoppyServiceImpl implements HoppyService {
      * @see com.mycompany.biz.service.HoppyService#delete
      */
     @Override
-    public Integer delete(Integer hoppyId) {
+    public Long delete(Long hoppyId) {
         return hoppyDao.delete(hoppyId);
     }
 
@@ -73,7 +73,7 @@ public class HoppyServiceImpl implements HoppyService {
      * @see com.mycompany.biz.service.HoppyService#getHoppyByHoppyId
      */
     @Override
-    public Hoppy getHoppyByHoppyId(Integer hoppyId) {
+    public Hoppy getHoppyByHoppyId(Long hoppyId) {
         return hoppyDao.getHoppyByHoppyId(hoppyId);
     }
 
@@ -93,7 +93,7 @@ public class HoppyServiceImpl implements HoppyService {
      * @see com.mycompany.biz.service.HoppyService#getHoppysByHoppyIds
      */
     @Override
-    public List<Hoppy> getHoppysByHoppyIds(java.util.List<Integer> hoppyIds) {
+    public List<Hoppy> getHoppysByHoppyIds(java.util.List<Long> hoppyIds) {
         return hoppyDao.getHoppysByHoppyIds(hoppyIds);
     }
 
@@ -103,15 +103,25 @@ public class HoppyServiceImpl implements HoppyService {
      * @see com.mycompany.biz.service.HoppyService#deleteByHoppyIds
      */
     @Override
-    public java.util.List<Integer> deleteByHoppyIds(java.util.List<Integer> hoppyIds) {
+    public java.util.List<Long> deleteByHoppyIds(java.util.List<Long> hoppyIds) {
         return hoppyDao.deleteByHoppyIds(hoppyIds);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.HoppyDao#getHoppyOptions
+     * @see com.mycompany.biz.service.HoppyService#getHoppyOptions
+     */
+    @Override
+    public List<Hoppy> getHoppyOptions() {
+        return hoppyDao.getHoppyOptions();
     }
 
     /*** 保存hoppy,有id时更新，没有id时插入,并带回新的id，返回 hoppy*/
     @Override
     public Hoppy saveHoppy(Hoppy hoppy) {
         if (hoppy != null) {
-            java.lang.Integer hoppyId = hoppy.getHoppyId();
+            java.lang.Long hoppyId = hoppy.getHoppyId();
             if (hoppyId != null) {
                 insert(hoppy);
             } else {
@@ -131,10 +141,10 @@ public class HoppyServiceImpl implements HoppyService {
     }
 
     @Override
-    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, Integer> destGetMethod, BiConsumer<D, Hoppy> destSetMethod) {
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod, BiConsumer<D, Hoppy> destSetMethod) {
         if (CollectionUtil.isNotEmpty(dests)) {
-            Set<Integer> hoppyIds = CollectionUtil.toSet(dests, destGetMethod);
-            List<Hoppy> hoppys = this.getHoppysByHoppyIds(new ArrayList<Integer>(hoppyIds));
+            Set<Long> hoppyIds = CollectionUtil.toSet(dests, destGetMethod);
+            List<Hoppy> hoppys = this.getHoppysByHoppyIds(new ArrayList<Long>(hoppyIds));
             if (CollectionUtil.isNotEmpty(hoppys)) {
                 CollectionUtil.setModelByList(dests, hoppys, destGetMethod, destSetMethod, Hoppy::getHoppyId);
             }

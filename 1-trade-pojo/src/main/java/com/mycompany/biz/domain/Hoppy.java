@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
+
+import org.stategen.framework.lite.IOption;
 import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Getter;
@@ -29,14 +31,14 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Hoppy implements java.io.Serializable {
+public class Hoppy implements java.io.Serializable, IOption {
 
     private static final long serialVersionUID = -5216457518046898601L;
 
-    /***hoppyId   db_column: hoppy_id INTEGER */
+    /***hoppyId   db_column: hoppy_id BIGINT */
     @ApiModelProperty("hoppyId")
     @Id
-    private Integer hoppyId;
+    private Long hoppyId;
 
     /***hoppyName   db_column: hoppy_name VARCHAR */
     @ApiModelProperty("hoppyName")
@@ -79,7 +81,7 @@ public class Hoppy implements java.io.Serializable {
 
     /*** hoppyIds in getHoppyPageList */
     @ApiModelProperty("hoppyIds")
-    private transient java.util.List<Integer> hoppyIds;
+    private transient java.util.List<Long> hoppyIds;
 
     /*** hoppyNameLike in getHoppyPageList */
     @ApiModelProperty("hoppyNameLike")
@@ -104,4 +106,17 @@ public class Hoppy implements java.io.Serializable {
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMax;
+
+    @Override
+    public String getTitle() {
+        return this.hoppyName;
+    }
+
+    @Override
+    public String getValue() {
+        if (this.hoppyId != null) {
+            return hoppyId.toString();
+        }
+        return null;
+    }
 }

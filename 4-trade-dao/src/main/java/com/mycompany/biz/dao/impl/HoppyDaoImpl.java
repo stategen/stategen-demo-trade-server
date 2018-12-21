@@ -45,7 +45,7 @@ public class HoppyDaoImpl extends SqlMapClientDaoSupport implements HoppyDao {
 	 * 
 	 * sql:UPDATE hoppy SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and hoppy_id = ?
 	 */
-    public Integer delete(Integer hoppyId) throws DataAccessException {
+    public Long delete(Long hoppyId) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("hoppyId", hoppyId);
         getSqlMapClientTemplate().update("delete.Hoppy.trade", params);
@@ -68,7 +68,7 @@ public class HoppyDaoImpl extends SqlMapClientDaoSupport implements HoppyDao {
 	 * 
 	 * sql:select a.hoppy_id, a.hoppy_name, a.create_time, a.update_time, a.delete_flag from hoppy a where a.delete_flag = 0 and a.hoppy_id = ?
 	 */
-    public Hoppy getHoppyByHoppyId(Integer hoppyId) throws DataAccessException {
+    public Hoppy getHoppyByHoppyId(Long hoppyId) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("hoppyId", hoppyId);
         return (Hoppy) getSqlMapClientTemplate().queryForObject("getHoppyByHoppyId.Hoppy.trade", params);
@@ -88,7 +88,7 @@ public class HoppyDaoImpl extends SqlMapClientDaoSupport implements HoppyDao {
 	 * sql:select a.hoppy_id, a.hoppy_name, a.create_time, a.update_time, a.delete_flag from hoppy a where a.delete_flag = 0 and 1=0 and a.hoppy_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
-    public List<Hoppy> getHoppysByHoppyIds(java.util.List<Integer> hoppyIds) throws DataAccessException {
+    public List<Hoppy> getHoppysByHoppyIds(java.util.List<Long> hoppyIds) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("hoppyIds", hoppyIds);
         return (List<Hoppy>) getSqlMapClientTemplate().queryForList("getHoppysByHoppyIds.Hoppy.trade", params);
@@ -98,10 +98,19 @@ public class HoppyDaoImpl extends SqlMapClientDaoSupport implements HoppyDao {
 	 * 
 	 * sql:UPDATE hoppy SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and hoppy_id in ( ? )
 	 */
-    public java.util.List<Integer> deleteByHoppyIds(java.util.List<Integer> hoppyIds) throws DataAccessException {
+    public java.util.List<Long> deleteByHoppyIds(java.util.List<Long> hoppyIds) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("hoppyIds", hoppyIds);
         getSqlMapClientTemplate().update("deleteByHoppyIds.Hoppy.trade", params);
         return hoppyIds;
+    }
+
+    /**
+	 * 
+	 * sql:select a.hoppy_id, a.hoppy_name from hoppy a where a.delete_flag = 0
+	 */
+    @SuppressWarnings("unchecked")
+    public List<Hoppy> getHoppyOptions() throws DataAccessException {
+        return (List<Hoppy>) getSqlMapClientTemplate().queryForList("getHoppyOptions.Hoppy.trade", null);
     }
 }

@@ -23,7 +23,7 @@ import com.mycompany.biz.domain.Hoppy;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface HoppyService extends HoppyServiceFacade, AssignSerice<Hoppy, Integer> {
+public interface HoppyService extends HoppyServiceFacade, AssignSerice<Hoppy, Long> {
 
     /**
      * 
@@ -35,7 +35,7 @@ public interface HoppyService extends HoppyServiceFacade, AssignSerice<Hoppy, In
      * 
      * @see com.mycompany.biz.dao.HoppyDao#delete
      */
-    public Integer delete(Integer hoppyId);
+    public Long delete(Long hoppyId);
 
     /**
      * 
@@ -47,7 +47,7 @@ public interface HoppyService extends HoppyServiceFacade, AssignSerice<Hoppy, In
      * 
      * @see com.mycompany.biz.dao.HoppyDao#getHoppyByHoppyId
      */
-    public Hoppy getHoppyByHoppyId(Integer hoppyId);
+    public Hoppy getHoppyByHoppyId(Long hoppyId);
 
     /**
      * 
@@ -59,13 +59,19 @@ public interface HoppyService extends HoppyServiceFacade, AssignSerice<Hoppy, In
      * 
      * @see com.mycompany.biz.dao.HoppyDao#getHoppysByHoppyIds
      */
-    public List<Hoppy> getHoppysByHoppyIds(java.util.List<Integer> hoppyIds);
+    public List<Hoppy> getHoppysByHoppyIds(java.util.List<Long> hoppyIds);
 
     /**
      * 
      * @see com.mycompany.biz.dao.HoppyDao#deleteByHoppyIds
      */
-    public java.util.List<Integer> deleteByHoppyIds(java.util.List<Integer> hoppyIds);
+    public java.util.List<Long> deleteByHoppyIds(java.util.List<Long> hoppyIds);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.HoppyDao#getHoppyOptions
+     */
+    public List<Hoppy> getHoppyOptions();
 
     /*** 保存hoppy,有id时更新，没有id时插入,并带回新的id，返回 hoppy
      * @see com.mycompany.biz.dao.HoppyDao#insert

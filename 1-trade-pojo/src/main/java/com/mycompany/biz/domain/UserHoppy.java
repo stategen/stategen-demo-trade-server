@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Getter;
@@ -33,19 +34,20 @@ public class UserHoppy implements java.io.Serializable {
 
     private static final long serialVersionUID = -5216457518046898601L;
 
-    /***id   db_column: id INTEGER */
+    /***id   db_column: id BIGINT */
     @ApiModelProperty("id")
     @Id
-    private Integer id;
+    private Long id;
 
-    /***用户ID   db_column: user_id VARCHAR */
+    /***用户ID fk   db_column: user_id VARCHAR */
     @ApiModelProperty("用户ID")
     @Max(64)
     private String userId;
 
-    /***hoppyId   db_column: hoppy_id INTEGER */
+    /***hoppyId   db_column: hoppy_id BIGINT */
     @ApiModelProperty("hoppyId")
-    private Integer hoppyId;
+    @NotNull
+    private Long hoppyId;
 
     /***创建时间   db_column: create_time TIMESTAMP */
     @ApiModelProperty(value = "创建时间", hidden = true)
@@ -85,15 +87,15 @@ public class UserHoppy implements java.io.Serializable {
 
     /*** ids in getUserHoppyPageList */
     @ApiModelProperty("ids")
-    private transient java.util.List<Integer> ids;
+    private transient java.util.List<Long> ids;
 
-    /*** 用户IDs in getUserHoppyPageList */
+    /*** 用户ID fks in getUserHoppyPageList */
     @ApiModelProperty("用户IDs")
     private transient java.util.List<String> userIds;
 
     /*** hoppyIds in getUserHoppyPageList */
     @ApiModelProperty("hoppyIds")
-    private transient java.util.List<Integer> hoppyIds;
+    private transient java.util.List<Long> hoppyIds;
 
     /*** 创建时间Min in getUserHoppyPageList */
     @ApiModelProperty("创建时间Min")

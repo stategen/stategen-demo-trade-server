@@ -23,7 +23,7 @@ import com.mycompany.biz.domain.UserHoppy;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface UserHoppyService extends UserHoppyServiceFacade, AssignSerice<UserHoppy, Integer> {
+public interface UserHoppyService extends UserHoppyServiceFacade, AssignSerice<UserHoppy, Long> {
 
     /**
      * 
@@ -35,7 +35,7 @@ public interface UserHoppyService extends UserHoppyServiceFacade, AssignSerice<U
      * 
      * @see com.mycompany.biz.dao.UserHoppyDao#delete
      */
-    public Integer delete(Integer id);
+    public Long delete(Long id);
 
     /**
      * 
@@ -47,7 +47,7 @@ public interface UserHoppyService extends UserHoppyServiceFacade, AssignSerice<U
      * 
      * @see com.mycompany.biz.dao.UserHoppyDao#getUserHoppyById
      */
-    public UserHoppy getUserHoppyById(Integer id);
+    public UserHoppy getUserHoppyById(Long id);
 
     /**
      * 
@@ -59,13 +59,19 @@ public interface UserHoppyService extends UserHoppyServiceFacade, AssignSerice<U
      * 
      * @see com.mycompany.biz.dao.UserHoppyDao#getUserHoppysByIds
      */
-    public List<UserHoppy> getUserHoppysByIds(java.util.List<Integer> ids);
+    public List<UserHoppy> getUserHoppysByIds(java.util.List<Long> ids);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserHoppyDao#getUserHoppysByUserIds
+     */
+    public List<UserHoppy> getUserHoppysByUserIds(java.util.List<String> userIds);
 
     /**
      * 
      * @see com.mycompany.biz.dao.UserHoppyDao#deleteByIds
      */
-    public java.util.List<Integer> deleteByIds(java.util.List<Integer> ids);
+    public java.util.List<Long> deleteByIds(java.util.List<Long> ids);
 
     /*** 保存userHoppy,有id时更新，没有id时插入,并带回新的id，返回 userHoppy
      * @see com.mycompany.biz.dao.UserHoppyDao#insert

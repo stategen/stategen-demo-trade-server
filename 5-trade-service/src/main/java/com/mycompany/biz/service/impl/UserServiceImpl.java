@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -199,8 +198,6 @@ public class UserServiceImpl implements UserService {
     public Long deleteByUsernames(java.util.List<String> usernames) {
         return userDao.deleteByUsernames(usernames);
     }
-
-
 
     /**
      * 

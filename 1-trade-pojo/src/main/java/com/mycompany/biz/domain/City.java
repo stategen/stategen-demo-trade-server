@@ -13,8 +13,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 
 import org.stategen.framework.lite.IOption;
-import io.swagger.annotations.ApiModelProperty;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -152,12 +152,8 @@ public class City implements java.io.Serializable, IOption {
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMax;
 
-    public String getTitle() {
-        return this.getLabel();
-    }
-
     @Override
-    public String getLabel() {
+    public String getTitle() {
         if (name != null) {
             return name;
         }

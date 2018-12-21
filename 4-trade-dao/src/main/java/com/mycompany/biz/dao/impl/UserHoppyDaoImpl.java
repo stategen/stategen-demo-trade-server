@@ -45,7 +45,7 @@ public class UserHoppyDaoImpl extends SqlMapClientDaoSupport implements UserHopp
 	 * 
 	 * sql:UPDATE user_hoppy SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and id = ?
 	 */
-    public Integer delete(Integer id) throws DataAccessException {
+    public Long delete(Long id) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("id", id);
         getSqlMapClientTemplate().update("delete.UserHoppy.trade", params);
@@ -68,7 +68,7 @@ public class UserHoppyDaoImpl extends SqlMapClientDaoSupport implements UserHopp
 	 * 
 	 * sql:select a.id, a.user_id, a.hoppy_id, a.create_time, a.update_time, a.delete_flag from user_hoppy a where a.delete_flag = 0 and a.id = ?
 	 */
-    public UserHoppy getUserHoppyById(Integer id) throws DataAccessException {
+    public UserHoppy getUserHoppyById(Long id) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("id", id);
         return (UserHoppy) getSqlMapClientTemplate().queryForObject("getUserHoppyById.UserHoppy.trade", params);
@@ -88,7 +88,7 @@ public class UserHoppyDaoImpl extends SqlMapClientDaoSupport implements UserHopp
 	 * sql:select a.id, a.user_id, a.hoppy_id, a.create_time, a.update_time, a.delete_flag from user_hoppy a where a.delete_flag = 0 and 1=0 and a.id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
-    public List<UserHoppy> getUserHoppysByIds(java.util.List<Integer> ids) throws DataAccessException {
+    public List<UserHoppy> getUserHoppysByIds(java.util.List<Long> ids) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("ids", ids);
         return (List<UserHoppy>) getSqlMapClientTemplate().queryForList("getUserHoppysByIds.UserHoppy.trade", params);
@@ -96,9 +96,20 @@ public class UserHoppyDaoImpl extends SqlMapClientDaoSupport implements UserHopp
 
     /**
 	 * 
+	 * sql:select a.id, a.user_id, a.hoppy_id, a.create_time, a.update_time, a.delete_flag from user_hoppy a where a.delete_flag = 0 and 1=0 and a.user_id in ( ? ) order by a.update_time desc, a.create_time desc
+	 */
+    @SuppressWarnings("unchecked")
+    public List<UserHoppy> getUserHoppysByUserIds(java.util.List<String> userIds) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("userIds", userIds);
+        return (List<UserHoppy>) getSqlMapClientTemplate().queryForList("getUserHoppysByUserIds.UserHoppy.trade", params);
+    }
+
+    /**
+	 * 
 	 * sql:UPDATE user_hoppy SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and id in ( ? )
 	 */
-    public java.util.List<Integer> deleteByIds(java.util.List<Integer> ids) throws DataAccessException {
+    public java.util.List<Long> deleteByIds(java.util.List<Long> ids) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("ids", ids);
         getSqlMapClientTemplate().update("deleteByIds.UserHoppy.trade", params);

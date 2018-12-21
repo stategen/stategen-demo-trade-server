@@ -6,7 +6,7 @@
 
 
     <resultMap id="Hoppy.trade.RM" class="com.mycompany.biz.domain.Hoppy">
-        <result property="hoppyId" column="hoppy_id" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+        <result property="hoppyId" column="hoppy_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
         <result property="hoppyName" column="hoppy_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
@@ -241,6 +241,24 @@
                 </iterate>
             </isNotEmpty>
 	</update>
+	
+    
+    <resultMap id="getHoppyOptions.Hoppy.trade.RM" class="com.mycompany.biz.domain.Hoppy">
+        <result property="hoppyId" column="hoppy_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="hoppyName" column="hoppy_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+    </resultMap>
+	
+	<select id="getHoppyOptions.Hoppy.trade" resultMap="getHoppyOptions.Hoppy.trade.RM" >
+    	select
+ /* getHoppyOptions.Hoppy.trade */             a.hoppy_id,
+            a.hoppy_name
+            from hoppy a
+            where
+            a.delete_flag = 0
+	</select>	
+
+	    
+	
 	
     
 
