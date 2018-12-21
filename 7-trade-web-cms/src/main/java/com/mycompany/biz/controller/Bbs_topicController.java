@@ -55,7 +55,6 @@ public class Bbs_topicController extends TopicControllerBase {
                                                 @OptionConfig()
                                                 @ApiParam() String provinceId,
                                                 
-                                                @OptionConfig(changeBy="provinceId")
                                                 @ApiParam()@RequestParam(required =false,name="cityIds") ArrayList<String> cityIds,
                                                 
                                                 @ApiParam()@RequestParam(required =false,name="provinceIds") ArrayList<String> provinceIds

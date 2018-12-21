@@ -15,6 +15,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
+import org.stategen.framework.annotation.ChangeBy;
 import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.annotation.OptionConfig;
 import org.stategen.framework.lite.enums.EditorType;
@@ -132,7 +133,8 @@ public class User implements java.io.Serializable {
     /***城市 ID   db_column: city_id VARCHAR */
     @ApiModelProperty("城市 ID")
     @Max(64)
-    @OptionConfig(changeBy = "provinceId")
+    @OptionConfig()
+    @ChangeBy("provinceId")
     private String cityId;
 
     /***状态 enum   db_column: status VARCHAR */
@@ -302,7 +304,8 @@ public class User implements java.io.Serializable {
 
     /*** 城市 IDs in getUserPageList */
     @ApiModelProperty("城市s")
-    @OptionConfig(changeBy = "provinceId")
+    @OptionConfig()
+    @ChangeBy("provinceId")
     private transient java.util.List<String> cityIds;
 
     /*** 状态 enums in getUserPageList */

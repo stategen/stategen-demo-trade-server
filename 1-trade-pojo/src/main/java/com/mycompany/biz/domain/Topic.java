@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 
+import org.stategen.framework.annotation.ChangeBy;
 import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.annotation.OptionConfig;
 import org.stategen.framework.lite.enums.EditorType;
@@ -120,7 +121,8 @@ public class Topic implements java.io.Serializable, IAuthored {
     /***cityId   db_column: city_id VARCHAR */
     @ApiModelProperty("cityId")
     @Max(64)
-    @OptionConfig(changeBy = "provinceId")
+    @OptionConfig()
+    @ChangeBy("provinceId")
     private String cityId;
 
     /***创建时间   db_column: create_time TIMESTAMP */
