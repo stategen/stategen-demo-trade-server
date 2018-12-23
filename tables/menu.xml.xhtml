@@ -6,6 +6,7 @@
             , update_time
             , delete_flag
             <isNotNull prepend="," property="menuId"> menu_id </isNotNull>
+            <isNotNull prepend="," property="morder"> morder </isNotNull>
             <isNotNull prepend="," property="bpid"> bpid </isNotNull>
             <isNotNull prepend="," property="mpid"> mpid </isNotNull>
             <isNotNull prepend="," property="projectName"> project_name </isNotNull>
@@ -22,6 +23,7 @@
             , CURRENT_TIMESTAMP(6)
             , 0
             <isNotNull prepend="," property="menuId"> ?  </isNotNull>
+            <isNotNull prepend="," property="morder"> ?  </isNotNull>
             <isNotNull prepend="," property="bpid"> ?  </isNotNull>
             <isNotNull prepend="," property="mpid"> ?  </isNotNull>
             <isNotNull prepend="," property="projectName"> ?  </isNotNull>
@@ -56,6 +58,9 @@
             UPDATE menu
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
+                <isNotNull property="morder" prepend=",">
+                    morder =  ? 
+                </isNotNull>
                 <isNotNull property="bpid" prepend=",">
                     bpid =  ? 
                 </isNotNull>
@@ -100,6 +105,7 @@
         <sql>
             select
             a.menu_id,
+            a.morder,
             a.bpid,
             a.mpid,
             a.project_name,
@@ -125,6 +131,7 @@
         <sql>
             select
             a.menu_id,
+            a.morder,
             a.bpid,
             a.mpid,
             a.project_name,
@@ -151,6 +158,12 @@
                     #menuIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull property="morderMin" open="and">
+                a.morder >=#morderMin#
+            </isNotNull>
+            <isNotNull property="morderMax" open="and">
+                a.morder &lt;#morderMax#
+            </isNotNull>
             <isNotNull property="bpid" open="and">
                a.bpid=?
             </isNotNull>
@@ -231,6 +244,8 @@
             </isNotNull>
             <isNull property="menuId">
             <isEmpty property="menuIds">
+            <isNull property="morderMin">
+            <isNull property="morderMax">
             <isNull property="bpid">
             <isEmpty property="bpids">
             <isNull property="mpid">
@@ -276,6 +291,8 @@
             </isNull>
             </isEmpty>
             </isNull>
+            </isNull>
+            </isNull>
             </isEmpty>
             </isNull>
             order by
@@ -287,6 +304,7 @@
         <sql>
             select
             a.menu_id,
+            a.morder,
             a.bpid,
             a.mpid,
             a.project_name,

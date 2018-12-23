@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
@@ -28,6 +27,7 @@ import org.stategen.framework.util.CopyUtil;
 import org.stategen.framework.util.DatetimeUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
 
+import com.mycompany.biz.annotion.ExcludeBeanNotNull;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.domain.UserHoppy;
 import com.mycompany.biz.enums.StatusEnum;
@@ -58,7 +58,10 @@ public class UserController extends UserControllerBase {
     @VisitCheck
     @State(init = true, dataOpt = DataOpt.FULL_REPLACE)
     @GenForm
-    public AntdPageList<User> getUserPageList(@OptionConfig @ApiParam() @RequestParam(required = false, name = "userIds") ArrayList<String> userIds,
+    @ExcludeBeanNotNull
+    public AntdPageList<User> getUserPageList(
+                                              @ApiParam() String userId,
+                                              @OptionConfig @ApiParam() @RequestParam(required = false, name = "userIds") ArrayList<String> userIds,
                                               @ApiParam() String usernameLike,
                                               @ApiParam() @RequestParam(required = false, name = "roleTypes") ArrayList<String> roleTypes,
                                               @ApiParam() Integer ageMin, @ApiParam() Integer ageMax, @ApiParam() Date valiDatetimeMin,
@@ -83,14 +86,14 @@ public class UserController extends UserControllerBase {
         cityService.assignBeanTo(users, User::getCityId, User::setCity);
     }
 
-    @ApiRequestMappingAutoWithMethodName(name = "批量删除用户", method = RequestMethod.DELETE)
+    @ApiRequestMappingAutoWithMethodName(name = "批量删除用户")
     @VisitCheck
     @State(dataOpt = DataOpt.DELETE_IF_EXIST, area = User.class)
     public List<String> deleteByUserIds(@RequestParam(name = "userIds", required = false) ArrayList<String> userIds, HttpServletResponse response) {
         return this.userService.deleteByUserIds(userIds);
     }
 
-    @ApiRequestMappingAutoWithMethodName(name = "创建用户", method = RequestMethod.POST)
+    @ApiRequestMappingAutoWithMethodName(name = "创建用户")
     @VisitCheck
     @GenForm
     public User insert(@ApiParam()@RequestParam(required =false,name="hoppyIds") ArrayList<Long> hoppyIds,
@@ -124,14 +127,14 @@ public class UserController extends UserControllerBase {
         return user;
     }
 
-    @ApiRequestMappingAutoWithMethodName(name = "删除用户", method = RequestMethod.DELETE)
+    @ApiRequestMappingAutoWithMethodName(name = "删除用户")
     @VisitCheck
     @State(area = User.class, dataOpt = DataOpt.DELETE_IF_EXIST)
     public String delete(@PathVariable String userId) {
         return userService.delete(userId);
     }
 
-    @ApiRequestMappingAutoWithMethodName(name = "修改用户", method = RequestMethod.PATCH)
+    @ApiRequestMappingAutoWithMethodName(name = "修改用户")
     @VisitCheck
     @GenForm
     public User update(

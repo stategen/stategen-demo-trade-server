@@ -7,6 +7,7 @@
 
     <resultMap id="Menu.trade.RM" class="com.mycompany.biz.domain.Menu">
         <result property="menuId" column="menu_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="morder" column="morder" javaType="java.lang.Integer" jdbcType="INTEGER"  />
         <result property="bpid" column="bpid" javaType="java.lang.Long" jdbcType="BIGINT"  />
         <result property="mpid" column="mpid" javaType="java.lang.Long" jdbcType="BIGINT"  />
         <result property="projectName" column="project_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
@@ -41,6 +42,7 @@
             , update_time
             , delete_flag
             <isNotNull prepend="," property="menuId"> menu_id </isNotNull>
+            <isNotNull prepend="," property="morder"> morder </isNotNull>
             <isNotNull prepend="," property="bpid"> bpid </isNotNull>
             <isNotNull prepend="," property="mpid"> mpid </isNotNull>
             <isNotNull prepend="," property="projectName"> project_name </isNotNull>
@@ -54,6 +56,7 @@
             <isNotNull prepend="," property="checkType"> check_type </isNotNull>
             ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="menuId"> #menuId# </isNotNull> 
+            <isNotNull prepend="," property="morder"> #morder# </isNotNull> 
             <isNotNull prepend="," property="bpid"> #bpid# </isNotNull> 
             <isNotNull prepend="," property="mpid"> #mpid# </isNotNull> 
             <isNotNull prepend="," property="projectName"> #projectName# </isNotNull> 
@@ -85,6 +88,9 @@
 		UPDATE menu
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
+                <isNotNull prepend="," property="morder">
+                    morder =  #morder# 
+                </isNotNull>
                 <isNotNull prepend="," property="bpid">
                     bpid =  #bpid# 
                 </isNotNull>
@@ -129,6 +135,7 @@
 	<select id="getMenuByMenuId.Menu.trade" resultMap="Menu.trade.RM" >
     	select
  /* getMenuByMenuId.Menu.trade */             a.menu_id,
+            a.morder,
             a.bpid,
             a.mpid,
             a.project_name,
@@ -157,6 +164,7 @@
 	<select id="getMenuPageList.Menu.trade" resultMap="Menu.trade.RM" >
     	select
  /* getMenuPageList.Menu.trade */             a.menu_id,
+            a.morder,
             a.bpid,
             a.mpid,
             a.project_name,
@@ -183,6 +191,12 @@
                     #menuIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="morderMin">
+                a.morder >=#morderMin#
+            </isNotNull>
+            <isNotNull open="and" property="morderMax">
+                a.morder &lt;#morderMax#
+            </isNotNull>
             <isNotNull open="and" property="bpid">
                a.bpid=#bpid#
             </isNotNull>
@@ -263,6 +277,8 @@
             </isNotNull>
             <isNull property="menuId">
             <isEmpty property="menuIds">
+            <isNull property="morderMin">
+            <isNull property="morderMax">
             <isNull property="bpid">
             <isEmpty property="bpids">
             <isNull property="mpid">
@@ -307,6 +323,8 @@
             </isEmpty>
             </isNull>
             </isEmpty>
+            </isNull>
+            </isNull>
             </isNull>
             </isEmpty>
             </isNull>
@@ -328,6 +346,12 @@
                     #menuIds[]#
                 </iterate>
             </isNotEmpty>
+            <isNotNull open="and" property="morderMin">
+                a.morder >=#morderMin#
+            </isNotNull>
+            <isNotNull open="and" property="morderMax">
+                a.morder &lt;#morderMax#
+            </isNotNull>
             <isNotNull open="and" property="bpid">
                a.bpid=#bpid#
             </isNotNull>
@@ -408,6 +432,8 @@
             </isNotNull>
             <isNull property="menuId">
             <isEmpty property="menuIds">
+            <isNull property="morderMin">
+            <isNull property="morderMax">
             <isNull property="bpid">
             <isEmpty property="bpids">
             <isNull property="mpid">
@@ -453,6 +479,8 @@
             </isNull>
             </isEmpty>
             </isNull>
+            </isNull>
+            </isNull>
             </isEmpty>
             </isNull>
 	</select>
@@ -464,6 +492,7 @@
 	<select id="getMenusByMenuIds.Menu.trade" resultMap="Menu.trade.RM" >
     	select
  /* getMenusByMenuIds.Menu.trade */             a.menu_id,
+            a.morder,
             a.bpid,
             a.mpid,
             a.project_name,
@@ -517,8 +546,25 @@
 	</update>
 	
     
+    <resultMap id="getMenusByProjectName.Menu.trade.RM" class="com.mycompany.biz.domain.Menu">
+        <result property="menuId" column="menu_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="mpid" column="mpid" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="bpid" column="bpid" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="projectName" column="project_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="controllerName" column="controller_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="methodName" column="method_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="url" column="url" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="icon" column="icon" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="route" column="route" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="menuType" column="menu_type" javaType="org.stategen.framework.lite.enums.MenuType" jdbcType="VARCHAR"  />
+        <result property="checkType" column="check_type" javaType="org.stategen.framework.lite.enums.VisitCheckType" jdbcType="VARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
 	
-	<select id="getMenusByProjectName.Menu.trade" resultMap="Menu.trade.RM" >
+	<select id="getMenusByProjectName.Menu.trade" resultMap="getMenusByProjectName.Menu.trade.RM" >
     	select
  /* getMenusByProjectName.Menu.trade */             a.menu_id,
             a.mpid,
@@ -542,6 +588,8 @@
             <isNotEmpty property="menuType">
               and a.menu_type=#menuType#
             </isNotEmpty>
+            order by
+            a.morder is null, a.morder
 	</select>	
 
 	    

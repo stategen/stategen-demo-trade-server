@@ -20,9 +20,10 @@ import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.annotation.OptionConfig;
 import org.stategen.framework.lite.enums.EditorType;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.StatusEnum;
-
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -51,6 +52,7 @@ public class User implements java.io.Serializable {
     //用id存储到表中
     @OptionConfig
     @Editor(EditorType.CheckboxGroup.class)
+    @ApiModelProperty("爱好 ids")
     private List<Long> hoppyIds;
 
     /*** colorTypes in getUserPageList */
@@ -75,35 +77,36 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("密码，测试，明文")
     @Max(64)
     @Editor(EditorType.Password.class)
-    private String password;
+    @JSONField(serialize = false)
+    private transient String password;
 
     /***用户角色 ADMIN,DEFAULT,DEVELOPER   db_column: role_type VARCHAR */
     @ApiModelProperty("用户角色 ADMIN,DEFAULT,DEVELOPER")
     @Max(32)
     private String roleType;
 
-    /***name   db_column: name VARCHAR */
-    @ApiModelProperty("name")
+    /***姓名   db_column: name VARCHAR */
+    @ApiModelProperty("姓名")
     @Max(64)
     private String name;
 
-    /***nickName   db_column: nickName VARCHAR */
-    @ApiModelProperty("nickName")
+    /***别名   db_column: nickName VARCHAR */
+    @ApiModelProperty("别名")
     @Max(32)
     private String nickName;
 
-    /***age   db_column: age INTEGER */
-    @ApiModelProperty("age")
+    /***年龄   db_column: age INTEGER */
+    @ApiModelProperty("年龄")
     @Editor(EditorType.Number.class)
     private Integer age;
 
-    /***address   db_column: address VARCHAR */
-    @ApiModelProperty("address")
+    /***详细地址   db_column: address VARCHAR */
+    @ApiModelProperty("详细地址")
     @Max(255)
     private String address;
 
-    /***avatarUrl   db_column: avatar_url VARCHAR */
-    @ApiModelProperty("avatarUrl")
+    /***头像   db_column: avatar_url VARCHAR */
+    @ApiModelProperty("头像")
     @Max(255)
     private String avatarUrl;
 
@@ -131,14 +134,12 @@ public class User implements java.io.Serializable {
 
     /***省份 ID   db_column: province_id VARCHAR */
     @ApiModelProperty("省份 ID")
-    @NotNull
     @Max(64)
     @OptionConfig
     private String provinceId;
 
     /***城市 ID   db_column: city_id VARCHAR */
     @ApiModelProperty("城市 ID")
-    @NotNull
     @Max(64)
     @OptionConfig()
     @ChangeBy("provinceId")
@@ -150,31 +151,33 @@ public class User implements java.io.Serializable {
     @Editor(EditorType.RadioGroup.class)
     private StatusEnum status;
 
-    /***grade   db_column: grade BIGINT */
-    @ApiModelProperty("grade")
+    /***级别   db_column: grade BIGINT */
+    @ApiModelProperty("级别")
+    @Editor(EditorType.Rate.class)
     private Long grade;
 
-    /***sex   db_column: sex BIT */
-    @ApiModelProperty("sex")
+    /***性别   db_column: sex BIT */
+    @ApiModelProperty("性别")
+    @Editor(value = EditorType.Switch.class, props = "checkedChildren: '男', unCheckedChildren: '女'")
     private Boolean sex;
 
-    /***postAddressId   db_column: post_address_id VARCHAR */
-    @ApiModelProperty("postAddressId")
+    /***邮寄地址 ID   db_column: post_address_id VARCHAR */
+    @ApiModelProperty("邮寄地址 ID")
     @Max(64)
     private String postAddressId;
 
     /***创建时间   db_column: create_time TIMESTAMP */
-    @ApiModelProperty("创建时间")
+    @ApiModelProperty(value = "创建时间", hidden = true)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date createTime;
 
     /***更新时间   db_column: update_time TIMESTAMP */
-    @ApiModelProperty("更新时间")
+    @ApiModelProperty(value = "更新时间", hidden = true)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updateTime;
 
-    /***是否删除(0:正常，1删除)   db_column: delete_flag INTEGER */
-    @ApiModelProperty("是否删除(0:正常，1删除)")
+    /***是否删除 (0:正常，1删除)   db_column: delete_flag INTEGER */
+    @ApiModelProperty(value = "是否删除 (0:正常，1删除)", hidden = true)
     private Integer deleteFlag;
 
     /*----------------getter & setter ignore by lombok -------------------*/
@@ -254,19 +257,19 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("用户名nameLike")
     private transient String nameLike;
 
-    /*** nickNameLike in getUserPageList */
+    /*** 别名Like in getUserPageList */
     @ApiModelProperty("nickNameLike")
     private transient String nickNameLike;
 
-    /*** ageMin in getUserPageList */
+    /*** 年龄Min in getUserPageList */
     @ApiModelProperty("ageMin")
     private transient Integer ageMin;
 
-    /*** ageMax in getUserPageList */
+    /*** 年龄Max in getUserPageList */
     @ApiModelProperty("ageMax")
     private transient Integer ageMax;
 
-    /*** addressLike in getUserPageList */
+    /*** 详细地址Like in getUserPageList */
     @ApiModelProperty("addressLike")
     private transient String addressLike;
 
@@ -320,15 +323,15 @@ public class User implements java.io.Serializable {
     @Editor(EditorType.CheckboxGroup.class)
     private transient java.util.List<com.mycompany.biz.enums.StatusEnum> statuss;
 
-    /*** gradeMin in getUserPageList */
+    /*** 级别Min in getUserPageList */
     @ApiModelProperty("gradeMin")
     private transient Long gradeMin;
 
-    /*** gradeMax in getUserPageList */
+    /*** 级别Max in getUserPageList */
     @ApiModelProperty("gradeMax")
     private transient Long gradeMax;
 
-    /*** postAddressIds in getUserPageList */
+    /*** 邮寄地址 IDs in getUserPageList */
     @ApiModelProperty("postAddressIds")
     private transient java.util.List<String> postAddressIds;
 

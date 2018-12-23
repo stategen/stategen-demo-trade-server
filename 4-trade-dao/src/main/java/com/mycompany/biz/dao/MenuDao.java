@@ -26,6 +26,7 @@ public interface MenuDao {
 	/**
     <pre>
     &#64;ApiParam() Long menuId,
+    &#64;ApiParam() Integer morder,
     &#64;ApiParam() Long bpid,
     &#64;ApiParam() Long mpid,
     &#64;ApiParam() String projectName,
@@ -41,7 +42,7 @@ public interface MenuDao {
     
     </pre>
 	 * 
-	 * sql:insert into menu ( create_time , update_time , delete_flag , menu_id , bpid , mpid , project_name , controller_name , method_name , url , icon , name , route , menu_type , check_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?)
+	 * sql:insert into menu ( create_time , update_time , delete_flag , menu_id , morder , bpid , mpid , project_name , controller_name , method_name , url , icon , name , route , menu_type , check_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
 	public Menu insert(Menu menu) throws DataAccessException;
 	
@@ -57,6 +58,7 @@ public interface MenuDao {
 	
 	/**
     <pre>
+    &#64;ApiParam() Integer morder,
     &#64;ApiParam() Long bpid,
     &#64;ApiParam() Long mpid,
     &#64;ApiParam() String projectName,
@@ -73,7 +75,7 @@ public interface MenuDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE menu SET update_time= CURRENT_TIMESTAMP(6) , bpid = ? , mpid = ? , project_name = ? , controller_name = ? , method_name = ? , url = ? , icon = ? , name = ? , route = ? , menu_type = ? , check_type = ? where delete_flag = 0 and menu_id = ?
+	 * sql:UPDATE menu SET update_time= CURRENT_TIMESTAMP(6) , morder = ? , bpid = ? , mpid = ? , project_name = ? , controller_name = ? , method_name = ? , url = ? , icon = ? , name = ? , route = ? , menu_type = ? , check_type = ? where delete_flag = 0 and menu_id = ?
 	 */
 	public Menu update(Menu menu) throws DataAccessException;
 	
@@ -83,7 +85,7 @@ public interface MenuDao {
     
     </pre>
 	 * 
-	 * sql:select a.menu_id, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_id = ?
+	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_id = ?
 	 */
 	public Menu getMenuByMenuId(Long menuId) throws DataAccessException;
 	
@@ -91,6 +93,8 @@ public interface MenuDao {
     <pre>
     &#64;ApiParam() Long menuId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="menuIds") ArrayList&lt;Long&gt; menuIds,
+    &#64;ApiParam() Integer morderMin,
+    &#64;ApiParam() Integer morderMax,
     &#64;ApiParam() Long bpid,
     &#64;ApiParam()&#64;RequestParam(required =false,name="bpids") ArrayList&lt;Long&gt; bpids,
     &#64;ApiParam() Long mpid,
@@ -117,7 +121,7 @@ public interface MenuDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.menu_id, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_id=? and a.menu_id in ( ? ) and a.bpid=? and a.bpid in ( ? ) and a.mpid=? and a.mpid in ( ? ) and a.project_name=? and a.project_name like CONCAT('%',?,'%') and a.controller_name=? and a.controller_name like CONCAT('%',?,'%') and a.method_name=? and a.method_name like CONCAT('%',?,'%') and a.name=? and a.name like CONCAT('%',?,'%') and a.route=? and a.route like CONCAT('%',?,'%') and a.menu_type=? and a.menu_type in ( ? ) and a.check_type=? and a.check_type in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_id=? and a.menu_id in ( ? ) and a.morder >=? and a.morder <? and a.bpid=? and a.bpid in ( ? ) and a.mpid=? and a.mpid in ( ? ) and a.project_name=? and a.project_name like CONCAT('%',?,'%') and a.controller_name=? and a.controller_name like CONCAT('%',?,'%') and a.method_name=? and a.method_name like CONCAT('%',?,'%') and a.name=? and a.name like CONCAT('%',?,'%') and a.route=? and a.route like CONCAT('%',?,'%') and a.menu_type=? and a.menu_type in ( ? ) and a.check_type=? and a.check_type in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<Menu> getMenuPageList(Menu menu, int pageSize, int pageNum) throws DataAccessException;
 	
@@ -127,7 +131,7 @@ public interface MenuDao {
     
     </pre>
 	 * 
-	 * sql:select a.menu_id, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and 1=0 and a.menu_id in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and 1=0 and a.menu_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<Menu> getMenusByMenuIds(java.util.List<Long> menuIds) throws DataAccessException;
 	
@@ -148,7 +152,7 @@ public interface MenuDao {
     
     </pre>
 	 * 
-	 * sql:select a.menu_id, a.mpid, a.bpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.project_name=? and a.menu_type=?
+	 * sql:select a.menu_id, a.mpid, a.bpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.project_name=? and a.menu_type=? order by a.morder is null, a.morder
 	 */
 	public List<Menu> getMenusByProjectName(String projectName, org.stategen.framework.lite.enums.MenuType menuType) throws DataAccessException;
 	

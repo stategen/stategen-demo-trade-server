@@ -45,16 +45,20 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
     private static final long serialVersionUID = -5216457518046898601L;
 
     /***menuId   db_column: menu_id BIGINT */
-    @ApiModelProperty("菜单ID")
+    @ApiModelProperty("menuId")
     @Id
     private Long menuId;
 
+    /***morder   db_column: morder INTEGER */
+    @ApiModelProperty("morder")
+    private Integer morder;
+
     /***menuId与bpid组成树图   db_column: bpid BIGINT */
-    @ApiModelProperty("面包屑父ID menuId与bpid组成树图")
+    @ApiModelProperty("menuId与bpid组成树图")
     private Long bpid;
 
     /***大部分情况下与bpid相同，当为动态目录时，mpid=-1   db_column: mpid BIGINT */
-    @ApiModelProperty("菜单父ID 大部分情况下与bpid相同，当为动态目录时，mpid=-1")
+    @ApiModelProperty("大部分情况下与bpid相同，当为动态目录时，mpid=-1")
     private Long mpid;
 
     /***对应的项目id   db_column: project_name VARCHAR */
@@ -84,12 +88,12 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
     private String icon;
 
     /***name   db_column: name VARCHAR */
-    @ApiModelProperty("名称")
+    @ApiModelProperty("name")
     @Max(64)
     private String name;
 
     /***route   db_column: route VARCHAR */
-    @ApiModelProperty("路由路径")
+    @ApiModelProperty("route")
     @Max(64)
     private String route;
 
@@ -102,17 +106,17 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
     private VisitCheckType checkType;
 
     /***数据创建时间   db_column: create_time TIMESTAMP */
-    @ApiModelProperty("创建时间")
+    @ApiModelProperty(value = "数据创建时间", hidden = true)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date createTime;
 
     /***数据更新时间   db_column: update_time TIMESTAMP */
-    @ApiModelProperty("更新时间")
+    @ApiModelProperty(value = "数据更新时间", hidden = true)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updateTime;
 
     /***是否删除(0:正常，1删除)   db_column: delete_flag INTEGER */
-    @ApiModelProperty("是否删除(0:正常，1删除)")
+    @ApiModelProperty(value = "是否删除(0:正常，1删除)", hidden = true)
     private Integer deleteFlag;
 
     /*----------------getter & setter ignore by lombok -------------------*/
@@ -121,6 +125,8 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
         StringBuffer sb = new StringBuffer(1024);
         sb.append('{');
         sb.append("menuIds=").append(menuIds).append('\n');
+        sb.append("morderMin=").append(morderMin).append('\n');
+        sb.append("morderMax=").append(morderMax).append('\n');
         sb.append("bpids=").append(bpids).append('\n');
         sb.append("mpids=").append(mpids).append('\n');
         sb.append("projectNameLike=").append(projectNameLike).append('\n');
@@ -135,6 +141,7 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
         sb.append("updateTimeMin=").append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
         sb.append("updateTimeMax=").append(updateTimeMax != null ? df.format(updateTimeMax) : null).append('\n');
         sb.append("menuId=").append(menuId).append('\n');
+        sb.append("morder=").append(morder).append('\n');
         sb.append("bpid=").append(bpid).append('\n');
         sb.append("mpid=").append(mpid).append('\n');
         sb.append("projectName=").append(projectName).append('\n');
@@ -156,6 +163,14 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
     /*** menuIds in getMenuPageList */
     @ApiModelProperty("menuIds")
     private transient java.util.List<Long> menuIds;
+
+    /*** morderMin in getMenuPageList */
+    @ApiModelProperty("morderMin")
+    private transient Integer morderMin;
+
+    /*** morderMax in getMenuPageList */
+    @ApiModelProperty("morderMax")
+    private transient Integer morderMax;
 
     /*** menuId与bpid组成树图s in getMenuPageList */
     @ApiModelProperty("menuId与bpid组成树图s")

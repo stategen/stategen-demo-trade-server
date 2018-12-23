@@ -62,6 +62,8 @@
             <isNotEmpty property="menuType">
               and a.menu_type=?
             </isNotEmpty>
+            order by
+            a.morder is null, a.morder
         </sql>
     </operation>
 
