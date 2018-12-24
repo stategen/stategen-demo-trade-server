@@ -56,8 +56,7 @@ public class UserController extends UserControllerBase {
 
     @ApiRequestMappingAutoWithMethodName(name = "用户列表")
     @VisitCheck
-    @State(init = true, dataOpt = DataOpt.FULL_REPLACE)
-    @GenForm
+    @State(init = true, dataOpt = DataOpt.FULL_REPLACE,genForm=true)
     @ExcludeBeanNotNull
     public AntdPageList<User> getUserPageList(
                                               @ApiParam() String userId,
@@ -95,6 +94,7 @@ public class UserController extends UserControllerBase {
 
     @ApiRequestMappingAutoWithMethodName(name = "创建用户")
     @VisitCheck
+    @State
     @GenForm
     public User insert(@ApiParam()@RequestParam(required =false,name="hoppyIds") ArrayList<Long> hoppyIds,
                        @ApiParam() String username,
@@ -104,7 +104,7 @@ public class UserController extends UserControllerBase {
                        @ApiParam() String nickName,
                        @ApiParam() Integer age,
                        @ApiParam() String address,
-                       @ApiParam() String avatarUrl,
+                       @ApiParam() String avatarImg,
                        @ApiParam() String email,
                        @ApiParam() Date valiDatetime,
                        @ApiParam() Date birthdayDate,
@@ -118,7 +118,7 @@ public class UserController extends UserControllerBase {
                        @ApiParam() String userId
                        ,@ApiParam(hidden = true) User user) {
         user.setCreateTime(DatetimeUtil.current());
-        user.setAvatarUrl("http://dummyimage.com/100x100/79e6f2/757575.png&text=" + user.getNickName().substring(0, 1));
+        user.setAvatarImg("http://dummyimage.com/100x100/79e6f2/757575.png&text=" + user.getNickName().substring(0, 1));
         this.userService.insert(user);
         saveUserHoppys(hoppyIds, userId, user);
         List<User> users = Arrays.asList(user);
@@ -137,6 +137,7 @@ public class UserController extends UserControllerBase {
     @ApiRequestMappingAutoWithMethodName(name = "修改用户")
     @VisitCheck
     @GenForm
+    @State()
     public User update(
                        @ApiParam()@RequestParam(required =false,name="hoppyIds") ArrayList<Long> hoppyIds,
                        @ApiParam() String username,
@@ -146,7 +147,7 @@ public class UserController extends UserControllerBase {
                        @ApiParam() String nickName,
                        @ApiParam() Integer age,
                        @ApiParam() String address,
-                       @ApiParam() String avatarUrl,
+                       @ApiParam() String avatarImg,
                        @ApiParam() String email,
                        @ApiParam() Date valiDatetime,
                        @ApiParam() Date birthdayDate,

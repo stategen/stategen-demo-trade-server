@@ -13,13 +13,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 
-import org.stategen.framework.annotation.Image;
+import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.lite.IMenu;
 import org.stategen.framework.lite.TreeNode;
+import org.stategen.framework.lite.enums.EditorType;
 import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.lite.enums.VisitCheckType;
-import io.swagger.annotations.ApiModelProperty;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -84,7 +85,7 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
     /***icon   db_column: icon VARCHAR */
     @ApiModelProperty("icon")
     @Max(64)
-    @Image
+    @Editor(EditorType.Image.class)
     private String icon;
 
     /***name   db_column: name VARCHAR */

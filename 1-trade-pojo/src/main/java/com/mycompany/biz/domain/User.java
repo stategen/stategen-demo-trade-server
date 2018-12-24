@@ -22,8 +22,8 @@ import org.stategen.framework.lite.enums.EditorType;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.StatusEnum;
-import io.swagger.annotations.ApiModelProperty;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -55,10 +55,6 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("爱好 ids")
     private List<Long> hoppyIds;
 
-    /*** colorTypes in getUserPageList */
-    @ApiModelProperty("colorTypes")
-    private java.util.List<com.mycompany.biz.enums.ColorType> colorTypes;
-
     private static final long serialVersionUID = -5216457518046898601L;
 
     /***用户ID   db_column: user_id VARCHAR */
@@ -76,7 +72,6 @@ public class User implements java.io.Serializable {
     /***密码，测试，明文   db_column: password VARCHAR */
     @ApiModelProperty("密码，测试，明文")
     @Max(64)
-    @Editor(EditorType.Password.class)
     @JSONField(serialize = false)
     private transient String password;
 
@@ -97,7 +92,6 @@ public class User implements java.io.Serializable {
 
     /***年龄   db_column: age INTEGER */
     @ApiModelProperty("年龄")
-    @Editor(EditorType.Number.class)
     private Integer age;
 
     /***详细地址   db_column: address VARCHAR */
@@ -105,10 +99,11 @@ public class User implements java.io.Serializable {
     @Max(255)
     private String address;
 
-    /***头像   db_column: avatar_url VARCHAR */
+    /***头像   db_column: avatar_img VARCHAR */
     @ApiModelProperty("头像")
     @Max(255)
-    private String avatarUrl;
+    @Editor(EditorType.Image.class)
+    private String avatarImg;
 
     /***邮箱   db_column: email VARCHAR */
     @ApiModelProperty("邮箱")
@@ -148,17 +143,14 @@ public class User implements java.io.Serializable {
     /***状态 enum   db_column: status VARCHAR */
     @ApiModelProperty("状态 enum")
     @Max(64)
-    @Editor(EditorType.RadioGroup.class)
     private StatusEnum status;
 
     /***级别   db_column: grade BIGINT */
     @ApiModelProperty("级别")
-    @Editor(EditorType.Rate.class)
     private Long grade;
 
     /***性别   db_column: sex BIT */
     @ApiModelProperty("性别")
-    @Editor(value = EditorType.Switch.class, props = "checkedChildren: '男', unCheckedChildren: '女'")
     private Boolean sex;
 
     /***邮寄地址 ID   db_column: post_address_id VARCHAR */
@@ -219,7 +211,7 @@ public class User implements java.io.Serializable {
         sb.append("nickName=").append(nickName).append('\n');
         sb.append("age=").append(age).append('\n');
         sb.append("address=").append(address).append('\n');
-        sb.append("avatarUrl=").append(avatarUrl).append('\n');
+        sb.append("avatarImg=").append(avatarImg).append('\n');
         sb.append("email=").append(email).append('\n');
         sb.append("valiDatetime=").append(valiDatetime != null ? df.format(valiDatetime) : null).append('\n');
         sb.append("birthdayDate=").append(birthdayDate != null ? df.format(birthdayDate) : null).append('\n');

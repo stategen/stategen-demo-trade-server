@@ -79,17 +79,35 @@ public class AppController {
         user.setVisitsIds(visitsIds);
         return user;
     }
-
+    
     @ApiRequestMappingAutoWithMethodName(name = "获所所有菜单")
     @State(init = true, initCheck = false, dataOpt = DataOpt.FULL_REPLACE)
     public List<Menu> getAllMenus() {
         return this.menuService.getAllMenus();
     }
+    
+//    /*
+//     * 采用file.Transto 来保存上传的文件
+//     */
+//    @ApiRequestMappingAutoWithMethodName
+//    public SimpleResponse  upload(@RequestParam("file") CommonsMultipartFile file) throws IOException {
+//         long  startTime=System.currentTimeMillis();
+//        System.out.println("fileName："+file.getOriginalFilename());
+//        String path="E:/"+new Date().getTime()+file.getOriginalFilename();
+//         
+//        File newFile=new File(path);
+//        //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
+//        file.transferTo(newFile);
+//        long  endTime=System.currentTimeMillis();
+//        System.out.println("方法二的运行时间："+String.valueOf(endTime-startTime)+"ms");
+//        return SimpleResponse.success("成功");
+//    }
 
     
     @ApiRequestMappingAutoWithMethodName(name="省份")
     public List<Province> getProvinceOptions(){
-        return this.provinceService.getProvinceOptions();
+        List<Province> provinceOptions = this.provinceService.getProvinceOptions();
+        return provinceOptions;
     }
     
     @ApiRequestMappingAutoWithMethodName(name="城市")
@@ -97,7 +115,7 @@ public class AppController {
         return this.cityService.getCityOptions(provinceId);
     }
     
-    @ApiRequestMappingAutoWithMethodName(name="喜好")
+    @ApiRequestMappingAutoWithMethodName(name="爱好")
     public List<Hoppy> getHoppyOptions() {
         return this.hoppyService.getHoppyOptions();
     }
