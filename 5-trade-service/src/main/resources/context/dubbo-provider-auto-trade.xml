@@ -20,6 +20,7 @@
     <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="topicService" interface="com.mycompany.biz.service.TopicService"/>
     <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="topicReplyService" interface="com.mycompany.biz.service.TopicReplyService"/>
     <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="topicUpService" interface="com.mycompany.biz.service.TopicUpService"/>
+    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="uploadFileService" interface="com.mycompany.biz.service.UploadFileService"/>
     <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="userService" interface="com.mycompany.biz.service.UserService"/>
     <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="userColorService" interface="com.mycompany.biz.service.UserColorService"/>
     <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="userHoppyService" interface="com.mycompany.biz.service.UserHoppyService"/>

@@ -13,7 +13,7 @@
             <isNotNull prepend="," property="nickName"> nickName </isNotNull>
             <isNotNull prepend="," property="age"> age </isNotNull>
             <isNotNull prepend="," property="address"> address </isNotNull>
-            <isNotNull prepend="," property="avatarImg"> avatar_img </isNotNull>
+            <isNotNull prepend="," property="avatarImgId"> avatar_img_id </isNotNull>
             <isNotNull prepend="," property="email"> email </isNotNull>
             <isNotNull prepend="," property="valiDatetime"> vali_datetime </isNotNull>
             <isNotNull prepend="," property="birthdayDate"> birthday_date </isNotNull>
@@ -36,7 +36,7 @@
             <isNotNull prepend="," property="nickName"> ?  </isNotNull>
             <isNotNull prepend="," property="age"> ?  </isNotNull>
             <isNotNull prepend="," property="address"> ?  </isNotNull>
-            <isNotNull prepend="," property="avatarImg"> ?  </isNotNull>
+            <isNotNull prepend="," property="avatarImgId"> ?  </isNotNull>
             <isNotNull prepend="," property="email"> ?  </isNotNull>
             <isNotNull prepend="," property="valiDatetime"> ?  </isNotNull>
             <isNotNull prepend="," property="birthdayDate"> ?  </isNotNull>
@@ -113,8 +113,8 @@
                 <isNotNull property="address" prepend=",">
                     address =  ? 
                 </isNotNull>
-                <isNotNull property="avatarImg" prepend=",">
-                    avatar_img =  ? 
+                <isNotNull property="avatarImgId" prepend=",">
+                    avatar_img_id =  ? 
                 </isNotNull>
                 <isNotNull property="email" prepend=",">
                     email =  ? 
@@ -164,7 +164,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,
@@ -196,7 +196,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,
@@ -228,7 +228,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,
@@ -260,7 +260,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,
@@ -330,6 +330,15 @@
           </isNotNull>
             <isNotEmpty property="addressLike" open="and">
                 a.address like CONCAT('%',#addressLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="avatarImgId" open="and">
+               a.avatar_img_id=?
+            </isNotNull>
+            <isNotEmpty property="avatarImgIds" open="and">
+                a.avatar_img_id in
+                <iterate property="avatarImgIds" conjunction="," open="(" close=")">
+                    #avatarImgIds[]#
+                </iterate>
             </isNotEmpty>
           <isNotNull property="email" open="and">
             a.email=?
@@ -425,6 +434,8 @@
             <isNull property="ageMax">
             <isNull property="address">
             <isEmpty property="addressLike">
+            <isNull property="avatarImgId">
+            <isEmpty property="avatarImgIds">
             <isNull property="email">
             <isEmpty property="emailLike">
             <isNull property="valiDatetimeMin">
@@ -472,6 +483,8 @@
             </isNull>
             </isEmpty>
             </isNull>
+            </isEmpty>
+            </isNull>
             </isNull>
             </isNull>
             </isEmpty>
@@ -502,7 +515,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,
@@ -544,7 +557,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,
@@ -586,7 +599,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,

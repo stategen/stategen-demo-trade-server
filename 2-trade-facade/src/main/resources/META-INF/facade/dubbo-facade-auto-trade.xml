@@ -19,6 +19,7 @@
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicService" interface="com.mycompany.biz.service.TopicServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicReplyService" interface="com.mycompany.biz.service.TopicReplyServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicUpService" interface="com.mycompany.biz.service.TopicUpServiceFacade"/>
+    <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="uploadFileService" interface="com.mycompany.biz.service.UploadFileServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="userService" interface="com.mycompany.biz.service.UserServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="userColorService" interface="com.mycompany.biz.service.UserColorServiceFacade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="userHoppyService" interface="com.mycompany.biz.service.UserHoppyServiceFacade"/>

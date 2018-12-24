@@ -14,7 +14,7 @@
         <result property="nickName" column="nickName" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="age" column="age" javaType="java.lang.Integer" jdbcType="INTEGER"  />
         <result property="address" column="address" javaType="java.lang.String" jdbcType="VARCHAR"  />
-        <result property="avatarImg" column="avatar_img" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="avatarImgId" column="avatar_img_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="email" column="email" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="valiDatetime" column="vali_datetime" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="birthdayDate" column="birthday_date" javaType="java.util.Date" jdbcType="DATE"  />
@@ -63,7 +63,7 @@
             <isNotNull prepend="," property="nickName"> nickName </isNotNull>
             <isNotNull prepend="," property="age"> age </isNotNull>
             <isNotNull prepend="," property="address"> address </isNotNull>
-            <isNotNull prepend="," property="avatarImg"> avatar_img </isNotNull>
+            <isNotNull prepend="," property="avatarImgId"> avatar_img_id </isNotNull>
             <isNotNull prepend="," property="email"> email </isNotNull>
             <isNotNull prepend="," property="valiDatetime"> vali_datetime </isNotNull>
             <isNotNull prepend="," property="birthdayDate"> birthday_date </isNotNull>
@@ -83,7 +83,7 @@
             <isNotNull prepend="," property="nickName"> #nickName# </isNotNull> 
             <isNotNull prepend="," property="age"> #age# </isNotNull> 
             <isNotNull prepend="," property="address"> #address# </isNotNull> 
-            <isNotNull prepend="," property="avatarImg"> #avatarImg# </isNotNull> 
+            <isNotNull prepend="," property="avatarImgId"> #avatarImgId# </isNotNull> 
             <isNotNull prepend="," property="email"> #email# </isNotNull> 
             <isNotNull prepend="," property="valiDatetime"> #valiDatetime# </isNotNull> 
             <isNotNull prepend="," property="birthdayDate"> #birthdayDate# </isNotNull> 
@@ -157,8 +157,8 @@
                 <isNotNull prepend="," property="address">
                     address =  #address# 
                 </isNotNull>
-                <isNotNull prepend="," property="avatarImg">
-                    avatar_img =  #avatarImg# 
+                <isNotNull prepend="," property="avatarImgId">
+                    avatar_img_id =  #avatarImgId# 
                 </isNotNull>
                 <isNotNull prepend="," property="email">
                     email =  #email# 
@@ -208,7 +208,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,
@@ -243,7 +243,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,
@@ -278,7 +278,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,
@@ -313,7 +313,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,
@@ -383,6 +383,15 @@
           </isNotNull>
             <isNotEmpty open="and" property="addressLike">
                 a.address like CONCAT('%',#addressLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="avatarImgId">
+               a.avatar_img_id=#avatarImgId#
+            </isNotNull>
+            <isNotEmpty open="and" property="avatarImgIds">
+                a.avatar_img_id in
+                <iterate close=")" conjunction="," open="(" property="avatarImgIds">
+                    #avatarImgIds[]#
+                </iterate>
             </isNotEmpty>
           <isNotNull open="and" property="email">
             a.email=#email#
@@ -478,6 +487,8 @@
             <isNull property="ageMax">
             <isNull property="address">
             <isEmpty property="addressLike">
+            <isNull property="avatarImgId">
+            <isEmpty property="avatarImgIds">
             <isNull property="email">
             <isEmpty property="emailLike">
             <isNull property="valiDatetimeMin">
@@ -520,6 +531,8 @@
             </isNull>
             </isNull>
             </isNull>
+            </isNull>
+            </isEmpty>
             </isNull>
             </isEmpty>
             </isNull>
@@ -602,6 +615,15 @@
             <isNotEmpty open="and" property="addressLike">
                 a.address like CONCAT('%',#addressLike#,'%')
             </isNotEmpty>
+            <isNotNull open="and" property="avatarImgId">
+               a.avatar_img_id=#avatarImgId#
+            </isNotNull>
+            <isNotEmpty open="and" property="avatarImgIds">
+                a.avatar_img_id in
+                <iterate close=")" conjunction="," open="(" property="avatarImgIds">
+                    #avatarImgIds[]#
+                </iterate>
+            </isNotEmpty>
           <isNotNull open="and" property="email">
             a.email=#email#
           </isNotNull>
@@ -696,6 +718,8 @@
             <isNull property="ageMax">
             <isNull property="address">
             <isEmpty property="addressLike">
+            <isNull property="avatarImgId">
+            <isEmpty property="avatarImgIds">
             <isNull property="email">
             <isEmpty property="emailLike">
             <isNull property="valiDatetimeMin">
@@ -743,6 +767,8 @@
             </isNull>
             </isEmpty>
             </isNull>
+            </isEmpty>
+            </isNull>
             </isNull>
             </isNull>
             </isEmpty>
@@ -773,7 +799,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,
@@ -818,7 +844,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,
@@ -863,7 +889,7 @@
             a.nickName,
             a.age,
             a.address,
-            a.avatar_img,
+            a.avatar_img_id,
             a.email,
             a.vali_datetime,
             a.birthday_date,

@@ -1,0 +1,236 @@
+﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table upload_file -e 会自动覆盖-->
+    <operation name="insert" paramType="object" remarks="">
+        <sql>
+            insert into upload_file (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="fileId"> file_id </isNotNull>
+            <isNotNull prepend="," property="url"> url </isNotNull>
+            <isNotNull prepend="," property="size"> size </isNotNull>
+            <isNotNull prepend="," property="name"> name </isNotNull>
+            <isNotNull prepend="," property="type"> type </isNotNull>
+            <isNotNull prepend="," property="userId"> user_id </isNotNull>
+            ) VALUES (
+            CURRENT_TIMESTAMP(6)
+            , CURRENT_TIMESTAMP(6)
+            , 0
+            <isNotNull prepend="," property="fileId"> ?  </isNotNull>
+            <isNotNull prepend="," property="url"> ?  </isNotNull>
+            <isNotNull prepend="," property="size"> ?  </isNotNull>
+            <isNotNull prepend="," property="name"> ?  </isNotNull>
+            <isNotNull prepend="," property="type"> ?  </isNotNull>
+            <isNotNull prepend="," property="userId"> ?  </isNotNull>
+            )
+            <selectKey keyProperty="fileId" resultClass="String" type="pre">
+                select if((#fileId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#fileId# ) as fileId
+            </selectKey>
+        </sql>
+    </operation>
+
+    <operation name="delete" remarks="">
+        <sql>
+            UPDATE upload_file SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and file_id = ?
+        </sql>
+    </operation>
+
+    <operation name="update" paramType="object" remarks="">
+        <sql>
+            UPDATE upload_file
+            SET update_time= CURRENT_TIMESTAMP(6)
+            <dynamic>
+                <isNotNull property="url" prepend=",">
+                    url =  ? 
+                </isNotNull>
+                <isNotNull property="size" prepend=",">
+                    size =  ? 
+                </isNotNull>
+                <isNotNull property="name" prepend=",">
+                    name =  ? 
+                </isNotNull>
+                <isNotNull property="type" prepend=",">
+                    type =  ? 
+                </isNotNull>
+                <isNotNull property="userId" prepend=",">
+                    user_id =  ? 
+                </isNotNull>
+            </dynamic>
+            where
+            delete_flag = 0
+            and file_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getUploadFileByFileId" multiplicity="one" remarks="">
+        <sql>
+            select
+            a.file_id,
+            a.url,
+            a.size,
+            a.name,
+            a.type,
+            a.user_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from upload_file a
+            where
+            a.delete_flag = 0
+            and a.file_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getUploadFilePageList" paramType="object" multiplicity="paging" remarks="">
+        <sql>
+            select
+            a.file_id,
+            a.url,
+            a.size,
+            a.name,
+            a.type,
+            a.user_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from upload_file a
+            where
+            a.delete_flag = 0
+            <isNotNull property="fileId" open="and">
+               a.file_id=?
+            </isNotNull>
+            <isNotEmpty property="fileIds" open="and">
+                a.file_id in
+                <iterate property="fileIds" conjunction="," open="(" close=")">
+                    #fileIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="sizeMin" open="and">
+                a.size >=#sizeMin#
+            </isNotNull>
+            <isNotNull property="sizeMax" open="and">
+                a.size &lt;#sizeMax#
+            </isNotNull>
+          <isNotNull property="name" open="and">
+            a.name=?
+          </isNotNull>
+            <isNotEmpty property="nameLike" open="and">
+                a.name like CONCAT('%',#nameLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="type" open="and">
+               a.type=?
+            </isNotNull>
+            <isNotEmpty property="types" open="and">
+                a.type in
+                <iterate property="types" conjunction="," open="(" close=")">
+                    #types[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="userId" open="and">
+               a.user_id=?
+            </isNotNull>
+            <isNotEmpty property="userIds" open="and">
+                a.user_id in
+                <iterate property="userIds" conjunction="," open="(" close=")">
+                    #userIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin" open="and">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax" open="and">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin" open="and">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax" open="and">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="fileId">
+            <isEmpty property="fileIds">
+            <isNull property="sizeMin">
+            <isNull property="sizeMax">
+            <isNull property="name">
+            <isEmpty property="nameLike">
+            <isNull property="type">
+            <isEmpty property="types">
+            <isNull property="userId">
+            <isEmpty property="userIds">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid = "getUploadFilePageListOrderBy" />
+        </sql>
+    </operation>
+
+    <operation name="getUploadFilesByFileIds" multiplicity="many" remarks="">
+        <sql>
+            select
+            a.file_id,
+            a.url,
+            a.size,
+            a.name,
+            a.type,
+            a.user_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from upload_file a
+            where
+            a.delete_flag = 0
+            <isEmpty property="fileIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="fileIds" open="and">
+                a.file_id in
+                <iterate property="fileIds" conjunction="," open="(" close=")">
+                    #fileIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getUploadFilesByFileIdsOrderBy" />
+        </sql>
+    </operation>
+
+    <operation name="deleteByFileIds" remarks="">
+        <sql>
+            UPDATE upload_file SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="fileIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="fileIds" open="and">
+                file_id in
+                <iterate property="fileIds" conjunction="," open="(" close=")">
+                    #fileIds[]#
+                </iterate>
+            </isNotEmpty>
+        </sql>
+    </operation>
+    
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table upload_file -e 会自动覆盖-->

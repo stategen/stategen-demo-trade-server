@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.GenForm;
-import org.stategen.framework.annotation.OptionConfig;
+import org.stategen.framework.annotation.ReferConfig;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.annotation.VisitCheck;
 import org.stategen.framework.enums.DataOpt;
@@ -33,6 +33,7 @@ import com.mycompany.biz.domain.UserHoppy;
 import com.mycompany.biz.enums.StatusEnum;
 import com.mycompany.biz.service.CityService;
 import com.mycompany.biz.service.ProvinceService;
+import com.mycompany.biz.service.UploadFileService;
 import com.mycompany.biz.service.UserHoppyService;
 
 import io.swagger.annotations.ApiParam;
@@ -53,6 +54,9 @@ public class UserController extends UserControllerBase {
 
     @Resource
     private UserHoppyService userHoppyService;
+    
+    @Resource
+    private UploadFileService uploadFileService;
 
     @ApiRequestMappingAutoWithMethodName(name = "用户列表")
     @VisitCheck
@@ -60,7 +64,7 @@ public class UserController extends UserControllerBase {
     @ExcludeBeanNotNull
     public AntdPageList<User> getUserPageList(
                                               @ApiParam() String userId,
-                                              @OptionConfig @ApiParam() @RequestParam(required = false, name = "userIds") ArrayList<String> userIds,
+                                              @ReferConfig @ApiParam() @RequestParam(required = false, name = "userIds") ArrayList<String> userIds,
                                               @ApiParam() String usernameLike,
                                               @ApiParam() @RequestParam(required = false, name = "roleTypes") ArrayList<String> roleTypes,
                                               @ApiParam() Integer ageMin, @ApiParam() Integer ageMax, @ApiParam() Date valiDatetimeMin,
@@ -76,13 +80,15 @@ public class UserController extends UserControllerBase {
         //技巧，api参数 .在dao中已自动化生成,从以下getUserPageList 帮助文件中 点开See also直接复制过来，
         PageList<User> userList = this.userService.getUserPageList(user, pagination.getPageSize(), pagination.getPage());
         assignBeans(userList.getItems());
-        setUsersHoppyIds(userList.getItems());
         return new AntdPageList<User>(userList);
     }
 
     private void assignBeans(List<User> users) {
         provinceService.assignBeanTo(users, User::getProvinceId, User::setProvince);
         cityService.assignBeanTo(users, User::getCityId, User::setCity);
+        uploadFileService.assignBeanTo(users, User::getAvatarImgId, User::setAvatarImg);
+        List<UserHoppy> userHoppys = userHoppyService.getUserHoppysByUserIds(CollectionUtil.toList(users, User::getUserId));
+        CollectionUtil.setListByList(users, userHoppys, User::getUserId, User::setHoppyIds, UserHoppy::getUserId, UserHoppy::getHoppyId);
     }
 
     @ApiRequestMappingAutoWithMethodName(name = "批量删除用户")
@@ -104,7 +110,7 @@ public class UserController extends UserControllerBase {
                        @ApiParam() String nickName,
                        @ApiParam() Integer age,
                        @ApiParam() String address,
-                       @ApiParam() String avatarImg,
+                       @ApiParam() String avatarImgId,
                        @ApiParam() String email,
                        @ApiParam() Date valiDatetime,
                        @ApiParam() Date birthdayDate,
@@ -118,12 +124,10 @@ public class UserController extends UserControllerBase {
                        @ApiParam() String userId
                        ,@ApiParam(hidden = true) User user) {
         user.setCreateTime(DatetimeUtil.current());
-        user.setAvatarImg("http://dummyimage.com/100x100/79e6f2/757575.png&text=" + user.getNickName().substring(0, 1));
         this.userService.insert(user);
         saveUserHoppys(hoppyIds, userId, user);
         List<User> users = Arrays.asList(user);
         assignBeans(users);
-        setUsersHoppyIds(users);
         return user;
     }
 
@@ -147,7 +151,7 @@ public class UserController extends UserControllerBase {
                        @ApiParam() String nickName,
                        @ApiParam() Integer age,
                        @ApiParam() String address,
-                       @ApiParam() String avatarImg,
+                       @ApiParam() String avatarImgId,
                        @ApiParam() String email,
                        @ApiParam() Date valiDatetime,
                        @ApiParam() Date birthdayDate,
@@ -173,8 +177,6 @@ public class UserController extends UserControllerBase {
         
         saveUserHoppys(hoppyIds, userId, orgUser);
         List<User> users = Arrays.asList(orgUser);
-        setUsersHoppyIds(users);
-        
         assignBeans(Arrays.asList(orgUser));
         return orgUser;
     }
@@ -199,9 +201,6 @@ public class UserController extends UserControllerBase {
         }
     }
 
-    private void setUsersHoppyIds(List<User> users) {
-        List<UserHoppy> userHoppys = userHoppyService.getUserHoppysByUserIds(CollectionUtil.toList(users, User::getUserId));
-        CollectionUtil.setListByList(users, userHoppys, User::getUserId, User::setHoppyIds, UserHoppy::getUserId, UserHoppy::getHoppyId);
-    }
+
 
 }

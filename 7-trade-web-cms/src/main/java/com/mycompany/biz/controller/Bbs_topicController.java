@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.GenForm;
-import org.stategen.framework.annotation.OptionConfig;
+import org.stategen.framework.annotation.ReferConfig;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.AntdPageList;
@@ -52,7 +52,7 @@ public class Bbs_topicController extends TopicControllerBase {
                                                 @ApiParam() Date testTimeMin,
                                                 @ApiParam() Date testTimeMax,
                                                 
-                                                @OptionConfig()
+                                                @ReferConfig()
                                                 @ApiParam() String provinceId,
                                                 
                                                 @ApiParam()@RequestParam(required =false,name="cityIds") ArrayList<String> cityIds,

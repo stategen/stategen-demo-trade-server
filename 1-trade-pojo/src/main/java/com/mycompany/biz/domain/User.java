@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 
 import org.stategen.framework.annotation.ChangeBy;
 import org.stategen.framework.annotation.Editor;
-import org.stategen.framework.annotation.OptionConfig;
+import org.stategen.framework.annotation.ReferConfig;
 import org.stategen.framework.lite.enums.EditorType;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -50,10 +50,15 @@ public class User implements java.io.Serializable {
     private City city;
 
     //用id存储到表中
-    @OptionConfig
+    @ReferConfig
     @Editor(EditorType.CheckboxGroup.class)
     @ApiModelProperty("爱好 ids")
     private List<Long> hoppyIds;
+
+    /***头像   db_column: avatar_img VARCHAR */
+    @ApiModelProperty("头像")
+    @Max(255)
+    private UploadFile avatarImg;
 
     private static final long serialVersionUID = -5216457518046898601L;
 
@@ -92,6 +97,7 @@ public class User implements java.io.Serializable {
 
     /***年龄   db_column: age INTEGER */
     @ApiModelProperty("年龄")
+    @Editor(EditorType.Number.class)
     private Integer age;
 
     /***详细地址   db_column: address VARCHAR */
@@ -99,11 +105,12 @@ public class User implements java.io.Serializable {
     @Max(255)
     private String address;
 
-    /***头像   db_column: avatar_img VARCHAR */
-    @ApiModelProperty("头像")
-    @Max(255)
+    /***头像 ID   db_column: avatar_img_id VARCHAR */
+    @ApiModelProperty("头像 ID")
+    @Max(64)
     @Editor(EditorType.Image.class)
-    private String avatarImg;
+    @ReferConfig
+    private String avatarImgId;
 
     /***邮箱   db_column: email VARCHAR */
     @ApiModelProperty("邮箱")
@@ -130,27 +137,30 @@ public class User implements java.io.Serializable {
     /***省份 ID   db_column: province_id VARCHAR */
     @ApiModelProperty("省份 ID")
     @Max(64)
-    @OptionConfig
+    @ReferConfig
     private String provinceId;
 
     /***城市 ID   db_column: city_id VARCHAR */
     @ApiModelProperty("城市 ID")
     @Max(64)
-    @OptionConfig()
+    @ReferConfig()
     @ChangeBy("provinceId")
     private String cityId;
 
     /***状态 enum   db_column: status VARCHAR */
     @ApiModelProperty("状态 enum")
     @Max(64)
+    @Editor(EditorType.RadioGroup.class)
     private StatusEnum status;
 
     /***级别   db_column: grade BIGINT */
     @ApiModelProperty("级别")
+    @Editor(EditorType.Number.class)
     private Long grade;
 
     /***性别   db_column: sex BIT */
     @ApiModelProperty("性别")
+    @Editor(value = EditorType.Switch.class, props = "checkedChildren:'男', unCheckedChildren:'女'")
     private Boolean sex;
 
     /***邮寄地址 ID   db_column: post_address_id VARCHAR */
@@ -186,6 +196,7 @@ public class User implements java.io.Serializable {
         sb.append("ageMin=").append(ageMin).append('\n');
         sb.append("ageMax=").append(ageMax).append('\n');
         sb.append("addressLike=").append(addressLike).append('\n');
+        sb.append("avatarImgIds=").append(avatarImgIds).append('\n');
         sb.append("emailLike=").append(emailLike).append('\n');
         sb.append("valiDatetimeMin=").append(valiDatetimeMin != null ? df.format(valiDatetimeMin) : null).append('\n');
         sb.append("valiDatetimeMax=").append(valiDatetimeMax != null ? df.format(valiDatetimeMax) : null).append('\n');
@@ -211,7 +222,7 @@ public class User implements java.io.Serializable {
         sb.append("nickName=").append(nickName).append('\n');
         sb.append("age=").append(age).append('\n');
         sb.append("address=").append(address).append('\n');
-        sb.append("avatarImg=").append(avatarImg).append('\n');
+        sb.append("avatarImgId=").append(avatarImgId).append('\n');
         sb.append("email=").append(email).append('\n');
         sb.append("valiDatetime=").append(valiDatetime != null ? df.format(valiDatetime) : null).append('\n');
         sb.append("birthdayDate=").append(birthdayDate != null ? df.format(birthdayDate) : null).append('\n');
@@ -265,6 +276,10 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("addressLike")
     private transient String addressLike;
 
+    /*** 头像 IDs in getUserPageList */
+    @ApiModelProperty("avatarImgIds")
+    private transient java.util.List<String> avatarImgIds;
+
     /*** 邮箱Like in getUserPageList */
     @ApiModelProperty("邮箱Like")
     private transient String emailLike;
@@ -301,12 +316,12 @@ public class User implements java.io.Serializable {
 
     /*** 省份 IDs in getUserPageList */
     @ApiModelProperty("省份s")
-    @OptionConfig
+    @ReferConfig
     private transient java.util.List<String> provinceIds;
 
     /*** 城市 IDs in getUserPageList */
     @ApiModelProperty("城市s")
-    @OptionConfig()
+    @ReferConfig()
     @ChangeBy("provinceId")
     private transient java.util.List<String> cityIds;
 

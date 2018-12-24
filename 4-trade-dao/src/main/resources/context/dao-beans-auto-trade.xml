@@ -18,6 +18,7 @@
     <bean id="topicDao" class="com.mycompany.biz.dao.impl.TopicDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="topicReplyDao" class="com.mycompany.biz.dao.impl.TopicReplyDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="topicUpDao" class="com.mycompany.biz.dao.impl.TopicUpDaoImpl" parent="SqlMapClientDAO-trade" />
+    <bean id="uploadFileDao" class="com.mycompany.biz.dao.impl.UploadFileDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="userDao" class="com.mycompany.biz.dao.impl.UserDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="userColorDao" class="com.mycompany.biz.dao.impl.UserColorDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="userHoppyDao" class="com.mycompany.biz.dao.impl.UserHoppyDaoImpl" parent="SqlMapClientDAO-trade" />

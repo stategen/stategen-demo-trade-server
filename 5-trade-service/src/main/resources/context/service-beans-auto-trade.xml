@@ -19,6 +19,7 @@
     <bean id="topicService" class="com.mycompany.biz.service.impl.TopicServiceImpl" />
     <bean id="topicReplyService" class="com.mycompany.biz.service.impl.TopicReplyServiceImpl" />
     <bean id="topicUpService" class="com.mycompany.biz.service.impl.TopicUpServiceImpl" />
+    <bean id="uploadFileService" class="com.mycompany.biz.service.impl.UploadFileServiceImpl" />
     <bean id="userService" class="com.mycompany.biz.service.impl.UserServiceImpl" />
     <bean id="userColorService" class="com.mycompany.biz.service.impl.UserColorServiceImpl" />
     <bean id="userHoppyService" class="com.mycompany.biz.service.impl.UserHoppyServiceImpl" />
