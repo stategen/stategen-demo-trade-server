@@ -5,7 +5,7 @@
 <sqlMap>
 
 
-    <resultMap id="UploadFile.trade.RM" class="com.mycompany.biz.domain.UploadFile">
+    <resultMap id="FileSummary.trade.RM" class="com.mycompany.biz.domain.FileSummary">
         <result property="fileId" column="file_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="url" column="url" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="size" column="size" javaType="java.lang.Long" jdbcType="BIGINT"  />
@@ -17,11 +17,11 @@
         <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
     </resultMap>
     
-	<sql id="getUploadFilePageListOrderBy">
+	<sql id="getFileSummaryPageListOrderBy">
 		a.update_time desc, a.create_time desc
 	</sql>
 		
-	<sql id="getUploadFilesByFileIdsOrderBy">
+	<sql id="getFileSummarysByFileIdsOrderBy">
 		a.update_time desc, a.create_time desc
 	</sql>
 		
@@ -29,8 +29,8 @@
 	
 	
     
-	<insert id="insert.UploadFile.trade">
-		insert into upload_file (
+	<insert id="insert.FileSummary.trade">
+		insert into file_summary (
             create_time
             , update_time
             , delete_flag
@@ -52,8 +52,8 @@
             </selectKey>
 	</insert>
 	
-	<update id="delete.UploadFile.trade">
-		UPDATE upload_file SET
+	<update id="delete.FileSummary.trade">
+		UPDATE file_summary SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -63,8 +63,8 @@
 	
     
 	
-	<update id="update.UploadFile.trade">
-		UPDATE upload_file
+	<update id="update.FileSummary.trade">
+		UPDATE file_summary
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="url">
@@ -90,9 +90,9 @@
 	
     
 	
-	<select id="getUploadFileByFileId.UploadFile.trade" resultMap="UploadFile.trade.RM" >
+	<select id="getFileSummaryByFileId.FileSummary.trade" resultMap="FileSummary.trade.RM" >
     	select
- /* getUploadFileByFileId.UploadFile.trade */             a.file_id,
+ /* getFileSummaryByFileId.FileSummary.trade */             a.file_id,
             a.url,
             a.size,
             a.name,
@@ -101,7 +101,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from upload_file a
+            from file_summary a
             where
             a.delete_flag = 0
             and a.file_id = #fileId#
@@ -112,9 +112,9 @@
 	
     
 	
-	<select id="getUploadFilePageList.UploadFile.trade" resultMap="UploadFile.trade.RM" >
+	<select id="getFileSummaryPageList.FileSummary.trade" resultMap="FileSummary.trade.RM" >
     	select
- /* getUploadFilePageList.UploadFile.trade */             a.file_id,
+ /* getFileSummaryPageList.FileSummary.trade */             a.file_id,
             a.url,
             a.size,
             a.name,
@@ -123,7 +123,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from upload_file a
+            from file_summary a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="fileId">
@@ -207,12 +207,12 @@
             </isEmpty>
             </isNull>
             order by
-            <include refid="getUploadFilePageListOrderBy"/>
+            <include refid="getFileSummaryPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getUploadFilePageList.UploadFile.trade.count" resultClass="long" >
-    	select  /* getUploadFilePageList.UploadFile.trade.count */ count(*)  from upload_file a
+	<select id="getFileSummaryPageList.FileSummary.trade.count" resultClass="long" >
+    	select  /* getFileSummaryPageList.FileSummary.trade.count */ count(*)  from file_summary a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="fileId">
@@ -301,9 +301,9 @@
 	
     
 	
-	<select id="getUploadFilesByFileIds.UploadFile.trade" resultMap="UploadFile.trade.RM" >
+	<select id="getFileSummarysByFileIds.FileSummary.trade" resultMap="FileSummary.trade.RM" >
     	select
- /* getUploadFilesByFileIds.UploadFile.trade */             a.file_id,
+ /* getFileSummarysByFileIds.FileSummary.trade */             a.file_id,
             a.url,
             a.size,
             a.name,
@@ -312,7 +312,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from upload_file a
+            from file_summary a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="fileIds">
@@ -325,7 +325,7 @@
                 </iterate>
             </isNotEmpty>
             order by
-            <include refid="getUploadFilesByFileIdsOrderBy"/>
+            <include refid="getFileSummarysByFileIdsOrderBy"/>
 	</select>	
 
 	    
@@ -333,8 +333,8 @@
 	
     
 	
-	<update id="deleteByFileIds.UploadFile.trade">
-		UPDATE upload_file SET
+	<update id="deleteByFileIds.FileSummary.trade">
+		UPDATE file_summary SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where

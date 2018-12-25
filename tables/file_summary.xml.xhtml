@@ -1,7 +1,7 @@
-﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table upload_file -e 会自动覆盖-->
+﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table file_summary -e 会自动覆盖-->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into upload_file (
+            insert into file_summary (
             create_time
             , update_time
             , delete_flag
@@ -30,7 +30,7 @@
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE upload_file SET
+            UPDATE file_summary SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -41,7 +41,7 @@
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE upload_file
+            UPDATE file_summary
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull property="url" prepend=",">
@@ -66,7 +66,7 @@
         </sql>
     </operation>
 
-    <operation name="getUploadFileByFileId" multiplicity="one" remarks="">
+    <operation name="getFileSummaryByFileId" multiplicity="one" remarks="">
         <sql>
             select
             a.file_id,
@@ -78,14 +78,14 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from upload_file a
+            from file_summary a
             where
             a.delete_flag = 0
             and a.file_id = ?
         </sql>
     </operation>
 
-    <operation name="getUploadFilePageList" paramType="object" multiplicity="paging" remarks="">
+    <operation name="getFileSummaryPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
             select
             a.file_id,
@@ -97,7 +97,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from upload_file a
+            from file_summary a
             where
             a.delete_flag = 0
             <isNotNull property="fileId" open="and">
@@ -181,11 +181,11 @@
             </isEmpty>
             </isNull>
             order by
-            <include refid = "getUploadFilePageListOrderBy" />
+            <include refid = "getFileSummaryPageListOrderBy" />
         </sql>
     </operation>
 
-    <operation name="getUploadFilesByFileIds" multiplicity="many" remarks="">
+    <operation name="getFileSummarysByFileIds" multiplicity="many" remarks="">
         <sql>
             select
             a.file_id,
@@ -197,7 +197,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from upload_file a
+            from file_summary a
             where
             a.delete_flag = 0
             <isEmpty property="fileIds" open="and">
@@ -210,13 +210,13 @@
                 </iterate>
             </isNotEmpty>
             order by
-            <include refid="getUploadFilesByFileIdsOrderBy" />
+            <include refid="getFileSummarysByFileIdsOrderBy" />
         </sql>
     </operation>
 
     <operation name="deleteByFileIds" remarks="">
         <sql>
-            UPDATE upload_file SET
+            UPDATE file_summary SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -233,4 +233,4 @@
         </sql>
     </operation>
     
-    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table upload_file -e 会自动覆盖-->
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table file_summary -e 会自动覆盖-->

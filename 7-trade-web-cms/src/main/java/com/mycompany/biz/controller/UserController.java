@@ -28,12 +28,13 @@ import org.stategen.framework.util.DatetimeUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
 
 import com.mycompany.biz.annotion.ExcludeBeanNotNull;
+import com.mycompany.biz.domain.FileSummary;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.domain.UserHoppy;
 import com.mycompany.biz.enums.StatusEnum;
 import com.mycompany.biz.service.CityService;
+import com.mycompany.biz.service.FileSummaryService;
 import com.mycompany.biz.service.ProvinceService;
-import com.mycompany.biz.service.UploadFileService;
 import com.mycompany.biz.service.UserHoppyService;
 
 import io.swagger.annotations.ApiParam;
@@ -56,7 +57,7 @@ public class UserController extends UserControllerBase {
     private UserHoppyService userHoppyService;
     
     @Resource
-    private UploadFileService uploadFileService;
+    private FileSummaryService fileSummaryService;
 
     @ApiRequestMappingAutoWithMethodName(name = "用户列表")
     @VisitCheck
@@ -86,7 +87,17 @@ public class UserController extends UserControllerBase {
     private void assignBeans(List<User> users) {
         provinceService.assignBeanTo(users, User::getProvinceId, User::setProvince);
         cityService.assignBeanTo(users, User::getCityId, User::setCity);
-        uploadFileService.assignBeanTo(users, User::getAvatarImgId, User::setAvatarImg);
+        fileSummaryService.assignBeanTo(users, User::getAvatarImgId, User::setAvatarImg);
+        for (User user : users) {
+            FileSummary avatarImg = user.getAvatarImg();
+            if (avatarImg!=null){
+                String url = avatarImg.getUrl();
+                if (url!=null && !(url.startsWith("http://") || url.startsWith("https://"))){
+                    avatarImg.setUrl(fileSummaryService.getProjectName()+url);
+                }
+            }
+        }
+        
         List<UserHoppy> userHoppys = userHoppyService.getUserHoppysByUserIds(CollectionUtil.toList(users, User::getUserId));
         CollectionUtil.setListByList(users, userHoppys, User::getUserId, User::setHoppyIds, UserHoppy::getUserId, UserHoppy::getHoppyId);
     }
@@ -171,13 +182,9 @@ public class UserController extends UserControllerBase {
         BusinessAssert.mustNotNull(orgUser, "用户不存在");
         user = CopyUtil.merge(orgUser, user);
         this.userService.update(orgUser);
-        if (logger.isInfoEnabled()) {
-            logger.info(new StringBuffer("输出info信息: orgUser:").append(orgUser).toString());
-        }
-        
         saveUserHoppys(hoppyIds, userId, orgUser);
         List<User> users = Arrays.asList(orgUser);
-        assignBeans(Arrays.asList(orgUser));
+        assignBeans(users);
         return orgUser;
     }
 

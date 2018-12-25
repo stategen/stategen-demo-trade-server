@@ -58,7 +58,7 @@ public class User implements java.io.Serializable {
     /***头像   db_column: avatar_img VARCHAR */
     @ApiModelProperty("头像")
     @Max(255)
-    private UploadFile avatarImg;
+    private FileSummary avatarImg;
 
     private static final long serialVersionUID = -5216457518046898601L;
 
@@ -78,6 +78,7 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("密码，测试，明文")
     @Max(64)
     @JSONField(serialize = false)
+    @Editor(EditorType.Password.class)
     private transient String password;
 
     /***用户角色 ADMIN,DEFAULT,DEVELOPER   db_column: role_type VARCHAR */

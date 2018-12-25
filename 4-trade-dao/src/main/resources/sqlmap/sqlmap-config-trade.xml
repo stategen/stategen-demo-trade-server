@@ -29,6 +29,7 @@
 
     <sqlMap resource="sqlmap/mapping/_common-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/City-sqlmap-mapping-trade.xml" />
+    <sqlMap resource="sqlmap/mapping/FileSummary-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/Hoppy-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/Menu-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/Province-sqlmap-mapping-trade.xml" />
@@ -37,7 +38,6 @@
     <sqlMap resource="sqlmap/mapping/Topic-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/TopicReply-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/TopicUp-sqlmap-mapping-trade.xml" />
-    <sqlMap resource="sqlmap/mapping/UploadFile-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/User-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/UserColor-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/UserHoppy-sqlmap-mapping-trade.xml" />

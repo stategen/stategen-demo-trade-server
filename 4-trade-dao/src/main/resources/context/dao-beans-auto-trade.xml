@@ -10,6 +10,7 @@
     <!-- ============================================================ -->
 
     <bean id="cityDao" class="com.mycompany.biz.dao.impl.CityDaoImpl" parent="SqlMapClientDAO-trade" />
+    <bean id="fileSummaryDao" class="com.mycompany.biz.dao.impl.FileSummaryDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="hoppyDao" class="com.mycompany.biz.dao.impl.HoppyDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="menuDao" class="com.mycompany.biz.dao.impl.MenuDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="provinceDao" class="com.mycompany.biz.dao.impl.ProvinceDaoImpl" parent="SqlMapClientDAO-trade" />
@@ -18,7 +19,6 @@
     <bean id="topicDao" class="com.mycompany.biz.dao.impl.TopicDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="topicReplyDao" class="com.mycompany.biz.dao.impl.TopicReplyDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="topicUpDao" class="com.mycompany.biz.dao.impl.TopicUpDaoImpl" parent="SqlMapClientDAO-trade" />
-    <bean id="uploadFileDao" class="com.mycompany.biz.dao.impl.UploadFileDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="userDao" class="com.mycompany.biz.dao.impl.UserDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="userColorDao" class="com.mycompany.biz.dao.impl.UserColorDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="userHoppyDao" class="com.mycompany.biz.dao.impl.UserHoppyDaoImpl" parent="SqlMapClientDAO-trade" />

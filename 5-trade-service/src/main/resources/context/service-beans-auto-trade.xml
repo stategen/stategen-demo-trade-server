@@ -11,6 +11,7 @@
     <!-- ============================================================ -->
 
     <bean id="cityService" class="com.mycompany.biz.service.impl.CityServiceImpl" />
+    <bean id="fileSummaryService" class="com.mycompany.biz.service.impl.FileSummaryServiceImpl" />
     <bean id="hoppyService" class="com.mycompany.biz.service.impl.HoppyServiceImpl" />
     <bean id="menuService" class="com.mycompany.biz.service.impl.MenuServiceImpl" />
     <bean id="provinceService" class="com.mycompany.biz.service.impl.ProvinceServiceImpl" />
@@ -19,7 +20,6 @@
     <bean id="topicService" class="com.mycompany.biz.service.impl.TopicServiceImpl" />
     <bean id="topicReplyService" class="com.mycompany.biz.service.impl.TopicReplyServiceImpl" />
     <bean id="topicUpService" class="com.mycompany.biz.service.impl.TopicUpServiceImpl" />
-    <bean id="uploadFileService" class="com.mycompany.biz.service.impl.UploadFileServiceImpl" />
     <bean id="userService" class="com.mycompany.biz.service.impl.UserServiceImpl" />
     <bean id="userColorService" class="com.mycompany.biz.service.impl.UserColorServiceImpl" />
     <bean id="userHoppyService" class="com.mycompany.biz.service.impl.UserHoppyServiceImpl" />

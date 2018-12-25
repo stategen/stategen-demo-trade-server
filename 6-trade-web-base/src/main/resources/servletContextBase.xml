@@ -146,6 +146,7 @@
 
     <!-- 文档转文档 -->
     <mvc:resources mapping="/doc/**" location="classpath:/doc/" />
+    <mvc:resources mapping="/uploads/**" location="file:/uploads/" />
 
     <!-- 前端静态页面转前端页面 -->
     <mvc:resources mapping="/pages/static/**" location="pages/static/" />
