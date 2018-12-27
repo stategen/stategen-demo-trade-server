@@ -21,9 +21,10 @@ import org.stategen.framework.annotation.ReferConfig;
 import org.stategen.framework.lite.enums.EditorType;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.mycompany.biz.enums.RoleType;
 import com.mycompany.biz.enums.StatusEnum;
-
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -84,7 +85,7 @@ public class User implements java.io.Serializable {
     /***用户角色 ADMIN,DEFAULT,DEVELOPER   db_column: role_type VARCHAR */
     @ApiModelProperty("用户角色 ADMIN,DEFAULT,DEVELOPER")
     @Max(32)
-    private String roleType;
+    private RoleType roleType;
 
     /***姓名   db_column: name VARCHAR */
     @ApiModelProperty("姓名")
@@ -255,7 +256,7 @@ public class User implements java.io.Serializable {
 
     /*** 用户角色 ADMIN,DEFAULT,DEVELOPERs in getUserPageList */
     @ApiModelProperty("用户角色s")
-    private transient java.util.List<String> roleTypes;
+    private transient java.util.List<com.mycompany.biz.enums.RoleType> roleTypes;
 
     /*** 用户名nameLike in getUserPageList */
     @ApiModelProperty("用户名nameLike")

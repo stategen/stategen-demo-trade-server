@@ -18,4 +18,6 @@ public abstract class UserColorControllerBase {
 
     @Resource
     protected UserColorService userColorService;
+    
+
 }
