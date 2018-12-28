@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,15 +63,17 @@ public abstract class UserControllerBase {
     protected void saveUserHoppys(ArrayList<Long> hoppyIds, String userId, User user) {
         List<UserHoppy> userHoppys = userHoppyService.getUserHoppysByUserIds(Arrays.asList(user.getUserId()));
         Map<Long, UserHoppy> hoppyIdUserHoppyMap = CollectionUtil.toMap(UserHoppy::getHoppyId, userHoppys);
-        for (Long hoppyId : hoppyIds) {
-            UserHoppy userHoppy = hoppyIdUserHoppyMap.get(hoppyId);
-            if (userHoppy == null) {
-                userHoppy = new UserHoppy();
-                userHoppy.setUserId(userId);
-                userHoppy.setHoppyId(hoppyId);
-                userHoppyService.insert(userHoppy);
-            } else {
-                hoppyIdUserHoppyMap.remove(hoppyId);
+        if (CollectionUtil.isNotEmpty(hoppyIds)) {
+            for (Long hoppyId : hoppyIds) {
+                UserHoppy userHoppy = hoppyIdUserHoppyMap.get(hoppyId);
+                if (userHoppy == null) {
+                    userHoppy = new UserHoppy();
+                    userHoppy.setUserId(userId);
+                    userHoppy.setHoppyId(hoppyId);
+                    userHoppyService.insert(userHoppy);
+                } else {
+                    hoppyIdUserHoppyMap.remove(hoppyId);
+                }
             }
         }
         for (UserHoppy userHoppy : hoppyIdUserHoppyMap.values()) {
