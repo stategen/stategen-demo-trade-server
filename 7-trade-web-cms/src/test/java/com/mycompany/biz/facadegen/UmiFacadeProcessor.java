@@ -42,6 +42,7 @@ public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
     }
 
     public void genFacade() throws InvalidPropertiesFormatException, IOException, TemplateException {
+        
         //这里注册的将替代supper中的注册
         GenContext.registSimpleClz(Void.TYPE, "void");
         GenContext.registSimpleClz(Class.class, "string");
