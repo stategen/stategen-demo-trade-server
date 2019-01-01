@@ -115,7 +115,7 @@ public class Topic implements java.io.Serializable, IAuthored {
     /***provinceId   db_column: province_id VARCHAR */
     @ApiModelProperty("provinceId")
     @Max(64)
-    @ReferConfig(api = "getProvinces")
+    @ReferConfig()
     private String provinceId;
 
     /***cityId   db_column: city_id VARCHAR */

@@ -1,0 +1,15 @@
+{
+    "deleteFlag": 0,
+    "level": 1,
+    "name": "亚洲",
+    "nameEn": "Asia",
+    "namePinyin": "yazhou",
+    "parentRegionId": 0,
+    "path": ",1,",
+    "regionId": 1,
+    "regionType": "STATES",
+    "title": "亚洲",
+    "value": "1"
+},
+3021:
+{"code":"1","deleteFlag":0,"level":4,"name":"东城","nameEn":"Dongcheng","namePinyin":"dongcheng","parentRegionId":247,"path":",1,7,247,3021,","regionId":3021,"regionType":"DISTRICT","title":"东城","value":"3021"},247:{"code":"11","deleteFlag":0,"level":3,"name":"北京","nameEn":"Beijing","namePinyin":"beijing","parentRegionId":7,"path":",1,7,247,","regionId":247,"regionType":"PROVINCE","title":"北京","value":"247"},7:{"code":"CN","deleteFlag":0,"level":2,"name":"中国","nameEn":"China","namePinyin":"zhongguo","parentRegionId":1,"path":",1,7,","regionId":7,"regionType":"COUNTRY","title":"中国","value":"7"}}

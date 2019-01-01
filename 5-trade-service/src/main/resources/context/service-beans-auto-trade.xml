@@ -15,6 +15,7 @@
     <bean id="hoppyService" class="com.mycompany.biz.service.impl.HoppyServiceImpl" />
     <bean id="menuService" class="com.mycompany.biz.service.impl.MenuServiceImpl" />
     <bean id="provinceService" class="com.mycompany.biz.service.impl.ProvinceServiceImpl" />
+    <bean id="regionService" class="com.mycompany.biz.service.impl.RegionServiceImpl" />
     <bean id="roleService" class="com.mycompany.biz.service.impl.RoleServiceImpl" />
     <bean id="roleMenuService" class="com.mycompany.biz.service.impl.RoleMenuServiceImpl" />
     <bean id="topicService" class="com.mycompany.biz.service.impl.TopicServiceImpl" />

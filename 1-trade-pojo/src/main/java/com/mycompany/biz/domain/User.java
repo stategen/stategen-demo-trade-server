@@ -6,6 +6,7 @@
 package com.mycompany.biz.domain;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Id;
@@ -23,8 +24,8 @@ import org.stategen.framework.lite.enums.EditorType;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.RoleType;
 import com.mycompany.biz.enums.StatusEnum;
-import io.swagger.annotations.ApiModelProperty;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,6 +50,10 @@ public class User implements java.io.Serializable {
     private Province province;
 
     private City city;
+
+    //注意，cascaderPostAddresss 不是 cascaderPostAddress
+    private List<Region> cascaderPostAddresss;
+    
 
     //用id存储到表中
     @ReferConfig
@@ -157,7 +162,7 @@ public class User implements java.io.Serializable {
 
     /***级别   db_column: grade BIGINT */
     @ApiModelProperty("级别")
-    @Editor(EditorType.Number.class)
+    @Editor(EditorType.Rate.class)
     private Long grade;
 
     /***性别   db_column: sex BIT */
@@ -165,10 +170,10 @@ public class User implements java.io.Serializable {
     @Editor(value = EditorType.Switch.class, props = "checkedChildren:'男', unCheckedChildren:'女'")
     private Boolean sex;
 
-    /***邮寄地址 ID   db_column: post_address_id VARCHAR */
+    /***邮寄地址 ID   db_column: post_address_id BIGINT */
     @ApiModelProperty("邮寄地址 ID")
     @Max(64)
-    private String postAddressId;
+    private Long postAddressId;
 
     /***创建时间   db_column: create_time TIMESTAMP */
     @ApiModelProperty(value = "创建时间", hidden = true)
@@ -342,7 +347,7 @@ public class User implements java.io.Serializable {
 
     /*** 邮寄地址 IDs in getUserPageList */
     @ApiModelProperty("postAddressIds")
-    private transient java.util.List<String> postAddressIds;
+    private transient java.util.List<Long> postAddressIds;
 
     /*** 创建时间Min in getUserPageList */
     @ApiModelProperty("创建时间Min")
@@ -364,11 +369,19 @@ public class User implements java.io.Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private transient java.util.Date updateTimeMax;
 
-    public List<Long> getVisitsIds() {
-        return visitsIds;
-    }
+    
+    @Editor(value = EditorType.Cascader.class)
+    @ReferConfig(optionClass = Region.class)
+    @ApiModelProperty("邮寄地址")
+    public List<Long> getCascaderPostAddressIds(){
+        if (this.cascaderPostAddresss!=null){
+            List<Long> result =new ArrayList<Long>(cascaderPostAddresss.size());
+            for (Region region : cascaderPostAddresss) {
+                result.add(region.getRegionId());
+            }
+            return result;
+        }
+        return null;
+    };
 
-    public void setVisitsIds(List<Long> visitsIds) {
-        this.visitsIds = visitsIds;
-    }
 }

@@ -14,6 +14,7 @@
     <bean id="hoppyDao" class="com.mycompany.biz.dao.impl.HoppyDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="menuDao" class="com.mycompany.biz.dao.impl.MenuDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="provinceDao" class="com.mycompany.biz.dao.impl.ProvinceDaoImpl" parent="SqlMapClientDAO-trade" />
+    <bean id="regionDao" class="com.mycompany.biz.dao.impl.RegionDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="roleDao" class="com.mycompany.biz.dao.impl.RoleDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="roleMenuDao" class="com.mycompany.biz.dao.impl.RoleMenuDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="topicDao" class="com.mycompany.biz.dao.impl.TopicDaoImpl" parent="SqlMapClientDAO-trade" />

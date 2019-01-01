@@ -43,7 +43,7 @@ public interface UserDao {
     &#64;ApiParam() StatusEnum status,
     &#64;ApiParam() Long grade,
     &#64;ApiParam() Boolean sex,
-    &#64;ApiParam() String postAddressId
+    &#64;ApiParam() Long postAddressId
     ,&#64;ApiParam(hidden = true) User user
     
     </pre>
@@ -101,7 +101,7 @@ public interface UserDao {
     &#64;ApiParam() StatusEnum status,
     &#64;ApiParam() Long grade,
     &#64;ApiParam() Boolean sex,
-    &#64;ApiParam() String postAddressId,
+    &#64;ApiParam() Long postAddressId,
     &#64;ApiParam() String userId
     ,&#64;ApiParam(hidden = true) User user
     
@@ -177,8 +177,8 @@ public interface UserDao {
     &#64;ApiParam()&#64;RequestParam(required =false,name="statuss") ArrayList&lt;StatusEnum&gt; statuss,
     &#64;ApiParam() Long gradeMin,
     &#64;ApiParam() Long gradeMax,
-    &#64;ApiParam() String postAddressId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="postAddressIds") ArrayList&lt;String&gt; postAddressIds,
+    &#64;ApiParam() Long postAddressId,
+    &#64;ApiParam()&#64;RequestParam(required =false,name="postAddressIds") ArrayList&lt;Long&gt; postAddressIds,
     &#64;ApiParam() Date createTimeMin,
     &#64;ApiParam() Date createTimeMax,
     &#64;ApiParam() Date updateTimeMin,

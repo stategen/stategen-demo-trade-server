@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="Region.trade.RM" class="com.mycompany.biz.domain.Region">
+        <result property="regionId" column="region_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="parentRegionId" column="parent_region_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="path" column="path" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="level" column="level" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+        <result property="regionType" column="region_type" javaType="com.mycompany.biz.enums.RegionType" jdbcType="VARCHAR"  />
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="nameEn" column="name_en" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="namePinyin" column="name_pinyin" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="code" column="code" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getRegionPageListOrderBy">
+		a.region_id
+	</sql>
+		
+	<sql id="getRegionsByRegionIdsOrderBy">
+		a.region_id
+	</sql>
+		
+
+	
+	
+    
+	<insert id="insert.Region.trade">
+		insert into region (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="regionId"> region_id </isNotNull>
+            <isNotNull prepend="," property="parentRegionId"> parent_region_id </isNotNull>
+            <isNotNull prepend="," property="path"> path </isNotNull>
+            <isNotNull prepend="," property="level"> level </isNotNull>
+            <isNotNull prepend="," property="regionType"> region_type </isNotNull>
+            <isNotNull prepend="," property="name"> name </isNotNull>
+            <isNotNull prepend="," property="nameEn"> name_en </isNotNull>
+            <isNotNull prepend="," property="namePinyin"> name_pinyin </isNotNull>
+            <isNotNull prepend="," property="code"> code </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="regionId"> #regionId# </isNotNull> 
+            <isNotNull prepend="," property="parentRegionId"> #parentRegionId# </isNotNull> 
+            <isNotNull prepend="," property="path"> #path# </isNotNull> 
+            <isNotNull prepend="," property="level"> #level# </isNotNull> 
+            <isNotNull prepend="," property="regionType"> #regionType# </isNotNull> 
+            <isNotNull prepend="," property="name"> #name# </isNotNull> 
+            <isNotNull prepend="," property="nameEn"> #nameEn# </isNotNull> 
+            <isNotNull prepend="," property="namePinyin"> #namePinyin# </isNotNull> 
+            <isNotNull prepend="," property="code"> #code# </isNotNull>)
+            <selectKey keyProperty="regionId" resultClass="long">
+                select  LAST_INSERT_ID()
+            </selectKey>
+	</insert>
+	
+	<update id="delete.Region.trade">
+		UPDATE region SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and region_id = #regionId#
+	</update>
+	
+    
+	
+	<update id="update.Region.trade">
+		UPDATE region
+            SET update_time= CURRENT_TIMESTAMP(6)
+            <dynamic>
+                <isNotNull prepend="," property="parentRegionId">
+                    parent_region_id =  #parentRegionId# 
+                </isNotNull>
+                <isNotNull prepend="," property="path">
+                    path =  #path# 
+                </isNotNull>
+                <isNotNull prepend="," property="level">
+                    level =  #level# 
+                </isNotNull>
+                <isNotNull prepend="," property="regionType">
+                    region_type =  #regionType# 
+                </isNotNull>
+                <isNotNull prepend="," property="name">
+                    name =  #name# 
+                </isNotNull>
+                <isNotNull prepend="," property="nameEn">
+                    name_en =  #nameEn# 
+                </isNotNull>
+                <isNotNull prepend="," property="namePinyin">
+                    name_pinyin =  #namePinyin# 
+                </isNotNull>
+                <isNotNull prepend="," property="code">
+                    code =  #code# 
+                </isNotNull>
+            </dynamic>
+            where
+            delete_flag = 0
+            and region_id = #regionId#
+	</update>
+	
+    
+	
+	<select id="getRegionByRegionId.Region.trade" resultMap="Region.trade.RM" >
+    	select
+ /* getRegionByRegionId.Region.trade */             a.region_id,
+            a.parent_region_id,
+            a.path,
+            a.level,
+            a.region_type,
+            a.name,
+            a.name_en,
+            a.name_pinyin,
+            a.code,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from region a
+            where
+            a.delete_flag = 0
+            and a.region_id = #regionId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="getRegionPageList.Region.trade" resultMap="Region.trade.RM" >
+    	select
+ /* getRegionPageList.Region.trade */             a.region_id,
+            a.parent_region_id,
+            a.path,
+            a.level,
+            a.region_type,
+            a.name,
+            a.name_en,
+            a.name_pinyin,
+            a.code,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from region a
+            where
+            a.delete_flag = 0
+            <isNotNull open="and" property="regionId">
+               a.region_id=#regionId#
+            </isNotNull>
+            <isNotEmpty open="and" property="regionIds">
+                a.region_id in
+                <iterate close=")" conjunction="," open="(" property="regionIds">
+                    #regionIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull open="and" property="parentRegionId">
+               a.parent_region_id=#parentRegionId#
+            </isNotNull>
+            <isNotEmpty open="and" property="parentRegionIds">
+                a.parent_region_id in
+                <iterate close=")" conjunction="," open="(" property="parentRegionIds">
+                    #parentRegionIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="path">
+            a.path=#path#
+          </isNotNull>
+            <isNotEmpty open="and" property="pathLike">
+                a.path like CONCAT('%',#pathLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="levelMin">
+                a.level >=#levelMin#
+            </isNotNull>
+            <isNotNull open="and" property="levelMax">
+                a.level &lt;#levelMax#
+            </isNotNull>
+            <isNotNull open="and" property="regionType">
+               a.region_type=#regionType#
+            </isNotNull>
+            <isNotEmpty open="and" property="regionTypes">
+                a.region_type in
+                <iterate close=")" conjunction="," open="(" property="regionTypes">
+                    #regionTypes[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="name">
+            a.name=#name#
+          </isNotNull>
+            <isNotEmpty open="and" property="nameLike">
+                a.name like CONCAT('%',#nameLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="nameEn">
+            a.name_en=#nameEn#
+          </isNotNull>
+            <isNotEmpty open="and" property="nameEnLike">
+                a.name_en like CONCAT('%',#nameEnLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="namePinyin">
+            a.name_pinyin=#namePinyin#
+          </isNotNull>
+            <isNotEmpty open="and" property="namePinyinLike">
+                a.name_pinyin like CONCAT('%',#namePinyinLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="code">
+            a.code=#code#
+          </isNotNull>
+            <isNotEmpty open="and" property="codeLike">
+                a.code like CONCAT('%',#codeLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="createTimeMin">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="createTimeMax">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMin">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMax">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="regionId">
+            <isEmpty property="regionIds">
+            <isNull property="parentRegionId">
+            <isEmpty property="parentRegionIds">
+            <isNull property="path">
+            <isEmpty property="pathLike">
+            <isNull property="levelMin">
+            <isNull property="levelMax">
+            <isNull property="regionType">
+            <isEmpty property="regionTypes">
+            <isNull property="name">
+            <isEmpty property="nameLike">
+            <isNull property="nameEn">
+            <isEmpty property="nameEnLike">
+            <isNull property="namePinyin">
+            <isEmpty property="namePinyinLike">
+            <isNull property="code">
+            <isEmpty property="codeLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getRegionPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="getRegionPageList.Region.trade.count" resultClass="long" >
+    	select  /* getRegionPageList.Region.trade.count */ count(*)  from region a
+            where
+            a.delete_flag = 0
+            <isNotNull open="and" property="regionId">
+               a.region_id=#regionId#
+            </isNotNull>
+            <isNotEmpty open="and" property="regionIds">
+                a.region_id in
+                <iterate close=")" conjunction="," open="(" property="regionIds">
+                    #regionIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull open="and" property="parentRegionId">
+               a.parent_region_id=#parentRegionId#
+            </isNotNull>
+            <isNotEmpty open="and" property="parentRegionIds">
+                a.parent_region_id in
+                <iterate close=")" conjunction="," open="(" property="parentRegionIds">
+                    #parentRegionIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="path">
+            a.path=#path#
+          </isNotNull>
+            <isNotEmpty open="and" property="pathLike">
+                a.path like CONCAT('%',#pathLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="levelMin">
+                a.level >=#levelMin#
+            </isNotNull>
+            <isNotNull open="and" property="levelMax">
+                a.level &lt;#levelMax#
+            </isNotNull>
+            <isNotNull open="and" property="regionType">
+               a.region_type=#regionType#
+            </isNotNull>
+            <isNotEmpty open="and" property="regionTypes">
+                a.region_type in
+                <iterate close=")" conjunction="," open="(" property="regionTypes">
+                    #regionTypes[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="name">
+            a.name=#name#
+          </isNotNull>
+            <isNotEmpty open="and" property="nameLike">
+                a.name like CONCAT('%',#nameLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="nameEn">
+            a.name_en=#nameEn#
+          </isNotNull>
+            <isNotEmpty open="and" property="nameEnLike">
+                a.name_en like CONCAT('%',#nameEnLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="namePinyin">
+            a.name_pinyin=#namePinyin#
+          </isNotNull>
+            <isNotEmpty open="and" property="namePinyinLike">
+                a.name_pinyin like CONCAT('%',#namePinyinLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="code">
+            a.code=#code#
+          </isNotNull>
+            <isNotEmpty open="and" property="codeLike">
+                a.code like CONCAT('%',#codeLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="createTimeMin">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="createTimeMax">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMin">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMax">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="regionId">
+            <isEmpty property="regionIds">
+            <isNull property="parentRegionId">
+            <isEmpty property="parentRegionIds">
+            <isNull property="path">
+            <isEmpty property="pathLike">
+            <isNull property="levelMin">
+            <isNull property="levelMax">
+            <isNull property="regionType">
+            <isEmpty property="regionTypes">
+            <isNull property="name">
+            <isEmpty property="nameLike">
+            <isNull property="nameEn">
+            <isEmpty property="nameEnLike">
+            <isNull property="namePinyin">
+            <isEmpty property="namePinyinLike">
+            <isNull property="code">
+            <isEmpty property="codeLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="getRegionsByRegionIds.Region.trade" resultMap="Region.trade.RM" >
+    	select
+ /* getRegionsByRegionIds.Region.trade */             a.region_id,
+            a.parent_region_id,
+            a.path,
+            a.level,
+            a.region_type,
+            a.name,
+            a.name_en,
+            a.name_pinyin,
+            a.code,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from region a
+            where
+            a.delete_flag = 0
+            <isEmpty open="and" property="regionIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="regionIds">
+                a.region_id in
+                <iterate close=")" conjunction="," open="(" property="regionIds">
+                    #regionIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getRegionsByRegionIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="deleteByRegionIds.Region.trade">
+		UPDATE region SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty open="and" property="regionIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="regionIds">
+                region_id in
+                <iterate close=")" conjunction="," open="(" property="regionIds">
+                    #regionIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+    <resultMap id="getRegionOptions.GetRegionOptionsResult.trade.RM" class="com.mycompany.biz.domain.Region">
+        <result property="regionId" column="region_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="parentRegionId" column="parent_region_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="regionType" column="region_type" javaType="com.mycompany.biz.enums.RegionType" jdbcType="VARCHAR"  />
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="nameEn" column="name_en" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="namePinyin" column="name_pinyin" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="code" column="code" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="isLeaf" column="isLeaf" javaType="Boolean" jdbcType="BIGINT"  />
+    </resultMap>
+	
+	<select id="getRegionOptions.Region.trade" resultMap="getRegionOptions.GetRegionOptionsResult.trade.RM" >
+    	select
+ /* getRegionOptions.Region.trade */             a.region_id,
+            a.parent_region_id,
+            a.region_type,
+            a.name,
+            a.name_en,
+            a.name_pinyin,
+            a.code,
+            not exists( SELECT b.region_id from region b where b.parent_region_id=a.region_id) as isLeaf
+            from region a
+            where
+            a.delete_flag = 0
+            <isNotNull property="parentRegionId">
+            and a.parent_region_id = #parentRegionId#
+            </isNotNull>
+            <isNull property="parentRegionId">
+            and a.parent_region_id = 0
+            </isNull>
+	</select>	
+
+	    
+	
+	
+    
+    <resultMap id="getRegionsWithIsLeafByRegionIds.GetRegionsWithIsLeafByRegionIdsResult.trade.RM" class="com.mycompany.biz.domain.Region">
+        <result property="regionId" column="region_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="parentRegionId" column="parent_region_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="regionType" column="region_type" javaType="com.mycompany.biz.enums.RegionType" jdbcType="VARCHAR"  />
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="nameEn" column="name_en" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="namePinyin" column="name_pinyin" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="code" column="code" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="isLeaf" column="isLeaf" javaType="Boolean" jdbcType="BIGINT"  />
+    </resultMap>
+	
+	<select id="getRegionsWithIsLeafByRegionIds.Region.trade" resultMap="getRegionsWithIsLeafByRegionIds.GetRegionsWithIsLeafByRegionIdsResult.trade.RM" >
+    	select
+ /* getRegionsWithIsLeafByRegionIds.Region.trade */             a.region_id,
+            a.parent_region_id,
+            a.region_type,
+            a.name,
+            a.name_en,
+            a.name_pinyin,
+            a.code,
+            not exists( SELECT b.region_id from region b where b.parent_region_id=a.region_id) as isLeaf
+            from region a
+            where
+            a.delete_flag = 0
+            <isEmpty open="and" property="regionIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="regionIds">
+                a.region_id in
+                <iterate close=")" conjunction="," open="(" property="regionIds">
+                    #regionIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getRegionsByRegionIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+
+</sqlMap>
+

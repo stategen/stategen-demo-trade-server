@@ -16,6 +16,7 @@
     <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="hoppyService" interface="com.mycompany.biz.service.HoppyService"/>
     <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="menuService" interface="com.mycompany.biz.service.MenuService"/>
     <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="provinceService" interface="com.mycompany.biz.service.ProvinceService"/>
+    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="regionService" interface="com.mycompany.biz.service.RegionService"/>
     <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="roleService" interface="com.mycompany.biz.service.RoleService"/>
     <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="roleMenuService" interface="com.mycompany.biz.service.RoleMenuService"/>
     <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="topicService" interface="com.mycompany.biz.service.TopicService"/>

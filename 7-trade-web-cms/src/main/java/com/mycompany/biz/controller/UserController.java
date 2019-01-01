@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.GenForm;
-import org.stategen.framework.annotation.ReferConfig;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.annotation.VisitCheck;
 import org.stategen.framework.enums.DataOpt;
@@ -21,6 +20,7 @@ import org.stategen.framework.lite.AntdPageList;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.Pagination;
 import org.stategen.framework.util.BusinessAssert;
+import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.CopyUtil;
 import org.stategen.framework.util.DatetimeUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
@@ -45,15 +45,18 @@ public class UserController extends UserControllerBase {
     @ExcludeBeanNotNull
     public AntdPageList<User> getUserPageList(
                                               @ApiParam() String userId,
-                                              @ReferConfig @ApiParam() @RequestParam(required = false, name = "userIds") ArrayList<String> userIds,
+                                              @ApiParam() @RequestParam(required = false, name = "userIds") ArrayList<String> userIds,
                                               @ApiParam() String usernameLike,
                                               @ApiParam() @RequestParam(required = false, name = "roleTypes") ArrayList<String> roleTypes,
-                                              @ApiParam() Integer ageMin, @ApiParam() Integer ageMax, @ApiParam() Date valiDatetimeMin,
-                                              @ApiParam() Date birthdayDateMin, @ApiParam() Date workTimeMin, @ApiParam() String provinceId,
+                                              @ApiParam() Integer ageMin, 
+                                              @ApiParam() Integer ageMax, 
+                                              @ApiParam() Date valiDatetimeMin,
+                                              @ApiParam() Date birthdayDateMin, 
+                                              @ApiParam() Date workTimeMin, @ApiParam() String provinceId,
                                               @ApiParam() @RequestParam(required = false, name = "cityIds") ArrayList<String> cityIds,
                                               @ApiParam() @RequestParam(required = false, name = "statuss") ArrayList<StatusEnum> statuss,
-                                              @ApiParam() Long gradeMin, @ApiParam() String postAddressId,
-                                              @ApiParam() @RequestParam(required = false, name = "postAddressIds") ArrayList<String> postAddressIds,
+                                              @ApiParam() Long gradeMin, 
+                                              @ApiParam() String postAddressId,
                                               @ApiParam(hidden = true) User user, Pagination pagination
 
     ) {
@@ -78,6 +81,7 @@ public class UserController extends UserControllerBase {
     @State
     @GenForm
     public User insert(@ApiParam()@RequestParam(required =false,name="hoppyIds") ArrayList<Long> hoppyIds,
+//                       @ApiParam() @RequestParam(required = false, name = "cascaderPostAddressIds") ArrayList<Long> cascaderPostAddressIds,
                        @ApiParam() String username,
                        @ApiParam() String password,
                        @ApiParam() String roleType,
@@ -119,6 +123,7 @@ public class UserController extends UserControllerBase {
     @State()
     public User update(
                        @ApiParam()@RequestParam(required =false,name="hoppyIds") ArrayList<Long> hoppyIds,
+                       @ApiParam() @RequestParam(required = false, name = "cascaderPostAddressIds") ArrayList<Long> cascaderPostAddressIds,
                        @ApiParam() String username,
                        @ApiParam() String password,
                        @ApiParam() String roleType,
@@ -141,14 +146,15 @@ public class UserController extends UserControllerBase {
                        ,@ApiParam(hidden = true) User user
 
     ) {
-
+        user.setPostAddressId(CollectionUtil.getLast(cascaderPostAddressIds));
+        
         User orgUser = this.userService.getUserByUserId(userId);
         BusinessAssert.mustNotNull(orgUser, "用户不存在");
-        user = CopyUtil.merge(orgUser, user);
+        CopyUtil.merge(orgUser, user);
         this.userService.update(orgUser);
+        
         saveUserHoppys(hoppyIds, userId, orgUser);
-        List<User> users = Arrays.asList(orgUser);
-        assignBeans(users);
+        assignBeans(Arrays.asList(orgUser));
         return orgUser;
     }
 

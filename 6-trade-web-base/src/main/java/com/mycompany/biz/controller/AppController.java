@@ -19,11 +19,13 @@ import com.mycompany.biz.domain.City;
 import com.mycompany.biz.domain.Hoppy;
 import com.mycompany.biz.domain.Menu;
 import com.mycompany.biz.domain.Province;
+import com.mycompany.biz.domain.Region;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.service.CityService;
 import com.mycompany.biz.service.HoppyService;
 import com.mycompany.biz.service.MenuService;
 import com.mycompany.biz.service.ProvinceService;
+import com.mycompany.biz.service.RegionService;
 import com.mycompany.biz.service.UserService;
 import com.mycompany.biz.utils.SysConsts;
 
@@ -53,6 +55,10 @@ public class AppController {
     
     @Resource
     private HoppyService hoppyService;
+    
+    
+    @Resource
+    private RegionService regionService;
     
 
     @ApiRequestMappingAutoWithMethodName(name = "")
@@ -101,6 +107,11 @@ public class AppController {
     @ApiRequestMappingAutoWithMethodName(name="爱好")
     public List<Hoppy> getHoppyOptions() {
         return this.hoppyService.getHoppyOptions();
+    }
+    
+    @ApiRequestMappingAutoWithMethodName(name="获取地区")
+    public List<Region> getRegionOptions(Long parentRegionId) {
+        return this.regionService.getRegionOptions(parentRegionId);
     }
 
 }

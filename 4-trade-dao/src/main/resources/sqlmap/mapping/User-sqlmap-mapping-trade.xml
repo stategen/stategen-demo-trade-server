@@ -24,7 +24,7 @@
         <result property="status" column="status" javaType="com.mycompany.biz.enums.StatusEnum" jdbcType="VARCHAR"  />
         <result property="grade" column="grade" javaType="java.lang.Long" jdbcType="BIGINT"  />
         <result property="sex" column="sex" javaType="java.lang.Boolean" jdbcType="BIT"  />
-        <result property="postAddressId" column="post_address_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="postAddressId" column="post_address_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
         <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
