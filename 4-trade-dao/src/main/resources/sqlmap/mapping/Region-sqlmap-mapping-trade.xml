@@ -482,12 +482,15 @@
             from region a
             where
             a.delete_flag = 0
-            <isNotNull property="parentRegionId">
-            and a.parent_region_id = #parentRegionId#
-            </isNotNull>
-            <isNull property="parentRegionId">
-            and a.parent_region_id = 0
-            </isNull>
+            <isNotEmpty open="and" property="parentRegionIds">
+                a.parent_region_id in
+                <iterate close=")" conjunction="," open="(" property="parentRegionIds">
+                    #parentRegionIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isEmpty open="and" property="parentRegionIds">
+                a.parent_region_id =0
+            </isEmpty>
 	</select>	
 
 	    

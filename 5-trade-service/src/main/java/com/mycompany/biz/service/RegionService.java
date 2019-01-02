@@ -82,7 +82,7 @@ public interface RegionService extends RegionServiceFacade, AssignSerice<Region,
      * 
      * @see com.mycompany.biz.dao.RegionDao#getRegionOptions
      */
-    public List<Region> getRegionOptions(Long parentRegionId);
+    public List<Region> getRegionOptions(List<Long> parentRegionIds);
 
     Map<Long, Region> getRegionMapIfHasParent(List<Long> regionIds);
 

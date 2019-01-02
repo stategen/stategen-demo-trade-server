@@ -12,11 +12,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.RegionDao;
 import com.mycompany.biz.domain.Region;
@@ -150,10 +150,10 @@ public class RegionServiceImpl implements RegionService {
      * @see com.mycompany.biz.service.RegionService#getRegionOptions
      */
     @Override
-    public List<Region> getRegionOptions(Long parentRegionId) {
-        return regionDao.getRegionOptions(parentRegionId);
+    public List<Region> getRegionOptions(List<Long> parentRegionIds) {
+        return regionDao.getRegionOptions(parentRegionIds);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.RegionDao#getRegionsWithIsLeafByRegionIds
@@ -184,6 +184,4 @@ public class RegionServiceImpl implements RegionService {
         }
         return allRegoinMap;
     }
-
-
 }

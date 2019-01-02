@@ -107,12 +107,12 @@ public class RegionDaoImpl extends SqlMapClientDaoSupport implements RegionDao {
 
     /**
 	 * 
-	 * sql:select a.region_id, a.parent_region_id, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, not exists( SELECT b.region_id from region b where b.parent_region_id=a.region_id) as isLeaf from region a where a.delete_flag = 0 and a.parent_region_id = ? and a.parent_region_id = 0
+	 * sql:select a.region_id, a.parent_region_id, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, not exists( SELECT b.region_id from region b where b.parent_region_id=a.region_id) as isLeaf from region a where a.delete_flag = 0 and a.parent_region_id in ( ? ) and a.parent_region_id =0
 	 */
     @SuppressWarnings("unchecked")
-    public List<Region> getRegionOptions(Long parentRegionId) throws DataAccessException {
+    public List<Region> getRegionOptions(java.util.List<Long> parentRegionIds) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("parentRegionId", parentRegionId);
+        params.put("parentRegionIds", parentRegionIds);
         return (List<Region>) getSqlMapClientTemplate().queryForList("getRegionOptions.Region.trade", params);
     }
 

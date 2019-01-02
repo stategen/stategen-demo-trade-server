@@ -50,6 +50,7 @@ public class User_meController extends UserControllerBase {
     @State()
     public User update(
                        @ApiParam()@RequestParam(required =false,name="hoppyIds") ArrayList<Long> hoppyIds,
+                       @ApiParam() @RequestParam(required = false, name = "cascaderPostAddressIds") ArrayList<Long> cascaderPostAddressIds,
                        @ApiParam() String username,
                        @ApiParam() String password,
                        @ApiParam() RoleType roleType,
@@ -72,7 +73,6 @@ public class User_meController extends UserControllerBase {
                        ,@ApiParam(hidden = true) User user
 
     ) {
-
         User orgUser = this.userService.getUserByUserId(userId);
         BusinessAssert.mustNotNull(orgUser, "用户不存在");
         user = CopyUtil.merge(orgUser, user);

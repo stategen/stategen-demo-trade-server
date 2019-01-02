@@ -135,13 +135,13 @@ public interface RegionDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("父ID") Long parentRegionId
+    &#64;ApiParam("父ID")&#64;RequestParam(required =false,name="parentRegionIds") ArrayList&lt;Long&gt; parentRegionIds
     
     </pre>
 	 * 
-	 * sql:select a.region_id, a.parent_region_id, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, not exists( SELECT b.region_id from region b where b.parent_region_id=a.region_id) as isLeaf from region a where a.delete_flag = 0 and a.parent_region_id = ? and a.parent_region_id = 0
+	 * sql:select a.region_id, a.parent_region_id, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, not exists( SELECT b.region_id from region b where b.parent_region_id=a.region_id) as isLeaf from region a where a.delete_flag = 0 and a.parent_region_id in ( ? ) and a.parent_region_id =0
 	 */
-	public List<Region> getRegionOptions(Long parentRegionId) throws DataAccessException;
+	public List<Region> getRegionOptions(java.util.List<Long> parentRegionIds) throws DataAccessException;
 	
 	/**
     <pre>

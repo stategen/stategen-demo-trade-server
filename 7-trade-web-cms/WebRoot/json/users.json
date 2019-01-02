@@ -1,238 +1,101 @@
 {
     "code": 200,
-    "data": [
-        {
-            "checkType": "NONE",
-            "controllerName": "Dashboard",
+    "data": {
+        "avatarImg": {
+            "createTime": 1545781856035,
             "deleteFlag": 0,
-            "id": "1",
-            "menuId": "1",
-            "name": "dashboard",
-            "projectName": "tradeCms",
-            "route": "/dashboard",
-            "updateTime": 1536198652000,
-            "visitType": "MENU"
+            "fileId": "rc-upload-1545781054997-27",
+            "name": "20150524134618_K3QAe.jpeg",
+            "size": "1248968",
+            "type": "image/jpeg",
+            "uid": "rc-upload-1545781054997-27",
+            "updateTime": 1545781856035,
+            "url": "https://avatars0.githubusercontent.com/u/12741755?v=4&s=120"
         },
-        {
-            "checkType": "VISIT_CHECK",
-            "controllerName": "User",
+        "avatarImgId": "rc-upload-1545781054997-27",
+        "birthdayDate": 1545408000000,
+        "cascaderPostAddressIds": [
+            "2",
+            "19",
+            "516"
+        ],
+        "cascaderPostAddresss": [
+            {
+                "isLeaf": false,
+                "name": "欧洲",
+                "nameEn": "Europe",
+                "namePinyin": "ouzhou",
+                "parentRegionId": "0",
+                "regionId": "2",
+                "regionType": "STATES",
+                "title": "欧洲",
+                "value": "2"
+            },
+            {
+                "code": "IRL",
+                "isLeaf": false,
+                "name": "爱尔兰",
+                "nameEn": "Ireland",
+                "namePinyin": "aierlan",
+                "parentRegionId": "2",
+                "regionId": "19",
+                "regionType": "COUNTRY",
+                "title": "爱尔兰",
+                "value": "19"
+            },
+            {
+                "code": "TP",
+                "isLeaf": true,
+                "name": "蒂珀雷里",
+                "nameEn": "Tipperary",
+                "namePinyin": "dileili",
+                "parentRegionId": "19",
+                "regionId": "516",
+                "regionType": "PROVINCE",
+                "title": "蒂珀雷里",
+                "value": "516"
+            }
+        ],
+        "city": {
+            "areacode": "021",
+            "cityId": "021_201800_jd_12",
             "deleteFlag": 0,
-            "id": "2",
-            "menuId": "2",
-            "name": "用户",
-            "projectName": "tradeCms",
-            "route": "/user",
-            "updateTime": 1536198652000,
-            "visitType": "MENU"
+            "name": "嘉定",
+            "postcode": "201800",
+            "provinceId": "shs_2",
+            "pycode": "jd",
+            "title": "嘉定",
+            "value": "021_201800_jd_12"
         },
-        {
-            "checkType": "NONE",
-            "controllerName": "Post",
+        "cityId": "021_201800_jd_12",
+        "createTime": 1542584761000,
+        "deleteFlag": 0,
+        "email": "78493244@qq.com",
+        "grade": "3",
+        "hoppyIds": [
+            "2",
+            "1"
+        ],
+        "name": "niaoge",
+        "nickName": "niaoge",
+        "postAddressId": "516",
+        "province": {
             "deleteFlag": 0,
-            "id": "7",
-            "menuId": "7",
-            "name": "post",
-            "projectName": "tradeCms",
-            "route": "/post",
-            "updateTime": 1536198652000,
-            "visitType": "MENU"
+            "name": "上海市",
+            "provinceId": "shs_2",
+            "pycode": "shs",
+            "title": "上海市",
+            "value": "shs_2"
         },
-        {
-            "controllerName": "request",
-            "deleteFlag": 0,
-            "icon": "api",
-            "id": "3",
-            "menuId": "3",
-            "name": "Request",
-            "projectName": "tradeCms",
-            "route": "/request",
-            "visitType": "MENU"
-        },
-        {
-            "deleteFlag": 0,
-            "icon": "camera-o",
-            "id": "4",
-            "menuId": "4",
-            "name": "UI Element",
-            "projectName": "tradeCms",
-            "visitType": "MENU"
-        },
-        {
-            "controllerName": "UIElement_iconfont",
-            "deleteFlag": 0,
-            "icon": "heart-o",
-            "id": "41",
-            "menuId": "41",
-            "mpid": "4",
-            "name": "IconFont",
-            "projectName": "tradeCms",
-            "route": "/UIElement/iconfont",
-            "visitType": "MENU"
-        },
-        {
-            "controllerName": "UIElement_dropOption",
-            "deleteFlag": 0,
-            "icon": "bars",
-            "id": "43",
-            "menuId": "43",
-            "mpid": "4",
-            "name": "DropOption",
-            "projectName": "tradeCms",
-            "route": "/UIElement/dropOption",
-            "visitType": "MENU"
-        },
-        {
-            "controllerName": "UIElement_search",
-            "deleteFlag": 0,
-            "icon": "search",
-            "id": "44",
-            "menuId": "44",
-            "mpid": "4",
-            "name": "Search",
-            "projectName": "tradeCms",
-            "route": "/UIElement/search",
-            "visitType": "MENU"
-        },
-        {
-            "controllerName": "Charts",
-            "deleteFlag": 0,
-            "icon": "code-o",
-            "id": "5",
-            "menuId": "5",
-            "name": "Charts",
-            "projectName": "tradeCms",
-            "visitType": "MENU"
-        },
-        {
-            "checkType": "VISIT_CHECK",
-            "controllerName": "Chart_ECharts",
-            "deleteFlag": 0,
-            "id": "51",
-            "menuId": "51",
-            "mpid": "2139584634",
-            "name": "eCharts",
-            "projectName": "tradeCms",
-            "route": "/chart/ECharts",
-            "updateTime": 1536198652000,
-            "visitType": "MENU"
-        },
-        {
-            "checkType": "VISIT_CHECK",
-            "controllerName": "Chart_highCharts",
-            "deleteFlag": 0,
-            "id": "52",
-            "menuId": "52",
-            "mpid": "2139584634",
-            "name": "highCharts",
-            "projectName": "tradeCms",
-            "route": "/chart/highCharts",
-            "updateTime": 1536198652000,
-            "visitType": "MENU"
-        },
-        {
-            "checkType": "VISIT_CHECK",
-            "controllerName": "Chart_Recharts",
-            "deleteFlag": 0,
-            "id": "53",
-            "menuId": "53",
-            "mpid": "2139584634",
-            "name": "recharts",
-            "projectName": "tradeCms",
-            "route": "/chart/Recharts",
-            "updateTime": 1536198652000,
-            "visitType": "MENU"
-        },
-        {
-            "deleteFlag": 0,
-            "icon": "setting",
-            "id": "6",
-            "menuId": "6",
-            "name": "Test Navigation",
-            "projectName": "tradeCms",
-            "visitType": "MENU"
-        },
-        {
-            "controllerName": "navigation_navigation1",
-            "deleteFlag": 0,
-            "id": "61",
-            "menuId": "61",
-            "mpid": "6",
-            "name": "Test Navigation1",
-            "projectName": "tradeCms",
-            "route": "/navigation/navigation1",
-            "visitType": "MENU"
-        },
-        {
-            "controllerName": "navigation_navigation2",
-            "deleteFlag": 0,
-            "id": "62",
-            "menuId": "62",
-            "mpid": "6",
-            "name": "Test Navigation2",
-            "projectName": "tradeCms",
-            "route": "/navigation/navigation2",
-            "visitType": "MENU"
-        },
-        {
-            "controllerName": "navigation_navigation2_navigation1",
-            "deleteFlag": 0,
-            "id": "621",
-            "menuId": "621",
-            "mpid": "62",
-            "name": "Test Navigation21",
-            "projectName": "tradeCms",
-            "route": "/navigation/navigation2/navigation1",
-            "visitType": "MENU"
-        },
-        {
-            "controllerName": "navigation_navigation2_navigation2",
-            "deleteFlag": 0,
-            "id": "622",
-            "menuId": "622",
-            "mpid": "62",
-            "name": "Test Navigation22",
-            "projectName": "tradeCms",
-            "route": "/navigation/navigation2/navigation2",
-            "visitType": "MENU"
-        },
-        {
-            "checkType": "NONE",
-            "controllerName": "App",
-            "createTime": 1536197921000,
-            "deleteFlag": 0,
-            "id": "2139584630",
-            "menuId": "2139584630",
-            "name": "app",
-            "projectName": "tradeCms",
-            "updateTime": 1536198652000,
-            "visitType": "MENU"
-        },
-        {
-            "checkType": "NONE",
-            "controllerName": "Chart",
-            "createTime": 1536197921000,
-            "deleteFlag": 0,
-            "id": "2139584634",
-            "menuId": "2139584634",
-            "name": "chart",
-            "projectName": "tradeCms",
-            "updateTime": 1536198652000,
-            "visitType": "MENU"
-        },
-        {
-            "checkType": "NONE",
-            "controllerName": "Role",
-            "createTime": 1536197921000,
-            "deleteFlag": 0,
-            "id": "2139584639",
-            "menuId": "2139584639",
-            "name": "role",
-            "projectName": "tradeCms",
-            "route": "/role",
-            "updateTime": 1536198652000,
-            "visitType": "MENU"
-        }
-    ],
+        "provinceId": "shs_2",
+        "roleType": "ADMIN",
+        "sex": false,
+        "status": "PENDING",
+        "updateTime": 1546352452392,
+        "userId": "2018111306343099304690546571",
+        "username": "niaoge",
+        "workTime": -19187000
+    },
     "message": "操作成功",
     "status": "OK",
     "success": true

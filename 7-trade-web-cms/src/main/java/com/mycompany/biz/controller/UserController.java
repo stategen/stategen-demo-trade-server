@@ -81,7 +81,7 @@ public class UserController extends UserControllerBase {
     @State
     @GenForm
     public User insert(@ApiParam()@RequestParam(required =false,name="hoppyIds") ArrayList<Long> hoppyIds,
-//                       @ApiParam() @RequestParam(required = false, name = "cascaderPostAddressIds") ArrayList<Long> cascaderPostAddressIds,
+                       @ApiParam() @RequestParam(required = false, name = "cascaderPostAddressIds") ArrayList<Long> cascaderPostAddressIds,
                        @ApiParam() String username,
                        @ApiParam() String password,
                        @ApiParam() String roleType,
