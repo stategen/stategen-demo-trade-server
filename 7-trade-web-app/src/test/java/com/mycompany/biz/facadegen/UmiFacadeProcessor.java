@@ -7,6 +7,7 @@ import java.util.InvalidPropertiesFormatException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.multipart.MultipartFile;
 import org.stategen.framework.lite.Pagination;
 import org.stategen.framework.progen.BaseGenFacadeProcessor;
 import org.stategen.framework.progen.GenContext;
@@ -42,7 +43,8 @@ public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
         //这里注册的将替代supper中的注册
         GenContext.registSimpleClz(Void.TYPE, "void");
         GenContext.registSimpleClz(Class.class, "string");
-        GenContext.registSimpleClz(Pagination.class, "PaginationProps","import {PaginationProps} from \"antd/es/pagination\"");
+        GenContext.registSimpleClz(Pagination.class, "PaginationProps","import {PaginationProps} from 'antd/es/pagination'");
+        GenContext.registSimpleClz(MultipartFile.class, "UploadFile","import {UploadFile} from 'antd/es/upload/interface'");
         
         GenContext.registIgnoreParamClz(HttpServletRequest.class);
         GenContext.registIgnoreParamAnnotationClz(CookieValue.class);
