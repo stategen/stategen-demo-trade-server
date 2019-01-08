@@ -11,10 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
-
 import org.stategen.framework.lite.IOption;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -110,47 +111,57 @@ public class City implements java.io.Serializable, IOption {
 
     /*** cityIds in getCityPageList */
     @ApiModelProperty("cityIds")
-    private transient java.util.List<String> cityIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> cityIds;
 
     /*** nameLike in getCityPageList */
     @ApiModelProperty("nameLike")
-    private transient String nameLike;
+    @JSONField(serialize = false)
+    private String nameLike;
 
     /*** pycodeLike in getCityPageList */
     @ApiModelProperty("pycodeLike")
-    private transient String pycodeLike;
+    @JSONField(serialize = false)
+    private String pycodeLike;
 
     /*** provinceIds in getCityPageList */
     @ApiModelProperty("provinceIds")
-    private transient java.util.List<String> provinceIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> provinceIds;
 
     /*** postcodeLike in getCityPageList */
     @ApiModelProperty("postcodeLike")
-    private transient String postcodeLike;
+    @JSONField(serialize = false)
+    private String postcodeLike;
 
     /*** areacodeLike in getCityPageList */
     @ApiModelProperty("areacodeLike")
-    private transient String areacodeLike;
+    @JSONField(serialize = false)
+    private String areacodeLike;
 
     /*** 创建时间Min in getCityPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMin;
 
     /*** 创建时间Max in getCityPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMax;
 
     /*** 更新时间Min in getCityPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMin;
 
     /*** 更新时间Max in getCityPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMax;
 
     @Override
     public String getTitle() {

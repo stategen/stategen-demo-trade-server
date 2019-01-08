@@ -1,100 +1,329 @@
 {
     "code": 200,
     "data": {
-        "avatarImg": {
-            "createTime": 1545781856035,
-            "deleteFlag": 0,
-            "fileId": "rc-upload-1545781054997-27",
-            "name": "20150524134618_K3QAe.jpeg",
-            "size": "1248968",
-            "type": "image/jpeg",
-            "uid": "rc-upload-1545781054997-27",
-            "updateTime": 1545781856035,
-            "url": "https://avatars0.githubusercontent.com/u/12741755?v=4&s=120"
-        },
-        "avatarImgId": "rc-upload-1545781054997-27",
-        "birthdayDate": 1545408000000,
-        "cascaderPostAddressIds": [
-            "2",
-            "19",
-            "516"
-        ],
-        "cascaderPostAddresss": [
+        "list": [
             {
-                "isLeaf": false,
-                "name": "欧洲",
-                "nameEn": "Europe",
-                "namePinyin": "ouzhou",
-                "parentRegionId": "0",
-                "regionId": "2",
-                "regionType": "STATES",
-                "title": "欧洲",
-                "value": "2"
+                "avatarImg": {
+                    "createTime": 1545781856035,
+                    "deleteFlag": 0,
+                    "fileId": "rc-upload-1545781054997-27",
+                    "name": "20150524134618_K3QAe.jpeg",
+                    "size": "1248968",
+                    "type": "image/jpeg",
+                    "uid": "rc-upload-1545781054997-27",
+                    "updateTime": 1545781856035,
+                    "url": "https://avatars0.githubusercontent.com/u/12741755?v=4&s=120"
+                },
+                "avatarImgId": "rc-upload-1545781054997-27",
+                "birthdayDate": 1545408000000,
+                "cascaderPostAddressIds": [
+                    "1",
+                    "10",
+                    "436"
+                ],
+                "cascaderPostAddresss": [
+                    {
+                        "isLeaf": false,
+                        "name": "亚洲",
+                        "nameEn": "Asia",
+                        "namePinyin": "yazhou",
+                        "parentRegionId": "0",
+                        "regionId": "1",
+                        "regionType": "STATES",
+                        "title": "亚洲",
+                        "value": "1"
+                    },
+                    {
+                        "code": "AFG",
+                        "isLeaf": false,
+                        "name": "阿富汗",
+                        "nameEn": "Afghanistan",
+                        "namePinyin": "afuhan",
+                        "parentRegionId": "1",
+                        "regionId": "10",
+                        "regionType": "COUNTRY",
+                        "title": "阿富汗",
+                        "value": "10"
+                    },
+                    {
+                        "code": "KBL",
+                        "isLeaf": true,
+                        "name": "喀布尔",
+                        "nameEn": "Kabul",
+                        "namePinyin": "kabuer",
+                        "parentRegionId": "10",
+                        "regionId": "436",
+                        "regionType": "PROVINCE",
+                        "title": "喀布尔",
+                        "value": "436"
+                    }
+                ],
+                "city": {
+                    "areacode": "021",
+                    "cityId": "021_201800_jd_12",
+                    "deleteFlag": 0,
+                    "name": "嘉定",
+                    "postcode": "201800",
+                    "provinceId": "shs_2",
+                    "pycode": "jd",
+                    "title": "嘉定",
+                    "value": "021_201800_jd_12"
+                },
+                "cityId": "021_201800_jd_12",
+                "createTime": 1542584761000,
+                "deleteFlag": 0,
+                "email": "78493244@qq.com",
+                "grade": "3",
+                "hoppyIds": [
+                    "2",
+                    "1"
+                ],
+                "name": "niaoge",
+                "nickName": "niaoge",
+                "postAddressId": "436",
+                "province": {
+                    "deleteFlag": 0,
+                    "name": "上海市",
+                    "provinceId": "shs_2",
+                    "pycode": "shs",
+                    "title": "上海市",
+                    "value": "shs_2"
+                },
+                "provinceId": "shs_2",
+                "roleType": "ADMIN",
+                "sex": false,
+                "status": "PENDING",
+                "updateTime": 1546786121834,
+                "userId": "2018111306343099304690546571",
+                "username": "niaoge",
+                "workTime": -19187000
             },
             {
-                "code": "IRL",
-                "isLeaf": false,
-                "name": "爱尔兰",
-                "nameEn": "Ireland",
-                "namePinyin": "aierlan",
-                "parentRegionId": "2",
-                "regionId": "19",
-                "regionType": "COUNTRY",
-                "title": "爱尔兰",
-                "value": "19"
+                "avatarImg": {
+                    "createTime": 1546025946163,
+                    "deleteFlag": 0,
+                    "fileId": "rc-upload-1546024892141-26",
+                    "name": "20150524134618_K3QAe.jpeg",
+                    "size": "1248968",
+                    "type": "image/jpeg",
+                    "uid": "rc-upload-1546024892141-26",
+                    "updateTime": 1546025946163,
+                    "url": "tradeCms/uploads/154602594613320150524134618_K3QAe.jpeg"
+                },
+                "avatarImgId": "rc-upload-1546024892141-26",
+                "cascaderPostAddressIds": [
+                    "1",
+                    "7",
+                    "247",
+                    "3021"
+                ],
+                "cascaderPostAddresss": [
+                    {
+                        "isLeaf": false,
+                        "name": "亚洲",
+                        "nameEn": "Asia",
+                        "namePinyin": "yazhou",
+                        "parentRegionId": "0",
+                        "regionId": "1",
+                        "regionType": "STATES",
+                        "title": "亚洲",
+                        "value": "1"
+                    },
+                    {
+                        "code": "CN",
+                        "isLeaf": false,
+                        "name": "中国",
+                        "nameEn": "China",
+                        "namePinyin": "zhongguo",
+                        "parentRegionId": "1",
+                        "regionId": "7",
+                        "regionType": "COUNTRY",
+                        "title": "中国",
+                        "value": "7"
+                    },
+                    {
+                        "code": "11",
+                        "isLeaf": false,
+                        "name": "北京",
+                        "nameEn": "Beijing",
+                        "namePinyin": "beijing",
+                        "parentRegionId": "7",
+                        "regionId": "247",
+                        "regionType": "PROVINCE",
+                        "title": "北京",
+                        "value": "247"
+                    },
+                    {
+                        "code": "1",
+                        "isLeaf": true,
+                        "name": "东城",
+                        "nameEn": "Dongcheng",
+                        "namePinyin": "dongcheng",
+                        "parentRegionId": "247",
+                        "regionId": "3021",
+                        "regionType": "DISTRICT",
+                        "title": "东城",
+                        "value": "3021"
+                    }
+                ],
+                "createTime": 1542062144000,
+                "deleteFlag": 0,
+                "email": "784932441@qq.com",
+                "hoppyIds": [
+                    "3"
+                ],
+                "name": "zhangmingfeng",
+                "nickName": "zhangmingfeng",
+                "postAddressId": "3021",
+                "status": "FORBIDDEN",
+                "updateTime": 1546352387549,
+                "userId": "2018111306354439994280590495",
+                "username": "zhangmingfeng"
             },
             {
-                "code": "TP",
-                "isLeaf": true,
-                "name": "蒂珀雷里",
-                "nameEn": "Tipperary",
-                "namePinyin": "dileili",
-                "parentRegionId": "19",
-                "regionId": "516",
-                "regionType": "PROVINCE",
-                "title": "蒂珀雷里",
-                "value": "516"
+                "avatarImg": {
+                    "deleteFlag": 0,
+                    "fileId": "2018122419513431080559451431",
+                    "uid": "2018122419513431080559451431",
+                    "url": "https://avatars3.githubusercontent.com/u/16741215?v=4&s=120",
+                    "userId": "2018111306354440494238311305"
+                },
+                "avatarImgId": "2018122419513431080559451431",
+                "createTime": 1542062144000,
+                "deleteFlag": 0,
+                "name": "yyseek",
+                "nickName": "yyseek",
+                "updateTime": 1542062144000,
+                "userId": "2018111306354440494238311305",
+                "username": "yyseek"
+            },
+            {
+                "avatarImg": {
+                    "deleteFlag": 0,
+                    "fileId": "2018122419513431080597888143",
+                    "uid": "2018122419513431080597888143",
+                    "url": "https://avatars0.githubusercontent.com/u/25657426?v=4&s=120",
+                    "userId": "2018111306354260176136749040"
+                },
+                "avatarImgId": "2018122419513431080597888143",
+                "createTime": 1542062143000,
+                "deleteFlag": 0,
+                "name": "51042309",
+                "nickName": "51042309",
+                "updateTime": 1542062143000,
+                "userId": "2018111306354260176136749040",
+                "username": "51042309"
+            },
+            {
+                "avatarImg": {
+                    "deleteFlag": 0,
+                    "fileId": "2018122419513431080534002553",
+                    "uid": "2018122419513431080534002553",
+                    "url": "https://avatars2.githubusercontent.com/u/19426476?v=4&s=120",
+                    "userId": "2018111306354261176224628217"
+                },
+                "avatarImgId": "2018122419513431080534002553",
+                "createTime": 1542062143000,
+                "deleteFlag": 0,
+                "name": "DanceSmile",
+                "nickName": "DanceSmile",
+                "updateTime": 1542062143000,
+                "userId": "2018111306354261176224628217",
+                "username": "DanceSmile"
+            },
+            {
+                "avatarImg": {
+                    "deleteFlag": 0,
+                    "fileId": "2018122419513431080576348340",
+                    "uid": "2018122419513431080576348340",
+                    "url": "https://avatars0.githubusercontent.com/u/780693?v=4&s=120",
+                    "userId": "2018111306354261876312893969"
+                },
+                "avatarImgId": "2018122419513431080576348340",
+                "createTime": 1542062143000,
+                "deleteFlag": 0,
+                "name": "ali322",
+                "nickName": "ali322",
+                "updateTime": 1542062143000,
+                "userId": "2018111306354261876312893969",
+                "username": "ali322"
+            },
+            {
+                "avatarImg": {
+                    "deleteFlag": 0,
+                    "fileId": "2018122419513431080579734043",
+                    "uid": "2018122419513431080579734043",
+                    "url": "https://avatars1.githubusercontent.com/u/15101554?v=4&s=120",
+                    "userId": "2018111306354262326490585197"
+                },
+                "avatarImgId": "2018122419513431080579734043",
+                "createTime": 1542062143000,
+                "deleteFlag": 0,
+                "name": "maosiyu",
+                "nickName": "maosiyu",
+                "updateTime": 1542062143000,
+                "userId": "2018111306354262326490585197",
+                "username": "maosiyu"
+            },
+            {
+                "avatarImg": {
+                    "deleteFlag": 0,
+                    "fileId": "2018122419513431080569625200",
+                    "uid": "2018122419513431080569625200",
+                    "url": "https://avatars1.githubusercontent.com/u/8046366?v=4&s=120",
+                    "userId": "2018111306354262826414244081"
+                },
+                "avatarImgId": "2018122419513431080569625200",
+                "createTime": 1542062143000,
+                "deleteFlag": 0,
+                "name": "yuu2lee4",
+                "nickName": "yuu2lee4",
+                "updateTime": 1542062143000,
+                "userId": "2018111306354262826414244081",
+                "username": "yuu2lee4"
+            },
+            {
+                "avatarImg": {
+                    "deleteFlag": 0,
+                    "fileId": "2018122419513431080508923875",
+                    "uid": "2018122419513431080508923875",
+                    "url": "https://avatars0.githubusercontent.com/u/9590859?v=4&s=120",
+                    "userId": "2018111306354263376599464816"
+                },
+                "avatarImgId": "2018122419513431080508923875",
+                "createTime": 1542062143000,
+                "deleteFlag": 0,
+                "name": "chapgaga",
+                "nickName": "chapgaga",
+                "updateTime": 1542062143000,
+                "userId": "2018111306354263376599464816",
+                "username": "chapgaga"
+            },
+            {
+                "avatarImg": {
+                    "deleteFlag": 0,
+                    "fileId": "2018122419513431080535743775",
+                    "uid": "2018122419513431080535743775",
+                    "url": "https://avatars2.githubusercontent.com/u/18378474?v=4&s=120",
+                    "userId": "2018111306354263726554591840"
+                },
+                "avatarImgId": "2018122419513431080535743775",
+                "createTime": 1542062143000,
+                "deleteFlag": 0,
+                "name": "HeyJohnnny",
+                "nickName": "HeyJohnnny",
+                "updateTime": 1542062143000,
+                "userId": "2018111306354263726554591840",
+                "username": "HeyJohnnny"
             }
         ],
-        "city": {
-            "areacode": "021",
-            "cityId": "021_201800_jd_12",
-            "deleteFlag": 0,
-            "name": "嘉定",
-            "postcode": "201800",
-            "provinceId": "shs_2",
-            "pycode": "jd",
-            "title": "嘉定",
-            "value": "021_201800_jd_12"
-        },
-        "cityId": "021_201800_jd_12",
-        "createTime": 1542584761000,
-        "deleteFlag": 0,
-        "email": "78493244@qq.com",
-        "grade": "3",
-        "hoppyIds": [
-            "2",
-            "1"
-        ],
-        "name": "niaoge",
-        "nickName": "niaoge",
-        "postAddressId": "516",
-        "province": {
-            "deleteFlag": 0,
-            "name": "上海市",
-            "provinceId": "shs_2",
-            "pycode": "shs",
-            "title": "上海市",
-            "value": "shs_2"
-        },
-        "provinceId": "shs_2",
-        "roleType": "ADMIN",
-        "sex": false,
-        "status": "PENDING",
-        "updateTime": 1546352452392,
-        "userId": "2018111306343099304690546571",
-        "username": "niaoge",
-        "workTime": -19187000
+        "pagination": {
+            "current": 1,
+            "page": 1,
+            "pageSize": 10,
+            "total": 435,
+            "totalPages": 43
+        }
     },
     "message": "操作成功",
     "status": "OK",

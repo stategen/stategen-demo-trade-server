@@ -11,10 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
-
 import org.stategen.framework.lite.IOption;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -89,37 +90,42 @@ public class Province implements java.io.Serializable, IOption {
 
     /*** provinceIds in getProvincePageList */
     @ApiModelProperty("provinceIds")
-    private transient java.util.List<String> provinceIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> provinceIds;
 
     /*** nameLike in getProvincePageList */
     @ApiModelProperty("nameLike")
-    private transient String nameLike;
+    @JSONField(serialize = false)
+    private String nameLike;
 
     /*** pycodeLike in getProvincePageList */
     @ApiModelProperty("pycodeLike")
-    private transient String pycodeLike;
+    @JSONField(serialize = false)
+    private String pycodeLike;
 
     /*** 创建时间Min in getProvincePageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMin;
 
     /*** 创建时间Max in getProvincePageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMax;
 
     /*** 更新时间Min in getProvincePageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMin;
 
     /*** 更新时间Max in getProvincePageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMax;
-
-
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMax;
 
     @Override
     public String getTitle() {

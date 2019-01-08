@@ -11,8 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
-import io.swagger.annotations.ApiModelProperty;
 
+import org.stategen.framework.annotation.OptionConvertor;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,6 +33,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@OptionConvertor(value="fileId")
 public class FileSummary implements java.io.Serializable {
 
     private static final long serialVersionUID = -5216457518046898601L;
@@ -107,47 +112,57 @@ public class FileSummary implements java.io.Serializable {
 
     /*** fileIds in getFileSummaryPageList */
     @ApiModelProperty("fileIds")
-    private transient java.util.List<String> fileIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> fileIds;
 
     /*** sizeMin in getFileSummaryPageList */
     @ApiModelProperty("sizeMin")
-    private transient Long sizeMin;
+    @JSONField(serialize = false)
+    private Long sizeMin;
 
     /*** sizeMax in getFileSummaryPageList */
     @ApiModelProperty("sizeMax")
-    private transient Long sizeMax;
+    @JSONField(serialize = false)
+    private Long sizeMax;
 
     /*** nameLike in getFileSummaryPageList */
     @ApiModelProperty("nameLike")
-    private transient String nameLike;
+    @JSONField(serialize = false)
+    private String nameLike;
 
     /*** types in getFileSummaryPageList */
     @ApiModelProperty("types")
-    private transient java.util.List<String> types;
+    @JSONField(serialize = false)
+    private java.util.List<String> types;
 
     /*** userIds in getFileSummaryPageList */
     @ApiModelProperty("userIds")
-    private transient java.util.List<String> userIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> userIds;
 
     /*** 创建时间Min in getFileSummaryPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMin;
 
     /*** 创建时间Max in getFileSummaryPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMax;
 
     /*** 更新时间Min in getFileSummaryPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMin;
 
     /*** 更新时间Max in getFileSummaryPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMax;
 
     public String getUid() {
         return this.getFileId();

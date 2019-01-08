@@ -15,6 +15,7 @@ import javax.validation.constraints.Max;
 import org.stategen.framework.annotation.OptionConvertor;
 import org.stategen.framework.lite.IOption;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.RegionType;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -134,63 +135,77 @@ public class Region implements java.io.Serializable, IOption {
 
     /*** 主键s in getRegionPageList */
     @ApiModelProperty("主键s")
-    private transient java.util.List<Long> regionIds;
+    @JSONField(serialize = false)
+    private java.util.List<Long> regionIds;
 
     /*** 父IDs in getRegionPageList */
     @ApiModelProperty("父IDs")
-    private transient java.util.List<Long> parentRegionIds;
+    @JSONField(serialize = false)
+    private java.util.List<Long> parentRegionIds;
 
     /*** 路径Like in getRegionPageList */
     @ApiModelProperty("路径Like")
-    private transient String pathLike;
+    @JSONField(serialize = false)
+    private String pathLike;
 
     /*** 层级Min in getRegionPageList */
     @ApiModelProperty("层级Min")
-    private transient Integer levelMin;
+    @JSONField(serialize = false)
+    private Integer levelMin;
 
     /*** 层级Max in getRegionPageList */
     @ApiModelProperty("层级Max")
-    private transient Integer levelMax;
+    @JSONField(serialize = false)
+    private Integer levelMax;
 
     /*** regionTypes in getRegionPageList */
     @ApiModelProperty("regionTypes")
-    private transient java.util.List<com.mycompany.biz.enums.RegionType> regionTypes;
+    @JSONField(serialize = false)
+    private java.util.List<com.mycompany.biz.enums.RegionType> regionTypes;
 
     /*** 中文名称Like in getRegionPageList */
     @ApiModelProperty("中文名称Like")
-    private transient String nameLike;
+    @JSONField(serialize = false)
+    private String nameLike;
 
     /*** 英文名称Like in getRegionPageList */
     @ApiModelProperty("英文名称Like")
-    private transient String nameEnLike;
+    @JSONField(serialize = false)
+    private String nameEnLike;
 
     /*** 中文拼音Like in getRegionPageList */
     @ApiModelProperty("中文拼音Like")
-    private transient String namePinyinLike;
+    @JSONField(serialize = false)
+    private String namePinyinLike;
 
     /*** 代码Like in getRegionPageList */
     @ApiModelProperty("代码Like")
-    private transient String codeLike;
+    @JSONField(serialize = false)
+    private String codeLike;
 
     /*** 创建时间Min in getRegionPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMin;
 
     /*** 创建时间Max in getRegionPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMax;
 
     /*** 更新时间Min in getRegionPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMin;
 
     /*** 更新时间Max in getRegionPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMax;
 
     @Override
     public String getTitle() {

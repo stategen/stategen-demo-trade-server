@@ -45,6 +45,7 @@ import lombok.Setter;
 public class User implements java.io.Serializable {
 
     @ApiModelProperty("用户可访问的节点")
+    @JSONField(serialize = false)
     private List<Long> visitsIds;
 
     private Province province;
@@ -53,7 +54,8 @@ public class User implements java.io.Serializable {
 
     //注意，cascaderPostAddresss 不是 cascaderPostAddress
     private List<Region> cascaderPostAddresss;
-    
+
+    private List<Hoppy> hoppys;
 
     //用id存储到表中
     @ReferConfig
@@ -72,6 +74,7 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("用户ID")
     @Id
     @Max(64)
+    @Editor(EditorType.Hidden.class)
     private String userId;
 
     /***用户名   db_column: username VARCHAR */
@@ -175,6 +178,12 @@ public class User implements java.io.Serializable {
     @Max(64)
     private Long postAddressId;
 
+    /***remark   db_column: remark LONGVARCHAR */
+    @ApiModelProperty("remark")
+    @Max(65535)
+    @Editor(EditorType.Textarea.class)
+    private String remark;
+
     /***创建时间   db_column: create_time TIMESTAMP */
     @ApiModelProperty(value = "创建时间", hidden = true)
     @Temporal(TemporalType.TIMESTAMP)
@@ -217,6 +226,7 @@ public class User implements java.io.Serializable {
         sb.append("gradeMin=").append(gradeMin).append('\n');
         sb.append("gradeMax=").append(gradeMax).append('\n');
         sb.append("postAddressIds=").append(postAddressIds).append('\n');
+        sb.append("remarkLike=").append(remarkLike).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin=").append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
@@ -240,6 +250,7 @@ public class User implements java.io.Serializable {
         sb.append("grade=").append(grade).append('\n');
         sb.append("sex=").append(sex).append('\n');
         sb.append("postAddressId=").append(postAddressId).append('\n');
+        sb.append("remark=").append(remark).append('\n');
         sb.append("createTime=").append(createTime != null ? df.format(createTime) : null).append('\n');
         sb.append("updateTime=").append(updateTime != null ? df.format(updateTime) : null).append('\n');
         sb.append("deleteFlag=").append(deleteFlag);
@@ -249,139 +260,169 @@ public class User implements java.io.Serializable {
 
     /*** 用户IDs in getUserPageList */
     @ApiModelProperty("用户IDs")
-    private transient java.util.List<String> userIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> userIds;
 
     /*** 用户名Like in getUserPageList */
     @ApiModelProperty("用户名Like")
-    private transient String usernameLike;
+    @JSONField(serialize = false)
+    private String usernameLike;
 
     /*** 密码，测试，明文Like in getUserPageList */
     @ApiModelProperty("密码Like")
-    private transient String passwordLike;
+    @JSONField(serialize = false)
+    private String passwordLike;
 
     /*** 用户角色 ADMIN,DEFAULT,DEVELOPERs in getUserPageList */
     @ApiModelProperty("用户角色s")
-    private transient java.util.List<com.mycompany.biz.enums.RoleType> roleTypes;
+    @JSONField(serialize = false)
+    private java.util.List<com.mycompany.biz.enums.RoleType> roleTypes;
 
     /*** 用户名nameLike in getUserPageList */
     @ApiModelProperty("用户名nameLike")
-    private transient String nameLike;
+    @JSONField(serialize = false)
+    private String nameLike;
 
     /*** 别名Like in getUserPageList */
-    @ApiModelProperty("nickNameLike")
-    private transient String nickNameLike;
+    @ApiModelProperty("别名Like")
+    @JSONField(serialize = false)
+    private String nickNameLike;
 
     /*** 年龄Min in getUserPageList */
-    @ApiModelProperty("ageMin")
-    private transient Integer ageMin;
+    @ApiModelProperty("年龄Min")
+    @JSONField(serialize = false)
+    private Integer ageMin;
 
     /*** 年龄Max in getUserPageList */
-    @ApiModelProperty("ageMax")
-    private transient Integer ageMax;
+    @ApiModelProperty("年龄Max")
+    @JSONField(serialize = false)
+    private Integer ageMax;
 
     /*** 详细地址Like in getUserPageList */
-    @ApiModelProperty("addressLike")
-    private transient String addressLike;
+    @ApiModelProperty("详细地址Like")
+    @JSONField(serialize = false)
+    private String addressLike;
 
     /*** 头像 IDs in getUserPageList */
-    @ApiModelProperty("avatarImgIds")
-    private transient java.util.List<String> avatarImgIds;
+    @ApiModelProperty("头像s")
+    @JSONField(serialize = false)
+    private java.util.List<String> avatarImgIds;
 
     /*** 邮箱Like in getUserPageList */
     @ApiModelProperty("邮箱Like")
-    private transient String emailLike;
+    @JSONField(serialize = false)
+    private String emailLike;
 
     /*** 认证时间Min in getUserPageList */
     @ApiModelProperty("认证时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date valiDatetimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date valiDatetimeMin;
 
     /*** 认证时间Max in getUserPageList */
     @ApiModelProperty("认证时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date valiDatetimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date valiDatetimeMax;
 
     /*** 出生日期Min in getUserPageList */
     @ApiModelProperty("出生日期Min")
     @Temporal(TemporalType.DATE)
-    private transient java.util.Date birthdayDateMin;
+    @JSONField(serialize = false)
+    private java.util.Date birthdayDateMin;
 
     /*** 出生日期Max in getUserPageList */
     @ApiModelProperty("出生日期Max")
     @Temporal(TemporalType.DATE)
-    private transient java.util.Date birthdayDateMax;
+    @JSONField(serialize = false)
+    private java.util.Date birthdayDateMax;
 
     /*** 工作时间Min in getUserPageList */
     @ApiModelProperty("工作时间Min")
     @Temporal(TemporalType.TIME)
-    private transient java.util.Date workTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date workTimeMin;
 
     /*** 工作时间Max in getUserPageList */
     @ApiModelProperty("工作时间Max")
     @Temporal(TemporalType.TIME)
-    private transient java.util.Date workTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date workTimeMax;
 
     /*** 省份 IDs in getUserPageList */
     @ApiModelProperty("省份s")
+    @JSONField(serialize = false)
     @ReferConfig
-    private transient java.util.List<String> provinceIds;
+    private java.util.List<String> provinceIds;
 
     /*** 城市 IDs in getUserPageList */
     @ApiModelProperty("城市s")
+    @JSONField(serialize = false)
     @ReferConfig()
     @ChangeBy("provinceId")
-    private transient java.util.List<String> cityIds;
+    private java.util.List<String> cityIds;
 
     /*** 状态 enums in getUserPageList */
     @ApiModelProperty("状态s")
+    @JSONField(serialize = false)
     @Editor(EditorType.CheckboxGroup.class)
-    private transient java.util.List<com.mycompany.biz.enums.StatusEnum> statuss;
+    private java.util.List<com.mycompany.biz.enums.StatusEnum> statuss;
 
     /*** 级别Min in getUserPageList */
-    @ApiModelProperty("gradeMin")
-    private transient Long gradeMin;
+    @ApiModelProperty("级别Min")
+    @JSONField(serialize = false)
+    private Long gradeMin;
 
     /*** 级别Max in getUserPageList */
-    @ApiModelProperty("gradeMax")
-    private transient Long gradeMax;
+    @ApiModelProperty("级别Max")
+    @JSONField(serialize = false)
+    private Long gradeMax;
 
     /*** 邮寄地址 IDs in getUserPageList */
-    @ApiModelProperty("postAddressIds")
-    private transient java.util.List<Long> postAddressIds;
+    @ApiModelProperty("邮寄地址s")
+    @JSONField(serialize = false)
+    private java.util.List<Long> postAddressIds;
+
+    /*** remarkLike in getUserPageList */
+    @ApiModelProperty("remarkLike")
+    @JSONField(serialize = false)
+    private String remarkLike;
 
     /*** 创建时间Min in getUserPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMin;
 
     /*** 创建时间Max in getUserPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMax;
 
     /*** 更新时间Min in getUserPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMin;
 
     /*** 更新时间Max in getUserPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMax;
 
-    
     @Editor(value = EditorType.Cascader.class)
     @ReferConfig(optionClass = Region.class)
     @ApiModelProperty("邮寄地址")
-    public List<Long> getCascaderPostAddressIds(){
-        if (this.cascaderPostAddresss!=null){
-            List<Long> result =new ArrayList<Long>(cascaderPostAddresss.size());
+    public List<Long> getCascaderPostAddressIds() {
+        if (this.cascaderPostAddresss != null) {
+            List<Long> result = new ArrayList<Long>(cascaderPostAddresss.size());
             for (Region region : cascaderPostAddresss) {
                 result.add(region.getRegionId());
             }
             return result;
         }
         return null;
-    };
-
+    }
 }

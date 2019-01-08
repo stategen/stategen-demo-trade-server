@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.ColorType;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -88,33 +89,40 @@ public class UserColor implements java.io.Serializable {
 
     /*** ids in getUserColorPageList */
     @ApiModelProperty("ids")
-    private transient java.util.List<Integer> ids;
+    @JSONField(serialize = false)
+    private java.util.List<Integer> ids;
 
     /*** 用户IDs in getUserColorPageList */
     @ApiModelProperty("用户IDs")
-    private transient java.util.List<String> userIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> userIds;
 
     /*** colorTypes in getUserColorPageList */
     @ApiModelProperty("colorTypes")
-    private transient java.util.List<com.mycompany.biz.enums.ColorType> colorTypes;
+    @JSONField(serialize = false)
+    private java.util.List<com.mycompany.biz.enums.ColorType> colorTypes;
 
     /*** 创建时间Min in getUserColorPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMin;
 
     /*** 创建时间Max in getUserColorPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMax;
 
     /*** 更新时间Min in getUserColorPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMin;
 
     /*** 更新时间Max in getUserColorPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMax;
 }

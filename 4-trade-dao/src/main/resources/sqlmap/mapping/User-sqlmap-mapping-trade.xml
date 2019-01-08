@@ -25,6 +25,7 @@
         <result property="grade" column="grade" javaType="java.lang.Long" jdbcType="BIGINT"  />
         <result property="sex" column="sex" javaType="java.lang.Boolean" jdbcType="BIT"  />
         <result property="postAddressId" column="post_address_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="remark" column="remark" javaType="java.lang.String" jdbcType="LONGVARCHAR"  />
         <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
         <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
@@ -74,6 +75,7 @@
             <isNotNull prepend="," property="grade"> grade </isNotNull>
             <isNotNull prepend="," property="sex"> sex </isNotNull>
             <isNotNull prepend="," property="postAddressId"> post_address_id </isNotNull>
+            <isNotNull prepend="," property="remark"> remark </isNotNull>
             ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="userId"> #userId# </isNotNull> 
             <isNotNull prepend="," property="username"> #username# </isNotNull> 
@@ -93,7 +95,8 @@
             <isNotNull prepend="," property="status"> #status# </isNotNull> 
             <isNotNull prepend="," property="grade"> #grade# </isNotNull> 
             <isNotNull prepend="," property="sex"> #sex# </isNotNull> 
-            <isNotNull prepend="," property="postAddressId"> #postAddressId# </isNotNull>)
+            <isNotNull prepend="," property="postAddressId"> #postAddressId# </isNotNull> 
+            <isNotNull prepend="," property="remark"> #remark# </isNotNull>)
             <selectKey keyProperty="userId" resultClass="String" type="pre">
                 select if((#userId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#userId# ) as userId
             </selectKey>
@@ -190,6 +193,9 @@
                 <isNotNull prepend="," property="postAddressId">
                     post_address_id =  #postAddressId# 
                 </isNotNull>
+                <isNotNull prepend="," property="remark">
+                    remark =  #remark# 
+                </isNotNull>
             </dynamic>
             where
             delete_flag = 0
@@ -219,6 +225,7 @@
             a.grade,
             a.sex,
             a.post_address_id,
+            a.remark,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -254,6 +261,7 @@
             a.grade,
             a.sex,
             a.post_address_id,
+            a.remark,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -289,6 +297,7 @@
             a.grade,
             a.sex,
             a.post_address_id,
+            a.remark,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -324,6 +333,7 @@
             a.grade,
             a.sex,
             a.post_address_id,
+            a.remark,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -459,6 +469,12 @@
                     #postAddressIds[]#
                 </iterate>
             </isNotEmpty>
+          <isNotNull open="and" property="remark">
+            a.remark=#remark#
+          </isNotNull>
+            <isNotEmpty open="and" property="remarkLike">
+                a.remark like CONCAT('%',#remarkLike#,'%')
+            </isNotEmpty>
             <isNotNull open="and" property="createTimeMin">
                 a.create_time >=#createTimeMin#
             </isNotNull>
@@ -507,6 +523,8 @@
             <isNull property="gradeMax">
             <isNull property="postAddressId">
             <isEmpty property="postAddressIds">
+            <isNull property="remark">
+            <isEmpty property="remarkLike">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
@@ -515,6 +533,8 @@
             </isNull>
             </isNull>
             </isNull>
+            </isNull>
+            </isEmpty>
             </isNull>
             </isEmpty>
             </isNull>
@@ -690,6 +710,12 @@
                     #postAddressIds[]#
                 </iterate>
             </isNotEmpty>
+          <isNotNull open="and" property="remark">
+            a.remark=#remark#
+          </isNotNull>
+            <isNotEmpty open="and" property="remarkLike">
+                a.remark like CONCAT('%',#remarkLike#,'%')
+            </isNotEmpty>
             <isNotNull open="and" property="createTimeMin">
                 a.create_time >=#createTimeMin#
             </isNotNull>
@@ -738,6 +764,8 @@
             <isNull property="gradeMax">
             <isNull property="postAddressId">
             <isEmpty property="postAddressIds">
+            <isNull property="remark">
+            <isEmpty property="remarkLike">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
@@ -746,6 +774,8 @@
             </isNull>
             </isNull>
             </isNull>
+            </isNull>
+            </isEmpty>
             </isNull>
             </isEmpty>
             </isNull>
@@ -810,6 +840,7 @@
             a.grade,
             a.sex,
             a.post_address_id,
+            a.remark,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -855,6 +886,7 @@
             a.grade,
             a.sex,
             a.post_address_id,
+            a.remark,
             a.create_time,
             a.update_time,
             a.delete_flag
@@ -900,6 +932,7 @@
             a.grade,
             a.sex,
             a.post_address_id,
+            a.remark,
             a.create_time,
             a.update_time,
             a.delete_flag

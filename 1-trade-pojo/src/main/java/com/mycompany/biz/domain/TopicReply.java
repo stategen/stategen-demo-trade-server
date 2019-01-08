@@ -15,6 +15,8 @@ import javax.validation.constraints.Max;
 
 import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.lite.enums.EditorType;
+
+import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Getter;
@@ -63,13 +65,13 @@ public class TopicReply implements java.io.Serializable, IAuthored {
 
     /***content   db_column: content LONGVARCHAR */
     @ApiModelProperty("content")
-    @Max(255)
+    @Max(65535)
     @Editor(EditorType.Textarea.class)
     private String content;
 
     /***createAt   db_column: create_at VARCHAR */
     @ApiModelProperty("createAt")
-    @Max(255)
+    @Max(64)
     private String createAt;
 
     /***parentReplyId   db_column: parent_reply_id VARCHAR */
@@ -121,47 +123,57 @@ public class TopicReply implements java.io.Serializable, IAuthored {
 
     /*** replyIds in getTopicReplyPageList */
     @ApiModelProperty("replyIds")
-    private transient java.util.List<String> replyIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> replyIds;
 
     /*** topicIds in getTopicReplyPageList */
     @ApiModelProperty("topicIds")
-    private transient java.util.List<String> topicIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> topicIds;
 
     /*** authorIds in getTopicReplyPageList */
     @ApiModelProperty("authorIds")
-    private transient java.util.List<String> authorIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> authorIds;
 
     /*** contentLike in getTopicReplyPageList */
     @ApiModelProperty("contentLike")
-    private transient String contentLike;
+    @JSONField(serialize = false)
+    private String contentLike;
 
     /*** createAtLike in getTopicReplyPageList */
     @ApiModelProperty("createAtLike")
-    private transient String createAtLike;
+    @JSONField(serialize = false)
+    private String createAtLike;
 
     /*** parentReplyIds in getTopicReplyPageList */
     @ApiModelProperty("parentReplyIds")
-    private transient java.util.List<String> parentReplyIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> parentReplyIds;
 
     /*** 创建时间Min in getTopicReplyPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMin;
 
     /*** 创建时间Max in getTopicReplyPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMax;
 
     /*** 更新时间Min in getTopicReplyPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMin;
 
     /*** 更新时间Max in getTopicReplyPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMax;
 
     public String getId() {
         return replyId;

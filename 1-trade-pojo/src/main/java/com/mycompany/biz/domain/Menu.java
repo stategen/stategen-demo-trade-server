@@ -13,14 +13,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 
-import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.lite.IMenu;
 import org.stategen.framework.lite.TreeNode;
-import org.stategen.framework.lite.enums.EditorType;
 import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.lite.enums.VisitCheckType;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -85,7 +85,6 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
     /***icon   db_column: icon VARCHAR */
     @ApiModelProperty("icon")
     @Max(64)
-    @Editor(EditorType.Image.class)
     private String icon;
 
     /***name   db_column: name VARCHAR */
@@ -163,71 +162,87 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
 
     /*** menuIds in getMenuPageList */
     @ApiModelProperty("menuIds")
-    private transient java.util.List<Long> menuIds;
+    @JSONField(serialize = false)
+    private java.util.List<Long> menuIds;
 
     /*** morderMin in getMenuPageList */
     @ApiModelProperty("morderMin")
-    private transient Integer morderMin;
+    @JSONField(serialize = false)
+    private Integer morderMin;
 
     /*** morderMax in getMenuPageList */
     @ApiModelProperty("morderMax")
-    private transient Integer morderMax;
+    @JSONField(serialize = false)
+    private Integer morderMax;
 
     /*** menuId与bpid组成树图s in getMenuPageList */
     @ApiModelProperty("menuId与bpid组成树图s")
-    private transient java.util.List<Long> bpids;
+    @JSONField(serialize = false)
+    private java.util.List<Long> bpids;
 
     /*** 大部分情况下与bpid相同，当为动态目录时，mpid=-1s in getMenuPageList */
     @ApiModelProperty("大部分情况下与bpid相同s")
-    private transient java.util.List<Long> mpids;
+    @JSONField(serialize = false)
+    private java.util.List<Long> mpids;
 
     /*** 对应的项目idLike in getMenuPageList */
     @ApiModelProperty("对应的项目idLike")
-    private transient String projectNameLike;
+    @JSONField(serialize = false)
+    private String projectNameLike;
 
     /*** 对应后台系统controlle名称Like in getMenuPageList */
     @ApiModelProperty("对应后台系统controlle名称Like")
-    private transient String controllerNameLike;
+    @JSONField(serialize = false)
+    private String controllerNameLike;
 
     /*** 对应后台系统method名称Like in getMenuPageList */
     @ApiModelProperty("对应后台系统method名称Like")
-    private transient String methodNameLike;
+    @JSONField(serialize = false)
+    private String methodNameLike;
 
     /*** 对应的项目idnameLike in getMenuPageList */
     @ApiModelProperty("对应的项目idnameLike")
-    private transient String nameLike;
+    @JSONField(serialize = false)
+    private String nameLike;
 
     /*** routeLike in getMenuPageList */
     @ApiModelProperty("routeLike")
-    private transient String routeLike;
+    @JSONField(serialize = false)
+    private String routeLike;
 
     /*** menuTypes in getMenuPageList */
     @ApiModelProperty("menuTypes")
-    private transient java.util.List<org.stategen.framework.lite.enums.MenuType> menuTypes;
+    @JSONField(serialize = false)
+    private java.util.List<org.stategen.framework.lite.enums.MenuType> menuTypes;
 
     /*** checkTypes in getMenuPageList */
     @ApiModelProperty("checkTypes")
-    private transient java.util.List<org.stategen.framework.lite.enums.VisitCheckType> checkTypes;
+    @JSONField(serialize = false)
+    private java.util.List<org.stategen.framework.lite.enums.VisitCheckType> checkTypes;
 
     /*** 数据创建时间Min in getMenuPageList */
     @ApiModelProperty("数据创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMin;
 
     /*** 数据创建时间Max in getMenuPageList */
     @ApiModelProperty("数据创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMax;
 
     /*** 数据更新时间Min in getMenuPageList */
     @ApiModelProperty("数据更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMin;
 
     /*** 数据更新时间Max in getMenuPageList */
     @ApiModelProperty("数据更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMax;
 
     /**
      * Getter method for property <tt>id id</tt>.

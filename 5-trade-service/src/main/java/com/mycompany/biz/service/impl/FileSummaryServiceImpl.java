@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -38,10 +37,10 @@ public class FileSummaryServiceImpl implements FileSummaryService {
 
     @Resource(name = "fileSummaryDao")
     FileSummaryDao fileSummaryDao;
-    
+
     @Value("${project.name}")
     private String projectName;
-    
+
     @Override
     public String getProjectName() {
         return projectName;

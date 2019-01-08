@@ -17,9 +17,10 @@ import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.annotation.ReferConfig;
 import org.stategen.framework.lite.enums.EditorType;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.TopicType;
-
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -195,125 +196,152 @@ public class Topic implements java.io.Serializable, IAuthored {
 
     /*** topicIds in getTopicPageList */
     @ApiModelProperty("topicIds")
-    private transient java.util.List<String> topicIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> topicIds;
 
     /*** authorIds in getTopicPageList */
     @ApiModelProperty("authorIds")
-    private transient java.util.List<String> authorIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> authorIds;
 
     /*** topicTypes in getTopicPageList */
     @ApiModelProperty("topicTypes")
-    private transient java.util.List<com.mycompany.biz.enums.TopicType> topicTypes;
+    @JSONField(serialize = false)
+    private java.util.List<com.mycompany.biz.enums.TopicType> topicTypes;
 
     /*** contentLike in getTopicPageList */
     @ApiModelProperty("contentLike")
-    private transient String contentLike;
+    @JSONField(serialize = false)
+    private String contentLike;
 
     /*** titleLike in getTopicPageList */
     @ApiModelProperty("titleLike")
-    private transient String titleLike;
+    @JSONField(serialize = false)
+    private String titleLike;
 
     /*** lastReplyAtMin in getTopicPageList */
     @ApiModelProperty("lastReplyAtMin")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date lastReplyAtMin;
+    @JSONField(serialize = false)
+    private java.util.Date lastReplyAtMin;
 
     /*** lastReplyAtMax in getTopicPageList */
     @ApiModelProperty("lastReplyAtMax")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date lastReplyAtMax;
+    @JSONField(serialize = false)
+    private java.util.Date lastReplyAtMax;
 
     /*** goodMin in getTopicPageList */
     @ApiModelProperty("goodMin")
-    private transient Long goodMin;
+    @JSONField(serialize = false)
+    private Long goodMin;
 
     /*** goodMax in getTopicPageList */
     @ApiModelProperty("goodMax")
-    private transient Long goodMax;
+    @JSONField(serialize = false)
+    private Long goodMax;
 
     /*** topMin in getTopicPageList */
     @ApiModelProperty("topMin")
-    private transient Long topMin;
+    @JSONField(serialize = false)
+    private Long topMin;
 
     /*** topMax in getTopicPageList */
     @ApiModelProperty("topMax")
-    private transient Long topMax;
+    @JSONField(serialize = false)
+    private Long topMax;
 
     /*** visitCountMin in getTopicPageList */
     @ApiModelProperty("visitCountMin")
-    private transient Long visitCountMin;
+    @JSONField(serialize = false)
+    private Long visitCountMin;
 
     /*** visitCountMax in getTopicPageList */
     @ApiModelProperty("visitCountMax")
-    private transient Long visitCountMax;
+    @JSONField(serialize = false)
+    private Long visitCountMax;
 
     /*** testTimestampMin in getTopicPageList */
     @ApiModelProperty("testTimestampMin")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date testTimestampMin;
+    @JSONField(serialize = false)
+    private java.util.Date testTimestampMin;
 
     /*** testTimestampMax in getTopicPageList */
     @ApiModelProperty("testTimestampMax")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date testTimestampMax;
+    @JSONField(serialize = false)
+    private java.util.Date testTimestampMax;
 
     /*** testDatetimeMin in getTopicPageList */
     @ApiModelProperty("testDatetimeMin")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date testDatetimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date testDatetimeMin;
 
     /*** testDatetimeMax in getTopicPageList */
     @ApiModelProperty("testDatetimeMax")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date testDatetimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date testDatetimeMax;
 
     /*** 测式日期Min in getTopicPageList */
     @ApiModelProperty("测式日期Min")
     @Temporal(TemporalType.DATE)
-    private transient java.util.Date testDateMin;
+    @JSONField(serialize = false)
+    private java.util.Date testDateMin;
 
     /*** 测式日期Max in getTopicPageList */
     @ApiModelProperty("测式日期Max")
     @Temporal(TemporalType.DATE)
-    private transient java.util.Date testDateMax;
+    @JSONField(serialize = false)
+    private java.util.Date testDateMax;
 
     /*** 测试时间Min in getTopicPageList */
     @ApiModelProperty("测试时间Min")
     @Temporal(TemporalType.TIME)
-    private transient java.util.Date testTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date testTimeMin;
 
     /*** 测试时间Max in getTopicPageList */
     @ApiModelProperty("测试时间Max")
     @Temporal(TemporalType.TIME)
-    private transient java.util.Date testTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date testTimeMax;
 
     /*** provinceIds in getTopicPageList */
     @ApiModelProperty("provinceIds")
+    @JSONField(serialize = false)
     @ReferConfig()
-    private transient java.util.List<String> provinceIds;
+    private java.util.List<String> provinceIds;
 
     /*** cityIds in getTopicPageList */
     @ApiModelProperty("cityIds")
+    @JSONField(serialize = false)
     @ReferConfig()
-    private transient java.util.List<String> cityIds;
+    private java.util.List<String> cityIds;
 
     /*** 创建时间Min in getTopicPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMin;
 
     /*** 创建时间Max in getTopicPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMax;
 
     /*** 更新时间Min in getTopicPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMin;
 
     /*** 更新时间Max in getTopicPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMax;
 }

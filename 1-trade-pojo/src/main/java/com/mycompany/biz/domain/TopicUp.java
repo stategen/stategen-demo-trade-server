@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
+
+import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Getter;
@@ -48,7 +50,7 @@ public class TopicUp implements java.io.Serializable {
 
     /***authorId   db_column: author_id VARCHAR */
     @ApiModelProperty("authorId")
-    @Max(255)
+    @Max(64)
     private String authorId;
 
     /***创建时间   db_column: create_time TIMESTAMP */
@@ -89,33 +91,40 @@ public class TopicUp implements java.io.Serializable {
 
     /*** upIds in getTopicUpPageList */
     @ApiModelProperty("upIds")
-    private transient java.util.List<String> upIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> upIds;
 
     /*** objectIds in getTopicUpPageList */
     @ApiModelProperty("objectIds")
-    private transient java.util.List<String> objectIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> objectIds;
 
     /*** authorIds in getTopicUpPageList */
     @ApiModelProperty("authorIds")
-    private transient java.util.List<String> authorIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> authorIds;
 
     /*** 创建时间Min in getTopicUpPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMin;
 
     /*** 创建时间Max in getTopicUpPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMax;
 
     /*** 更新时间Min in getTopicUpPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMin;
 
     /*** 更新时间Max in getTopicUpPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMax;
 }

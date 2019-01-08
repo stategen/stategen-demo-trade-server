@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 
 import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.lite.enums.EditorType;
+
+import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Getter;
@@ -71,7 +73,7 @@ public class Role implements java.io.Serializable {
     private Integer deleteFlag;
 
     /***角色类型 enum   db_column: role_type VARCHAR */
-    @ApiModelProperty("roleType")
+    @ApiModelProperty("角色类型 enum")
     @Max(64)
     private String roleType;
 
@@ -101,37 +103,45 @@ public class Role implements java.io.Serializable {
 
     /*** 角色IDs in getRolePageList */
     @ApiModelProperty("角色IDs")
-    private transient java.util.List<String> roleIds;
+    @JSONField(serialize = false)
+    private java.util.List<String> roleIds;
 
     /*** 角色名称Like in getRolePageList */
     @ApiModelProperty("角色名称Like")
-    private transient String roleNameLike;
+    @JSONField(serialize = false)
+    private String roleNameLike;
 
     /*** 描述Like in getRolePageList */
     @ApiModelProperty("描述Like")
-    private transient String descriptionLike;
+    @JSONField(serialize = false)
+    private String descriptionLike;
 
     /*** 创建时间Min in getRolePageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMin;
 
     /*** 创建时间Max in getRolePageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date createTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMax;
 
     /*** 更新时间Min in getRolePageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMin;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMin;
 
     /*** 更新时间Max in getRolePageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
-    private transient java.util.Date updateTimeMax;
+    @JSONField(serialize = false)
+    private java.util.Date updateTimeMax;
 
     /*** 角色类型 enums in getRolePageList */
     @ApiModelProperty("角色类型s")
-    private transient java.util.List<String> roleTypes;
+    @JSONField(serialize = false)
+    private java.util.List<String> roleTypes;
 }
