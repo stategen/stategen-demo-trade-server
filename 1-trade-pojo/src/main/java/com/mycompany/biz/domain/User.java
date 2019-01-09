@@ -170,7 +170,8 @@ public class User implements java.io.Serializable {
 
     /***性别   db_column: sex BIT */
     @ApiModelProperty("性别")
-    @Editor(value = EditorType.Switch.class, props = "checkedChildren:'男', unCheckedChildren:'女'")
+    @Editor(value = EditorType.Switch.class,  trueTitle="男",falseTitle="女" /*或者 props = "checkedChildren:'男', unCheckedChildren:'女'"*/)
+    
     private Boolean sex;
 
     /***邮寄地址 ID   db_column: post_address_id BIGINT */
