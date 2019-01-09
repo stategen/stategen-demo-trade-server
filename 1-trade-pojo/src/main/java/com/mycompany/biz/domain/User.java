@@ -24,8 +24,8 @@ import org.stategen.framework.lite.enums.EditorType;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.RoleType;
 import com.mycompany.biz.enums.StatusEnum;
-
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -170,8 +170,7 @@ public class User implements java.io.Serializable {
 
     /***性别   db_column: sex BIT */
     @ApiModelProperty("性别")
-    @Editor(value = EditorType.Switch.class,  trueTitle="男",falseTitle="女" /*或者 props = "checkedChildren:'男', unCheckedChildren:'女'"*/)
-    
+    @Editor(value = EditorType.Switch.class, trueTitle = "男", falseTitle = "女")
     private Boolean sex;
 
     /***邮寄地址 ID   db_column: post_address_id BIGINT */
@@ -260,7 +259,7 @@ public class User implements java.io.Serializable {
     }
 
     /*** 用户IDs in getUserPageList */
-    @ApiModelProperty("用户IDs")
+    @ApiModelProperty("用户ID s")
     @JSONField(serialize = false)
     private java.util.List<String> userIds;
 
@@ -275,7 +274,7 @@ public class User implements java.io.Serializable {
     private String passwordLike;
 
     /*** 用户角色 ADMIN,DEFAULT,DEVELOPERs in getUserPageList */
-    @ApiModelProperty("用户角色s")
+    @ApiModelProperty("用户角色 s")
     @JSONField(serialize = false)
     private java.util.List<com.mycompany.biz.enums.RoleType> roleTypes;
 
@@ -305,7 +304,7 @@ public class User implements java.io.Serializable {
     private String addressLike;
 
     /*** 头像 IDs in getUserPageList */
-    @ApiModelProperty("头像s")
+    @ApiModelProperty("头像 s")
     @JSONField(serialize = false)
     private java.util.List<String> avatarImgIds;
 
@@ -351,20 +350,20 @@ public class User implements java.io.Serializable {
     private java.util.Date workTimeMax;
 
     /*** 省份 IDs in getUserPageList */
-    @ApiModelProperty("省份s")
+    @ApiModelProperty("省份 s")
     @JSONField(serialize = false)
     @ReferConfig
     private java.util.List<String> provinceIds;
 
     /*** 城市 IDs in getUserPageList */
-    @ApiModelProperty("城市s")
+    @ApiModelProperty("城市 s")
     @JSONField(serialize = false)
     @ReferConfig()
     @ChangeBy("provinceId")
     private java.util.List<String> cityIds;
 
     /*** 状态 enums in getUserPageList */
-    @ApiModelProperty("状态s")
+    @ApiModelProperty("状态 s")
     @JSONField(serialize = false)
     @Editor(EditorType.CheckboxGroup.class)
     private java.util.List<com.mycompany.biz.enums.StatusEnum> statuss;
@@ -380,7 +379,7 @@ public class User implements java.io.Serializable {
     private Long gradeMax;
 
     /*** 邮寄地址 IDs in getUserPageList */
-    @ApiModelProperty("邮寄地址s")
+    @ApiModelProperty("邮寄地址 s")
     @JSONField(serialize = false)
     private java.util.List<Long> postAddressIds;
 
