@@ -1,7 +1,6 @@
 package com.mycompany.biz.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.GenForm;
-import org.stategen.framework.annotation.ReferConfig;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.AntdPageList;
@@ -43,23 +41,7 @@ public class Bbs_topicController extends TopicControllerBase {
                                                 @ApiParam() String titleLike,
                                                 @ApiParam() Long visitCountMin,
                                                 @ApiParam() Long visitCountMax,
-                                                @ApiParam() Date testTimestampMin,
-                                                @ApiParam() Date testTimestampMax,
-                                                @ApiParam() Date testDatetimeMin,
-                                                @ApiParam() Date testDatetimeMax,
-                                                @ApiParam() Date testDateMin,
-                                                @ApiParam() Date testDateMax,
-                                                @ApiParam() Date testTimeMin,
-                                                @ApiParam() Date testTimeMax,
-                                                
-                                                @ReferConfig()
-                                                @ApiParam() String provinceId,
-                                                
-                                                @ApiParam()@RequestParam(required =false,name="cityIds") ArrayList<String> cityIds,
-                                                
-                                                @ApiParam()@RequestParam(required =false,name="provinceIds") ArrayList<String> provinceIds
-                                                
-                                                ,@ApiParam(hidden = true) Topic topic
+                                                @ApiParam(hidden = true) Topic topic
                                                 ,Pagination pagination
 
 
@@ -67,9 +49,6 @@ public class Bbs_topicController extends TopicControllerBase {
         topic.setCreateTimeMax(DatetimeUtil.current());
 
         PageList<Topic> topicPageList = this.topicService.getTopicPageList(topic, pagination.getPageSize(), pagination.getPage());
-        
-        setTopicModels(topicPageList.getItems());
-        
         return new AntdPageList<Topic>(topicPageList);
     }
 
@@ -97,16 +76,9 @@ public class Bbs_topicController extends TopicControllerBase {
                         @ApiParam() Long good,
                         @ApiParam() Long top,
                         @ApiParam() Long visitCount,
-                        @ApiParam() Date testTimestamp,
-                        @ApiParam() Date testDatetime,
-                        @ApiParam() Date testDate,
-                        @ApiParam() Date testTime,
-                        @ApiParam() String provinceId,
-                        @ApiParam() String cityId
-                        ,@ApiParam(hidden = true) Topic topic
+                        @ApiParam(hidden = true) Topic topic
 ) {
         topic = topicService.insert(topic);
-        setTopicModels(Arrays.asList(topic));
         return topic;
     }
 
@@ -121,16 +93,9 @@ public class Bbs_topicController extends TopicControllerBase {
                         @ApiParam() Long good,
                         @ApiParam() TopicType top,
                         @ApiParam() Long visitCount,
-                        @ApiParam() Date testTimestamp,
-                        @ApiParam() Date testDatetime,
-                        @ApiParam() Date testDate,
-                        @ApiParam() Date testTime,
-                        @ApiParam() String provinceId,
-                        @ApiParam() String cityId,
                         @ApiParam() String topicId
                         ,@ApiParam(hidden = true) Topic topic) {
         topic=topicService.update(topic);
-        setTopicModels(Arrays.asList(topic));
         return topic;
     }
 

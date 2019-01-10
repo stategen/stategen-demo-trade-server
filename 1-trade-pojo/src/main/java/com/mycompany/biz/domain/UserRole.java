@@ -94,22 +94,22 @@ public class UserRole implements java.io.Serializable {
     }
 
     /*** ids in getUserRolePageList */
-    @ApiModelProperty("ids")
+    @ApiModelProperty("id s")
     @JSONField(serialize = false)
     private java.util.List<Long> ids;
 
     /*** userIds in getUserRolePageList */
-    @ApiModelProperty("userIds")
+    @ApiModelProperty("userId s")
     @JSONField(serialize = false)
     private java.util.List<String> userIds;
 
     /*** roleIds in getUserRolePageList */
-    @ApiModelProperty("roleIds")
+    @ApiModelProperty("roleId s")
     @JSONField(serialize = false)
     private java.util.List<String> roleIds;
 
     /*** roleTypes in getUserRolePageList */
-    @ApiModelProperty("roleTypes")
+    @ApiModelProperty("roleType s")
     @JSONField(serialize = false)
     private java.util.List<String> roleTypes;
 

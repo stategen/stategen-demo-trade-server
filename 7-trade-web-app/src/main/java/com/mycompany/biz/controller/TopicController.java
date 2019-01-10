@@ -1,8 +1,6 @@
 package com.mycompany.biz.controller;
 
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -39,8 +37,6 @@ public class TopicController extends TopicControllerBase {
         topic.setCreateTimeMax(DatetimeUtil.current());
         
         PageList<Topic> topicPageList = this.topicService.getTopicPageList(topic, pagination.getPageSize(), pagination.getPage());
-        List<Topic> topics = topicPageList.getItems();
-        setTopicModels(topics);
         return new AntdPageList<Topic>(topicPageList);
     }
 
@@ -64,7 +60,6 @@ public class TopicController extends TopicControllerBase {
                         @ApiParam() String topicId,
                         @ApiParam(hidden = true) Topic topic) {
         topic = this.topicService.update(topic);
-        setTopicModels(Arrays.asList(topic));
         return topic;
     }
 

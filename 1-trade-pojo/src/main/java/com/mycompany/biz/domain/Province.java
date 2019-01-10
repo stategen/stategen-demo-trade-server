@@ -89,7 +89,7 @@ public class Province implements java.io.Serializable, IOption {
     }
 
     /*** provinceIds in getProvincePageList */
-    @ApiModelProperty("provinceIds")
+    @ApiModelProperty("provinceId s")
     @JSONField(serialize = false)
     private java.util.List<String> provinceIds;
 

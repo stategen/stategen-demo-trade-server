@@ -90,17 +90,17 @@ public class TopicUp implements java.io.Serializable {
     }
 
     /*** upIds in getTopicUpPageList */
-    @ApiModelProperty("upIds")
+    @ApiModelProperty("upId s")
     @JSONField(serialize = false)
     private java.util.List<String> upIds;
 
     /*** objectIds in getTopicUpPageList */
-    @ApiModelProperty("objectIds")
+    @ApiModelProperty("objectId s")
     @JSONField(serialize = false)
     private java.util.List<String> objectIds;
 
     /*** authorIds in getTopicUpPageList */
-    @ApiModelProperty("authorIds")
+    @ApiModelProperty("authorId s")
     @JSONField(serialize = false)
     private java.util.List<String> authorIds;
 

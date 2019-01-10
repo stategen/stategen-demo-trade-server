@@ -86,17 +86,17 @@ public class RoleMenu implements java.io.Serializable {
     }
 
     /*** ids in getRoleMenuPageList */
-    @ApiModelProperty("ids")
+    @ApiModelProperty("id s")
     @JSONField(serialize = false)
     private java.util.List<Long> ids;
 
     /*** roleIds in getRoleMenuPageList */
-    @ApiModelProperty("roleIds")
+    @ApiModelProperty("roleId s")
     @JSONField(serialize = false)
     private java.util.List<String> roleIds;
 
     /*** menuIds in getRoleMenuPageList */
-    @ApiModelProperty("menuIds")
+    @ApiModelProperty("menuId s")
     @JSONField(serialize = false)
     private java.util.List<Long> menuIds;
 

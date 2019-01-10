@@ -134,12 +134,12 @@ public class Region implements java.io.Serializable, IOption {
     }
 
     /*** 主键s in getRegionPageList */
-    @ApiModelProperty("主键s")
+    @ApiModelProperty("主键 s")
     @JSONField(serialize = false)
     private java.util.List<Long> regionIds;
 
     /*** 父IDs in getRegionPageList */
-    @ApiModelProperty("父IDs")
+    @ApiModelProperty("父ID s")
     @JSONField(serialize = false)
     private java.util.List<Long> parentRegionIds;
 
@@ -159,7 +159,7 @@ public class Region implements java.io.Serializable, IOption {
     private Integer levelMax;
 
     /*** regionTypes in getRegionPageList */
-    @ApiModelProperty("regionTypes")
+    @ApiModelProperty("regionType s")
     @JSONField(serialize = false)
     private java.util.List<com.mycompany.biz.enums.RegionType> regionTypes;
 

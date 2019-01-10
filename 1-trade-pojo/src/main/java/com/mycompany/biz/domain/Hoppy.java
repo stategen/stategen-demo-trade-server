@@ -81,7 +81,7 @@ public class Hoppy implements java.io.Serializable, IOption {
     }
 
     /*** hoppyIds in getHoppyPageList */
-    @ApiModelProperty("hoppyIds")
+    @ApiModelProperty("hoppyId s")
     @JSONField(serialize = false)
     private java.util.List<Long> hoppyIds;
 

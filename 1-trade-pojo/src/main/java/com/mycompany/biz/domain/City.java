@@ -110,7 +110,7 @@ public class City implements java.io.Serializable, IOption {
     }
 
     /*** cityIds in getCityPageList */
-    @ApiModelProperty("cityIds")
+    @ApiModelProperty("cityId s")
     @JSONField(serialize = false)
     private java.util.List<String> cityIds;
 
@@ -125,7 +125,7 @@ public class City implements java.io.Serializable, IOption {
     private String pycodeLike;
 
     /*** provinceIds in getCityPageList */
-    @ApiModelProperty("provinceIds")
+    @ApiModelProperty("provinceId s")
     @JSONField(serialize = false)
     private java.util.List<String> provinceIds;
 

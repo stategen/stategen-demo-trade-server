@@ -11,12 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
-
 import org.stategen.framework.annotation.OptionConvertor;
 
 import com.alibaba.fastjson.annotation.JSONField;
-
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,7 +32,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@OptionConvertor(value="fileId")
+@OptionConvertor(value = "fileId")
 public class FileSummary implements java.io.Serializable {
 
     private static final long serialVersionUID = -5216457518046898601L;
@@ -111,7 +110,7 @@ public class FileSummary implements java.io.Serializable {
     }
 
     /*** fileIds in getFileSummaryPageList */
-    @ApiModelProperty("fileIds")
+    @ApiModelProperty("fileId s")
     @JSONField(serialize = false)
     private java.util.List<String> fileIds;
 
@@ -131,12 +130,12 @@ public class FileSummary implements java.io.Serializable {
     private String nameLike;
 
     /*** types in getFileSummaryPageList */
-    @ApiModelProperty("types")
+    @ApiModelProperty("type s")
     @JSONField(serialize = false)
     private java.util.List<String> types;
 
     /*** userIds in getFileSummaryPageList */
-    @ApiModelProperty("userIds")
+    @ApiModelProperty("userId s")
     @JSONField(serialize = false)
     private java.util.List<String> userIds;
 

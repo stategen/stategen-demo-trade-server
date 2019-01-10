@@ -161,7 +161,7 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
     }
 
     /*** menuIds in getMenuPageList */
-    @ApiModelProperty("menuIds")
+    @ApiModelProperty("menuId s")
     @JSONField(serialize = false)
     private java.util.List<Long> menuIds;
 
@@ -176,12 +176,12 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
     private Integer morderMax;
 
     /*** menuId与bpid组成树图s in getMenuPageList */
-    @ApiModelProperty("menuId与bpid组成树图s")
+    @ApiModelProperty("menuId与bpid组成树图 s")
     @JSONField(serialize = false)
     private java.util.List<Long> bpids;
 
     /*** 大部分情况下与bpid相同，当为动态目录时，mpid=-1s in getMenuPageList */
-    @ApiModelProperty("大部分情况下与bpid相同s")
+    @ApiModelProperty("大部分情况下与bpid相同 s")
     @JSONField(serialize = false)
     private java.util.List<Long> mpids;
 
@@ -211,12 +211,12 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
     private String routeLike;
 
     /*** menuTypes in getMenuPageList */
-    @ApiModelProperty("menuTypes")
+    @ApiModelProperty("menuType s")
     @JSONField(serialize = false)
     private java.util.List<org.stategen.framework.lite.enums.MenuType> menuTypes;
 
     /*** checkTypes in getMenuPageList */
-    @ApiModelProperty("checkTypes")
+    @ApiModelProperty("checkType s")
     @JSONField(serialize = false)
     private java.util.List<org.stategen.framework.lite.enums.VisitCheckType> checkTypes;
 

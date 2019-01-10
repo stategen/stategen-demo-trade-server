@@ -35,7 +35,7 @@ public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
             logger.error("生成前端代码时出错:", e);
         }
     }
-
+ 
     @Test
     public void gen() {
         main(null);

@@ -33,24 +33,18 @@ public interface TopicDao {
     &#64;ApiParam() Date lastReplyAt,
     &#64;ApiParam() Long good,
     &#64;ApiParam() Long top,
-    &#64;ApiParam() Long visitCount,
-    &#64;ApiParam() Date testTimestamp,
-    &#64;ApiParam() Date testDatetime,
-    &#64;ApiParam() Date testDate,
-    &#64;ApiParam() Date testTime,
-    &#64;ApiParam() String provinceId,
-    &#64;ApiParam() String cityId
+    &#64;ApiParam() Long visitCount
     ,&#64;ApiParam(hidden = true) Topic topic
     
     </pre>
 	 * 
-	 * sql:insert into topic ( create_time , update_time , delete_flag , topic_id , author_id , topic_type , content , title , last_reply_at , good , top , visit_count , test_timestamp , test_datetime , test_date , test_time , province_id , city_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+	 * sql:insert into topic ( create_time , update_time , delete_flag , topic_id , author_id , topic_type , content , title , last_reply_at , good , top , visit_count ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?)
 	 */
 	public Topic insert(Topic topic) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("topicId") String topicId
+    &#64;ApiParam("主题ID") String topicId
     
     </pre>
 	 * 
@@ -68,28 +62,22 @@ public interface TopicDao {
     &#64;ApiParam() Long good,
     &#64;ApiParam() TopicType top,
     &#64;ApiParam() Long visitCount,
-    &#64;ApiParam() Date testTimestamp,
-    &#64;ApiParam() Date testDatetime,
-    &#64;ApiParam() Date testDate,
-    &#64;ApiParam() Date testTime,
-    &#64;ApiParam() String provinceId,
-    &#64;ApiParam() String cityId,
     &#64;ApiParam() String topicId
     ,&#64;ApiParam(hidden = true) Topic topic
     
     </pre>
 	 * 
-	 * sql:UPDATE topic SET update_time= CURRENT_TIMESTAMP(6) , author_id = ? , topic_type = ? , content = ? , title = ? , last_reply_at = ? , good = ? , top = ? , visit_count = ? , test_timestamp = ? , test_datetime = ? , test_date = ? , test_time = ? , province_id = ? , city_id = ? where delete_flag = 0 and topic_id = ?
+	 * sql:UPDATE topic SET update_time= CURRENT_TIMESTAMP(6) , author_id = ? , topic_type = ? , content = ? , title = ? , last_reply_at = ? , good = ? , top = ? , visit_count = ? where delete_flag = 0 and topic_id = ?
 	 */
 	public Topic update(Topic topic) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("topicId") String topicId
+    &#64;ApiParam("主题ID") String topicId
     
     </pre>
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.test_timestamp, a.test_datetime, a.test_date, a.test_time, a.province_id, a.city_id, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id = ?
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id = ?
 	 */
 	public Topic getTopicByTopicId(String topicId) throws DataAccessException;
 	
@@ -113,18 +101,6 @@ public interface TopicDao {
     &#64;ApiParam() Long topMax,
     &#64;ApiParam() Long visitCountMin,
     &#64;ApiParam() Long visitCountMax,
-    &#64;ApiParam() Date testTimestampMin,
-    &#64;ApiParam() Date testTimestampMax,
-    &#64;ApiParam() Date testDatetimeMin,
-    &#64;ApiParam() Date testDatetimeMax,
-    &#64;ApiParam() Date testDateMin,
-    &#64;ApiParam() Date testDateMax,
-    &#64;ApiParam() Date testTimeMin,
-    &#64;ApiParam() Date testTimeMax,
-    &#64;ApiParam() String provinceId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="provinceIds") ArrayList&lt;String&gt; provinceIds,
-    &#64;ApiParam() String cityId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="cityIds") ArrayList&lt;String&gt; cityIds,
     &#64;ApiParam() Date createTimeMin,
     &#64;ApiParam() Date createTimeMax,
     &#64;ApiParam() Date updateTimeMin,
@@ -133,23 +109,23 @@ public interface TopicDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.test_timestamp, a.test_datetime, a.test_date, a.test_time, a.province_id, a.city_id, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.topic_type=? and a.topic_type in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.title=? and a.title like CONCAT('%',?,'%') and a.last_reply_at >=? and a.last_reply_at <? and a.good >=? and a.good <? and a.top >=? and a.top <? and a.visit_count >=? and a.visit_count <? and a.test_timestamp >=? and a.test_timestamp <? and a.test_datetime >=? and a.test_datetime <? and a.test_date >=? and a.test_date <? and a.test_time >=? and a.test_time <? and a.province_id=? and a.province_id in ( ? ) and a.city_id=? and a.city_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.topic_type=? and a.topic_type in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.title=? and a.title like CONCAT('%',?,'%') and a.last_reply_at >=? and a.last_reply_at <? and a.good >=? and a.good <? and a.top >=? and a.top <? and a.visit_count >=? and a.visit_count <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<Topic> getTopicPageList(Topic topic, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("topicId")&#64;RequestParam(required =false,name="topicIds") ArrayList&lt;String&gt; topicIds
+    &#64;ApiParam("主题ID")&#64;RequestParam(required =false,name="topicIds") ArrayList&lt;String&gt; topicIds
     
     </pre>
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.test_timestamp, a.test_datetime, a.test_date, a.test_time, a.province_id, a.city_id, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("topicId")&#64;RequestParam(required =false,name="topicIds") ArrayList&lt;String&gt; topicIds
+    &#64;ApiParam("主题ID")&#64;RequestParam(required =false,name="topicIds") ArrayList&lt;String&gt; topicIds
     
     </pre>
 	 * 

@@ -12,15 +12,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 
-import org.stategen.framework.annotation.ChangeBy;
 import org.stategen.framework.annotation.Editor;
-import org.stategen.framework.annotation.ReferConfig;
 import org.stategen.framework.lite.enums.EditorType;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.TopicType;
-import io.swagger.annotations.ApiModelProperty;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,88 +41,51 @@ public class Topic implements java.io.Serializable, IAuthored {
 
     private Long replyCount;
 
-    private City city;
-
-    private Province province;
-
     private static final long serialVersionUID = -5216457518046898601L;
 
-    /***topicId   db_column: topic_id VARCHAR */
-    @ApiModelProperty("topicId")
+    /***主题ID   db_column: topic_id VARCHAR */
+    @ApiModelProperty("主题ID")
     @Id
     @Max(64)
     @Editor(EditorType.Hidden.class)
     private String topicId;
 
-    /***authorId   db_column: author_id VARCHAR */
-    @ApiModelProperty("authorId")
+    /***作者ID   db_column: author_id VARCHAR */
+    @ApiModelProperty("作者ID")
     @Max(64)
     private String authorId;
 
-    /***topicType   db_column: topic_type VARCHAR */
-    @ApiModelProperty("topicType")
+    /***主题类型   db_column: topic_type VARCHAR */
+    @ApiModelProperty("主题类型")
     private TopicType topicType;
 
-    /***content   db_column: content LONGVARCHAR */
-    @ApiModelProperty("content")
+    /***内容   db_column: content LONGVARCHAR */
+    @ApiModelProperty("内容")
     @Max(65535)
     @Editor(EditorType.Textarea.class)
     private String content;
 
-    /***title   db_column: title VARCHAR */
-    @ApiModelProperty("title")
+    /***标题   db_column: title VARCHAR */
+    @ApiModelProperty("标题")
     @Max(64)
     private String title;
 
-    /***lastReplyAt   db_column: last_reply_at TIMESTAMP */
-    @ApiModelProperty("lastReplyAt")
+    /***最后回复   db_column: last_reply_at TIMESTAMP */
+    @ApiModelProperty("最后回复")
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date lastReplyAt;
 
-    /***good   db_column: good BIGINT */
-    @ApiModelProperty("good")
+    /***精华   db_column: good BIGINT */
+    @ApiModelProperty("精华")
     private Long good;
 
-    /***top   db_column: top BIGINT */
-    @ApiModelProperty("top")
+    /***置顶   db_column: top BIGINT */
+    @ApiModelProperty("置顶")
     private Long top;
 
-    /***visitCount   db_column: visit_count BIGINT */
-    @ApiModelProperty("visitCount")
+    /***浏览次数   db_column: visit_count BIGINT */
+    @ApiModelProperty("浏览次数")
     private Long visitCount;
-
-    /***testTimestamp   db_column: test_timestamp TIMESTAMP */
-    @ApiModelProperty("testTimestamp")
-    @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date testTimestamp;
-
-    /***testDatetime   db_column: test_datetime TIMESTAMP */
-    @ApiModelProperty("testDatetime")
-    @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date testDatetime;
-
-    /***测式日期   db_column: test_date DATE */
-    @ApiModelProperty("测式日期")
-    @Temporal(TemporalType.DATE)
-    private java.util.Date testDate;
-
-    /***测试时间   db_column: test_time TIME */
-    @ApiModelProperty("测试时间")
-    @Temporal(TemporalType.TIME)
-    private java.util.Date testTime;
-
-    /***provinceId   db_column: province_id VARCHAR */
-    @ApiModelProperty("provinceId")
-    @Max(64)
-    @ReferConfig()
-    private String provinceId;
-
-    /***cityId   db_column: city_id VARCHAR */
-    @ApiModelProperty("cityId")
-    @Max(64)
-    @ReferConfig()
-    @ChangeBy("provinceId")
-    private String cityId;
 
     /***创建时间   db_column: create_time TIMESTAMP */
     @ApiModelProperty(value = "创建时间", hidden = true)
@@ -158,16 +119,6 @@ public class Topic implements java.io.Serializable, IAuthored {
         sb.append("topMax=").append(topMax).append('\n');
         sb.append("visitCountMin=").append(visitCountMin).append('\n');
         sb.append("visitCountMax=").append(visitCountMax).append('\n');
-        sb.append("testTimestampMin=").append(testTimestampMin != null ? df.format(testTimestampMin) : null).append('\n');
-        sb.append("testTimestampMax=").append(testTimestampMax != null ? df.format(testTimestampMax) : null).append('\n');
-        sb.append("testDatetimeMin=").append(testDatetimeMin != null ? df.format(testDatetimeMin) : null).append('\n');
-        sb.append("testDatetimeMax=").append(testDatetimeMax != null ? df.format(testDatetimeMax) : null).append('\n');
-        sb.append("testDateMin=").append(testDateMin != null ? df.format(testDateMin) : null).append('\n');
-        sb.append("testDateMax=").append(testDateMax != null ? df.format(testDateMax) : null).append('\n');
-        sb.append("testTimeMin=").append(testTimeMin != null ? df.format(testTimeMin) : null).append('\n');
-        sb.append("testTimeMax=").append(testTimeMax != null ? df.format(testTimeMax) : null).append('\n');
-        sb.append("provinceIds=").append(provinceIds).append('\n');
-        sb.append("cityIds=").append(cityIds).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin=").append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
@@ -181,12 +132,6 @@ public class Topic implements java.io.Serializable, IAuthored {
         sb.append("good=").append(good).append('\n');
         sb.append("top=").append(top).append('\n');
         sb.append("visitCount=").append(visitCount).append('\n');
-        sb.append("testTimestamp=").append(testTimestamp != null ? df.format(testTimestamp) : null).append('\n');
-        sb.append("testDatetime=").append(testDatetime != null ? df.format(testDatetime) : null).append('\n');
-        sb.append("testDate=").append(testDate != null ? df.format(testDate) : null).append('\n');
-        sb.append("testTime=").append(testTime != null ? df.format(testTime) : null).append('\n');
-        sb.append("provinceId=").append(provinceId).append('\n');
-        sb.append("cityId=").append(cityId).append('\n');
         sb.append("createTime=").append(createTime != null ? df.format(createTime) : null).append('\n');
         sb.append("updateTime=").append(updateTime != null ? df.format(updateTime) : null).append('\n');
         sb.append("deleteFlag=").append(deleteFlag);
@@ -194,132 +139,72 @@ public class Topic implements java.io.Serializable, IAuthored {
         return sb.toString();
     }
 
-    /*** topicIds in getTopicPageList */
-    @ApiModelProperty("topicIds")
+    /*** 主题IDs in getTopicPageList */
+    @ApiModelProperty("主题ID s")
     @JSONField(serialize = false)
     private java.util.List<String> topicIds;
 
-    /*** authorIds in getTopicPageList */
-    @ApiModelProperty("authorIds")
+    /*** 作者IDs in getTopicPageList */
+    @ApiModelProperty("作者ID s")
     @JSONField(serialize = false)
     private java.util.List<String> authorIds;
 
-    /*** topicTypes in getTopicPageList */
-    @ApiModelProperty("topicTypes")
+    /*** 主题类型s in getTopicPageList */
+    @ApiModelProperty("主题类型 s")
     @JSONField(serialize = false)
     private java.util.List<com.mycompany.biz.enums.TopicType> topicTypes;
 
-    /*** contentLike in getTopicPageList */
-    @ApiModelProperty("contentLike")
+    /*** 内容Like in getTopicPageList */
+    @ApiModelProperty("内容Like")
     @JSONField(serialize = false)
     private String contentLike;
 
-    /*** titleLike in getTopicPageList */
-    @ApiModelProperty("titleLike")
+    /*** 标题Like in getTopicPageList */
+    @ApiModelProperty("标题Like")
     @JSONField(serialize = false)
     private String titleLike;
 
-    /*** lastReplyAtMin in getTopicPageList */
-    @ApiModelProperty("lastReplyAtMin")
+    /*** 最后回复Min in getTopicPageList */
+    @ApiModelProperty("最后回复Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date lastReplyAtMin;
 
-    /*** lastReplyAtMax in getTopicPageList */
-    @ApiModelProperty("lastReplyAtMax")
+    /*** 最后回复Max in getTopicPageList */
+    @ApiModelProperty("最后回复Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date lastReplyAtMax;
 
-    /*** goodMin in getTopicPageList */
-    @ApiModelProperty("goodMin")
+    /*** 精华Min in getTopicPageList */
+    @ApiModelProperty("精华Min")
     @JSONField(serialize = false)
     private Long goodMin;
 
-    /*** goodMax in getTopicPageList */
-    @ApiModelProperty("goodMax")
+    /*** 精华Max in getTopicPageList */
+    @ApiModelProperty("精华Max")
     @JSONField(serialize = false)
     private Long goodMax;
 
-    /*** topMin in getTopicPageList */
-    @ApiModelProperty("topMin")
+    /*** 置顶Min in getTopicPageList */
+    @ApiModelProperty("置顶Min")
     @JSONField(serialize = false)
     private Long topMin;
 
-    /*** topMax in getTopicPageList */
-    @ApiModelProperty("topMax")
+    /*** 置顶Max in getTopicPageList */
+    @ApiModelProperty("置顶Max")
     @JSONField(serialize = false)
     private Long topMax;
 
-    /*** visitCountMin in getTopicPageList */
-    @ApiModelProperty("visitCountMin")
+    /*** 浏览次数Min in getTopicPageList */
+    @ApiModelProperty("浏览次数Min")
     @JSONField(serialize = false)
     private Long visitCountMin;
 
-    /*** visitCountMax in getTopicPageList */
-    @ApiModelProperty("visitCountMax")
+    /*** 浏览次数Max in getTopicPageList */
+    @ApiModelProperty("浏览次数Max")
     @JSONField(serialize = false)
     private Long visitCountMax;
-
-    /*** testTimestampMin in getTopicPageList */
-    @ApiModelProperty("testTimestampMin")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JSONField(serialize = false)
-    private java.util.Date testTimestampMin;
-
-    /*** testTimestampMax in getTopicPageList */
-    @ApiModelProperty("testTimestampMax")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JSONField(serialize = false)
-    private java.util.Date testTimestampMax;
-
-    /*** testDatetimeMin in getTopicPageList */
-    @ApiModelProperty("testDatetimeMin")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JSONField(serialize = false)
-    private java.util.Date testDatetimeMin;
-
-    /*** testDatetimeMax in getTopicPageList */
-    @ApiModelProperty("testDatetimeMax")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JSONField(serialize = false)
-    private java.util.Date testDatetimeMax;
-
-    /*** 测式日期Min in getTopicPageList */
-    @ApiModelProperty("测式日期Min")
-    @Temporal(TemporalType.DATE)
-    @JSONField(serialize = false)
-    private java.util.Date testDateMin;
-
-    /*** 测式日期Max in getTopicPageList */
-    @ApiModelProperty("测式日期Max")
-    @Temporal(TemporalType.DATE)
-    @JSONField(serialize = false)
-    private java.util.Date testDateMax;
-
-    /*** 测试时间Min in getTopicPageList */
-    @ApiModelProperty("测试时间Min")
-    @Temporal(TemporalType.TIME)
-    @JSONField(serialize = false)
-    private java.util.Date testTimeMin;
-
-    /*** 测试时间Max in getTopicPageList */
-    @ApiModelProperty("测试时间Max")
-    @Temporal(TemporalType.TIME)
-    @JSONField(serialize = false)
-    private java.util.Date testTimeMax;
-
-    /*** provinceIds in getTopicPageList */
-    @ApiModelProperty("provinceIds")
-    @JSONField(serialize = false)
-    @ReferConfig()
-    private java.util.List<String> provinceIds;
-
-    /*** cityIds in getTopicPageList */
-    @ApiModelProperty("cityIds")
-    @JSONField(serialize = false)
-    @ReferConfig()
-    private java.util.List<String> cityIds;
 
     /*** 创建时间Min in getTopicPageList */
     @ApiModelProperty("创建时间Min")

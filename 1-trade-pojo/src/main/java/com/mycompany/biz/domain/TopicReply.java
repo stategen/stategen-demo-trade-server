@@ -122,17 +122,17 @@ public class TopicReply implements java.io.Serializable, IAuthored {
     }
 
     /*** replyIds in getTopicReplyPageList */
-    @ApiModelProperty("replyIds")
+    @ApiModelProperty("replyId s")
     @JSONField(serialize = false)
     private java.util.List<String> replyIds;
 
     /*** topicIds in getTopicReplyPageList */
-    @ApiModelProperty("topicIds")
+    @ApiModelProperty("topicId s")
     @JSONField(serialize = false)
     private java.util.List<String> topicIds;
 
     /*** authorIds in getTopicReplyPageList */
-    @ApiModelProperty("authorIds")
+    @ApiModelProperty("authorId s")
     @JSONField(serialize = false)
     private java.util.List<String> authorIds;
 
@@ -147,7 +147,7 @@ public class TopicReply implements java.io.Serializable, IAuthored {
     private String createAtLike;
 
     /*** parentReplyIds in getTopicReplyPageList */
-    @ApiModelProperty("parentReplyIds")
+    @ApiModelProperty("parentReplyId s")
     @JSONField(serialize = false)
     private java.util.List<String> parentReplyIds;
 

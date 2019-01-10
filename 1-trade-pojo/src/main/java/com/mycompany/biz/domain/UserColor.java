@@ -88,17 +88,17 @@ public class UserColor implements java.io.Serializable {
     }
 
     /*** ids in getUserColorPageList */
-    @ApiModelProperty("ids")
+    @ApiModelProperty("id s")
     @JSONField(serialize = false)
     private java.util.List<Integer> ids;
 
     /*** 用户IDs in getUserColorPageList */
-    @ApiModelProperty("用户IDs")
+    @ApiModelProperty("用户ID s")
     @JSONField(serialize = false)
     private java.util.List<String> userIds;
 
     /*** colorTypes in getUserColorPageList */
-    @ApiModelProperty("colorTypes")
+    @ApiModelProperty("colorType s")
     @JSONField(serialize = false)
     private java.util.List<com.mycompany.biz.enums.ColorType> colorTypes;
 

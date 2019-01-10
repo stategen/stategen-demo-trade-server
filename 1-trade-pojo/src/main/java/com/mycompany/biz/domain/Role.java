@@ -102,7 +102,7 @@ public class Role implements java.io.Serializable {
     }
 
     /*** 角色IDs in getRolePageList */
-    @ApiModelProperty("角色IDs")
+    @ApiModelProperty("角色ID s")
     @JSONField(serialize = false)
     private java.util.List<String> roleIds;
 
@@ -141,7 +141,7 @@ public class Role implements java.io.Serializable {
     private java.util.Date updateTimeMax;
 
     /*** 角色类型 enums in getRolePageList */
-    @ApiModelProperty("角色类型s")
+    @ApiModelProperty("角色类型 s")
     @JSONField(serialize = false)
     private java.util.List<String> roleTypes;
 }

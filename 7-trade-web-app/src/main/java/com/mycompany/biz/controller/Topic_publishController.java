@@ -1,7 +1,5 @@
 package com.mycompany.biz.controller;
 
-import java.util.Date;
-
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
@@ -23,9 +21,12 @@ public class Topic_publishController extends TopicControllerBase {
     @LoginCheck
     @GenForm
     @State(dataOpt = DataOpt.FULL_REPLACE)
-    public Topic saveTopic(@ApiParam() String provinceId, @ApiParam() String topicId, @ApiParam() TopicType topicType, @ApiParam() String content,
-                           @ApiParam() String title, @ApiParam() Date testTimestamp, @ApiParam() Date testDatetime, @ApiParam() Date testDate,
-                           @ApiParam() Date testTime, @ApiParam(hidden = true) Topic topic) {
+    public Topic saveTopic(
+                           @ApiParam() String topicId, 
+                           @ApiParam() TopicType topicType,
+                           @ApiParam() String content,
+                           @ApiParam() String title, 
+                           @ApiParam(hidden = true) Topic topic) {
         String userId = loginCookieGroup.getCookieValue(SysConsts.USER_ID);
         topic.setAuthorId(userId);
         topicService.saveTopic(topic);

@@ -88,17 +88,17 @@ public class UserHoppy implements java.io.Serializable {
     }
 
     /*** ids in getUserHoppyPageList */
-    @ApiModelProperty("ids")
+    @ApiModelProperty("id s")
     @JSONField(serialize = false)
     private java.util.List<Long> ids;
 
     /*** 用户ID fks in getUserHoppyPageList */
-    @ApiModelProperty("用户IDs")
+    @ApiModelProperty("用户ID s")
     @JSONField(serialize = false)
     private java.util.List<String> userIds;
 
     /*** hoppyIds in getUserHoppyPageList */
-    @ApiModelProperty("hoppyIds")
+    @ApiModelProperty("hoppyId s")
     @JSONField(serialize = false)
     private java.util.List<Long> hoppyIds;
 

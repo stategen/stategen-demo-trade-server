@@ -5,14 +5,12 @@
  */
 package com.mycompany.biz.controller;
 
-import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.stategen.framework.annotation.Wrap;
 import org.stategen.framework.web.cookie.CookieGroup;
 
-import com.mycompany.biz.domain.Topic;
 import com.mycompany.biz.service.CityService;
 import com.mycompany.biz.service.ProvinceService;
 import com.mycompany.biz.service.TopicService;
@@ -32,9 +30,4 @@ public abstract class TopicControllerBase {
 
     @Resource
     private CityService cityService;
-
-    protected void setTopicModels(List<Topic> topics) {
-        provinceService.assignBeanTo(topics, Topic::getProvinceId, Topic::setProvince);
-        cityService.assignBeanTo(topics, Topic::getCityId, Topic::setCity);
-    }
 }
