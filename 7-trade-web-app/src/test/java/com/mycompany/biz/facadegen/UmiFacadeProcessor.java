@@ -22,7 +22,7 @@ public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
 
     public UmiFacadeProcessor() {
         super();
-    }
+    }   
 
     public static void main(String[] args) {
         UmiFacadeProcessor umiFacadeProcessor = new UmiFacadeProcessor();
