@@ -133,6 +133,16 @@ public interface TopicDao {
 	 */
 	public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds) throws DataAccessException;
 	
+	/**
+    <pre>
+    &#64;ApiParam("topicId")&#64;RequestParam(required =false,name="topicIds") ArrayList&lt;String&gt; topicIds
+    
+    </pre>
+	 * 获取当前回复的数量
+	 * sql:SELECT b.topic_id, COUNT(b.reply_id) as replyCount FROM topic_reply b WHERE b.delete_flag = 0 and b.topic_id in ( ? ) and 1=0 GROUP BY b.topic_id
+	 */
+	public List<Topic> getReplyCounts(java.util.List<String> topicIds) throws DataAccessException;
+	
 
 }
 

@@ -6,12 +6,13 @@
 package com.mycompany.biz.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -20,6 +21,8 @@ import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.TopicDao;
 import com.mycompany.biz.domain.Topic;
+import com.mycompany.biz.domain.User;
+import com.mycompany.biz.service.FileSummaryService;
 import com.mycompany.biz.service.TopicService;
 import com.mycompany.biz.service.TopicUpService;
 import com.mycompany.biz.service.UserService;
@@ -45,6 +48,9 @@ public class TopicServiceImpl implements TopicService {
 
     @Resource
     TopicUpService topicUpService;
+
+    @Resource
+    private FileSummaryService fileSummaryService;
 
     /**
      * 
@@ -84,8 +90,19 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public Topic getTopicByTopicId(String topicId) {
         Topic topic = topicDao.getTopicByTopicId(topicId);
-        userService.assignBeanTo(Arrays.asList(topic), Topic::getAuthorId, Topic::setAuthor);
         return topic;
+    }
+
+    @Override
+    public void assignTopicExtraProperties(List<Topic> topics) {
+        userService.assignBeanTo(topics, Topic::getAuthorId, Topic::setAuthor);
+        List<User> authors = CollectionUtil.toList(topics, Topic::getAuthor);
+        fileSummaryService.assignBeanTo(authors, User::getAvatarImgId, User::setAvatarImg);
+        List<String> topicIds = CollectionUtil.toList(topics, Topic::getTopicId);
+        List<Topic> replyCounts = this.getReplyCounts(topicIds);
+        
+        Map<String, Topic> replyCountMap = CollectionUtil.toMap(replyCounts, Topic::getTopicId);
+        CollectionUtil.setFeildToFieldByMap(topics, replyCountMap, Topic::getTopicId, Topic::setReplyCount, Topic::getReplyCount);
     }
 
     /**
@@ -139,7 +156,6 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public PageList<Topic> getTopicPageList(Topic topic, int pageSize, int pageNum) {
         PageList<Topic> topicPageList = topicDao.getTopicPageList(topic, pageSize, pageNum);
-        userService.assignBeanTo(topicPageList.getItems(), Topic::getAuthorId, Topic::setAuthor);
         return topicPageList;
     }
 
@@ -152,5 +168,15 @@ public class TopicServiceImpl implements TopicService {
                 CollectionUtil.setModelByList(dests, topics, destGetMethod, destSetMethod, Topic::getTopicId);
             }
         }
+    }
+
+    /**
+     * 获取当前回复的数量
+     * @see com.mycompany.biz.dao.TopicDao#getReplyCounts
+     * @see com.mycompany.biz.service.TopicService#getReplyCounts
+     */
+    @Override
+    public List<Topic> getReplyCounts(java.util.List<String> topicIds) {
+        return topicDao.getReplyCounts(topicIds);
     }
 }

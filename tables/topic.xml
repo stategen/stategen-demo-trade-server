@@ -8,8 +8,8 @@
     <!-- <column name="currency_Unit" javaType="java.util.Currency"/> -->
     <!-- <column name="status" javaType="aa.bb.cc.StatusEnum"/> -->
     <!-- <column name="sex" javaType="aa.bb.cc.SexEnum"/> -->
-    
-    <column name="topic_type" javaType="com.mycompany.biz.enums.TopicType"/>
+
+    <column name="topic_type" javaType="com.mycompany.biz.enums.TopicType" />
 
     <sql id="getTopicPageListOrderBy">
         a.update_time desc, a.create_time desc
@@ -34,5 +34,26 @@
         </sql>
     </operation>
     -->
+    <operation name="getReplyCounts" remarks="获取当前回复的数量" multiplicity="many">
+        <sql>
+            SELECT
+            b.topic_id,
+            COUNT(b.reply_id) as replyCount
+            FROM
+            topic_reply b
+            WHERE
+            b.delete_flag = 0
+            <isNotEmpty property="topicIds" open="and">
+                b.topic_id in
+                <iterate property="topicIds" conjunction="," open="(" close=")">
+                    #topicIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isEmpty property="topicIds" open="and">
+                1=0
+            </isEmpty>
+            GROUP BY b.topic_id
+        </sql>
+    </operation>
 
 </table>

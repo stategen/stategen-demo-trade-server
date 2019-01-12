@@ -9,7 +9,6 @@
             <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
             <isNotNull prepend="," property="authorId"> author_id </isNotNull>
             <isNotNull prepend="," property="content"> content </isNotNull>
-            <isNotNull prepend="," property="createAt"> create_at </isNotNull>
             <isNotNull prepend="," property="parentReplyId"> parent_reply_id </isNotNull>
             ) VALUES (
             CURRENT_TIMESTAMP(6)
@@ -19,7 +18,6 @@
             <isNotNull prepend="," property="topicId"> ?  </isNotNull>
             <isNotNull prepend="," property="authorId"> ?  </isNotNull>
             <isNotNull prepend="," property="content"> ?  </isNotNull>
-            <isNotNull prepend="," property="createAt"> ?  </isNotNull>
             <isNotNull prepend="," property="parentReplyId"> ?  </isNotNull>
             )
             <selectKey keyProperty="replyId" resultClass="String" type="pre">
@@ -53,9 +51,6 @@
                 <isNotNull property="content" prepend=",">
                     content =  ? 
                 </isNotNull>
-                <isNotNull property="createAt" prepend=",">
-                    create_at =  ? 
-                </isNotNull>
                 <isNotNull property="parentReplyId" prepend=",">
                     parent_reply_id =  ? 
                 </isNotNull>
@@ -73,7 +68,6 @@
             a.topic_id,
             a.author_id,
             a.content,
-            a.create_at,
             a.parent_reply_id,
             a.create_time,
             a.update_time,
@@ -92,7 +86,6 @@
             a.topic_id,
             a.author_id,
             a.content,
-            a.create_at,
             a.parent_reply_id,
             a.create_time,
             a.update_time,
@@ -133,12 +126,6 @@
             <isNotEmpty property="contentLike" open="and">
                 a.content like CONCAT('%',#contentLike#,'%')
             </isNotEmpty>
-          <isNotNull property="createAt" open="and">
-            a.create_at=?
-          </isNotNull>
-            <isNotEmpty property="createAtLike" open="and">
-                a.create_at like CONCAT('%',#createAtLike#,'%')
-            </isNotEmpty>
             <isNotNull property="parentReplyId" open="and">
                a.parent_reply_id=?
             </isNotNull>
@@ -168,8 +155,6 @@
             <isEmpty property="authorIds">
             <isNull property="content">
             <isEmpty property="contentLike">
-            <isNull property="createAt">
-            <isEmpty property="createAtLike">
             <isNull property="parentReplyId">
             <isEmpty property="parentReplyIds">
             <isNull property="createTimeMin">
@@ -180,8 +165,6 @@
             </isNull>
             </isNull>
             </isNull>
-            </isNull>
-            </isEmpty>
             </isNull>
             </isEmpty>
             </isNull>
@@ -205,7 +188,6 @@
             a.topic_id,
             a.author_id,
             a.content,
-            a.create_at,
             a.parent_reply_id,
             a.create_time,
             a.update_time,

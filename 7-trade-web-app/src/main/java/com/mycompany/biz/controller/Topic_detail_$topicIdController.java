@@ -43,6 +43,7 @@ public class Topic_detail_$topicIdController extends TopicControllerBase {
     @State(init = true, dataOpt = DataOpt.FULL_REPLACE,genRefresh=true)
     public Topic getTopicDetail(@PathVariable("topicId") String topicId) {
         Topic topic = this.topicService.getTopicByTopicId(topicId);
+        topicService.assignTopicExtraProperties(Arrays.asList(topic));
         return topic;
     }
 
@@ -55,20 +56,25 @@ public class Topic_detail_$topicIdController extends TopicControllerBase {
         String userId = loginCookieGroup.getCookieValue(LoginCookieNames.userId);
         PageList<TopicReply> topicReplyPageList = topicReplyService.getTopicReplyPageList(topicReply, userId, pagination.getPageSize(),
             pagination.getPage());
+        topicReplyService.assignRepliesExtraProperties(userId, topicReplyPageList.getItems());
         return topicReplyPageList;
     }
 
     @ApiRequestMappingAutoWithMethodName
     @RequestMapping("reply/{replyId}")
     @LoginCheck
+    @State
     public TopicReply replyUp(@PathVariable("replyId") String replyId) {
         String userId = this.loginCookieGroup.getCookieValue(LoginCookieNames.userId);
-        return this.topicReplyService.replyUp(replyId, userId);
+        TopicReply replyUp = this.topicReplyService.replyUp(replyId, userId);
+        topicReplyService.assignRepliesExtraProperties(userId, Arrays.asList(replyUp)); 
+        return replyUp;
     }
 
     @ApiRequestMappingAutoWithMethodName
     @RequestMapping("/{topicId}/postReply")
     @LoginCheck
+    @State
     public TopicReply PostReply(@PathVariable("topicId") String topicId, TopicReply topicReply) {
         topicReply.setTopicId(topicId);
         String userId = loginCookieGroup.getCookieValue(LoginCookieNames.userId);

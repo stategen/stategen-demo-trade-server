@@ -136,5 +136,10 @@ public class AppController {
         }
         return regionOptions;
     }
+    
+    @ApiRequestMappingAutoWithMethodName(name = "获取用户")
+    public List<User> getUserOptions(@RequestParam(required = false, name = "userIds") ArrayList<String> userIds){
+        return null;
+    }
 
 }

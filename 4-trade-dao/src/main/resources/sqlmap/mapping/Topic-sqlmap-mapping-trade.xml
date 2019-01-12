@@ -458,6 +458,35 @@
 	</update>
 	
     
+    <resultMap id="getReplyCounts.GetReplyCountsResult.trade.RM" class="com.mycompany.biz.domain.Topic">
+        <result property="topicId" column="topic_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="replyCount" column="replyCount" javaType="java.lang.Long" jdbcType="BIGINT"  />
+    </resultMap>
+	
+	<select id="getReplyCounts.Topic.trade" resultMap="getReplyCounts.GetReplyCountsResult.trade.RM" >
+    	SELECT
+ /* getReplyCounts.Topic.trade */             b.topic_id,
+            COUNT(b.reply_id) as replyCount
+            FROM
+            topic_reply b
+            WHERE
+            b.delete_flag = 0
+            <isNotEmpty open="and" property="topicIds">
+                b.topic_id in
+                <iterate close=")" conjunction="," open="(" property="topicIds">
+                    #topicIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isEmpty open="and" property="topicIds">
+                1=0
+            </isEmpty>
+            GROUP BY b.topic_id
+	</select>	
+
+	    
+	
+	
+    
 
 </sqlMap>
 

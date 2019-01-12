@@ -6,13 +6,13 @@
 package com.mycompany.biz.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -22,6 +22,8 @@ import org.stategen.framework.util.StringUtil;
 import com.mycompany.biz.dao.TopicReplyDao;
 import com.mycompany.biz.domain.TopicReply;
 import com.mycompany.biz.domain.TopicUp;
+import com.mycompany.biz.domain.User;
+import com.mycompany.biz.service.FileSummaryService;
 import com.mycompany.biz.service.TopicReplyService;
 import com.mycompany.biz.service.TopicUpService;
 import com.mycompany.biz.service.UserService;
@@ -47,6 +49,9 @@ public class TopicReplyServiceImpl implements TopicReplyService {
 
     @Resource
     UserService userService;
+    
+    @Resource
+    FileSummaryService fileSummaryService;
 
     /**
      * 
@@ -91,10 +96,14 @@ public class TopicReplyServiceImpl implements TopicReplyService {
     @Override
     public void assignRepliesExtraProperties(String authorId, List<TopicReply> replies) {
         userService.assignBeanTo(replies, TopicReply::getAuthorId, TopicReply::setAuthor);
+        
+        List<User> authors = CollectionUtil.toList(replies, TopicReply::getAuthor);
+        fileSummaryService.assignBeanTo(authors, User::getAvatarImgId, User::setAvatarImg);
+        
         List<String> replyIds = CollectionUtil.toList(replies, TopicReply::getReplyId);
         List<TopicUp> topicUpCounts = this.topicUpService.getTopicUpsGroupCountByTopicIds(replyIds, null);
         Map<String, TopicUp> upCountMap = CollectionUtil.toMap(topicUpCounts, TopicUp::getObjectId);
-        CollectionUtil.setFeildToFieldByMap(replies, upCountMap, TopicReply::getReplyId, TopicUp::getUpCount, TopicReply::setUpCount);
+        CollectionUtil.setFeildToFieldByMap(replies, upCountMap, TopicReply::getReplyId, TopicReply::setUpCount,TopicUp::getUpCount);
         if (StringUtil.isNotEmpty(authorId)) {
             topicUpCounts = this.topicUpService.getTopicUpsGroupCountByTopicIds(replyIds, authorId);
             upCountMap = CollectionUtil.toMap(topicUpCounts, TopicUp::getObjectId);
@@ -116,9 +125,6 @@ public class TopicReplyServiceImpl implements TopicReplyService {
             this.topicUpService.insert(topicUp);
         }
         TopicReply topicReply = this.getTopicReplyByReplyId(replyId);
-        if (topicReply != null) {
-            this.assignRepliesExtraProperties(authorId, Arrays.asList(topicReply));
-        }
         return topicReply;
     }
 
@@ -173,8 +179,6 @@ public class TopicReplyServiceImpl implements TopicReplyService {
     @Override
     public PageList<TopicReply> getTopicReplyPageList(TopicReply topicReply, String authorId, int pageSize, int pageNum) {
         PageList<TopicReply> topicReplyList = topicReplyDao.getTopicReplyPageList(topicReply, pageSize, pageNum);
-        List<TopicReply> replies = topicReplyList.getItems();
-        assignRepliesExtraProperties(authorId, replies);
         return topicReplyList;
     }
 

@@ -14,11 +14,12 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 
 import org.stategen.framework.annotation.Editor;
+import org.stategen.framework.annotation.ReferConfig;
 import org.stategen.framework.lite.enums.EditorType;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import io.swagger.annotations.ApiModelProperty;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,7 +36,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class TopicReply implements java.io.Serializable, IAuthored {
+public class TopicReply implements java.io.Serializable {
 
     private User author;
 
@@ -61,6 +62,7 @@ public class TopicReply implements java.io.Serializable, IAuthored {
     /***authorId   db_column: author_id VARCHAR */
     @ApiModelProperty("authorId")
     @Max(64)
+    @ReferConfig
     private String authorId;
 
     /***content   db_column: content LONGVARCHAR */
@@ -68,11 +70,6 @@ public class TopicReply implements java.io.Serializable, IAuthored {
     @Max(65535)
     @Editor(EditorType.Textarea.class)
     private String content;
-
-    /***createAt   db_column: create_at VARCHAR */
-    @ApiModelProperty("createAt")
-    @Max(64)
-    private String createAt;
 
     /***parentReplyId   db_column: parent_reply_id VARCHAR */
     @ApiModelProperty("parentReplyId")
@@ -102,7 +99,6 @@ public class TopicReply implements java.io.Serializable, IAuthored {
         sb.append("topicIds=").append(topicIds).append('\n');
         sb.append("authorIds=").append(authorIds).append('\n');
         sb.append("contentLike=").append(contentLike).append('\n');
-        sb.append("createAtLike=").append(createAtLike).append('\n');
         sb.append("parentReplyIds=").append(parentReplyIds).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
@@ -112,7 +108,6 @@ public class TopicReply implements java.io.Serializable, IAuthored {
         sb.append("topicId=").append(topicId).append('\n');
         sb.append("authorId=").append(authorId).append('\n');
         sb.append("content=").append(content).append('\n');
-        sb.append("createAt=").append(createAt).append('\n');
         sb.append("parentReplyId=").append(parentReplyId).append('\n');
         sb.append("createTime=").append(createTime != null ? df.format(createTime) : null).append('\n');
         sb.append("updateTime=").append(updateTime != null ? df.format(updateTime) : null).append('\n');
@@ -140,11 +135,6 @@ public class TopicReply implements java.io.Serializable, IAuthored {
     @ApiModelProperty("contentLike")
     @JSONField(serialize = false)
     private String contentLike;
-
-    /*** createAtLike in getTopicReplyPageList */
-    @ApiModelProperty("createAtLike")
-    @JSONField(serialize = false)
-    private String createAtLike;
 
     /*** parentReplyIds in getTopicReplyPageList */
     @ApiModelProperty("parentReplyId s")

@@ -31,7 +31,7 @@ public class TopicReplyDaoImpl extends SqlMapClientDaoSupport implements TopicRe
 
     /**
 	 * 
-	 * sql:insert into topic_reply ( create_time , update_time , delete_flag , reply_id , topic_id , author_id , content , create_at , parent_reply_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?)
+	 * sql:insert into topic_reply ( create_time , update_time , delete_flag , reply_id , topic_id , author_id , content , parent_reply_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?)
 	 */
     public TopicReply insert(TopicReply topicReply) throws DataAccessException {
         if (topicReply == null) {
@@ -54,7 +54,7 @@ public class TopicReplyDaoImpl extends SqlMapClientDaoSupport implements TopicRe
 
     /**
 	 * 
-	 * sql:UPDATE topic_reply SET update_time= CURRENT_TIMESTAMP(6) , topic_id = ? , author_id = ? , content = ? , create_at = ? , parent_reply_id = ? where delete_flag = 0 and reply_id = ?
+	 * sql:UPDATE topic_reply SET update_time= CURRENT_TIMESTAMP(6) , topic_id = ? , author_id = ? , content = ? , parent_reply_id = ? where delete_flag = 0 and reply_id = ?
 	 */
     public TopicReply update(TopicReply topicReply) throws DataAccessException {
         if (topicReply == null) {
@@ -66,7 +66,7 @@ public class TopicReplyDaoImpl extends SqlMapClientDaoSupport implements TopicRe
 
     /**
 	 * 
-	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.reply_id = ?
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.reply_id = ?
 	 */
     public TopicReply getTopicReplyByReplyId(String replyId) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
@@ -76,7 +76,7 @@ public class TopicReplyDaoImpl extends SqlMapClientDaoSupport implements TopicRe
 
     /**
 	 * 
-	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.reply_id=? and a.reply_id in ( ? ) and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.create_at=? and a.create_at like CONCAT('%',?,'%') and a.parent_reply_id=? and a.parent_reply_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and a.reply_id=? and a.reply_id in ( ? ) and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.parent_reply_id=? and a.parent_reply_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
     public PageList<TopicReply> getTopicReplyPageList(TopicReply topicReply, int pageSize, int pageNum) throws DataAccessException {
@@ -85,7 +85,7 @@ public class TopicReplyDaoImpl extends SqlMapClientDaoSupport implements TopicRe
 
     /**
 	 * 
-	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.create_at, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and 1=0 and a.reply_id in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from topic_reply a where a.delete_flag = 0 and 1=0 and a.reply_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
     public List<TopicReply> getTopicReplysByReplyIds(java.util.List<String> replyIds) throws DataAccessException {

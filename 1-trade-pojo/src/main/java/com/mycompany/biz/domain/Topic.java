@@ -17,8 +17,8 @@ import org.stategen.framework.lite.enums.EditorType;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.TopicType;
-
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,7 +35,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Topic implements java.io.Serializable, IAuthored {
+public class Topic implements java.io.Serializable {
 
     private User author;
 

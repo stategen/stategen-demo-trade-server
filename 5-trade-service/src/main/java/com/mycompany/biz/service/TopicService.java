@@ -76,4 +76,12 @@ public interface TopicService extends TopicServiceFacade, AssignSerice<Topic, St
      * @see com.mycompany.biz.dao.TopicDao#getTopicPageList
      */
     public PageList<Topic> getTopicPageList(Topic topic, int pageSize, int pageNum);
+
+    void assignTopicExtraProperties(List<Topic> topics);
+
+    /**
+     * 获取当前回复的数量
+     * @see com.mycompany.biz.dao.TopicDao#getReplyCounts
+     */
+    public List<Topic> getReplyCounts(java.util.List<String> topicIds);
 }

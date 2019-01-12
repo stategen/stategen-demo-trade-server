@@ -104,4 +104,15 @@ public class TopicDaoImpl extends SqlMapClientDaoSupport implements TopicDao {
         getSqlMapClientTemplate().update("deleteByTopicIds.Topic.trade", params);
         return topicIds;
     }
+
+    /**
+	 * 获取当前回复的数量
+	 * sql:SELECT b.topic_id, COUNT(b.reply_id) as replyCount FROM topic_reply b WHERE b.delete_flag = 0 and b.topic_id in ( ? ) and 1=0 GROUP BY b.topic_id
+	 */
+    @SuppressWarnings("unchecked")
+    public List<Topic> getReplyCounts(java.util.List<String> topicIds) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("topicIds", topicIds);
+        return (List<Topic>) getSqlMapClientTemplate().queryForList("getReplyCounts.Topic.trade", params);
+    }
 }
