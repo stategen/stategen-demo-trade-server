@@ -23,7 +23,7 @@ import com.mycompany.biz.domain.City;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface CityService extends CityServiceFacade, AssignSerice<City, String> {
+public interface CityService extends AssignSerice<City, String>, CityServiceTrade {
 
     /**
      * 

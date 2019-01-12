@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -49,7 +48,7 @@ public class TopicReplyServiceImpl implements TopicReplyService {
 
     @Resource
     UserService userService;
-    
+
     @Resource
     FileSummaryService fileSummaryService;
 
@@ -96,14 +95,12 @@ public class TopicReplyServiceImpl implements TopicReplyService {
     @Override
     public void assignRepliesExtraProperties(String authorId, List<TopicReply> replies) {
         userService.assignBeanTo(replies, TopicReply::getAuthorId, TopicReply::setAuthor);
-        
         List<User> authors = CollectionUtil.toList(replies, TopicReply::getAuthor);
         fileSummaryService.assignBeanTo(authors, User::getAvatarImgId, User::setAvatarImg);
-        
         List<String> replyIds = CollectionUtil.toList(replies, TopicReply::getReplyId);
         List<TopicUp> topicUpCounts = this.topicUpService.getTopicUpsGroupCountByTopicIds(replyIds, null);
         Map<String, TopicUp> upCountMap = CollectionUtil.toMap(topicUpCounts, TopicUp::getObjectId);
-        CollectionUtil.setFeildToFieldByMap(replies, upCountMap, TopicReply::getReplyId, TopicReply::setUpCount,TopicUp::getUpCount);
+        CollectionUtil.setFeildToFieldByMap(replies, upCountMap, TopicReply::getReplyId, TopicReply::setUpCount, TopicUp::getUpCount);
         if (StringUtil.isNotEmpty(authorId)) {
             topicUpCounts = this.topicUpService.getTopicUpsGroupCountByTopicIds(replyIds, authorId);
             upCountMap = CollectionUtil.toMap(topicUpCounts, TopicUp::getObjectId);

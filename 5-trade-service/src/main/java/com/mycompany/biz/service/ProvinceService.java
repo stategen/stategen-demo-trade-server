@@ -23,7 +23,7 @@ import com.mycompany.biz.domain.Province;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface ProvinceService extends ProvinceServiceFacade, AssignSerice<Province, String> {
+public interface ProvinceService extends AssignSerice<Province, String>, ProvinceServiceTrade {
 
     /**
      * 

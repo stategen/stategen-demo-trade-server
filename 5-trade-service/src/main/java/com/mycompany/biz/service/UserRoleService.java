@@ -22,7 +22,7 @@ import com.mycompany.biz.domain.UserRole;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface UserRoleService extends UserRoleServiceFacade, AssignSerice<UserRole, Long> {
+public interface UserRoleService extends AssignSerice<UserRole, Long>, UserRoleServiceTrade {
 
     /**
      * 

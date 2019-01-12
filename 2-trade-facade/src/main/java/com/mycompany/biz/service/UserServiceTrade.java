@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2016 - 2116 All Rights Reserved.
- * Powered By [rapid-generator]
- */
-package com.mycompany.biz.service;
+ * Do not remove this unless you get business authorization.
+ * Copyright (c) 2016 - 2018 All Rights Reserved.
+ * Powered By [stategen.dalgen]
+ */package com.mycompany.biz.service;
 
 /**
- * UserServiceFacade
+ * UserService
  * <pre>
  * database table: user
  * database table comments: User
@@ -15,5 +15,9 @@ package com.mycompany.biz.service;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface UserServiceFacade {
+public interface UserServiceTrade {
+
 }
+
+
+

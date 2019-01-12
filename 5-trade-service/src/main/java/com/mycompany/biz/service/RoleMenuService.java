@@ -22,7 +22,7 @@ import com.mycompany.biz.domain.RoleMenu;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface RoleMenuService extends RoleMenuServiceFacade, AssignSerice<RoleMenu, Long> {
+public interface RoleMenuService extends AssignSerice<RoleMenu, Long>, RoleMenuServiceTrade {
 
     /**
      * 

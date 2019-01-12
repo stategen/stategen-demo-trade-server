@@ -23,7 +23,7 @@ import com.mycompany.biz.domain.Role;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface RoleService extends RoleServiceFacade, AssignSerice<Role, String> {
+public interface RoleService extends AssignSerice<Role, String>, RoleServiceTrade {
 
     /*** 保存role,有id时更新，没有id时插入，返回 role*/
     public Role saveRole(Role role);

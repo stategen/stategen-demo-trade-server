@@ -22,7 +22,7 @@ import com.mycompany.biz.domain.Menu;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface MenuService extends MenuServiceFacade, AssignSerice<Menu, Long> {
+public interface MenuService extends AssignSerice<Menu, Long>, MenuServiceTrade {
 
     String getProjectName();
 

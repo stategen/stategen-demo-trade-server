@@ -2,8 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
-package com.mycompany.biz.service;
+ */package com.mycompany.biz.service;
 
 /**
  * TopicUpService
@@ -16,5 +15,9 @@ package com.mycompany.biz.service;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface TopicUpServiceFacade {
+public interface TopicUpServiceTrade {
+
 }
+
+
+

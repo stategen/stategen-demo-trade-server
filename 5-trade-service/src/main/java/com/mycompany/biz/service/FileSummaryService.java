@@ -23,7 +23,7 @@ import com.mycompany.biz.domain.FileSummary;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface FileSummaryService extends FileSummaryServiceFacade, AssignSerice<FileSummary, String> {
+public interface FileSummaryService extends AssignSerice<FileSummary, String>, FileSummaryServiceTrade {
 
     /**
      * 

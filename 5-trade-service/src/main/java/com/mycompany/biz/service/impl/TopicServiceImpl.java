@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -100,7 +99,6 @@ public class TopicServiceImpl implements TopicService {
         fileSummaryService.assignBeanTo(authors, User::getAvatarImgId, User::setAvatarImg);
         List<String> topicIds = CollectionUtil.toList(topics, Topic::getTopicId);
         List<Topic> replyCounts = this.getReplyCounts(topicIds);
-        
         Map<String, Topic> replyCountMap = CollectionUtil.toMap(replyCounts, Topic::getTopicId);
         CollectionUtil.setFeildToFieldByMap(topics, replyCountMap, Topic::getTopicId, Topic::setReplyCount, Topic::getReplyCount);
     }

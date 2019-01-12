@@ -23,7 +23,7 @@ import com.mycompany.biz.domain.UserHoppy;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface UserHoppyService extends UserHoppyServiceFacade, AssignSerice<UserHoppy, Long> {
+public interface UserHoppyService extends AssignSerice<UserHoppy, Long>, UserHoppyServiceTrade {
 
     /**
      * 

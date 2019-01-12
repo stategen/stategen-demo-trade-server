@@ -23,7 +23,7 @@ import com.mycompany.biz.domain.TopicReply;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface TopicReplyService extends TopicReplyServiceFacade, AssignSerice<TopicReply, String> {
+public interface TopicReplyService extends AssignSerice<TopicReply, String>, TopicReplyServiceTrade {
 
     /**
      * 

@@ -22,7 +22,7 @@ import com.mycompany.biz.domain.User;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface UserService extends UserServiceFacade, AssignSerice<User, String> {
+public interface UserService extends AssignSerice<User, String>, UserServiceTrade {
 
     /*** 保存user,有id时更新，没有id时插入,并带回新的id，返回 user*/
     public User saveUser(User user);

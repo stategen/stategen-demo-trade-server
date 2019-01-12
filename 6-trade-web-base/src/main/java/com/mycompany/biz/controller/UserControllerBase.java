@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,7 +57,7 @@ public abstract class UserControllerBase {
 
     @Resource
     private HoppyService hoppyService;
-    
+
     @Resource
     protected CookieGroup<LoginCookieNames> loginCookieGroup;
 

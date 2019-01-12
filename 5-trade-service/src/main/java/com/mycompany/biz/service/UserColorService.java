@@ -23,7 +23,7 @@ import com.mycompany.biz.domain.UserColor;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface UserColorService extends UserColorServiceFacade, AssignSerice<UserColor, Integer> {
+public interface UserColorService extends AssignSerice<UserColor, Integer>, UserColorServiceTrade {
 
     /**
      * 
