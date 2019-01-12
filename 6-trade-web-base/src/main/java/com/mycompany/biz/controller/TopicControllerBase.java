@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.stategen.framework.annotation.Wrap;
 import org.stategen.framework.web.cookie.CookieGroup;
 
+import com.mycompany.biz.enums.CookieType.LOGIN.LoginCookieNames;
 import com.mycompany.biz.service.CityService;
 import com.mycompany.biz.service.ProvinceService;
 import com.mycompany.biz.service.TopicService;
@@ -23,7 +24,7 @@ public abstract class TopicControllerBase {
     protected TopicService topicService;
 
     @Resource
-    protected CookieGroup loginCookieGroup;
+    protected CookieGroup<LoginCookieNames> loginCookieGroup;
 
     @Resource
     private ProvinceService provinceService;

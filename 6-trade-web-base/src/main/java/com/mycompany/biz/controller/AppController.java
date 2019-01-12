@@ -26,13 +26,13 @@ import com.mycompany.biz.domain.Menu;
 import com.mycompany.biz.domain.Province;
 import com.mycompany.biz.domain.Region;
 import com.mycompany.biz.domain.User;
+import com.mycompany.biz.enums.CookieType.LOGIN.LoginCookieNames;
 import com.mycompany.biz.service.CityService;
 import com.mycompany.biz.service.HoppyService;
 import com.mycompany.biz.service.MenuService;
 import com.mycompany.biz.service.ProvinceService;
 import com.mycompany.biz.service.RegionService;
 import com.mycompany.biz.service.UserService;
-import com.mycompany.biz.utils.SysConsts;
 
 import io.swagger.annotations.ApiParam;
 
@@ -42,7 +42,7 @@ public class AppController {
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AppController.class);
 
     @Resource
-    private CookieGroup loginCookieGroup;
+    private CookieGroup<LoginCookieNames> loginCookieGroup;
 
     @Resource(name = "userService")
     private UserService userService;
@@ -72,7 +72,7 @@ public class AppController {
     @ApiRequestMappingAutoWithMethodName(name = "")
     @State(init = true, initCheck = false, dataOpt = DataOpt.FULL_REPLACE)
     public User getCookieUser() {
-        String userId = this.loginCookieGroup.getCookieValue(SysConsts.USER_ID);
+        String userId = this.loginCookieGroup.getCookieValue(LoginCookieNames.userId);
         if (StringUtil.isEmpty(userId)) {
             return null;
         }

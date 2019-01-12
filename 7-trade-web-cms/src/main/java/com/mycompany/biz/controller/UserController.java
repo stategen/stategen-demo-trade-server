@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +22,9 @@ import org.stategen.framework.util.BusinessAssert;
 import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.CopyUtil;
 import org.stategen.framework.util.DatetimeUtil;
-import org.stategen.framework.web.cookie.CookieGroup;
 
 import com.mycompany.biz.annotion.ExcludeBeanNotNull;
+import com.mycompany.biz.checker.LoginCheck;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.enums.StatusEnum;
 
@@ -33,14 +32,12 @@ import io.swagger.annotations.ApiParam;
 
 @ApiConfig(name = "用户")
 @VisitCheck
+@LoginCheck
 public class UserController extends UserControllerBase {
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserController.class);
 
-    @Resource
-    private CookieGroup baseCookieGroup;
 
     @ApiRequestMappingAutoWithMethodName(name = "用户列表")
-    @VisitCheck
     @State(init = true, dataOpt = DataOpt.FULL_REPLACE,genForm=true)
     @ExcludeBeanNotNull
     public AntdPageList<User> getUserPageList(

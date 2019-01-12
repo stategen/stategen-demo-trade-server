@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
@@ -16,13 +14,12 @@ import org.stategen.framework.annotation.VisitCheck;
 import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.util.BusinessAssert;
 import org.stategen.framework.util.CopyUtil;
-import org.stategen.framework.web.cookie.CookieGroup;
 
 import com.mycompany.biz.checker.LoginCheck;
 import com.mycompany.biz.domain.User;
+import com.mycompany.biz.enums.CookieType.LOGIN.LoginCookieNames;
 import com.mycompany.biz.enums.RoleType;
 import com.mycompany.biz.enums.StatusEnum;
-import com.mycompany.biz.utils.SysConsts;
 
 import io.swagger.annotations.ApiParam;
 
@@ -30,14 +27,13 @@ import io.swagger.annotations.ApiParam;
 @LoginCheck
 public class User_meController extends UserControllerBase {
     
-    @Resource
-    private CookieGroup loginCookieGroup;
+
     
     @ApiRequestMappingAutoWithMethodName
     @State(init=true,dataOpt=DataOpt.FULL_REPLACE)
     @LoginCheck
     public User getCurrentUser() {
-        String userId = loginCookieGroup.getCookieValue(SysConsts.USER_ID);
+        String userId = loginCookieGroup.getCookieValue(LoginCookieNames.userId);
         User topicAuthor = this.userService.getUserByUserId(userId);
         assignBeans(Arrays.asList(topicAuthor));
         return topicAuthor;

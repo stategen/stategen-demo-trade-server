@@ -89,7 +89,7 @@
 
     <!-- 权限拦截,由各自的annotain check 处理 -->
     <bean id="authCheckerHandlerInterceptor" class="org.stategen.framework.spring.mvc.AuthCheckerHandlerInterceptor">
-        <property name="responseStatusClzOfCheckFailDefault" value="com.mycompany.biz.enums.ResponseStatus.NO_TOKEN" />
+        <property name="responseStatusClzOfCheckFailDefault" value="com.mycompany.biz.enums.ResponseStatus.NOT_LOGIN" />
     </bean>
     
     <!-- 

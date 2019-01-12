@@ -13,15 +13,14 @@ import org.stategen.framework.annotation.Wrap;
 import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.Pagination;
-import org.stategen.framework.web.cookie.CookieGroup;
 
 import com.mycompany.biz.checker.LoginCheck;
 import com.mycompany.biz.domain.Topic;
 import com.mycompany.biz.domain.TopicReply;
+import com.mycompany.biz.enums.CookieType.LOGIN.LoginCookieNames;
 import com.mycompany.biz.service.TopicReplyService;
 import com.mycompany.biz.service.TopicUpService;
 import com.mycompany.biz.service.UserService;
-import com.mycompany.biz.utils.SysConsts;
 
 import io.swagger.annotations.ApiParam;
 
@@ -32,8 +31,6 @@ public class Topic_detail_$topicIdController extends TopicControllerBase {
 
     @Resource
     private TopicReplyService topicReplyService;
-    @Resource
-    private CookieGroup loginCookieGroup;
 
     @Resource
     private UserService userService;
@@ -55,7 +52,7 @@ public class Topic_detail_$topicIdController extends TopicControllerBase {
     public PageList<TopicReply> getTopicReplyPageList(@PathVariable("topicId") String topicId, @ApiParam(hidden = true) TopicReply topicReply,
                                                 Pagination pagination) {
 
-        String userId = loginCookieGroup.getCookieValue(SysConsts.USER_ID);
+        String userId = loginCookieGroup.getCookieValue(LoginCookieNames.userId);
         PageList<TopicReply> topicReplyPageList = topicReplyService.getTopicReplyPageList(topicReply, userId, pagination.getPageSize(),
             pagination.getPage());
         return topicReplyPageList;
@@ -65,7 +62,7 @@ public class Topic_detail_$topicIdController extends TopicControllerBase {
     @RequestMapping("reply/{replyId}")
     @LoginCheck
     public TopicReply replyUp(@PathVariable("replyId") String replyId) {
-        String userId = this.loginCookieGroup.getCookieValue(SysConsts.USER_ID);
+        String userId = this.loginCookieGroup.getCookieValue(LoginCookieNames.userId);
         return this.topicReplyService.replyUp(replyId, userId);
     }
 
@@ -74,7 +71,7 @@ public class Topic_detail_$topicIdController extends TopicControllerBase {
     @LoginCheck
     public TopicReply PostReply(@PathVariable("topicId") String topicId, TopicReply topicReply) {
         topicReply.setTopicId(topicId);
-        String userId = loginCookieGroup.getCookieValue(SysConsts.USER_ID);
+        String userId = loginCookieGroup.getCookieValue(LoginCookieNames.userId);
         topicReply.setAuthorId(userId);
         this.topicReplyService.saveTopicReply(topicReply);
         topicReplyService.assignRepliesExtraProperties(userId, Arrays.asList(topicReply));

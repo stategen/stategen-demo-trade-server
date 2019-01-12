@@ -9,8 +9,8 @@ import org.stategen.framework.enums.DataOpt;
 
 import com.mycompany.biz.checker.LoginCheck;
 import com.mycompany.biz.domain.Topic;
+import com.mycompany.biz.enums.CookieType.LOGIN.LoginCookieNames;
 import com.mycompany.biz.enums.TopicType;
-import com.mycompany.biz.utils.SysConsts;
 
 import io.swagger.annotations.ApiParam;
 
@@ -27,7 +27,7 @@ public class Topic_publishController extends TopicControllerBase {
                            @ApiParam() String content,
                            @ApiParam() String title, 
                            @ApiParam(hidden = true) Topic topic) {
-        String userId = loginCookieGroup.getCookieValue(SysConsts.USER_ID);
+        String userId = loginCookieGroup.getCookieValue(LoginCookieNames.userId);
         topic.setAuthorId(userId);
         topicService.saveTopic(topic);
         return topic;
