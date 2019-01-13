@@ -25,6 +25,7 @@ import com.mycompany.biz.domain.City;
  */
 public interface CityService extends AssignSerice<City, String>, CityServiceTrade {
 
+    //<#--
     /**
      * 
      * @see com.mycompany.biz.dao.CityDao#insert
@@ -82,4 +83,6 @@ public interface CityService extends AssignSerice<City, String>, CityServiceTrad
      * @see com.mycompany.biz.dao.CityDao#getCityOptions
      */
     public List<City> getCityOptions(String provinceId);
+    //-->
+    //
 }

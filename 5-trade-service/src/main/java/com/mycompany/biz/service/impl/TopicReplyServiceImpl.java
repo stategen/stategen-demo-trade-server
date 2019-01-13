@@ -40,9 +40,6 @@ import com.mycompany.biz.service.UserService;
  */
 public class TopicReplyServiceImpl implements TopicReplyService {
 
-    @Resource(name = "topicReplyDao")
-    TopicReplyDao topicReplyDao;
-
     @Resource
     TopicUpService topicUpService;
 
@@ -51,6 +48,43 @@ public class TopicReplyServiceImpl implements TopicReplyService {
 
     @Resource
     FileSummaryService fileSummaryService;
+
+    @Override
+    public void assignRepliesExtraProperties(String authorId, List<TopicReply> replies) {
+        userService.assignBeanTo(replies, TopicReply::getAuthorId, TopicReply::setAuthor);
+        List<User> authors = CollectionUtil.toList(replies, TopicReply::getAuthor);
+        fileSummaryService.assignBeanTo(authors, User::getAvatarImgId, User::setAvatarImg);
+        List<String> replyIds = CollectionUtil.toList(replies, TopicReply::getReplyId);
+        List<TopicUp> topicUpCounts = this.topicUpService.getTopicUpsGroupCountByTopicIds(replyIds, null);
+        Map<String, TopicUp> upCountMap = CollectionUtil.toMap(topicUpCounts, TopicUp::getObjectId);
+        CollectionUtil.setFeildToFieldByMap(replies, upCountMap, TopicReply::getReplyId, TopicReply::setUpCount, TopicUp::getUpCount);
+        if (StringUtil.isNotEmpty(authorId)) {
+            topicUpCounts = this.topicUpService.getTopicUpsGroupCountByTopicIds(replyIds, authorId);
+            upCountMap = CollectionUtil.toMap(topicUpCounts, TopicUp::getObjectId);
+            for (TopicReply tr : replies) {
+                tr.setIsUped(upCountMap.containsKey(tr.getReplyId()));
+            }
+        }
+    }
+
+    @Override
+    public TopicReply replyUp(String replyId, String authorId) {
+        List<TopicUp> topicUps = this.topicUpService.getTopicUpByObjectIdAndAuthorId(replyId, authorId);
+        if (CollectionUtil.isNotEmpty(topicUps)) {
+            topicUpService.deleteByUpIds(CollectionUtil.toList(topicUps, TopicUp::getUpId));
+        } else {
+            TopicUp topicUp = new TopicUp();
+            topicUp.setObjectId(replyId);
+            topicUp.setAuthorId(authorId);
+            this.topicUpService.insert(topicUp);
+        }
+        TopicReply topicReply = this.getTopicReplyByReplyId(replyId);
+        return topicReply;
+    }
+
+    //<#--
+    @Resource(name = "topicReplyDao")
+    TopicReplyDao topicReplyDao;
 
     /**
      * 
@@ -90,39 +124,6 @@ public class TopicReplyServiceImpl implements TopicReplyService {
     @Override
     public TopicReply getTopicReplyByReplyId(String replyId) {
         return topicReplyDao.getTopicReplyByReplyId(replyId);
-    }
-
-    @Override
-    public void assignRepliesExtraProperties(String authorId, List<TopicReply> replies) {
-        userService.assignBeanTo(replies, TopicReply::getAuthorId, TopicReply::setAuthor);
-        List<User> authors = CollectionUtil.toList(replies, TopicReply::getAuthor);
-        fileSummaryService.assignBeanTo(authors, User::getAvatarImgId, User::setAvatarImg);
-        List<String> replyIds = CollectionUtil.toList(replies, TopicReply::getReplyId);
-        List<TopicUp> topicUpCounts = this.topicUpService.getTopicUpsGroupCountByTopicIds(replyIds, null);
-        Map<String, TopicUp> upCountMap = CollectionUtil.toMap(topicUpCounts, TopicUp::getObjectId);
-        CollectionUtil.setFeildToFieldByMap(replies, upCountMap, TopicReply::getReplyId, TopicReply::setUpCount, TopicUp::getUpCount);
-        if (StringUtil.isNotEmpty(authorId)) {
-            topicUpCounts = this.topicUpService.getTopicUpsGroupCountByTopicIds(replyIds, authorId);
-            upCountMap = CollectionUtil.toMap(topicUpCounts, TopicUp::getObjectId);
-            for (TopicReply tr : replies) {
-                tr.setIsUped(upCountMap.containsKey(tr.getReplyId()));
-            }
-        }
-    }
-
-    @Override
-    public TopicReply replyUp(String replyId, String authorId) {
-        List<TopicUp> topicUps = this.topicUpService.getTopicUpByObjectIdAndAuthorId(replyId, authorId);
-        if (CollectionUtil.isNotEmpty(topicUps)) {
-            topicUpService.deleteByUpIds(CollectionUtil.toList(topicUps, TopicUp::getUpId));
-        } else {
-            TopicUp topicUp = new TopicUp();
-            topicUp.setObjectId(replyId);
-            topicUp.setAuthorId(authorId);
-            this.topicUpService.insert(topicUp);
-        }
-        TopicReply topicReply = this.getTopicReplyByReplyId(replyId);
-        return topicReply;
     }
 
     /**
@@ -189,4 +190,6 @@ public class TopicReplyServiceImpl implements TopicReplyService {
             }
         }
     }
+    //-->
+    //
 }

@@ -25,6 +25,9 @@ import com.mycompany.biz.domain.FileSummary;
  */
 public interface FileSummaryService extends AssignSerice<FileSummary, String>, FileSummaryServiceTrade {
 
+    String getProjectName();
+
+    //<#--
     /**
      * 
      * @see com.mycompany.biz.dao.FileSummaryDao#insert
@@ -76,6 +79,5 @@ public interface FileSummaryService extends AssignSerice<FileSummary, String>, F
      * @see com.mycompany.biz.dao.FileSummaryDao#insert
      */
     public List<FileSummary> saveFileSummarys(List<FileSummary> fileSummarys);
-
-    String getProjectName();
+    // -->
 }

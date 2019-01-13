@@ -34,6 +34,7 @@ import com.mycompany.biz.service.ProvinceService;
  */
 public class ProvinceServiceImpl implements ProvinceService {
 
+    //<#--
     @Resource(name = "provinceDao")
     ProvinceDao provinceDao;
 
@@ -150,4 +151,6 @@ public class ProvinceServiceImpl implements ProvinceService {
             }
         }
     }
+    //-->
+    //
 }

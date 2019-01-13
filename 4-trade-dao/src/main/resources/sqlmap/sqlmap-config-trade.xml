@@ -40,7 +40,6 @@
     <sqlMap resource="sqlmap/mapping/TopicReply-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/TopicUp-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/User-sqlmap-mapping-trade.xml" />
-    <sqlMap resource="sqlmap/mapping/UserColor-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/UserHoppy-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/UserRole-sqlmap-mapping-trade.xml" />
 </sqlMapConfig>

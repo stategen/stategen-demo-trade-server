@@ -30,6 +30,7 @@ public interface MenuService extends AssignSerice<Menu, Long>, MenuServiceTrade 
 
     public List<Menu> getAllMenus();
 
+    //<#--
     /**
      * 
      * @see com.mycompany.biz.dao.MenuDao#insert
@@ -95,4 +96,6 @@ public interface MenuService extends AssignSerice<Menu, Long>, MenuServiceTrade 
      * @see com.mycompany.biz.dao.MenuDao#getMenusByProjectName
      */
     public List<Menu> getMenusByProjectName(String projectName, org.stategen.framework.lite.enums.MenuType menuType);
+    //-->
+    //
 }

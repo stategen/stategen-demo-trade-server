@@ -25,6 +25,11 @@ import com.mycompany.biz.domain.TopicReply;
  */
 public interface TopicReplyService extends AssignSerice<TopicReply, String>, TopicReplyServiceTrade {
 
+    TopicReply replyUp(String replyId, String authorId);
+
+    void assignRepliesExtraProperties(String authorId, List<TopicReply> replies);
+
+    //<#--
     /**
      * 
      * @see com.mycompany.biz.dao.TopicReplyDao#insert
@@ -67,13 +72,11 @@ public interface TopicReplyService extends AssignSerice<TopicReply, String>, Top
     /*** 批量保存topicReplys,有id时更新，没有id时插入,并带回新的id，返回 topicReplys*/
     public List<TopicReply> saveTopicReplys(List<TopicReply> topicReplys);
 
-    TopicReply replyUp(String replyId, String authorId);
-
-    void assignRepliesExtraProperties(String authorId, List<TopicReply> replies);
-
     /**
      * 
      * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplyPageList
      */
     public PageList<TopicReply> getTopicReplyPageList(TopicReply topicReply, String authorId, int pageSize, int pageNum);
+    //-->
+    //
 }

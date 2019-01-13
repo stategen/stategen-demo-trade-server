@@ -35,11 +35,11 @@ import com.mycompany.biz.service.FileSummaryService;
  */
 public class FileSummaryServiceImpl implements FileSummaryService {
 
-    @Resource(name = "fileSummaryDao")
-    FileSummaryDao fileSummaryDao;
-
     @Value("${project.name}")
     private String projectName;
+
+    @Resource(name = "fileSummaryDao")
+    FileSummaryDao fileSummaryDao;
 
     @Override
     public String getProjectName() {
@@ -149,4 +149,6 @@ public class FileSummaryServiceImpl implements FileSummaryService {
             }
         }
     }
+    //-->
+    //
 }

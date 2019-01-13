@@ -34,6 +34,7 @@ import com.mycompany.biz.service.CityService;
  */
 public class CityServiceImpl implements CityService {
 
+    //<#--
     @Resource(name = "cityDao")
     CityDao cityDao;
 
@@ -150,4 +151,6 @@ public class CityServiceImpl implements CityService {
             }
         }
     }
+    //-->
+    //
 }

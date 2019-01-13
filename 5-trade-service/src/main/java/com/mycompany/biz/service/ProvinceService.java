@@ -25,6 +25,7 @@ import com.mycompany.biz.domain.Province;
  */
 public interface ProvinceService extends AssignSerice<Province, String>, ProvinceServiceTrade {
 
+    //<#--
     /**
      * 
      * @see com.mycompany.biz.dao.ProvinceDao#insert
@@ -82,4 +83,6 @@ public interface ProvinceService extends AssignSerice<Province, String>, Provinc
      * @see com.mycompany.biz.dao.ProvinceDao#getProvinceOptions
      */
     public List<Province> getProvinceOptions();
+    //-->
+    //
 }

@@ -33,6 +33,7 @@ import com.mycompany.biz.service.UserService;
  */
 public class UserServiceImpl implements UserService {
 
+    //<#--
     @Resource(name = "userDao")
     UserDao userDao;
 
@@ -219,4 +220,6 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
+    //-->
+    //
 }

@@ -33,6 +33,7 @@ import com.mycompany.biz.service.UserRoleService;
  */
 public class UserRoleServiceImpl implements UserRoleService {
 
+    //<#--
     @Resource(name = "userRoleDao")
     UserRoleDao userRoleDao;
 
@@ -139,4 +140,6 @@ public class UserRoleServiceImpl implements UserRoleService {
             }
         }
     }
+    //-->
+    //
 }

@@ -34,6 +34,7 @@ import com.mycompany.biz.service.UserHoppyService;
  */
 public class UserHoppyServiceImpl implements UserHoppyService {
 
+    //<#--
     @Resource(name = "userHoppyDao")
     UserHoppyDao userHoppyDao;
 
@@ -150,4 +151,6 @@ public class UserHoppyServiceImpl implements UserHoppyService {
             }
         }
     }
+    //-->
+    //
 }

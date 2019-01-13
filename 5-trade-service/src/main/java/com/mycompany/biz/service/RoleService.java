@@ -25,6 +25,7 @@ import com.mycompany.biz.domain.Role;
  */
 public interface RoleService extends AssignSerice<Role, String>, RoleServiceTrade {
 
+    //<#--
     /*** 保存role,有id时更新，没有id时插入，返回 role*/
     public Role saveRole(Role role);
 
@@ -74,4 +75,6 @@ public interface RoleService extends AssignSerice<Role, String>, RoleServiceTrad
      * @see com.mycompany.biz.dao.RoleDao#getRolePageList
      */
     public PageList<Role> getRolePageList(Role role, int pageSize, int pageNum);
+    //-->
+    //
 }

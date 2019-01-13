@@ -33,6 +33,7 @@ import com.mycompany.biz.service.RoleMenuService;
  */
 public class RoleMenuServiceImpl implements RoleMenuService {
 
+    //<#--
     @Resource(name = "roleMenuDao")
     RoleMenuDao roleMenuDao;
 
@@ -149,4 +150,6 @@ public class RoleMenuServiceImpl implements RoleMenuService {
             }
         }
     }
+    //-->
+    //
 }

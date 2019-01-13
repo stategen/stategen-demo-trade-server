@@ -34,6 +34,7 @@ import com.mycompany.biz.service.TopicUpService;
  */
 public class TopicUpServiceImpl implements TopicUpService {
 
+    //<#--
     @Resource(name = "topicUpDao")
     TopicUpDao topicUpDao;
 
@@ -160,4 +161,6 @@ public class TopicUpServiceImpl implements TopicUpService {
             }
         }
     }
+    //-->
+    //
 }

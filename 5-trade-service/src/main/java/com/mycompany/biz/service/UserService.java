@@ -24,6 +24,7 @@ import com.mycompany.biz.domain.User;
  */
 public interface UserService extends AssignSerice<User, String>, UserServiceTrade {
 
+    //<#--
     /*** 保存user,有id时更新，没有id时插入,并带回新的id，返回 user*/
     public User saveUser(User user);
 
@@ -119,4 +120,6 @@ public interface UserService extends AssignSerice<User, String>, UserServiceTrad
      * @see com.mycompany.biz.dao.UserDao#getUserPageList
      */
     public PageList<User> getUserPageList(User user, int pageSize, int pageNum);
+    //-->
+    //
 }

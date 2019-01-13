@@ -24,6 +24,7 @@ import com.mycompany.biz.domain.RoleMenu;
  */
 public interface RoleMenuService extends AssignSerice<RoleMenu, Long>, RoleMenuServiceTrade {
 
+    //<#--
     /**
      * 
      * @see com.mycompany.biz.dao.RoleMenuDao#insert
@@ -77,4 +78,6 @@ public interface RoleMenuService extends AssignSerice<RoleMenu, Long>, RoleMenuS
      * @see com.mycompany.biz.dao.RoleMenuDao#getRoleMenuPageList
      */
     public PageList<RoleMenu> getRoleMenuPageList(RoleMenu roleMenu, int pageSize, int pageNum);
+    //-->
+    //
 }

@@ -22,7 +22,6 @@
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicReplyServiceTrade" interface="com.mycompany.biz.service.TopicReplyServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicUpServiceTrade" interface="com.mycompany.biz.service.TopicUpServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="userServiceTrade" interface="com.mycompany.biz.service.UserServiceTrade"/>
-    <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="userColorServiceTrade" interface="com.mycompany.biz.service.UserColorServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="userHoppyServiceTrade" interface="com.mycompany.biz.service.UserHoppyServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="userRoleServiceTrade" interface="com.mycompany.biz.service.UserRoleServiceTrade"/>
 	

@@ -38,14 +38,29 @@ import com.mycompany.biz.service.RoleService;
  */
 public class RoleServiceImpl implements RoleService {
 
-    @Resource(name = "roleDao")
-    RoleDao roleDao;
-
     @Resource
     MenuService menuService;
 
     @Resource
     RoleMenuService roleMenuService;
+
+    @Override
+    public List<Menu> getAllMenusWithRoleChecked(String roleId) {
+        List<Menu> menus = this.menuService.getMenusByProjectName(menuService.getProjectName(), null);
+        List<Long> menuIds = CollectionUtil.toList(menus, Menu::getMenuId);
+        List<RoleMenu> roleMenus = this.roleMenuService.getRoleMenusByMenuIds(menuIds);
+        Map<Long, RoleMenu> menuIdRoleMenuMap = CollectionUtil.toMap(roleMenus, RoleMenu::getMenuId);
+        for (Menu menu : menus) {
+            menu.setRoleId(roleId);
+            Long menuId = menu.getMenuId();
+            menu.setChecked(menuIdRoleMenuMap.containsKey(menuId));
+        }
+        return menus;
+    }
+
+    //<#--
+    @Resource(name = "roleDao")
+    RoleDao roleDao;
 
     /*** 保存role,有id时更新，没有id时插入，返回 role*/
     public Role saveRole(Role role) {
@@ -67,20 +82,6 @@ public class RoleServiceImpl implements RoleService {
             this.saveRole(role);
         }
         return roles;
-    }
-
-    @Override
-    public List<Menu> getAllMenusWithRoleChecked(String roleId) {
-        List<Menu> menus = this.menuService.getMenusByProjectName(menuService.getProjectName(), null);
-        List<Long> menuIds = CollectionUtil.toList(menus, Menu::getMenuId);
-        List<RoleMenu> roleMenus = this.roleMenuService.getRoleMenusByMenuIds(menuIds);
-        Map<Long, RoleMenu> menuIdRoleMenuMap = CollectionUtil.toMap(roleMenus, RoleMenu::getMenuId);
-        for (Menu menu : menus) {
-            menu.setRoleId(roleId);
-            Long menuId = menu.getMenuId();
-            menu.setChecked(menuIdRoleMenuMap.containsKey(menuId));
-        }
-        return menus;
     }
 
     /**
@@ -163,4 +164,6 @@ public class RoleServiceImpl implements RoleService {
             }
         }
     }
+    //-->
+    //
 }

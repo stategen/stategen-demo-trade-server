@@ -25,6 +25,9 @@ import com.mycompany.biz.domain.Topic;
  */
 public interface TopicService extends AssignSerice<Topic, String>, TopicServiceTrade {
 
+    void assignTopicExtraProperties(List<Topic> topics);
+
+    //<#--
     /**
      * 
      * @see com.mycompany.biz.dao.TopicDao#insert
@@ -77,11 +80,11 @@ public interface TopicService extends AssignSerice<Topic, String>, TopicServiceT
      */
     public PageList<Topic> getTopicPageList(Topic topic, int pageSize, int pageNum);
 
-    void assignTopicExtraProperties(List<Topic> topics);
-
     /**
      * 获取当前回复的数量
      * @see com.mycompany.biz.dao.TopicDao#getReplyCounts
      */
     public List<Topic> getReplyCounts(java.util.List<String> topicIds);
+    //-->
+    //
 }

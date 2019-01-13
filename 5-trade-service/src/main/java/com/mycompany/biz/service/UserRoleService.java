@@ -24,6 +24,7 @@ import com.mycompany.biz.domain.UserRole;
  */
 public interface UserRoleService extends AssignSerice<UserRole, Long>, UserRoleServiceTrade {
 
+    //<#--
     /**
      * 
      * @see com.mycompany.biz.dao.UserRoleDao#insert
@@ -71,4 +72,6 @@ public interface UserRoleService extends AssignSerice<UserRole, Long>, UserRoleS
      * @see com.mycompany.biz.dao.UserRoleDao#getUserRolePageList
      */
     public PageList<UserRole> getUserRolePageList(UserRole userRole, int pageSize, int pageNum);
+    //-->
+    //
 }

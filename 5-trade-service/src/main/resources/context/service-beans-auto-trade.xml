@@ -22,7 +22,6 @@
     <bean id="topicReplyService" class="com.mycompany.biz.service.impl.TopicReplyServiceImpl" />
     <bean id="topicUpService" class="com.mycompany.biz.service.impl.TopicUpServiceImpl" />
     <bean id="userService" class="com.mycompany.biz.service.impl.UserServiceImpl" />
-    <bean id="userColorService" class="com.mycompany.biz.service.impl.UserColorServiceImpl" />
     <bean id="userHoppyService" class="com.mycompany.biz.service.impl.UserHoppyServiceImpl" />
     <bean id="userRoleService" class="com.mycompany.biz.service.impl.UserRoleServiceImpl" />
 	

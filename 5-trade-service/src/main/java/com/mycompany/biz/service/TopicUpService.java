@@ -25,6 +25,7 @@ import com.mycompany.biz.domain.TopicUp;
  */
 public interface TopicUpService extends AssignSerice<TopicUp, String>, TopicUpServiceTrade {
 
+    //<#--
     /**
      * 
      * @see com.mycompany.biz.dao.TopicUpDao#insert
@@ -84,4 +85,6 @@ public interface TopicUpService extends AssignSerice<TopicUp, String>, TopicUpSe
      * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpPageList
      */
     public PageList<TopicUp> getTopicUpPageList(TopicUp topicUp, int pageSize, int pageNum);
+    //-->
+    //
 }

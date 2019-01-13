@@ -25,6 +25,7 @@ import com.mycompany.biz.domain.UserHoppy;
  */
 public interface UserHoppyService extends AssignSerice<UserHoppy, Long>, UserHoppyServiceTrade {
 
+    //<#--
     /**
      * 
      * @see com.mycompany.biz.dao.UserHoppyDao#insert
@@ -82,4 +83,6 @@ public interface UserHoppyService extends AssignSerice<UserHoppy, Long>, UserHop
      * @see com.mycompany.biz.dao.UserHoppyDao#insert
      */
     public List<UserHoppy> saveUserHoppys(List<UserHoppy> userHoppys);
+    //-->
+    //
 }

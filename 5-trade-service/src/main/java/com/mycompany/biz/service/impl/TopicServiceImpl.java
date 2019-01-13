@@ -39,9 +39,6 @@ import com.mycompany.biz.service.UserService;
  */
 public class TopicServiceImpl implements TopicService {
 
-    @Resource(name = "topicDao")
-    TopicDao topicDao;
-
     @Resource
     UserService userService;
 
@@ -50,6 +47,21 @@ public class TopicServiceImpl implements TopicService {
 
     @Resource
     private FileSummaryService fileSummaryService;
+
+    @Override
+    public void assignTopicExtraProperties(List<Topic> topics) {
+        userService.assignBeanTo(topics, Topic::getAuthorId, Topic::setAuthor);
+        List<User> authors = CollectionUtil.toList(topics, Topic::getAuthor);
+        fileSummaryService.assignBeanTo(authors, User::getAvatarImgId, User::setAvatarImg);
+        List<String> topicIds = CollectionUtil.toList(topics, Topic::getTopicId);
+        List<Topic> replyCounts = this.getReplyCounts(topicIds);
+        Map<String, Topic> replyCountMap = CollectionUtil.toMap(replyCounts, Topic::getTopicId);
+        CollectionUtil.setFeildToFieldByMap(topics, replyCountMap, Topic::getTopicId, Topic::setReplyCount, Topic::getReplyCount);
+    }
+
+    //<#--
+    @Resource(name = "topicDao")
+    TopicDao topicDao;
 
     /**
      * 
@@ -90,17 +102,6 @@ public class TopicServiceImpl implements TopicService {
     public Topic getTopicByTopicId(String topicId) {
         Topic topic = topicDao.getTopicByTopicId(topicId);
         return topic;
-    }
-
-    @Override
-    public void assignTopicExtraProperties(List<Topic> topics) {
-        userService.assignBeanTo(topics, Topic::getAuthorId, Topic::setAuthor);
-        List<User> authors = CollectionUtil.toList(topics, Topic::getAuthor);
-        fileSummaryService.assignBeanTo(authors, User::getAvatarImgId, User::setAvatarImg);
-        List<String> topicIds = CollectionUtil.toList(topics, Topic::getTopicId);
-        List<Topic> replyCounts = this.getReplyCounts(topicIds);
-        Map<String, Topic> replyCountMap = CollectionUtil.toMap(replyCounts, Topic::getTopicId);
-        CollectionUtil.setFeildToFieldByMap(topics, replyCountMap, Topic::getTopicId, Topic::setReplyCount, Topic::getReplyCount);
     }
 
     /**
@@ -177,4 +178,6 @@ public class TopicServiceImpl implements TopicService {
     public List<Topic> getReplyCounts(java.util.List<String> topicIds) {
         return topicDao.getReplyCounts(topicIds);
     }
+    //-->
+    //
 }

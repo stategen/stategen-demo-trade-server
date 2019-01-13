@@ -35,8 +35,28 @@ import com.mycompany.biz.service.RegionService;
  */
 public class RegionServiceImpl implements RegionService {
 
-    static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(RegionServiceImpl.class);
+    /**
+     * 
+     * @see com.mycompany.biz.dao.RegionDao#getRegionByRegionId
+     * 
+     * @see com.mycompany.biz.service.RegionService#getRegionByRegionId
+     */
+    @Override
+    public Map<Long, Region> getRegionMapIfHasParent(List<Long> regionIds) {
+        if (CollectionUtil.isEmpty(regionIds)) {
+            return CollectionUtil.newEmptyMap();
+        }
+        List<Region> regions = this.getRegionsWithIsLeafByRegionIds(regionIds);
+        Map<Long, Region> allRegoinMap = CollectionUtil.toMap(regions, Region::getRegionId);
+        while (CollectionUtil.isNotEmpty(regions)) {
+            Set<Long> parentRegionIdSet = CollectionUtil.toSet(regions, Region::getParentRegionId);
+            regions = this.getRegionsWithIsLeafByRegionIds(new ArrayList<Long>(parentRegionIdSet));
+            CollectionUtil.toMap(allRegoinMap, regions, Region::getRegionId);
+        }
+        return allRegoinMap;
+    }
 
+    //<#--
     @Resource(name = "regionDao")
     RegionDao regionDao;
 
@@ -163,25 +183,6 @@ public class RegionServiceImpl implements RegionService {
     public List<Region> getRegionsWithIsLeafByRegionIds(java.util.List<Long> regionIds) {
         return regionDao.getRegionsWithIsLeafByRegionIds(regionIds);
     }
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.RegionDao#getRegionByRegionId
-     * 
-     * @see com.mycompany.biz.service.RegionService#getRegionByRegionId
-     */
-    @Override
-    public Map<Long, Region> getRegionMapIfHasParent(List<Long> regionIds) {
-        if (CollectionUtil.isEmpty(regionIds)) {
-            return CollectionUtil.newEmptyMap();
-        }
-        List<Region> regions = this.getRegionsWithIsLeafByRegionIds(regionIds);
-        Map<Long, Region> allRegoinMap = CollectionUtil.toMap(regions, Region::getRegionId);
-        while (CollectionUtil.isNotEmpty(regions)) {
-            Set<Long> parentRegionIdSet = CollectionUtil.toSet(regions, Region::getParentRegionId);
-            regions = this.getRegionsWithIsLeafByRegionIds(new ArrayList<Long>(parentRegionIdSet));
-            CollectionUtil.toMap(allRegoinMap, regions, Region::getRegionId);
-        }
-        return allRegoinMap;
-    }
+    //-->
+    //
 }

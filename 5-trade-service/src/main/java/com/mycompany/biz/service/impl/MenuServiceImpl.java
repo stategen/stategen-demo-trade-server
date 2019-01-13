@@ -37,11 +37,11 @@ import com.mycompany.biz.service.MenuService;
  */
 public class MenuServiceImpl implements MenuService {
 
-    @Resource(name = "menuDao")
-    MenuDao menuDao;
-
     @Value("${project.name}")
     private String projectName;
+
+    @Resource(name = "menuDao")
+    MenuDao menuDao;
 
     private class VisitKeyCalculator implements CollectionUtil.KeyCalculator<String, Menu> {
 
@@ -83,13 +83,14 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<Menu> getAllMenus() {
-        return this.getMenusByProjectName(getProjectName(), MenuType.MENU);
-    }
-
-    @Override
     public String getProjectName() {
         return projectName;
+    }
+
+    //<#--
+    @Override
+    public List<Menu> getAllMenus() {
+        return this.getMenusByProjectName(getProjectName(), MenuType.MENU);
     }
 
     /**
@@ -225,4 +226,6 @@ public class MenuServiceImpl implements MenuService {
             }
         }
     }
+    //-->
+    //
 }

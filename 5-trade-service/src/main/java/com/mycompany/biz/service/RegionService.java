@@ -26,6 +26,9 @@ import com.mycompany.biz.domain.Region;
  */
 public interface RegionService extends AssignSerice<Region, Long>, RegionServiceTrade {
 
+    Map<Long, Region> getRegionMapIfHasParent(List<Long> regionIds);
+
+    //<#--
     /**
      * 
      * @see com.mycompany.biz.dao.RegionDao#insert
@@ -84,11 +87,11 @@ public interface RegionService extends AssignSerice<Region, Long>, RegionService
      */
     public List<Region> getRegionOptions(List<Long> parentRegionIds);
 
-    Map<Long, Region> getRegionMapIfHasParent(List<Long> regionIds);
-
     /**
      * 
      * @see com.mycompany.biz.dao.RegionDao#getRegionsWithIsLeafByRegionIds
      */
     public List<Region> getRegionsWithIsLeafByRegionIds(java.util.List<Long> regionIds);
+    //-->
+    //
 }
