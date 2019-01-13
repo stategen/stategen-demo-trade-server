@@ -6,6 +6,7 @@ import java.util.InvalidPropertiesFormatException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.junit.Test;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.multipart.MultipartFile;
 import org.stategen.framework.lite.Pagination;
@@ -22,7 +23,7 @@ public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
 
     public UmiFacadeProcessor() {
         super();
-    }   
+    }
 
     public static void main(String[] args) {
         UmiFacadeProcessor umiFacadeProcessor = new UmiFacadeProcessor();
@@ -34,12 +35,14 @@ public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
             logger.error("生成前端代码时出错:", e);
         }
     }
-
+ 
+    @Test
     public void gen() {
         main(null);
     }
 
     public void genFacade() throws InvalidPropertiesFormatException, IOException, TemplateException {
+        
         //这里注册的将替代supper中的注册
         GenContext.registSimpleClz(Void.TYPE, "void");
         GenContext.registSimpleClz(Class.class, "string");
