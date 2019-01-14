@@ -175,7 +175,7 @@ public class TopicReplyServiceImpl implements TopicReplyService {
      * @see com.mycompany.biz.service.TopicReplyService#getTopicReplyPageList
      */
     @Override
-    public PageList<TopicReply> getTopicReplyPageList(TopicReply topicReply, String authorId, int pageSize, int pageNum) {
+    public PageList<TopicReply> getTopicReplyPageList(TopicReply topicReply, int pageSize, int pageNum) {
         PageList<TopicReply> topicReplyList = topicReplyDao.getTopicReplyPageList(topicReply, pageSize, pageNum);
         return topicReplyList;
     }

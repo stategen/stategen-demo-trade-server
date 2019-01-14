@@ -90,6 +90,8 @@
         </dependency>
     </dependencies>
 
+
+
     <build>
         <plugins>
             <plugin>
@@ -144,7 +146,7 @@
                     
                     <!-- 安装前端代码需要的插件 -->
                     <execution>
-                        <id>>>>>>>>>>>>>>>>>yarn 安装前端组件 &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</id>
+                        <id>>>>>>>>>>>>>>>>>yarn 下载前端依赖 &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</id>
                         <phase>test</phase>
                         <goals>
                             <goal>exec</goal>

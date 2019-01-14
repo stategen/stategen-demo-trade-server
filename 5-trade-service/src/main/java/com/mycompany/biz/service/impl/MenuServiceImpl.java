@@ -87,11 +87,12 @@ public class MenuServiceImpl implements MenuService {
         return projectName;
     }
 
-    //<#--
     @Override
     public List<Menu> getAllMenus() {
         return this.getMenusByProjectName(getProjectName(), MenuType.MENU);
     }
+	
+    //<#--
 
     /**
      * 

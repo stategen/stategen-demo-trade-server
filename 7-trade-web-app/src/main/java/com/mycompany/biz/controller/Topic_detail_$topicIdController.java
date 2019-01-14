@@ -54,7 +54,7 @@ public class Topic_detail_$topicIdController extends TopicControllerBase {
                                                 Pagination pagination) {
 
         String userId = loginCookieGroup.getCookieValue(LoginCookieNames.userId);
-        PageList<TopicReply> topicReplyPageList = topicReplyService.getTopicReplyPageList(topicReply, userId, pagination.getPageSize(),
+        PageList<TopicReply> topicReplyPageList = topicReplyService.getTopicReplyPageList(topicReply, pagination.getPageSize(),
             pagination.getPage());
         topicReplyService.assignRepliesExtraProperties(userId, topicReplyPageList.getItems());
         return topicReplyPageList;

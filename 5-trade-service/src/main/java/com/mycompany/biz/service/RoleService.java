@@ -25,6 +25,8 @@ import com.mycompany.biz.domain.Role;
  */
 public interface RoleService extends AssignSerice<Role, String>, RoleServiceTrade {
 
+    public List<Menu> getAllMenusWithRoleChecked(String roleId);
+	
     //<#--
     /*** 保存role,有id时更新，没有id时插入，返回 role*/
     public Role saveRole(Role role);
@@ -32,7 +34,6 @@ public interface RoleService extends AssignSerice<Role, String>, RoleServiceTrad
     /*** 批量保存roles,有id时更新，没有id时插入,并带回新的id，返回 roles*/
     public List<Role> saveRoles(List<Role> roles);
 
-    public List<Menu> getAllMenusWithRoleChecked(String roleId);
 
     /**
      * 
