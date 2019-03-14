@@ -23,7 +23,7 @@ import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.CopyUtil;
 import org.stategen.framework.util.DatetimeUtil;
 
-import com.mycompany.biz.annotion.ExcludeBeanNotNull;
+import com.mycompany.biz.annotion.ExcludeBeanRuleNotNull;
 import com.mycompany.biz.checker.LoginCheck;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.enums.StatusEnum;
@@ -39,7 +39,7 @@ public class UserController extends UserControllerBase {
 
     @ApiRequestMappingAutoWithMethodName(name = "用户列表")
     @State(init = true, dataOpt = DataOpt.FULL_REPLACE,genForm=true)
-    @ExcludeBeanNotNull
+    @ExcludeBeanRuleNotNull
     public AntdPageList<User> getUserPageList(
                                               @ApiParam() String userId,
                                               @ApiParam() @RequestParam(required = false, name = "userIds") ArrayList<String> userIds,
