@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.State;
-import org.stategen.framework.annotation.Wrap;
 import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.AntdPageList;
 import org.stategen.framework.lite.PageList;
@@ -23,7 +22,6 @@ import com.mycompany.biz.enums.TopicType;
 import io.swagger.annotations.ApiParam;
 
 @ApiConfig
-@Wrap
 public class TopicController extends TopicControllerBase {
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TopicController.class);
     
