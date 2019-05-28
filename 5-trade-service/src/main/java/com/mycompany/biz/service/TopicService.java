@@ -8,7 +8,7 @@ package com.mycompany.biz.service;
 import java.util.List;
 
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.AssignSerice;
+import org.stategen.framework.util.AssignService;
 
 import com.mycompany.biz.domain.Topic;
 
@@ -23,7 +23,7 @@ import com.mycompany.biz.domain.Topic;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface TopicService extends AssignSerice<Topic, String>, TopicServiceTrade {
+public interface TopicService extends AssignService<Topic, String>, TopicServiceTrade {
 
     void assignTopicExtraProperties(List<Topic> topics);
 

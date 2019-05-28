@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.AssignSerice;
+import org.stategen.framework.util.AssignService;
 
 import com.mycompany.biz.domain.Region;
 
@@ -24,7 +24,7 @@ import com.mycompany.biz.domain.Region;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface RegionService extends AssignSerice<Region, Long>, RegionServiceTrade {
+public interface RegionService extends AssignService<Region, Long>, RegionServiceTrade {
 
     Map<Long, Region> getRegionMapIfHasParent(List<Long> regionIds);
 
