@@ -8,7 +8,7 @@ package com.mycompany.biz.service;
 import java.util.List;
 
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.AssignSerice;
+import org.stategen.framework.util.AssignService;
 
 import com.mycompany.biz.domain.UserHoppy;
 
@@ -23,7 +23,7 @@ import com.mycompany.biz.domain.UserHoppy;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface UserHoppyService extends AssignSerice<UserHoppy, Long>, UserHoppyServiceTrade {
+public interface UserHoppyService extends AssignService<UserHoppy, Long>, UserHoppyServiceTrade {
 
     //<#--
     /**
