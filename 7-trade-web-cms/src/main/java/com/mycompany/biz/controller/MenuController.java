@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.VisitCheck;
@@ -34,7 +35,7 @@ public class MenuController extends MenuControllerBase {
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    @ApiRequestMappingAutoWithMethodName(name = "扫描系统菜单")
+    @ApiRequestMappingAutoWithMethodName(name = "扫描系统菜单",method=RequestMethod.GET)
     @VisitCheck
     public List<Menu> scanMenus() throws InstantiationException, IllegalAccessException {
         List<Menu> allMenus = ControllerHelpers.genAllControllerMenus(Menu.class, requestMappingHandlerMapping);
