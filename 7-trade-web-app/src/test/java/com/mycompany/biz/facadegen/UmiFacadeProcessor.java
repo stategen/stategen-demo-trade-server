@@ -13,6 +13,7 @@ import org.stategen.framework.lite.Pagination;
 import org.stategen.framework.progen.BaseGenFacadeProcessor;
 import org.stategen.framework.progen.GenContext;
 import org.stategen.framework.progen.PathType;
+import org.stategen.framework.progen.TypescriptContextSetter;
 import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.StringUtil;
 
@@ -42,6 +43,7 @@ public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
     }
 
     public void genFacade() throws InvalidPropertiesFormatException, IOException, TemplateException {
+        new TypescriptContextSetter().setContext();
         
         //这里注册的将替代supper中的注册
         GenContext.registSimpleClz(Void.TYPE, "void");
@@ -53,7 +55,7 @@ public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
         GenContext.registIgnoreParamAnnotationClz(CookieValue.class);
         GenContext.addStaticUtil(StringUtil.class);
         GenContext.addStaticUtil(CollectionUtil.class);
-        GenContext.tempDirs =Arrays.asList("/ts-api","/ts-umi","/ts-umi-app");
+        GenContext.tempDirs =Arrays.asList("/typescript/ts-api","/typescript/ts-umi","/typescript/ts-umi-app");
         GenContext.outDir="app-frontend/src/intergrade/";
         GenContext.outConfigDir="configs";
 
