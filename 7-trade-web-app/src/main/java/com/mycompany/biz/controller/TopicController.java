@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
+import org.stategen.framework.annotation.GenRefresh;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.AntdPageList;
@@ -31,6 +32,7 @@ public class TopicController extends TopicControllerBase {
     
     @ApiRequestMappingAutoWithMethodName
     @State(init=true,dataOpt=DataOpt.APPEND_OR_UPDATE)
+    @GenRefresh
     public AntdPageList<Topic> getTopicPageList(TopicType topicType,Boolean mdrender,@ApiParam(hidden=true) Topic topic, Pagination pagination){
         topic.setCreateTimeMax(DatetimeUtil.current());
         PageList<Topic> topicPageList = this.topicService.getTopicPageList(topic, pagination.getPageSize(), pagination.getPage());
@@ -60,6 +62,17 @@ public class TopicController extends TopicControllerBase {
         topic = this.topicService.update(topic);
         topicService.assignTopicExtraProperties(Arrays.asList(topic));
         return topic;
+    }
+    
+    @ApiRequestMappingAutoWithMethodName
+    @State(area=Topic.class, dataOpt =DataOpt.DELETE_IF_EXIST)
+    public String delete(String topicId ) {
+        return topicId;
+    }
+    @ApiRequestMappingAutoWithMethodName
+    @State(area=Topic.class, dataOpt =DataOpt.DELETE_IF_EXIST)
+    public String[] deleteBatch(String[] topicIds ) {
+        return topicIds;
     }
 
 }
