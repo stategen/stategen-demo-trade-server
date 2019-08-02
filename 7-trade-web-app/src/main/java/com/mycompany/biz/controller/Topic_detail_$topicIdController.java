@@ -75,7 +75,11 @@ public class Topic_detail_$topicIdController extends TopicControllerBase {
     @RequestMapping("/{topicId}/postReply")
     @LoginCheck
     @State
-    public TopicReply PostReply(@PathVariable("topicId") String topicId, TopicReply topicReply) {
+    public TopicReply PostReply(@PathVariable("topicId") String topicId, @ApiParam() String replyId,
+                                @ApiParam() String authorId,
+                                @ApiParam() String content,
+                                @ApiParam() String parentReplyId
+                                ,@ApiParam(hidden = true) TopicReply topicReply) {
         topicReply.setTopicId(topicId);
         String userId = loginCookieGroup.getCookieValue(LoginCookieNames.userId);
         topicReply.setAuthorId(userId);

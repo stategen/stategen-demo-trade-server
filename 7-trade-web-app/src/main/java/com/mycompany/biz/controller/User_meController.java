@@ -24,7 +24,6 @@ import com.mycompany.biz.enums.StatusEnum;
 import io.swagger.annotations.ApiParam;
 
 @ApiConfig
-@LoginCheck
 public class User_meController extends UserControllerBase {
     
 
@@ -35,6 +34,17 @@ public class User_meController extends UserControllerBase {
     public User getCurrentUser() {
         String userId = loginCookieGroup.getCookieValue(LoginCookieNames.userId);
         User topicAuthor = this.userService.getUserByUserId(userId);
+        assignBeans(Arrays.asList(topicAuthor));
+        return topicAuthor;
+    }
+    
+    @ApiRequestMappingAutoWithMethodName
+    @State(init=true,dataOpt=DataOpt.FULL_REPLACE)
+    public User getTheUser() {
+        User topicAuthor = this.userService.getUserByUserId("2018111306343099304690546571");
+        if (logger.isInfoEnabled()) {
+            logger.info(new StringBuffer("输出info信息: topicAuthor:").append(topicAuthor).toString());
+        }
         assignBeans(Arrays.asList(topicAuthor));
         return topicAuthor;
     }

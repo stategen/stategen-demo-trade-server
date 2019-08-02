@@ -57,7 +57,6 @@ public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
         GenContext.addStaticUtil(CollectionUtil.class);
         GenContext.tempDirs =Arrays.asList("/typescript/ts-api","/typescript/ts-umi","/typescript/ts-umi-app");
         GenContext.outDir="app-frontend/src/intergrade/";
-        GenContext.outConfigDir="configs";
 
         PathType[] pathTypes = PathType.values();
         for (PathType pathType : pathTypes) {

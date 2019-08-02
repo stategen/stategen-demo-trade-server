@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
@@ -87,7 +88,7 @@ public class AppController {
         return user;
     }
 
-    @ApiRequestMappingAutoWithMethodName(name = "获所所有菜单")
+    @ApiRequestMappingAutoWithMethodName(name = "获所所有菜单",method=RequestMethod.GET)
     @State(init = true, initCheck = false, dataOpt = DataOpt.FULL_REPLACE)
     public List<Menu> getAllMenus() {
         return this.menuService.getAllMenus();
@@ -104,7 +105,7 @@ public class AppController {
         return this.cityService.getCityOptions(provinceId);
     }
 
-    @ApiRequestMappingAutoWithMethodName(name = "爱好")
+    @ApiRequestMappingAutoWithMethodName(name = "爱好",method=RequestMethod.GET)
     public List<Hoppy> getHoppyOptions() {
         return this.hoppyService.getHoppyOptions();
     }

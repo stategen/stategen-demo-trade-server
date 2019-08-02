@@ -28,14 +28,14 @@ public class FlutterFacadeProcessor extends BaseGenFacadeProcessor {
     public static void main(String[] args) {
         FlutterFacadeProcessor umiFacadeProcessor = new FlutterFacadeProcessor();
         try {
-            logger.info("==================Flutter 前端代码生成开始==========================="); 
-            umiFacadeProcessor.genFacade(); 
+            logger.info("==================Flutter 前端代码生成开始===========================");
+            umiFacadeProcessor.genFacade();
             logger.info("==================Flutter 前端代码生成结束===========================");
         } catch (Exception e) {
             logger.error("生成前端代码时出错:", e);
         }
     }
- 
+
     @Test
     public void gen() {
         main(null);
@@ -43,22 +43,23 @@ public class FlutterFacadeProcessor extends BaseGenFacadeProcessor {
 
     public void genFacade() throws InvalidPropertiesFormatException, IOException, TemplateException {
         new FlutterContextSetter().setContext();
-         
+
         //这里注册的将替代supper中的注册
         GenContext.registSimpleClz(Void.TYPE, "void");
         GenContext.registSimpleClz(Class.class, "String");
-//        GenContext.registSimpleClz(Pagination.class, "PaginationProps","import {PaginationProps} from 'antd/es/pagination'");
-//        GenContext.registSimpleClz(MultipartFile.class, "UploadFile","import {UploadFile} from 'antd/es/upload/interface'");
-        
+        //        GenContext.registSimpleClz(Pagination.class, "PaginationProps","import {PaginationProps} from 'antd/es/pagination'");
+        //        GenContext.registSimpleClz(MultipartFile.class, "UploadFile","import {UploadFile} from 'antd/es/upload/interface'");
+
         GenContext.registIgnoreParamClz(HttpServletRequest.class);
         GenContext.registIgnoreParamAnnotationClz(CookieValue.class);
         GenContext.addStaticUtil(StringUtil.class);
         GenContext.addStaticUtil(CollectionUtil.class);
         GenContext.addStaticUtil(JSONUtil.class);
         //
-        GenContext.tempDirs =Arrays.asList("/flutter/dart-api","/flutter/dart-flutter","/flutter/dart-flutter-app");
-        GenContext.outDir="app-frontend-flutter/lib/intergrade/";
-        GenContext.outConfigDir="configs";
+        GenContext.tempDirs = Arrays.asList("/flutter/dart-api", "/flutter/dart-flutter", "/flutter/dart-flutter-app");
+        GenContext.outDir = "app-frontend-flutter/lib/intergrade/";
+        
+        GenContext.customVirables.put("intergradePackage", "package:flutter_deer/intergrade/");
 
         PathType[] pathTypes = PathType.values();
         for (PathType pathType : pathTypes) {
