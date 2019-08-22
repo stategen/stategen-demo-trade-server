@@ -104,6 +104,16 @@ public class User implements java.io.Serializable {
     @Max(32)
     private String nickName;
 
+    /***国际区号   db_column: inter_code VARCHAR */
+    @ApiModelProperty("国际区号")
+    @Max(16)
+    private String interCode;
+
+    /***手机号   db_column: mobile VARCHAR */
+    @ApiModelProperty("手机号")
+    @Max(16)
+    private String mobile;
+
     /***年龄   db_column: age INTEGER */
     @ApiModelProperty("年龄")
     @Editor(EditorType.Number.class)
@@ -208,6 +218,8 @@ public class User implements java.io.Serializable {
         sb.append("roleTypes=").append(roleTypes).append('\n');
         sb.append("nameLike=").append(nameLike).append('\n');
         sb.append("nickNameLike=").append(nickNameLike).append('\n');
+        sb.append("interCodeLike=").append(interCodeLike).append('\n');
+        sb.append("mobileLike=").append(mobileLike).append('\n');
         sb.append("ageMin=").append(ageMin).append('\n');
         sb.append("ageMax=").append(ageMax).append('\n');
         sb.append("addressLike=").append(addressLike).append('\n');
@@ -236,6 +248,8 @@ public class User implements java.io.Serializable {
         sb.append("roleType=").append(roleType).append('\n');
         sb.append("name=").append(name).append('\n');
         sb.append("nickName=").append(nickName).append('\n');
+        sb.append("interCode=").append(interCode).append('\n');
+        sb.append("mobile=").append(mobile).append('\n');
         sb.append("age=").append(age).append('\n');
         sb.append("address=").append(address).append('\n');
         sb.append("avatarImgId=").append(avatarImgId).append('\n');
@@ -286,6 +300,16 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("别名Like")
     @JSONField(serialize = false)
     private String nickNameLike;
+
+    /*** 国际区号Like in getUserPageList */
+    @ApiModelProperty("国际区号Like")
+    @JSONField(serialize = false)
+    private String interCodeLike;
+
+    /*** 手机号Like in getUserPageList */
+    @ApiModelProperty("手机号Like")
+    @JSONField(serialize = false)
+    private String mobileLike;
 
     /*** 年龄Min in getUserPageList */
     @ApiModelProperty("年龄Min")

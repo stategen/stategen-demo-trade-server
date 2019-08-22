@@ -12,6 +12,8 @@
         <result property="roleType" column="role_type" javaType="com.mycompany.biz.enums.RoleType" jdbcType="VARCHAR"  />
         <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="nickName" column="nickName" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="interCode" column="inter_code" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="mobile" column="mobile" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="age" column="age" javaType="java.lang.Integer" jdbcType="INTEGER"  />
         <result property="address" column="address" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="avatarImgId" column="avatar_img_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
@@ -62,6 +64,8 @@
             <isNotNull prepend="," property="roleType"> role_type </isNotNull>
             <isNotNull prepend="," property="name"> name </isNotNull>
             <isNotNull prepend="," property="nickName"> nickName </isNotNull>
+            <isNotNull prepend="," property="interCode"> inter_code </isNotNull>
+            <isNotNull prepend="," property="mobile"> mobile </isNotNull>
             <isNotNull prepend="," property="age"> age </isNotNull>
             <isNotNull prepend="," property="address"> address </isNotNull>
             <isNotNull prepend="," property="avatarImgId"> avatar_img_id </isNotNull>
@@ -83,6 +87,8 @@
             <isNotNull prepend="," property="roleType"> #roleType# </isNotNull> 
             <isNotNull prepend="," property="name"> #name# </isNotNull> 
             <isNotNull prepend="," property="nickName"> #nickName# </isNotNull> 
+            <isNotNull prepend="," property="interCode"> #interCode# </isNotNull> 
+            <isNotNull prepend="," property="mobile"> #mobile# </isNotNull> 
             <isNotNull prepend="," property="age"> #age# </isNotNull> 
             <isNotNull prepend="," property="address"> #address# </isNotNull> 
             <isNotNull prepend="," property="avatarImgId"> #avatarImgId# </isNotNull> 
@@ -154,6 +160,12 @@
                 <isNotNull prepend="," property="nickName">
                     nickName =  #nickName# 
                 </isNotNull>
+                <isNotNull prepend="," property="interCode">
+                    inter_code =  #interCode# 
+                </isNotNull>
+                <isNotNull prepend="," property="mobile">
+                    mobile =  #mobile# 
+                </isNotNull>
                 <isNotNull prepend="," property="age">
                     age =  #age# 
                 </isNotNull>
@@ -212,6 +224,8 @@
             a.role_type,
             a.name,
             a.nickName,
+            a.inter_code,
+            a.mobile,
             a.age,
             a.address,
             a.avatar_img_id,
@@ -248,6 +262,8 @@
             a.role_type,
             a.name,
             a.nickName,
+            a.inter_code,
+            a.mobile,
             a.age,
             a.address,
             a.avatar_img_id,
@@ -284,6 +300,8 @@
             a.role_type,
             a.name,
             a.nickName,
+            a.inter_code,
+            a.mobile,
             a.age,
             a.address,
             a.avatar_img_id,
@@ -320,6 +338,8 @@
             a.role_type,
             a.name,
             a.nickName,
+            a.inter_code,
+            a.mobile,
             a.age,
             a.address,
             a.avatar_img_id,
@@ -381,6 +401,18 @@
           </isNotNull>
             <isNotEmpty open="and" property="nickNameLike">
                 a.nickName like CONCAT('%',#nickNameLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="interCode">
+            a.inter_code=#interCode#
+          </isNotNull>
+            <isNotEmpty open="and" property="interCodeLike">
+                a.inter_code like CONCAT('%',#interCodeLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="mobile">
+            a.mobile=#mobile#
+          </isNotNull>
+            <isNotEmpty open="and" property="mobileLike">
+                a.mobile like CONCAT('%',#mobileLike#,'%')
             </isNotEmpty>
             <isNotNull open="and" property="ageMin">
                 a.age >=#ageMin#
@@ -499,6 +531,10 @@
             <isEmpty property="nameLike">
             <isNull property="nickName">
             <isEmpty property="nickNameLike">
+            <isNull property="interCode">
+            <isEmpty property="interCodeLike">
+            <isNull property="mobile">
+            <isEmpty property="mobileLike">
             <isNull property="ageMin">
             <isNull property="ageMax">
             <isNull property="address">
@@ -559,6 +595,10 @@
             </isEmpty>
             </isNull>
             </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
             </isNull>
             </isEmpty>
             </isNull>
@@ -623,6 +663,18 @@
             <isNotEmpty open="and" property="nickNameLike">
                 a.nickName like CONCAT('%',#nickNameLike#,'%')
             </isNotEmpty>
+          <isNotNull open="and" property="interCode">
+            a.inter_code=#interCode#
+          </isNotNull>
+            <isNotEmpty open="and" property="interCodeLike">
+                a.inter_code like CONCAT('%',#interCodeLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="mobile">
+            a.mobile=#mobile#
+          </isNotNull>
+            <isNotEmpty open="and" property="mobileLike">
+                a.mobile like CONCAT('%',#mobileLike#,'%')
+            </isNotEmpty>
             <isNotNull open="and" property="ageMin">
                 a.age >=#ageMin#
             </isNotNull>
@@ -740,6 +792,10 @@
             <isEmpty property="nameLike">
             <isNull property="nickName">
             <isEmpty property="nickNameLike">
+            <isNull property="interCode">
+            <isEmpty property="interCodeLike">
+            <isNull property="mobile">
+            <isEmpty property="mobileLike">
             <isNull property="ageMin">
             <isNull property="ageMax">
             <isNull property="address">
@@ -813,6 +869,10 @@
             </isNull>
             </isEmpty>
             </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
 	</select>
 	    
 	
@@ -827,6 +887,8 @@
             a.role_type,
             a.name,
             a.nickName,
+            a.inter_code,
+            a.mobile,
             a.age,
             a.address,
             a.avatar_img_id,
@@ -873,6 +935,8 @@
             a.role_type,
             a.name,
             a.nickName,
+            a.inter_code,
+            a.mobile,
             a.age,
             a.address,
             a.avatar_img_id,
@@ -919,6 +983,8 @@
             a.role_type,
             a.name,
             a.nickName,
+            a.inter_code,
+            a.mobile,
             a.age,
             a.address,
             a.avatar_img_id,
@@ -1011,6 +1077,45 @@
                 </iterate>
             </isNotEmpty>
 	</update>
+	
+    
+	
+	<select id="getUserByMobile.User.trade" resultMap="User.trade.RM" >
+    	select
+ /* getUserByMobile.User.trade */             a.user_id,
+            a.username,
+            a.password,
+            a.role_type,
+            a.name,
+            a.nickName,
+            a.inter_code,
+            a.mobile,
+            a.age,
+            a.address,
+            a.avatar_img_id,
+            a.email,
+            a.vali_datetime,
+            a.birthday_date,
+            a.work_time,
+            a.province_id,
+            a.city_id,
+            a.status,
+            a.grade,
+            a.sex,
+            a.post_address_id,
+            a.remark,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from user a
+            where
+            a.delete_flag = 0
+            and a.inter_code = #interCode#
+            and a.mobile = #mobile#
+	</select>	
+
+	    
+	
 	
     
 

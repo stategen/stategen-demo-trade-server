@@ -220,6 +220,16 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#getUserByMobile
+     * @see com.mycompany.biz.service.UserService#getUserByMobile
+     */
+    @Override
+    public User getUserByMobile(String interCode, String mobile) {
+        return userDao.getUserByMobile(interCode, mobile);
+    }
     //-->
     //
 }

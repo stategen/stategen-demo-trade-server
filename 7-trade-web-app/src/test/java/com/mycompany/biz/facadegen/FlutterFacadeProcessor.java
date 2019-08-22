@@ -59,7 +59,7 @@ public class FlutterFacadeProcessor extends BaseGenFacadeProcessor {
         GenContext.tempDirs = Arrays.asList("/flutter/dart-api", "/flutter/dart-flutter", "/flutter/dart-flutter-app");
         GenContext.outDir = "app-frontend-flutter/lib/intergrade/";
         
-        GenContext.customVirables.put("intergradePackage", "package:flutter_deer/intergrade/");
+        GenContext.customVirables.put("intergradePackage", "package:flutter_deer/intergrade");
 
         PathType[] pathTypes = PathType.values();
         for (PathType pathType : pathTypes) {

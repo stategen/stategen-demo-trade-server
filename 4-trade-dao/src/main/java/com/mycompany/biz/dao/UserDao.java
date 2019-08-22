@@ -31,6 +31,8 @@ public interface UserDao {
     &#64;ApiParam() RoleType roleType,
     &#64;ApiParam() String name,
     &#64;ApiParam() String nickName,
+    &#64;ApiParam() String interCode,
+    &#64;ApiParam() String mobile,
     &#64;ApiParam() Integer age,
     &#64;ApiParam() String address,
     &#64;ApiParam() String avatarImgId,
@@ -49,7 +51,7 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:insert into user ( create_time , update_time , delete_flag , user_id , username , password , role_type , name , nickName , age , address , avatar_img_id , email , vali_datetime , birthday_date , work_time , province_id , city_id , status , grade , sex , post_address_id , remark ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+	 * sql:insert into user ( create_time , update_time , delete_flag , user_id , username , password , role_type , name , nickName , inter_code , mobile , age , address , avatar_img_id , email , vali_datetime , birthday_date , work_time , province_id , city_id , status , grade , sex , post_address_id , remark ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
 	public User insert(User user) throws DataAccessException;
 	
@@ -90,6 +92,8 @@ public interface UserDao {
     &#64;ApiParam() RoleType roleType,
     &#64;ApiParam() String name,
     &#64;ApiParam() String nickName,
+    &#64;ApiParam() String interCode,
+    &#64;ApiParam() String mobile,
     &#64;ApiParam() Integer age,
     &#64;ApiParam() String address,
     &#64;ApiParam() String avatarImgId,
@@ -109,7 +113,7 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE user SET update_time= CURRENT_TIMESTAMP(6) , username = ? , password = ? , role_type = ? , name = ? , nickName = ? , age = ? , address = ? , avatar_img_id = ? , email = ? , vali_datetime = ? , birthday_date = ? , work_time = ? , province_id = ? , city_id = ? , status = ? , grade = ? , sex = ? , post_address_id = ? , remark = ? where delete_flag = 0 and user_id = ?
+	 * sql:UPDATE user SET update_time= CURRENT_TIMESTAMP(6) , username = ? , password = ? , role_type = ? , name = ? , nickName = ? , inter_code = ? , mobile = ? , age = ? , address = ? , avatar_img_id = ? , email = ? , vali_datetime = ? , birthday_date = ? , work_time = ? , province_id = ? , city_id = ? , status = ? , grade = ? , sex = ? , post_address_id = ? , remark = ? where delete_flag = 0 and user_id = ?
 	 */
 	public User update(User user) throws DataAccessException;
 	
@@ -119,7 +123,7 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id = ?
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id = ?
 	 */
 	public User getUserByUserId(String userId) throws DataAccessException;
 	
@@ -129,7 +133,7 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.username = ?
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.username = ?
 	 */
 	public User getUserByUsername(String username) throws DataAccessException;
 	
@@ -139,7 +143,7 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.email = ?
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.email = ?
 	 */
 	public User getUserByEmail(String email) throws DataAccessException;
 	
@@ -157,6 +161,10 @@ public interface UserDao {
     &#64;ApiParam() String nameLike,
     &#64;ApiParam() String nickName,
     &#64;ApiParam() String nickNameLike,
+    &#64;ApiParam() String interCode,
+    &#64;ApiParam() String interCodeLike,
+    &#64;ApiParam() String mobile,
+    &#64;ApiParam() String mobileLike,
     &#64;ApiParam() Integer ageMin,
     &#64;ApiParam() Integer ageMax,
     &#64;ApiParam() String address,
@@ -191,7 +199,7 @@ public interface UserDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id=? and a.user_id in ( ? ) and a.username=? and a.username like CONCAT('%',?,'%') and a.password=? and a.password like CONCAT('%',?,'%') and a.role_type=? and a.role_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.nickName=? and a.nickName like CONCAT('%',?,'%') and a.age >=? and a.age <? and a.address=? and a.address like CONCAT('%',?,'%') and a.avatar_img_id=? and a.avatar_img_id in ( ? ) and a.email=? and a.email like CONCAT('%',?,'%') and a.vali_datetime >=? and a.vali_datetime <? and a.birthday_date >=? and a.birthday_date <? and a.work_time >=? and a.work_time <? and a.province_id=? and a.province_id in ( ? ) and a.city_id=? and a.city_id in ( ? ) and a.status=? and a.status in ( ? ) and a.grade >=? and a.grade <? and a.post_address_id=? and a.post_address_id in ( ? ) and a.remark=? and a.remark like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id=? and a.user_id in ( ? ) and a.username=? and a.username like CONCAT('%',?,'%') and a.password=? and a.password like CONCAT('%',?,'%') and a.role_type=? and a.role_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.nickName=? and a.nickName like CONCAT('%',?,'%') and a.inter_code=? and a.inter_code like CONCAT('%',?,'%') and a.mobile=? and a.mobile like CONCAT('%',?,'%') and a.age >=? and a.age <? and a.address=? and a.address like CONCAT('%',?,'%') and a.avatar_img_id=? and a.avatar_img_id in ( ? ) and a.email=? and a.email like CONCAT('%',?,'%') and a.vali_datetime >=? and a.vali_datetime <? and a.birthday_date >=? and a.birthday_date <? and a.work_time >=? and a.work_time <? and a.province_id=? and a.province_id in ( ? ) and a.city_id=? and a.city_id in ( ? ) and a.status=? and a.status in ( ? ) and a.grade >=? and a.grade <? and a.post_address_id=? and a.post_address_id in ( ? ) and a.remark=? and a.remark like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<User> getUserPageList(User user, int pageSize, int pageNum) throws DataAccessException;
 	
@@ -201,7 +209,7 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.user_id in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.user_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<User> getUsersByUserIds(java.util.List<String> userIds) throws DataAccessException;
 	
@@ -211,7 +219,7 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.username in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.username in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<User> getUsersByUsernames(java.util.List<String> usernames) throws DataAccessException;
 	
@@ -221,7 +229,7 @@ public interface UserDao {
     
     </pre>
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.email in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.email in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<User> getUsersByEmails(java.util.List<String> emails) throws DataAccessException;
 	
@@ -254,6 +262,17 @@ public interface UserDao {
 	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and email in ( ? )
 	 */
 	public Long deleteByEmails(java.util.List<String> emails) throws DataAccessException;
+	
+	/**
+    <pre>
+    &#64;ApiParam("国际区号") String interCode,
+    &#64;ApiParam("手机号") String mobile
+    
+    </pre>
+	 * 
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.inter_code = ? and a.mobile = ?
+	 */
+	public User getUserByMobile(String interCode, String mobile) throws DataAccessException;
 	
 
 }

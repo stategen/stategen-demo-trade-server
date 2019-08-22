@@ -120,6 +120,12 @@ public interface UserService extends AssignService<User, String>, UserServiceTra
      * @see com.mycompany.biz.dao.UserDao#getUserPageList
      */
     public PageList<User> getUserPageList(User user, int pageSize, int pageNum);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#getUserByMobile
+     */
+    public User getUserByMobile(String interCode, String mobile);
     //-->
     //
 }
