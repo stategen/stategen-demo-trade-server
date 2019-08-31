@@ -160,85 +160,85 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
         return sb.toString();
     }
 
-    /*** menuIds in getMenuPageList */
+    /*** menuIds in getPageList */
     @ApiModelProperty("menuId s")
     @JSONField(serialize = false)
     private java.util.List<Long> menuIds;
 
-    /*** morderMin in getMenuPageList */
+    /*** morderMin in getPageList */
     @ApiModelProperty("morderMin")
     @JSONField(serialize = false)
     private Integer morderMin;
 
-    /*** morderMax in getMenuPageList */
+    /*** morderMax in getPageList */
     @ApiModelProperty("morderMax")
     @JSONField(serialize = false)
     private Integer morderMax;
 
-    /*** menuId与bpid组成树图s in getMenuPageList */
+    /*** menuId与bpid组成树图s in getPageList */
     @ApiModelProperty("menuId与bpid组成树图 s")
     @JSONField(serialize = false)
     private java.util.List<Long> bpids;
 
-    /*** 大部分情况下与bpid相同，当为动态目录时，mpid=-1s in getMenuPageList */
+    /*** 大部分情况下与bpid相同，当为动态目录时，mpid=-1s in getPageList */
     @ApiModelProperty("大部分情况下与bpid相同 s")
     @JSONField(serialize = false)
     private java.util.List<Long> mpids;
 
-    /*** 对应的项目idLike in getMenuPageList */
+    /*** 对应的项目idLike in getPageList */
     @ApiModelProperty("对应的项目idLike")
     @JSONField(serialize = false)
     private String projectNameLike;
 
-    /*** 对应后台系统controlle名称Like in getMenuPageList */
+    /*** 对应后台系统controlle名称Like in getPageList */
     @ApiModelProperty("对应后台系统controlle名称Like")
     @JSONField(serialize = false)
     private String controllerNameLike;
 
-    /*** 对应后台系统method名称Like in getMenuPageList */
+    /*** 对应后台系统method名称Like in getPageList */
     @ApiModelProperty("对应后台系统method名称Like")
     @JSONField(serialize = false)
     private String methodNameLike;
 
-    /*** 对应的项目idnameLike in getMenuPageList */
+    /*** 对应的项目idnameLike in getPageList */
     @ApiModelProperty("对应的项目idnameLike")
     @JSONField(serialize = false)
     private String nameLike;
 
-    /*** routeLike in getMenuPageList */
+    /*** routeLike in getPageList */
     @ApiModelProperty("routeLike")
     @JSONField(serialize = false)
     private String routeLike;
 
-    /*** menuTypes in getMenuPageList */
+    /*** menuTypes in getPageList */
     @ApiModelProperty("menuType s")
     @JSONField(serialize = false)
     private java.util.List<org.stategen.framework.lite.enums.MenuType> menuTypes;
 
-    /*** checkTypes in getMenuPageList */
+    /*** checkTypes in getPageList */
     @ApiModelProperty("checkType s")
     @JSONField(serialize = false)
     private java.util.List<org.stategen.framework.lite.enums.VisitCheckType> checkTypes;
 
-    /*** 数据创建时间Min in getMenuPageList */
+    /*** 数据创建时间Min in getPageList */
     @ApiModelProperty("数据创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMin;
 
-    /*** 数据创建时间Max in getMenuPageList */
+    /*** 数据创建时间Max in getPageList */
     @ApiModelProperty("数据创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
 
-    /*** 数据更新时间Min in getMenuPageList */
+    /*** 数据更新时间Min in getPageList */
     @ApiModelProperty("数据更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMin;
 
-    /*** 数据更新时间Max in getMenuPageList */
+    /*** 数据更新时间Max in getPageList */
     @ApiModelProperty("数据更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)

@@ -91,7 +91,7 @@ public interface RoleDao {
 	 * 
 	 * sql:select a.role_id, a.role_name, a.description, a.create_time, a.update_time, a.delete_flag, a.role_type from role a where a.delete_flag = 0 and a.role_id=? and a.role_id in ( ? ) and a.role_name=? and a.role_name like CONCAT('%',?,'%') and a.description=? and a.description like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and a.role_type=? and a.role_type in ( ? ) and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<Role> getRolePageList(Role role, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<Role> getPageList(Role role, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>

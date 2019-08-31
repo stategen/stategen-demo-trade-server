@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AssignService;
+import org.stategen.framework.util.BaseService;
 
 import com.mycompany.biz.domain.UserRole;
 
@@ -22,7 +23,7 @@ import com.mycompany.biz.domain.UserRole;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface UserRoleService extends AssignService<UserRole, Long>, UserRoleServiceTrade {
+public interface UserRoleService extends AssignService<UserRole, Long>, UserRoleServiceTrade, BaseService<UserRole> {
 
     //<#--
     /**
@@ -69,9 +70,9 @@ public interface UserRoleService extends AssignService<UserRole, Long>, UserRole
 
     /**
      * 
-     * @see com.mycompany.biz.dao.UserRoleDao#getUserRolePageList
+     * @see com.mycompany.biz.dao.UserRoleDao#getPageList
      */
-    public PageList<UserRole> getUserRolePageList(UserRole userRole, int pageSize, int pageNum);
+    public PageList<UserRole> getPageList(UserRole userRole, int pageSize, int pageNum);
     //-->
     //
 }

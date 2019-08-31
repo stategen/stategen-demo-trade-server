@@ -95,9 +95,9 @@
 	
     
 	
-	<select id="getUserHoppyPageList.UserHoppy.trade" resultMap="UserHoppy.trade.RM" >
+	<select id="getPageList.UserHoppy.trade" resultMap="UserHoppy.trade.RM" >
     	select
- /* getUserHoppyPageList.UserHoppy.trade */             a.id,
+ /* getPageList.UserHoppy.trade */             a.id,
             a.user_id,
             a.hoppy_id,
             a.create_time,
@@ -171,8 +171,8 @@
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getUserHoppyPageList.UserHoppy.trade.count" resultClass="long" >
-    	select  /* getUserHoppyPageList.UserHoppy.trade.count */ count(*)  from user_hoppy a
+	<select id="getPageList.UserHoppy.trade.count" resultClass="long" >
+    	select  /* getPageList.UserHoppy.trade.count */ count(*)  from user_hoppy a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="id">

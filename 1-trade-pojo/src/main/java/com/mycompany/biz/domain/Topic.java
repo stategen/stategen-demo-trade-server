@@ -139,92 +139,92 @@ public class Topic implements java.io.Serializable {
         return sb.toString();
     }
 
-    /*** 主题IDs in getTopicPageList */
+    /*** 主题IDs in getPageList */
     @ApiModelProperty("主题ID s")
     @JSONField(serialize = false)
     private java.util.List<String> topicIds;
 
-    /*** 作者IDs in getTopicPageList */
+    /*** 作者IDs in getPageList */
     @ApiModelProperty("作者ID s")
     @JSONField(serialize = false)
     private java.util.List<String> authorIds;
 
-    /*** 主题类型s in getTopicPageList */
+    /*** 主题类型s in getPageList */
     @ApiModelProperty("主题类型 s")
     @JSONField(serialize = false)
     private java.util.List<com.mycompany.biz.enums.TopicType> topicTypes;
 
-    /*** 内容Like in getTopicPageList */
+    /*** 内容Like in getPageList */
     @ApiModelProperty("内容Like")
     @JSONField(serialize = false)
     private String contentLike;
 
-    /*** 标题Like in getTopicPageList */
+    /*** 标题Like in getPageList */
     @ApiModelProperty("标题Like")
     @JSONField(serialize = false)
     private String titleLike;
 
-    /*** 最后回复Min in getTopicPageList */
+    /*** 最后回复Min in getPageList */
     @ApiModelProperty("最后回复Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date lastReplyAtMin;
 
-    /*** 最后回复Max in getTopicPageList */
+    /*** 最后回复Max in getPageList */
     @ApiModelProperty("最后回复Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date lastReplyAtMax;
 
-    /*** 精华Min in getTopicPageList */
+    /*** 精华Min in getPageList */
     @ApiModelProperty("精华Min")
     @JSONField(serialize = false)
     private Long goodMin;
 
-    /*** 精华Max in getTopicPageList */
+    /*** 精华Max in getPageList */
     @ApiModelProperty("精华Max")
     @JSONField(serialize = false)
     private Long goodMax;
 
-    /*** 置顶Min in getTopicPageList */
+    /*** 置顶Min in getPageList */
     @ApiModelProperty("置顶Min")
     @JSONField(serialize = false)
     private Long topMin;
 
-    /*** 置顶Max in getTopicPageList */
+    /*** 置顶Max in getPageList */
     @ApiModelProperty("置顶Max")
     @JSONField(serialize = false)
     private Long topMax;
 
-    /*** 浏览次数Min in getTopicPageList */
+    /*** 浏览次数Min in getPageList */
     @ApiModelProperty("浏览次数Min")
     @JSONField(serialize = false)
     private Long visitCountMin;
 
-    /*** 浏览次数Max in getTopicPageList */
+    /*** 浏览次数Max in getPageList */
     @ApiModelProperty("浏览次数Max")
     @JSONField(serialize = false)
     private Long visitCountMax;
 
-    /*** 创建时间Min in getTopicPageList */
+    /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getTopicPageList */
+    /*** 创建时间Max in getPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getTopicPageList */
+    /*** 更新时间Min in getPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getTopicPageList */
+    /*** 更新时间Max in getPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)

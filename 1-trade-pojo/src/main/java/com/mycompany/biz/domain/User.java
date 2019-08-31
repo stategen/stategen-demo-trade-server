@@ -85,8 +85,8 @@ public class User implements java.io.Serializable {
     /***密码，测试，明文   db_column: password VARCHAR */
     @ApiModelProperty("密码，测试，明文")
     @Max(64)
-    @JSONField(serialize = false)
     @Editor(EditorType.Password.class)
+    @JSONField(serialize = false)
     private transient String password;
 
     /***用户角色 ADMIN,DEFAULT,DEVELOPER   db_column: role_type VARCHAR */
@@ -127,8 +127,8 @@ public class User implements java.io.Serializable {
     /***头像 ID   db_column: avatar_img_id VARCHAR */
     @ApiModelProperty("头像 ID")
     @Max(64)
-    @Editor(EditorType.Image.class)
     @ReferConfig
+    @Editor(EditorType.Image.class)
     private String avatarImgId;
 
     /***邮箱   db_column: email VARCHAR */
@@ -162,14 +162,14 @@ public class User implements java.io.Serializable {
     /***城市 ID   db_column: city_id VARCHAR */
     @ApiModelProperty("城市 ID")
     @Max(64)
-    @ReferConfig()
     @ChangeBy("provinceId")
+    @ReferConfig()
     private String cityId;
 
     /***状态 enum   db_column: status VARCHAR */
     @ApiModelProperty("状态 enum")
-    @Max(64)
     @Editor(EditorType.RadioGroup.class)
+    @Max(64)
     private StatusEnum status;
 
     /***级别   db_column: grade BIGINT */
@@ -271,165 +271,165 @@ public class User implements java.io.Serializable {
         return sb.toString();
     }
 
-    /*** 用户IDs in getUserPageList */
+    /*** 用户IDs in getPageList */
     @ApiModelProperty("用户ID s")
     @JSONField(serialize = false)
     private java.util.List<String> userIds;
 
-    /*** 用户名Like in getUserPageList */
+    /*** 用户名Like in getPageList */
     @ApiModelProperty("用户名Like")
     @JSONField(serialize = false)
     private String usernameLike;
 
-    /*** 密码，测试，明文Like in getUserPageList */
+    /*** 密码，测试，明文Like in getPageList */
     @ApiModelProperty("密码Like")
     @JSONField(serialize = false)
     private String passwordLike;
 
-    /*** 用户角色 ADMIN,DEFAULT,DEVELOPERs in getUserPageList */
+    /*** 用户角色 ADMIN,DEFAULT,DEVELOPERs in getPageList */
     @ApiModelProperty("用户角色 s")
     @JSONField(serialize = false)
     private java.util.List<com.mycompany.biz.enums.RoleType> roleTypes;
 
-    /*** 用户名nameLike in getUserPageList */
+    /*** 用户名nameLike in getPageList */
     @ApiModelProperty("用户名nameLike")
     @JSONField(serialize = false)
     private String nameLike;
 
-    /*** 别名Like in getUserPageList */
+    /*** 别名Like in getPageList */
     @ApiModelProperty("别名Like")
     @JSONField(serialize = false)
     private String nickNameLike;
 
-    /*** 国际区号Like in getUserPageList */
+    /*** 国际区号Like in getPageList */
     @ApiModelProperty("国际区号Like")
     @JSONField(serialize = false)
     private String interCodeLike;
 
-    /*** 手机号Like in getUserPageList */
+    /*** 手机号Like in getPageList */
     @ApiModelProperty("手机号Like")
     @JSONField(serialize = false)
     private String mobileLike;
 
-    /*** 年龄Min in getUserPageList */
+    /*** 年龄Min in getPageList */
     @ApiModelProperty("年龄Min")
     @JSONField(serialize = false)
     private Integer ageMin;
 
-    /*** 年龄Max in getUserPageList */
+    /*** 年龄Max in getPageList */
     @ApiModelProperty("年龄Max")
     @JSONField(serialize = false)
     private Integer ageMax;
 
-    /*** 详细地址Like in getUserPageList */
+    /*** 详细地址Like in getPageList */
     @ApiModelProperty("详细地址Like")
     @JSONField(serialize = false)
     private String addressLike;
 
-    /*** 头像 IDs in getUserPageList */
+    /*** 头像 IDs in getPageList */
     @ApiModelProperty("头像 s")
     @JSONField(serialize = false)
     private java.util.List<String> avatarImgIds;
 
-    /*** 邮箱Like in getUserPageList */
+    /*** 邮箱Like in getPageList */
     @ApiModelProperty("邮箱Like")
     @JSONField(serialize = false)
     private String emailLike;
 
-    /*** 认证时间Min in getUserPageList */
+    /*** 认证时间Min in getPageList */
     @ApiModelProperty("认证时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date valiDatetimeMin;
 
-    /*** 认证时间Max in getUserPageList */
+    /*** 认证时间Max in getPageList */
     @ApiModelProperty("认证时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date valiDatetimeMax;
 
-    /*** 出生日期Min in getUserPageList */
+    /*** 出生日期Min in getPageList */
     @ApiModelProperty("出生日期Min")
     @Temporal(TemporalType.DATE)
     @JSONField(serialize = false)
     private java.util.Date birthdayDateMin;
 
-    /*** 出生日期Max in getUserPageList */
+    /*** 出生日期Max in getPageList */
     @ApiModelProperty("出生日期Max")
     @Temporal(TemporalType.DATE)
     @JSONField(serialize = false)
     private java.util.Date birthdayDateMax;
 
-    /*** 工作时间Min in getUserPageList */
+    /*** 工作时间Min in getPageList */
     @ApiModelProperty("工作时间Min")
     @Temporal(TemporalType.TIME)
     @JSONField(serialize = false)
     private java.util.Date workTimeMin;
 
-    /*** 工作时间Max in getUserPageList */
+    /*** 工作时间Max in getPageList */
     @ApiModelProperty("工作时间Max")
     @Temporal(TemporalType.TIME)
     @JSONField(serialize = false)
     private java.util.Date workTimeMax;
 
-    /*** 省份 IDs in getUserPageList */
+    /*** 省份 IDs in getPageList */
     @ApiModelProperty("省份 s")
     @JSONField(serialize = false)
     @ReferConfig
     private java.util.List<String> provinceIds;
 
-    /*** 城市 IDs in getUserPageList */
+    /*** 城市 IDs in getPageList */
     @ApiModelProperty("城市 s")
     @JSONField(serialize = false)
-    @ReferConfig()
     @ChangeBy("provinceId")
+    @ReferConfig()
     private java.util.List<String> cityIds;
 
-    /*** 状态 enums in getUserPageList */
+    /*** 状态 enums in getPageList */
     @ApiModelProperty("状态 s")
     @JSONField(serialize = false)
     @Editor(EditorType.CheckboxGroup.class)
     private java.util.List<com.mycompany.biz.enums.StatusEnum> statuss;
 
-    /*** 级别Min in getUserPageList */
+    /*** 级别Min in getPageList */
     @ApiModelProperty("级别Min")
     @JSONField(serialize = false)
     private Long gradeMin;
 
-    /*** 级别Max in getUserPageList */
+    /*** 级别Max in getPageList */
     @ApiModelProperty("级别Max")
     @JSONField(serialize = false)
     private Long gradeMax;
 
-    /*** 邮寄地址 IDs in getUserPageList */
+    /*** 邮寄地址 IDs in getPageList */
     @ApiModelProperty("邮寄地址 s")
     @JSONField(serialize = false)
     private java.util.List<Long> postAddressIds;
 
-    /*** remarkLike in getUserPageList */
+    /*** remarkLike in getPageList */
     @ApiModelProperty("remarkLike")
     @JSONField(serialize = false)
     private String remarkLike;
 
-    /*** 创建时间Min in getUserPageList */
+    /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getUserPageList */
+    /*** 创建时间Max in getPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getUserPageList */
+    /*** 更新时间Min in getPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getUserPageList */
+    /*** 更新时间Max in getPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)

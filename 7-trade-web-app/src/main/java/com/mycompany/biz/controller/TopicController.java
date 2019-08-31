@@ -35,7 +35,7 @@ public class TopicController extends TopicControllerBase {
     @GenRefresh
     public AntdPageList<Topic> getTopicPageList(TopicType topicType,Boolean mdrender,@ApiParam(hidden=true) Topic topic, Pagination pagination){
         topic.setCreateTimeMax(DatetimeUtil.current());
-        PageList<Topic> topicPageList = this.topicService.getTopicPageList(topic, pagination.getPageSize(), pagination.getPage());
+        PageList<Topic> topicPageList = this.topicService.getPageList(topic, pagination.getPageSize(), pagination.getPage());
         topicService.assignTopicExtraProperties(topicPageList.getItems());
         return new AntdPageList<Topic>(topicPageList);
     }

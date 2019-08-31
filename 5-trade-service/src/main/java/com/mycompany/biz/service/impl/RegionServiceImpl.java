@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.RegionDao;
@@ -102,16 +103,6 @@ public class RegionServiceImpl implements RegionService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.RegionDao#getRegionPageList
-     * @see com.mycompany.biz.service.RegionService#getRegionPageList
-     */
-    @Override
-    public PageList<Region> getRegionPageList(Region region, int pageSize, int pageNum) {
-        return regionDao.getRegionPageList(region, pageSize, pageNum);
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.RegionDao#getRegionsByRegionIds
      * @see com.mycompany.biz.service.RegionService#getRegionsByRegionIds
      */
@@ -153,17 +144,6 @@ public class RegionServiceImpl implements RegionService {
         return regions;
     }
 
-    @Override
-    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod, BiConsumer<D, Region> destSetMethod) {
-        if (CollectionUtil.isNotEmpty(dests)) {
-            Set<Long> regionIds = CollectionUtil.toSet(dests, destGetMethod);
-            List<Region> regions = this.getRegionsByRegionIds(new ArrayList<Long>(regionIds));
-            if (CollectionUtil.isNotEmpty(regions)) {
-                CollectionUtil.setModelByList(dests, regions, destGetMethod, destSetMethod, Region::getRegionId);
-            }
-        }
-    }
-
     /**
      * 
      * @see com.mycompany.biz.dao.RegionDao#getRegionOptions
@@ -182,6 +162,31 @@ public class RegionServiceImpl implements RegionService {
     @Override
     public List<Region> getRegionsWithIsLeafByRegionIds(java.util.List<Long> regionIds) {
         return regionDao.getRegionsWithIsLeafByRegionIds(regionIds);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.RegionDao#getPageList
+     * @see com.mycompany.biz.service.RegionService#getPageList
+     */
+    @Override
+    public PageList<Region> getPageList(Region region, int pageSize, int pageNum) {
+        return regionDao.getPageList(region, pageSize, pageNum);
+    }
+
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod, BiConsumer<D, Region> destSetMethod) {
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, RegionServiceImpl::getRegionsByRegionIds, Region::getRegionId);
+    }
+
+    @Override
+    public <D, G> void assignBeansTo(Collection<D> dests, Function<? super D, G> destGetMethod, BiConsumer<D, List<Region>> destSetMethod, BiConsumer<Region, List<G>> resultSetQueryIdsFun, Function<? super Region, G> resultGetGoupIdFun) {
+        ServiceUtil.interalAssignBeansTo(dests, destGetMethod, destSetMethod, this, new Region(), resultSetQueryIdsFun, resultGetGoupIdFun, 100);
+    }
+
+    @Override
+    public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod) {
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, RegionServiceImpl::getRegionsByRegionIds, Region::getRegionId);
     }
     //-->
     //

@@ -91,9 +91,9 @@
 	
     
 	
-	<select id="getRoleMenuPageList.RoleMenu.trade" resultMap="RoleMenu.trade.RM" >
+	<select id="getPageList.RoleMenu.trade" resultMap="RoleMenu.trade.RM" >
     	select
- /* getRoleMenuPageList.RoleMenu.trade */             a.id,
+ /* getPageList.RoleMenu.trade */             a.id,
             a.role_id,
             a.menu_id,
             a.create_time,
@@ -167,8 +167,8 @@
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getRoleMenuPageList.RoleMenu.trade.count" resultClass="long" >
-    	select  /* getRoleMenuPageList.RoleMenu.trade.count */ count(*)  from role_menu a
+	<select id="getPageList.RoleMenu.trade.count" resultClass="long" >
+    	select  /* getPageList.RoleMenu.trade.count */ count(*)  from role_menu a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="id">

@@ -112,9 +112,9 @@
 	
     
 	
-	<select id="getFileSummaryPageList.FileSummary.trade" resultMap="FileSummary.trade.RM" >
+	<select id="getPageList.FileSummary.trade" resultMap="FileSummary.trade.RM" >
     	select
- /* getFileSummaryPageList.FileSummary.trade */             a.file_id,
+ /* getPageList.FileSummary.trade */             a.file_id,
             a.url,
             a.size,
             a.name,
@@ -211,8 +211,8 @@
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getFileSummaryPageList.FileSummary.trade.count" resultClass="long" >
-    	select  /* getFileSummaryPageList.FileSummary.trade.count */ count(*)  from file_summary a
+	<select id="getPageList.FileSummary.trade.count" resultClass="long" >
+    	select  /* getPageList.FileSummary.trade.count */ count(*)  from file_summary a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="fileId">

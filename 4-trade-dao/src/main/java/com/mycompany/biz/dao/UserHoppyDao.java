@@ -87,7 +87,7 @@ public interface UserHoppyDao {
 	 * 
 	 * sql:select a.id, a.user_id, a.hoppy_id, a.create_time, a.update_time, a.delete_flag from user_hoppy a where a.delete_flag = 0 and a.id=? and a.id in ( ? ) and a.user_id=? and a.user_id in ( ? ) and a.hoppy_id=? and a.hoppy_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<UserHoppy> getUserHoppyPageList(UserHoppy userHoppy, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<UserHoppy> getPageList(UserHoppy userHoppy, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>

@@ -112,9 +112,9 @@
 	
     
 	
-	<select id="getCityPageList.City.trade" resultMap="City.trade.RM" >
+	<select id="getPageList.City.trade" resultMap="City.trade.RM" >
     	select
- /* getCityPageList.City.trade */             a.city_id,
+ /* getPageList.City.trade */             a.city_id,
             a.name,
             a.pycode,
             a.province_id,
@@ -218,8 +218,8 @@
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getCityPageList.City.trade.count" resultClass="long" >
-    	select  /* getCityPageList.City.trade.count */ count(*)  from city a
+	<select id="getPageList.City.trade.count" resultClass="long" >
+    	select  /* getPageList.City.trade.count */ count(*)  from city a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="cityId">

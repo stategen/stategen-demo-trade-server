@@ -87,40 +87,40 @@ public class UserHoppy implements java.io.Serializable {
         return sb.toString();
     }
 
-    /*** ids in getUserHoppyPageList */
+    /*** ids in getPageList */
     @ApiModelProperty("id s")
     @JSONField(serialize = false)
     private java.util.List<Long> ids;
 
-    /*** 用户ID fks in getUserHoppyPageList */
+    /*** 用户ID fks in getPageList */
     @ApiModelProperty("用户ID s")
     @JSONField(serialize = false)
     private java.util.List<String> userIds;
 
-    /*** hoppyIds in getUserHoppyPageList */
+    /*** hoppyIds in getPageList */
     @ApiModelProperty("hoppyId s")
     @JSONField(serialize = false)
     private java.util.List<Long> hoppyIds;
 
-    /*** 创建时间Min in getUserHoppyPageList */
+    /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getUserHoppyPageList */
+    /*** 创建时间Max in getPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getUserHoppyPageList */
+    /*** 更新时间Min in getPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getUserHoppyPageList */
+    /*** 更新时间Max in getPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)

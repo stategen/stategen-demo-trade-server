@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AssignService;
+import org.stategen.framework.util.BaseService;
 
 import com.mycompany.biz.domain.RoleMenu;
 
@@ -22,7 +23,7 @@ import com.mycompany.biz.domain.RoleMenu;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface RoleMenuService extends AssignService<RoleMenu, Long>, RoleMenuServiceTrade {
+public interface RoleMenuService extends AssignService<RoleMenu, Long>, RoleMenuServiceTrade, BaseService<RoleMenu> {
 
     //<#--
     /**
@@ -75,9 +76,9 @@ public interface RoleMenuService extends AssignService<RoleMenu, Long>, RoleMenu
 
     /**
      * 
-     * @see com.mycompany.biz.dao.RoleMenuDao#getRoleMenuPageList
+     * @see com.mycompany.biz.dao.RoleMenuDao#getPageList
      */
-    public PageList<RoleMenu> getRoleMenuPageList(RoleMenu roleMenu, int pageSize, int pageNum);
+    public PageList<RoleMenu> getPageList(RoleMenu roleMenu, int pageSize, int pageNum);
     //-->
     //
 }

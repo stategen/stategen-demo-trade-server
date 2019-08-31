@@ -119,8 +119,8 @@ public class UserDaoImpl  extends SqlMapClientDaoSupport implements UserDao {
 	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id=? and a.user_id in ( ? ) and a.username=? and a.username like CONCAT('%',?,'%') and a.password=? and a.password like CONCAT('%',?,'%') and a.role_type=? and a.role_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.nickName=? and a.nickName like CONCAT('%',?,'%') and a.inter_code=? and a.inter_code like CONCAT('%',?,'%') and a.mobile=? and a.mobile like CONCAT('%',?,'%') and a.age >=? and a.age <? and a.address=? and a.address like CONCAT('%',?,'%') and a.avatar_img_id=? and a.avatar_img_id in ( ? ) and a.email=? and a.email like CONCAT('%',?,'%') and a.vali_datetime >=? and a.vali_datetime <? and a.birthday_date >=? and a.birthday_date <? and a.work_time >=? and a.work_time <? and a.province_id=? and a.province_id in ( ? ) and a.city_id=? and a.city_id in ( ? ) and a.status=? and a.status in ( ? ) and a.grade >=? and a.grade <? and a.post_address_id=? and a.post_address_id in ( ? ) and a.remark=? and a.remark like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
-	public PageList<User> getUserPageList(User user, int pageSize, int pageNum) throws DataAccessException {
-		return (PageList<User>)PageQueryUtils.pageQuery(getSqlMapClientTemplate(),"getUserPageList.User.trade",user,pageNum,pageSize);
+	public PageList<User> getPageList(User user, int pageSize, int pageNum) throws DataAccessException {
+		return (PageList<User>)PageQueryUtils.pageQuery(getSqlMapClientTemplate(),"getPageList.User.trade",user,pageNum,pageSize);
 	}
 
 	/**

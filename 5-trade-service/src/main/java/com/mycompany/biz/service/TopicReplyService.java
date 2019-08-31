@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AssignService;
+import org.stategen.framework.util.BaseService;
 
 import com.mycompany.biz.domain.TopicReply;
 
@@ -23,13 +24,11 @@ import com.mycompany.biz.domain.TopicReply;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface TopicReplyService extends AssignService<TopicReply, String>, TopicReplyServiceTrade {
+public interface TopicReplyService extends AssignService<TopicReply, String>, TopicReplyServiceTrade, BaseService<TopicReply> {
 
     TopicReply replyUp(String replyId, String authorId);
 
     void assignRepliesExtraProperties(String authorId, List<TopicReply> replies);
-	
-
 
     //<#--
     /**
@@ -73,12 +72,12 @@ public interface TopicReplyService extends AssignService<TopicReply, String>, To
 
     /*** 批量保存topicReplys,有id时更新，没有id时插入,并带回新的id，返回 topicReplys*/
     public List<TopicReply> saveTopicReplys(List<TopicReply> topicReplys);
-	/**
-     * 
-     * @see com.mycompany.biz.dao.TopicReplyDao#getTopicReplyPageList
-     */
-    public PageList<TopicReply> getTopicReplyPageList(TopicReply topicReply, int pageSize, int pageNum);
 
+    /**
+     * 
+     * @see com.mycompany.biz.dao.TopicReplyDao#getPageList
+     */
+    public PageList<TopicReply> getPageList(TopicReply topicReply, int pageSize, int pageNum);
     //-->
     //
 }

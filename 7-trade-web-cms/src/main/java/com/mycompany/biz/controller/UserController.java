@@ -59,7 +59,7 @@ public class UserController extends UserControllerBase {
     ) {
         user.setCreateTimeMax(DatetimeUtil.current());
         //技巧，api参数 .在dao中已自动化生成,从以下getUserPageList 帮助文件中 点开See also直接复制过来，
-        PageList<User> userList = this.userService.getUserPageList(user, pagination.getPageSize(), pagination.getPage());
+        PageList<User> userList = this.userService.getPageList(user, pagination.getPageSize(), pagination.getPage());
         assignBeans(userList.getItems());
         return new AntdPageList<User>(userList);
     }

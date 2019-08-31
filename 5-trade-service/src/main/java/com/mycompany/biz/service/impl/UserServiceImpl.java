@@ -4,16 +4,14 @@
  */
 package com.mycompany.biz.service.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.UserDao;
@@ -202,27 +200,6 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.UserDao#getUserPageList
-     * @see com.mycompany.biz.service.UserService#getUserPageList
-     */
-    @Override
-    public PageList<User> getUserPageList(User user, int pageSize, int pageNum) {
-        return userDao.getUserPageList(user, pageSize, pageNum);
-    }
-
-    @Override
-    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, User> destSetMethod) {
-        if (CollectionUtil.isNotEmpty(dests)) {
-            Set<String> userIds = CollectionUtil.toSet(dests, destGetMethod);
-            List<User> users = this.getUsersByUserIds(new ArrayList<String>(userIds));
-            if (CollectionUtil.isNotEmpty(users)) {
-                CollectionUtil.setModelByList(dests, users, destGetMethod, destSetMethod, User::getUserId);
-            }
-        }
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.UserDao#getUserByMobile
      * @see com.mycompany.biz.service.UserService#getUserByMobile
      */
@@ -230,6 +207,31 @@ public class UserServiceImpl implements UserService {
     public User getUserByMobile(String interCode, String mobile) {
         return userDao.getUserByMobile(interCode, mobile);
     }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#getPageList
+     * @see com.mycompany.biz.service.UserService#getPageList
+     */
+    @Override
+    public PageList<User> getPageList(User user, int pageSize, int pageNum) {
+        return userDao.getPageList(user, pageSize, pageNum);
+    }
+
     //-->
     //
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, User> destSetMethod) {
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, UserServiceImpl::getUsersByUserIds, User::getUserId);
+    }
+
+    @Override
+    public <D, G> void assignBeansTo(Collection<D> dests, Function<? super D, G> destGetMethod, BiConsumer<D, List<User>> destSetMethod, BiConsumer<User, List<G>> resultSetQueryIdsFun, Function<? super User, G> resultGetGoupIdFun) {
+        ServiceUtil.interalAssignBeansTo(dests, destGetMethod, destSetMethod, this, new User(), resultSetQueryIdsFun, resultGetGoupIdFun, 100);
+    }
+
+    @Override
+    public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, UserServiceImpl::getUsersByUserIds, User::getUserId);
+    }
 }

@@ -88,40 +88,40 @@ public class Province implements java.io.Serializable, IOption {
         return sb.toString();
     }
 
-    /*** provinceIds in getProvincePageList */
+    /*** provinceIds in getPageList */
     @ApiModelProperty("provinceId s")
     @JSONField(serialize = false)
     private java.util.List<String> provinceIds;
 
-    /*** nameLike in getProvincePageList */
+    /*** nameLike in getPageList */
     @ApiModelProperty("nameLike")
     @JSONField(serialize = false)
     private String nameLike;
 
-    /*** pycodeLike in getProvincePageList */
+    /*** pycodeLike in getPageList */
     @ApiModelProperty("pycodeLike")
     @JSONField(serialize = false)
     private String pycodeLike;
 
-    /*** 创建时间Min in getProvincePageList */
+    /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getProvincePageList */
+    /*** 创建时间Max in getPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getProvincePageList */
+    /*** 更新时间Min in getPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getProvincePageList */
+    /*** 更新时间Max in getPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)

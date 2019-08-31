@@ -93,45 +93,45 @@ public class UserRole implements java.io.Serializable {
         return sb.toString();
     }
 
-    /*** ids in getUserRolePageList */
+    /*** ids in getPageList */
     @ApiModelProperty("id s")
     @JSONField(serialize = false)
     private java.util.List<Long> ids;
 
-    /*** userIds in getUserRolePageList */
+    /*** userIds in getPageList */
     @ApiModelProperty("userId s")
     @JSONField(serialize = false)
     private java.util.List<String> userIds;
 
-    /*** roleIds in getUserRolePageList */
+    /*** roleIds in getPageList */
     @ApiModelProperty("roleId s")
     @JSONField(serialize = false)
     private java.util.List<String> roleIds;
 
-    /*** roleTypes in getUserRolePageList */
+    /*** roleTypes in getPageList */
     @ApiModelProperty("roleType s")
     @JSONField(serialize = false)
     private java.util.List<String> roleTypes;
 
-    /*** 创建时间Min in getUserRolePageList */
+    /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getUserRolePageList */
+    /*** 创建时间Max in getPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getUserRolePageList */
+    /*** 更新时间Min in getPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getUserRolePageList */
+    /*** 更新时间Max in getPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)

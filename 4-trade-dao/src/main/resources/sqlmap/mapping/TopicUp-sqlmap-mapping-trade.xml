@@ -91,9 +91,9 @@
 	
     
 	
-	<select id="getTopicUpPageList.TopicUp.trade" resultMap="TopicUp.trade.RM" >
+	<select id="getPageList.TopicUp.trade" resultMap="TopicUp.trade.RM" >
     	select
- /* getTopicUpPageList.TopicUp.trade */             a.up_id,
+ /* getPageList.TopicUp.trade */             a.up_id,
             a.object_id,
             a.author_id,
             a.create_time,
@@ -167,8 +167,8 @@
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getTopicUpPageList.TopicUp.trade.count" resultClass="long" >
-    	select  /* getTopicUpPageList.TopicUp.trade.count */ count(*)  from topic_up a
+	<select id="getPageList.TopicUp.trade.count" resultClass="long" >
+    	select  /* getPageList.TopicUp.trade.count */ count(*)  from topic_up a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="upId">

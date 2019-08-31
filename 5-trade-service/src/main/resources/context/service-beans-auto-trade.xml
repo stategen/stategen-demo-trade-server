@@ -10,14 +10,26 @@
 	  <!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
     <!-- ============================================================ -->
 
+    <bean id="advertisePictureService" class="com.mycompany.biz.service.impl.AdvertisePictureServiceImpl" />
+    <bean id="categoryService" class="com.mycompany.biz.service.impl.CategoryServiceImpl" />
+    <bean id="categorySubService" class="com.mycompany.biz.service.impl.CategorySubServiceImpl" />
     <bean id="cityService" class="com.mycompany.biz.service.impl.CityServiceImpl" />
     <bean id="fileSummaryService" class="com.mycompany.biz.service.impl.FileSummaryServiceImpl" />
+    <bean id="floorAdvertisePrictureService" class="com.mycompany.biz.service.impl.FloorAdvertisePrictureServiceImpl" />
+    <bean id="floorGoodsService" class="com.mycompany.biz.service.impl.FloorGoodsServiceImpl" />
+    <bean id="goodsService" class="com.mycompany.biz.service.impl.GoodsServiceImpl" />
+    <bean id="goodsCommentService" class="com.mycompany.biz.service.impl.GoodsCommentServiceImpl" />
+    <bean id="homeAdvertiseService" class="com.mycompany.biz.service.impl.HomeAdvertiseServiceImpl" />
+    <bean id="homeGoodsService" class="com.mycompany.biz.service.impl.HomeGoodsServiceImpl" />
+    <bean id="homeShopService" class="com.mycompany.biz.service.impl.HomeShopServiceImpl" />
     <bean id="hoppyService" class="com.mycompany.biz.service.impl.HoppyServiceImpl" />
     <bean id="menuService" class="com.mycompany.biz.service.impl.MenuServiceImpl" />
     <bean id="provinceService" class="com.mycompany.biz.service.impl.ProvinceServiceImpl" />
     <bean id="regionService" class="com.mycompany.biz.service.impl.RegionServiceImpl" />
     <bean id="roleService" class="com.mycompany.biz.service.impl.RoleServiceImpl" />
     <bean id="roleMenuService" class="com.mycompany.biz.service.impl.RoleMenuServiceImpl" />
+    <bean id="shopService" class="com.mycompany.biz.service.impl.ShopServiceImpl" />
+    <bean id="slideService" class="com.mycompany.biz.service.impl.SlideServiceImpl" />
     <bean id="topicService" class="com.mycompany.biz.service.impl.TopicServiceImpl" />
     <bean id="topicReplyService" class="com.mycompany.biz.service.impl.TopicReplyServiceImpl" />
     <bean id="topicUpService" class="com.mycompany.biz.service.impl.TopicUpServiceImpl" />

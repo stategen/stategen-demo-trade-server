@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AssignService;
+import org.stategen.framework.util.BaseService;
 
 import com.mycompany.biz.domain.Topic;
 
@@ -23,7 +24,7 @@ import com.mycompany.biz.domain.Topic;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface TopicService extends AssignService<Topic, String>, TopicServiceTrade {
+public interface TopicService extends AssignService<Topic, String>, TopicServiceTrade, BaseService<Topic> {
 
     void assignTopicExtraProperties(List<Topic> topics);
 
@@ -75,16 +76,16 @@ public interface TopicService extends AssignService<Topic, String>, TopicService
     public List<Topic> saveTopics(List<Topic> topics);
 
     /**
-     * 
-     * @see com.mycompany.biz.dao.TopicDao#getTopicPageList
-     */
-    public PageList<Topic> getTopicPageList(Topic topic, int pageSize, int pageNum);
-
-    /**
      * 获取当前回复的数量
      * @see com.mycompany.biz.dao.TopicDao#getReplyCounts
      */
     public List<Topic> getReplyCounts(java.util.List<String> topicIds);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.TopicDao#getPageList
+     */
+    public PageList<Topic> getPageList(Topic topic, int pageSize, int pageNum);
     //-->
     //
 }

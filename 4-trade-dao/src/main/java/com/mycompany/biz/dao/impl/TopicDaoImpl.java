@@ -9,13 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+import com.mycompany.biz.domain.Topic;
+import com.mycompany.biz.dao.TopicDao;
 import org.stategen.framework.ibatis.util.PageQueryUtils;
 import org.stategen.framework.lite.PageList;
 
-import com.mycompany.biz.dao.TopicDao;
-import com.mycompany.biz.domain.Topic;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 /**
  * TopicDao
@@ -27,92 +27,94 @@ import com.mycompany.biz.domain.Topic;
  * 该类仅可以修改引用
  * </pre>
  */
-public class TopicDaoImpl extends SqlMapClientDaoSupport implements TopicDao {
+public class TopicDaoImpl  extends SqlMapClientDaoSupport implements TopicDao {
 
-    /**
+	/**
 	 * 
 	 * sql:insert into topic ( create_time , update_time , delete_flag , topic_id , author_id , topic_type , content , title , last_reply_at , good , top , visit_count ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?)
 	 */
-    public Topic insert(Topic topic) throws DataAccessException {
-        if (topic == null) {
-            throw new IllegalArgumentException("Can't insert a null data object into db.");
-        }
+	public Topic insert(Topic topic) throws DataAccessException {
+		if(topic == null) {
+			throw new IllegalArgumentException("Can't insert a null data object into db.");
+		}
         getSqlMapClientTemplate().insert("insert.Topic.trade", topic);
-        return topic;
-    }
+		return topic;
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:UPDATE topic SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and topic_id = ?
 	 */
-    public String delete(String topicId) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("topicId", topicId);
+	public String delete(String topicId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("topicId",topicId);
         getSqlMapClientTemplate().update("delete.Topic.trade", params);
         return topicId;
-    }
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:UPDATE topic SET update_time= CURRENT_TIMESTAMP(6) , author_id = ? , topic_type = ? , content = ? , title = ? , last_reply_at = ? , good = ? , top = ? , visit_count = ? where delete_flag = 0 and topic_id = ?
 	 */
-    public Topic update(Topic topic) throws DataAccessException {
-        if (topic == null) {
-            throw new IllegalArgumentException("Can't update by a null data object.");
-        }
+	public Topic update(Topic topic) throws DataAccessException {
+		if(topic == null) {
+			throw new IllegalArgumentException("Can't update by a null data object.");
+		}
         getSqlMapClientTemplate().update("update.Topic.trade", topic);
-        return topic;
-    }
+		return topic;
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id = ?
 	 */
-    public Topic getTopicByTopicId(String topicId) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("topicId", topicId);
-        return (Topic) getSqlMapClientTemplate().queryForObject("getTopicByTopicId.Topic.trade", params);
-    }
+	public Topic getTopicByTopicId(String topicId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("topicId",topicId);
+		return (Topic)getSqlMapClientTemplate().queryForObject("getTopicByTopicId.Topic.trade",params);
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.topic_type=? and a.topic_type in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.title=? and a.title like CONCAT('%',?,'%') and a.last_reply_at >=? and a.last_reply_at <? and a.good >=? and a.good <? and a.top >=? and a.top <? and a.visit_count >=? and a.visit_count <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
-    public PageList<Topic> getTopicPageList(Topic topic, int pageSize, int pageNum) throws DataAccessException {
-        return (PageList<Topic>) PageQueryUtils.pageQuery(getSqlMapClientTemplate(), "getTopicPageList.Topic.trade", topic, pageNum, pageSize);
-    }
+	public PageList<Topic> getPageList(Topic topic, int pageSize, int pageNum) throws DataAccessException {
+		return (PageList<Topic>)PageQueryUtils.pageQuery(getSqlMapClientTemplate(),"getPageList.Topic.trade",topic,pageNum,pageSize);
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
-    public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("topicIds", topicIds);
-        return (List<Topic>) getSqlMapClientTemplate().queryForList("getTopicsByTopicIds.Topic.trade", params);
-    }
+	public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("topicIds",topicIds);
+		return (List<Topic>)getSqlMapClientTemplate().queryForList("getTopicsByTopicIds.Topic.trade",params);
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:UPDATE topic SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and topic_id in ( ? )
 	 */
-    public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("topicIds", topicIds);
+	public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("topicIds",topicIds);
         getSqlMapClientTemplate().update("deleteByTopicIds.Topic.trade", params);
         return topicIds;
-    }
+	}
 
-    /**
+	/**
 	 * 获取当前回复的数量
 	 * sql:SELECT b.topic_id, COUNT(b.reply_id) as replyCount FROM topic_reply b WHERE b.delete_flag = 0 and b.topic_id in ( ? ) and 1=0 GROUP BY b.topic_id
 	 */
     @SuppressWarnings("unchecked")
-    public List<Topic> getReplyCounts(java.util.List<String> topicIds) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("topicIds", topicIds);
-        return (List<Topic>) getSqlMapClientTemplate().queryForList("getReplyCounts.Topic.trade", params);
-    }
+	public List<Topic> getReplyCounts(java.util.List<String> topicIds) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("topicIds",topicIds);
+		return (List<Topic>)getSqlMapClientTemplate().queryForList("getReplyCounts.Topic.trade",params);
+	}
+
 }
+

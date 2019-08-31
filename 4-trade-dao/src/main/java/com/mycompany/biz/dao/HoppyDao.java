@@ -83,7 +83,7 @@ public interface HoppyDao {
 	 * 
 	 * sql:select a.hoppy_id, a.hoppy_name, a.create_time, a.update_time, a.delete_flag from hoppy a where a.delete_flag = 0 and a.hoppy_id=? and a.hoppy_id in ( ? ) and a.hoppy_name=? and a.hoppy_name like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<Hoppy> getHoppyPageList(Hoppy hoppy, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<Hoppy> getPageList(Hoppy hoppy, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>

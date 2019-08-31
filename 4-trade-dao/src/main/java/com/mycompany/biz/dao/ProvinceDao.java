@@ -87,7 +87,7 @@ public interface ProvinceDao {
 	 * 
 	 * sql:select a.province_id, a.name, a.pycode, a.create_time, a.update_time, a.delete_flag from province a where a.delete_flag = 0 and a.province_id=? and a.province_id in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.pycode=? and a.pycode like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<Province> getProvincePageList(Province province, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<Province> getPageList(Province province, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>

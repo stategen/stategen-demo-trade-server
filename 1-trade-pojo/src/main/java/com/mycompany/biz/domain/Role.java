@@ -101,46 +101,46 @@ public class Role implements java.io.Serializable {
         return sb.toString();
     }
 
-    /*** 角色IDs in getRolePageList */
+    /*** 角色IDs in getPageList */
     @ApiModelProperty("角色ID s")
     @JSONField(serialize = false)
     private java.util.List<String> roleIds;
 
-    /*** 角色名称Like in getRolePageList */
+    /*** 角色名称Like in getPageList */
     @ApiModelProperty("角色名称Like")
     @JSONField(serialize = false)
     private String roleNameLike;
 
-    /*** 描述Like in getRolePageList */
+    /*** 描述Like in getPageList */
     @ApiModelProperty("描述Like")
     @JSONField(serialize = false)
     private String descriptionLike;
 
-    /*** 创建时间Min in getRolePageList */
+    /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getRolePageList */
+    /*** 创建时间Max in getPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getRolePageList */
+    /*** 更新时间Min in getPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getRolePageList */
+    /*** 更新时间Max in getPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMax;
 
-    /*** 角色类型 enums in getRolePageList */
+    /*** 角色类型 enums in getPageList */
     @ApiModelProperty("角色类型 s")
     @JSONField(serialize = false)
     private java.util.List<String> roleTypes;

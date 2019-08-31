@@ -48,7 +48,7 @@ public class Bbs_topicController extends TopicControllerBase {
 ) {
         topic.setCreateTimeMax(DatetimeUtil.current());
 
-        PageList<Topic> topicPageList = this.topicService.getTopicPageList(topic, pagination.getPageSize(), pagination.getPage());
+        PageList<Topic> topicPageList = this.topicService.getPageList(topic, pagination.getPageSize(), pagination.getPage());
         return new AntdPageList<Topic>(topicPageList);
     }
 

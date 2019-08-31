@@ -5,16 +5,14 @@
  */
 package com.mycompany.biz.service.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.HoppyDao;
@@ -79,16 +77,6 @@ public class HoppyServiceImpl implements HoppyService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.HoppyDao#getHoppyPageList
-     * @see com.mycompany.biz.service.HoppyService#getHoppyPageList
-     */
-    @Override
-    public PageList<Hoppy> getHoppyPageList(Hoppy hoppy, int pageSize, int pageNum) {
-        return hoppyDao.getHoppyPageList(hoppy, pageSize, pageNum);
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.HoppyDao#getHoppysByHoppyIds
      * @see com.mycompany.biz.service.HoppyService#getHoppysByHoppyIds
      */
@@ -140,16 +128,30 @@ public class HoppyServiceImpl implements HoppyService {
         return hoppys;
     }
 
+    /**
+     * 
+     * @see com.mycompany.biz.dao.HoppyDao#getPageList
+     * @see com.mycompany.biz.service.HoppyService#getPageList
+     */
     @Override
-    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod, BiConsumer<D, Hoppy> destSetMethod) {
-        if (CollectionUtil.isNotEmpty(dests)) {
-            Set<Long> hoppyIds = CollectionUtil.toSet(dests, destGetMethod);
-            List<Hoppy> hoppys = this.getHoppysByHoppyIds(new ArrayList<Long>(hoppyIds));
-            if (CollectionUtil.isNotEmpty(hoppys)) {
-                CollectionUtil.setModelByList(dests, hoppys, destGetMethod, destSetMethod, Hoppy::getHoppyId);
-            }
-        }
+    public PageList<Hoppy> getPageList(Hoppy hoppy, int pageSize, int pageNum) {
+        return hoppyDao.getPageList(hoppy, pageSize, pageNum);
     }
+
     //-->
     //
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod, BiConsumer<D, Hoppy> destSetMethod) {
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, HoppyServiceImpl::getHoppysByHoppyIds, Hoppy::getHoppyId);
+    }
+
+    @Override
+    public <D, G> void assignBeansTo(Collection<D> dests, Function<? super D, G> destGetMethod, BiConsumer<D, List<Hoppy>> destSetMethod, BiConsumer<Hoppy, List<G>> resultSetQueryIdsFun, Function<? super Hoppy, G> resultGetGoupIdFun) {
+        ServiceUtil.interalAssignBeansTo(dests, destGetMethod, destSetMethod, this, new Hoppy(), resultSetQueryIdsFun, resultGetGoupIdFun, 100);
+    }
+
+    @Override
+    public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod) {
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, HoppyServiceImpl::getHoppysByHoppyIds, Hoppy::getHoppyId);
+    }
 }

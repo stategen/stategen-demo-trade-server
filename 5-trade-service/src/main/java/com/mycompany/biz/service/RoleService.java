@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AssignService;
+import org.stategen.framework.util.BaseService;
 
 import com.mycompany.biz.domain.Menu;
 import com.mycompany.biz.domain.Role;
@@ -23,17 +24,16 @@ import com.mycompany.biz.domain.Role;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface RoleService extends AssignService<Role, String>, RoleServiceTrade {
+public interface RoleService extends AssignService<Role, String>, RoleServiceTrade, BaseService<Role> {
 
     public List<Menu> getAllMenusWithRoleChecked(String roleId);
-	
+
     //<#--
     /*** 保存role,有id时更新，没有id时插入，返回 role*/
     public Role saveRole(Role role);
 
     /*** 批量保存roles,有id时更新，没有id时插入,并带回新的id，返回 roles*/
     public List<Role> saveRoles(List<Role> roles);
-
 
     /**
      * 
@@ -73,9 +73,9 @@ public interface RoleService extends AssignService<Role, String>, RoleServiceTra
 
     /**
      * 
-     * @see com.mycompany.biz.dao.RoleDao#getRolePageList
+     * @see com.mycompany.biz.dao.RoleDao#getPageList
      */
-    public PageList<Role> getRolePageList(Role role, int pageSize, int pageNum);
+    public PageList<Role> getPageList(Role role, int pageSize, int pageNum);
     //-->
     //
 }

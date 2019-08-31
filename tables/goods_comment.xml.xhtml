@@ -1,0 +1,243 @@
+﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table goods_comment -e 会自动覆盖-->
+    <operation name="insert" paramType="object" remarks="">
+        <sql>
+            insert into goods_comment (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="commentsId"> comments_id </isNotNull>
+            <isNotNull prepend="," property="goodsId"> goods_id </isNotNull>
+            <isNotNull prepend="," property="comments"> comments </isNotNull>
+            <isNotNull prepend="," property="userName"> user_name </isNotNull>
+            <isNotNull prepend="," property="discussTime"> discuss_time </isNotNull>
+            <isNotNull prepend="," property="score"> score </isNotNull>
+            ) VALUES (
+            CURRENT_TIMESTAMP(6)
+            , CURRENT_TIMESTAMP(6)
+            , 0
+            <isNotNull prepend="," property="commentsId"> ?  </isNotNull>
+            <isNotNull prepend="," property="goodsId"> ?  </isNotNull>
+            <isNotNull prepend="," property="comments"> ?  </isNotNull>
+            <isNotNull prepend="," property="userName"> ?  </isNotNull>
+            <isNotNull prepend="," property="discussTime"> ?  </isNotNull>
+            <isNotNull prepend="," property="score"> ?  </isNotNull>
+            )
+            <selectKey keyProperty="commentsId" resultClass="String" type="pre">
+                select if((#commentsId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#commentsId# ) as commentsId
+            </selectKey>
+        </sql>
+    </operation>
+
+    <operation name="delete" remarks="">
+        <sql>
+            UPDATE goods_comment SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and comments_id = ?
+        </sql>
+    </operation>
+
+    <operation name="update" paramType="object" remarks="">
+        <sql>
+            UPDATE goods_comment
+            SET update_time= CURRENT_TIMESTAMP(6)
+            <dynamic>
+                <isNotNull property="goodsId" prepend=",">
+                    goods_id =  ? 
+                </isNotNull>
+                <isNotNull property="comments" prepend=",">
+                    comments =  ? 
+                </isNotNull>
+                <isNotNull property="userName" prepend=",">
+                    user_name =  ? 
+                </isNotNull>
+                <isNotNull property="discussTime" prepend=",">
+                    discuss_time =  ? 
+                </isNotNull>
+                <isNotNull property="score" prepend=",">
+                    score =  ? 
+                </isNotNull>
+            </dynamic>
+            where
+            delete_flag = 0
+            and comments_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getGoodsCommentByCommentsId" multiplicity="one" remarks="">
+        <sql>
+            select
+            a.comments_id,
+            a.goods_id,
+            a.comments,
+            a.user_name,
+            a.discuss_time,
+            a.score,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from goods_comment a
+            where
+            a.delete_flag = 0
+            and a.comments_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
+        <sql>
+            select
+            a.comments_id,
+            a.goods_id,
+            a.comments,
+            a.user_name,
+            a.discuss_time,
+            a.score,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from goods_comment a
+            where
+            a.delete_flag = 0
+            <isNotNull property="commentsId" open="and">
+               a.comments_id=?
+            </isNotNull>
+            <isNotEmpty property="commentsIds" open="and">
+                a.comments_id in
+                <iterate property="commentsIds" conjunction="," open="(" close=")">
+                    #commentsIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="goodsId" open="and">
+               a.goods_id=?
+            </isNotNull>
+            <isNotEmpty property="goodsIds" open="and">
+                a.goods_id in
+                <iterate property="goodsIds" conjunction="," open="(" close=")">
+                    #goodsIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="comments" open="and">
+            a.comments=?
+          </isNotNull>
+            <isNotEmpty property="commentsLike" open="and">
+                a.comments like CONCAT('%',#commentsLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="userName" open="and">
+            a.user_name=?
+          </isNotNull>
+            <isNotEmpty property="userNameLike" open="and">
+                a.user_name like CONCAT('%',#userNameLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="discussTimeMin" open="and">
+                a.discuss_time >=#discussTimeMin#
+            </isNotNull>
+            <isNotNull property="discussTimeMax" open="and">
+                a.discuss_time &lt;#discussTimeMax#
+            </isNotNull>
+            <isNotNull property="scoreMin" open="and">
+                a.score >=#scoreMin#
+            </isNotNull>
+            <isNotNull property="scoreMax" open="and">
+                a.score &lt;#scoreMax#
+            </isNotNull>
+            <isNotNull property="createTimeMin" open="and">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax" open="and">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin" open="and">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax" open="and">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="commentsId">
+            <isEmpty property="commentsIds">
+            <isNull property="goodsId">
+            <isEmpty property="goodsIds">
+            <isNull property="comments">
+            <isEmpty property="commentsLike">
+            <isNull property="userName">
+            <isEmpty property="userNameLike">
+            <isNull property="discussTimeMin">
+            <isNull property="discussTimeMax">
+            <isNull property="scoreMin">
+            <isNull property="scoreMax">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid = "getGoodsCommentPageListOrderBy" />
+        </sql>
+    </operation>
+
+    <operation name="getGoodsCommentsByCommentsIds" multiplicity="many" remarks="">
+        <sql>
+            select
+            a.comments_id,
+            a.goods_id,
+            a.comments,
+            a.user_name,
+            a.discuss_time,
+            a.score,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from goods_comment a
+            where
+            a.delete_flag = 0
+            <isEmpty property="commentsIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="commentsIds" open="and">
+                a.comments_id in
+                <iterate property="commentsIds" conjunction="," open="(" close=")">
+                    #commentsIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getGoodsCommentsByCommentsIdsOrderBy" />
+        </sql>
+    </operation>
+
+    <operation name="deleteByCommentsIds" remarks="">
+        <sql>
+            UPDATE goods_comment SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="commentsIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="commentsIds" open="and">
+                comments_id in
+                <iterate property="commentsIds" conjunction="," open="(" close=")">
+                    #commentsIds[]#
+                </iterate>
+            </isNotEmpty>
+        </sql>
+    </operation>
+    
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table goods_comment -e 会自动覆盖-->

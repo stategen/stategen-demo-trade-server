@@ -99,7 +99,7 @@ public interface CityDao {
 	 * 
 	 * sql:select a.city_id, a.name, a.pycode, a.province_id, a.postcode, a.areacode, a.create_time, a.update_time, a.delete_flag from city a where a.delete_flag = 0 and a.city_id=? and a.city_id in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.pycode=? and a.pycode like CONCAT('%',?,'%') and a.province_id=? and a.province_id in ( ? ) and a.postcode=? and a.postcode like CONCAT('%',?,'%') and a.areacode=? and a.areacode like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<City> getCityPageList(City city, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<City> getPageList(City city, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>

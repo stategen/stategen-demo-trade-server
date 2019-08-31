@@ -105,9 +105,9 @@
 	
     
 	
-	<select id="getTopicReplyPageList.TopicReply.trade" resultMap="TopicReply.trade.RM" >
+	<select id="getPageList.TopicReply.trade" resultMap="TopicReply.trade.RM" >
     	select
- /* getTopicReplyPageList.TopicReply.trade */             a.reply_id,
+ /* getPageList.TopicReply.trade */             a.reply_id,
             a.topic_id,
             a.author_id,
             a.content,
@@ -206,8 +206,8 @@
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getTopicReplyPageList.TopicReply.trade.count" resultClass="long" >
-    	select  /* getTopicReplyPageList.TopicReply.trade.count */ count(*)  from topic_reply a
+	<select id="getPageList.TopicReply.trade.count" resultClass="long" >
+    	select  /* getPageList.TopicReply.trade.count */ count(*)  from topic_reply a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="replyId">

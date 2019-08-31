@@ -133,9 +133,9 @@
 	
     
 	
-	<select id="getRegionPageList.Region.trade" resultMap="Region.trade.RM" >
+	<select id="getPageList.Region.trade" resultMap="Region.trade.RM" >
     	select
- /* getRegionPageList.Region.trade */             a.region_id,
+ /* getPageList.Region.trade */             a.region_id,
             a.parent_region_id,
             a.path,
             a.level,
@@ -275,8 +275,8 @@
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getRegionPageList.Region.trade.count" resultClass="long" >
-    	select  /* getRegionPageList.Region.trade.count */ count(*)  from region a
+	<select id="getPageList.Region.trade.count" resultClass="long" >
+    	select  /* getPageList.Region.trade.count */ count(*)  from region a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="regionId">

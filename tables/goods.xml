@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE
+    table SYSTEM "https://github.com/stategen/dalgenx/blob/master/gen.schemas-1.0.dtd"
+    [<!ENTITY GOOD SYSTEM "goods.xml.xhtml">
+]>
+<table sqlName="goods" className="Goods" remarks="">
+    <!-- 不需要配置的列请删除-->
+    <!-- <column name="status" javaType="com.mycompany.biz.enums.StatusEnum"/> -->
+
+    <sql id="getGoodPageListOrderBy">
+        a.goods_id
+    </sql>
+    <sql id="getGoodsByGoodsIdsOrderBy">
+        a.goods_id
+    </sql>
+
+    <!-- 引用 goods.xml.xhml ,表修改后，需重新执行 gen.sh table goods -e -->
+    &GOOD;
+    <!-- 引用 goods.xml.xhml 结束 -->
+
+    <!-- 自定义方法请写在下面 需要自动提示，请将dalgenX目录下的 gen.schemas-1.0.dtd 配到 eclipse 或 idea中
+      file:gen.schemas-1.0.dtd
+      System Id
+      https://github.com/stategen/dalgenx/blob/master/gen.schemas-1.0.dtd
+    -->
+    <!--
+    <operation name="..." remarks="">
+        <sql>
+            ...
+        </sql>
+    </operation>
+    -->
+
+    <operation name="getGoodsIds" multiplicity="many" remarks="">
+        <sql>
+            select
+            a.goods_id
+            from goods a
+            where
+            a.delete_flag = 0
+        </sql>
+    </operation>
+
+</table>

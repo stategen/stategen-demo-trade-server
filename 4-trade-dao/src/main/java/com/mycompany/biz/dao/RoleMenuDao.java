@@ -87,7 +87,7 @@ public interface RoleMenuDao {
 	 * 
 	 * sql:select a.id, a.role_id, a.menu_id, a.create_time, a.update_time, a.delete_flag from role_menu a where a.delete_flag = 0 and a.id=? and a.id in ( ? ) and a.role_id=? and a.role_id in ( ? ) and a.menu_id=? and a.menu_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<RoleMenu> getRoleMenuPageList(RoleMenu roleMenu, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<RoleMenu> getPageList(RoleMenu roleMenu, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>

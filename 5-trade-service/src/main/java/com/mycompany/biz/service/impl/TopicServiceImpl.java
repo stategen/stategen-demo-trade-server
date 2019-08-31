@@ -5,17 +5,16 @@
  */
 package com.mycompany.biz.service.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.TopicDao;
@@ -148,28 +147,6 @@ public class TopicServiceImpl implements TopicService {
     }
 
     /**
-     * 
-     * @see com.mycompany.biz.dao.TopicDao#getTopicPageList
-     * @see com.mycompany.biz.service.TopicService#getTopicPageList
-     */
-    @Override
-    public PageList<Topic> getTopicPageList(Topic topic, int pageSize, int pageNum) {
-        PageList<Topic> topicPageList = topicDao.getTopicPageList(topic, pageSize, pageNum);
-        return topicPageList;
-    }
-
-    @Override
-    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, Topic> destSetMethod) {
-        if (CollectionUtil.isNotEmpty(dests)) {
-            Set<String> topicIds = CollectionUtil.toSet(dests, destGetMethod);
-            List<Topic> topics = this.getTopicsByTopicIds(new ArrayList<String>(topicIds));
-            if (CollectionUtil.isNotEmpty(topics)) {
-                CollectionUtil.setModelByList(dests, topics, destGetMethod, destSetMethod, Topic::getTopicId);
-            }
-        }
-    }
-
-    /**
      * 获取当前回复的数量
      * @see com.mycompany.biz.dao.TopicDao#getReplyCounts
      * @see com.mycompany.biz.service.TopicService#getReplyCounts
@@ -177,6 +154,31 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public List<Topic> getReplyCounts(java.util.List<String> topicIds) {
         return topicDao.getReplyCounts(topicIds);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.TopicDao#getPageList
+     * @see com.mycompany.biz.service.TopicService#getPageList
+     */
+    @Override
+    public PageList<Topic> getPageList(Topic topic, int pageSize, int pageNum) {
+        return topicDao.getPageList(topic, pageSize, pageNum);
+    }
+
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, Topic> destSetMethod) {
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, TopicServiceImpl::getTopicsByTopicIds, Topic::getTopicId);
+    }
+
+    @Override
+    public <D, G> void assignBeansTo(Collection<D> dests, Function<? super D, G> destGetMethod, BiConsumer<D, List<Topic>> destSetMethod, BiConsumer<Topic, List<G>> resultSetQueryIdsFun, Function<? super Topic, G> resultGetGoupIdFun) {
+        ServiceUtil.interalAssignBeansTo(dests, destGetMethod, destSetMethod, this, new Topic(), resultSetQueryIdsFun, resultGetGoupIdFun, 100);
+    }
+
+    @Override
+    public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, TopicServiceImpl::getTopicsByTopicIds, Topic::getTopicId);
     }
     //-->
     //

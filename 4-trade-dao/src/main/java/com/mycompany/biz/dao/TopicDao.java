@@ -111,7 +111,7 @@ public interface TopicDao {
 	 * 
 	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from topic a where a.delete_flag = 0 and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.topic_type=? and a.topic_type in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.title=? and a.title like CONCAT('%',?,'%') and a.last_reply_at >=? and a.last_reply_at <? and a.good >=? and a.good <? and a.top >=? and a.top <? and a.visit_count >=? and a.visit_count <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<Topic> getTopicPageList(Topic topic, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<Topic> getPageList(Topic topic, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>

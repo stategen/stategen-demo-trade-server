@@ -98,9 +98,9 @@
 	
     
 	
-	<select id="getRolePageList.Role.trade" resultMap="Role.trade.RM" >
+	<select id="getPageList.Role.trade" resultMap="Role.trade.RM" >
     	select
- /* getRolePageList.Role.trade */             a.role_id,
+ /* getPageList.Role.trade */             a.role_id,
             a.role_name,
             a.description,
             a.create_time,
@@ -182,8 +182,8 @@
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getRolePageList.Role.trade.count" resultClass="long" >
-    	select  /* getRolePageList.Role.trade.count */ count(*)  from role a
+	<select id="getPageList.Role.trade.count" resultClass="long" >
+    	select  /* getPageList.Role.trade.count */ count(*)  from role a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="roleId">

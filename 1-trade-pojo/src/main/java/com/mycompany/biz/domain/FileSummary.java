@@ -109,55 +109,55 @@ public class FileSummary implements java.io.Serializable {
         return sb.toString();
     }
 
-    /*** fileIds in getFileSummaryPageList */
+    /*** fileIds in getPageList */
     @ApiModelProperty("fileId s")
     @JSONField(serialize = false)
     private java.util.List<String> fileIds;
 
-    /*** sizeMin in getFileSummaryPageList */
+    /*** sizeMin in getPageList */
     @ApiModelProperty("sizeMin")
     @JSONField(serialize = false)
     private Long sizeMin;
 
-    /*** sizeMax in getFileSummaryPageList */
+    /*** sizeMax in getPageList */
     @ApiModelProperty("sizeMax")
     @JSONField(serialize = false)
     private Long sizeMax;
 
-    /*** nameLike in getFileSummaryPageList */
+    /*** nameLike in getPageList */
     @ApiModelProperty("nameLike")
     @JSONField(serialize = false)
     private String nameLike;
 
-    /*** types in getFileSummaryPageList */
+    /*** types in getPageList */
     @ApiModelProperty("type s")
     @JSONField(serialize = false)
     private java.util.List<String> types;
 
-    /*** userIds in getFileSummaryPageList */
+    /*** userIds in getPageList */
     @ApiModelProperty("userId s")
     @JSONField(serialize = false)
     private java.util.List<String> userIds;
 
-    /*** 创建时间Min in getFileSummaryPageList */
+    /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getFileSummaryPageList */
+    /*** 创建时间Max in getPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getFileSummaryPageList */
+    /*** 更新时间Min in getPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getFileSummaryPageList */
+    /*** 更新时间Max in getPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)

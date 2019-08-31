@@ -85,40 +85,40 @@ public class RoleMenu implements java.io.Serializable {
         return sb.toString();
     }
 
-    /*** ids in getRoleMenuPageList */
+    /*** ids in getPageList */
     @ApiModelProperty("id s")
     @JSONField(serialize = false)
     private java.util.List<Long> ids;
 
-    /*** roleIds in getRoleMenuPageList */
+    /*** roleIds in getPageList */
     @ApiModelProperty("roleId s")
     @JSONField(serialize = false)
     private java.util.List<String> roleIds;
 
-    /*** menuIds in getRoleMenuPageList */
+    /*** menuIds in getPageList */
     @ApiModelProperty("menuId s")
     @JSONField(serialize = false)
     private java.util.List<Long> menuIds;
 
-    /*** 数据创建时间Min in getRoleMenuPageList */
+    /*** 数据创建时间Min in getPageList */
     @ApiModelProperty("数据创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMin;
 
-    /*** 数据创建时间Max in getRoleMenuPageList */
+    /*** 数据创建时间Max in getPageList */
     @ApiModelProperty("数据创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
 
-    /*** 数据更新时间Min in getRoleMenuPageList */
+    /*** 数据更新时间Min in getPageList */
     @ApiModelProperty("数据更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMin;
 
-    /*** 数据更新时间Max in getRoleMenuPageList */
+    /*** 数据更新时间Max in getPageList */
     @ApiModelProperty("数据更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)

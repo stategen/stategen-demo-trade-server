@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AssignService;
+import org.stategen.framework.util.BaseService;
 
 import com.mycompany.biz.domain.Province;
 
@@ -23,7 +24,7 @@ import com.mycompany.biz.domain.Province;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface ProvinceService extends AssignService<Province, String>, ProvinceServiceTrade {
+public interface ProvinceService extends AssignService<Province, String>, ProvinceServiceTrade, BaseService<Province> {
 
     //<#--
     /**
@@ -52,12 +53,6 @@ public interface ProvinceService extends AssignService<Province, String>, Provin
 
     /**
      * 
-     * @see com.mycompany.biz.dao.ProvinceDao#getProvincePageList
-     */
-    public PageList<Province> getProvincePageList(Province province, int pageSize, int pageNum);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.ProvinceDao#getProvincesByProvinceIds
      */
     public List<Province> getProvincesByProvinceIds(java.util.List<String> provinceIds);
@@ -83,6 +78,12 @@ public interface ProvinceService extends AssignService<Province, String>, Provin
      * @see com.mycompany.biz.dao.ProvinceDao#getProvinceOptions
      */
     public List<Province> getProvinceOptions();
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.ProvinceDao#getPageList
+     */
+    public PageList<Province> getPageList(Province province, int pageSize, int pageNum);
     //-->
     //
 }

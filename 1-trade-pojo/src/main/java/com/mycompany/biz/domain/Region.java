@@ -133,75 +133,75 @@ public class Region implements java.io.Serializable, IOption {
         return sb.toString();
     }
 
-    /*** 主键s in getRegionPageList */
+    /*** 主键s in getPageList */
     @ApiModelProperty("主键 s")
     @JSONField(serialize = false)
     private java.util.List<Long> regionIds;
 
-    /*** 父IDs in getRegionPageList */
+    /*** 父IDs in getPageList */
     @ApiModelProperty("父ID s")
     @JSONField(serialize = false)
     private java.util.List<Long> parentRegionIds;
 
-    /*** 路径Like in getRegionPageList */
+    /*** 路径Like in getPageList */
     @ApiModelProperty("路径Like")
     @JSONField(serialize = false)
     private String pathLike;
 
-    /*** 层级Min in getRegionPageList */
+    /*** 层级Min in getPageList */
     @ApiModelProperty("层级Min")
     @JSONField(serialize = false)
     private Integer levelMin;
 
-    /*** 层级Max in getRegionPageList */
+    /*** 层级Max in getPageList */
     @ApiModelProperty("层级Max")
     @JSONField(serialize = false)
     private Integer levelMax;
 
-    /*** regionTypes in getRegionPageList */
+    /*** regionTypes in getPageList */
     @ApiModelProperty("regionType s")
     @JSONField(serialize = false)
     private java.util.List<com.mycompany.biz.enums.RegionType> regionTypes;
 
-    /*** 中文名称Like in getRegionPageList */
+    /*** 中文名称Like in getPageList */
     @ApiModelProperty("中文名称Like")
     @JSONField(serialize = false)
     private String nameLike;
 
-    /*** 英文名称Like in getRegionPageList */
+    /*** 英文名称Like in getPageList */
     @ApiModelProperty("英文名称Like")
     @JSONField(serialize = false)
     private String nameEnLike;
 
-    /*** 中文拼音Like in getRegionPageList */
+    /*** 中文拼音Like in getPageList */
     @ApiModelProperty("中文拼音Like")
     @JSONField(serialize = false)
     private String namePinyinLike;
 
-    /*** 代码Like in getRegionPageList */
+    /*** 代码Like in getPageList */
     @ApiModelProperty("代码Like")
     @JSONField(serialize = false)
     private String codeLike;
 
-    /*** 创建时间Min in getRegionPageList */
+    /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getRegionPageList */
+    /*** 创建时间Max in getPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getRegionPageList */
+    /*** 更新时间Min in getPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getRegionPageList */
+    /*** 更新时间Max in getPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)

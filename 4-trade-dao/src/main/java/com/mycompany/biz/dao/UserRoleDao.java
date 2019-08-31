@@ -91,7 +91,7 @@ public interface UserRoleDao {
 	 * 
 	 * sql:select a.id, a.user_id, a.role_id, a.role_type, a.create_time, a.update_time, a.delete_flag from user_role a where a.delete_flag = 0 and a.id=? and a.id in ( ? ) and a.user_id=? and a.user_id in ( ? ) and a.role_id=? and a.role_id in ( ? ) and a.role_type=? and a.role_type in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<UserRole> getUserRolePageList(UserRole userRole, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<UserRole> getPageList(UserRole userRole, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>

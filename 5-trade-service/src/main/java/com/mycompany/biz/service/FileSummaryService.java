@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AssignService;
+import org.stategen.framework.util.BaseService;
 
 import com.mycompany.biz.domain.FileSummary;
 
@@ -23,7 +24,7 @@ import com.mycompany.biz.domain.FileSummary;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface FileSummaryService extends AssignService<FileSummary, String>, FileSummaryServiceTrade {
+public interface FileSummaryService extends AssignService<FileSummary, String>, FileSummaryServiceTrade, BaseService<FileSummary> {
 
     String getProjectName();
 
@@ -54,12 +55,6 @@ public interface FileSummaryService extends AssignService<FileSummary, String>, 
 
     /**
      * 
-     * @see com.mycompany.biz.dao.FileSummaryDao#getFileSummaryPageList
-     */
-    public PageList<FileSummary> getFileSummaryPageList(FileSummary fileSummary, int pageSize, int pageNum);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.FileSummaryDao#getFileSummarysByFileIds
      */
     public List<FileSummary> getFileSummarysByFileIds(java.util.List<String> fileIds);
@@ -79,6 +74,12 @@ public interface FileSummaryService extends AssignService<FileSummary, String>, 
      * @see com.mycompany.biz.dao.FileSummaryDao#insert
      */
     public List<FileSummary> saveFileSummarys(List<FileSummary> fileSummarys);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.FileSummaryDao#getPageList
+     */
+    public PageList<FileSummary> getPageList(FileSummary fileSummary, int pageSize, int pageNum);
     // -->
     //
 }

@@ -89,40 +89,40 @@ public class TopicUp implements java.io.Serializable {
         return sb.toString();
     }
 
-    /*** upIds in getTopicUpPageList */
+    /*** upIds in getPageList */
     @ApiModelProperty("upId s")
     @JSONField(serialize = false)
     private java.util.List<String> upIds;
 
-    /*** objectIds in getTopicUpPageList */
+    /*** objectIds in getPageList */
     @ApiModelProperty("objectId s")
     @JSONField(serialize = false)
     private java.util.List<String> objectIds;
 
-    /*** authorIds in getTopicUpPageList */
+    /*** authorIds in getPageList */
     @ApiModelProperty("authorId s")
     @JSONField(serialize = false)
     private java.util.List<String> authorIds;
 
-    /*** 创建时间Min in getTopicUpPageList */
+    /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getTopicUpPageList */
+    /*** 创建时间Max in getPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getTopicUpPageList */
+    /*** 更新时间Min in getPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getTopicUpPageList */
+    /*** 更新时间Max in getPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)

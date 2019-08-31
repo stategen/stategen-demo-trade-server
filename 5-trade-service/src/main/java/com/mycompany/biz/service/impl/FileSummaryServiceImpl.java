@@ -5,17 +5,15 @@
  */
 package com.mycompany.biz.service.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.FileSummaryDao;
@@ -88,16 +86,6 @@ public class FileSummaryServiceImpl implements FileSummaryService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.FileSummaryDao#getFileSummaryPageList
-     * @see com.mycompany.biz.service.FileSummaryService#getFileSummaryPageList
-     */
-    @Override
-    public PageList<FileSummary> getFileSummaryPageList(FileSummary fileSummary, int pageSize, int pageNum) {
-        return fileSummaryDao.getFileSummaryPageList(fileSummary, pageSize, pageNum);
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.FileSummaryDao#getFileSummarysByFileIds
      * @see com.mycompany.biz.service.FileSummaryService#getFileSummarysByFileIds
      */
@@ -139,16 +127,30 @@ public class FileSummaryServiceImpl implements FileSummaryService {
         return fileSummarys;
     }
 
+    /**
+     * 
+     * @see com.mycompany.biz.dao.FileSummaryDao#getPageList
+     * @see com.mycompany.biz.service.FileSummaryService#getPageList
+     */
     @Override
-    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, FileSummary> destSetMethod) {
-        if (CollectionUtil.isNotEmpty(dests)) {
-            Set<String> fileIds = CollectionUtil.toSet(dests, destGetMethod);
-            List<FileSummary> fileSummarys = this.getFileSummarysByFileIds(new ArrayList<String>(fileIds));
-            if (CollectionUtil.isNotEmpty(fileSummarys)) {
-                CollectionUtil.setModelByList(dests, fileSummarys, destGetMethod, destSetMethod, FileSummary::getFileId);
-            }
-        }
+    public PageList<FileSummary> getPageList(FileSummary fileSummary, int pageSize, int pageNum) {
+        return fileSummaryDao.getPageList(fileSummary, pageSize, pageNum);
     }
+
     //-->
     //
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, FileSummary> destSetMethod) {
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, FileSummaryServiceImpl::getFileSummarysByFileIds, FileSummary::getFileId);
+    }
+
+    @Override
+    public <D, G> void assignBeansTo(Collection<D> dests, Function<? super D, G> destGetMethod, BiConsumer<D, List<FileSummary>> destSetMethod, BiConsumer<FileSummary, List<G>> resultSetQueryIdsFun, Function<? super FileSummary, G> resultGetGoupIdFun) {
+        ServiceUtil.interalAssignBeansTo(dests, destGetMethod, destSetMethod, this, new FileSummary(), resultSetQueryIdsFun, resultGetGoupIdFun, 100);
+    }
+
+    @Override
+    public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, FileSummaryServiceImpl::getFileSummarysByFileIds, FileSummary::getFileId);
+    }
 }

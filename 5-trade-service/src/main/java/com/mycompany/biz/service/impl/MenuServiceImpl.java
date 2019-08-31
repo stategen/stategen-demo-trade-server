@@ -4,11 +4,9 @@
  */
 package com.mycompany.biz.service.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
@@ -18,6 +16,7 @@ import org.springframework.util.LinkedCaseInsensitiveMap;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.MenuDao;
@@ -91,9 +90,8 @@ public class MenuServiceImpl implements MenuService {
     public List<Menu> getAllMenus() {
         return this.getMenusByProjectName(getProjectName(), MenuType.MENU);
     }
-	
-    //<#--
 
+    //<#--
     /**
      * 
      * @see com.mycompany.biz.dao.MenuDao#insert
@@ -199,16 +197,6 @@ public class MenuServiceImpl implements MenuService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.MenuDao#getMenuPageList
-     * @see com.mycompany.biz.service.MenuService#getMenuPageList
-     */
-    @Override
-    public PageList<Menu> getMenuPageList(Menu menu, int pageSize, int pageNum) {
-        return menuDao.getMenuPageList(menu, pageSize, pageNum);
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.MenuDao#getMenusByProjectName
      * @see com.mycompany.biz.service.MenuService#getMenusByProjectName
      */
@@ -217,15 +205,29 @@ public class MenuServiceImpl implements MenuService {
         return menuDao.getMenusByProjectName(projectName, menuType);
     }
 
+    /**
+     * 
+     * @see com.mycompany.biz.dao.MenuDao#getPageList
+     * @see com.mycompany.biz.service.MenuService#getPageList
+     */
+    @Override
+    public PageList<Menu> getPageList(Menu menu, int pageSize, int pageNum) {
+        return menuDao.getPageList(menu, pageSize, pageNum);
+    }
+
     @Override
     public <D> void assignBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod, BiConsumer<D, Menu> destSetMethod) {
-        if (CollectionUtil.isNotEmpty(dests)) {
-            Set<Long> menuIds = CollectionUtil.toSet(dests, destGetMethod);
-            List<Menu> menus = this.getMenusByMenuIds(new ArrayList<Long>(menuIds));
-            if (CollectionUtil.isNotEmpty(menus)) {
-                CollectionUtil.setModelByList(dests, menus, destGetMethod, destSetMethod, Menu::getMenuId);
-            }
-        }
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, MenuServiceImpl::getMenusByMenuIds, Menu::getMenuId);
+    }
+
+    @Override
+    public <D, G> void assignBeansTo(Collection<D> dests, Function<? super D, G> destGetMethod, BiConsumer<D, List<Menu>> destSetMethod, BiConsumer<Menu, List<G>> resultSetQueryIdsFun, Function<? super Menu, G> resultGetGoupIdFun) {
+        ServiceUtil.interalAssignBeansTo(dests, destGetMethod, destSetMethod, this, new Menu(), resultSetQueryIdsFun, resultGetGoupIdFun, 100);
+    }
+
+    @Override
+    public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod) {
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, MenuServiceImpl::getMenusByMenuIds, Menu::getMenuId);
     }
     //-->
     //

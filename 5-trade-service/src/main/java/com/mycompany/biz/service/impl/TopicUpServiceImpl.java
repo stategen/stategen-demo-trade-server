@@ -5,16 +5,14 @@
  */
 package com.mycompany.biz.service.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.TopicUpDao;
@@ -143,24 +141,28 @@ public class TopicUpServiceImpl implements TopicUpService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.TopicUpDao#getTopicUpPageList
-     * @see com.mycompany.biz.service.TopicUpService#getTopicUpPageList
+     * @see com.mycompany.biz.dao.TopicUpDao#getPageList
+     * @see com.mycompany.biz.service.TopicUpService#getPageList
      */
     @Override
-    public PageList<TopicUp> getTopicUpPageList(TopicUp topicUp, int pageSize, int pageNum) {
-        return topicUpDao.getTopicUpPageList(topicUp, pageSize, pageNum);
+    public PageList<TopicUp> getPageList(TopicUp topicUp, int pageSize, int pageNum) {
+        return topicUpDao.getPageList(topicUp, pageSize, pageNum);
+    }
+
+    //-->
+    //
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, TopicUp> destSetMethod) {
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, TopicUpServiceImpl::getTopicUpsByUpIds, TopicUp::getUpId);
     }
 
     @Override
-    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, TopicUp> destSetMethod) {
-        if (CollectionUtil.isNotEmpty(dests)) {
-            Set<String> upIds = CollectionUtil.toSet(dests, destGetMethod);
-            List<TopicUp> topicUps = this.getTopicUpsByUpIds(new ArrayList<String>(upIds));
-            if (CollectionUtil.isNotEmpty(topicUps)) {
-                CollectionUtil.setModelByList(dests, topicUps, destGetMethod, destSetMethod, TopicUp::getUpId);
-            }
-        }
+    public <D, G> void assignBeansTo(Collection<D> dests, Function<? super D, G> destGetMethod, BiConsumer<D, List<TopicUp>> destSetMethod, BiConsumer<TopicUp, List<G>> resultSetQueryIdsFun, Function<? super TopicUp, G> resultGetGoupIdFun) {
+        ServiceUtil.interalAssignBeansTo(dests, destGetMethod, destSetMethod, this, new TopicUp(), resultSetQueryIdsFun, resultGetGoupIdFun, 100);
     }
-    //-->
-    //
+
+    @Override
+    public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, TopicUpServiceImpl::getTopicUpsByUpIds, TopicUp::getUpId);
+    }
 }

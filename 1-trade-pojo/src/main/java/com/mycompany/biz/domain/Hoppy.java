@@ -80,35 +80,35 @@ public class Hoppy implements java.io.Serializable, IOption {
         return sb.toString();
     }
 
-    /*** hoppyIds in getHoppyPageList */
+    /*** hoppyIds in getPageList */
     @ApiModelProperty("hoppyId s")
     @JSONField(serialize = false)
     private java.util.List<Long> hoppyIds;
 
-    /*** hoppyNameLike in getHoppyPageList */
+    /*** hoppyNameLike in getPageList */
     @ApiModelProperty("hoppyNameLike")
     @JSONField(serialize = false)
     private String hoppyNameLike;
 
-    /*** 创建时间Min in getHoppyPageList */
+    /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getHoppyPageList */
+    /*** 创建时间Max in getPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getHoppyPageList */
+    /*** 更新时间Min in getPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getHoppyPageList */
+    /*** 更新时间Max in getPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)

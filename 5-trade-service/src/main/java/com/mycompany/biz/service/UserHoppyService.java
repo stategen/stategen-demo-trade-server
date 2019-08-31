@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AssignService;
+import org.stategen.framework.util.BaseService;
 
 import com.mycompany.biz.domain.UserHoppy;
 
@@ -23,7 +24,7 @@ import com.mycompany.biz.domain.UserHoppy;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface UserHoppyService extends AssignService<UserHoppy, Long>, UserHoppyServiceTrade {
+public interface UserHoppyService extends AssignService<UserHoppy, Long>, UserHoppyServiceTrade, BaseService<UserHoppy> {
 
     //<#--
     /**
@@ -52,12 +53,6 @@ public interface UserHoppyService extends AssignService<UserHoppy, Long>, UserHo
 
     /**
      * 
-     * @see com.mycompany.biz.dao.UserHoppyDao#getUserHoppyPageList
-     */
-    public PageList<UserHoppy> getUserHoppyPageList(UserHoppy userHoppy, int pageSize, int pageNum);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.UserHoppyDao#getUserHoppysByIds
      */
     public List<UserHoppy> getUserHoppysByIds(java.util.List<Long> ids);
@@ -83,6 +78,12 @@ public interface UserHoppyService extends AssignService<UserHoppy, Long>, UserHo
      * @see com.mycompany.biz.dao.UserHoppyDao#insert
      */
     public List<UserHoppy> saveUserHoppys(List<UserHoppy> userHoppys);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserHoppyDao#getPageList
+     */
+    public PageList<UserHoppy> getPageList(UserHoppy userHoppy, int pageSize, int pageNum);
     //-->
     //
 }

@@ -4,17 +4,16 @@
  */
 package com.mycompany.biz.service.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.RoleDao;
@@ -146,23 +145,27 @@ public class RoleServiceImpl implements RoleService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.RoleDao#getRolePageList
-     * @see com.mycompany.biz.service.RoleService#getRolePageList
+     * @see com.mycompany.biz.dao.RoleDao#getPageList
+     * @see com.mycompany.biz.service.RoleService#getPageList
      */
     @Override
-    public PageList<Role> getRolePageList(Role role, int pageSize, int pageNum) {
-        return roleDao.getRolePageList(role, pageSize, pageNum);
+    public PageList<Role> getPageList(Role role, int pageSize, int pageNum) {
+        return roleDao.getPageList(role, pageSize, pageNum);
     }
 
     @Override
     public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, Role> destSetMethod) {
-        if (CollectionUtil.isNotEmpty(dests)) {
-            Set<String> roleIds = CollectionUtil.toSet(dests, destGetMethod);
-            List<Role> roles = this.getRolesByRoleIds(new ArrayList<String>(roleIds));
-            if (CollectionUtil.isNotEmpty(roles)) {
-                CollectionUtil.setModelByList(dests, roles, destGetMethod, destSetMethod, Role::getRoleId);
-            }
-        }
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, RoleServiceImpl::getRolesByRoleIds, Role::getRoleId);
+    }
+
+    @Override
+    public <D, G> void assignBeansTo(Collection<D> dests, Function<? super D, G> destGetMethod, BiConsumer<D, List<Role>> destSetMethod, BiConsumer<Role, List<G>> resultSetQueryIdsFun, Function<? super Role, G> resultGetGoupIdFun) {
+        ServiceUtil.interalAssignBeansTo(dests, destGetMethod, destSetMethod, this, new Role(), resultSetQueryIdsFun, resultGetGoupIdFun, 100);
+    }
+
+    @Override
+    public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, RoleServiceImpl::getRolesByRoleIds, Role::getRoleId);
     }
     //-->
     //

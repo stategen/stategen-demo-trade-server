@@ -5,16 +5,14 @@
  */
 package com.mycompany.biz.service.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.CityDao;
@@ -80,16 +78,6 @@ public class CityServiceImpl implements CityService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.CityDao#getCityPageList
-     * @see com.mycompany.biz.service.CityService#getCityPageList
-     */
-    @Override
-    public PageList<City> getCityPageList(City city, int pageSize, int pageNum) {
-        return cityDao.getCityPageList(city, pageSize, pageNum);
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.CityDao#getCitysByCityIds
      * @see com.mycompany.biz.service.CityService#getCitysByCityIds
      */
@@ -141,16 +129,30 @@ public class CityServiceImpl implements CityService {
         return cityDao.getCityOptions(provinceId);
     }
 
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CityDao#getPageList
+     * @see com.mycompany.biz.service.CityService#getPageList
+     */
     @Override
-    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, City> destSetMethod) {
-        if (CollectionUtil.isNotEmpty(dests)) {
-            Set<String> cityIds = CollectionUtil.toSet(dests, destGetMethod);
-            List<City> citys = this.getCitysByCityIds(new ArrayList<String>(cityIds));
-            if (CollectionUtil.isNotEmpty(citys)) {
-                CollectionUtil.setModelByList(dests, citys, destGetMethod, destSetMethod, City::getCityId);
-            }
-        }
+    public PageList<City> getPageList(City city, int pageSize, int pageNum) {
+        return cityDao.getPageList(city, pageSize, pageNum);
     }
+
     //-->
     //
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, City> destSetMethod) {
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, CityServiceImpl::getCitysByCityIds, City::getCityId);
+    }
+
+    @Override
+    public <D, G> void assignBeansTo(Collection<D> dests, Function<? super D, G> destGetMethod, BiConsumer<D, List<City>> destSetMethod, BiConsumer<City, List<G>> resultSetQueryIdsFun, Function<? super City, G> resultGetGoupIdFun) {
+        ServiceUtil.interalAssignBeansTo(dests, destGetMethod, destSetMethod, this, new City(), resultSetQueryIdsFun, resultGetGoupIdFun, 100);
+    }
+
+    @Override
+    public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, CityServiceImpl::getCitysByCityIds, City::getCityId);
+    }
 }

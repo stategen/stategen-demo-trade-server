@@ -116,50 +116,50 @@ public class TopicReply implements java.io.Serializable {
         return sb.toString();
     }
 
-    /*** replyIds in getTopicReplyPageList */
+    /*** replyIds in getPageList */
     @ApiModelProperty("replyId s")
     @JSONField(serialize = false)
     private java.util.List<String> replyIds;
 
-    /*** topicIds in getTopicReplyPageList */
+    /*** topicIds in getPageList */
     @ApiModelProperty("topicId s")
     @JSONField(serialize = false)
     private java.util.List<String> topicIds;
 
-    /*** authorIds in getTopicReplyPageList */
+    /*** authorIds in getPageList */
     @ApiModelProperty("authorId s")
     @JSONField(serialize = false)
     private java.util.List<String> authorIds;
 
-    /*** contentLike in getTopicReplyPageList */
+    /*** contentLike in getPageList */
     @ApiModelProperty("contentLike")
     @JSONField(serialize = false)
     private String contentLike;
 
-    /*** parentReplyIds in getTopicReplyPageList */
+    /*** parentReplyIds in getPageList */
     @ApiModelProperty("parentReplyId s")
     @JSONField(serialize = false)
     private java.util.List<String> parentReplyIds;
 
-    /*** 创建时间Min in getTopicReplyPageList */
+    /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMin;
 
-    /*** 创建时间Max in getTopicReplyPageList */
+    /*** 创建时间Max in getPageList */
     @ApiModelProperty("创建时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
 
-    /*** 更新时间Min in getTopicReplyPageList */
+    /*** 更新时间Min in getPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMin;
 
-    /*** 更新时间Max in getTopicReplyPageList */
+    /*** 更新时间Max in getPageList */
     @ApiModelProperty("更新时间Max")
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)

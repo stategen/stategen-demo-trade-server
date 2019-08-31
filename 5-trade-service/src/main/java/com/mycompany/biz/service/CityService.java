@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AssignService;
+import org.stategen.framework.util.BaseService;
 
 import com.mycompany.biz.domain.City;
 
@@ -23,7 +24,7 @@ import com.mycompany.biz.domain.City;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface CityService extends AssignService<City, String>, CityServiceTrade {
+public interface CityService extends AssignService<City, String>, CityServiceTrade, BaseService<City> {
 
     //<#--
     /**
@@ -52,12 +53,6 @@ public interface CityService extends AssignService<City, String>, CityServiceTra
 
     /**
      * 
-     * @see com.mycompany.biz.dao.CityDao#getCityPageList
-     */
-    public PageList<City> getCityPageList(City city, int pageSize, int pageNum);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.CityDao#getCitysByCityIds
      */
     public List<City> getCitysByCityIds(java.util.List<String> cityIds);
@@ -83,6 +78,12 @@ public interface CityService extends AssignService<City, String>, CityServiceTra
      * @see com.mycompany.biz.dao.CityDao#getCityOptions
      */
     public List<City> getCityOptions(String provinceId);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CityDao#getPageList
+     */
+    public PageList<City> getPageList(City city, int pageSize, int pageNum);
     //-->
     //
 }

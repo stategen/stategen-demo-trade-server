@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="CategorySub.trade.RM" class="com.mycompany.biz.domain.CategorySub">
+        <result property="mallSubId" column="mall_sub_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="mallCategoryId" column="mall_category_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="mallSubName" column="mall_sub_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="comments" column="comments" javaType="java.lang.String" jdbcType="LONGVARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getCategorySubPageListOrderBy">
+		a.mall_sub_id
+	</sql>
+		
+	<sql id="getCategorySubsByMallSubIdsOrderBy">
+		a.mall_sub_id
+	</sql>
+		
+
+	
+	
+    
+	<insert id="insert.CategorySub.trade">
+		insert into category_sub (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="mallSubId"> mall_sub_id </isNotNull>
+            <isNotNull prepend="," property="mallCategoryId"> mall_category_id </isNotNull>
+            <isNotNull prepend="," property="mallSubName"> mall_sub_name </isNotNull>
+            <isNotNull prepend="," property="comments"> comments </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="mallSubId"> #mallSubId# </isNotNull> 
+            <isNotNull prepend="," property="mallCategoryId"> #mallCategoryId# </isNotNull> 
+            <isNotNull prepend="," property="mallSubName"> #mallSubName# </isNotNull> 
+            <isNotNull prepend="," property="comments"> #comments# </isNotNull>)
+            <selectKey keyProperty="mallSubId" resultClass="String" type="pre">
+                select if((#mallSubId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#mallSubId# ) as mallSubId
+            </selectKey>
+	</insert>
+	
+	<update id="delete.CategorySub.trade">
+		UPDATE category_sub SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and mall_sub_id = #mallSubId#
+	</update>
+	
+    
+	
+	<update id="update.CategorySub.trade">
+		UPDATE category_sub
+            SET update_time= CURRENT_TIMESTAMP(6)
+            <dynamic>
+                <isNotNull prepend="," property="mallCategoryId">
+                    mall_category_id =  #mallCategoryId# 
+                </isNotNull>
+                <isNotNull prepend="," property="mallSubName">
+                    mall_sub_name =  #mallSubName# 
+                </isNotNull>
+                <isNotNull prepend="," property="comments">
+                    comments =  #comments# 
+                </isNotNull>
+            </dynamic>
+            where
+            delete_flag = 0
+            and mall_sub_id = #mallSubId#
+	</update>
+	
+    
+	
+	<select id="getCategorySubByMallSubId.CategorySub.trade" resultMap="CategorySub.trade.RM" >
+    	select
+ /* getCategorySubByMallSubId.CategorySub.trade */             a.mall_sub_id,
+            a.mall_category_id,
+            a.mall_sub_name,
+            a.comments,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from category_sub a
+            where
+            a.delete_flag = 0
+            and a.mall_sub_id = #mallSubId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="getPageList.CategorySub.trade" resultMap="CategorySub.trade.RM" >
+    	select
+ /* getPageList.CategorySub.trade */             a.mall_sub_id,
+            a.mall_category_id,
+            a.mall_sub_name,
+            a.comments,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from category_sub a
+            where
+            a.delete_flag = 0
+            <isNotNull open="and" property="mallSubId">
+               a.mall_sub_id=#mallSubId#
+            </isNotNull>
+            <isNotEmpty open="and" property="mallSubIds">
+                a.mall_sub_id in
+                <iterate close=")" conjunction="," open="(" property="mallSubIds">
+                    #mallSubIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull open="and" property="mallCategoryId">
+               a.mall_category_id=#mallCategoryId#
+            </isNotNull>
+            <isNotEmpty open="and" property="mallCategoryIds">
+                a.mall_category_id in
+                <iterate close=")" conjunction="," open="(" property="mallCategoryIds">
+                    #mallCategoryIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="mallSubName">
+            a.mall_sub_name=#mallSubName#
+          </isNotNull>
+            <isNotEmpty open="and" property="mallSubNameLike">
+                a.mall_sub_name like CONCAT('%',#mallSubNameLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="comments">
+            a.comments=#comments#
+          </isNotNull>
+            <isNotEmpty open="and" property="commentsLike">
+                a.comments like CONCAT('%',#commentsLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="createTimeMin">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="createTimeMax">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMin">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMax">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="mallSubId">
+            <isEmpty property="mallSubIds">
+            <isNull property="mallCategoryId">
+            <isEmpty property="mallCategoryIds">
+            <isNull property="mallSubName">
+            <isEmpty property="mallSubNameLike">
+            <isNull property="comments">
+            <isEmpty property="commentsLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getCategorySubPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="getPageList.CategorySub.trade.count" resultClass="long" >
+    	select  /* getPageList.CategorySub.trade.count */ count(*)  from category_sub a
+            where
+            a.delete_flag = 0
+            <isNotNull open="and" property="mallSubId">
+               a.mall_sub_id=#mallSubId#
+            </isNotNull>
+            <isNotEmpty open="and" property="mallSubIds">
+                a.mall_sub_id in
+                <iterate close=")" conjunction="," open="(" property="mallSubIds">
+                    #mallSubIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull open="and" property="mallCategoryId">
+               a.mall_category_id=#mallCategoryId#
+            </isNotNull>
+            <isNotEmpty open="and" property="mallCategoryIds">
+                a.mall_category_id in
+                <iterate close=")" conjunction="," open="(" property="mallCategoryIds">
+                    #mallCategoryIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull open="and" property="mallSubName">
+            a.mall_sub_name=#mallSubName#
+          </isNotNull>
+            <isNotEmpty open="and" property="mallSubNameLike">
+                a.mall_sub_name like CONCAT('%',#mallSubNameLike#,'%')
+            </isNotEmpty>
+          <isNotNull open="and" property="comments">
+            a.comments=#comments#
+          </isNotNull>
+            <isNotEmpty open="and" property="commentsLike">
+                a.comments like CONCAT('%',#commentsLike#,'%')
+            </isNotEmpty>
+            <isNotNull open="and" property="createTimeMin">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="createTimeMax">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMin">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull open="and" property="updateTimeMax">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="mallSubId">
+            <isEmpty property="mallSubIds">
+            <isNull property="mallCategoryId">
+            <isEmpty property="mallCategoryIds">
+            <isNull property="mallSubName">
+            <isEmpty property="mallSubNameLike">
+            <isNull property="comments">
+            <isEmpty property="commentsLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="getCategorySubsByMallSubIds.CategorySub.trade" resultMap="CategorySub.trade.RM" >
+    	select
+ /* getCategorySubsByMallSubIds.CategorySub.trade */             a.mall_sub_id,
+            a.mall_category_id,
+            a.mall_sub_name,
+            a.comments,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from category_sub a
+            where
+            a.delete_flag = 0
+            <isEmpty open="and" property="mallSubIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="mallSubIds">
+                a.mall_sub_id in
+                <iterate close=")" conjunction="," open="(" property="mallSubIds">
+                    #mallSubIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getCategorySubsByMallSubIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="deleteByMallSubIds.CategorySub.trade">
+		UPDATE category_sub SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty open="and" property="mallSubIds">
+                1=0
+            </isEmpty>
+            <isNotEmpty open="and" property="mallSubIds">
+                mall_sub_id in
+                <iterate close=")" conjunction="," open="(" property="mallSubIds">
+                    #mallSubIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+
+</sqlMap>
+

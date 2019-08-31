@@ -5,16 +5,14 @@
  */
 package com.mycompany.biz.service.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.ProvinceDao;
@@ -80,16 +78,6 @@ public class ProvinceServiceImpl implements ProvinceService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.ProvinceDao#getProvincePageList
-     * @see com.mycompany.biz.service.ProvinceService#getProvincePageList
-     */
-    @Override
-    public PageList<Province> getProvincePageList(Province province, int pageSize, int pageNum) {
-        return provinceDao.getProvincePageList(province, pageSize, pageNum);
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.ProvinceDao#getProvincesByProvinceIds
      * @see com.mycompany.biz.service.ProvinceService#getProvincesByProvinceIds
      */
@@ -141,16 +129,30 @@ public class ProvinceServiceImpl implements ProvinceService {
         return provinceDao.getProvinceOptions();
     }
 
+    /**
+     * 
+     * @see com.mycompany.biz.dao.ProvinceDao#getPageList
+     * @see com.mycompany.biz.service.ProvinceService#getPageList
+     */
     @Override
-    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, Province> destSetMethod) {
-        if (CollectionUtil.isNotEmpty(dests)) {
-            Set<String> provinceIds = CollectionUtil.toSet(dests, destGetMethod);
-            List<Province> provinces = this.getProvincesByProvinceIds(new ArrayList<String>(provinceIds));
-            if (CollectionUtil.isNotEmpty(provinces)) {
-                CollectionUtil.setModelByList(dests, provinces, destGetMethod, destSetMethod, Province::getProvinceId);
-            }
-        }
+    public PageList<Province> getPageList(Province province, int pageSize, int pageNum) {
+        return provinceDao.getPageList(province, pageSize, pageNum);
     }
+
     //-->
     //
+    @Override
+    public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, Province> destSetMethod) {
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, ProvinceServiceImpl::getProvincesByProvinceIds, Province::getProvinceId);
+    }
+
+    @Override
+    public <D, G> void assignBeansTo(Collection<D> dests, Function<? super D, G> destGetMethod, BiConsumer<D, List<Province>> destSetMethod, BiConsumer<Province, List<G>> resultSetQueryIdsFun, Function<? super Province, G> resultGetGoupIdFun) {
+        ServiceUtil.interalAssignBeansTo(dests, destGetMethod, destSetMethod, this, new Province(), resultSetQueryIdsFun, resultGetGoupIdFun, 100);
+    }
+
+    @Override
+    public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, ProvinceServiceImpl::getProvincesByProvinceIds, Province::getProvinceId);
+    }
 }

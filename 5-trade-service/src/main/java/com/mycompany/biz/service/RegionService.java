@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AssignService;
+import org.stategen.framework.util.BaseService;
 
 import com.mycompany.biz.domain.Region;
 
@@ -24,7 +25,7 @@ import com.mycompany.biz.domain.Region;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface RegionService extends AssignService<Region, Long>, RegionServiceTrade {
+public interface RegionService extends AssignService<Region, Long>, RegionServiceTrade, BaseService<Region> {
 
     Map<Long, Region> getRegionMapIfHasParent(List<Long> regionIds);
 
@@ -52,12 +53,6 @@ public interface RegionService extends AssignService<Region, Long>, RegionServic
      * @see com.mycompany.biz.dao.RegionDao#getRegionByRegionId
      */
     public Region getRegionByRegionId(Long regionId);
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.RegionDao#getRegionPageList
-     */
-    public PageList<Region> getRegionPageList(Region region, int pageSize, int pageNum);
 
     /**
      * 
@@ -92,6 +87,12 @@ public interface RegionService extends AssignService<Region, Long>, RegionServic
      * @see com.mycompany.biz.dao.RegionDao#getRegionsWithIsLeafByRegionIds
      */
     public List<Region> getRegionsWithIsLeafByRegionIds(java.util.List<Long> regionIds);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.RegionDao#getPageList
+     */
+    public PageList<Region> getPageList(Region region, int pageSize, int pageNum);
     //-->
     //
 }

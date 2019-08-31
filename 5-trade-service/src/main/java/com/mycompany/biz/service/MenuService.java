@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AssignService;
+import org.stategen.framework.util.BaseService;
 
 import com.mycompany.biz.domain.Menu;
 
@@ -22,7 +23,7 @@ import com.mycompany.biz.domain.Menu;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public interface MenuService extends AssignService<Menu, Long>, MenuServiceTrade {
+public interface MenuService extends AssignService<Menu, Long>, MenuServiceTrade, BaseService<Menu> {
 
     String getProjectName();
 
@@ -87,15 +88,15 @@ public interface MenuService extends AssignService<Menu, Long>, MenuServiceTrade
 
     /**
      * 
-     * @see com.mycompany.biz.dao.MenuDao#getMenuPageList
-     */
-    public PageList<Menu> getMenuPageList(Menu menu, int pageSize, int pageNum);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.MenuDao#getMenusByProjectName
      */
     public List<Menu> getMenusByProjectName(String projectName, org.stategen.framework.lite.enums.MenuType menuType);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.MenuDao#getPageList
+     */
+    public PageList<Menu> getPageList(Menu menu, int pageSize, int pageNum);
     //-->
     //
 }

@@ -330,9 +330,9 @@
 	
     
 	
-	<select id="getUserPageList.User.trade" resultMap="User.trade.RM" >
+	<select id="getPageList.User.trade" resultMap="User.trade.RM" >
     	select
- /* getUserPageList.User.trade */             a.user_id,
+ /* getPageList.User.trade */             a.user_id,
             a.username,
             a.password,
             a.role_type,
@@ -617,8 +617,8 @@
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getUserPageList.User.trade.count" resultClass="long" >
-    	select  /* getUserPageList.User.trade.count */ count(*)  from user a
+	<select id="getPageList.User.trade.count" resultClass="long" >
+    	select  /* getPageList.User.trade.count */ count(*)  from user a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="userId">

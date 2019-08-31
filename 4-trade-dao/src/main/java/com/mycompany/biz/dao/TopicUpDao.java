@@ -87,7 +87,7 @@ public interface TopicUpDao {
 	 * 
 	 * sql:select a.up_id, a.object_id, a.author_id, a.create_time, a.update_time, a.delete_flag from topic_up a where a.delete_flag = 0 and a.up_id=? and a.up_id in ( ? ) and a.object_id=? and a.object_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-	public PageList<TopicUp> getTopicUpPageList(TopicUp topicUp, int pageSize, int pageNum) throws DataAccessException;
+	public PageList<TopicUp> getPageList(TopicUp topicUp, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>
