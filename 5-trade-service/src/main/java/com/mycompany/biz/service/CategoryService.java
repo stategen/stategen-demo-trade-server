@@ -44,23 +44,7 @@ public interface CategoryService extends CategoryServiceTrade, AssignService<Cat
      */
     public Category update(Category category);
 
-    /**
-     * 
-     * @see com.mycompany.biz.dao.CategoryDao#getCategoryByMallCategoryId
-     */
-    public Category getCategoryByMallCategoryId(String mallCategoryId);
 
-    /**
-     * 
-     * @see com.mycompany.biz.dao.CategoryDao#getCategorysByMallCategoryIds
-     */
-    public List<Category> getCategorysByMallCategoryIds(java.util.List<String> mallCategoryIds);
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.CategoryDao#deleteByMallCategoryIds
-     */
-    public java.util.List<String> deleteByMallCategoryIds(java.util.List<String> mallCategoryIds);
 
     /*** 保存category,有id时更新，没有id时插入,并带回新的id，返回 category
      * @see com.mycompany.biz.dao.CategoryDao#insert
@@ -77,4 +61,22 @@ public interface CategoryService extends CategoryServiceTrade, AssignService<Cat
      * @see com.mycompany.biz.dao.CategoryDao#getPageList
      */
     public PageList<Category> getPageList(Category category, int pageSize, int pageNum);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CategoryDao#getCategoryByCategoryId
+     */
+    public Category getCategoryByCategoryId(String categoryId);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CategoryDao#getCategorysByCategoryIds
+     */
+    public List<Category> getCategorysByCategoryIds(java.util.List<String> categoryIds);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CategoryDao#deleteByCategoryIds
+     */
+    public java.util.List<String> deleteByCategoryIds(java.util.List<String> categoryIds);
 }

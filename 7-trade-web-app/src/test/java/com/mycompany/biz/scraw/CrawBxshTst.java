@@ -29,9 +29,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.mycompany.biz.domain.AdvertisePicture;
 import com.mycompany.biz.domain.Category;
 import com.mycompany.biz.domain.CategorySub;
-import com.mycompany.biz.domain.FloorAdvertisePricture;
 import com.mycompany.biz.domain.FloorGoods;
-import com.mycompany.biz.domain.FloorNames;
 import com.mycompany.biz.domain.Goods;
 import com.mycompany.biz.domain.GoodsComment;
 import com.mycompany.biz.domain.GoodsWrap;
@@ -44,8 +42,8 @@ import com.mycompany.biz.domain.Slide;
 import com.mycompany.biz.service.AdvertisePictureService;
 import com.mycompany.biz.service.CategoryService;
 import com.mycompany.biz.service.CategorySubService;
-import com.mycompany.biz.service.FloorAdvertisePrictureService;
 import com.mycompany.biz.service.FloorGoodsService;
+import com.mycompany.biz.service.FloorService;
 import com.mycompany.biz.service.GoodsCommentService;
 import com.mycompany.biz.service.GoodsService;
 import com.mycompany.biz.service.HomeAdvertiseService;
@@ -98,7 +96,7 @@ public class CrawBxshTst {
     ShopService shopService;
 
     @Resource
-    FloorAdvertisePrictureService floorAdvertisePrictureService;
+    FloorService floorService;
 
     @Resource
     FloorGoodsService floorGoodsService;
@@ -113,19 +111,19 @@ public class CrawBxshTst {
         List<com.mycompany.biz.domain.Category> categories = responseCategroies.getData();
         if (CollectionUtil.isNotEmpty(categories)) {
             for (Category category : categories) {
-                String categoryId = category.getMallCategoryId();
-                Category categoryByMallCategoryId = categoryService.getCategoryByMallCategoryId(categoryId);
+                String categoryId = category.getCategoryId();
+                Category categoryByMallCategoryId = categoryService.getCategoryByCategoryId(categoryId);
                 if (categoryByMallCategoryId != null) {
                     this.categoryService.update(category);
                 } else {
                     categoryService.insert(category);
                 }
 
-                List<CategorySub> bxMallSubDto = category.getBxMallSubDto();
+                List<CategorySub> bxMallSubDto = category.getCategorySubs();
                 if (CollectionUtil.isNotEmpty(bxMallSubDto)) {
                     for (CategorySub categorySub : bxMallSubDto) {
-                        String categorySubId = categorySub.getMallSubId();
-                        CategorySub categorySubByMallSubId = this.categorySubService.getCategorySubByMallSubId(categorySubId);
+                        String categorySubId = categorySub.getCategorySubId();
+                        CategorySub categorySubByMallSubId = this.categorySubService.getCategorySubByCategorySubId(categorySubId);
                         if (categorySubByMallSubId != null) {
                             this.categorySubService.update(categorySub);
                         } else {
@@ -265,48 +263,48 @@ public class CrawBxshTst {
             saveOrUpdateByBaseSerive(this.homeAdvertiseService, advertesPicture);
         }
 
-        //
-        List<FloorGoods> floorGoodss1 = homeWrap.getFloor1();
-        List<FloorGoods> floorGoodss2 = homeWrap.getFloor2();
-        List<FloorGoods> floorGoodss3 = homeWrap.getFloor3();
-
-        FloorAdvertisePricture floor1Pic = homeWrap.getFloor1Pic();
-        FloorAdvertisePricture floor2Pic = homeWrap.getFloor2Pic();
-        FloorAdvertisePricture floor3Pic = homeWrap.getFloor3Pic();
-
-        FloorNames floorNames = homeWrap.getFloorName();
-
-        String floorName1 = floorNames.getFloor1();
-        String floorName2 = floorNames.getFloor2();
-        String floorName3 = floorNames.getFloor3();
-
-        floor1Pic.setFloorName(floorName1);
-        floor1Pic.setFloorGoodss(floorGoodss1);
-
-        floor2Pic.setFloorName(floorName2);
-        floor2Pic.setFloorGoodss(floorGoodss2);
-
-        floor3Pic.setFloorName(floorName3);
-        floor3Pic.setFloorGoodss(floorGoodss3);
-
-        FloorAdvertisePricture[] floorAdvertisePrictures = { floor1Pic, floor2Pic, floor3Pic };
-        Integer picNo = 0;
-        for (FloorAdvertisePricture floorAdvertisePricture : floorAdvertisePrictures) {
-            floorAdvertisePricture.setOrderNo(picNo);
-            picNo++;
-            saveOrUpdateByBaseSerive(advertisePictureService, floorAdvertisePricture);
-            saveOrUpdateByBaseSerive(floorAdvertisePrictureService, floorAdvertisePricture);
-
-            String floorId = floorAdvertisePricture.getFloorId();
-            List<FloorGoods> floorGoodss = floorAdvertisePricture.getFloorGoodss();
-            Integer orderNo = 0;
-            for (FloorGoods floorGoods : floorGoodss) {
-                floorGoods.setFloorId(floorId);
-                floorGoods.setOrderNo(orderNo);
-                orderNo++;
-                saveOrUpdateByBaseSerive(floorGoodsService, floorGoods);
-            }
-        }
+//        //
+//        List<FloorGoods> floorGoodss1 = homeWrap.getFloor1();
+//        List<FloorGoods> floorGoodss2 = homeWrap.getFloor2();
+//        List<FloorGoods> floorGoodss3 = homeWrap.getFloor3();
+//
+//        Floor floor1Pic = homeWrap.getFloor1Pic();
+//        Floor floor2Pic = homeWrap.getFloor2Pic();
+//        Floor floor3Pic = homeWrap.getFloor3Pic();
+//
+//        FloorNames floorNames = homeWrap.getFloorName();
+//
+//        String floorName1 = floorNames.getFloor1();
+//        String floorName2 = floorNames.getFloor2();
+//        String floorName3 = floorNames.getFloor3();
+//
+//        floor1Pic.setFloorName(floorName1);
+//        floor1Pic.setFloorGoodss(floorGoodss1);
+//
+//        floor2Pic.setFloorName(floorName2);
+//        floor2Pic.setFloorGoodss(floorGoodss2);
+//
+//        floor3Pic.setFloorName(floorName3);
+//        floor3Pic.setFloorGoodss(floorGoodss3);
+//
+//        Floor[] floorAdvertisePrictures = { floor1Pic, floor2Pic, floor3Pic };
+//        Integer picNo = 0;
+//        for (Floor floor : floorAdvertisePrictures) {
+//            floor.setOrderNo(picNo);
+//            picNo++;
+//            saveOrUpdateByBaseSerive(advertisePictureService, floor);
+//            saveOrUpdateByBaseSerive(floorAdvertisePrictureService, floor);
+//
+//            String floorId = floor.getFloorId();
+//            List<FloorGoods> floorGoodss = floor.getFloorGoodss();
+//            Integer orderNo = 0;
+//            for (FloorGoods floorGoods : floorGoodss) {
+//                floorGoods.setFloorId(floorId);
+//                floorGoods.setOrderNo(orderNo);
+//                orderNo++;
+//                saveOrUpdateByBaseSerive(floorGoodsService, floorGoods);
+//            }
+//        }
     }
 
     //这个image做丢了
@@ -359,12 +357,12 @@ public class CrawBxshTst {
                                   + "                \"goodsId\": \"80cd0b81997d41ceacdf3781a36dc13d\"\r\n" + "            }\r\n" + "        ],\r\n"
                                   + "        }";
         HomeWrap homeWrap = JSONObject.parseObject(floorImageString, HomeWrap.class);
-        List<FloorGoods> floor1 = homeWrap.getFloor1();
-        List<FloorGoods> floor2 = homeWrap.getFloor2();
-        List<FloorGoods> floor3 = homeWrap.getFloor3();
-        updateFloorImage(floor1);
-        updateFloorImage(floor2);
-        updateFloorImage(floor3);
+//        List<FloorGoods> floor1 = homeWrap.getFloor1();
+//        List<FloorGoods> floor2 = homeWrap.getFloor2();
+//        List<FloorGoods> floor3 = homeWrap.getFloor3();
+//        updateFloorImage(floor1);
+//        updateFloorImage(floor2);
+//        updateFloorImage(floor3);
     }
 
     private void updateFloorImage(List<FloorGoods> floorGoods) {

@@ -5,21 +5,21 @@
             create_time
             , update_time
             , delete_flag
-            <isNotNull prepend="," property="mallSubId"> mall_sub_id </isNotNull>
-            <isNotNull prepend="," property="mallCategoryId"> mall_category_id </isNotNull>
-            <isNotNull prepend="," property="mallSubName"> mall_sub_name </isNotNull>
+            <isNotNull prepend="," property="categorySubId"> category_sub_id </isNotNull>
+            <isNotNull prepend="," property="categoryId"> category_id </isNotNull>
+            <isNotNull prepend="," property="subName"> sub_name </isNotNull>
             <isNotNull prepend="," property="comments"> comments </isNotNull>
             ) VALUES (
             CURRENT_TIMESTAMP(6)
             , CURRENT_TIMESTAMP(6)
             , 0
-            <isNotNull prepend="," property="mallSubId"> ?  </isNotNull>
-            <isNotNull prepend="," property="mallCategoryId"> ?  </isNotNull>
-            <isNotNull prepend="," property="mallSubName"> ?  </isNotNull>
+            <isNotNull prepend="," property="categorySubId"> ?  </isNotNull>
+            <isNotNull prepend="," property="categoryId"> ?  </isNotNull>
+            <isNotNull prepend="," property="subName"> ?  </isNotNull>
             <isNotNull prepend="," property="comments"> ?  </isNotNull>
             )
-            <selectKey keyProperty="mallSubId" resultClass="String" type="pre">
-                select if((#mallSubId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#mallSubId# ) as mallSubId
+            <selectKey keyProperty="categorySubId" resultClass="String" type="pre">
+                select if((#categorySubId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#categorySubId# ) as categorySubId
             </selectKey>
         </sql>
     </operation>
@@ -31,7 +31,7 @@
             , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            and mall_sub_id = ?
+            and category_sub_id = ?
         </sql>
     </operation>
 
@@ -40,11 +40,11 @@
             UPDATE category_sub
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
-                <isNotNull property="mallCategoryId" prepend=",">
-                    mall_category_id =  ? 
+                <isNotNull property="categoryId" prepend=",">
+                    category_id =  ? 
                 </isNotNull>
-                <isNotNull property="mallSubName" prepend=",">
-                    mall_sub_name =  ? 
+                <isNotNull property="subName" prepend=",">
+                    sub_name =  ? 
                 </isNotNull>
                 <isNotNull property="comments" prepend=",">
                     comments =  ? 
@@ -52,16 +52,16 @@
             </dynamic>
             where
             delete_flag = 0
-            and mall_sub_id = ?
+            and category_sub_id = ?
         </sql>
     </operation>
 
-    <operation name="getCategorySubByMallSubId" multiplicity="one" remarks="">
+    <operation name="getCategorySubByCategorySubId" multiplicity="one" remarks="">
         <sql>
             select
-            a.mall_sub_id,
-            a.mall_category_id,
-            a.mall_sub_name,
+            a.category_sub_id,
+            a.category_id,
+            a.sub_name,
             a.comments,
             a.create_time,
             a.update_time,
@@ -69,16 +69,16 @@
             from category_sub a
             where
             a.delete_flag = 0
-            and a.mall_sub_id = ?
+            and a.category_sub_id = ?
         </sql>
     </operation>
 
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
             select
-            a.mall_sub_id,
-            a.mall_category_id,
-            a.mall_sub_name,
+            a.category_sub_id,
+            a.category_id,
+            a.sub_name,
             a.comments,
             a.create_time,
             a.update_time,
@@ -86,29 +86,29 @@
             from category_sub a
             where
             a.delete_flag = 0
-            <isNotNull property="mallSubId" open="and">
-               a.mall_sub_id=?
+            <isNotNull property="categorySubId" open="and">
+               a.category_sub_id=?
             </isNotNull>
-            <isNotEmpty property="mallSubIds" open="and">
-                a.mall_sub_id in
-                <iterate property="mallSubIds" conjunction="," open="(" close=")">
-                    #mallSubIds[]#
+            <isNotEmpty property="categorySubIds" open="and">
+                a.category_sub_id in
+                <iterate property="categorySubIds" conjunction="," open="(" close=")">
+                    #categorySubIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="mallCategoryId" open="and">
-               a.mall_category_id=?
+            <isNotNull property="categoryId" open="and">
+               a.category_id=?
             </isNotNull>
-            <isNotEmpty property="mallCategoryIds" open="and">
-                a.mall_category_id in
-                <iterate property="mallCategoryIds" conjunction="," open="(" close=")">
-                    #mallCategoryIds[]#
+            <isNotEmpty property="categoryIds" open="and">
+                a.category_id in
+                <iterate property="categoryIds" conjunction="," open="(" close=")">
+                    #categoryIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="mallSubName" open="and">
-            a.mall_sub_name=?
+          <isNotNull property="subName" open="and">
+            a.sub_name=?
           </isNotNull>
-            <isNotEmpty property="mallSubNameLike" open="and">
-                a.mall_sub_name like CONCAT('%',#mallSubNameLike#,'%')
+            <isNotEmpty property="subNameLike" open="and">
+                a.sub_name like CONCAT('%',#subNameLike#,'%')
             </isNotEmpty>
           <isNotNull property="comments" open="and">
             a.comments=?
@@ -128,12 +128,12 @@
             <isNotNull property="updateTimeMax" open="and">
                 a.update_time &lt;#updateTimeMax#
             </isNotNull>
-            <isNull property="mallSubId">
-            <isEmpty property="mallSubIds">
-            <isNull property="mallCategoryId">
-            <isEmpty property="mallCategoryIds">
-            <isNull property="mallSubName">
-            <isEmpty property="mallSubNameLike">
+            <isNull property="categorySubId">
+            <isEmpty property="categorySubIds">
+            <isNull property="categoryId">
+            <isEmpty property="categoryIds">
+            <isNull property="subName">
+            <isEmpty property="subNameLike">
             <isNull property="comments">
             <isEmpty property="commentsLike">
             <isNull property="createTimeMin">
@@ -158,12 +158,12 @@
         </sql>
     </operation>
 
-    <operation name="getCategorySubsByMallSubIds" multiplicity="many" remarks="">
+    <operation name="getCategorySubsByCategorySubIds" multiplicity="many" remarks="">
         <sql>
             select
-            a.mall_sub_id,
-            a.mall_category_id,
-            a.mall_sub_name,
+            a.category_sub_id,
+            a.category_id,
+            a.sub_name,
             a.comments,
             a.create_time,
             a.update_time,
@@ -171,34 +171,34 @@
             from category_sub a
             where
             a.delete_flag = 0
-            <isEmpty property="mallSubIds" open="and">
+            <isEmpty property="categorySubIds" open="and">
                 1=0
             </isEmpty>
-            <isNotEmpty property="mallSubIds" open="and">
-                a.mall_sub_id in
-                <iterate property="mallSubIds" conjunction="," open="(" close=")">
-                    #mallSubIds[]#
+            <isNotEmpty property="categorySubIds" open="and">
+                a.category_sub_id in
+                <iterate property="categorySubIds" conjunction="," open="(" close=")">
+                    #categorySubIds[]#
                 </iterate>
             </isNotEmpty>
             order by
-            <include refid="getCategorySubsByMallSubIdsOrderBy" />
+            <include refid="getCategorySubsByCategorySubIdsOrderBy" />
         </sql>
     </operation>
 
-    <operation name="deleteByMallSubIds" remarks="">
+    <operation name="deleteByCategorySubIds" remarks="">
         <sql>
             UPDATE category_sub SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="mallSubIds" open="and">
+            <isEmpty property="categorySubIds" open="and">
                 1=0
             </isEmpty>
-            <isNotEmpty property="mallSubIds" open="and">
-                mall_sub_id in
-                <iterate property="mallSubIds" conjunction="," open="(" close=")">
-                    #mallSubIds[]#
+            <isNotEmpty property="categorySubIds" open="and">
+                category_sub_id in
+                <iterate property="categorySubIds" conjunction="," open="(" close=")">
+                    #categorySubIds[]#
                 </iterate>
             </isNotEmpty>
         </sql>

@@ -29,16 +29,17 @@ public class GoodsController extends GoodsControllerBase {
 
     @ApiRequestMappingAutoWithMethodName
     @State()
-    public PageList<Goods> getMallGoods(String categoryId, String categorySubId, @RequestParam(required=false, defaultValue = "10") Integer pageSize,
-                                        @RequestParam(required=false,defaultValue = "1") Integer pageNum) {
+    public PageList<Goods> getMallGoods(String categoryId, String categorySubId,
+                                        @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+                                        @RequestParam(required = false, defaultValue = "1") Integer pageNum) {
         Goods goods = new Goods();
         if (StringUtil.isNotEmpty(categorySubId)) {
             goods.setCategorySubId(categorySubId);
         } else if (StringUtil.isNotEmpty(categoryId)) {
             CategorySub categorySub = new CategorySub();
-            categorySub.setMallCategoryId(categoryId);
+            categorySub.setCategoryId(categoryId);
             PageList<CategorySub> pageList = categorySubService.getPageList(categorySub, 100, 1);
-            List<String> ids = CollectionUtil.toList(pageList.getItems(), CategorySub::getMallSubId);
+            List<String> ids = CollectionUtil.toList(pageList.getItems(), CategorySub::getCategorySubId);
             goods.setCategorySubIds(ids);
         } else {
             BusinessAssert.throwException("categoryId 和 categorySubId 至少有一个不能为空");

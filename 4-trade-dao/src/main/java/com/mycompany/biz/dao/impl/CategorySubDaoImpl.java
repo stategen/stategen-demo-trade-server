@@ -31,7 +31,7 @@ public class CategorySubDaoImpl  extends SqlMapClientDaoSupport implements Categ
 
 	/**
 	 * 
-	 * sql:insert into category_sub ( create_time , update_time , delete_flag , mall_sub_id , mall_category_id , mall_sub_name , comments ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
+	 * sql:insert into category_sub ( create_time , update_time , delete_flag , category_sub_id , category_id , sub_name , comments ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
 	public CategorySub insert(CategorySub categorySub) throws DataAccessException {
 		if(categorySub == null) {
@@ -43,18 +43,18 @@ public class CategorySubDaoImpl  extends SqlMapClientDaoSupport implements Categ
 
 	/**
 	 * 
-	 * sql:UPDATE category_sub SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and mall_sub_id = ?
+	 * sql:UPDATE category_sub SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and category_sub_id = ?
 	 */
-	public String delete(String mallSubId) throws DataAccessException {
+	public String delete(String categorySubId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("mallSubId",mallSubId);
+		params.put("categorySubId",categorySubId);
         getSqlMapClientTemplate().update("delete.CategorySub.trade", params);
-        return mallSubId;
+        return categorySubId;
 	}
 
 	/**
 	 * 
-	 * sql:UPDATE category_sub SET update_time= CURRENT_TIMESTAMP(6) , mall_category_id = ? , mall_sub_name = ? , comments = ? where delete_flag = 0 and mall_sub_id = ?
+	 * sql:UPDATE category_sub SET update_time= CURRENT_TIMESTAMP(6) , category_id = ? , sub_name = ? , comments = ? where delete_flag = 0 and category_sub_id = ?
 	 */
 	public CategorySub update(CategorySub categorySub) throws DataAccessException {
 		if(categorySub == null) {
@@ -66,17 +66,17 @@ public class CategorySubDaoImpl  extends SqlMapClientDaoSupport implements Categ
 
 	/**
 	 * 
-	 * sql:select a.mall_sub_id, a.mall_category_id, a.mall_sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from category_sub a where a.delete_flag = 0 and a.mall_sub_id = ?
+	 * sql:select a.category_sub_id, a.category_id, a.sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from category_sub a where a.delete_flag = 0 and a.category_sub_id = ?
 	 */
-	public CategorySub getCategorySubByMallSubId(String mallSubId) throws DataAccessException {
+	public CategorySub getCategorySubByCategorySubId(String categorySubId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("mallSubId",mallSubId);
-		return (CategorySub)getSqlMapClientTemplate().queryForObject("getCategorySubByMallSubId.CategorySub.trade",params);
+		params.put("categorySubId",categorySubId);
+		return (CategorySub)getSqlMapClientTemplate().queryForObject("getCategorySubByCategorySubId.CategorySub.trade",params);
 	}
 
 	/**
 	 * 
-	 * sql:select a.mall_sub_id, a.mall_category_id, a.mall_sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from category_sub a where a.delete_flag = 0 and a.mall_sub_id=? and a.mall_sub_id in ( ? ) and a.mall_category_id=? and a.mall_category_id in ( ? ) and a.mall_sub_name=? and a.mall_sub_name like CONCAT('%',?,'%') and a.comments=? and a.comments like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.mall_sub_id
+	 * sql:select a.category_sub_id, a.category_id, a.sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from category_sub a where a.delete_flag = 0 and a.category_sub_id=? and a.category_sub_id in ( ? ) and a.category_id=? and a.category_id in ( ? ) and a.sub_name=? and a.sub_name like CONCAT('%',?,'%') and a.comments=? and a.comments like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
 	public PageList<CategorySub> getPageList(CategorySub categorySub, int pageSize, int pageNum) throws DataAccessException {
@@ -85,24 +85,24 @@ public class CategorySubDaoImpl  extends SqlMapClientDaoSupport implements Categ
 
 	/**
 	 * 
-	 * sql:select a.mall_sub_id, a.mall_category_id, a.mall_sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from category_sub a where a.delete_flag = 0 and 1=0 and a.mall_sub_id in ( ? ) order by a.mall_sub_id
+	 * sql:select a.category_sub_id, a.category_id, a.sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from category_sub a where a.delete_flag = 0 and 1=0 and a.category_sub_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
     @SuppressWarnings("unchecked")
-	public List<CategorySub> getCategorySubsByMallSubIds(java.util.List<String> mallSubIds) throws DataAccessException {
+	public List<CategorySub> getCategorySubsByCategorySubIds(java.util.List<String> categorySubIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("mallSubIds",mallSubIds);
-		return (List<CategorySub>)getSqlMapClientTemplate().queryForList("getCategorySubsByMallSubIds.CategorySub.trade",params);
+		params.put("categorySubIds",categorySubIds);
+		return (List<CategorySub>)getSqlMapClientTemplate().queryForList("getCategorySubsByCategorySubIds.CategorySub.trade",params);
 	}
 
 	/**
 	 * 
-	 * sql:UPDATE category_sub SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and mall_sub_id in ( ? )
+	 * sql:UPDATE category_sub SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and category_sub_id in ( ? )
 	 */
-	public java.util.List<String> deleteByMallSubIds(java.util.List<String> mallSubIds) throws DataAccessException {
+	public java.util.List<String> deleteByCategorySubIds(java.util.List<String> categorySubIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("mallSubIds",mallSubIds);
-        getSqlMapClientTemplate().update("deleteByMallSubIds.CategorySub.trade", params);
-        return mallSubIds;
+		params.put("categorySubIds",categorySubIds);
+        getSqlMapClientTemplate().update("deleteByCategorySubIds.CategorySub.trade", params);
+        return categorySubIds;
 	}
 
 }

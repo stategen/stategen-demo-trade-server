@@ -15,7 +15,7 @@
     <bean id="categorySubService" class="com.mycompany.biz.service.impl.CategorySubServiceImpl" />
     <bean id="cityService" class="com.mycompany.biz.service.impl.CityServiceImpl" />
     <bean id="fileSummaryService" class="com.mycompany.biz.service.impl.FileSummaryServiceImpl" />
-    <bean id="floorAdvertisePrictureService" class="com.mycompany.biz.service.impl.FloorAdvertisePrictureServiceImpl" />
+    <bean id="floorService" class="com.mycompany.biz.service.impl.FloorServiceImpl" />
     <bean id="floorGoodsService" class="com.mycompany.biz.service.impl.FloorGoodsServiceImpl" />
     <bean id="goodsService" class="com.mycompany.biz.service.impl.GoodsServiceImpl" />
     <bean id="goodsCommentService" class="com.mycompany.biz.service.impl.GoodsCommentServiceImpl" />

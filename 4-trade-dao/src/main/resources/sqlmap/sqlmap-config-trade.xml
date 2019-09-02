@@ -33,7 +33,7 @@
     <sqlMap resource="sqlmap/mapping/CategorySub-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/City-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/FileSummary-sqlmap-mapping-trade.xml" />
-    <sqlMap resource="sqlmap/mapping/FloorAdvertisePricture-sqlmap-mapping-trade.xml" />
+    <sqlMap resource="sqlmap/mapping/Floor-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/FloorGoods-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/Goods-sqlmap-mapping-trade.xml" />
     <sqlMap resource="sqlmap/mapping/GoodsComment-sqlmap-mapping-trade.xml" />

@@ -1,7 +1,7 @@
-﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table floor_advertise_pricture -e 会自动覆盖-->
+﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table floor -e 会自动覆盖-->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into floor_advertise_pricture (
+            insert into floor (
             create_time
             , update_time
             , delete_flag
@@ -26,7 +26,7 @@
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE floor_advertise_pricture SET
+            UPDATE floor SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -37,7 +37,7 @@
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE floor_advertise_pricture
+            UPDATE floor
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull property="advertiseId" prepend=",">
@@ -56,7 +56,7 @@
         </sql>
     </operation>
 
-    <operation name="getFloorAdvertisePrictureByFloorId" multiplicity="one" remarks="">
+    <operation name="getFloorByFloorId" multiplicity="one" remarks="">
         <sql>
             select
             a.floor_id,
@@ -66,7 +66,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from floor_advertise_pricture a
+            from floor a
             where
             a.delete_flag = 0
             and a.floor_id = ?
@@ -83,7 +83,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from floor_advertise_pricture a
+            from floor a
             where
             a.delete_flag = 0
             <isNotNull property="floorId" open="and">
@@ -154,11 +154,11 @@
             </isEmpty>
             </isNull>
             order by
-            <include refid = "getFloorAdvertisePricturePageListOrderBy" />
+            <include refid = "getFloorPageListOrderBy" />
         </sql>
     </operation>
 
-    <operation name="getFloorAdvertisePricturesByFloorIds" multiplicity="many" remarks="">
+    <operation name="getFloorsByFloorIds" multiplicity="many" remarks="">
         <sql>
             select
             a.floor_id,
@@ -168,7 +168,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from floor_advertise_pricture a
+            from floor a
             where
             a.delete_flag = 0
             <isEmpty property="floorIds" open="and">
@@ -181,13 +181,13 @@
                 </iterate>
             </isNotEmpty>
             order by
-            <include refid="getFloorAdvertisePricturesByFloorIdsOrderBy" />
+            <include refid="getFloorsByFloorIdsOrderBy" />
         </sql>
     </operation>
 
     <operation name="deleteByFloorIds" remarks="">
         <sql>
-            UPDATE floor_advertise_pricture SET
+            UPDATE floor SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -204,4 +204,4 @@
         </sql>
     </operation>
     
-    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table floor_advertise_pricture -e 会自动覆盖-->
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table floor -e 会自动覆盖-->

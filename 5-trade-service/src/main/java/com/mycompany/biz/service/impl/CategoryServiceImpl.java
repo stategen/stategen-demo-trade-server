@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -65,41 +66,16 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryDao.update(category);
     }
 
-    /**
-     * 
-     * @see com.mycompany.biz.dao.CategoryDao#getCategoryByMallCategoryId
-     * @see com.mycompany.biz.service.CategoryService#getCategoryByMallCategoryId
-     */
-    @Override
-    public Category getCategoryByMallCategoryId(String mallCategoryId) {
-        return categoryDao.getCategoryByMallCategoryId(mallCategoryId);
-    }
 
-    /**
-     * 
-     * @see com.mycompany.biz.dao.CategoryDao#getCategorysByMallCategoryIds
-     * @see com.mycompany.biz.service.CategoryService#getCategorysByMallCategoryIds
-     */
-    @Override
-    public List<Category> getCategorysByMallCategoryIds(java.util.List<String> mallCategoryIds) {
-        return categoryDao.getCategorysByMallCategoryIds(mallCategoryIds);
-    }
 
-    /**
-     * 
-     * @see com.mycompany.biz.dao.CategoryDao#deleteByMallCategoryIds
-     * @see com.mycompany.biz.service.CategoryService#deleteByMallCategoryIds
-     */
-    @Override
-    public java.util.List<String> deleteByMallCategoryIds(java.util.List<String> mallCategoryIds) {
-        return categoryDao.deleteByMallCategoryIds(mallCategoryIds);
-    }
+
+
 
     /*** 保存category,有id时更新，没有id时插入,并带回新的id，返回 category*/
     @Override
     public Category saveCategory(Category category) {
         if (category != null) {
-            java.lang.String mallCategoryId = category.getMallCategoryId();
+            java.lang.String mallCategoryId = category.getCategoryId();
             if (StringUtil.isBlank(mallCategoryId)) {
                 insert(category);
             } else {
@@ -130,7 +106,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, Category> destSetMethod) {
-        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, CategoryServiceImpl::getCategorysByMallCategoryIds, Category::getMallCategoryId);
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, CategoryServiceImpl::getCategorysByCategoryIds, Category::getCategoryId);
     }
 
     @Override
@@ -140,6 +116,36 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
-        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, CategoryServiceImpl::getCategorysByMallCategoryIds, Category::getMallCategoryId);
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, CategoryServiceImpl::getCategorysByCategoryIds, Category::getCategoryId);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CategoryDao#getCategoryByCategoryId
+     * @see com.mycompany.biz.service.CategoryService#getCategoryByCategoryId
+     */
+    @Override
+    public Category getCategoryByCategoryId(String categoryId) {
+        return categoryDao.getCategoryByCategoryId(categoryId);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CategoryDao#getCategorysByCategoryIds
+     * @see com.mycompany.biz.service.CategoryService#getCategorysByCategoryIds
+     */
+    @Override
+    public List<Category> getCategorysByCategoryIds(java.util.List<String> categoryIds) {
+        return categoryDao.getCategorysByCategoryIds(categoryIds);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CategoryDao#deleteByCategoryIds
+     * @see com.mycompany.biz.service.CategoryService#deleteByCategoryIds
+     */
+    @Override
+    public java.util.List<String> deleteByCategoryIds(java.util.List<String> categoryIds) {
+        return categoryDao.deleteByCategoryIds(categoryIds);
     }
 }

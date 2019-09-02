@@ -25,60 +25,60 @@ public interface CategorySubDao {
 
 	/**
     <pre>
-    &#64;ApiParam() String mallSubId,
-    &#64;ApiParam() String mallCategoryId,
-    &#64;ApiParam() String mallSubName,
+    &#64;ApiParam() String categorySubId,
+    &#64;ApiParam() String categoryId,
+    &#64;ApiParam() String subName,
     &#64;ApiParam() String comments
     ,&#64;ApiParam(hidden = true) CategorySub categorySub
     
     </pre>
 	 * 
-	 * sql:insert into category_sub ( create_time , update_time , delete_flag , mall_sub_id , mall_category_id , mall_sub_name , comments ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
+	 * sql:insert into category_sub ( create_time , update_time , delete_flag , category_sub_id , category_id , sub_name , comments ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
 	public CategorySub insert(CategorySub categorySub) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("mallSubId") String mallSubId
+    &#64;ApiParam("categorySubId") String categorySubId
     
     </pre>
 	 * 
-	 * sql:UPDATE category_sub SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and mall_sub_id = ?
+	 * sql:UPDATE category_sub SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and category_sub_id = ?
 	 */
-	public String delete(String mallSubId) throws DataAccessException;
+	public String delete(String categorySubId) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam() String mallCategoryId,
-    &#64;ApiParam() String mallSubName,
+    &#64;ApiParam() String categoryId,
+    &#64;ApiParam() String subName,
     &#64;ApiParam() String comments,
-    &#64;ApiParam() String mallSubId
+    &#64;ApiParam() String categorySubId
     ,&#64;ApiParam(hidden = true) CategorySub categorySub
     
     </pre>
 	 * 
-	 * sql:UPDATE category_sub SET update_time= CURRENT_TIMESTAMP(6) , mall_category_id = ? , mall_sub_name = ? , comments = ? where delete_flag = 0 and mall_sub_id = ?
+	 * sql:UPDATE category_sub SET update_time= CURRENT_TIMESTAMP(6) , category_id = ? , sub_name = ? , comments = ? where delete_flag = 0 and category_sub_id = ?
 	 */
 	public CategorySub update(CategorySub categorySub) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("mallSubId") String mallSubId
+    &#64;ApiParam("categorySubId") String categorySubId
     
     </pre>
 	 * 
-	 * sql:select a.mall_sub_id, a.mall_category_id, a.mall_sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from category_sub a where a.delete_flag = 0 and a.mall_sub_id = ?
+	 * sql:select a.category_sub_id, a.category_id, a.sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from category_sub a where a.delete_flag = 0 and a.category_sub_id = ?
 	 */
-	public CategorySub getCategorySubByMallSubId(String mallSubId) throws DataAccessException;
+	public CategorySub getCategorySubByCategorySubId(String categorySubId) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam() String mallSubId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="mallSubIds") ArrayList&lt;String&gt; mallSubIds,
-    &#64;ApiParam() String mallCategoryId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="mallCategoryIds") ArrayList&lt;String&gt; mallCategoryIds,
-    &#64;ApiParam() String mallSubName,
-    &#64;ApiParam() String mallSubNameLike,
+    &#64;ApiParam() String categorySubId,
+    &#64;ApiParam()&#64;RequestParam(required =false,name="categorySubIds") ArrayList&lt;String&gt; categorySubIds,
+    &#64;ApiParam() String categoryId,
+    &#64;ApiParam()&#64;RequestParam(required =false,name="categoryIds") ArrayList&lt;String&gt; categoryIds,
+    &#64;ApiParam() String subName,
+    &#64;ApiParam() String subNameLike,
     &#64;ApiParam() String comments,
     &#64;ApiParam() String commentsLike,
     &#64;ApiParam() Date createTimeMin,
@@ -89,29 +89,29 @@ public interface CategorySubDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.mall_sub_id, a.mall_category_id, a.mall_sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from category_sub a where a.delete_flag = 0 and a.mall_sub_id=? and a.mall_sub_id in ( ? ) and a.mall_category_id=? and a.mall_category_id in ( ? ) and a.mall_sub_name=? and a.mall_sub_name like CONCAT('%',?,'%') and a.comments=? and a.comments like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.mall_sub_id
+	 * sql:select a.category_sub_id, a.category_id, a.sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from category_sub a where a.delete_flag = 0 and a.category_sub_id=? and a.category_sub_id in ( ? ) and a.category_id=? and a.category_id in ( ? ) and a.sub_name=? and a.sub_name like CONCAT('%',?,'%') and a.comments=? and a.comments like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<CategorySub> getPageList(CategorySub categorySub, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("mallSubId")&#64;RequestParam(required =false,name="mallSubIds") ArrayList&lt;String&gt; mallSubIds
+    &#64;ApiParam("categorySubId")&#64;RequestParam(required =false,name="categorySubIds") ArrayList&lt;String&gt; categorySubIds
     
     </pre>
 	 * 
-	 * sql:select a.mall_sub_id, a.mall_category_id, a.mall_sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from category_sub a where a.delete_flag = 0 and 1=0 and a.mall_sub_id in ( ? ) order by a.mall_sub_id
+	 * sql:select a.category_sub_id, a.category_id, a.sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from category_sub a where a.delete_flag = 0 and 1=0 and a.category_sub_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
-	public List<CategorySub> getCategorySubsByMallSubIds(java.util.List<String> mallSubIds) throws DataAccessException;
+	public List<CategorySub> getCategorySubsByCategorySubIds(java.util.List<String> categorySubIds) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("mallSubId")&#64;RequestParam(required =false,name="mallSubIds") ArrayList&lt;String&gt; mallSubIds
+    &#64;ApiParam("categorySubId")&#64;RequestParam(required =false,name="categorySubIds") ArrayList&lt;String&gt; categorySubIds
     
     </pre>
 	 * 
-	 * sql:UPDATE category_sub SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and mall_sub_id in ( ? )
+	 * sql:UPDATE category_sub SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and category_sub_id in ( ? )
 	 */
-	public java.util.List<String> deleteByMallSubIds(java.util.List<String> mallSubIds) throws DataAccessException;
+	public java.util.List<String> deleteByCategorySubIds(java.util.List<String> categorySubIds) throws DataAccessException;
 	
 
 }

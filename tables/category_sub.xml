@@ -8,11 +8,12 @@
     <!-- <column name="status" javaType="com.mycompany.biz.enums.StatusEnum"/> -->
 
     <sql id="getCategorySubPageListOrderBy">
-        a.mall_sub_id
+        a.update_time desc, a.create_time desc
     </sql>
-    <sql id="getCategorySubsByMallSubIdsOrderBy">
-        a.mall_sub_id
+    <sql id="getCategorySubsByCategorySubIdsOrderBy">
+        a.update_time desc, a.create_time desc
     </sql>
+
 
     <!-- 引用 category_sub.xml.xhml ,表修改后，需重新执行 gen.sh table category_sub -e -->
     &CATEGORYSUB;

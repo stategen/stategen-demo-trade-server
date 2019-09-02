@@ -14,7 +14,7 @@
     <bean id="categorySubDao" class="com.mycompany.biz.dao.impl.CategorySubDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="cityDao" class="com.mycompany.biz.dao.impl.CityDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="fileSummaryDao" class="com.mycompany.biz.dao.impl.FileSummaryDaoImpl" parent="SqlMapClientDAO-trade" />
-    <bean id="floorAdvertisePrictureDao" class="com.mycompany.biz.dao.impl.FloorAdvertisePrictureDaoImpl" parent="SqlMapClientDAO-trade" />
+    <bean id="floorDao" class="com.mycompany.biz.dao.impl.FloorDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="floorGoodsDao" class="com.mycompany.biz.dao.impl.FloorGoodsDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="goodsDao" class="com.mycompany.biz.dao.impl.GoodsDaoImpl" parent="SqlMapClientDAO-trade" />
     <bean id="goodsCommentDao" class="com.mycompany.biz.dao.impl.GoodsCommentDaoImpl" parent="SqlMapClientDAO-trade" />

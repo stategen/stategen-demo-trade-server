@@ -1,22 +1,22 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE
     table SYSTEM "https://github.com/stategen/dalgenx/blob/master/gen.schemas-1.0.dtd"
-    [<!ENTITY FLOORADVERTISEPRICTURE SYSTEM "floor_advertise_pricture.xml.xhtml">
+    [<!ENTITY FLOOR SYSTEM "floor.xml.xhtml">
 ]>
-<table sqlName="floor_advertise_pricture" className="FloorAdvertisePricture" remarks="">
+<table sqlName="floor" className="Floor" remarks="">
     <!-- 不需要配置的列请删除-->
     <!-- <column name="status" javaType="com.mycompany.biz.enums.StatusEnum"/> -->
 
-    <sql id="getFloorAdvertisePricturePageListOrderBy">
+    <sql id="getFloorPageListOrderBy">
         a.update_time desc, a.create_time desc
     </sql>
-    <sql id="getFloorAdvertisePricturesByFloorIdsOrderBy">
+    <sql id="getFloorsByFloorIdsOrderBy">
         a.update_time desc, a.create_time desc
     </sql>
 
-    <!-- 引用 floor_advertise_pricture.xml.xhml ,表修改后，需重新执行 gen.sh table floor_advertise_pricture -e -->
-    &FLOORADVERTISEPRICTURE;
-    <!-- 引用 floor_advertise_pricture.xml.xhml 结束 -->
+    <!-- 引用 floor.xml.xhml ,表修改后，需重新执行 gen.sh table floor -e -->
+    &FLOOR;
+    <!-- 引用 floor.xml.xhml 结束 -->
 
     <!-- 自定义方法请写在下面 需要自动提示，请将dalgenX目录下的 gen.schemas-1.0.dtd 配到 eclipse 或 idea中
       file:gen.schemas-1.0.dtd

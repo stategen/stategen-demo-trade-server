@@ -16,8 +16,8 @@ import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.lite.enums.EditorType;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import io.swagger.annotations.ApiModelProperty;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,21 +38,21 @@ public class CategorySub implements java.io.Serializable {
 
     private static final long serialVersionUID = -5216457518046898601L;
 
-    /***mallSubId   db_column: mall_sub_id VARCHAR */
-    @ApiModelProperty("mallSubId")
+    /***categorySubId   db_column: category_sub_id VARCHAR */
+    @ApiModelProperty("categorySubId")
     @Id
     @Max(64)
-    private String mallSubId;
+    private String categorySubId;
 
-    /***mallCategoryId   db_column: mall_category_id VARCHAR */
-    @ApiModelProperty("mallCategoryId")
+    /***categoryId   db_column: category_id VARCHAR */
+    @ApiModelProperty("categoryId")
     @Max(64)
-    private String mallCategoryId;
+    private String categoryId;
 
-    /***mallSubName   db_column: mall_sub_name VARCHAR */
-    @ApiModelProperty("mallSubName")
+    /***subName   db_column: sub_name VARCHAR */
+    @ApiModelProperty("subName")
     @Max(255)
-    private String mallSubName;
+    private String subName;
 
     /***comments   db_column: comments LONGVARCHAR */
     @ApiModelProperty("comments")
@@ -79,17 +79,17 @@ public class CategorySub implements java.io.Serializable {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd H:m:ss.SSS");
         StringBuffer sb = new StringBuffer(1024);
         sb.append('{');
-        sb.append("mallSubIds=").append(mallSubIds).append('\n');
-        sb.append("mallCategoryIds=").append(mallCategoryIds).append('\n');
-        sb.append("mallSubNameLike=").append(mallSubNameLike).append('\n');
+        sb.append("categorySubIds=").append(categorySubIds).append('\n');
+        sb.append("categoryIds=").append(categoryIds).append('\n');
+        sb.append("subNameLike=").append(subNameLike).append('\n');
         sb.append("commentsLike=").append(commentsLike).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin=").append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
         sb.append("updateTimeMax=").append(updateTimeMax != null ? df.format(updateTimeMax) : null).append('\n');
-        sb.append("mallSubId=").append(mallSubId).append('\n');
-        sb.append("mallCategoryId=").append(mallCategoryId).append('\n');
-        sb.append("mallSubName=").append(mallSubName).append('\n');
+        sb.append("categorySubId=").append(categorySubId).append('\n');
+        sb.append("categoryId=").append(categoryId).append('\n');
+        sb.append("subName=").append(subName).append('\n');
         sb.append("comments=").append(comments).append('\n');
         sb.append("createTime=").append(createTime != null ? df.format(createTime) : null).append('\n');
         sb.append("updateTime=").append(updateTime != null ? df.format(updateTime) : null).append('\n');
@@ -98,20 +98,20 @@ public class CategorySub implements java.io.Serializable {
         return sb.toString();
     }
 
-    /*** mallSubIds in getPageList */
-    @ApiModelProperty("mallSubId s")
+    /*** categorySubIds in getPageList */
+    @ApiModelProperty("categorySubId s")
     @JSONField(serialize = false)
-    private java.util.List<String> mallSubIds;
+    private java.util.List<String> categorySubIds;
 
-    /*** mallCategoryIds in getPageList */
-    @ApiModelProperty("mallCategoryId s")
+    /*** categoryIds in getPageList */
+    @ApiModelProperty("categoryId s")
     @JSONField(serialize = false)
-    private java.util.List<String> mallCategoryIds;
+    private java.util.List<String> categoryIds;
 
-    /*** mallSubNameLike in getPageList */
-    @ApiModelProperty("mallSubNameLike")
+    /*** subNameLike in getPageList */
+    @ApiModelProperty("subNameLike")
     @JSONField(serialize = false)
-    private String mallSubNameLike;
+    private String subNameLike;
 
     /*** commentsLike in getPageList */
     @ApiModelProperty("commentsLike")

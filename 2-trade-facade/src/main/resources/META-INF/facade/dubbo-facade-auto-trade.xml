@@ -15,7 +15,7 @@
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="categorySubServiceTrade" interface="com.mycompany.biz.service.CategorySubServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="cityServiceTrade" interface="com.mycompany.biz.service.CityServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="fileSummaryServiceTrade" interface="com.mycompany.biz.service.FileSummaryServiceTrade"/>
-    <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="floorAdvertisePrictureServiceTrade" interface="com.mycompany.biz.service.FloorAdvertisePrictureServiceTrade"/>
+    <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="floorServiceTrade" interface="com.mycompany.biz.service.FloorServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="floorGoodsServiceTrade" interface="com.mycompany.biz.service.FloorGoodsServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="goodsServiceTrade" interface="com.mycompany.biz.service.GoodsServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="goodsCommentServiceTrade" interface="com.mycompany.biz.service.GoodsCommentServiceTrade"/>

@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -65,41 +66,12 @@ public class CategorySubServiceImpl implements CategorySubService {
         return categorySubDao.update(categorySub);
     }
 
-    /**
-     * 
-     * @see com.mycompany.biz.dao.CategorySubDao#getCategorySubByMallSubId
-     * @see com.mycompany.biz.service.CategorySubService#getCategorySubByMallSubId
-     */
-    @Override
-    public CategorySub getCategorySubByMallSubId(String mallSubId) {
-        return categorySubDao.getCategorySubByMallSubId(mallSubId);
-    }
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.CategorySubDao#getCategorySubsByMallSubIds
-     * @see com.mycompany.biz.service.CategorySubService#getCategorySubsByMallSubIds
-     */
-    @Override
-    public List<CategorySub> getCategorySubsByMallSubIds(java.util.List<String> mallSubIds) {
-        return categorySubDao.getCategorySubsByMallSubIds(mallSubIds);
-    }
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.CategorySubDao#deleteByMallSubIds
-     * @see com.mycompany.biz.service.CategorySubService#deleteByMallSubIds
-     */
-    @Override
-    public java.util.List<String> deleteByMallSubIds(java.util.List<String> mallSubIds) {
-        return categorySubDao.deleteByMallSubIds(mallSubIds);
-    }
 
     /*** 保存categorySub,有id时更新，没有id时插入,并带回新的id，返回 categorySub*/
     @Override
     public CategorySub saveCategorySub(CategorySub categorySub) {
         if (categorySub != null) {
-            java.lang.String mallSubId = categorySub.getMallSubId();
+            java.lang.String mallSubId = categorySub.getCategorySubId();
             if (StringUtil.isBlank(mallSubId)) {
                 insert(categorySub);
             } else {
@@ -130,7 +102,7 @@ public class CategorySubServiceImpl implements CategorySubService {
 
     @Override
     public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, CategorySub> destSetMethod) {
-        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, CategorySubServiceImpl::getCategorySubsByMallSubIds, CategorySub::getMallSubId);
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, CategorySubServiceImpl::getCategorySubsByCategorySubIds, CategorySub::getCategorySubId);
     }
 
     @Override
@@ -140,6 +112,36 @@ public class CategorySubServiceImpl implements CategorySubService {
 
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
-        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, CategorySubServiceImpl::getCategorySubsByMallSubIds, CategorySub::getMallSubId);
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, CategorySubServiceImpl::getCategorySubsByCategorySubIds, CategorySub::getCategorySubId);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CategorySubDao#getCategorySubByCategorySubId
+     * @see com.mycompany.biz.service.CategorySubService#getCategorySubByCategorySubId
+     */
+    @Override
+    public CategorySub getCategorySubByCategorySubId(String categorySubId) {
+        return categorySubDao.getCategorySubByCategorySubId(categorySubId);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CategorySubDao#getCategorySubsByCategorySubIds
+     * @see com.mycompany.biz.service.CategorySubService#getCategorySubsByCategorySubIds
+     */
+    @Override
+    public List<CategorySub> getCategorySubsByCategorySubIds(java.util.List<String> categorySubIds) {
+        return categorySubDao.getCategorySubsByCategorySubIds(categorySubIds);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CategorySubDao#deleteByCategorySubIds
+     * @see com.mycompany.biz.service.CategorySubService#deleteByCategorySubIds
+     */
+    @Override
+    public java.util.List<String> deleteByCategorySubIds(java.util.List<String> categorySubIds) {
+        return categorySubDao.deleteByCategorySubIds(categorySubIds);
     }
 }

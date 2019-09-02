@@ -44,24 +44,6 @@ public interface CategorySubService extends CategorySubServiceTrade, AssignServi
      */
     public CategorySub update(CategorySub categorySub);
 
-    /**
-     * 
-     * @see com.mycompany.biz.dao.CategorySubDao#getCategorySubByMallSubId
-     */
-    public CategorySub getCategorySubByMallSubId(String mallSubId);
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.CategorySubDao#getCategorySubsByMallSubIds
-     */
-    public List<CategorySub> getCategorySubsByMallSubIds(java.util.List<String> mallSubIds);
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.CategorySubDao#deleteByMallSubIds
-     */
-    public java.util.List<String> deleteByMallSubIds(java.util.List<String> mallSubIds);
-
     /*** 保存categorySub,有id时更新，没有id时插入,并带回新的id，返回 categorySub
      * @see com.mycompany.biz.dao.CategorySubDao#insert
      */
@@ -77,4 +59,22 @@ public interface CategorySubService extends CategorySubServiceTrade, AssignServi
      * @see com.mycompany.biz.dao.CategorySubDao#getPageList
      */
     public PageList<CategorySub> getPageList(CategorySub categorySub, int pageSize, int pageNum);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CategorySubDao#getCategorySubByCategorySubId
+     */
+    public CategorySub getCategorySubByCategorySubId(String categorySubId);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CategorySubDao#getCategorySubsByCategorySubIds
+     */
+    public List<CategorySub> getCategorySubsByCategorySubIds(java.util.List<String> categorySubIds);
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.CategorySubDao#deleteByCategorySubIds
+     */
+    public java.util.List<String> deleteByCategorySubIds(java.util.List<String> categorySubIds);
 }

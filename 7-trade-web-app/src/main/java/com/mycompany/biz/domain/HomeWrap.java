@@ -13,15 +13,17 @@ public class HomeWrap {
     private List<HomeGoods> recommend;
     private HomeAdvertise advertesPicture;
     
-    private List<FloorGoods> floor1;
-    private List<FloorGoods> floor2;
-    private List<FloorGoods> floor3;
+    private List<Floor> floors;
     
-    private FloorAdvertisePricture floor1Pic;
-    private FloorAdvertisePricture floor2Pic;
-    private FloorAdvertisePricture floor3Pic;
-    
-    private FloorNames floorName;
+//    private List<FloorGoods> floor1;
+//    private List<FloorGoods> floor2;
+//    private List<FloorGoods> floor3;
+//    
+//    private Floor floor1Pic;
+//    private Floor floor2Pic;
+//    private Floor floor3Pic;
+//    
+//    private FloorNames floorName;
     
     private List<Category> category;
     

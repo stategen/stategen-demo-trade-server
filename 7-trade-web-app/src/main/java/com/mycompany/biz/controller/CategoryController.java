@@ -28,7 +28,7 @@ public class CategoryController extends CategoryControllerBase {
         category.setCreateTimeMax(new Date());
         PageList<Category> pageList = this.categoryService.getPageList(category, 100, 1);
         List<com.mycompany.biz.domain.Category> items = pageList.getItems();
-        categorySubService.assignBeansTo(items, Category::getMallCategoryId, Category::setBxMallSubDto, CategorySub::setMallCategoryIds, CategorySub::getMallCategoryId);
+        categorySubService.assignBeansTo(items, Category::getCategoryId, Category::setCategorySubs, CategorySub::setCategoryIds, CategorySub::getCategoryId);
         return items;
         
     }

@@ -37,20 +37,20 @@ import lombok.Setter;
 @Setter
 public class Category implements java.io.Serializable {
 
-    List<CategorySub> bxMallSubDto;
+    List<CategorySub> categorySubs;
 
     private static final long serialVersionUID = -5216457518046898601L;
 
-    /***大类目录ID   db_column: mall_category_id VARCHAR */
+    /***大类目录ID   db_column: category_id VARCHAR */
     @ApiModelProperty("大类目录ID")
     @Id
     @Max(64)
-    private String mallCategoryId;
+    private String categoryId;
 
-    /***大类目录名称   db_column: mall_category_name VARCHAR */
+    /***大类目录名称   db_column: category_name VARCHAR */
     @ApiModelProperty("大类目录名称")
     @Max(64)
-    private String mallCategoryName;
+    private String categoryName;
 
     /***描述   db_column: comments LONGVARCHAR */
     @ApiModelProperty("描述")
@@ -82,15 +82,15 @@ public class Category implements java.io.Serializable {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd H:m:ss.SSS");
         StringBuffer sb = new StringBuffer(1024);
         sb.append('{');
-        sb.append("mallCategoryIds=").append(mallCategoryIds).append('\n');
-        sb.append("mallCategoryNameLike=").append(mallCategoryNameLike).append('\n');
+        sb.append("categoryIds=").append(categoryIds).append('\n');
+        sb.append("categoryNameLike=").append(categoryNameLike).append('\n');
         sb.append("commentsLike=").append(commentsLike).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin=").append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
         sb.append("updateTimeMax=").append(updateTimeMax != null ? df.format(updateTimeMax) : null).append('\n');
-        sb.append("mallCategoryId=").append(mallCategoryId).append('\n');
-        sb.append("mallCategoryName=").append(mallCategoryName).append('\n');
+        sb.append("categoryId=").append(categoryId).append('\n');
+        sb.append("categoryName=").append(categoryName).append('\n');
         sb.append("comments=").append(comments).append('\n');
         sb.append("image=").append(image).append('\n');
         sb.append("createTime=").append(createTime != null ? df.format(createTime) : null).append('\n');
@@ -103,12 +103,12 @@ public class Category implements java.io.Serializable {
     /*** 大类目录IDs in getPageList */
     @ApiModelProperty("大类目录ID s")
     @JSONField(serialize = false)
-    private java.util.List<String> mallCategoryIds;
+    private java.util.List<String> categoryIds;
 
     /*** 大类目录名称Like in getPageList */
     @ApiModelProperty("大类目录名称Like")
     @JSONField(serialize = false)
-    private String mallCategoryNameLike;
+    private String categoryNameLike;
 
     /*** 描述Like in getPageList */
     @ApiModelProperty("描述Like")

@@ -5,7 +5,7 @@
 <sqlMap>
 
 
-    <resultMap id="FloorAdvertisePricture.trade.RM" class="com.mycompany.biz.domain.FloorAdvertisePricture">
+    <resultMap id="Floor.trade.RM" class="com.mycompany.biz.domain.Floor">
         <result property="floorId" column="floor_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
         <result property="advertiseId" column="advertise_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
         <result property="orderNo" column="order_no" javaType="java.lang.Integer" jdbcType="INTEGER"  />
@@ -15,11 +15,11 @@
         <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
     </resultMap>
     
-	<sql id="getFloorAdvertisePricturePageListOrderBy">
+	<sql id="getFloorPageListOrderBy">
 		a.update_time desc, a.create_time desc
 	</sql>
 		
-	<sql id="getFloorAdvertisePricturesByFloorIdsOrderBy">
+	<sql id="getFloorsByFloorIdsOrderBy">
 		a.update_time desc, a.create_time desc
 	</sql>
 		
@@ -27,8 +27,8 @@
 	
 	
     
-	<insert id="insert.FloorAdvertisePricture.trade">
-		insert into floor_advertise_pricture (
+	<insert id="insert.Floor.trade">
+		insert into floor (
             create_time
             , update_time
             , delete_flag
@@ -46,8 +46,8 @@
             </selectKey>
 	</insert>
 	
-	<update id="delete.FloorAdvertisePricture.trade">
-		UPDATE floor_advertise_pricture SET
+	<update id="delete.Floor.trade">
+		UPDATE floor SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -57,8 +57,8 @@
 	
     
 	
-	<update id="update.FloorAdvertisePricture.trade">
-		UPDATE floor_advertise_pricture
+	<update id="update.Floor.trade">
+		UPDATE floor
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="advertiseId">
@@ -78,16 +78,16 @@
 	
     
 	
-	<select id="getFloorAdvertisePrictureByFloorId.FloorAdvertisePricture.trade" resultMap="FloorAdvertisePricture.trade.RM" >
+	<select id="getFloorByFloorId.Floor.trade" resultMap="Floor.trade.RM" >
     	select
- /* getFloorAdvertisePrictureByFloorId.FloorAdvertisePricture.trade */             a.floor_id,
+ /* getFloorByFloorId.Floor.trade */             a.floor_id,
             a.advertise_id,
             a.order_no,
             a.floor_name,
             a.create_time,
             a.update_time,
             a.delete_flag
-            from floor_advertise_pricture a
+            from floor a
             where
             a.delete_flag = 0
             and a.floor_id = #floorId#
@@ -98,16 +98,16 @@
 	
     
 	
-	<select id="getPageList.FloorAdvertisePricture.trade" resultMap="FloorAdvertisePricture.trade.RM" >
+	<select id="getPageList.Floor.trade" resultMap="Floor.trade.RM" >
     	select
- /* getPageList.FloorAdvertisePricture.trade */             a.floor_id,
+ /* getPageList.Floor.trade */             a.floor_id,
             a.advertise_id,
             a.order_no,
             a.floor_name,
             a.create_time,
             a.update_time,
             a.delete_flag
-            from floor_advertise_pricture a
+            from floor a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="floorId">
@@ -178,12 +178,12 @@
             </isEmpty>
             </isNull>
             order by
-            <include refid="getFloorAdvertisePricturePageListOrderBy"/>
+            <include refid="getFloorPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
-	<select id="getPageList.FloorAdvertisePricture.trade.count" resultClass="long" >
-    	select  /* getPageList.FloorAdvertisePricture.trade.count */ count(*)  from floor_advertise_pricture a
+	<select id="getPageList.Floor.trade.count" resultClass="long" >
+    	select  /* getPageList.Floor.trade.count */ count(*)  from floor a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="floorId">
@@ -259,16 +259,16 @@
 	
     
 	
-	<select id="getFloorAdvertisePricturesByFloorIds.FloorAdvertisePricture.trade" resultMap="FloorAdvertisePricture.trade.RM" >
+	<select id="getFloorsByFloorIds.Floor.trade" resultMap="Floor.trade.RM" >
     	select
- /* getFloorAdvertisePricturesByFloorIds.FloorAdvertisePricture.trade */             a.floor_id,
+ /* getFloorsByFloorIds.Floor.trade */             a.floor_id,
             a.advertise_id,
             a.order_no,
             a.floor_name,
             a.create_time,
             a.update_time,
             a.delete_flag
-            from floor_advertise_pricture a
+            from floor a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="floorIds">
@@ -281,7 +281,7 @@
                 </iterate>
             </isNotEmpty>
             order by
-            <include refid="getFloorAdvertisePricturesByFloorIdsOrderBy"/>
+            <include refid="getFloorsByFloorIdsOrderBy"/>
 	</select>	
 
 	    
@@ -289,8 +289,8 @@
 	
     
 	
-	<update id="deleteByFloorIds.FloorAdvertisePricture.trade">
-		UPDATE floor_advertise_pricture SET
+	<update id="deleteByFloorIds.Floor.trade">
+		UPDATE floor SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where
