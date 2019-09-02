@@ -16,8 +16,6 @@ import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.CollectionUtil;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.mycompany.biz.domain.Category;
 import com.mycompany.biz.domain.CategorySub;
 import com.mycompany.biz.domain.Floor;
@@ -45,6 +43,8 @@ import com.mycompany.biz.service.SlideService;
 @RequestMapping("api/home")
 @Wrap
 public class HomeController {
+    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(HomeController.class);
+    
     @Resource
     CategoryService categoryService;
 
@@ -160,8 +160,6 @@ public class HomeController {
             CategorySub::getCategoryId);
         homeWrap.setCategory(categoryPageList.getItems());
 
-        String result = JSONObject.toJSONString(homeWrap, SerializerFeature.DisableCircularReferenceDetect);
-        System.out.println("result<===========>:\n" + result);
         return homeWrap;
     }
 
