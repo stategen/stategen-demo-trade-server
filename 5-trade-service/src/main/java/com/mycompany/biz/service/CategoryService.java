@@ -44,8 +44,6 @@ public interface CategoryService extends CategoryServiceTrade, AssignService<Cat
      */
     public Category update(Category category);
 
-
-
     /*** 保存category,有id时更新，没有id时插入,并带回新的id，返回 category
      * @see com.mycompany.biz.dao.CategoryDao#insert
      */

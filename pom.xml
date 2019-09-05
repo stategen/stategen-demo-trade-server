@@ -22,7 +22,7 @@
         <module>6-trade-web-base</module>
         <module>7-trade-web-app</module>
         <module>7-trade-web-cms</module>
-    </modules>
+    <module>7-trade-web-shanghu</module></modules>
 
     <properties>
         <!-- 发到公司私有maven仓库中，即pojo和facade(dubbo服务的版本) -->
@@ -322,13 +322,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>${spring.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
                 <version>1.7.4</version>
@@ -529,7 +522,7 @@
                 <artifactId>httpmime</artifactId>
                 <version>4.5.1</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.apache.ibatis</groupId>
                 <artifactId>ibatis-sqlmap</artifactId>
