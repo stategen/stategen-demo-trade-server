@@ -56,7 +56,7 @@ public class WebFacadeProcessor extends BaseGenFacadeProcessor {
         GenContext.addStaticUtil(StringUtil.class);
         GenContext.addStaticUtil(CollectionUtil.class);
         GenContext.tempDirs =Arrays.asList("/typescript/ts-api","/typescript/ts-umi","/typescript/ts-umi-web");
-        GenContext.outDir="cms-frontend/src/intergrade/";
+        GenContext.outDir="cms-frontend-web/src/intergrade/";
         GenContext.Properties.put("webFlag", true);
 
         PathType[] pathTypes = PathType.values();

@@ -9,7 +9,6 @@
     </parent>
 
     <properties>
-        <frontend>app-frontend</frontend>
         <warName>tradeApp</warName>
     </properties>
 
@@ -168,7 +167,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <workingDirectory>./${frontend}/</workingDirectory>
+                            <workingDirectory>./app-frontend-h5/</workingDirectory>
                             <executable>yarn</executable>
                         </configuration>
 
@@ -183,7 +182,7 @@
                         </goals>
 
                         <configuration>
-                            <workingDirectory>./${frontend}/</workingDirectory>
+                            <workingDirectory>./app-frontend-h5/</workingDirectory>
                             <executable>yarn</executable>
                             <arguments>
                                 <argument>run</argument>

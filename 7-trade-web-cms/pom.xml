@@ -9,7 +9,6 @@
     </parent>
 
     <properties>
-        <frontend>cms-frontend</frontend>
         <warName>tradeCms</warName>
     </properties>
 
@@ -128,7 +127,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <workingDirectory>./${frontend}/</workingDirectory>
+                            <workingDirectory>./cms-frontend-web/</workingDirectory>
                             <executable>yarn</executable>
                             <arguments>
                                 <!-- <argument>install</argument> -->
@@ -146,7 +145,7 @@
                         </goals>
 
                         <configuration>
-                            <workingDirectory>./${frontend}/</workingDirectory>
+                            <workingDirectory>./cms-frontend-web/</workingDirectory>
                             <executable>yarn</executable>
                             <arguments>
                                 <argument>run</argument>
