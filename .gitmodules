@@ -1,0 +1,6 @@
+[submodule "7-trade-web-app/app-frontend-h5"]
+	path = 7-trade-web-app/app-frontend-h5
+	url = https://github.com/stategen/app-frontend-h5
+[submodule "7-trade-web-cms/cms-frontend-web"]
+	path = 7-trade-web-cms/cms-frontend-web
+	url = https://github.com/stategen/cms-frontend-web
