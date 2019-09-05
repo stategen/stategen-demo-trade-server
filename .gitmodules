@@ -4,3 +4,6 @@
 [submodule "7-trade-web-cms/cms-frontend-web"]
 	path = 7-trade-web-cms/cms-frontend-web
 	url = https://github.com/stategen/cms-frontend-web
+[submodule "7-trade-web-app/app-frontend-flutter"]
+	path = 7-trade-web-app/app-frontend-flutter
+	url = https://github.com/stategen/app-frontend-flutter
