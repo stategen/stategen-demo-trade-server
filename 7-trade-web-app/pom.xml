@@ -142,7 +142,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.mycompany.biz.facadegen.UmiFacadeProcessor</mainClass>
+                            <mainClass>com.mycompany.biz.facadegen.H5FacadeProcessor</mainClass>
                             <classpathScope>test</classpathScope>
                         </configuration>
                     </execution>

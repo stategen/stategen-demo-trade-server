@@ -99,20 +99,6 @@
                 <configuration>
                     <failOnError>true</failOnError>
                     <filesets>
-<!--                         <fileset>
-                            <directory>./${frontend}/dist/</directory>
-                            <includes>
-                                <include>**/*</include>
-                            </includes>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset>
-                        <fileset>
-                            <directory>./WebRoot/pages/</directory>
-                            <includes>
-                                <include>**/*</include>
-                            </includes>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset> -->
                     </filesets>
                 </configuration>
             </plugin>
@@ -129,7 +115,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.mycompany.biz.facadegen.UmiFacadeProcessor</mainClass>
+                            <mainClass>com.mycompany.biz.facadegen.WebFacadeProcessor</mainClass>
                             <classpathScope>test</classpathScope>
                         </configuration>
                     </execution>

@@ -13,23 +13,24 @@ import org.stategen.framework.lite.Pagination;
 import org.stategen.framework.progen.BaseGenFacadeProcessor;
 import org.stategen.framework.progen.GenContext;
 import org.stategen.framework.progen.PathType;
+import org.stategen.framework.progen.TypescriptContextSetter;
 import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.StringUtil;
 
 import freemarker.template.TemplateException;
 
-public class AppFacadeProcessor extends BaseGenFacadeProcessor {
-    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UmiFacadeProcessor.class);
+public class H5FacadeProcessor extends BaseGenFacadeProcessor {
+    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(H5FacadeProcessor.class);
 
-    public AppFacadeProcessor() {
+    public H5FacadeProcessor() {
         super();
     }
 
     public static void main(String[] args) {
-        UmiFacadeProcessor umiFacadeProcessor = new UmiFacadeProcessor();
+        H5FacadeProcessor h5FacadeProcessor = new H5FacadeProcessor();
         try {
             logger.info("==================umi前端代码生成开始==========================="); 
-            umiFacadeProcessor.genFacade(); 
+            h5FacadeProcessor.genFacade(); 
             logger.info("==================umi前端代码生成结束===========================");
         } catch (Exception e) {
             logger.error("生成前端代码时出错:", e);
@@ -42,8 +43,9 @@ public class AppFacadeProcessor extends BaseGenFacadeProcessor {
     }
 
     public void genFacade() throws InvalidPropertiesFormatException, IOException, TemplateException {
+        new TypescriptContextSetter().setContext();
         
-        //这里注册的将替代supper中的注册
+        //这里注册的将更新supper中的注册
         GenContext.registSimpleClz(Void.TYPE, "void");
         GenContext.registSimpleClz(Class.class, "string");
         GenContext.registSimpleClz(Pagination.class, "PaginationProps","import {PaginationProps} from 'antd/es/pagination'");
@@ -53,10 +55,8 @@ public class AppFacadeProcessor extends BaseGenFacadeProcessor {
         GenContext.registIgnoreParamAnnotationClz(CookieValue.class);
         GenContext.addStaticUtil(StringUtil.class);
         GenContext.addStaticUtil(CollectionUtil.class);
-        GenContext.tempDirs =Arrays.asList("/ts-api","/ts-umi","/ts-umi-web");
-        GenContext.outDir="app-frontend-flutter/src/intergrade/";
-        GenContext.outConfigDir="configs";
-        GenContext.Properties.put("webFlag", true);
+        GenContext.tempDirs =Arrays.asList("/typescript/ts-api","/typescript/ts-umi","/typescript/ts-umi-app");
+        GenContext.outDir="app-frontend-h5/src/intergrade/";
 
         PathType[] pathTypes = PathType.values();
         for (PathType pathType : pathTypes) {

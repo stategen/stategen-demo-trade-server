@@ -19,18 +19,18 @@ import org.stategen.framework.util.StringUtil;
 
 import freemarker.template.TemplateException;
 
-public class UmiFacadeProcessor extends BaseGenFacadeProcessor {
-    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UmiFacadeProcessor.class);
+public class WebFacadeProcessor extends BaseGenFacadeProcessor {
+    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(WebFacadeProcessor.class);
 
-    public UmiFacadeProcessor() {
+    public WebFacadeProcessor() {
         super();
     }
 
     public static void main(String[] args) {
-        UmiFacadeProcessor umiFacadeProcessor = new UmiFacadeProcessor();
+        WebFacadeProcessor webFacadeProcessor = new WebFacadeProcessor();
         try {
             logger.info("==================umi前端代码生成开始==========================="); 
-            umiFacadeProcessor.genFacade(); 
+            webFacadeProcessor.genFacade(); 
             logger.info("==================umi前端代码生成结束===========================");
         } catch (Exception e) {
             logger.error("生成前端代码时出错:", e);

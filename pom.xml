@@ -22,7 +22,7 @@
         <module>6-trade-web-base</module>
         <module>7-trade-web-app</module>
         <module>7-trade-web-cms</module>
-    <module>7-trade-web-shanghu</module></modules>
+    </modules>
 
     <properties>
         <!-- 发到公司私有maven仓库中，即pojo和facade(dubbo服务的版本) -->

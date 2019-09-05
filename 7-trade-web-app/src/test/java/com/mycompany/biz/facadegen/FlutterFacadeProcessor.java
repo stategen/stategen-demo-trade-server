@@ -44,11 +44,9 @@ public class FlutterFacadeProcessor extends BaseGenFacadeProcessor {
     public void genFacade() throws InvalidPropertiesFormatException, IOException, TemplateException {
         new FlutterContextSetter().setContext();
 
-        //这里注册的将替代supper中的注册
+        //这里注册的将更新supper中的注册
         GenContext.registSimpleClz(Void.TYPE, "void");
         GenContext.registSimpleClz(Class.class, "String");
-        //        GenContext.registSimpleClz(Pagination.class, "PaginationProps","import {PaginationProps} from 'antd/es/pagination'");
-        //        GenContext.registSimpleClz(MultipartFile.class, "UploadFile","import {UploadFile} from 'antd/es/upload/interface'");
 
         GenContext.registIgnoreParamClz(HttpServletRequest.class);
         GenContext.registIgnoreParamAnnotationClz(CookieValue.class);
