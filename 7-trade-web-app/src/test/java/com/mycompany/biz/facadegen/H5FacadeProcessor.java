@@ -55,7 +55,7 @@ public class H5FacadeProcessor extends BaseGenFacadeProcessor {
         GenContext.registIgnoreParamAnnotationClz(CookieValue.class);
         GenContext.addStaticUtil(StringUtil.class);
         GenContext.addStaticUtil(CollectionUtil.class);
-        GenContext.tempDirs =Arrays.asList("/typescript/ts-api","/typescript/ts-umi","/typescript/ts-umi-app");
+        GenContext.tempDirs =Arrays.asList("/typescript/ts-api","/typescript/ts-umi","/typescript/ts-umi-h5");
         GenContext.outDir="app-frontend-h5/src/intergrade/";
 
         PathType[] pathTypes = PathType.values();

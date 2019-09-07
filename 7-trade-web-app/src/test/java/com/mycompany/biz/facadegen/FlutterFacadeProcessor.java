@@ -54,8 +54,8 @@ public class FlutterFacadeProcessor extends BaseGenFacadeProcessor {
         GenContext.addStaticUtil(CollectionUtil.class);
         GenContext.addStaticUtil(JSONUtil.class);
         //
-        GenContext.tempDirs = Arrays.asList("/flutter/dart-api", "/flutter/dart-flutter", "/flutter/dart-flutter-app");
-        GenContext.outDir = "app-frontend-flutter1/lib/intergrade/";
+        GenContext.tempDirs = Arrays.asList("/flutter/dart-api", "/flutter/dart-flutter");
+        GenContext.outDir = "app-frontend-flutter/lib/intergrade/";
 
         PathType[] pathTypes = PathType.values();
         for (PathType pathType : pathTypes) {
