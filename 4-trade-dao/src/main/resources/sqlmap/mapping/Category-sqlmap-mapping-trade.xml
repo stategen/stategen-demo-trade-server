@@ -28,7 +28,7 @@
 	
     
 	<insert id="insert.Category.trade">
-		insert into category (
+		insert into demo_category (
             create_time
             , update_time
             , delete_flag
@@ -47,7 +47,7 @@
 	</insert>
 	
 	<update id="delete.Category.trade">
-		UPDATE category SET
+		UPDATE demo_category SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -58,7 +58,7 @@
     
 	
 	<update id="update.Category.trade">
-		UPDATE category
+		UPDATE demo_category
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="categoryName">
@@ -87,7 +87,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from category a
+            from demo_category a
             where
             a.delete_flag = 0
             and a.category_id = #categoryId#
@@ -107,7 +107,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from category a
+            from demo_category a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="categoryId">
@@ -170,7 +170,7 @@
 	</select>	
 
 	<select id="getPageList.Category.trade.count" resultClass="long" >
-    	select  /* getPageList.Category.trade.count */ count(*)  from category a
+    	select  /* getPageList.Category.trade.count */ count(*)  from demo_category a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="categoryId">
@@ -242,7 +242,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from category a
+            from demo_category a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="categoryIds">
@@ -264,7 +264,7 @@
     
 	
 	<update id="deleteByCategoryIds.Category.trade">
-		UPDATE category SET
+		UPDATE demo_category SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where

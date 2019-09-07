@@ -27,7 +27,7 @@
 	
     
 	<insert id="insert.TopicUp.trade">
-		insert into topic_up (
+		insert into demo_topic_up (
             create_time
             , update_time
             , delete_flag
@@ -44,7 +44,7 @@
 	</insert>
 	
 	<update id="delete.TopicUp.trade">
-		UPDATE topic_up SET
+		UPDATE demo_topic_up SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -55,7 +55,7 @@
     
 	
 	<update id="update.TopicUp.trade">
-		UPDATE topic_up
+		UPDATE demo_topic_up
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="objectId">
@@ -80,7 +80,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from topic_up a
+            from demo_topic_up a
             where
             a.delete_flag = 0
             and a.up_id = #upId#
@@ -99,7 +99,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from topic_up a
+            from demo_topic_up a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="upId">
@@ -168,7 +168,7 @@
 	</select>	
 
 	<select id="getPageList.TopicUp.trade.count" resultClass="long" >
-    	select  /* getPageList.TopicUp.trade.count */ count(*)  from topic_up a
+    	select  /* getPageList.TopicUp.trade.count */ count(*)  from demo_topic_up a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="upId">
@@ -245,7 +245,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from topic_up a
+            from demo_topic_up a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="upIds">
@@ -267,7 +267,7 @@
     
 	
 	<update id="deleteByUpIds.TopicUp.trade">
-		UPDATE topic_up SET
+		UPDATE demo_topic_up SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -294,8 +294,8 @@
  /* getTopicUpsGroupCountByTopicIds.TopicUp.trade */             tu.object_id,
             COUNT(*) AS upCount
             FROM
-            topic_up tu
-            LEFT JOIN topic_reply tr ON tr.reply_id = tu.object_id
+            demo_topic_up tu
+            LEFT JOIN demo_topic_reply tr ON tr.reply_id = tu.object_id
             WHERE
             tu.delete_flag=0
             and tr.delete_flag=0
@@ -328,7 +328,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from topic_up a
+            from demo_topic_up a
             where
             a.delete_flag = 0
             and a.object_id=#objectId#

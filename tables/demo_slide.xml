@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE
+    table SYSTEM "https://github.com/stategen/dalgenx/blob/master/gen.schemas-1.0.dtd"
+    [<!ENTITY SLIDE SYSTEM "demo_slide.xml.xhtml">
+]>
+<table sqlName="demo_slide" className="Slide" remarks="">
+    <!-- 不需要配置的列请删除-->
+    <!-- <column name="status" javaType="com.mycompany.biz.enums.StatusEnum"/> -->
+
+    <sql id="getSlidePageListOrderBy">
+        a.update_time desc, a.create_time desc
+    </sql>
+    <sql id="getSlidesBySlideIdsOrderBy">
+        a.update_time desc, a.create_time desc
+    </sql>
+
+    <!-- 引用 slide.xml.xhml ,表修改后，需重新执行 gen.sh table slide -e -->
+    &SLIDE;
+    <!-- 引用 slide.xml.xhml 结束 -->
+
+    <!-- 自定义方法请写在下面 需要自动提示，请将dalgenX目录下的 gen.schemas-1.0.dtd 配到 eclipse 或 idea中
+      file:gen.schemas-1.0.dtd
+      System Id
+      https://github.com/stategen/dalgenx/blob/master/gen.schemas-1.0.dtd
+    -->
+    <!--
+    <operation name="..." remarks="">
+        <sql>
+            ...
+        </sql>
+    </operation>
+    -->
+
+</table>

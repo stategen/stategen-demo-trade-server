@@ -26,7 +26,7 @@
 	
     
 	<insert id="insert.HomeAdvertise.trade">
-		insert into home_advertise (
+		insert into demo_home_advertise (
             create_time
             , update_time
             , delete_flag
@@ -41,7 +41,7 @@
 	</insert>
 	
 	<update id="delete.HomeAdvertise.trade">
-		UPDATE home_advertise SET
+		UPDATE demo_home_advertise SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -52,7 +52,7 @@
     
 	
 	<update id="update.HomeAdvertise.trade">
-		UPDATE home_advertise
+		UPDATE demo_home_advertise
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="advertiseId">
@@ -73,7 +73,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from home_advertise a
+            from demo_home_advertise a
             where
             a.delete_flag = 0
             and a.home_adv_id = #homeAdvId#
@@ -91,7 +91,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from home_advertise a
+            from demo_home_advertise a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="homeAdvId">
@@ -147,7 +147,7 @@
 	</select>	
 
 	<select id="getPageList.HomeAdvertise.trade.count" resultClass="long" >
-    	select  /* getPageList.HomeAdvertise.trade.count */ count(*)  from home_advertise a
+    	select  /* getPageList.HomeAdvertise.trade.count */ count(*)  from demo_home_advertise a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="homeAdvId">
@@ -210,7 +210,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from home_advertise a
+            from demo_home_advertise a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="homeAdvIds">
@@ -232,7 +232,7 @@
     
 	
 	<update id="deleteByHomeAdvIds.HomeAdvertise.trade">
-		UPDATE home_advertise SET
+		UPDATE demo_home_advertise SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where

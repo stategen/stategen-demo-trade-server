@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
@@ -65,7 +64,6 @@ public class CategorySubServiceImpl implements CategorySubService {
     public CategorySub update(CategorySub categorySub) {
         return categorySubDao.update(categorySub);
     }
-
 
     /*** 保存categorySub,有id时更新，没有id时插入,并带回新的id，返回 categorySub*/
     @Override

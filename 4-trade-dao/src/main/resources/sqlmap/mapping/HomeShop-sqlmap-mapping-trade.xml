@@ -26,7 +26,7 @@
 	
     
 	<insert id="insert.HomeShop.trade">
-		insert into home_shop (
+		insert into demo_home_shop (
             create_time
             , update_time
             , delete_flag
@@ -41,7 +41,7 @@
 	</insert>
 	
 	<update id="delete.HomeShop.trade">
-		UPDATE home_shop SET
+		UPDATE demo_home_shop SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -52,7 +52,7 @@
     
 	
 	<update id="update.HomeShop.trade">
-		UPDATE home_shop
+		UPDATE demo_home_shop
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="shopId">
@@ -73,7 +73,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from home_shop a
+            from demo_home_shop a
             where
             a.delete_flag = 0
             and a.home_shop_id = #homeShopId#
@@ -91,7 +91,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from home_shop a
+            from demo_home_shop a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="homeShopId">
@@ -147,7 +147,7 @@
 	</select>	
 
 	<select id="getPageList.HomeShop.trade.count" resultClass="long" >
-    	select  /* getPageList.HomeShop.trade.count */ count(*)  from home_shop a
+    	select  /* getPageList.HomeShop.trade.count */ count(*)  from demo_home_shop a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="homeShopId">
@@ -210,7 +210,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from home_shop a
+            from demo_home_shop a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="homeShopIds">
@@ -232,7 +232,7 @@
     
 	
 	<update id="deleteByHomeShopIds.HomeShop.trade">
-		UPDATE home_shop SET
+		UPDATE demo_home_shop SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where

@@ -30,7 +30,7 @@
 	
     
 	<insert id="insert.GoodsComment.trade">
-		insert into goods_comment (
+		insert into demo_goods_comment (
             create_time
             , update_time
             , delete_flag
@@ -53,7 +53,7 @@
 	</insert>
 	
 	<update id="delete.GoodsComment.trade">
-		UPDATE goods_comment SET
+		UPDATE demo_goods_comment SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -64,7 +64,7 @@
     
 	
 	<update id="update.GoodsComment.trade">
-		UPDATE goods_comment
+		UPDATE demo_goods_comment
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="goodsId">
@@ -101,7 +101,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from goods_comment a
+            from demo_goods_comment a
             where
             a.delete_flag = 0
             and a.comments_id = #commentsId#
@@ -123,7 +123,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from goods_comment a
+            from demo_goods_comment a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="commentsId">
@@ -219,7 +219,7 @@
 	</select>	
 
 	<select id="getPageList.GoodsComment.trade.count" resultClass="long" >
-    	select  /* getPageList.GoodsComment.trade.count */ count(*)  from goods_comment a
+    	select  /* getPageList.GoodsComment.trade.count */ count(*)  from demo_goods_comment a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="commentsId">
@@ -326,7 +326,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from goods_comment a
+            from demo_goods_comment a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="commentsIds">
@@ -348,7 +348,7 @@
     
 	
 	<update id="deleteByCommentsIds.GoodsComment.trade">
-		UPDATE goods_comment SET
+		UPDATE demo_goods_comment SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where

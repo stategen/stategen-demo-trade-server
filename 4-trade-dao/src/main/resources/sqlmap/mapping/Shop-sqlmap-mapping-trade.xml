@@ -27,7 +27,7 @@
 	
     
 	<insert id="insert.Shop.trade">
-		insert into shop (
+		insert into demo_shop (
             create_time
             , update_time
             , delete_flag
@@ -44,7 +44,7 @@
 	</insert>
 	
 	<update id="delete.Shop.trade">
-		UPDATE shop SET
+		UPDATE demo_shop SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -55,7 +55,7 @@
     
 	
 	<update id="update.Shop.trade">
-		UPDATE shop
+		UPDATE demo_shop
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="leaderImage">
@@ -80,7 +80,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from shop a
+            from demo_shop a
             where
             a.delete_flag = 0
             and a.shop_id = #shopId#
@@ -99,7 +99,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from shop a
+            from demo_shop a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="shopId">
@@ -152,7 +152,7 @@
 	</select>	
 
 	<select id="getPageList.Shop.trade.count" resultClass="long" >
-    	select  /* getPageList.Shop.trade.count */ count(*)  from shop a
+    	select  /* getPageList.Shop.trade.count */ count(*)  from demo_shop a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="shopId">
@@ -213,7 +213,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from shop a
+            from demo_shop a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="shopIds">
@@ -235,7 +235,7 @@
     
 	
 	<update id="deleteByShopIds.Shop.trade">
-		UPDATE shop SET
+		UPDATE demo_shop SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where

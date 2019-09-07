@@ -28,7 +28,7 @@
 	
     
 	<insert id="insert.CategorySub.trade">
-		insert into category_sub (
+		insert into demo_category_sub (
             create_time
             , update_time
             , delete_flag
@@ -47,7 +47,7 @@
 	</insert>
 	
 	<update id="delete.CategorySub.trade">
-		UPDATE category_sub SET
+		UPDATE demo_category_sub SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -58,7 +58,7 @@
     
 	
 	<update id="update.CategorySub.trade">
-		UPDATE category_sub
+		UPDATE demo_category_sub
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="categoryId">
@@ -87,7 +87,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from category_sub a
+            from demo_category_sub a
             where
             a.delete_flag = 0
             and a.category_sub_id = #categorySubId#
@@ -107,7 +107,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from category_sub a
+            from demo_category_sub a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="categorySubId">
@@ -183,7 +183,7 @@
 	</select>	
 
 	<select id="getPageList.CategorySub.trade.count" resultClass="long" >
-    	select  /* getPageList.CategorySub.trade.count */ count(*)  from category_sub a
+    	select  /* getPageList.CategorySub.trade.count */ count(*)  from demo_category_sub a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="categorySubId">
@@ -268,7 +268,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from category_sub a
+            from demo_category_sub a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="categorySubIds">
@@ -290,7 +290,7 @@
     
 	
 	<update id="deleteByCategorySubIds.CategorySub.trade">
-		UPDATE category_sub SET
+		UPDATE demo_category_sub SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where

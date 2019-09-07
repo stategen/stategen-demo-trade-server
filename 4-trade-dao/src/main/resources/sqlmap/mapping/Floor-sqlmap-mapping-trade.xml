@@ -28,7 +28,7 @@
 	
     
 	<insert id="insert.Floor.trade">
-		insert into floor (
+		insert into demo_floor (
             create_time
             , update_time
             , delete_flag
@@ -47,7 +47,7 @@
 	</insert>
 	
 	<update id="delete.Floor.trade">
-		UPDATE floor SET
+		UPDATE demo_floor SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -58,7 +58,7 @@
     
 	
 	<update id="update.Floor.trade">
-		UPDATE floor
+		UPDATE demo_floor
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="advertiseId">
@@ -87,7 +87,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from floor a
+            from demo_floor a
             where
             a.delete_flag = 0
             and a.floor_id = #floorId#
@@ -107,7 +107,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from floor a
+            from demo_floor a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="floorId">
@@ -183,7 +183,7 @@
 	</select>	
 
 	<select id="getPageList.Floor.trade.count" resultClass="long" >
-    	select  /* getPageList.Floor.trade.count */ count(*)  from floor a
+    	select  /* getPageList.Floor.trade.count */ count(*)  from demo_floor a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="floorId">
@@ -268,7 +268,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from floor a
+            from demo_floor a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="floorIds">
@@ -290,7 +290,7 @@
     
 	
 	<update id="deleteByFloorIds.Floor.trade">
-		UPDATE floor SET
+		UPDATE demo_floor SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where

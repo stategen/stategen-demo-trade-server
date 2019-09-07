@@ -1,0 +1,171 @@
+﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_home_advertise -e 会自动覆盖-->
+    <operation name="insert" paramType="object" remarks="">
+        <sql>
+            insert into demo_home_advertise (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="homeAdvId"> home_adv_id </isNotNull>
+            <isNotNull prepend="," property="advertiseId"> advertise_id </isNotNull>
+            ) VALUES (
+            CURRENT_TIMESTAMP(6)
+            , CURRENT_TIMESTAMP(6)
+            , 0
+            <isNotNull prepend="," property="homeAdvId"> ?  </isNotNull>
+            <isNotNull prepend="," property="advertiseId"> ?  </isNotNull>
+            )
+            <selectKey keyProperty="homeAdvId" resultClass="String" type="pre">
+                select if((#homeAdvId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#homeAdvId# ) as homeAdvId
+            </selectKey>
+        </sql>
+    </operation>
+
+    <operation name="delete" remarks="">
+        <sql>
+            UPDATE demo_home_advertise SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and home_adv_id = ?
+        </sql>
+    </operation>
+
+    <operation name="update" paramType="object" remarks="">
+        <sql>
+            UPDATE demo_home_advertise
+            SET update_time= CURRENT_TIMESTAMP(6)
+            <dynamic>
+                <isNotNull property="advertiseId" prepend=",">
+                    advertise_id =  ? 
+                </isNotNull>
+            </dynamic>
+            where
+            delete_flag = 0
+            and home_adv_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getHomeAdvertiseByHomeAdvId" multiplicity="one" remarks="">
+        <sql>
+            select
+            a.home_adv_id,
+            a.advertise_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_home_advertise a
+            where
+            a.delete_flag = 0
+            and a.home_adv_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
+        <sql>
+            select
+            a.home_adv_id,
+            a.advertise_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_home_advertise a
+            where
+            a.delete_flag = 0
+            <isNotNull property="homeAdvId" open="and">
+               a.home_adv_id=?
+            </isNotNull>
+            <isNotEmpty property="homeAdvIds" open="and">
+                a.home_adv_id in
+                <iterate property="homeAdvIds" conjunction="," open="(" close=")">
+                    #homeAdvIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="advertiseId" open="and">
+               a.advertise_id=?
+            </isNotNull>
+            <isNotEmpty property="advertiseIds" open="and">
+                a.advertise_id in
+                <iterate property="advertiseIds" conjunction="," open="(" close=")">
+                    #advertiseIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin" open="and">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax" open="and">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin" open="and">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax" open="and">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="homeAdvId">
+            <isEmpty property="homeAdvIds">
+            <isNull property="advertiseId">
+            <isEmpty property="advertiseIds">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid = "getHomeAdvertisePageListOrderBy" />
+        </sql>
+    </operation>
+
+    <operation name="getHomeAdvertisesByHomeAdvIds" multiplicity="many" remarks="">
+        <sql>
+            select
+            a.home_adv_id,
+            a.advertise_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_home_advertise a
+            where
+            a.delete_flag = 0
+            <isEmpty property="homeAdvIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="homeAdvIds" open="and">
+                a.home_adv_id in
+                <iterate property="homeAdvIds" conjunction="," open="(" close=")">
+                    #homeAdvIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getHomeAdvertisesByHomeAdvIdsOrderBy" />
+        </sql>
+    </operation>
+
+    <operation name="deleteByHomeAdvIds" remarks="">
+        <sql>
+            UPDATE demo_home_advertise SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="homeAdvIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="homeAdvIds" open="and">
+                home_adv_id in
+                <iterate property="homeAdvIds" conjunction="," open="(" close=")">
+                    #homeAdvIds[]#
+                </iterate>
+            </isNotEmpty>
+        </sql>
+    </operation>
+    
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_home_advertise -e 会自动覆盖-->

@@ -33,7 +33,7 @@
 	
     
 	<insert id="insert.Region.trade">
-		insert into region (
+		insert into demo_region (
             create_time
             , update_time
             , delete_flag
@@ -62,7 +62,7 @@
 	</insert>
 	
 	<update id="delete.Region.trade">
-		UPDATE region SET
+		UPDATE demo_region SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -73,7 +73,7 @@
     
 	
 	<update id="update.Region.trade">
-		UPDATE region
+		UPDATE demo_region
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="parentRegionId">
@@ -122,7 +122,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from region a
+            from demo_region a
             where
             a.delete_flag = 0
             and a.region_id = #regionId#
@@ -147,7 +147,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from region a
+            from demo_region a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="regionId">
@@ -276,7 +276,7 @@
 	</select>	
 
 	<select id="getPageList.Region.trade.count" resultClass="long" >
-    	select  /* getPageList.Region.trade.count */ count(*)  from region a
+    	select  /* getPageList.Region.trade.count */ count(*)  from demo_region a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="regionId">
@@ -419,7 +419,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from region a
+            from demo_region a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="regionIds">
@@ -441,7 +441,7 @@
     
 	
 	<update id="deleteByRegionIds.Region.trade">
-		UPDATE region SET
+		UPDATE demo_region SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -478,8 +478,8 @@
             a.name_en,
             a.name_pinyin,
             a.code,
-            not exists( SELECT b.region_id from region b where b.parent_region_id=a.region_id) as isLeaf
-            from region a
+            not exists( SELECT b.region_id from demo_region b where b.parent_region_id=a.region_id) as isLeaf
+            from demo_region a
             where
             a.delete_flag = 0
             <isNotEmpty open="and" property="parentRegionIds">
@@ -517,8 +517,8 @@
             a.name_en,
             a.name_pinyin,
             a.code,
-            not exists( SELECT b.region_id from region b where b.parent_region_id=a.region_id) as isLeaf
-            from region a
+            not exists( SELECT b.region_id from demo_region b where b.parent_region_id=a.region_id) as isLeaf
+            from demo_region a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="regionIds">

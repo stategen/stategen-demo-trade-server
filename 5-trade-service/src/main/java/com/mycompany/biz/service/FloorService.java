@@ -2,15 +2,16 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */package com.mycompany.biz.service;
+ */
+package com.mycompany.biz.service;
 
 import java.util.List;
-
-import com.mycompany.biz.domain.Floor;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AssignService;
 import org.stategen.framework.util.BaseService;
+
+import com.mycompany.biz.domain.Floor;
 
 /**
  * FloorService
@@ -67,7 +68,6 @@ public interface FloorService extends FloorServiceTrade, AssignService<Floor, St
      */
     public java.util.List<String> deleteByFloorIds(java.util.List<String> floorIds);
 
-
     /*** 保存floor,有id时更新，没有id时插入,并带回新的id，返回 floor
      * @see com.mycompany.biz.dao.FloorDao#insert
      */
@@ -78,6 +78,3 @@ public interface FloorService extends FloorServiceTrade, AssignService<Floor, St
      */
     public List<Floor> saveFloors(List<Floor> floors);
 }
-
-
-

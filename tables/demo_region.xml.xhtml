@@ -1,0 +1,300 @@
+﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_region -e 会自动覆盖-->
+    <operation name="insert" paramType="object" remarks="">
+        <sql>
+            insert into demo_region (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="regionId"> region_id </isNotNull>
+            <isNotNull prepend="," property="parentRegionId"> parent_region_id </isNotNull>
+            <isNotNull prepend="," property="path"> path </isNotNull>
+            <isNotNull prepend="," property="level"> level </isNotNull>
+            <isNotNull prepend="," property="regionType"> region_type </isNotNull>
+            <isNotNull prepend="," property="name"> name </isNotNull>
+            <isNotNull prepend="," property="nameEn"> name_en </isNotNull>
+            <isNotNull prepend="," property="namePinyin"> name_pinyin </isNotNull>
+            <isNotNull prepend="," property="code"> code </isNotNull>
+            ) VALUES (
+            CURRENT_TIMESTAMP(6)
+            , CURRENT_TIMESTAMP(6)
+            , 0
+            <isNotNull prepend="," property="regionId"> ?  </isNotNull>
+            <isNotNull prepend="," property="parentRegionId"> ?  </isNotNull>
+            <isNotNull prepend="," property="path"> ?  </isNotNull>
+            <isNotNull prepend="," property="level"> ?  </isNotNull>
+            <isNotNull prepend="," property="regionType"> ?  </isNotNull>
+            <isNotNull prepend="," property="name"> ?  </isNotNull>
+            <isNotNull prepend="," property="nameEn"> ?  </isNotNull>
+            <isNotNull prepend="," property="namePinyin"> ?  </isNotNull>
+            <isNotNull prepend="," property="code"> ?  </isNotNull>
+            )
+            <selectKey resultClass="long" keyProperty="regionId">
+                select  LAST_INSERT_ID()
+            </selectKey>
+        </sql>
+    </operation>
+
+    <operation name="delete" remarks="">
+        <sql>
+            UPDATE demo_region SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and region_id = ?
+        </sql>
+    </operation>
+
+    <operation name="update" paramType="object" remarks="">
+        <sql>
+            UPDATE demo_region
+            SET update_time= CURRENT_TIMESTAMP(6)
+            <dynamic>
+                <isNotNull property="parentRegionId" prepend=",">
+                    parent_region_id =  ? 
+                </isNotNull>
+                <isNotNull property="path" prepend=",">
+                    path =  ? 
+                </isNotNull>
+                <isNotNull property="level" prepend=",">
+                    level =  ? 
+                </isNotNull>
+                <isNotNull property="regionType" prepend=",">
+                    region_type =  ? 
+                </isNotNull>
+                <isNotNull property="name" prepend=",">
+                    name =  ? 
+                </isNotNull>
+                <isNotNull property="nameEn" prepend=",">
+                    name_en =  ? 
+                </isNotNull>
+                <isNotNull property="namePinyin" prepend=",">
+                    name_pinyin =  ? 
+                </isNotNull>
+                <isNotNull property="code" prepend=",">
+                    code =  ? 
+                </isNotNull>
+            </dynamic>
+            where
+            delete_flag = 0
+            and region_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getRegionByRegionId" multiplicity="one" remarks="">
+        <sql>
+            select
+            a.region_id,
+            a.parent_region_id,
+            a.path,
+            a.level,
+            a.region_type,
+            a.name,
+            a.name_en,
+            a.name_pinyin,
+            a.code,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_region a
+            where
+            a.delete_flag = 0
+            and a.region_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
+        <sql>
+            select
+            a.region_id,
+            a.parent_region_id,
+            a.path,
+            a.level,
+            a.region_type,
+            a.name,
+            a.name_en,
+            a.name_pinyin,
+            a.code,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_region a
+            where
+            a.delete_flag = 0
+            <isNotNull property="regionId" open="and">
+               a.region_id=?
+            </isNotNull>
+            <isNotEmpty property="regionIds" open="and">
+                a.region_id in
+                <iterate property="regionIds" conjunction="," open="(" close=")">
+                    #regionIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="parentRegionId" open="and">
+               a.parent_region_id=?
+            </isNotNull>
+            <isNotEmpty property="parentRegionIds" open="and">
+                a.parent_region_id in
+                <iterate property="parentRegionIds" conjunction="," open="(" close=")">
+                    #parentRegionIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="path" open="and">
+            a.path=?
+          </isNotNull>
+            <isNotEmpty property="pathLike" open="and">
+                a.path like CONCAT('%',#pathLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="levelMin" open="and">
+                a.level >=#levelMin#
+            </isNotNull>
+            <isNotNull property="levelMax" open="and">
+                a.level &lt;#levelMax#
+            </isNotNull>
+            <isNotNull property="regionType" open="and">
+               a.region_type=?
+            </isNotNull>
+            <isNotEmpty property="regionTypes" open="and">
+                a.region_type in
+                <iterate property="regionTypes" conjunction="," open="(" close=")">
+                    #regionTypes[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="name" open="and">
+            a.name=?
+          </isNotNull>
+            <isNotEmpty property="nameLike" open="and">
+                a.name like CONCAT('%',#nameLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="nameEn" open="and">
+            a.name_en=?
+          </isNotNull>
+            <isNotEmpty property="nameEnLike" open="and">
+                a.name_en like CONCAT('%',#nameEnLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="namePinyin" open="and">
+            a.name_pinyin=?
+          </isNotNull>
+            <isNotEmpty property="namePinyinLike" open="and">
+                a.name_pinyin like CONCAT('%',#namePinyinLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="code" open="and">
+            a.code=?
+          </isNotNull>
+            <isNotEmpty property="codeLike" open="and">
+                a.code like CONCAT('%',#codeLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="createTimeMin" open="and">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax" open="and">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin" open="and">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax" open="and">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="regionId">
+            <isEmpty property="regionIds">
+            <isNull property="parentRegionId">
+            <isEmpty property="parentRegionIds">
+            <isNull property="path">
+            <isEmpty property="pathLike">
+            <isNull property="levelMin">
+            <isNull property="levelMax">
+            <isNull property="regionType">
+            <isEmpty property="regionTypes">
+            <isNull property="name">
+            <isEmpty property="nameLike">
+            <isNull property="nameEn">
+            <isEmpty property="nameEnLike">
+            <isNull property="namePinyin">
+            <isEmpty property="namePinyinLike">
+            <isNull property="code">
+            <isEmpty property="codeLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid = "getRegionPageListOrderBy" />
+        </sql>
+    </operation>
+
+    <operation name="getRegionsByRegionIds" multiplicity="many" remarks="">
+        <sql>
+            select
+            a.region_id,
+            a.parent_region_id,
+            a.path,
+            a.level,
+            a.region_type,
+            a.name,
+            a.name_en,
+            a.name_pinyin,
+            a.code,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_region a
+            where
+            a.delete_flag = 0
+            <isEmpty property="regionIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="regionIds" open="and">
+                a.region_id in
+                <iterate property="regionIds" conjunction="," open="(" close=")">
+                    #regionIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getRegionsByRegionIdsOrderBy" />
+        </sql>
+    </operation>
+
+    <operation name="deleteByRegionIds" remarks="">
+        <sql>
+            UPDATE demo_region SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="regionIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="regionIds" open="and">
+                region_id in
+                <iterate property="regionIds" conjunction="," open="(" close=")">
+                    #regionIds[]#
+                </iterate>
+            </isNotEmpty>
+        </sql>
+    </operation>
+    
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_region -e 会自动覆盖-->

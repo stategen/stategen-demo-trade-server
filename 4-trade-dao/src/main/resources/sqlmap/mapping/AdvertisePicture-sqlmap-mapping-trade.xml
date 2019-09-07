@@ -28,7 +28,7 @@
 	
     
 	<insert id="insert.AdvertisePicture.trade">
-		insert into advertise_picture (
+		insert into demo_advertise_picture (
             create_time
             , update_time
             , delete_flag
@@ -47,7 +47,7 @@
 	</insert>
 	
 	<update id="delete.AdvertisePicture.trade">
-		UPDATE advertise_picture SET
+		UPDATE demo_advertise_picture SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -58,7 +58,7 @@
     
 	
 	<update id="update.AdvertisePicture.trade">
-		UPDATE advertise_picture
+		UPDATE demo_advertise_picture
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="pictureAddress">
@@ -87,7 +87,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from advertise_picture a
+            from demo_advertise_picture a
             where
             a.delete_flag = 0
             and a.advertise_id = #advertiseId#
@@ -107,7 +107,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from advertise_picture a
+            from demo_advertise_picture a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="advertiseId">
@@ -183,7 +183,7 @@
 	</select>	
 
 	<select id="getPageList.AdvertisePicture.trade.count" resultClass="long" >
-    	select  /* getPageList.AdvertisePicture.trade.count */ count(*)  from advertise_picture a
+    	select  /* getPageList.AdvertisePicture.trade.count */ count(*)  from demo_advertise_picture a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="advertiseId">
@@ -268,7 +268,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from advertise_picture a
+            from demo_advertise_picture a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="advertiseIds">
@@ -290,7 +290,7 @@
     
 	
 	<update id="deleteByAdvertiseIds.AdvertisePicture.trade">
-		UPDATE advertise_picture SET
+		UPDATE demo_advertise_picture SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where

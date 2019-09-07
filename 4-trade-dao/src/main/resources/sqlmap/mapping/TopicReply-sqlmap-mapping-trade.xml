@@ -29,7 +29,7 @@
 	
     
 	<insert id="insert.TopicReply.trade">
-		insert into topic_reply (
+		insert into demo_topic_reply (
             create_time
             , update_time
             , delete_flag
@@ -50,7 +50,7 @@
 	</insert>
 	
 	<update id="delete.TopicReply.trade">
-		UPDATE topic_reply SET
+		UPDATE demo_topic_reply SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -61,7 +61,7 @@
     
 	
 	<update id="update.TopicReply.trade">
-		UPDATE topic_reply
+		UPDATE demo_topic_reply
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="topicId">
@@ -94,7 +94,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from topic_reply a
+            from demo_topic_reply a
             where
             a.delete_flag = 0
             and a.reply_id = #replyId#
@@ -115,7 +115,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from topic_reply a
+            from demo_topic_reply a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="replyId">
@@ -207,7 +207,7 @@
 	</select>	
 
 	<select id="getPageList.TopicReply.trade.count" resultClass="long" >
-    	select  /* getPageList.TopicReply.trade.count */ count(*)  from topic_reply a
+    	select  /* getPageList.TopicReply.trade.count */ count(*)  from demo_topic_reply a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="replyId">
@@ -309,7 +309,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from topic_reply a
+            from demo_topic_reply a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="replyIds">
@@ -331,7 +331,7 @@
     
 	
 	<update id="deleteByReplyIds.TopicReply.trade">
-		UPDATE topic_reply SET
+		UPDATE demo_topic_reply SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where

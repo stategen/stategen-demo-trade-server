@@ -1,0 +1,207 @@
+﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_advertise_picture -e 会自动覆盖-->
+    <operation name="insert" paramType="object" remarks="">
+        <sql>
+            insert into demo_advertise_picture (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="advertiseId"> advertise_id </isNotNull>
+            <isNotNull prepend="," property="pictureAddress"> PICTURE_ADDRESS </isNotNull>
+            <isNotNull prepend="," property="toPlace"> TO_PLACE </isNotNull>
+            <isNotNull prepend="," property="urlType"> url_type </isNotNull>
+            ) VALUES (
+            CURRENT_TIMESTAMP(6)
+            , CURRENT_TIMESTAMP(6)
+            , 0
+            <isNotNull prepend="," property="advertiseId"> ?  </isNotNull>
+            <isNotNull prepend="," property="pictureAddress"> ?  </isNotNull>
+            <isNotNull prepend="," property="toPlace"> ?  </isNotNull>
+            <isNotNull prepend="," property="urlType"> ?  </isNotNull>
+            )
+            <selectKey resultClass="long" keyProperty="advertiseId">
+                select  LAST_INSERT_ID()
+            </selectKey>
+        </sql>
+    </operation>
+
+    <operation name="delete" remarks="">
+        <sql>
+            UPDATE demo_advertise_picture SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and advertise_id = ?
+        </sql>
+    </operation>
+
+    <operation name="update" paramType="object" remarks="">
+        <sql>
+            UPDATE demo_advertise_picture
+            SET update_time= CURRENT_TIMESTAMP(6)
+            <dynamic>
+                <isNotNull property="pictureAddress" prepend=",">
+                    PICTURE_ADDRESS =  ? 
+                </isNotNull>
+                <isNotNull property="toPlace" prepend=",">
+                    TO_PLACE =  ? 
+                </isNotNull>
+                <isNotNull property="urlType" prepend=",">
+                    url_type =  ? 
+                </isNotNull>
+            </dynamic>
+            where
+            delete_flag = 0
+            and advertise_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getAdvertisePictureByAdvertiseId" multiplicity="one" remarks="">
+        <sql>
+            select
+            a.advertise_id,
+            a.PICTURE_ADDRESS,
+            a.TO_PLACE,
+            a.url_type,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_advertise_picture a
+            where
+            a.delete_flag = 0
+            and a.advertise_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
+        <sql>
+            select
+            a.advertise_id,
+            a.PICTURE_ADDRESS,
+            a.TO_PLACE,
+            a.url_type,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_advertise_picture a
+            where
+            a.delete_flag = 0
+            <isNotNull property="advertiseId" open="and">
+               a.advertise_id=?
+            </isNotNull>
+            <isNotEmpty property="advertiseIds" open="and">
+                a.advertise_id in
+                <iterate property="advertiseIds" conjunction="," open="(" close=")">
+                    #advertiseIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="pictureAddress" open="and">
+            a.PICTURE_ADDRESS=?
+          </isNotNull>
+            <isNotEmpty property="pictureAddressLike" open="and">
+                a.PICTURE_ADDRESS like CONCAT('%',#pictureAddressLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="toPlace" open="and">
+            a.TO_PLACE=?
+          </isNotNull>
+            <isNotEmpty property="toPlaceLike" open="and">
+                a.TO_PLACE like CONCAT('%',#toPlaceLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="urlType" open="and">
+               a.url_type=?
+            </isNotNull>
+            <isNotEmpty property="urlTypes" open="and">
+                a.url_type in
+                <iterate property="urlTypes" conjunction="," open="(" close=")">
+                    #urlTypes[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin" open="and">
+                a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax" open="and">
+                a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin" open="and">
+                a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax" open="and">
+                a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="advertiseId">
+            <isEmpty property="advertiseIds">
+            <isNull property="pictureAddress">
+            <isEmpty property="pictureAddressLike">
+            <isNull property="toPlace">
+            <isEmpty property="toPlaceLike">
+            <isNull property="urlType">
+            <isEmpty property="urlTypes">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid = "getAdvertisePicturePageListOrderBy" />
+        </sql>
+    </operation>
+
+    <operation name="getAdvertisePicturesByAdvertiseIds" multiplicity="many" remarks="">
+        <sql>
+            select
+            a.advertise_id,
+            a.PICTURE_ADDRESS,
+            a.TO_PLACE,
+            a.url_type,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_advertise_picture a
+            where
+            a.delete_flag = 0
+            <isEmpty property="advertiseIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="advertiseIds" open="and">
+                a.advertise_id in
+                <iterate property="advertiseIds" conjunction="," open="(" close=")">
+                    #advertiseIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getAdvertisePicturesByAdvertiseIdsOrderBy" />
+        </sql>
+    </operation>
+
+    <operation name="deleteByAdvertiseIds" remarks="">
+        <sql>
+            UPDATE demo_advertise_picture SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="advertiseIds" open="and">
+                1=0
+            </isEmpty>
+            <isNotEmpty property="advertiseIds" open="and">
+                advertise_id in
+                <iterate property="advertiseIds" conjunction="," open="(" close=")">
+                    #advertiseIds[]#
+                </iterate>
+            </isNotEmpty>
+        </sql>
+    </operation>
+    
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_advertise_picture -e 会自动覆盖-->

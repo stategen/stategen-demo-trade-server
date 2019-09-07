@@ -30,7 +30,7 @@
 	
     
 	<insert id="insert.City.trade">
-		insert into city (
+		insert into demo_city (
             create_time
             , update_time
             , delete_flag
@@ -53,7 +53,7 @@
 	</insert>
 	
 	<update id="delete.City.trade">
-		UPDATE city SET
+		UPDATE demo_city SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -64,7 +64,7 @@
     
 	
 	<update id="update.City.trade">
-		UPDATE city
+		UPDATE demo_city
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="name">
@@ -101,7 +101,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from city a
+            from demo_city a
             where
             a.delete_flag = 0
             and a.city_id = #cityId#
@@ -123,7 +123,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from city a
+            from demo_city a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="cityId">
@@ -219,7 +219,7 @@
 	</select>	
 
 	<select id="getPageList.City.trade.count" resultClass="long" >
-    	select  /* getPageList.City.trade.count */ count(*)  from city a
+    	select  /* getPageList.City.trade.count */ count(*)  from demo_city a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="cityId">
@@ -326,7 +326,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from city a
+            from demo_city a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="cityIds">
@@ -348,7 +348,7 @@
     
 	
 	<update id="deleteByCityIds.City.trade">
-		UPDATE city SET
+		UPDATE demo_city SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -376,7 +376,7 @@
  /* getCityOptions.City.trade */             a.city_id,
             a.name,
             a.province_id
-            from city a
+            from demo_city a
             where
             a.delete_flag = 0
             and a.province_id = #provinceId#

@@ -29,7 +29,7 @@
 	
     
 	<insert id="insert.Slide.trade">
-		insert into slide (
+		insert into demo_slide (
             create_time
             , update_time
             , delete_flag
@@ -50,7 +50,7 @@
 	</insert>
 	
 	<update id="delete.Slide.trade">
-		UPDATE slide SET
+		UPDATE demo_slide SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -61,7 +61,7 @@
     
 	
 	<update id="update.Slide.trade">
-		UPDATE slide
+		UPDATE demo_slide
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="goodsId">
@@ -94,7 +94,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from slide a
+            from demo_slide a
             where
             a.delete_flag = 0
             and a.slide_id = #slideId#
@@ -115,7 +115,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from slide a
+            from demo_slide a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="slideId">
@@ -194,7 +194,7 @@
 	</select>	
 
 	<select id="getPageList.Slide.trade.count" resultClass="long" >
-    	select  /* getPageList.Slide.trade.count */ count(*)  from slide a
+    	select  /* getPageList.Slide.trade.count */ count(*)  from demo_slide a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="slideId">
@@ -283,7 +283,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from slide a
+            from demo_slide a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="slideIds">
@@ -305,7 +305,7 @@
     
 	
 	<update id="deleteBySlideIds.Slide.trade">
-		UPDATE slide SET
+		UPDATE demo_slide SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where

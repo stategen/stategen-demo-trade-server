@@ -31,7 +31,7 @@
 	
     
 	<insert id="insert.UserHoppy.trade">
-		insert into user_hoppy (
+		insert into demo_user_hoppy (
             create_time
             , update_time
             , delete_flag
@@ -48,7 +48,7 @@
 	</insert>
 	
 	<update id="delete.UserHoppy.trade">
-		UPDATE user_hoppy SET
+		UPDATE demo_user_hoppy SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -59,7 +59,7 @@
     
 	
 	<update id="update.UserHoppy.trade">
-		UPDATE user_hoppy
+		UPDATE demo_user_hoppy
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="userId">
@@ -84,7 +84,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from user_hoppy a
+            from demo_user_hoppy a
             where
             a.delete_flag = 0
             and a.id = #id#
@@ -103,7 +103,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from user_hoppy a
+            from demo_user_hoppy a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="id">
@@ -172,7 +172,7 @@
 	</select>	
 
 	<select id="getPageList.UserHoppy.trade.count" resultClass="long" >
-    	select  /* getPageList.UserHoppy.trade.count */ count(*)  from user_hoppy a
+    	select  /* getPageList.UserHoppy.trade.count */ count(*)  from demo_user_hoppy a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="id">
@@ -249,7 +249,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from user_hoppy a
+            from demo_user_hoppy a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="ids">
@@ -278,7 +278,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from user_hoppy a
+            from demo_user_hoppy a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="userIds">
@@ -300,7 +300,7 @@
     
 	
 	<update id="deleteByIds.UserHoppy.trade">
-		UPDATE user_hoppy SET
+		UPDATE demo_user_hoppy SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where

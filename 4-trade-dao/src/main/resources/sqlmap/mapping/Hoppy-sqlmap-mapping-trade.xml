@@ -26,7 +26,7 @@
 	
     
 	<insert id="insert.Hoppy.trade">
-		insert into hoppy (
+		insert into demo_hoppy (
             create_time
             , update_time
             , delete_flag
@@ -41,7 +41,7 @@
 	</insert>
 	
 	<update id="delete.Hoppy.trade">
-		UPDATE hoppy SET
+		UPDATE demo_hoppy SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -52,7 +52,7 @@
     
 	
 	<update id="update.Hoppy.trade">
-		UPDATE hoppy
+		UPDATE demo_hoppy
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="hoppyName">
@@ -73,7 +73,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from hoppy a
+            from demo_hoppy a
             where
             a.delete_flag = 0
             and a.hoppy_id = #hoppyId#
@@ -91,7 +91,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from hoppy a
+            from demo_hoppy a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="hoppyId">
@@ -144,7 +144,7 @@
 	</select>	
 
 	<select id="getPageList.Hoppy.trade.count" resultClass="long" >
-    	select  /* getPageList.Hoppy.trade.count */ count(*)  from hoppy a
+    	select  /* getPageList.Hoppy.trade.count */ count(*)  from demo_hoppy a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="hoppyId">
@@ -204,7 +204,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from hoppy a
+            from demo_hoppy a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="hoppyIds">
@@ -226,7 +226,7 @@
     
 	
 	<update id="deleteByHoppyIds.Hoppy.trade">
-		UPDATE hoppy SET
+		UPDATE demo_hoppy SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -252,7 +252,7 @@
     	select
  /* getHoppyOptions.Hoppy.trade */             a.hoppy_id,
             a.hoppy_name
-            from hoppy a
+            from demo_hoppy a
             where
             a.delete_flag = 0
 	</select>	

@@ -29,7 +29,7 @@
 	
     
 	<insert id="insert.FloorGoods.trade">
-		insert into floor_goods (
+		insert into demo_floor_goods (
             create_time
             , update_time
             , delete_flag
@@ -50,7 +50,7 @@
 	</insert>
 	
 	<update id="delete.FloorGoods.trade">
-		UPDATE floor_goods SET
+		UPDATE demo_floor_goods SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -61,7 +61,7 @@
     
 	
 	<update id="update.FloorGoods.trade">
-		UPDATE floor_goods
+		UPDATE demo_floor_goods
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="floorId">
@@ -94,7 +94,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from floor_goods a
+            from demo_floor_goods a
             where
             a.delete_flag = 0
             and a.floor_goods_id = #floorGoodsId#
@@ -115,7 +115,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from floor_goods a
+            from demo_floor_goods a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="floorGoodsId">
@@ -194,7 +194,7 @@
 	</select>	
 
 	<select id="getPageList.FloorGoods.trade.count" resultClass="long" >
-    	select  /* getPageList.FloorGoods.trade.count */ count(*)  from floor_goods a
+    	select  /* getPageList.FloorGoods.trade.count */ count(*)  from demo_floor_goods a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="floorGoodsId">
@@ -283,7 +283,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from floor_goods a
+            from demo_floor_goods a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="floorGoodsIds">
@@ -305,7 +305,7 @@
     
 	
 	<update id="deleteByFloorGoodsIds.FloorGoods.trade">
-		UPDATE floor_goods SET
+		UPDATE demo_floor_goods SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where

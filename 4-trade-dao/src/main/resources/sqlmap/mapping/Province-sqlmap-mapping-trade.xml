@@ -27,7 +27,7 @@
 	
     
 	<insert id="insert.Province.trade">
-		insert into province (
+		insert into demo_province (
             create_time
             , update_time
             , delete_flag
@@ -44,7 +44,7 @@
 	</insert>
 	
 	<update id="delete.Province.trade">
-		UPDATE province SET
+		UPDATE demo_province SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -55,7 +55,7 @@
     
 	
 	<update id="update.Province.trade">
-		UPDATE province
+		UPDATE demo_province
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="name">
@@ -80,7 +80,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from province a
+            from demo_province a
             where
             a.delete_flag = 0
             and a.province_id = #provinceId#
@@ -99,7 +99,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from province a
+            from demo_province a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="provinceId">
@@ -162,7 +162,7 @@
 	</select>	
 
 	<select id="getPageList.Province.trade.count" resultClass="long" >
-    	select  /* getPageList.Province.trade.count */ count(*)  from province a
+    	select  /* getPageList.Province.trade.count */ count(*)  from demo_province a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="provinceId">
@@ -233,7 +233,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from province a
+            from demo_province a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="provinceIds">
@@ -255,7 +255,7 @@
     
 	
 	<update id="deleteByProvinceIds.Province.trade">
-		UPDATE province SET
+		UPDATE demo_province SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -281,7 +281,7 @@
     	select
  /* getProvinceOptions.Province.trade */             a.province_id,
             a.name
-            from province a
+            from demo_province a
             where
             a.delete_flag = 0
 	</select>	

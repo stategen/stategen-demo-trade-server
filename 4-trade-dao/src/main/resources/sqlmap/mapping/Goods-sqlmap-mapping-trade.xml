@@ -45,7 +45,7 @@
 	
     
 	<insert id="insert.Goods.trade">
-		insert into goods (
+		insert into demo_goods (
             create_time
             , update_time
             , delete_flag
@@ -98,7 +98,7 @@
 	</insert>
 	
 	<update id="delete.Goods.trade">
-		UPDATE goods SET
+		UPDATE demo_goods SET
             delete_flag = 1
             , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -109,7 +109,7 @@
     
 	
 	<update id="update.Goods.trade">
-		UPDATE goods
+		UPDATE demo_goods
             SET update_time= CURRENT_TIMESTAMP(6)
             <dynamic>
                 <isNotNull prepend="," property="goodsName">
@@ -206,7 +206,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from goods a
+            from demo_goods a
             where
             a.delete_flag = 0
             and a.goods_id = #goodsId#
@@ -243,7 +243,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from goods a
+            from demo_goods a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="goodsId">
@@ -465,7 +465,7 @@
 	</select>	
 
 	<select id="getPageList.Goods.trade.count" resultClass="long" >
-    	select  /* getPageList.Goods.trade.count */ count(*)  from goods a
+    	select  /* getPageList.Goods.trade.count */ count(*)  from demo_goods a
             where
             a.delete_flag = 0
             <isNotNull open="and" property="goodsId">
@@ -713,7 +713,7 @@
             a.create_time,
             a.update_time,
             a.delete_flag
-            from goods a
+            from demo_goods a
             where
             a.delete_flag = 0
             <isEmpty open="and" property="goodsIds">
@@ -735,7 +735,7 @@
     
 	
 	<update id="deleteByGoodsIds.Goods.trade">
-		UPDATE goods SET
+		UPDATE demo_goods SET
                delete_flag = 1
                , update_time = CURRENT_TIMESTAMP(6)
             where
@@ -756,7 +756,7 @@
 	<select id="getGoodsIds.Goods.trade" resultClass="String" >
     	select
  /* getGoodsIds.Goods.trade */             a.goods_id
-            from goods a
+            from demo_goods a
             where
             a.delete_flag = 0
 	</select>	
