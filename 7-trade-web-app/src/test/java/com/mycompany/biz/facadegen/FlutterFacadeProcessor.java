@@ -18,6 +18,7 @@ import org.stategen.framework.util.StringUtil;
 
 import freemarker.template.TemplateException;
 
+
 public class FlutterFacadeProcessor extends BaseGenFacadeProcessor {
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(FlutterFacadeProcessor.class);
 
@@ -26,16 +27,16 @@ public class FlutterFacadeProcessor extends BaseGenFacadeProcessor {
     }
 
     public static void main(String[] args) {
-        FlutterFacadeProcessor umiFacadeProcessor = new FlutterFacadeProcessor();
+        FlutterFacadeProcessor flutterFacadeProcessor = new FlutterFacadeProcessor();
         try {
-            logger.info("==================Flutter 前端代码生成开始===========================");
-            umiFacadeProcessor.genFacade();
-            logger.info("==================Flutter 前端代码生成结束===========================");
+            logger.info("================== flutter 前端代码生成开始===========================");
+            flutterFacadeProcessor.genFacade();
+            logger.info("================== flutter 前端代码生成结束===========================");
         } catch (Exception e) {
             logger.error("生成前端代码时出错:", e);
         }
     }
-
+ 
     @Test
     public void gen() {
         main(null);
@@ -44,7 +45,7 @@ public class FlutterFacadeProcessor extends BaseGenFacadeProcessor {
     public void genFacade() throws InvalidPropertiesFormatException, IOException, TemplateException {
         new FlutterContextSetter().setContext();
 
-        //这里注册的将更新supper中的注册
+        //这里注册的将替代supper中的注册
         GenContext.registSimpleClz(Void.TYPE, "void");
         GenContext.registSimpleClz(Class.class, "String");
 

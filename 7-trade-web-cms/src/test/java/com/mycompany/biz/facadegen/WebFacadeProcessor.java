@@ -19,6 +19,7 @@ import org.stategen.framework.util.StringUtil;
 
 import freemarker.template.TemplateException;
 
+
 public class WebFacadeProcessor extends BaseGenFacadeProcessor {
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(WebFacadeProcessor.class);
 
@@ -29,9 +30,9 @@ public class WebFacadeProcessor extends BaseGenFacadeProcessor {
     public static void main(String[] args) {
         WebFacadeProcessor webFacadeProcessor = new WebFacadeProcessor();
         try {
-            logger.info("==================umi前端代码生成开始==========================="); 
-            webFacadeProcessor.genFacade(); 
-            logger.info("==================umi前端代码生成结束===========================");
+            logger.info("================== web 前端代码生成开始===========================");
+            webFacadeProcessor.genFacade();
+            logger.info("================== web 前端代码生成结束===========================");
         } catch (Exception e) {
             logger.error("生成前端代码时出错:", e);
         }
@@ -57,7 +58,7 @@ public class WebFacadeProcessor extends BaseGenFacadeProcessor {
         GenContext.addStaticUtil(CollectionUtil.class);
         GenContext.tempDirs =Arrays.asList("/typescript/ts-api","/typescript/ts-umi","/typescript/ts-umi-web");
         GenContext.outDir="cms-frontend-web/src/intergrade/";
-        GenContext.Properties.put("webFlag", true);
+
 
         PathType[] pathTypes = PathType.values();
         for (PathType pathType : pathTypes) {

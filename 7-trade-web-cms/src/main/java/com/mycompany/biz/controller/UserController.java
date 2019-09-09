@@ -15,7 +15,6 @@ import org.stategen.framework.annotation.GenForm;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.annotation.VisitCheck;
 import org.stategen.framework.enums.DataOpt;
-import org.stategen.framework.lite.AntdPageList;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.Pagination;
 import org.stategen.framework.util.BusinessAssert;
@@ -40,7 +39,7 @@ public class UserController extends UserControllerBase {
     @ApiRequestMappingAutoWithMethodName(name = "用户列表")
     @State(init = true, dataOpt = DataOpt.FULL_REPLACE,genForm=true)
     @ExcludeBeanRuleNotNull
-    public AntdPageList<User> getUserPageList(
+    public PageList<User> getUserPageList(
                                               @ApiParam() String userId,
                                               @ApiParam() @RequestParam(required = false, name = "userIds") ArrayList<String> userIds,
                                               @ApiParam() String usernameLike,
@@ -49,7 +48,8 @@ public class UserController extends UserControllerBase {
                                               @ApiParam() Integer ageMax, 
                                               @ApiParam() Date valiDatetimeMin,
                                               @ApiParam() Date birthdayDateMin, 
-                                              @ApiParam() Date workTimeMin, @ApiParam() String provinceId,
+                                              @ApiParam() Date workTimeMin, 
+											  @ApiParam() String provinceId,
                                               @ApiParam() @RequestParam(required = false, name = "cityIds") ArrayList<String> cityIds,
                                               @ApiParam() @RequestParam(required = false, name = "statuss") ArrayList<StatusEnum> statuss,
                                               @ApiParam() Long gradeMin, 
@@ -61,7 +61,7 @@ public class UserController extends UserControllerBase {
         //技巧，api参数 .在dao中已自动化生成,从以下getUserPageList 帮助文件中 点开See also直接复制过来，
         PageList<User> userList = this.userService.getPageList(user, pagination.getPageSize(), pagination.getPage());
         assignBeans(userList.getItems());
-        return new AntdPageList<User>(userList);
+        return userList;
     }
 
 

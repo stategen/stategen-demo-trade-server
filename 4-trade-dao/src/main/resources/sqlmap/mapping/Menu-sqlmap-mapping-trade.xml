@@ -584,7 +584,7 @@
             from menu a
             where
             a.delete_flag = 0
-            and a.project_name=#projectName#
+            
             <isNotEmpty property="menuType">
               and a.menu_type=#menuType#
             </isNotEmpty>

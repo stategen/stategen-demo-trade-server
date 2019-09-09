@@ -90,7 +90,7 @@ public interface MenuService extends AssignService<Menu, Long>, MenuServiceTrade
      * 
      * @see com.mycompany.biz.dao.MenuDao#getMenusByProjectName
      */
-    public List<Menu> getMenusByProjectName(String projectName, org.stategen.framework.lite.enums.MenuType menuType);
+    public List<Menu> getMenusByProjectName(org.stategen.framework.lite.enums.MenuType menuType);
 
     /**
      * 

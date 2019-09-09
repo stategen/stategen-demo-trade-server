@@ -107,12 +107,11 @@ public class MenuDaoImpl  extends SqlMapClientDaoSupport implements MenuDao {
 
 	/**
 	 * 
-	 * sql:select a.menu_id, a.mpid, a.bpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.project_name=? and a.menu_type=? order by a.morder is null, a.morder
+	 * sql:select a.menu_id, a.mpid, a.bpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_type=? order by a.morder is null, a.morder
 	 */
     @SuppressWarnings("unchecked")
-	public List<Menu> getMenusByProjectName(String projectName, org.stategen.framework.lite.enums.MenuType menuType) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(2);
-		params.put("projectName",projectName);
+	public List<Menu> getMenusByProjectName(org.stategen.framework.lite.enums.MenuType menuType) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
 		params.put("menuType",menuType);
 		return (List<Menu>)getSqlMapClientTemplate().queryForList("getMenusByProjectName.Menu.trade",params);
 	}

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +18,6 @@ import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.ServiceUtil;
-import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.MenuDao;
 import com.mycompany.biz.domain.Menu;
@@ -74,7 +74,7 @@ public class MenuServiceImpl implements MenuService {
     public List<Menu> updateMenus(List<Menu> allControllerMenus) {
         //更新visitId
         VisitKeyCalculator visitKeyCalculator = new VisitKeyCalculator();
-        List<Menu> oldMenus = this.getMenusByProjectName(getProjectName(), null);
+        List<Menu> oldMenus = this.getMenusByProjectName(null);
         Map<String, Menu> oldMenuMap = CollectionUtil.toMap(new LinkedCaseInsensitiveMap<Menu>(), visitKeyCalculator, oldMenus);
         Long parentMenuId = null;
         this.insertOrUpdateMenus(parentMenuId, allControllerMenus, oldMenuMap, visitKeyCalculator);
@@ -88,7 +88,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> getAllMenus() {
-        return this.getMenusByProjectName(getProjectName(), MenuType.MENU);
+        return this.getMenusByProjectName(MenuType.MENU);
     }
 
     //<#--
@@ -201,8 +201,8 @@ public class MenuServiceImpl implements MenuService {
      * @see com.mycompany.biz.service.MenuService#getMenusByProjectName
      */
     @Override
-    public List<Menu> getMenusByProjectName(String projectName, org.stategen.framework.lite.enums.MenuType menuType) {
-        return menuDao.getMenusByProjectName(projectName, menuType);
+    public List<Menu> getMenusByProjectName(org.stategen.framework.lite.enums.MenuType menuType) {
+        return menuDao.getMenusByProjectName(menuType);
     }
 
     /**

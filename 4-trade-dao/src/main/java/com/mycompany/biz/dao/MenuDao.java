@@ -147,14 +147,13 @@ public interface MenuDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("对应的项目id") String projectName,
     &#64;ApiParam("menuType") MenuType menuType
     
     </pre>
 	 * 
-	 * sql:select a.menu_id, a.mpid, a.bpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.project_name=? and a.menu_type=? order by a.morder is null, a.morder
+	 * sql:select a.menu_id, a.mpid, a.bpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_type=? order by a.morder is null, a.morder
 	 */
-	public List<Menu> getMenusByProjectName(String projectName, org.stategen.framework.lite.enums.MenuType menuType) throws DataAccessException;
+	public List<Menu> getMenusByProjectName(org.stategen.framework.lite.enums.MenuType menuType) throws DataAccessException;
 	
 	/**
     <pre>
