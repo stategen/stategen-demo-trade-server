@@ -27,7 +27,7 @@ import com.mycompany.biz.domain.Menu;
 import com.mycompany.biz.domain.Province;
 import com.mycompany.biz.domain.Region;
 import com.mycompany.biz.domain.User;
-import com.mycompany.biz.enums.CookieType.LOGIN.LoginCookieNames;
+import com.mycompany.biz.enums.CookieType.Login.LoginCookieNames;
 import com.mycompany.biz.service.CityService;
 import com.mycompany.biz.service.HoppyService;
 import com.mycompany.biz.service.MenuService;

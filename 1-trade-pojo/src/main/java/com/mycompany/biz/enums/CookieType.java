@@ -7,9 +7,9 @@ import com.mycompany.biz.enums.ResponseStatus.NOT_LOGIN;
 import com.mycompany.biz.enums.ResponseStatus.PAY_NO_TOKEN;
 
 public enum CookieType implements  ICookieType{
-    LOGIN(LOGIN.class,"_tk_",NOT_LOGIN.class),
+    LOGIN(Login.class,"_tk_",NOT_LOGIN.class),
     
-    PAY_LOGIN(PAY_LOGIN.class,"_pay_",PAY_NO_TOKEN.class),
+    PAY_LOGIN(PayLogin.class,"_pay_",PAY_NO_TOKEN.class),
     ;
     
     private String cookiePrefixName;
@@ -39,14 +39,14 @@ public enum CookieType implements  ICookieType{
         return responseStatusClzOfTokenError;
     }
     
-    public static abstract class LOGIN implements ICookieType {
+    public static abstract class Login implements ICookieType {
         public static enum LoginCookieNames{
             userId,
         }
         public static final String USER_ID ="userId"; 
     }
     
-    public static abstract class PAY_LOGIN implements ICookieType {
+    public static abstract class PayLogin implements ICookieType {
     }
 
 }

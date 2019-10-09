@@ -9,7 +9,7 @@ import org.stategen.framework.enums.DataOpt;
 
 import com.mycompany.biz.checker.LoginCheck;
 import com.mycompany.biz.domain.Topic;
-import com.mycompany.biz.enums.CookieType.LOGIN.LoginCookieNames;
+import com.mycompany.biz.enums.CookieType.Login.LoginCookieNames;
 import com.mycompany.biz.enums.TopicType;
 
 import io.swagger.annotations.ApiParam;

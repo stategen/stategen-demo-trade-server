@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import com.mycompany.biz.domain.Hoppy;
 import com.mycompany.biz.domain.Region;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.domain.UserHoppy;
-import com.mycompany.biz.enums.CookieType.LOGIN.LoginCookieNames;
+import com.mycompany.biz.enums.CookieType.Login.LoginCookieNames;
 import com.mycompany.biz.service.CityService;
 import com.mycompany.biz.service.FileSummaryService;
 import com.mycompany.biz.service.HoppyService;

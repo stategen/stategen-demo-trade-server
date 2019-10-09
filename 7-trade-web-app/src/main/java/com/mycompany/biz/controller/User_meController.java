@@ -17,7 +17,7 @@ import org.stategen.framework.util.CopyUtil;
 
 import com.mycompany.biz.checker.LoginCheck;
 import com.mycompany.biz.domain.User;
-import com.mycompany.biz.enums.CookieType.LOGIN.LoginCookieNames;
+import com.mycompany.biz.enums.CookieType.Login.LoginCookieNames;
 import com.mycompany.biz.enums.RoleType;
 import com.mycompany.biz.enums.StatusEnum;
 

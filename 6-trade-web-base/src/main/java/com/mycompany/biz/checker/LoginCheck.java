@@ -10,8 +10,7 @@ import java.lang.annotation.Target;
 import org.stategen.framework.annotation.Check;
 import org.stategen.framework.annotation.CookieCheck;
 
-import com.mycompany.biz.enums.CookieType;
-import com.mycompany.biz.enums.CookieType.LOGIN;
+import com.mycompany.biz.enums.CookieType.Login;
 import com.mycompany.biz.enums.ResponseStatus;
 /***
  * 该标识是用cookie检测实现，查看cookie中是否有被不能篡改的name为 login 的cookie
@@ -23,7 +22,7 @@ import com.mycompany.biz.enums.ResponseStatus;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Check
-@CookieCheck(cookieTypeClz =CookieType.LOGIN.class,responseStatusClzOfCheckFail = ResponseStatus.NOT_LOGIN.class , cookieName =LOGIN.USER_ID)
+@CookieCheck(cookieTypeClz =Login.class,responseStatusClzOfCheckFail = ResponseStatus.NOT_LOGIN.class , cookieName =Login.USER_ID)
 @Inherited
 public @interface LoginCheck {
     
