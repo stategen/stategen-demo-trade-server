@@ -1,14 +1,16 @@
 package config;
 
 import javax.servlet.DispatcherType;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 
-public class JavaWebXml  {
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+public class JavaWebXml extends AbstractAnnotationConfigDispatcherServletInitializer {
+    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(JavaWebXml.class);
 
     @WebFilter(
             filterName = "CharacterEncodingFilter", urlPatterns = "/*",
@@ -40,16 +42,9 @@ public class JavaWebXml  {
     public static class WebStatFilter extends com.alibaba.druid.support.http.WebStatFilter {
 
     }
-
-    @WebListener()
-    public static class ContextLoaderListener extends org.springframework.web.context.ContextLoaderListener {
-        @Override
-        public void contextInitialized(ServletContextEvent event) {
-            ServletContext servletContext = event.getServletContext(); 
-            servletContext.setInitParameter("contextConfigLocation", "classpath*:applicationContext.xml");
-            super.contextInitialized(event);
-        }
-
+    
+    @WebInitParam(name="contextConfigLocation", value="classpath*:applicationContext.xml")
+    public static class InitParamListener {
 
     }
 
@@ -78,16 +73,59 @@ public class JavaWebXml  {
         private static final long serialVersionUID = 1L;
 
     }
-
-    @WebServlet(name="DispatcherServlet",urlPatterns = "/",loadOnStartup=1,
-            /**/
-            initParams =@WebInitParam(name="contextConfigLocation",value="classpath*:servletContext.xml")
-            )
     
-    public static class DispatcherServlet extends org.springframework.web.servlet.DispatcherServlet{
-        private static final long serialVersionUID = 1L;
+    //为了与  破springboot 兼容，使用 AbstractAnnotationConfigDispatcherServletInitializer
+//  @WebListener()
+//  public static class ContextLoaderListener extends org.springframework.web.context.ContextLoaderListener {
+//      
+//      @Override
+//      public void contextInitialized(ServletContextEvent event) {
+//          if (logger.isInfoEnabled()) {
+//              logger.info(new StringBuffer("输出info信息: event:").append(count).toString());
+//              count++;
+//          }
+//          
+//          ServletContext servletContext = event.getServletContext(); 
+////          servletContext.setInitParameter("contextConfigLocation", "classpath*:applicationContext.xml");
+//          
+////          servletContext.removeAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+//          super.contextInitialized(event);
+//      }
+//
+//  }
+//    @WebServlet(name="DispatcherServlet",urlPatterns = "/",loadOnStartup=1,
+//            /**/
+//            initParams =@WebInitParam(name="contextConfigLocation",value="classpath*:servletContext.xml")
+//            )
+//    
+//    public static class DispatcherServlet extends org.springframework.web.servlet.DispatcherServlet{
+//        private static final long serialVersionUID = 1L;
+//    }
+
+    @ImportResource("classpath*:applicationContext.xml")
+    public static class RootConfig{
+        
+    }
+    
+    @ImportResource("classpath*:servletContext.xml")
+    public static class ServletConfig{
+        
+    }
+    
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class<?>[] { RootConfig.class };
     }
 
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class<?>[] { ServletConfig.class };
+    }
+
+    @Override
+    protected String[] getServletMappings() {
+      return new String[] { "/" };
+    }
 
 
 }
