@@ -9,25 +9,22 @@ import javax.servlet.annotation.WebServlet;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class JavaWebXml extends AbstractAnnotationConfigDispatcherServletInitializer {
-    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(JavaWebXml.class);
+public class CodeConfigAsWebXml extends AbstractAnnotationConfigDispatcherServletInitializer {
+    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(CodeConfigAsWebXml.class);
 
     @WebFilter(
             filterName = "CharacterEncodingFilter", urlPatterns = "/*",
             /*--*/
             dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.FORWARD },
             /*--*/
-            initParams = { @WebInitParam(name = "encoding", value = "UTF-8"),
+            initParams = {
+                           /*--*/
+                           @WebInitParam(name = "encoding", value = "UTF-8"),
                            /*--*/
                            @WebInitParam(name = "forceEncoding", value = "true") }
     )
 
     public static class CharacterEncodingFilter extends org.springframework.web.filter.CharacterEncodingFilter {
-
-    }
-
-    @WebFilter(filterName = "frameworkMultiFilter", urlPatterns = "/*")
-    public static class MultiFilter extends org.stategen.framework.spring.mvc.MultiFilter {
 
     }
 
@@ -37,15 +34,14 @@ public class JavaWebXml extends AbstractAnnotationConfigDispatcherServletInitial
 
     }
 
-    @WebFilter(filterName = "CORSFilter", urlPatterns = "/*")
+    @WebFilter(filterName = "WebStatFilter", urlPatterns = "/*")
     @WebInitParam(name = "exclusions", value = "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid*")
     public static class WebStatFilter extends com.alibaba.druid.support.http.WebStatFilter {
 
     }
-    
-    @WebInitParam(name="contextConfigLocation", value="classpath*:applicationContext.xml")
-    public static class InitParamListener {
 
+    @WebFilter(filterName = "CustomMultiFilter", urlPatterns = "/*")
+    public static class CustomMultiFilter extends org.stategen.framework.spring.mvc.MultiFilter {
     }
 
     @WebListener
@@ -58,7 +54,8 @@ public class JavaWebXml extends AbstractAnnotationConfigDispatcherServletInitial
 
     }
 
-    @WebServlet(name = "StatViewServlet", urlPatterns = "/druid/*",
+    @WebServlet(
+            name = "StatViewServlet", urlPatterns = "/druid/*",
             /*--*/
             initParams = {
                            /** 允许清空统计数据 */
@@ -68,64 +65,64 @@ public class JavaWebXml extends AbstractAnnotationConfigDispatcherServletInitial
                            /*<!-- 密码 -->*/
                            @WebInitParam(name = "loginPassword", value = "druid")
 
-            })
+            }
+    )
     public static class StatViewServlet extends com.alibaba.druid.support.http.StatViewServlet {
         private static final long serialVersionUID = 1L;
 
     }
-    
+
     //为了与  破springboot 兼容，使用 AbstractAnnotationConfigDispatcherServletInitializer
-//  @WebListener()
-//  public static class ContextLoaderListener extends org.springframework.web.context.ContextLoaderListener {
-//      
-//      @Override
-//      public void contextInitialized(ServletContextEvent event) {
-//          if (logger.isInfoEnabled()) {
-//              logger.info(new StringBuffer("输出info信息: event:").append(count).toString());
-//              count++;
-//          }
-//          
-//          ServletContext servletContext = event.getServletContext(); 
-////          servletContext.setInitParameter("contextConfigLocation", "classpath*:applicationContext.xml");
-//          
-////          servletContext.removeAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-//          super.contextInitialized(event);
-//      }
-//
-//  }
-//    @WebServlet(name="DispatcherServlet",urlPatterns = "/",loadOnStartup=1,
-//            /**/
-//            initParams =@WebInitParam(name="contextConfigLocation",value="classpath*:servletContext.xml")
-//            )
-//    
-//    public static class DispatcherServlet extends org.springframework.web.servlet.DispatcherServlet{
-//        private static final long serialVersionUID = 1L;
-//    }
+    //  @WebListener()
+    //  public static class ContextLoaderListener extends org.springframework.web.context.ContextLoaderListener {
+    //      
+    //      @Override
+    //      public void contextInitialized(ServletContextEvent event) {
+    //          if (logger.isInfoEnabled()) {
+    //              logger.info(new StringBuffer("输出info信息: event:").append(count).toString());
+    //              count++;
+    //          }
+    //          
+    //          ServletContext servletContext = event.getServletContext(); 
+    ////          servletContext.setInitParameter("contextConfigLocation", "classpath*:applicationContext.xml");
+    //          
+    ////          servletContext.removeAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+    //          super.contextInitialized(event);
+    //      }
+    //
+    //  }
+    //    @WebServlet(name="DispatcherServlet",urlPatterns = "/",loadOnStartup=1,
+    //            /**/
+    //            initParams =@WebInitParam(name="contextConfigLocation",value="classpath*:servletContext.xml")
+    //            )
+    //    
+    //    public static class DispatcherServlet extends org.springframework.web.servlet.DispatcherServlet{
+    //        private static final long serialVersionUID = 1L;
+    //    }
 
     @ImportResource("classpath*:applicationContext.xml")
-    public static class RootConfig{
-        
+    public static class RootContextConfig {
+
     }
-    
+
     @ImportResource("classpath*:servletContext.xml")
-    public static class ServletConfig{
-        
+    public static class ServletContextConfig {
+
     }
-    
+
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] { RootConfig.class };
+        return new Class<?>[] { RootContextConfig.class };
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[] { ServletConfig.class };
+        return new Class<?>[] { ServletContextConfig.class };
     }
 
     @Override
     protected String[] getServletMappings() {
-      return new String[] { "/" };
+        return new String[] { "/" };
     }
-
 
 }
