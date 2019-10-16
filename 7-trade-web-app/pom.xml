@@ -251,6 +251,7 @@
                         <configuration>
                             <mainClass>com.mycompany.biz.facadegen.FlutterFacadeProcessor</mainClass>
                             <classpathScope>test</classpathScope>
+                            <cleanupDaemonThreads>false</cleanupDaemonThreads>
                         </configuration>
                     </execution>
 

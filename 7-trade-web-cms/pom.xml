@@ -147,6 +147,7 @@
                         <configuration>
                             <mainClass>com.mycompany.biz.facadegen.WebFacadeProcessor</mainClass>
                             <classpathScope>test</classpathScope>
+                            <cleanupDaemonThreads>false</cleanupDaemonThreads>
                         </configuration>
                     </execution>
 
