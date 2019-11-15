@@ -17,7 +17,7 @@
     <packaging>war</packaging>
     <name>7-trade-web-app</name>
     
-    
+    <!-- 不需要springboot请将springboot部分注释 -->
         
     <!-- springboot begin -->
     <dependencyManagement>
@@ -59,23 +59,8 @@
             <artifactId>httpmime</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-mp</artifactId>
-            <version>2.7.0</version>
-        </dependency>
 
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-common</artifactId>
-            <version>2.7.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpmime</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
 
         <dependency>
             <groupId>org.stategen.framework</groupId>
@@ -116,12 +101,35 @@
             <artifactId>snakeyaml</artifactId>
             <scope>test</scope>
         </dependency>
-		
-		<!--qiniu begin -->
+
+    <!--qiniu end -->
+    
+    <!-- weixin bean -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-open</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-pay</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-miniapp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-common</artifactId>
+        </dependency>               
+		<!-- weixin end -->
+
 
                
        <!-- springboot begin -->
-        <dependency>
+         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
@@ -149,17 +157,25 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                    <artifactId>tomcat-embed-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-        </dependency>
+            <scope>provided</scope>
+        </dependency> 
        <!-- springboot end -->
     </dependencies>
 
@@ -291,7 +307,7 @@
             </plugin>
 
            
-           <!-- springboot begin -->
+            <!-- springboot begin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -306,7 +322,7 @@
                     </execution>
                 </executions>
             </plugin>
-          <!-- springboot end --> 
+          <!-- springboot end -->
         </plugins>
 
         <pluginManagement>
