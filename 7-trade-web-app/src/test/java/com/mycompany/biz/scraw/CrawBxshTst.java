@@ -17,11 +17,11 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.spring.util.HttpsTrustManager;
-import org.stategen.framework.spring.util.HttpsUtil;
 import org.stategen.framework.util.BaseService;
 import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.CopyUtil;
+import org.stategen.framework.util.HttpsTrustManager;
+import org.stategen.framework.util.HttpsUtil;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

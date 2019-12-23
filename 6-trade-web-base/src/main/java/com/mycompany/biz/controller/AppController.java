@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.State;
+import org.stategen.framework.annotation.Wrap;
 import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.SimpleResponse;
 import org.stategen.framework.lite.enums.MenuType;
@@ -39,6 +40,7 @@ import io.swagger.annotations.ApiParam;
 
 @ApiConfig(menu = false)
 @RequestMapping("/api/app")
+@Wrap
 public class AppController {
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AppController.class);
 

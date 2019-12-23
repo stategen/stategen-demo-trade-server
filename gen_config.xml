@@ -42,8 +42,10 @@
     -->
     <typeHandler javaType="java.util.Currency" callback="org.stategen.framework.ibatis.typehandler.CurrencyHandlerCallback"/>
     <typeHandler javaType="java.util.Date" callback="org.stategen.framework.ibatis.typehandler.DateTypehandlerCallBack"/>
+    <typeHandler javaType="[B" jdbcType="LONGVARBINARY" callback="org.springframework.orm.ibatis.support.BlobByteArrayTypeHandler" />
     ]]>
     </entry>
+    <!-- <entry key="java_typemapping.byte[]">java.sql.Blob</entry> -->
 
     <!-- <entry key="java_typemapping.java.sql.Timestamp">java.time.LocalDateTime</entry>
         <entry key="java_typemapping.java.sql.Date">java.time.LocalDateTime</entry>

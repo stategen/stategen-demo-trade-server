@@ -46,8 +46,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.ibatis</groupId>
-            <artifactId>ibatis-sqlmap</artifactId>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis2</artifactId>
         </dependency>
 
     </dependencies>

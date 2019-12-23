@@ -58,7 +58,8 @@ public class H5FacadeProcessor extends BaseGenFacadeProcessor {
         GenContext.addStaticUtil(CollectionUtil.class);
         GenContext.tempDirs =Arrays.asList("/typescript/ts-api","/typescript/ts-umi","/typescript/ts-umi-h5");
         GenContext.outDir="app-frontend-h5/src/intergrade/";
-
+        //因为jekins中的没有运行环境，所以不能用spring配置读取
+        GenContext.extPackageNames =Arrays.asList("com.github.binarywang.stategen.wx.pay.controller");
 
         PathType[] pathTypes = PathType.values();
         for (PathType pathType : pathTypes) {
