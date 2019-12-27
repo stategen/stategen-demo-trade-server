@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="Menu_RM" class="com.mycompany.biz.domain.Menu">
+        <result property="menuId" column="menu_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="morder" column="morder" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+        <result property="bpid" column="bpid" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="mpid" column="mpid" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="projectName" column="project_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="controllerName" column="controller_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="methodName" column="method_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="url" column="url" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="icon" column="icon" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="route" column="route" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="menuType" column="menu_type" javaType="org.stategen.framework.lite.enums.MenuType" jdbcType="VARCHAR"  />
+        <result property="checkType" column="check_type" javaType="org.stategen.framework.lite.enums.VisitCheckType" jdbcType="VARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getMenuPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getMenusByMenuIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="Menu.insert">
+		insert into menu (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="menuId"> menu_id </isNotNull>
+            <isNotNull prepend="," property="morder"> morder </isNotNull>
+            <isNotNull prepend="," property="bpid"> bpid </isNotNull>
+            <isNotNull prepend="," property="mpid"> mpid </isNotNull>
+            <isNotNull prepend="," property="projectName"> project_name </isNotNull>
+            <isNotNull prepend="," property="controllerName"> controller_name </isNotNull>
+            <isNotNull prepend="," property="methodName"> method_name </isNotNull>
+            <isNotNull prepend="," property="url"> url </isNotNull>
+            <isNotNull prepend="," property="icon"> icon </isNotNull>
+            <isNotNull prepend="," property="name"> name </isNotNull>
+            <isNotNull prepend="," property="route"> route </isNotNull>
+            <isNotNull prepend="," property="menuType"> menu_type </isNotNull>
+            <isNotNull prepend="," property="checkType"> check_type </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="menuId"> #menuId# </isNotNull> 
+            <isNotNull prepend="," property="morder"> #morder# </isNotNull> 
+            <isNotNull prepend="," property="bpid"> #bpid# </isNotNull> 
+            <isNotNull prepend="," property="mpid"> #mpid# </isNotNull> 
+            <isNotNull prepend="," property="projectName"> #projectName# </isNotNull> 
+            <isNotNull prepend="," property="controllerName"> #controllerName# </isNotNull> 
+            <isNotNull prepend="," property="methodName"> #methodName# </isNotNull> 
+            <isNotNull prepend="," property="url"> #url# </isNotNull> 
+            <isNotNull prepend="," property="icon"> #icon# </isNotNull> 
+            <isNotNull prepend="," property="name"> #name# </isNotNull> 
+            <isNotNull prepend="," property="route"> #route# </isNotNull> 
+            <isNotNull prepend="," property="menuType"> #menuType# </isNotNull> 
+            <isNotNull prepend="," property="checkType"> #checkType# </isNotNull>)
+            <selectKey keyProperty="menuId" resultClass="long">
+                select  LAST_INSERT_ID()
+            </selectKey>
+	</insert>
+	
+	<update id="Menu.delete">
+		UPDATE menu SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and menu_id = #menuId#
+	</update>
+	
+    
+	
+	<update id="Menu.update">
+		UPDATE menu
+            SET update_time= CURRENT_TIMESTAMP(6)
+            
+                <isNotNull prepend="," property="morder">
+                    morder =  #morder# 
+                </isNotNull>
+                <isNotNull prepend="," property="bpid">
+                    bpid =  #bpid# 
+                </isNotNull>
+                <isNotNull prepend="," property="mpid">
+                    mpid =  #mpid# 
+                </isNotNull>
+                <isNotNull prepend="," property="projectName">
+                    project_name =  #projectName# 
+                </isNotNull>
+                <isNotNull prepend="," property="controllerName">
+                    controller_name =  #controllerName# 
+                </isNotNull>
+                <isNotNull prepend="," property="methodName">
+                    method_name =  #methodName# 
+                </isNotNull>
+                <isNotNull prepend="," property="url">
+                    url =  #url# 
+                </isNotNull>
+                <isNotNull prepend="," property="icon">
+                    icon =  #icon# 
+                </isNotNull>
+                <isNotNull prepend="," property="name">
+                    name =  #name# 
+                </isNotNull>
+                <isNotNull prepend="," property="route">
+                    route =  #route# 
+                </isNotNull>
+                <isNotNull prepend="," property="menuType">
+                    menu_type =  #menuType# 
+                </isNotNull>
+                <isNotNull prepend="," property="checkType">
+                    check_type =  #checkType# 
+                </isNotNull>
+            where
+            delete_flag = 0
+            and menu_id = #menuId#
+	</update>
+	
+    
+	
+	<select id="Menu.getMenuByMenuId" resultMap="Menu_RM" >
+    	select
+ /* getMenuByMenuId.Menu */             a.menu_id,
+            a.morder,
+            a.bpid,
+            a.mpid,
+            a.project_name,
+            a.controller_name,
+            a.method_name,
+            a.url,
+            a.icon,
+            a.name,
+            a.route,
+            a.menu_type,
+            a.check_type,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from menu a
+            where
+            a.delete_flag = 0
+            and a.menu_id = #menuId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="Menu.getPageList" resultMap="Menu_RM" >
+    	select
+ /* getPageList.Menu */             a.menu_id,
+            a.morder,
+            a.bpid,
+            a.mpid,
+            a.project_name,
+            a.controller_name,
+            a.method_name,
+            a.url,
+            a.icon,
+            a.name,
+            a.route,
+            a.menu_type,
+            a.check_type,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from menu a
+            where
+            a.delete_flag = 0
+            <isNotNull property="menuId">
+               and a.menu_id=#menuId#
+            </isNotNull>
+            <isNotEmpty property="menuIds">
+                and a.menu_id in
+                <iterate close=")" conjunction="," open="(" property="menuIds">
+                    #menuIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="morder">
+                and a.morder=#morder#
+          </isNotNull>
+            <isNotNull property="morderMin">
+                and a.morder >=#morderMin#
+            </isNotNull>
+            <isNotNull property="morderMax">
+                and a.morder &lt;#morderMax#
+            </isNotNull>
+            <isNotNull property="bpid">
+               and a.bpid=#bpid#
+            </isNotNull>
+            <isNotEmpty property="bpids">
+                and a.bpid in
+                <iterate close=")" conjunction="," open="(" property="bpids">
+                    #bpids[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="mpid">
+               and a.mpid=#mpid#
+            </isNotNull>
+            <isNotEmpty property="mpids">
+                and a.mpid in
+                <iterate close=")" conjunction="," open="(" property="mpids">
+                    #mpids[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="projectName">
+            and a.project_name=#projectName#
+          </isNotNull>
+            <isNotEmpty property="projectNameLike">
+                and a.project_name like CONCAT('%',#projectNameLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="controllerName">
+            and a.controller_name=#controllerName#
+          </isNotNull>
+            <isNotEmpty property="controllerNameLike">
+                and a.controller_name like CONCAT('%',#controllerNameLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="methodName">
+            and a.method_name=#methodName#
+          </isNotNull>
+            <isNotEmpty property="methodNameLike">
+                and a.method_name like CONCAT('%',#methodNameLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="name">
+            and a.name=#name#
+          </isNotNull>
+            <isNotEmpty property="nameLike">
+                and a.name like CONCAT('%',#nameLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="route">
+            and a.route=#route#
+          </isNotNull>
+            <isNotEmpty property="routeLike">
+                and a.route like CONCAT('%',#routeLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="menuType">
+               and a.menu_type=#menuType#
+            </isNotNull>
+            <isNotEmpty property="menuTypes">
+                and a.menu_type in
+                <iterate close=")" conjunction="," open="(" property="menuTypes">
+                    #menuTypes[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="checkType">
+               and a.check_type=#checkType#
+            </isNotNull>
+            <isNotEmpty property="checkTypes">
+                and a.check_type in
+                <iterate close=")" conjunction="," open="(" property="checkTypes">
+                    #checkTypes[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="menuId">
+            <isEmpty property="menuIds">
+            <isNull property="morder">
+            <isNull property="morderMin">
+            <isNull property="morderMax">
+            <isNull property="bpid">
+            <isEmpty property="bpids">
+            <isNull property="mpid">
+            <isEmpty property="mpids">
+            <isNull property="projectName">
+            <isEmpty property="projectNameLike">
+            <isNull property="controllerName">
+            <isEmpty property="controllerNameLike">
+            <isNull property="methodName">
+            <isEmpty property="methodNameLike">
+            <isNull property="name">
+            <isEmpty property="nameLike">
+            <isNull property="route">
+            <isEmpty property="routeLike">
+            <isNull property="menuType">
+            <isEmpty property="menuTypes">
+            <isNull property="checkType">
+            <isEmpty property="checkTypes">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getMenuPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="Menu.getPageList_count" resultClass="long" >
+    	select  /* Menu.getPageList_count */ count(*)  from menu a
+            where
+            a.delete_flag = 0
+            <isNotNull property="menuId">
+               and a.menu_id=#menuId#
+            </isNotNull>
+            <isNotEmpty property="menuIds">
+                and a.menu_id in
+                <iterate close=")" conjunction="," open="(" property="menuIds">
+                    #menuIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="morder">
+                and a.morder=#morder#
+          </isNotNull>
+            <isNotNull property="morderMin">
+                and a.morder >=#morderMin#
+            </isNotNull>
+            <isNotNull property="morderMax">
+                and a.morder &lt;#morderMax#
+            </isNotNull>
+            <isNotNull property="bpid">
+               and a.bpid=#bpid#
+            </isNotNull>
+            <isNotEmpty property="bpids">
+                and a.bpid in
+                <iterate close=")" conjunction="," open="(" property="bpids">
+                    #bpids[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="mpid">
+               and a.mpid=#mpid#
+            </isNotNull>
+            <isNotEmpty property="mpids">
+                and a.mpid in
+                <iterate close=")" conjunction="," open="(" property="mpids">
+                    #mpids[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="projectName">
+            and a.project_name=#projectName#
+          </isNotNull>
+            <isNotEmpty property="projectNameLike">
+                and a.project_name like CONCAT('%',#projectNameLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="controllerName">
+            and a.controller_name=#controllerName#
+          </isNotNull>
+            <isNotEmpty property="controllerNameLike">
+                and a.controller_name like CONCAT('%',#controllerNameLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="methodName">
+            and a.method_name=#methodName#
+          </isNotNull>
+            <isNotEmpty property="methodNameLike">
+                and a.method_name like CONCAT('%',#methodNameLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="name">
+            and a.name=#name#
+          </isNotNull>
+            <isNotEmpty property="nameLike">
+                and a.name like CONCAT('%',#nameLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="route">
+            and a.route=#route#
+          </isNotNull>
+            <isNotEmpty property="routeLike">
+                and a.route like CONCAT('%',#routeLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="menuType">
+               and a.menu_type=#menuType#
+            </isNotNull>
+            <isNotEmpty property="menuTypes">
+                and a.menu_type in
+                <iterate close=")" conjunction="," open="(" property="menuTypes">
+                    #menuTypes[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="checkType">
+               and a.check_type=#checkType#
+            </isNotNull>
+            <isNotEmpty property="checkTypes">
+                and a.check_type in
+                <iterate close=")" conjunction="," open="(" property="checkTypes">
+                    #checkTypes[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="menuId">
+            <isEmpty property="menuIds">
+            <isNull property="morder">
+            <isNull property="morderMin">
+            <isNull property="morderMax">
+            <isNull property="bpid">
+            <isEmpty property="bpids">
+            <isNull property="mpid">
+            <isEmpty property="mpids">
+            <isNull property="projectName">
+            <isEmpty property="projectNameLike">
+            <isNull property="controllerName">
+            <isEmpty property="controllerNameLike">
+            <isNull property="methodName">
+            <isEmpty property="methodNameLike">
+            <isNull property="name">
+            <isEmpty property="nameLike">
+            <isNull property="route">
+            <isEmpty property="routeLike">
+            <isNull property="menuType">
+            <isEmpty property="menuTypes">
+            <isNull property="checkType">
+            <isEmpty property="checkTypes">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="Menu.getMenusByMenuIds" resultMap="Menu_RM" >
+    	select
+ /* getMenusByMenuIds.Menu */             a.menu_id,
+            a.morder,
+            a.bpid,
+            a.mpid,
+            a.project_name,
+            a.controller_name,
+            a.method_name,
+            a.url,
+            a.icon,
+            a.name,
+            a.route,
+            a.menu_type,
+            a.check_type,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from menu a
+            where
+            a.delete_flag = 0
+            <isEmpty property="menuIds">
+            and 1=0
+            </isEmpty>
+            <isNotEmpty property="menuIds">
+                and a.menu_id in
+                <iterate close=")" conjunction="," open="(" property="menuIds">
+                    #menuIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getMenusByMenuIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="Menu.deleteByMenuIds">
+		UPDATE menu SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="menuIds">
+                and 1=0
+            </isEmpty>
+            <isNotEmpty property="menuIds">
+                and menu_id in
+                <iterate close=")" conjunction="," open="(" property="menuIds">
+                    #menuIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+    <resultMap id="getMenusByProjectName_Menu_RM" class="com.mycompany.biz.domain.Menu">
+        <result property="menuId" column="menu_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="mpid" column="mpid" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="bpid" column="bpid" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="projectName" column="project_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="controllerName" column="controller_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="methodName" column="method_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="url" column="url" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="icon" column="icon" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="route" column="route" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="menuType" column="menu_type" javaType="org.stategen.framework.lite.enums.MenuType" jdbcType="VARCHAR"  />
+        <result property="checkType" column="check_type" javaType="org.stategen.framework.lite.enums.VisitCheckType" jdbcType="VARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+	
+	<select id="Menu.getMenusByProjectName" resultMap="getMenusByProjectName_Menu_RM" >
+    	select
+ /* getMenusByProjectName.Menu */             a.menu_id,
+            a.mpid,
+            a.bpid,
+            a.project_name,
+            a.controller_name,
+            a.method_name,
+            a.url,
+            a.icon,
+            a.name,
+            a.route,
+            a.menu_type,
+            a.check_type,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from menu a
+            where
+            a.delete_flag = 0
+            
+            <isNotEmpty property="menuType">
+              and a.menu_type=#menuType#
+            </isNotEmpty>
+            order by
+            a.morder is null, a.morder
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="Menu.getMenusByUserId" resultClass="Long" >
+    	select
+ /* getMenusByUserId.Menu */             a.menu_id
+            from menu a
+            left join role_menu rm on rm.menu_id=a.menu_id
+            left JOIN role r on r.role_id=rm.role_id
+            left JOIN user_role
+            ur on ur.role_id =r.role_id
+            where
+            a.delete_flag = 0
+            and rm.delete_flag=0
+            and r.delete_flag=0
+            and ur.delete_flag=0
+            and ur.user_id=#userId#
+            <isNotEmpty property="menuType">
+                and a.menu_type=#menuType#
+            </isNotEmpty>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="Menu.forceUpdateById">
+		UPDATE menu
+            SET update_time= CURRENT_TIMESTAMP(6)
+            ,mpid = #mpid#
+            ,bpid = #bpid#
+            ,project_name = #projectName#
+            ,controller_name = #controllerName#
+            ,method_name = #methodName#
+            ,url = #url#
+            ,icon = #icon#
+            ,name = #name#
+            ,route = #route#
+            ,menu_type = #menuType#
+            ,check_type = #checkType#
+            ,delete_flag = #deleteFlag#
+            where
+            menu_id = #menuId#
+	</update>
+	
+    
+
+</sqlMap>
+

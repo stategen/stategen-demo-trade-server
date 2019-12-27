@@ -19,8 +19,11 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.RegionType;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * Region
@@ -35,7 +38,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@Accessors(chain = true)
 @OptionConvertor(parentId = "parentRegionId", label = "name")
+@AllArgsConstructor
 public class Region implements java.io.Serializable, IOption {
 
     private Boolean isLeaf;

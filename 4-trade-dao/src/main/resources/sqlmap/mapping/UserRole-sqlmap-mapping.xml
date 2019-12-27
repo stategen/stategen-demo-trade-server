@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="UserRole_RM" class="com.mycompany.biz.domain.UserRole">
+        <result property="id" column="id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="userId" column="user_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="roleId" column="role_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="roleType" column="role_type" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getUserRolePageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getUserRolesByIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="UserRole.insert">
+		insert into user_role (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="id"> id </isNotNull>
+            <isNotNull prepend="," property="userId"> user_id </isNotNull>
+            <isNotNull prepend="," property="roleId"> role_id </isNotNull>
+            <isNotNull prepend="," property="roleType"> role_type </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="id"> #id# </isNotNull> 
+            <isNotNull prepend="," property="userId"> #userId# </isNotNull> 
+            <isNotNull prepend="," property="roleId"> #roleId# </isNotNull> 
+            <isNotNull prepend="," property="roleType"> #roleType# </isNotNull>)
+            <selectKey keyProperty="id" resultClass="long">
+                select  LAST_INSERT_ID()
+            </selectKey>
+	</insert>
+	
+	<update id="UserRole.delete">
+		UPDATE user_role SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and id = #id#
+	</update>
+	
+    
+	
+	<update id="UserRole.update">
+		UPDATE user_role
+            SET update_time= CURRENT_TIMESTAMP(6)
+            
+                <isNotNull prepend="," property="userId">
+                    user_id =  #userId# 
+                </isNotNull>
+                <isNotNull prepend="," property="roleId">
+                    role_id =  #roleId# 
+                </isNotNull>
+                <isNotNull prepend="," property="roleType">
+                    role_type =  #roleType# 
+                </isNotNull>
+            where
+            delete_flag = 0
+            and id = #id#
+	</update>
+	
+    
+	
+	<select id="UserRole.getUserRoleById" resultMap="UserRole_RM" >
+    	select
+ /* getUserRoleById.UserRole */             a.id,
+            a.user_id,
+            a.role_id,
+            a.role_type,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from user_role a
+            where
+            a.delete_flag = 0
+            and a.id = #id#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="UserRole.getPageList" resultMap="UserRole_RM" >
+    	select
+ /* getPageList.UserRole */             a.id,
+            a.user_id,
+            a.role_id,
+            a.role_type,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from user_role a
+            where
+            a.delete_flag = 0
+            <isNotNull property="id">
+               and a.id=#id#
+            </isNotNull>
+            <isNotEmpty property="ids">
+                and a.id in
+                <iterate close=")" conjunction="," open="(" property="ids">
+                    #ids[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="userId">
+               and a.user_id=#userId#
+            </isNotNull>
+            <isNotEmpty property="userIds">
+                and a.user_id in
+                <iterate close=")" conjunction="," open="(" property="userIds">
+                    #userIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="roleId">
+               and a.role_id=#roleId#
+            </isNotNull>
+            <isNotEmpty property="roleIds">
+                and a.role_id in
+                <iterate close=")" conjunction="," open="(" property="roleIds">
+                    #roleIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="roleType">
+               and a.role_type=#roleType#
+            </isNotNull>
+            <isNotEmpty property="roleTypes">
+                and a.role_type in
+                <iterate close=")" conjunction="," open="(" property="roleTypes">
+                    #roleTypes[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="id">
+            <isEmpty property="ids">
+            <isNull property="userId">
+            <isEmpty property="userIds">
+            <isNull property="roleId">
+            <isEmpty property="roleIds">
+            <isNull property="roleType">
+            <isEmpty property="roleTypes">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getUserRolePageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="UserRole.getPageList_count" resultClass="long" >
+    	select  /* UserRole.getPageList_count */ count(*)  from user_role a
+            where
+            a.delete_flag = 0
+            <isNotNull property="id">
+               and a.id=#id#
+            </isNotNull>
+            <isNotEmpty property="ids">
+                and a.id in
+                <iterate close=")" conjunction="," open="(" property="ids">
+                    #ids[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="userId">
+               and a.user_id=#userId#
+            </isNotNull>
+            <isNotEmpty property="userIds">
+                and a.user_id in
+                <iterate close=")" conjunction="," open="(" property="userIds">
+                    #userIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="roleId">
+               and a.role_id=#roleId#
+            </isNotNull>
+            <isNotEmpty property="roleIds">
+                and a.role_id in
+                <iterate close=")" conjunction="," open="(" property="roleIds">
+                    #roleIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="roleType">
+               and a.role_type=#roleType#
+            </isNotNull>
+            <isNotEmpty property="roleTypes">
+                and a.role_type in
+                <iterate close=")" conjunction="," open="(" property="roleTypes">
+                    #roleTypes[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="id">
+            <isEmpty property="ids">
+            <isNull property="userId">
+            <isEmpty property="userIds">
+            <isNull property="roleId">
+            <isEmpty property="roleIds">
+            <isNull property="roleType">
+            <isEmpty property="roleTypes">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="UserRole.getUserRolesByIds" resultMap="UserRole_RM" >
+    	select
+ /* getUserRolesByIds.UserRole */             a.id,
+            a.user_id,
+            a.role_id,
+            a.role_type,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from user_role a
+            where
+            a.delete_flag = 0
+            <isEmpty property="ids">
+            and 1=0
+            </isEmpty>
+            <isNotEmpty property="ids">
+                and a.id in
+                <iterate close=")" conjunction="," open="(" property="ids">
+                    #ids[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getUserRolesByIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="UserRole.deleteByIds">
+		UPDATE user_role SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="ids">
+                and 1=0
+            </isEmpty>
+            <isNotEmpty property="ids">
+                and id in
+                <iterate close=")" conjunction="," open="(" property="ids">
+                    #ids[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+
+</sqlMap>
+

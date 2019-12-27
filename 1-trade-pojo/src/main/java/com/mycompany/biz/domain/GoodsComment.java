@@ -18,8 +18,11 @@ import org.stategen.framework.lite.enums.EditorType;
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * GoodsComment
@@ -34,7 +37,15 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@Accessors(chain = true)
+@AllArgsConstructor
 public class GoodsComment implements java.io.Serializable {
+
+    /*** commentsLike in getPageList */
+    @ApiModelProperty("commentsLike")
+    @JSONField(serialize = false)
+    private String commentsLike;
 
     private static final long serialVersionUID = -5216457518046898601L;
 
@@ -90,7 +101,6 @@ public class GoodsComment implements java.io.Serializable {
         sb.append('{');
         sb.append("commentsIds=").append(commentsIds).append('\n');
         sb.append("goodsIds=").append(goodsIds).append('\n');
-        sb.append("commentsLike=").append(commentsLike).append('\n');
         sb.append("userNameLike=").append(userNameLike).append('\n');
         sb.append("discussTimeMin=").append(discussTimeMin != null ? df.format(discussTimeMin) : null).append('\n');
         sb.append("discussTimeMax=").append(discussTimeMax != null ? df.format(discussTimeMax) : null).append('\n');
@@ -122,11 +132,6 @@ public class GoodsComment implements java.io.Serializable {
     @ApiModelProperty("goodsId s")
     @JSONField(serialize = false)
     private java.util.List<String> goodsIds;
-
-    /*** commentsLike in getPageList */
-    @ApiModelProperty("commentsLike")
-    @JSONField(serialize = false)
-    private String commentsLike;
 
     /*** userNameLike in getPageList */
     @ApiModelProperty("userNameLike")

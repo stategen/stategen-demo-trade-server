@@ -46,14 +46,14 @@
             from demo_region a
             where
             a.delete_flag = 0
-            <isNotEmpty property="parentRegionIds" open="and">
-                a.parent_region_id in
+            <isNotEmpty property="parentRegionIds">
+                and a.parent_region_id in
                 <iterate property="parentRegionIds" conjunction="," open="(" close=")">
                     #parentRegionIds[]#
                 </iterate>
             </isNotEmpty>
-            <isEmpty property="parentRegionIds" open="and">
-                a.parent_region_id =0
+            <isEmpty property="parentRegionIds">
+                and a.parent_region_id =0
             </isEmpty>
         </sql>
     </operation>
@@ -72,11 +72,11 @@
             from demo_region a
             where
             a.delete_flag = 0
-            <isEmpty property="regionIds" open="and">
-                1=0
+            <isEmpty property="regionIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="regionIds" open="and">
-                a.region_id in
+            <isNotEmpty property="regionIds">
+                and a.region_id in
                 <iterate property="regionIds" conjunction="," open="(" close=")">
                     #regionIds[]#
                 </iterate>

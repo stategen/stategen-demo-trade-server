@@ -9,13 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mycompany.biz.domain.Menu;
-import com.mycompany.biz.dao.MenuDao;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.stategen.framework.ibatis.util.PageQueryUtils;
 import org.stategen.framework.lite.PageList;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+import com.mycompany.biz.dao.MenuDao;
+import com.mycompany.biz.domain.Menu;
 
 /**
  * MenuDao
@@ -27,117 +27,111 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
  * 该类仅可以修改引用
  * </pre>
  */
-public class MenuDaoImpl  extends SqlMapClientDaoSupport implements MenuDao {
+public class MenuDaoImpl extends SqlDaoSupportBase implements MenuDao {
 
-	/**
+    /**
 	 * 
 	 * sql:insert into menu ( create_time , update_time , delete_flag , menu_id , morder , bpid , mpid , project_name , controller_name , method_name , url , icon , name , route , menu_type , check_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
-	public Menu insert(Menu menu) throws DataAccessException {
-		if(menu == null) {
-			throw new IllegalArgumentException("Can't insert a null data object into db.");
-		}
-        getSqlMapClientTemplate().insert("insert.Menu.trade", menu);
-		return menu;
-	}
+    public Menu insert(Menu menu) throws DataAccessException {
+        if (menu == null) {
+            throw new IllegalArgumentException("Can't insert a null data object into db.");
+        }
+        super.insert("Menu.insert", menu);
+        return menu;
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE menu SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and menu_id = ?
 	 */
-	public Long delete(Long menuId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("menuId",menuId);
-        getSqlMapClientTemplate().update("delete.Menu.trade", params);
+    public Long delete(Long menuId) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("menuId", menuId);
+        super.update("Menu.delete", params);
         return menuId;
-	}
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE menu SET update_time= CURRENT_TIMESTAMP(6) , morder = ? , bpid = ? , mpid = ? , project_name = ? , controller_name = ? , method_name = ? , url = ? , icon = ? , name = ? , route = ? , menu_type = ? , check_type = ? where delete_flag = 0 and menu_id = ?
 	 */
-	public Menu update(Menu menu) throws DataAccessException {
-		if(menu == null) {
-			throw new IllegalArgumentException("Can't update by a null data object.");
-		}
-        getSqlMapClientTemplate().update("update.Menu.trade", menu);
-		return menu;
-	}
+    public Menu update(Menu menu) throws DataAccessException {
+        if (menu == null) {
+            throw new IllegalArgumentException("Can't update by a null data object.");
+        }
+        super.update("Menu.update", menu);
+        return menu;
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_id = ?
 	 */
-	public Menu getMenuByMenuId(Long menuId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("menuId",menuId);
-		return (Menu)getSqlMapClientTemplate().queryForObject("getMenuByMenuId.Menu.trade",params);
-	}
+    public Menu getMenuByMenuId(Long menuId) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("menuId", menuId);
+        return (Menu) super.selectOne("Menu.getMenuByMenuId", params);
+    }
 
-	/**
+    /**
 	 * 
-	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_id=? and a.menu_id in ( ? ) and a.morder >=? and a.morder <? and a.bpid=? and a.bpid in ( ? ) and a.mpid=? and a.mpid in ( ? ) and a.project_name=? and a.project_name like CONCAT('%',?,'%') and a.controller_name=? and a.controller_name like CONCAT('%',?,'%') and a.method_name=? and a.method_name like CONCAT('%',?,'%') and a.name=? and a.name like CONCAT('%',?,'%') and a.route=? and a.route like CONCAT('%',?,'%') and a.menu_type=? and a.menu_type in ( ? ) and a.check_type=? and a.check_type in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_id=? and a.menu_id in ( ? ) and a.morder=? and a.morder >=? and a.morder <? and a.bpid=? and a.bpid in ( ? ) and a.mpid=? and a.mpid in ( ? ) and a.project_name=? and a.project_name like CONCAT('%',?,'%') and a.controller_name=? and a.controller_name like CONCAT('%',?,'%') and a.method_name=? and a.method_name like CONCAT('%',?,'%') and a.name=? and a.name like CONCAT('%',?,'%') and a.route=? and a.route like CONCAT('%',?,'%') and a.menu_type=? and a.menu_type in ( ? ) and a.check_type=? and a.check_type in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-    @SuppressWarnings("unchecked")
-	public PageList<Menu> getPageList(Menu menu, int pageSize, int pageNum) throws DataAccessException {
-		return (PageList<Menu>)PageQueryUtils.pageQuery(getSqlMapClientTemplate(),"getPageList.Menu.trade",menu,pageNum,pageSize);
-	}
+    public PageList<Menu> getPageList(Menu menu, int pageSize, int pageNum) throws DataAccessException {
+        return super.pageQuery("Menu.getPageList", menu, pageNum, pageSize);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and 1=0 and a.menu_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
-    @SuppressWarnings("unchecked")
-	public List<Menu> getMenusByMenuIds(java.util.List<Long> menuIds) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("menuIds",menuIds);
-		return (List<Menu>)getSqlMapClientTemplate().queryForList("getMenusByMenuIds.Menu.trade",params);
-	}
+    public List<Menu> getMenusByMenuIds(java.util.List<Long> menuIds) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("menuIds", menuIds);
+        return super.selectList("Menu.getMenusByMenuIds", params);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE menu SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and menu_id in ( ? )
 	 */
-	public java.util.List<Long> deleteByMenuIds(java.util.List<Long> menuIds) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("menuIds",menuIds);
-        getSqlMapClientTemplate().update("deleteByMenuIds.Menu.trade", params);
+    public java.util.List<Long> deleteByMenuIds(java.util.List<Long> menuIds) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("menuIds", menuIds);
+        super.update("Menu.deleteByMenuIds", params);
         return menuIds;
-	}
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.menu_id, a.mpid, a.bpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_type=? order by a.morder is null, a.morder
 	 */
-    @SuppressWarnings("unchecked")
-	public List<Menu> getMenusByProjectName(org.stategen.framework.lite.enums.MenuType menuType) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("menuType",menuType);
-		return (List<Menu>)getSqlMapClientTemplate().queryForList("getMenusByProjectName.Menu.trade",params);
-	}
+    public List<Menu> getMenusByProjectName(org.stategen.framework.lite.enums.MenuType menuType) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("menuType", menuType);
+        return super.selectList("Menu.getMenusByProjectName", params);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.menu_id from menu a left join role_menu rm on rm.menu_id=a.menu_id left JOIN role r on r.role_id=rm.role_id left JOIN user_role ur on ur.role_id =r.role_id where a.delete_flag = 0 and rm.delete_flag=0 and r.delete_flag=0 and ur.delete_flag=0 and ur.user_id=? and a.menu_type=?
 	 */
-    @SuppressWarnings("unchecked")
-	public List<Long> getMenusByUserId(String userId, org.stategen.framework.lite.enums.MenuType menuType) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(2);
-		params.put("userId",userId);
-		params.put("menuType",menuType);
-		return (List<Long>)getSqlMapClientTemplate().queryForList("getMenusByUserId.Menu.trade",params);
-	}
+    public List<Long> getMenusByUserId(String userId, org.stategen.framework.lite.enums.MenuType menuType) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(2);
+        params.put("userId", userId);
+        params.put("menuType", menuType);
+        return super.selectList("Menu.getMenusByUserId", params);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE menu SET update_time= CURRENT_TIMESTAMP(6) ,mpid = ? ,bpid = ? ,project_name = ? ,controller_name = ? ,method_name = ? ,url = ? ,icon = ? ,name = ? ,route = ? ,menu_type = ? ,check_type = ? ,delete_flag = ? where menu_id = ?
 	 */
-	public Long forceUpdateById(Menu menu) throws DataAccessException {
-		if(menu == null) {
-			throw new IllegalArgumentException("Can't update by a null data object.");
-		}
-		return (long)getSqlMapClientTemplate().update("forceUpdateById.Menu.trade", menu);
-	}
-
+    public Long forceUpdateById(Menu menu) throws DataAccessException {
+        if (menu == null) {
+            throw new IllegalArgumentException("Can't update by a null data object.");
+        }
+        return (long) super.update("Menu.forceUpdateById", menu);
+    }
 }
-

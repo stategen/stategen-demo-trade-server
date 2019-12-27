@@ -19,8 +19,11 @@ import org.stategen.framework.lite.enums.EditorType;
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * Category
@@ -35,9 +38,17 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@Accessors(chain = true)
+@AllArgsConstructor
 public class Category implements java.io.Serializable {
 
     List<CategorySub> categorySubs;
+
+    /*** 描述Like in getPageList */
+    @ApiModelProperty("描述Like")
+    @JSONField(serialize = false)
+    private String commentsLike;
 
     private static final long serialVersionUID = -5216457518046898601L;
 
@@ -84,7 +95,6 @@ public class Category implements java.io.Serializable {
         sb.append('{');
         sb.append("categoryIds=").append(categoryIds).append('\n');
         sb.append("categoryNameLike=").append(categoryNameLike).append('\n');
-        sb.append("commentsLike=").append(commentsLike).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin=").append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
@@ -109,11 +119,6 @@ public class Category implements java.io.Serializable {
     @ApiModelProperty("大类目录名称Like")
     @JSONField(serialize = false)
     private String categoryNameLike;
-
-    /*** 描述Like in getPageList */
-    @ApiModelProperty("描述Like")
-    @JSONField(serialize = false)
-    private String commentsLike;
 
     /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")

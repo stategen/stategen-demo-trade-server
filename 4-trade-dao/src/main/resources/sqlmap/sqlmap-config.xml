@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<!-- =========================================================== -->
+<!-- sqlMapConfig for ibatis sqlmap mapping===================== -->
+<!-- =========================================================== -->
+<sqlMapConfig>
+    <settings cacheModelsEnabled="true" 
+                   enhancementEnabled="false" 
+                   lazyLoadingEnabled="false" 
+                   maxRequests="3000" 
+                   maxSessions="3000"
+                   maxTransactions="3000" 
+                   useStatementNamespaces="false" />
+
+<!-- ============================================================= -->
+<!-- 相关 typeHandler 请配置在gen_config.xml内，不要在此处修改======= -->
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<!-- ============================================================= -->
+
+     
+    <!-- 
+    <typeHandler javaType="com.iwallet.biz.common.util.money.Money" callback="com.alipay.common.ibatis.typehandler.MoneyTypeHandler"/>
+    -->
+    <typeHandler javaType="java.util.Currency" callback="org.stategen.framework.ibatis.typehandler.CurrencyHandlerCallback"/>
+    <typeHandler javaType="java.util.Date" callback="org.stategen.framework.ibatis.typehandler.DateTypehandlerCallBack"/>
+    <typeHandler javaType="[B" jdbcType="LONGVARBINARY" callback="org.springframework.orm.ibatis.support.BlobByteArrayTypeHandler" />
+    
+    
+
+    <sqlMap resource="sqlmap/mapping/_common-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/AdvertisePicture-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/Category-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/CategorySub-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/City-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/FileSummary-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/Floor-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/FloorGoods-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/Goods-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/GoodsComment-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/HomeAdvertise-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/HomeGoods-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/HomeShop-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/Hoppy-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/Menu-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/Province-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/Region-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/Role-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/RoleMenu-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/Shop-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/Slide-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/Topic-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/TopicReply-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/TopicUp-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/User-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/UserHoppy-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/UserRole-sqlmap-mapping.xml" />
+</sqlMapConfig>

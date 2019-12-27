@@ -43,14 +43,14 @@
             demo_topic_reply b
             WHERE
             b.delete_flag = 0
-            <isNotEmpty property="topicIds" open="and">
-                b.topic_id in
+            <isNotEmpty property="topicIds">
+                and b.topic_id in
                 <iterate property="topicIds" conjunction="," open="(" close=")">
                     #topicIds[]#
                 </iterate>
             </isNotEmpty>
-            <isEmpty property="topicIds" open="and">
-                1=0
+            <isEmpty property="topicIds">
+                and 1=0
             </isEmpty>
             GROUP BY b.topic_id
         </sql>

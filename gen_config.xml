@@ -35,7 +35,14 @@
     <entry key="tableRemovePrefixes">br_,demo_</entry>
     <entry key="lombok">true</entry>
 
-    <entry key="typeHandlers">
+    <entry key="mybatisTypeHandlers">
+    <![CDATA[ 
+      <typeHandlers>
+        <!-- <typeHandler javaType="java.util.Date" handler="org.stategen.framework.mybatis.DateTypeHandler"/> -->
+      </typeHandlers>  
+    ]]>    
+    </entry>
+    <entry key="ibatisTypeHandlers">
     <![CDATA[ 
     <!-- 
     <typeHandler javaType="com.iwallet.biz.common.util.money.Money" callback="com.alipay.common.ibatis.typehandler.MoneyTypeHandler"/>
@@ -45,6 +52,8 @@
     <typeHandler javaType="[B" jdbcType="LONGVARBINARY" callback="org.springframework.orm.ibatis.support.BlobByteArrayTypeHandler" />
     ]]>
     </entry>
+    
+    
     <!-- <entry key="java_typemapping.byte[]">java.sql.Blob</entry> -->
 
     <!-- <entry key="java_typemapping.java.sql.Timestamp">java.time.LocalDateTime</entry>
@@ -58,5 +67,8 @@
 
     <entry key="jdbc_username">stategen</entry>
     <entry key="jdbc_password">stategen</entry>
+    
+    <entry key="dao_type">mybatis</entry>
+    <entry key="dao_type">ibatis</entry>
 
 </properties>

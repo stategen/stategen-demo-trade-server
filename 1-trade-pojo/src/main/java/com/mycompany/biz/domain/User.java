@@ -26,8 +26,11 @@ import com.mycompany.biz.enums.RoleType;
 import com.mycompany.biz.enums.StatusEnum;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * User
@@ -42,6 +45,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@Accessors(chain = true)
+@AllArgsConstructor
 public class User implements java.io.Serializable {
 
     @ApiModelProperty("用户可访问的节点")
@@ -67,6 +73,11 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("头像")
     @Max(255)
     private FileSummary avatarImg;
+
+    /*** remarkLike in getPageList */
+    @ApiModelProperty("remarkLike")
+    @JSONField(serialize = false)
+    private String remarkLike;
 
     private static final long serialVersionUID = -5216457518046898601L;
 
@@ -237,7 +248,6 @@ public class User implements java.io.Serializable {
         sb.append("gradeMin=").append(gradeMin).append('\n');
         sb.append("gradeMax=").append(gradeMax).append('\n');
         sb.append("postAddressIds=").append(postAddressIds).append('\n');
-        sb.append("remarkLike=").append(remarkLike).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin=").append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
@@ -405,11 +415,6 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("邮寄地址 s")
     @JSONField(serialize = false)
     private java.util.List<Long> postAddressIds;
-
-    /*** remarkLike in getPageList */
-    @ApiModelProperty("remarkLike")
-    @JSONField(serialize = false)
-    private String remarkLike;
 
     /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")

@@ -9,13 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mycompany.biz.domain.Province;
-import com.mycompany.biz.dao.ProvinceDao;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.stategen.framework.ibatis.util.PageQueryUtils;
 import org.stategen.framework.lite.PageList;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+import com.mycompany.biz.dao.ProvinceDao;
+import com.mycompany.biz.domain.Province;
 
 /**
  * ProvinceDao
@@ -27,92 +27,87 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
  * 该类仅可以修改引用
  * </pre>
  */
-public class ProvinceDaoImpl  extends SqlMapClientDaoSupport implements ProvinceDao {
+public class ProvinceDaoImpl extends SqlDaoSupportBase implements ProvinceDao {
 
-	/**
+    /**
 	 * 
 	 * sql:insert into demo_province ( create_time , update_time , delete_flag , province_id , name , pycode ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public Province insert(Province province) throws DataAccessException {
-		if(province == null) {
-			throw new IllegalArgumentException("Can't insert a null data object into db.");
-		}
-        getSqlMapClientTemplate().insert("insert.Province.trade", province);
-		return province;
-	}
+    public Province insert(Province province) throws DataAccessException {
+        if (province == null) {
+            throw new IllegalArgumentException("Can't insert a null data object into db.");
+        }
+        super.insert("Province.insert", province);
+        return province;
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE demo_province SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and province_id = ?
 	 */
-	public String delete(String provinceId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("provinceId",provinceId);
-        getSqlMapClientTemplate().update("delete.Province.trade", params);
+    public String delete(String provinceId) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("provinceId", provinceId);
+        super.update("Province.delete", params);
         return provinceId;
-	}
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE demo_province SET update_time= CURRENT_TIMESTAMP(6) , name = ? , pycode = ? where delete_flag = 0 and province_id = ?
 	 */
-	public Province update(Province province) throws DataAccessException {
-		if(province == null) {
-			throw new IllegalArgumentException("Can't update by a null data object.");
-		}
-        getSqlMapClientTemplate().update("update.Province.trade", province);
-		return province;
-	}
+    public Province update(Province province) throws DataAccessException {
+        if (province == null) {
+            throw new IllegalArgumentException("Can't update by a null data object.");
+        }
+        super.update("Province.update", province);
+        return province;
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.province_id, a.name, a.pycode, a.create_time, a.update_time, a.delete_flag from demo_province a where a.delete_flag = 0 and a.province_id = ?
 	 */
-	public Province getProvinceByProvinceId(String provinceId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("provinceId",provinceId);
-		return (Province)getSqlMapClientTemplate().queryForObject("getProvinceByProvinceId.Province.trade",params);
-	}
+    public Province getProvinceByProvinceId(String provinceId) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("provinceId", provinceId);
+        return (Province) super.selectOne("Province.getProvinceByProvinceId", params);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.province_id, a.name, a.pycode, a.create_time, a.update_time, a.delete_flag from demo_province a where a.delete_flag = 0 and a.province_id=? and a.province_id in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.pycode=? and a.pycode like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-    @SuppressWarnings("unchecked")
-	public PageList<Province> getPageList(Province province, int pageSize, int pageNum) throws DataAccessException {
-		return (PageList<Province>)PageQueryUtils.pageQuery(getSqlMapClientTemplate(),"getPageList.Province.trade",province,pageNum,pageSize);
-	}
+    public PageList<Province> getPageList(Province province, int pageSize, int pageNum) throws DataAccessException {
+        return super.pageQuery("Province.getPageList", province, pageNum, pageSize);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.province_id, a.name, a.pycode, a.create_time, a.update_time, a.delete_flag from demo_province a where a.delete_flag = 0 and 1=0 and a.province_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
-    @SuppressWarnings("unchecked")
-	public List<Province> getProvincesByProvinceIds(java.util.List<String> provinceIds) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("provinceIds",provinceIds);
-		return (List<Province>)getSqlMapClientTemplate().queryForList("getProvincesByProvinceIds.Province.trade",params);
-	}
+    public List<Province> getProvincesByProvinceIds(java.util.List<String> provinceIds) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("provinceIds", provinceIds);
+        return super.selectList("Province.getProvincesByProvinceIds", params);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE demo_province SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and province_id in ( ? )
 	 */
-	public java.util.List<String> deleteByProvinceIds(java.util.List<String> provinceIds) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("provinceIds",provinceIds);
-        getSqlMapClientTemplate().update("deleteByProvinceIds.Province.trade", params);
+    public java.util.List<String> deleteByProvinceIds(java.util.List<String> provinceIds) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("provinceIds", provinceIds);
+        super.update("Province.deleteByProvinceIds", params);
         return provinceIds;
-	}
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.province_id, a.name from demo_province a where a.delete_flag = 0
 	 */
-    @SuppressWarnings("unchecked")
-	public List<Province> getProvinceOptions() throws DataAccessException {
-		return (List<Province>)getSqlMapClientTemplate().queryForList("getProvinceOptions.Province.trade",null);
-	}
-
+    public List<Province> getProvinceOptions() throws DataAccessException {
+        return super.selectList("Province.getProvinceOptions", null);
+    }
 }
-

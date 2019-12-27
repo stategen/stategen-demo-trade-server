@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="Topic_RM" class="com.mycompany.biz.domain.Topic">
+        <result property="topicId" column="topic_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="authorId" column="author_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="topicType" column="topic_type" javaType="com.mycompany.biz.enums.TopicType" jdbcType="VARCHAR"  />
+        <result property="content" column="content" javaType="java.lang.String" jdbcType="LONGVARCHAR"  />
+        <result property="title" column="title" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="lastReplyAt" column="last_reply_at" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="good" column="good" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="top" column="top" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="visitCount" column="visit_count" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getTopicPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getTopicsByTopicIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="Topic.insert">
+		insert into demo_topic (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
+            <isNotNull prepend="," property="authorId"> author_id </isNotNull>
+            <isNotNull prepend="," property="topicType"> topic_type </isNotNull>
+            <isNotNull prepend="," property="content"> content </isNotNull>
+            <isNotNull prepend="," property="title"> title </isNotNull>
+            <isNotNull prepend="," property="lastReplyAt"> last_reply_at </isNotNull>
+            <isNotNull prepend="," property="good"> good </isNotNull>
+            <isNotNull prepend="," property="top"> top </isNotNull>
+            <isNotNull prepend="," property="visitCount"> visit_count </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="topicId"> #topicId# </isNotNull> 
+            <isNotNull prepend="," property="authorId"> #authorId# </isNotNull> 
+            <isNotNull prepend="," property="topicType"> #topicType# </isNotNull> 
+            <isNotNull prepend="," property="content"> #content# </isNotNull> 
+            <isNotNull prepend="," property="title"> #title# </isNotNull> 
+            <isNotNull prepend="," property="lastReplyAt"> #lastReplyAt# </isNotNull> 
+            <isNotNull prepend="," property="good"> #good# </isNotNull> 
+            <isNotNull prepend="," property="top"> #top# </isNotNull> 
+            <isNotNull prepend="," property="visitCount"> #visitCount# </isNotNull>)
+            <selectKey keyProperty="topicId" resultClass="String" type="pre">
+                select if((#topicId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#topicId# ) as topicId
+            </selectKey>
+	</insert>
+	
+	<update id="Topic.delete">
+		UPDATE demo_topic SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and topic_id = #topicId#
+	</update>
+	
+    
+	
+	<update id="Topic.update">
+		UPDATE demo_topic
+            SET update_time= CURRENT_TIMESTAMP(6)
+            
+                <isNotNull prepend="," property="authorId">
+                    author_id =  #authorId# 
+                </isNotNull>
+                <isNotNull prepend="," property="topicType">
+                    topic_type =  #topicType# 
+                </isNotNull>
+                <isNotNull prepend="," property="content">
+                    content =  #content# 
+                </isNotNull>
+                <isNotNull prepend="," property="title">
+                    title =  #title# 
+                </isNotNull>
+                <isNotNull prepend="," property="lastReplyAt">
+                    last_reply_at =  #lastReplyAt# 
+                </isNotNull>
+                <isNotNull prepend="," property="good">
+                    good =  #good# 
+                </isNotNull>
+                <isNotNull prepend="," property="top">
+                    top =  #top# 
+                </isNotNull>
+                <isNotNull prepend="," property="visitCount">
+                    visit_count =  #visitCount# 
+                </isNotNull>
+            where
+            delete_flag = 0
+            and topic_id = #topicId#
+	</update>
+	
+    
+	
+	<select id="Topic.getTopicByTopicId" resultMap="Topic_RM" >
+    	select
+ /* getTopicByTopicId.Topic */             a.topic_id,
+            a.author_id,
+            a.topic_type,
+            a.content,
+            a.title,
+            a.last_reply_at,
+            a.good,
+            a.top,
+            a.visit_count,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_topic a
+            where
+            a.delete_flag = 0
+            and a.topic_id = #topicId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="Topic.getPageList" resultMap="Topic_RM" >
+    	select
+ /* getPageList.Topic */             a.topic_id,
+            a.author_id,
+            a.topic_type,
+            a.content,
+            a.title,
+            a.last_reply_at,
+            a.good,
+            a.top,
+            a.visit_count,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_topic a
+            where
+            a.delete_flag = 0
+            <isNotNull property="topicId">
+               and a.topic_id=#topicId#
+            </isNotNull>
+            <isNotEmpty property="topicIds">
+                and a.topic_id in
+                <iterate close=")" conjunction="," open="(" property="topicIds">
+                    #topicIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="authorId">
+               and a.author_id=#authorId#
+            </isNotNull>
+            <isNotEmpty property="authorIds">
+                and a.author_id in
+                <iterate close=")" conjunction="," open="(" property="authorIds">
+                    #authorIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="topicType">
+               and a.topic_type=#topicType#
+            </isNotNull>
+            <isNotEmpty property="topicTypes">
+                and a.topic_type in
+                <iterate close=")" conjunction="," open="(" property="topicTypes">
+                    #topicTypes[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="title">
+            and a.title=#title#
+          </isNotNull>
+            <isNotEmpty property="titleLike">
+                and a.title like CONCAT('%',#titleLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="lastReplyAtMin">
+                and a.last_reply_at >=#lastReplyAtMin#
+            </isNotNull>
+            <isNotNull property="lastReplyAtMax">
+                and a.last_reply_at &lt;#lastReplyAtMax#
+            </isNotNull>
+          <isNotNull property="good">
+                and a.good=#good#
+          </isNotNull>
+            <isNotNull property="goodMin">
+                and a.good >=#goodMin#
+            </isNotNull>
+            <isNotNull property="goodMax">
+                and a.good &lt;#goodMax#
+            </isNotNull>
+          <isNotNull property="top">
+                and a.top=#top#
+          </isNotNull>
+            <isNotNull property="topMin">
+                and a.top >=#topMin#
+            </isNotNull>
+            <isNotNull property="topMax">
+                and a.top &lt;#topMax#
+            </isNotNull>
+          <isNotNull property="visitCount">
+                and a.visit_count=#visitCount#
+          </isNotNull>
+            <isNotNull property="visitCountMin">
+                and a.visit_count >=#visitCountMin#
+            </isNotNull>
+            <isNotNull property="visitCountMax">
+                and a.visit_count &lt;#visitCountMax#
+            </isNotNull>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="topicId">
+            <isEmpty property="topicIds">
+            <isNull property="authorId">
+            <isEmpty property="authorIds">
+            <isNull property="topicType">
+            <isEmpty property="topicTypes">
+            <isNull property="title">
+            <isEmpty property="titleLike">
+            <isNull property="lastReplyAtMin">
+            <isNull property="lastReplyAtMax">
+            <isNull property="good">
+            <isNull property="goodMin">
+            <isNull property="goodMax">
+            <isNull property="top">
+            <isNull property="topMin">
+            <isNull property="topMax">
+            <isNull property="visitCount">
+            <isNull property="visitCountMin">
+            <isNull property="visitCountMax">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getTopicPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="Topic.getPageList_count" resultClass="long" >
+    	select  /* Topic.getPageList_count */ count(*)  from demo_topic a
+            where
+            a.delete_flag = 0
+            <isNotNull property="topicId">
+               and a.topic_id=#topicId#
+            </isNotNull>
+            <isNotEmpty property="topicIds">
+                and a.topic_id in
+                <iterate close=")" conjunction="," open="(" property="topicIds">
+                    #topicIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="authorId">
+               and a.author_id=#authorId#
+            </isNotNull>
+            <isNotEmpty property="authorIds">
+                and a.author_id in
+                <iterate close=")" conjunction="," open="(" property="authorIds">
+                    #authorIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="topicType">
+               and a.topic_type=#topicType#
+            </isNotNull>
+            <isNotEmpty property="topicTypes">
+                and a.topic_type in
+                <iterate close=")" conjunction="," open="(" property="topicTypes">
+                    #topicTypes[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="title">
+            and a.title=#title#
+          </isNotNull>
+            <isNotEmpty property="titleLike">
+                and a.title like CONCAT('%',#titleLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="lastReplyAtMin">
+                and a.last_reply_at >=#lastReplyAtMin#
+            </isNotNull>
+            <isNotNull property="lastReplyAtMax">
+                and a.last_reply_at &lt;#lastReplyAtMax#
+            </isNotNull>
+          <isNotNull property="good">
+                and a.good=#good#
+          </isNotNull>
+            <isNotNull property="goodMin">
+                and a.good >=#goodMin#
+            </isNotNull>
+            <isNotNull property="goodMax">
+                and a.good &lt;#goodMax#
+            </isNotNull>
+          <isNotNull property="top">
+                and a.top=#top#
+          </isNotNull>
+            <isNotNull property="topMin">
+                and a.top >=#topMin#
+            </isNotNull>
+            <isNotNull property="topMax">
+                and a.top &lt;#topMax#
+            </isNotNull>
+          <isNotNull property="visitCount">
+                and a.visit_count=#visitCount#
+          </isNotNull>
+            <isNotNull property="visitCountMin">
+                and a.visit_count >=#visitCountMin#
+            </isNotNull>
+            <isNotNull property="visitCountMax">
+                and a.visit_count &lt;#visitCountMax#
+            </isNotNull>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="topicId">
+            <isEmpty property="topicIds">
+            <isNull property="authorId">
+            <isEmpty property="authorIds">
+            <isNull property="topicType">
+            <isEmpty property="topicTypes">
+            <isNull property="title">
+            <isEmpty property="titleLike">
+            <isNull property="lastReplyAtMin">
+            <isNull property="lastReplyAtMax">
+            <isNull property="good">
+            <isNull property="goodMin">
+            <isNull property="goodMax">
+            <isNull property="top">
+            <isNull property="topMin">
+            <isNull property="topMax">
+            <isNull property="visitCount">
+            <isNull property="visitCountMin">
+            <isNull property="visitCountMax">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="Topic.getTopicsByTopicIds" resultMap="Topic_RM" >
+    	select
+ /* getTopicsByTopicIds.Topic */             a.topic_id,
+            a.author_id,
+            a.topic_type,
+            a.content,
+            a.title,
+            a.last_reply_at,
+            a.good,
+            a.top,
+            a.visit_count,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_topic a
+            where
+            a.delete_flag = 0
+            <isEmpty property="topicIds">
+            and 1=0
+            </isEmpty>
+            <isNotEmpty property="topicIds">
+                and a.topic_id in
+                <iterate close=")" conjunction="," open="(" property="topicIds">
+                    #topicIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getTopicsByTopicIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="Topic.deleteByTopicIds">
+		UPDATE demo_topic SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="topicIds">
+                and 1=0
+            </isEmpty>
+            <isNotEmpty property="topicIds">
+                and topic_id in
+                <iterate close=")" conjunction="," open="(" property="topicIds">
+                    #topicIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+    <resultMap id="getReplyCounts_GetReplyCountsResult_RM" class="com.mycompany.biz.domain.Topic">
+        <result property="topicId" column="topic_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="replyCount" column="replyCount" javaType="java.lang.Long" jdbcType="BIGINT"  />
+    </resultMap>
+	
+	<select id="Topic.getReplyCounts" resultMap="getReplyCounts_GetReplyCountsResult_RM" >
+    	SELECT
+ /* getReplyCounts.Topic */             b.topic_id,
+            COUNT(b.reply_id) as replyCount
+            FROM
+            demo_topic_reply b
+            WHERE
+            b.delete_flag = 0
+            <isNotEmpty property="topicIds">
+                and b.topic_id in
+                <iterate close=")" conjunction="," open="(" property="topicIds">
+                    #topicIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isEmpty property="topicIds">
+                and 1=0
+            </isEmpty>
+            GROUP BY b.topic_id
+	</select>	
+
+	    
+	
+	
+    
+
+</sqlMap>
+

@@ -18,8 +18,11 @@ import org.stategen.framework.lite.enums.EditorType;
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * CategorySub
@@ -34,7 +37,15 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@Accessors(chain = true)
+@AllArgsConstructor
 public class CategorySub implements java.io.Serializable {
+
+    /*** commentsLike in getPageList */
+    @ApiModelProperty("commentsLike")
+    @JSONField(serialize = false)
+    private String commentsLike;
 
     private static final long serialVersionUID = -5216457518046898601L;
 
@@ -82,7 +93,6 @@ public class CategorySub implements java.io.Serializable {
         sb.append("categorySubIds=").append(categorySubIds).append('\n');
         sb.append("categoryIds=").append(categoryIds).append('\n');
         sb.append("subNameLike=").append(subNameLike).append('\n');
-        sb.append("commentsLike=").append(commentsLike).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin=").append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
@@ -112,11 +122,6 @@ public class CategorySub implements java.io.Serializable {
     @ApiModelProperty("subNameLike")
     @JSONField(serialize = false)
     private String subNameLike;
-
-    /*** commentsLike in getPageList */
-    @ApiModelProperty("commentsLike")
-    @JSONField(serialize = false)
-    private String commentsLike;
 
     /*** 创建时间Min in getPageList */
     @ApiModelProperty("创建时间Min")

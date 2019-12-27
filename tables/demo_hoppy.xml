@@ -43,5 +43,6 @@
             a.delete_flag = 0
         </sql>
     </operation>
+    
 
 </table>

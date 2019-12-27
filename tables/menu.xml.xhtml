@@ -57,7 +57,7 @@
         <sql>
             UPDATE menu
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="morder" prepend=",">
                     morder =  ? 
                 </isNotNull>
@@ -94,7 +94,6 @@
                 <isNotNull property="checkType" prepend=",">
                     check_type =  ? 
                 </isNotNull>
-            </dynamic>
             where
             delete_flag = 0
             and menu_id = ?
@@ -149,101 +148,105 @@
             from menu a
             where
             a.delete_flag = 0
-            <isNotNull property="menuId" open="and">
-               a.menu_id=?
+            <isNotNull property="menuId">
+               and a.menu_id=?
             </isNotNull>
-            <isNotEmpty property="menuIds" open="and">
-                a.menu_id in
+            <isNotEmpty property="menuIds">
+                and a.menu_id in
                 <iterate property="menuIds" conjunction="," open="(" close=")">
                     #menuIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="morderMin" open="and">
-                a.morder >=#morderMin#
+          <isNotNull property="morder">
+                and a.morder=?
+          </isNotNull>
+            <isNotNull property="morderMin">
+                and a.morder >=#morderMin#
             </isNotNull>
-            <isNotNull property="morderMax" open="and">
-                a.morder &lt;#morderMax#
+            <isNotNull property="morderMax">
+                and a.morder &lt;#morderMax#
             </isNotNull>
-            <isNotNull property="bpid" open="and">
-               a.bpid=?
+            <isNotNull property="bpid">
+               and a.bpid=?
             </isNotNull>
-            <isNotEmpty property="bpids" open="and">
-                a.bpid in
+            <isNotEmpty property="bpids">
+                and a.bpid in
                 <iterate property="bpids" conjunction="," open="(" close=")">
                     #bpids[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="mpid" open="and">
-               a.mpid=?
+            <isNotNull property="mpid">
+               and a.mpid=?
             </isNotNull>
-            <isNotEmpty property="mpids" open="and">
-                a.mpid in
+            <isNotEmpty property="mpids">
+                and a.mpid in
                 <iterate property="mpids" conjunction="," open="(" close=")">
                     #mpids[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="projectName" open="and">
-            a.project_name=?
+          <isNotNull property="projectName">
+            and a.project_name=?
           </isNotNull>
-            <isNotEmpty property="projectNameLike" open="and">
-                a.project_name like CONCAT('%',#projectNameLike#,'%')
+            <isNotEmpty property="projectNameLike">
+                and a.project_name like CONCAT('%',#projectNameLike#,'%')
             </isNotEmpty>
-          <isNotNull property="controllerName" open="and">
-            a.controller_name=?
+          <isNotNull property="controllerName">
+            and a.controller_name=?
           </isNotNull>
-            <isNotEmpty property="controllerNameLike" open="and">
-                a.controller_name like CONCAT('%',#controllerNameLike#,'%')
+            <isNotEmpty property="controllerNameLike">
+                and a.controller_name like CONCAT('%',#controllerNameLike#,'%')
             </isNotEmpty>
-          <isNotNull property="methodName" open="and">
-            a.method_name=?
+          <isNotNull property="methodName">
+            and a.method_name=?
           </isNotNull>
-            <isNotEmpty property="methodNameLike" open="and">
-                a.method_name like CONCAT('%',#methodNameLike#,'%')
+            <isNotEmpty property="methodNameLike">
+                and a.method_name like CONCAT('%',#methodNameLike#,'%')
             </isNotEmpty>
-          <isNotNull property="name" open="and">
-            a.name=?
+          <isNotNull property="name">
+            and a.name=?
           </isNotNull>
-            <isNotEmpty property="nameLike" open="and">
-                a.name like CONCAT('%',#nameLike#,'%')
+            <isNotEmpty property="nameLike">
+                and a.name like CONCAT('%',#nameLike#,'%')
             </isNotEmpty>
-          <isNotNull property="route" open="and">
-            a.route=?
+          <isNotNull property="route">
+            and a.route=?
           </isNotNull>
-            <isNotEmpty property="routeLike" open="and">
-                a.route like CONCAT('%',#routeLike#,'%')
+            <isNotEmpty property="routeLike">
+                and a.route like CONCAT('%',#routeLike#,'%')
             </isNotEmpty>
-            <isNotNull property="menuType" open="and">
-               a.menu_type=?
+            <isNotNull property="menuType">
+               and a.menu_type=?
             </isNotNull>
-            <isNotEmpty property="menuTypes" open="and">
-                a.menu_type in
+            <isNotEmpty property="menuTypes">
+                and a.menu_type in
                 <iterate property="menuTypes" conjunction="," open="(" close=")">
                     #menuTypes[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="checkType" open="and">
-               a.check_type=?
+            <isNotNull property="checkType">
+               and a.check_type=?
             </isNotNull>
-            <isNotEmpty property="checkTypes" open="and">
-                a.check_type in
+            <isNotEmpty property="checkTypes">
+                and a.check_type in
                 <iterate property="checkTypes" conjunction="," open="(" close=")">
                     #checkTypes[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="menuId">
             <isEmpty property="menuIds">
+            <isNull property="morder">
             <isNull property="morderMin">
             <isNull property="morderMax">
             <isNull property="bpid">
@@ -293,12 +296,14 @@
             </isNull>
             </isNull>
             </isNull>
+            </isNull>
             </isEmpty>
             </isNull>
             order by
             <include refid = "getMenuPageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getMenusByMenuIds" multiplicity="many" remarks="">
         <sql>
@@ -322,11 +327,11 @@
             from menu a
             where
             a.delete_flag = 0
-            <isEmpty property="menuIds" open="and">
-                1=0
+            <isEmpty property="menuIds">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="menuIds" open="and">
-                a.menu_id in
+            <isNotEmpty property="menuIds">
+                and a.menu_id in
                 <iterate property="menuIds" conjunction="," open="(" close=")">
                     #menuIds[]#
                 </iterate>
@@ -343,11 +348,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="menuIds" open="and">
-                1=0
+            <isEmpty property="menuIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="menuIds" open="and">
-                menu_id in
+            <isNotEmpty property="menuIds">
+                and menu_id in
                 <iterate property="menuIds" conjunction="," open="(" close=")">
                     #menuIds[]#
                 </iterate>

@@ -77,8 +77,6 @@ public interface CategoryDao {
     &#64;ApiParam()&#64;RequestParam(required =false,name="categoryIds") ArrayList&lt;String&gt; categoryIds,
     &#64;ApiParam() String categoryName,
     &#64;ApiParam() String categoryNameLike,
-    &#64;ApiParam() String comments,
-    &#64;ApiParam() String commentsLike,
     &#64;ApiParam() Date createTimeMin,
     &#64;ApiParam() Date createTimeMax,
     &#64;ApiParam() Date updateTimeMin,
@@ -87,7 +85,7 @@ public interface CategoryDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.category_id, a.category_name, a.comments, a.image, a.create_time, a.update_time, a.delete_flag from demo_category a where a.delete_flag = 0 and a.category_id=? and a.category_id in ( ? ) and a.category_name=? and a.category_name like CONCAT('%',?,'%') and a.comments=? and a.comments like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.category_id, a.category_name, a.comments, a.image, a.create_time, a.update_time, a.delete_flag from demo_category a where a.delete_flag = 0 and a.category_id=? and a.category_id in ( ? ) and a.category_name=? and a.category_name like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<Category> getPageList(Category category, int pageSize, int pageNum) throws DataAccessException;
 	

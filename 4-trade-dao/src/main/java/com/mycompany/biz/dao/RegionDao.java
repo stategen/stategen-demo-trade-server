@@ -89,6 +89,7 @@ public interface RegionDao {
     &#64;ApiParam()&#64;RequestParam(required =false,name="parentRegionIds") ArrayList&lt;Long&gt; parentRegionIds,
     &#64;ApiParam() String path,
     &#64;ApiParam() String pathLike,
+    &#64;ApiParam() Integer level,
     &#64;ApiParam() Integer levelMin,
     &#64;ApiParam() Integer levelMax,
     &#64;ApiParam() RegionType regionType,
@@ -109,7 +110,7 @@ public interface RegionDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.region_id, a.parent_region_id, a.path, a.level, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, a.create_time, a.update_time, a.delete_flag from demo_region a where a.delete_flag = 0 and a.region_id=? and a.region_id in ( ? ) and a.parent_region_id=? and a.parent_region_id in ( ? ) and a.path=? and a.path like CONCAT('%',?,'%') and a.level >=? and a.level <? and a.region_type=? and a.region_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.name_en=? and a.name_en like CONCAT('%',?,'%') and a.name_pinyin=? and a.name_pinyin like CONCAT('%',?,'%') and a.code=? and a.code like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.region_id
+	 * sql:select a.region_id, a.parent_region_id, a.path, a.level, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, a.create_time, a.update_time, a.delete_flag from demo_region a where a.delete_flag = 0 and a.region_id=? and a.region_id in ( ? ) and a.parent_region_id=? and a.parent_region_id in ( ? ) and a.path=? and a.path like CONCAT('%',?,'%') and a.level=? and a.level >=? and a.level <? and a.region_type=? and a.region_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.name_en=? and a.name_en like CONCAT('%',?,'%') and a.name_pinyin=? and a.name_pinyin like CONCAT('%',?,'%') and a.code=? and a.code like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.region_id
 	 */
 	public PageList<Region> getPageList(Region region, int pageSize, int pageNum) throws DataAccessException;
 	

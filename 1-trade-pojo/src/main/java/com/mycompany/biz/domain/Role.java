@@ -19,8 +19,11 @@ import org.stategen.framework.lite.enums.EditorType;
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * Role
@@ -35,6 +38,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@Accessors(chain = true)
+@AllArgsConstructor
 public class Role implements java.io.Serializable {
 
     private static final long serialVersionUID = -5216457518046898601L;

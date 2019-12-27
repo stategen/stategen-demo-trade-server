@@ -37,14 +37,13 @@
         <sql>
             UPDATE demo_shop
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="leaderImage" prepend=",">
                     leader_image =  ? 
                 </isNotNull>
                 <isNotNull property="leaderPhone" prepend=",">
                     leader_phone =  ? 
                 </isNotNull>
-            </dynamic>
             where
             delete_flag = 0
             and shop_id = ?
@@ -79,32 +78,32 @@
             from demo_shop a
             where
             a.delete_flag = 0
-            <isNotNull property="shopId" open="and">
-               a.shop_id=?
+            <isNotNull property="shopId">
+               and a.shop_id=?
             </isNotNull>
-            <isNotEmpty property="shopIds" open="and">
-                a.shop_id in
+            <isNotEmpty property="shopIds">
+                and a.shop_id in
                 <iterate property="shopIds" conjunction="," open="(" close=")">
                     #shopIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="leaderPhone" open="and">
-            a.leader_phone=?
+          <isNotNull property="leaderPhone">
+            and a.leader_phone=?
           </isNotNull>
-            <isNotEmpty property="leaderPhoneLike" open="and">
-                a.leader_phone like CONCAT('%',#leaderPhoneLike#,'%')
+            <isNotEmpty property="leaderPhoneLike">
+                and a.leader_phone like CONCAT('%',#leaderPhoneLike#,'%')
             </isNotEmpty>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="shopId">
             <isEmpty property="shopIds">
@@ -127,6 +126,7 @@
             <include refid = "getShopPageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getShopsByShopIds" multiplicity="many" remarks="">
         <sql>
@@ -140,11 +140,11 @@
             from demo_shop a
             where
             a.delete_flag = 0
-            <isEmpty property="shopIds" open="and">
-                1=0
+            <isEmpty property="shopIds">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="shopIds" open="and">
-                a.shop_id in
+            <isNotEmpty property="shopIds">
+                and a.shop_id in
                 <iterate property="shopIds" conjunction="," open="(" close=")">
                     #shopIds[]#
                 </iterate>
@@ -161,11 +161,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="shopIds" open="and">
-                1=0
+            <isEmpty property="shopIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="shopIds" open="and">
-                shop_id in
+            <isNotEmpty property="shopIds">
+                and shop_id in
                 <iterate property="shopIds" conjunction="," open="(" close=")">
                     #shopIds[]#
                 </iterate>

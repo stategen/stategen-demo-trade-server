@@ -75,6 +75,7 @@ public interface HomeGoodsDao {
     &#64;ApiParam()&#64;RequestParam(required =false,name="recommendIds") ArrayList&lt;String&gt; recommendIds,
     &#64;ApiParam() String goodsId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="goodsIds") ArrayList&lt;String&gt; goodsIds,
+    &#64;ApiParam() Integer orderNo,
     &#64;ApiParam() Integer orderNoMin,
     &#64;ApiParam() Integer orderNoMax,
     &#64;ApiParam() Date createTimeMin,
@@ -85,7 +86,7 @@ public interface HomeGoodsDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.recommend_id, a.goods_id, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_home_goods a where a.delete_flag = 0 and a.recommend_id=? and a.recommend_id in ( ? ) and a.goods_id=? and a.goods_id in ( ? ) and a.order_no >=? and a.order_no <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.recommend_id, a.goods_id, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_home_goods a where a.delete_flag = 0 and a.recommend_id=? and a.recommend_id in ( ? ) and a.goods_id=? and a.goods_id in ( ? ) and a.order_no=? and a.order_no >=? and a.order_no <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<HomeGoods> getPageList(HomeGoods homeGoods, int pageSize, int pageNum) throws DataAccessException;
 	

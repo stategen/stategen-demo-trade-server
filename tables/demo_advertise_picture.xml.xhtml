@@ -39,7 +39,7 @@
         <sql>
             UPDATE demo_advertise_picture
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="pictureAddress" prepend=",">
                     PICTURE_ADDRESS =  ? 
                 </isNotNull>
@@ -49,7 +49,6 @@
                 <isNotNull property="urlType" prepend=",">
                     url_type =  ? 
                 </isNotNull>
-            </dynamic>
             where
             delete_flag = 0
             and advertise_id = ?
@@ -86,47 +85,47 @@
             from demo_advertise_picture a
             where
             a.delete_flag = 0
-            <isNotNull property="advertiseId" open="and">
-               a.advertise_id=?
+            <isNotNull property="advertiseId">
+               and a.advertise_id=?
             </isNotNull>
-            <isNotEmpty property="advertiseIds" open="and">
-                a.advertise_id in
+            <isNotEmpty property="advertiseIds">
+                and a.advertise_id in
                 <iterate property="advertiseIds" conjunction="," open="(" close=")">
                     #advertiseIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="pictureAddress" open="and">
-            a.PICTURE_ADDRESS=?
+          <isNotNull property="pictureAddress">
+            and a.PICTURE_ADDRESS=?
           </isNotNull>
-            <isNotEmpty property="pictureAddressLike" open="and">
-                a.PICTURE_ADDRESS like CONCAT('%',#pictureAddressLike#,'%')
+            <isNotEmpty property="pictureAddressLike">
+                and a.PICTURE_ADDRESS like CONCAT('%',#pictureAddressLike#,'%')
             </isNotEmpty>
-          <isNotNull property="toPlace" open="and">
-            a.TO_PLACE=?
+          <isNotNull property="toPlace">
+            and a.TO_PLACE=?
           </isNotNull>
-            <isNotEmpty property="toPlaceLike" open="and">
-                a.TO_PLACE like CONCAT('%',#toPlaceLike#,'%')
+            <isNotEmpty property="toPlaceLike">
+                and a.TO_PLACE like CONCAT('%',#toPlaceLike#,'%')
             </isNotEmpty>
-            <isNotNull property="urlType" open="and">
-               a.url_type=?
+            <isNotNull property="urlType">
+               and a.url_type=?
             </isNotNull>
-            <isNotEmpty property="urlTypes" open="and">
-                a.url_type in
+            <isNotEmpty property="urlTypes">
+                and a.url_type in
                 <iterate property="urlTypes" conjunction="," open="(" close=")">
                     #urlTypes[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="advertiseId">
             <isEmpty property="advertiseIds">
@@ -157,6 +156,7 @@
             <include refid = "getAdvertisePicturePageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getAdvertisePicturesByAdvertiseIds" multiplicity="many" remarks="">
         <sql>
@@ -171,11 +171,11 @@
             from demo_advertise_picture a
             where
             a.delete_flag = 0
-            <isEmpty property="advertiseIds" open="and">
-                1=0
+            <isEmpty property="advertiseIds">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="advertiseIds" open="and">
-                a.advertise_id in
+            <isNotEmpty property="advertiseIds">
+                and a.advertise_id in
                 <iterate property="advertiseIds" conjunction="," open="(" close=")">
                     #advertiseIds[]#
                 </iterate>
@@ -192,11 +192,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="advertiseIds" open="and">
-                1=0
+            <isEmpty property="advertiseIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="advertiseIds" open="and">
-                advertise_id in
+            <isNotEmpty property="advertiseIds">
+                and advertise_id in
                 <iterate property="advertiseIds" conjunction="," open="(" close=")">
                     #advertiseIds[]#
                 </iterate>

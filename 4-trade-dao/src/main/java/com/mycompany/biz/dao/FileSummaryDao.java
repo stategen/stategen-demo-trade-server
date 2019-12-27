@@ -79,6 +79,7 @@ public interface FileSummaryDao {
     <pre>
     &#64;ApiParam() String fileId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="fileIds") ArrayList&lt;String&gt; fileIds,
+    &#64;ApiParam() Long size,
     &#64;ApiParam() Long sizeMin,
     &#64;ApiParam() Long sizeMax,
     &#64;ApiParam() String name,
@@ -95,7 +96,7 @@ public interface FileSummaryDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.file_id, a.url, a.size, a.name, a.type, a.user_id, a.create_time, a.update_time, a.delete_flag from file_summary a where a.delete_flag = 0 and a.file_id=? and a.file_id in ( ? ) and a.size >=? and a.size <? and a.name=? and a.name like CONCAT('%',?,'%') and a.type=? and a.type in ( ? ) and a.user_id=? and a.user_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.file_id, a.url, a.size, a.name, a.type, a.user_id, a.create_time, a.update_time, a.delete_flag from file_summary a where a.delete_flag = 0 and a.file_id=? and a.file_id in ( ? ) and a.size=? and a.size >=? and a.size <? and a.name=? and a.name like CONCAT('%',?,'%') and a.type=? and a.type in ( ? ) and a.user_id=? and a.user_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<FileSummary> getPageList(FileSummary fileSummary, int pageSize, int pageNum) throws DataAccessException;
 	

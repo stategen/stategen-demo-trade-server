@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="CategorySub_RM" class="com.mycompany.biz.domain.CategorySub">
+        <result property="categorySubId" column="category_sub_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="categoryId" column="category_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="subName" column="sub_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="comments" column="comments" javaType="java.lang.String" jdbcType="LONGVARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getCategorySubPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getCategorySubsByCategorySubIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="CategorySub.insert">
+		insert into demo_category_sub (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="categorySubId"> category_sub_id </isNotNull>
+            <isNotNull prepend="," property="categoryId"> category_id </isNotNull>
+            <isNotNull prepend="," property="subName"> sub_name </isNotNull>
+            <isNotNull prepend="," property="comments"> comments </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="categorySubId"> #categorySubId# </isNotNull> 
+            <isNotNull prepend="," property="categoryId"> #categoryId# </isNotNull> 
+            <isNotNull prepend="," property="subName"> #subName# </isNotNull> 
+            <isNotNull prepend="," property="comments"> #comments# </isNotNull>)
+            <selectKey keyProperty="categorySubId" resultClass="String" type="pre">
+                select if((#categorySubId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#categorySubId# ) as categorySubId
+            </selectKey>
+	</insert>
+	
+	<update id="CategorySub.delete">
+		UPDATE demo_category_sub SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and category_sub_id = #categorySubId#
+	</update>
+	
+    
+	
+	<update id="CategorySub.update">
+		UPDATE demo_category_sub
+            SET update_time= CURRENT_TIMESTAMP(6)
+            
+                <isNotNull prepend="," property="categoryId">
+                    category_id =  #categoryId# 
+                </isNotNull>
+                <isNotNull prepend="," property="subName">
+                    sub_name =  #subName# 
+                </isNotNull>
+                <isNotNull prepend="," property="comments">
+                    comments =  #comments# 
+                </isNotNull>
+            where
+            delete_flag = 0
+            and category_sub_id = #categorySubId#
+	</update>
+	
+    
+	
+	<select id="CategorySub.getCategorySubByCategorySubId" resultMap="CategorySub_RM" >
+    	select
+ /* getCategorySubByCategorySubId.CategorySub */             a.category_sub_id,
+            a.category_id,
+            a.sub_name,
+            a.comments,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_category_sub a
+            where
+            a.delete_flag = 0
+            and a.category_sub_id = #categorySubId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="CategorySub.getPageList" resultMap="CategorySub_RM" >
+    	select
+ /* getPageList.CategorySub */             a.category_sub_id,
+            a.category_id,
+            a.sub_name,
+            a.comments,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_category_sub a
+            where
+            a.delete_flag = 0
+            <isNotNull property="categorySubId">
+               and a.category_sub_id=#categorySubId#
+            </isNotNull>
+            <isNotEmpty property="categorySubIds">
+                and a.category_sub_id in
+                <iterate close=")" conjunction="," open="(" property="categorySubIds">
+                    #categorySubIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="categoryId">
+               and a.category_id=#categoryId#
+            </isNotNull>
+            <isNotEmpty property="categoryIds">
+                and a.category_id in
+                <iterate close=")" conjunction="," open="(" property="categoryIds">
+                    #categoryIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="subName">
+            and a.sub_name=#subName#
+          </isNotNull>
+            <isNotEmpty property="subNameLike">
+                and a.sub_name like CONCAT('%',#subNameLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="categorySubId">
+            <isEmpty property="categorySubIds">
+            <isNull property="categoryId">
+            <isEmpty property="categoryIds">
+            <isNull property="subName">
+            <isEmpty property="subNameLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getCategorySubPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="CategorySub.getPageList_count" resultClass="long" >
+    	select  /* CategorySub.getPageList_count */ count(*)  from demo_category_sub a
+            where
+            a.delete_flag = 0
+            <isNotNull property="categorySubId">
+               and a.category_sub_id=#categorySubId#
+            </isNotNull>
+            <isNotEmpty property="categorySubIds">
+                and a.category_sub_id in
+                <iterate close=")" conjunction="," open="(" property="categorySubIds">
+                    #categorySubIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="categoryId">
+               and a.category_id=#categoryId#
+            </isNotNull>
+            <isNotEmpty property="categoryIds">
+                and a.category_id in
+                <iterate close=")" conjunction="," open="(" property="categoryIds">
+                    #categoryIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="subName">
+            and a.sub_name=#subName#
+          </isNotNull>
+            <isNotEmpty property="subNameLike">
+                and a.sub_name like CONCAT('%',#subNameLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="categorySubId">
+            <isEmpty property="categorySubIds">
+            <isNull property="categoryId">
+            <isEmpty property="categoryIds">
+            <isNull property="subName">
+            <isEmpty property="subNameLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="CategorySub.getCategorySubsByCategorySubIds" resultMap="CategorySub_RM" >
+    	select
+ /* getCategorySubsByCategorySubIds.CategorySub */             a.category_sub_id,
+            a.category_id,
+            a.sub_name,
+            a.comments,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_category_sub a
+            where
+            a.delete_flag = 0
+            <isEmpty property="categorySubIds">
+            and 1=0
+            </isEmpty>
+            <isNotEmpty property="categorySubIds">
+                and a.category_sub_id in
+                <iterate close=")" conjunction="," open="(" property="categorySubIds">
+                    #categorySubIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getCategorySubsByCategorySubIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="CategorySub.deleteByCategorySubIds">
+		UPDATE demo_category_sub SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="categorySubIds">
+                and 1=0
+            </isEmpty>
+            <isNotEmpty property="categorySubIds">
+                and category_sub_id in
+                <iterate close=")" conjunction="," open="(" property="categorySubIds">
+                    #categorySubIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+
+</sqlMap>
+

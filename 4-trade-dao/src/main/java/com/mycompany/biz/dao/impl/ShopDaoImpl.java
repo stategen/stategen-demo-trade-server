@@ -9,13 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mycompany.biz.domain.Shop;
-import com.mycompany.biz.dao.ShopDao;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.stategen.framework.ibatis.util.PageQueryUtils;
 import org.stategen.framework.lite.PageList;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+import com.mycompany.biz.dao.ShopDao;
+import com.mycompany.biz.domain.Shop;
 
 /**
  * ShopDao
@@ -27,83 +27,79 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
  * 该类仅可以修改引用
  * </pre>
  */
-public class ShopDaoImpl  extends SqlMapClientDaoSupport implements ShopDao {
+public class ShopDaoImpl extends SqlDaoSupportBase implements ShopDao {
 
-	/**
+    /**
 	 * 
 	 * sql:insert into demo_shop ( create_time , update_time , delete_flag , shop_id , leader_image , leader_phone ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public Shop insert(Shop shop) throws DataAccessException {
-		if(shop == null) {
-			throw new IllegalArgumentException("Can't insert a null data object into db.");
-		}
-        getSqlMapClientTemplate().insert("insert.Shop.trade", shop);
-		return shop;
-	}
+    public Shop insert(Shop shop) throws DataAccessException {
+        if (shop == null) {
+            throw new IllegalArgumentException("Can't insert a null data object into db.");
+        }
+        super.insert("Shop.insert", shop);
+        return shop;
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE demo_shop SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and shop_id = ?
 	 */
-	public String delete(String shopId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("shopId",shopId);
-        getSqlMapClientTemplate().update("delete.Shop.trade", params);
+    public String delete(String shopId) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("shopId", shopId);
+        super.update("Shop.delete", params);
         return shopId;
-	}
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE demo_shop SET update_time= CURRENT_TIMESTAMP(6) , leader_image = ? , leader_phone = ? where delete_flag = 0 and shop_id = ?
 	 */
-	public Shop update(Shop shop) throws DataAccessException {
-		if(shop == null) {
-			throw new IllegalArgumentException("Can't update by a null data object.");
-		}
-        getSqlMapClientTemplate().update("update.Shop.trade", shop);
-		return shop;
-	}
+    public Shop update(Shop shop) throws DataAccessException {
+        if (shop == null) {
+            throw new IllegalArgumentException("Can't update by a null data object.");
+        }
+        super.update("Shop.update", shop);
+        return shop;
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.shop_id, a.leader_image, a.leader_phone, a.create_time, a.update_time, a.delete_flag from demo_shop a where a.delete_flag = 0 and a.shop_id = ?
 	 */
-	public Shop getShopByShopId(String shopId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("shopId",shopId);
-		return (Shop)getSqlMapClientTemplate().queryForObject("getShopByShopId.Shop.trade",params);
-	}
+    public Shop getShopByShopId(String shopId) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("shopId", shopId);
+        return (Shop) super.selectOne("Shop.getShopByShopId", params);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.shop_id, a.leader_image, a.leader_phone, a.create_time, a.update_time, a.delete_flag from demo_shop a where a.delete_flag = 0 and a.shop_id=? and a.shop_id in ( ? ) and a.leader_phone=? and a.leader_phone like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-    @SuppressWarnings("unchecked")
-	public PageList<Shop> getPageList(Shop shop, int pageSize, int pageNum) throws DataAccessException {
-		return (PageList<Shop>)PageQueryUtils.pageQuery(getSqlMapClientTemplate(),"getPageList.Shop.trade",shop,pageNum,pageSize);
-	}
+    public PageList<Shop> getPageList(Shop shop, int pageSize, int pageNum) throws DataAccessException {
+        return super.pageQuery("Shop.getPageList", shop, pageNum, pageSize);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.shop_id, a.leader_image, a.leader_phone, a.create_time, a.update_time, a.delete_flag from demo_shop a where a.delete_flag = 0 and 1=0 and a.shop_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
-    @SuppressWarnings("unchecked")
-	public List<Shop> getShopsByShopIds(java.util.List<String> shopIds) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("shopIds",shopIds);
-		return (List<Shop>)getSqlMapClientTemplate().queryForList("getShopsByShopIds.Shop.trade",params);
-	}
+    public List<Shop> getShopsByShopIds(java.util.List<String> shopIds) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("shopIds", shopIds);
+        return super.selectList("Shop.getShopsByShopIds", params);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE demo_shop SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and shop_id in ( ? )
 	 */
-	public java.util.List<String> deleteByShopIds(java.util.List<String> shopIds) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("shopIds",shopIds);
-        getSqlMapClientTemplate().update("deleteByShopIds.Shop.trade", params);
+    public java.util.List<String> deleteByShopIds(java.util.List<String> shopIds) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("shopIds", shopIds);
+        super.update("Shop.deleteByShopIds", params);
         return shopIds;
-	}
-
+    }
 }
-

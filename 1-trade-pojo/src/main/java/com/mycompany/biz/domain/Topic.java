@@ -19,8 +19,11 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.TopicType;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * Topic
@@ -35,11 +38,19 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@Accessors(chain = true)
+@AllArgsConstructor
 public class Topic implements java.io.Serializable {
 
     private User author;
 
     private Long replyCount;
+
+    /*** 内容Like in getPageList */
+    @ApiModelProperty("内容Like")
+    @JSONField(serialize = false)
+    private String contentLike;
 
     private static final long serialVersionUID = -5216457518046898601L;
 
@@ -109,7 +120,6 @@ public class Topic implements java.io.Serializable {
         sb.append("topicIds=").append(topicIds).append('\n');
         sb.append("authorIds=").append(authorIds).append('\n');
         sb.append("topicTypes=").append(topicTypes).append('\n');
-        sb.append("contentLike=").append(contentLike).append('\n');
         sb.append("titleLike=").append(titleLike).append('\n');
         sb.append("lastReplyAtMin=").append(lastReplyAtMin != null ? df.format(lastReplyAtMin) : null).append('\n');
         sb.append("lastReplyAtMax=").append(lastReplyAtMax != null ? df.format(lastReplyAtMax) : null).append('\n');
@@ -153,11 +163,6 @@ public class Topic implements java.io.Serializable {
     @ApiModelProperty("主题类型 s")
     @JSONField(serialize = false)
     private java.util.List<com.mycompany.biz.enums.TopicType> topicTypes;
-
-    /*** 内容Like in getPageList */
-    @ApiModelProperty("内容Like")
-    @JSONField(serialize = false)
-    private String contentLike;
 
     /*** 标题Like in getPageList */
     @ApiModelProperty("标题Like")

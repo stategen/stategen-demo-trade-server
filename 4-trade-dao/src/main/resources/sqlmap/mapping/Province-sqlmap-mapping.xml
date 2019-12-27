@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="Province_RM" class="com.mycompany.biz.domain.Province">
+        <result property="provinceId" column="province_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="pycode" column="pycode" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getProvincePageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getProvincesByProvinceIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="Province.insert">
+		insert into demo_province (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="provinceId"> province_id </isNotNull>
+            <isNotNull prepend="," property="name"> name </isNotNull>
+            <isNotNull prepend="," property="pycode"> pycode </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="provinceId"> #provinceId# </isNotNull> 
+            <isNotNull prepend="," property="name"> #name# </isNotNull> 
+            <isNotNull prepend="," property="pycode"> #pycode# </isNotNull>)
+            <selectKey keyProperty="provinceId" resultClass="String" type="pre">
+                select if((#provinceId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#provinceId# ) as provinceId
+            </selectKey>
+	</insert>
+	
+	<update id="Province.delete">
+		UPDATE demo_province SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and province_id = #provinceId#
+	</update>
+	
+    
+	
+	<update id="Province.update">
+		UPDATE demo_province
+            SET update_time= CURRENT_TIMESTAMP(6)
+            
+                <isNotNull prepend="," property="name">
+                    name =  #name# 
+                </isNotNull>
+                <isNotNull prepend="," property="pycode">
+                    pycode =  #pycode# 
+                </isNotNull>
+            where
+            delete_flag = 0
+            and province_id = #provinceId#
+	</update>
+	
+    
+	
+	<select id="Province.getProvinceByProvinceId" resultMap="Province_RM" >
+    	select
+ /* getProvinceByProvinceId.Province */             a.province_id,
+            a.name,
+            a.pycode,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_province a
+            where
+            a.delete_flag = 0
+            and a.province_id = #provinceId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="Province.getPageList" resultMap="Province_RM" >
+    	select
+ /* getPageList.Province */             a.province_id,
+            a.name,
+            a.pycode,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_province a
+            where
+            a.delete_flag = 0
+            <isNotNull property="provinceId">
+               and a.province_id=#provinceId#
+            </isNotNull>
+            <isNotEmpty property="provinceIds">
+                and a.province_id in
+                <iterate close=")" conjunction="," open="(" property="provinceIds">
+                    #provinceIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="name">
+            and a.name=#name#
+          </isNotNull>
+            <isNotEmpty property="nameLike">
+                and a.name like CONCAT('%',#nameLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="pycode">
+            and a.pycode=#pycode#
+          </isNotNull>
+            <isNotEmpty property="pycodeLike">
+                and a.pycode like CONCAT('%',#pycodeLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="provinceId">
+            <isEmpty property="provinceIds">
+            <isNull property="name">
+            <isEmpty property="nameLike">
+            <isNull property="pycode">
+            <isEmpty property="pycodeLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getProvincePageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="Province.getPageList_count" resultClass="long" >
+    	select  /* Province.getPageList_count */ count(*)  from demo_province a
+            where
+            a.delete_flag = 0
+            <isNotNull property="provinceId">
+               and a.province_id=#provinceId#
+            </isNotNull>
+            <isNotEmpty property="provinceIds">
+                and a.province_id in
+                <iterate close=")" conjunction="," open="(" property="provinceIds">
+                    #provinceIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="name">
+            and a.name=#name#
+          </isNotNull>
+            <isNotEmpty property="nameLike">
+                and a.name like CONCAT('%',#nameLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="pycode">
+            and a.pycode=#pycode#
+          </isNotNull>
+            <isNotEmpty property="pycodeLike">
+                and a.pycode like CONCAT('%',#pycodeLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="provinceId">
+            <isEmpty property="provinceIds">
+            <isNull property="name">
+            <isEmpty property="nameLike">
+            <isNull property="pycode">
+            <isEmpty property="pycodeLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="Province.getProvincesByProvinceIds" resultMap="Province_RM" >
+    	select
+ /* getProvincesByProvinceIds.Province */             a.province_id,
+            a.name,
+            a.pycode,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_province a
+            where
+            a.delete_flag = 0
+            <isEmpty property="provinceIds">
+            and 1=0
+            </isEmpty>
+            <isNotEmpty property="provinceIds">
+                and a.province_id in
+                <iterate close=")" conjunction="," open="(" property="provinceIds">
+                    #provinceIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getProvincesByProvinceIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="Province.deleteByProvinceIds">
+		UPDATE demo_province SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="provinceIds">
+                and 1=0
+            </isEmpty>
+            <isNotEmpty property="provinceIds">
+                and province_id in
+                <iterate close=")" conjunction="," open="(" property="provinceIds">
+                    #provinceIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+    <resultMap id="getProvinceOptions_object_RM" class="com.mycompany.biz.domain.Province">
+        <result property="provinceId" column="province_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+    </resultMap>
+	
+	<select id="Province.getProvinceOptions" resultMap="getProvinceOptions_object_RM" >
+    	select
+ /* getProvinceOptions.Province */             a.province_id,
+            a.name
+            from demo_province a
+            where
+            a.delete_flag = 0
+	</select>	
+
+	    
+	
+	
+    
+
+</sqlMap>
+

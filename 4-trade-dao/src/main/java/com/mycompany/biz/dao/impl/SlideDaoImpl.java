@@ -9,13 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mycompany.biz.domain.Slide;
-import com.mycompany.biz.dao.SlideDao;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.stategen.framework.ibatis.util.PageQueryUtils;
 import org.stategen.framework.lite.PageList;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+import com.mycompany.biz.dao.SlideDao;
+import com.mycompany.biz.domain.Slide;
 
 /**
  * SlideDao
@@ -27,83 +27,79 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
  * 该类仅可以修改引用
  * </pre>
  */
-public class SlideDaoImpl  extends SqlMapClientDaoSupport implements SlideDao {
+public class SlideDaoImpl extends SqlDaoSupportBase implements SlideDao {
 
-	/**
+    /**
 	 * 
 	 * sql:insert into demo_slide ( create_time , update_time , delete_flag , slide_id , goods_id , image , urlType , order_no ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?)
 	 */
-	public Slide insert(Slide slide) throws DataAccessException {
-		if(slide == null) {
-			throw new IllegalArgumentException("Can't insert a null data object into db.");
-		}
-        getSqlMapClientTemplate().insert("insert.Slide.trade", slide);
-		return slide;
-	}
+    public Slide insert(Slide slide) throws DataAccessException {
+        if (slide == null) {
+            throw new IllegalArgumentException("Can't insert a null data object into db.");
+        }
+        super.insert("Slide.insert", slide);
+        return slide;
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE demo_slide SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and slide_id = ?
 	 */
-	public String delete(String slideId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("slideId",slideId);
-        getSqlMapClientTemplate().update("delete.Slide.trade", params);
+    public String delete(String slideId) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("slideId", slideId);
+        super.update("Slide.delete", params);
         return slideId;
-	}
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE demo_slide SET update_time= CURRENT_TIMESTAMP(6) , goods_id = ? , image = ? , urlType = ? , order_no = ? where delete_flag = 0 and slide_id = ?
 	 */
-	public Slide update(Slide slide) throws DataAccessException {
-		if(slide == null) {
-			throw new IllegalArgumentException("Can't update by a null data object.");
-		}
-        getSqlMapClientTemplate().update("update.Slide.trade", slide);
-		return slide;
-	}
+    public Slide update(Slide slide) throws DataAccessException {
+        if (slide == null) {
+            throw new IllegalArgumentException("Can't update by a null data object.");
+        }
+        super.update("Slide.update", slide);
+        return slide;
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.slide_id, a.goods_id, a.image, a.urlType, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_slide a where a.delete_flag = 0 and a.slide_id = ?
 	 */
-	public Slide getSlideBySlideId(String slideId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("slideId",slideId);
-		return (Slide)getSqlMapClientTemplate().queryForObject("getSlideBySlideId.Slide.trade",params);
-	}
+    public Slide getSlideBySlideId(String slideId) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("slideId", slideId);
+        return (Slide) super.selectOne("Slide.getSlideBySlideId", params);
+    }
 
-	/**
+    /**
 	 * 
-	 * sql:select a.slide_id, a.goods_id, a.image, a.urlType, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_slide a where a.delete_flag = 0 and a.slide_id=? and a.slide_id in ( ? ) and a.goods_id=? and a.goods_id in ( ? ) and a.urlType=? and a.urlType in ( ? ) and a.order_no >=? and a.order_no <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.slide_id, a.goods_id, a.image, a.urlType, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_slide a where a.delete_flag = 0 and a.slide_id=? and a.slide_id in ( ? ) and a.goods_id=? and a.goods_id in ( ? ) and a.urlType=? and a.urlType in ( ? ) and a.order_no=? and a.order_no >=? and a.order_no <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-    @SuppressWarnings("unchecked")
-	public PageList<Slide> getPageList(Slide slide, int pageSize, int pageNum) throws DataAccessException {
-		return (PageList<Slide>)PageQueryUtils.pageQuery(getSqlMapClientTemplate(),"getPageList.Slide.trade",slide,pageNum,pageSize);
-	}
+    public PageList<Slide> getPageList(Slide slide, int pageSize, int pageNum) throws DataAccessException {
+        return super.pageQuery("Slide.getPageList", slide, pageNum, pageSize);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.slide_id, a.goods_id, a.image, a.urlType, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_slide a where a.delete_flag = 0 and 1=0 and a.slide_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
-    @SuppressWarnings("unchecked")
-	public List<Slide> getSlidesBySlideIds(java.util.List<String> slideIds) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("slideIds",slideIds);
-		return (List<Slide>)getSqlMapClientTemplate().queryForList("getSlidesBySlideIds.Slide.trade",params);
-	}
+    public List<Slide> getSlidesBySlideIds(java.util.List<String> slideIds) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("slideIds", slideIds);
+        return super.selectList("Slide.getSlidesBySlideIds", params);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE demo_slide SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and slide_id in ( ? )
 	 */
-	public java.util.List<String> deleteBySlideIds(java.util.List<String> slideIds) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("slideIds",slideIds);
-        getSqlMapClientTemplate().update("deleteBySlideIds.Slide.trade", params);
+    public java.util.List<String> deleteBySlideIds(java.util.List<String> slideIds) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("slideIds", slideIds);
+        super.update("Slide.deleteBySlideIds", params);
         return slideIds;
-	}
-
+    }
 }
-

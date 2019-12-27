@@ -37,14 +37,13 @@
         <sql>
             UPDATE demo_province
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="name" prepend=",">
                     name =  ? 
                 </isNotNull>
                 <isNotNull property="pycode" prepend=",">
                     pycode =  ? 
                 </isNotNull>
-            </dynamic>
             where
             delete_flag = 0
             and province_id = ?
@@ -79,38 +78,38 @@
             from demo_province a
             where
             a.delete_flag = 0
-            <isNotNull property="provinceId" open="and">
-               a.province_id=?
+            <isNotNull property="provinceId">
+               and a.province_id=?
             </isNotNull>
-            <isNotEmpty property="provinceIds" open="and">
-                a.province_id in
+            <isNotEmpty property="provinceIds">
+                and a.province_id in
                 <iterate property="provinceIds" conjunction="," open="(" close=")">
                     #provinceIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="name" open="and">
-            a.name=?
+          <isNotNull property="name">
+            and a.name=?
           </isNotNull>
-            <isNotEmpty property="nameLike" open="and">
-                a.name like CONCAT('%',#nameLike#,'%')
+            <isNotEmpty property="nameLike">
+                and a.name like CONCAT('%',#nameLike#,'%')
             </isNotEmpty>
-          <isNotNull property="pycode" open="and">
-            a.pycode=?
+          <isNotNull property="pycode">
+            and a.pycode=?
           </isNotNull>
-            <isNotEmpty property="pycodeLike" open="and">
-                a.pycode like CONCAT('%',#pycodeLike#,'%')
+            <isNotEmpty property="pycodeLike">
+                and a.pycode like CONCAT('%',#pycodeLike#,'%')
             </isNotEmpty>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="provinceId">
             <isEmpty property="provinceIds">
@@ -137,6 +136,7 @@
             <include refid = "getProvincePageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getProvincesByProvinceIds" multiplicity="many" remarks="">
         <sql>
@@ -150,11 +150,11 @@
             from demo_province a
             where
             a.delete_flag = 0
-            <isEmpty property="provinceIds" open="and">
-                1=0
+            <isEmpty property="provinceIds">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="provinceIds" open="and">
-                a.province_id in
+            <isNotEmpty property="provinceIds">
+                and a.province_id in
                 <iterate property="provinceIds" conjunction="," open="(" close=")">
                     #provinceIds[]#
                 </iterate>
@@ -171,11 +171,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="provinceIds" open="and">
-                1=0
+            <isEmpty property="provinceIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="provinceIds" open="and">
-                province_id in
+            <isNotEmpty property="provinceIds">
+                and province_id in
                 <iterate property="provinceIds" conjunction="," open="(" close=")">
                     #provinceIds[]#
                 </iterate>

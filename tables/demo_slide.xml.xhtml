@@ -41,7 +41,7 @@
         <sql>
             UPDATE demo_slide
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="goodsId" prepend=",">
                     goods_id =  ? 
                 </isNotNull>
@@ -54,7 +54,6 @@
                 <isNotNull property="orderNo" prepend=",">
                     order_no =  ? 
                 </isNotNull>
-            </dynamic>
             where
             delete_flag = 0
             and slide_id = ?
@@ -93,50 +92,53 @@
             from demo_slide a
             where
             a.delete_flag = 0
-            <isNotNull property="slideId" open="and">
-               a.slide_id=?
+            <isNotNull property="slideId">
+               and a.slide_id=?
             </isNotNull>
-            <isNotEmpty property="slideIds" open="and">
-                a.slide_id in
+            <isNotEmpty property="slideIds">
+                and a.slide_id in
                 <iterate property="slideIds" conjunction="," open="(" close=")">
                     #slideIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="goodsId" open="and">
-               a.goods_id=?
+            <isNotNull property="goodsId">
+               and a.goods_id=?
             </isNotNull>
-            <isNotEmpty property="goodsIds" open="and">
-                a.goods_id in
+            <isNotEmpty property="goodsIds">
+                and a.goods_id in
                 <iterate property="goodsIds" conjunction="," open="(" close=")">
                     #goodsIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="urlType" open="and">
-               a.urlType=?
+            <isNotNull property="urlType">
+               and a.urlType=?
             </isNotNull>
-            <isNotEmpty property="urlTypes" open="and">
-                a.urlType in
+            <isNotEmpty property="urlTypes">
+                and a.urlType in
                 <iterate property="urlTypes" conjunction="," open="(" close=")">
                     #urlTypes[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="orderNoMin" open="and">
-                a.order_no >=#orderNoMin#
+          <isNotNull property="orderNo">
+                and a.order_no=?
+          </isNotNull>
+            <isNotNull property="orderNoMin">
+                and a.order_no >=#orderNoMin#
             </isNotNull>
-            <isNotNull property="orderNoMax" open="and">
-                a.order_no &lt;#orderNoMax#
+            <isNotNull property="orderNoMax">
+                and a.order_no &lt;#orderNoMax#
             </isNotNull>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="slideId">
             <isEmpty property="slideIds">
@@ -144,6 +146,7 @@
             <isEmpty property="goodsIds">
             <isNull property="urlType">
             <isEmpty property="urlTypes">
+            <isNull property="orderNo">
             <isNull property="orderNoMin">
             <isNull property="orderNoMax">
             <isNull property="createTimeMin">
@@ -151,6 +154,7 @@
             <isNull property="updateTimeMin">
             <isNull property="updateTimeMax">
               and 0 = 1
+            </isNull>
             </isNull>
             </isNull>
             </isNull>
@@ -167,6 +171,7 @@
             <include refid = "getSlidePageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getSlidesBySlideIds" multiplicity="many" remarks="">
         <sql>
@@ -182,11 +187,11 @@
             from demo_slide a
             where
             a.delete_flag = 0
-            <isEmpty property="slideIds" open="and">
-                1=0
+            <isEmpty property="slideIds">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="slideIds" open="and">
-                a.slide_id in
+            <isNotEmpty property="slideIds">
+                and a.slide_id in
                 <iterate property="slideIds" conjunction="," open="(" close=")">
                     #slideIds[]#
                 </iterate>
@@ -203,11 +208,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="slideIds" open="and">
-                1=0
+            <isEmpty property="slideIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="slideIds" open="and">
-                slide_id in
+            <isNotEmpty property="slideIds">
+                and slide_id in
                 <iterate property="slideIds" conjunction="," open="(" close=")">
                     #slideIds[]#
                 </iterate>

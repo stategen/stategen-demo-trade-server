@@ -39,7 +39,7 @@
         <sql>
             UPDATE demo_floor
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="advertiseId" prepend=",">
                     advertise_id =  ? 
                 </isNotNull>
@@ -49,7 +49,6 @@
                 <isNotNull property="floorName" prepend=",">
                     floor_name =  ? 
                 </isNotNull>
-            </dynamic>
             where
             delete_flag = 0
             and floor_id = ?
@@ -86,52 +85,56 @@
             from demo_floor a
             where
             a.delete_flag = 0
-            <isNotNull property="floorId" open="and">
-               a.floor_id=?
+            <isNotNull property="floorId">
+               and a.floor_id=?
             </isNotNull>
-            <isNotEmpty property="floorIds" open="and">
-                a.floor_id in
+            <isNotEmpty property="floorIds">
+                and a.floor_id in
                 <iterate property="floorIds" conjunction="," open="(" close=")">
                     #floorIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="advertiseId" open="and">
-               a.advertise_id=?
+            <isNotNull property="advertiseId">
+               and a.advertise_id=?
             </isNotNull>
-            <isNotEmpty property="advertiseIds" open="and">
-                a.advertise_id in
+            <isNotEmpty property="advertiseIds">
+                and a.advertise_id in
                 <iterate property="advertiseIds" conjunction="," open="(" close=")">
                     #advertiseIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="orderNoMin" open="and">
-                a.order_no >=#orderNoMin#
-            </isNotNull>
-            <isNotNull property="orderNoMax" open="and">
-                a.order_no &lt;#orderNoMax#
-            </isNotNull>
-          <isNotNull property="floorName" open="and">
-            a.floor_name=?
+          <isNotNull property="orderNo">
+                and a.order_no=?
           </isNotNull>
-            <isNotEmpty property="floorNameLike" open="and">
-                a.floor_name like CONCAT('%',#floorNameLike#,'%')
+            <isNotNull property="orderNoMin">
+                and a.order_no >=#orderNoMin#
+            </isNotNull>
+            <isNotNull property="orderNoMax">
+                and a.order_no &lt;#orderNoMax#
+            </isNotNull>
+          <isNotNull property="floorName">
+            and a.floor_name=?
+          </isNotNull>
+            <isNotEmpty property="floorNameLike">
+                and a.floor_name like CONCAT('%',#floorNameLike#,'%')
             </isNotEmpty>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="floorId">
             <isEmpty property="floorIds">
             <isNull property="advertiseId">
             <isEmpty property="advertiseIds">
+            <isNull property="orderNo">
             <isNull property="orderNoMin">
             <isNull property="orderNoMax">
             <isNull property="floorName">
@@ -149,6 +152,7 @@
             </isNull>
             </isNull>
             </isNull>
+            </isNull>
             </isEmpty>
             </isNull>
             </isEmpty>
@@ -157,6 +161,7 @@
             <include refid = "getFloorPageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getFloorsByFloorIds" multiplicity="many" remarks="">
         <sql>
@@ -171,11 +176,11 @@
             from demo_floor a
             where
             a.delete_flag = 0
-            <isEmpty property="floorIds" open="and">
-                1=0
+            <isEmpty property="floorIds">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="floorIds" open="and">
-                a.floor_id in
+            <isNotEmpty property="floorIds">
+                and a.floor_id in
                 <iterate property="floorIds" conjunction="," open="(" close=")">
                     #floorIds[]#
                 </iterate>
@@ -192,11 +197,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="floorIds" open="and">
-                1=0
+            <isEmpty property="floorIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="floorIds" open="and">
-                floor_id in
+            <isNotEmpty property="floorIds">
+                and floor_id in
                 <iterate property="floorIds" conjunction="," open="(" close=")">
                     #floorIds[]#
                 </iterate>

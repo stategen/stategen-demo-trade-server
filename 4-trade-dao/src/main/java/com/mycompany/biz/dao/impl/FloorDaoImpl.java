@@ -9,13 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mycompany.biz.domain.Floor;
-import com.mycompany.biz.dao.FloorDao;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.stategen.framework.ibatis.util.PageQueryUtils;
 import org.stategen.framework.lite.PageList;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+import com.mycompany.biz.dao.FloorDao;
+import com.mycompany.biz.domain.Floor;
 
 /**
  * FloorDao
@@ -27,83 +27,79 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
  * 该类仅可以修改引用
  * </pre>
  */
-public class FloorDaoImpl  extends SqlMapClientDaoSupport implements FloorDao {
+public class FloorDaoImpl extends SqlDaoSupportBase implements FloorDao {
 
-	/**
+    /**
 	 * 
 	 * sql:insert into demo_floor ( create_time , update_time , delete_flag , floor_id , advertise_id , order_no , floor_name ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public Floor insert(Floor floor) throws DataAccessException {
-		if(floor == null) {
-			throw new IllegalArgumentException("Can't insert a null data object into db.");
-		}
-        getSqlMapClientTemplate().insert("insert.Floor.trade", floor);
-		return floor;
-	}
+    public Floor insert(Floor floor) throws DataAccessException {
+        if (floor == null) {
+            throw new IllegalArgumentException("Can't insert a null data object into db.");
+        }
+        super.insert("Floor.insert", floor);
+        return floor;
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE demo_floor SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and floor_id = ?
 	 */
-	public String delete(String floorId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("floorId",floorId);
-        getSqlMapClientTemplate().update("delete.Floor.trade", params);
+    public String delete(String floorId) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("floorId", floorId);
+        super.update("Floor.delete", params);
         return floorId;
-	}
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE demo_floor SET update_time= CURRENT_TIMESTAMP(6) , advertise_id = ? , order_no = ? , floor_name = ? where delete_flag = 0 and floor_id = ?
 	 */
-	public Floor update(Floor floor) throws DataAccessException {
-		if(floor == null) {
-			throw new IllegalArgumentException("Can't update by a null data object.");
-		}
-        getSqlMapClientTemplate().update("update.Floor.trade", floor);
-		return floor;
-	}
+    public Floor update(Floor floor) throws DataAccessException {
+        if (floor == null) {
+            throw new IllegalArgumentException("Can't update by a null data object.");
+        }
+        super.update("Floor.update", floor);
+        return floor;
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.floor_id, a.advertise_id, a.order_no, a.floor_name, a.create_time, a.update_time, a.delete_flag from demo_floor a where a.delete_flag = 0 and a.floor_id = ?
 	 */
-	public Floor getFloorByFloorId(String floorId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("floorId",floorId);
-		return (Floor)getSqlMapClientTemplate().queryForObject("getFloorByFloorId.Floor.trade",params);
-	}
+    public Floor getFloorByFloorId(String floorId) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("floorId", floorId);
+        return (Floor) super.selectOne("Floor.getFloorByFloorId", params);
+    }
 
-	/**
+    /**
 	 * 
-	 * sql:select a.floor_id, a.advertise_id, a.order_no, a.floor_name, a.create_time, a.update_time, a.delete_flag from demo_floor a where a.delete_flag = 0 and a.floor_id=? and a.floor_id in ( ? ) and a.advertise_id=? and a.advertise_id in ( ? ) and a.order_no >=? and a.order_no <? and a.floor_name=? and a.floor_name like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.floor_id, a.advertise_id, a.order_no, a.floor_name, a.create_time, a.update_time, a.delete_flag from demo_floor a where a.delete_flag = 0 and a.floor_id=? and a.floor_id in ( ? ) and a.advertise_id=? and a.advertise_id in ( ? ) and a.order_no=? and a.order_no >=? and a.order_no <? and a.floor_name=? and a.floor_name like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-    @SuppressWarnings("unchecked")
-	public PageList<Floor> getPageList(Floor floor, int pageSize, int pageNum) throws DataAccessException {
-		return (PageList<Floor>)PageQueryUtils.pageQuery(getSqlMapClientTemplate(),"getPageList.Floor.trade",floor,pageNum,pageSize);
-	}
+    public PageList<Floor> getPageList(Floor floor, int pageSize, int pageNum) throws DataAccessException {
+        return super.pageQuery("Floor.getPageList", floor, pageNum, pageSize);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:select a.floor_id, a.advertise_id, a.order_no, a.floor_name, a.create_time, a.update_time, a.delete_flag from demo_floor a where a.delete_flag = 0 and 1=0 and a.floor_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
-    @SuppressWarnings("unchecked")
-	public List<Floor> getFloorsByFloorIds(java.util.List<String> floorIds) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("floorIds",floorIds);
-		return (List<Floor>)getSqlMapClientTemplate().queryForList("getFloorsByFloorIds.Floor.trade",params);
-	}
+    public List<Floor> getFloorsByFloorIds(java.util.List<String> floorIds) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("floorIds", floorIds);
+        return super.selectList("Floor.getFloorsByFloorIds", params);
+    }
 
-	/**
+    /**
 	 * 
 	 * sql:UPDATE demo_floor SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and floor_id in ( ? )
 	 */
-	public java.util.List<String> deleteByFloorIds(java.util.List<String> floorIds) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(1);
-		params.put("floorIds",floorIds);
-        getSqlMapClientTemplate().update("deleteByFloorIds.Floor.trade", params);
+    public java.util.List<String> deleteByFloorIds(java.util.List<String> floorIds) throws DataAccessException {
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("floorIds", floorIds);
+        super.update("Floor.deleteByFloorIds", params);
         return floorIds;
-	}
-
+    }
 }
-

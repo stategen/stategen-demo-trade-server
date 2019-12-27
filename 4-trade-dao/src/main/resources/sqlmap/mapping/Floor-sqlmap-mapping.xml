@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="Floor_RM" class="com.mycompany.biz.domain.Floor">
+        <result property="floorId" column="floor_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="advertiseId" column="advertise_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="orderNo" column="order_no" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+        <result property="floorName" column="floor_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getFloorPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getFloorsByFloorIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="Floor.insert">
+		insert into demo_floor (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="floorId"> floor_id </isNotNull>
+            <isNotNull prepend="," property="advertiseId"> advertise_id </isNotNull>
+            <isNotNull prepend="," property="orderNo"> order_no </isNotNull>
+            <isNotNull prepend="," property="floorName"> floor_name </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="floorId"> #floorId# </isNotNull> 
+            <isNotNull prepend="," property="advertiseId"> #advertiseId# </isNotNull> 
+            <isNotNull prepend="," property="orderNo"> #orderNo# </isNotNull> 
+            <isNotNull prepend="," property="floorName"> #floorName# </isNotNull>)
+            <selectKey keyProperty="floorId" resultClass="String" type="pre">
+                select if((#floorId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#floorId# ) as floorId
+            </selectKey>
+	</insert>
+	
+	<update id="Floor.delete">
+		UPDATE demo_floor SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and floor_id = #floorId#
+	</update>
+	
+    
+	
+	<update id="Floor.update">
+		UPDATE demo_floor
+            SET update_time= CURRENT_TIMESTAMP(6)
+            
+                <isNotNull prepend="," property="advertiseId">
+                    advertise_id =  #advertiseId# 
+                </isNotNull>
+                <isNotNull prepend="," property="orderNo">
+                    order_no =  #orderNo# 
+                </isNotNull>
+                <isNotNull prepend="," property="floorName">
+                    floor_name =  #floorName# 
+                </isNotNull>
+            where
+            delete_flag = 0
+            and floor_id = #floorId#
+	</update>
+	
+    
+	
+	<select id="Floor.getFloorByFloorId" resultMap="Floor_RM" >
+    	select
+ /* getFloorByFloorId.Floor */             a.floor_id,
+            a.advertise_id,
+            a.order_no,
+            a.floor_name,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_floor a
+            where
+            a.delete_flag = 0
+            and a.floor_id = #floorId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="Floor.getPageList" resultMap="Floor_RM" >
+    	select
+ /* getPageList.Floor */             a.floor_id,
+            a.advertise_id,
+            a.order_no,
+            a.floor_name,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_floor a
+            where
+            a.delete_flag = 0
+            <isNotNull property="floorId">
+               and a.floor_id=#floorId#
+            </isNotNull>
+            <isNotEmpty property="floorIds">
+                and a.floor_id in
+                <iterate close=")" conjunction="," open="(" property="floorIds">
+                    #floorIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="advertiseId">
+               and a.advertise_id=#advertiseId#
+            </isNotNull>
+            <isNotEmpty property="advertiseIds">
+                and a.advertise_id in
+                <iterate close=")" conjunction="," open="(" property="advertiseIds">
+                    #advertiseIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="orderNo">
+                and a.order_no=#orderNo#
+          </isNotNull>
+            <isNotNull property="orderNoMin">
+                and a.order_no >=#orderNoMin#
+            </isNotNull>
+            <isNotNull property="orderNoMax">
+                and a.order_no &lt;#orderNoMax#
+            </isNotNull>
+          <isNotNull property="floorName">
+            and a.floor_name=#floorName#
+          </isNotNull>
+            <isNotEmpty property="floorNameLike">
+                and a.floor_name like CONCAT('%',#floorNameLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="floorId">
+            <isEmpty property="floorIds">
+            <isNull property="advertiseId">
+            <isEmpty property="advertiseIds">
+            <isNull property="orderNo">
+            <isNull property="orderNoMin">
+            <isNull property="orderNoMax">
+            <isNull property="floorName">
+            <isEmpty property="floorNameLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getFloorPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="Floor.getPageList_count" resultClass="long" >
+    	select  /* Floor.getPageList_count */ count(*)  from demo_floor a
+            where
+            a.delete_flag = 0
+            <isNotNull property="floorId">
+               and a.floor_id=#floorId#
+            </isNotNull>
+            <isNotEmpty property="floorIds">
+                and a.floor_id in
+                <iterate close=")" conjunction="," open="(" property="floorIds">
+                    #floorIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="advertiseId">
+               and a.advertise_id=#advertiseId#
+            </isNotNull>
+            <isNotEmpty property="advertiseIds">
+                and a.advertise_id in
+                <iterate close=")" conjunction="," open="(" property="advertiseIds">
+                    #advertiseIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="orderNo">
+                and a.order_no=#orderNo#
+          </isNotNull>
+            <isNotNull property="orderNoMin">
+                and a.order_no >=#orderNoMin#
+            </isNotNull>
+            <isNotNull property="orderNoMax">
+                and a.order_no &lt;#orderNoMax#
+            </isNotNull>
+          <isNotNull property="floorName">
+            and a.floor_name=#floorName#
+          </isNotNull>
+            <isNotEmpty property="floorNameLike">
+                and a.floor_name like CONCAT('%',#floorNameLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="floorId">
+            <isEmpty property="floorIds">
+            <isNull property="advertiseId">
+            <isEmpty property="advertiseIds">
+            <isNull property="orderNo">
+            <isNull property="orderNoMin">
+            <isNull property="orderNoMax">
+            <isNull property="floorName">
+            <isEmpty property="floorNameLike">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="Floor.getFloorsByFloorIds" resultMap="Floor_RM" >
+    	select
+ /* getFloorsByFloorIds.Floor */             a.floor_id,
+            a.advertise_id,
+            a.order_no,
+            a.floor_name,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_floor a
+            where
+            a.delete_flag = 0
+            <isEmpty property="floorIds">
+            and 1=0
+            </isEmpty>
+            <isNotEmpty property="floorIds">
+                and a.floor_id in
+                <iterate close=")" conjunction="," open="(" property="floorIds">
+                    #floorIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getFloorsByFloorIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="Floor.deleteByFloorIds">
+		UPDATE demo_floor SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="floorIds">
+                and 1=0
+            </isEmpty>
+            <isNotEmpty property="floorIds">
+                and floor_id in
+                <iterate close=")" conjunction="," open="(" property="floorIds">
+                    #floorIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+
+</sqlMap>
+

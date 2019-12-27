@@ -97,7 +97,7 @@
         <sql>
             UPDATE user
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="username" prepend=",">
                     username =  ? 
                 </isNotNull>
@@ -161,7 +161,6 @@
                 <isNotNull property="remark" prepend=",">
                     remark =  ? 
                 </isNotNull>
-            </dynamic>
             where
             delete_flag = 0
             and user_id = ?
@@ -304,164 +303,164 @@
             from user a
             where
             a.delete_flag = 0
-            <isNotNull property="userId" open="and">
-               a.user_id=?
+            <isNotNull property="userId">
+               and a.user_id=?
             </isNotNull>
-            <isNotEmpty property="userIds" open="and">
-                a.user_id in
+            <isNotEmpty property="userIds">
+                and a.user_id in
                 <iterate property="userIds" conjunction="," open="(" close=")">
                     #userIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="username" open="and">
-            a.username=?
+          <isNotNull property="username">
+            and a.username=?
           </isNotNull>
-            <isNotEmpty property="usernameLike" open="and">
-                a.username like CONCAT('%',#usernameLike#,'%')
+            <isNotEmpty property="usernameLike">
+                and a.username like CONCAT('%',#usernameLike#,'%')
             </isNotEmpty>
-          <isNotNull property="password" open="and">
-            a.password=?
+          <isNotNull property="password">
+            and a.password=?
           </isNotNull>
-            <isNotEmpty property="passwordLike" open="and">
-                a.password like CONCAT('%',#passwordLike#,'%')
+            <isNotEmpty property="passwordLike">
+                and a.password like CONCAT('%',#passwordLike#,'%')
             </isNotEmpty>
-            <isNotNull property="roleType" open="and">
-               a.role_type=?
+            <isNotNull property="roleType">
+               and a.role_type=?
             </isNotNull>
-            <isNotEmpty property="roleTypes" open="and">
-                a.role_type in
+            <isNotEmpty property="roleTypes">
+                and a.role_type in
                 <iterate property="roleTypes" conjunction="," open="(" close=")">
                     #roleTypes[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="name" open="and">
-            a.name=?
+          <isNotNull property="name">
+            and a.name=?
           </isNotNull>
-            <isNotEmpty property="nameLike" open="and">
-                a.name like CONCAT('%',#nameLike#,'%')
+            <isNotEmpty property="nameLike">
+                and a.name like CONCAT('%',#nameLike#,'%')
             </isNotEmpty>
-          <isNotNull property="nickName" open="and">
-            a.nickName=?
+          <isNotNull property="nickName">
+            and a.nickName=?
           </isNotNull>
-            <isNotEmpty property="nickNameLike" open="and">
-                a.nickName like CONCAT('%',#nickNameLike#,'%')
+            <isNotEmpty property="nickNameLike">
+                and a.nickName like CONCAT('%',#nickNameLike#,'%')
             </isNotEmpty>
-          <isNotNull property="interCode" open="and">
-            a.inter_code=?
+          <isNotNull property="interCode">
+            and a.inter_code=?
           </isNotNull>
-            <isNotEmpty property="interCodeLike" open="and">
-                a.inter_code like CONCAT('%',#interCodeLike#,'%')
+            <isNotEmpty property="interCodeLike">
+                and a.inter_code like CONCAT('%',#interCodeLike#,'%')
             </isNotEmpty>
-          <isNotNull property="mobile" open="and">
-            a.mobile=?
+          <isNotNull property="mobile">
+            and a.mobile=?
           </isNotNull>
-            <isNotEmpty property="mobileLike" open="and">
-                a.mobile like CONCAT('%',#mobileLike#,'%')
+            <isNotEmpty property="mobileLike">
+                and a.mobile like CONCAT('%',#mobileLike#,'%')
             </isNotEmpty>
-            <isNotNull property="ageMin" open="and">
-                a.age >=#ageMin#
+          <isNotNull property="age">
+                and a.age=?
+          </isNotNull>
+            <isNotNull property="ageMin">
+                and a.age >=#ageMin#
             </isNotNull>
-            <isNotNull property="ageMax" open="and">
-                a.age &lt;#ageMax#
+            <isNotNull property="ageMax">
+                and a.age &lt;#ageMax#
             </isNotNull>
-          <isNotNull property="address" open="and">
-            a.address=?
+          <isNotNull property="address">
+            and a.address=?
           </isNotNull>
-            <isNotEmpty property="addressLike" open="and">
-                a.address like CONCAT('%',#addressLike#,'%')
+            <isNotEmpty property="addressLike">
+                and a.address like CONCAT('%',#addressLike#,'%')
             </isNotEmpty>
-            <isNotNull property="avatarImgId" open="and">
-               a.avatar_img_id=?
+            <isNotNull property="avatarImgId">
+               and a.avatar_img_id=?
             </isNotNull>
-            <isNotEmpty property="avatarImgIds" open="and">
-                a.avatar_img_id in
+            <isNotEmpty property="avatarImgIds">
+                and a.avatar_img_id in
                 <iterate property="avatarImgIds" conjunction="," open="(" close=")">
                     #avatarImgIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="email" open="and">
-            a.email=?
+          <isNotNull property="email">
+            and a.email=?
           </isNotNull>
-            <isNotEmpty property="emailLike" open="and">
-                a.email like CONCAT('%',#emailLike#,'%')
+            <isNotEmpty property="emailLike">
+                and a.email like CONCAT('%',#emailLike#,'%')
             </isNotEmpty>
-            <isNotNull property="valiDatetimeMin" open="and">
-                a.vali_datetime >=#valiDatetimeMin#
+            <isNotNull property="valiDatetimeMin">
+                and a.vali_datetime >=#valiDatetimeMin#
             </isNotNull>
-            <isNotNull property="valiDatetimeMax" open="and">
-                a.vali_datetime &lt;#valiDatetimeMax#
+            <isNotNull property="valiDatetimeMax">
+                and a.vali_datetime &lt;#valiDatetimeMax#
             </isNotNull>
-            <isNotNull property="birthdayDateMin" open="and">
-                a.birthday_date >=#birthdayDateMin#
+            <isNotNull property="birthdayDateMin">
+                and a.birthday_date >=#birthdayDateMin#
             </isNotNull>
-            <isNotNull property="birthdayDateMax" open="and">
-                a.birthday_date &lt;#birthdayDateMax#
+            <isNotNull property="birthdayDateMax">
+                and a.birthday_date &lt;#birthdayDateMax#
             </isNotNull>
-            <isNotNull property="workTimeMin" open="and">
-                a.work_time >=#workTimeMin#
+            <isNotNull property="workTimeMin">
+                and a.work_time >=#workTimeMin#
             </isNotNull>
-            <isNotNull property="workTimeMax" open="and">
-                a.work_time &lt;#workTimeMax#
+            <isNotNull property="workTimeMax">
+                and a.work_time &lt;#workTimeMax#
             </isNotNull>
-            <isNotNull property="provinceId" open="and">
-               a.province_id=?
+            <isNotNull property="provinceId">
+               and a.province_id=?
             </isNotNull>
-            <isNotEmpty property="provinceIds" open="and">
-                a.province_id in
+            <isNotEmpty property="provinceIds">
+                and a.province_id in
                 <iterate property="provinceIds" conjunction="," open="(" close=")">
                     #provinceIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="cityId" open="and">
-               a.city_id=?
+            <isNotNull property="cityId">
+               and a.city_id=?
             </isNotNull>
-            <isNotEmpty property="cityIds" open="and">
-                a.city_id in
+            <isNotEmpty property="cityIds">
+                and a.city_id in
                 <iterate property="cityIds" conjunction="," open="(" close=")">
                     #cityIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="status" open="and">
-               a.status=?
+            <isNotNull property="status">
+               and a.status=?
             </isNotNull>
-            <isNotEmpty property="statuss" open="and">
-                a.status in
+            <isNotEmpty property="statuss">
+                and a.status in
                 <iterate property="statuss" conjunction="," open="(" close=")">
                     #statuss[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="gradeMin" open="and">
-                a.grade >=#gradeMin#
+          <isNotNull property="grade">
+                and a.grade=?
+          </isNotNull>
+            <isNotNull property="gradeMin">
+                and a.grade >=#gradeMin#
             </isNotNull>
-            <isNotNull property="gradeMax" open="and">
-                a.grade &lt;#gradeMax#
+            <isNotNull property="gradeMax">
+                and a.grade &lt;#gradeMax#
             </isNotNull>
-            <isNotNull property="postAddressId" open="and">
-               a.post_address_id=?
+            <isNotNull property="postAddressId">
+               and a.post_address_id=?
             </isNotNull>
-            <isNotEmpty property="postAddressIds" open="and">
-                a.post_address_id in
+            <isNotEmpty property="postAddressIds">
+                and a.post_address_id in
                 <iterate property="postAddressIds" conjunction="," open="(" close=")">
                     #postAddressIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="remark" open="and">
-            a.remark=?
-          </isNotNull>
-            <isNotEmpty property="remarkLike" open="and">
-                a.remark like CONCAT('%',#remarkLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="userId">
             <isEmpty property="userIds">
@@ -479,6 +478,7 @@
             <isEmpty property="interCodeLike">
             <isNull property="mobile">
             <isEmpty property="mobileLike">
+            <isNull property="age">
             <isNull property="ageMin">
             <isNull property="ageMax">
             <isNull property="address">
@@ -499,12 +499,11 @@
             <isEmpty property="cityIds">
             <isNull property="status">
             <isEmpty property="statuss">
+            <isNull property="grade">
             <isNull property="gradeMin">
             <isNull property="gradeMax">
             <isNull property="postAddressId">
             <isEmpty property="postAddressIds">
-            <isNull property="remark">
-            <isEmpty property="remarkLike">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
@@ -516,7 +515,6 @@
             </isNull>
             </isEmpty>
             </isNull>
-            </isEmpty>
             </isNull>
             </isNull>
             </isNull>
@@ -537,6 +535,7 @@
             </isEmpty>
             </isNull>
             </isEmpty>
+            </isNull>
             </isNull>
             </isNull>
             </isNull>
@@ -560,6 +559,7 @@
             <include refid = "getUserPageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getUsersByUserIds" multiplicity="many" remarks="">
         <sql>
@@ -592,11 +592,11 @@
             from user a
             where
             a.delete_flag = 0
-            <isEmpty property="userIds" open="and">
-                1=0
+            <isEmpty property="userIds">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="userIds" open="and">
-                a.user_id in
+            <isNotEmpty property="userIds">
+                and a.user_id in
                 <iterate property="userIds" conjunction="," open="(" close=")">
                     #userIds[]#
                 </iterate>
@@ -637,11 +637,11 @@
             from user a
             where
             a.delete_flag = 0
-            <isEmpty property="usernames" open="and">
-                1=0
+            <isEmpty property="usernames">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="usernames" open="and">
-                a.username in
+            <isNotEmpty property="usernames">
+                and a.username in
                 <iterate property="usernames" conjunction="," open="(" close=")">
                     #usernames[]#
                 </iterate>
@@ -682,11 +682,11 @@
             from user a
             where
             a.delete_flag = 0
-            <isEmpty property="emails" open="and">
-                1=0
+            <isEmpty property="emails">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="emails" open="and">
-                a.email in
+            <isNotEmpty property="emails">
+                and a.email in
                 <iterate property="emails" conjunction="," open="(" close=")">
                     #emails[]#
                 </iterate>
@@ -703,11 +703,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="userIds" open="and">
-                1=0
+            <isEmpty property="userIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="userIds" open="and">
-                user_id in
+            <isNotEmpty property="userIds">
+                and user_id in
                 <iterate property="userIds" conjunction="," open="(" close=")">
                     #userIds[]#
                 </iterate>
@@ -722,11 +722,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="usernames" open="and">
-                1=0
+            <isEmpty property="usernames">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="usernames" open="and">
-                username in
+            <isNotEmpty property="usernames">
+                and username in
                 <iterate property="usernames" conjunction="," open="(" close=")">
                     #usernames[]#
                 </iterate>
@@ -741,11 +741,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="emails" open="and">
-                1=0
+            <isEmpty property="emails">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="emails" open="and">
-                email in
+            <isNotEmpty property="emails">
+                and email in
                 <iterate property="emails" conjunction="," open="(" close=")">
                     #emails[]#
                 </iterate>

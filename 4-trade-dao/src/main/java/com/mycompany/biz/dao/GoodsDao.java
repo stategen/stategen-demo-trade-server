@@ -113,14 +113,17 @@ public interface GoodsDao {
     &#64;ApiParam() String goodsNameLike,
     &#64;ApiParam() String categorySubId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="categorySubIds") ArrayList&lt;String&gt; categorySubIds,
+    &#64;ApiParam() Long amount,
     &#64;ApiParam() Long amountMin,
     &#64;ApiParam() Long amountMax,
+    &#64;ApiParam() BigDecimal price,
     &#64;ApiParam() BigDecimal priceMin,
     &#64;ApiParam() BigDecimal priceMax,
     &#64;ApiParam() String images,
     &#64;ApiParam() String imagesLike,
     &#64;ApiParam() Long advertiseId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="advertiseIds") ArrayList&lt;Long&gt; advertiseIds,
+    &#64;ApiParam() BigDecimal presentPrice,
     &#64;ApiParam() BigDecimal presentPriceMin,
     &#64;ApiParam() BigDecimal presentPriceMax,
     &#64;ApiParam() String image1,
@@ -137,12 +140,11 @@ public interface GoodsDao {
     &#64;ApiParam() String isOnLineLike,
     &#64;ApiParam() String goodsSerialNumber,
     &#64;ApiParam() String goodsSerialNumberLike,
+    &#64;ApiParam() Integer state,
     &#64;ApiParam() Integer stateMin,
     &#64;ApiParam() Integer stateMax,
     &#64;ApiParam() String shopId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="shopIds") ArrayList&lt;String&gt; shopIds,
-    &#64;ApiParam() String goodsDetail,
-    &#64;ApiParam() String goodsDetailLike,
     &#64;ApiParam() Date createTimeMin,
     &#64;ApiParam() Date createTimeMax,
     &#64;ApiParam() Date updateTimeMin,
@@ -151,7 +153,7 @@ public interface GoodsDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.goods_id, a.goods_name, a.categorySubId, a.amount, a.price, a.images, a.is_check, a.is_hot, a.advertise_id, a.present_price, a.image, a.image1, a.image2, a.image3, a.image4, a.image5, a.is_on_line, a.goods_serial_number, a.state, a.shop_id, a.goods_detail, a.create_time, a.update_time, a.delete_flag from demo_goods a where a.delete_flag = 0 and a.goods_id=? and a.goods_id in ( ? ) and a.goods_name=? and a.goods_name like CONCAT('%',?,'%') and a.categorySubId=? and a.categorySubId in ( ? ) and a.amount >=? and a.amount <? and a.price >=? and a.price <? and a.images=? and a.images like CONCAT('%',?,'%') and a.advertise_id=? and a.advertise_id in ( ? ) and a.present_price >=? and a.present_price <? and a.image1=? and a.image1 like CONCAT('%',?,'%') and a.image2=? and a.image2 like CONCAT('%',?,'%') and a.image3=? and a.image3 like CONCAT('%',?,'%') and a.image4=? and a.image4 like CONCAT('%',?,'%') and a.image5=? and a.image5 like CONCAT('%',?,'%') and a.is_on_line=? and a.is_on_line like CONCAT('%',?,'%') and a.goods_serial_number=? and a.goods_serial_number like CONCAT('%',?,'%') and a.state >=? and a.state <? and a.shop_id=? and a.shop_id in ( ? ) and a.goods_detail=? and a.goods_detail like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.goods_id
+	 * sql:select a.goods_id, a.goods_name, a.categorySubId, a.amount, a.price, a.images, a.is_check, a.is_hot, a.advertise_id, a.present_price, a.image, a.image1, a.image2, a.image3, a.image4, a.image5, a.is_on_line, a.goods_serial_number, a.state, a.shop_id, a.goods_detail, a.create_time, a.update_time, a.delete_flag from demo_goods a where a.delete_flag = 0 and a.goods_id=? and a.goods_id in ( ? ) and a.goods_name=? and a.goods_name like CONCAT('%',?,'%') and a.categorySubId=? and a.categorySubId in ( ? ) and a.amount=? and a.amount >=? and a.amount <? and a.price=? and a.price >=? and a.price <? and a.images=? and a.images like CONCAT('%',?,'%') and a.advertise_id=? and a.advertise_id in ( ? ) and a.present_price=? and a.present_price >=? and a.present_price <? and a.image1=? and a.image1 like CONCAT('%',?,'%') and a.image2=? and a.image2 like CONCAT('%',?,'%') and a.image3=? and a.image3 like CONCAT('%',?,'%') and a.image4=? and a.image4 like CONCAT('%',?,'%') and a.image5=? and a.image5 like CONCAT('%',?,'%') and a.is_on_line=? and a.is_on_line like CONCAT('%',?,'%') and a.goods_serial_number=? and a.goods_serial_number like CONCAT('%',?,'%') and a.state=? and a.state >=? and a.state <? and a.shop_id=? and a.shop_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.goods_id
 	 */
 	public PageList<Goods> getPageList(Goods goods, int pageSize, int pageNum) throws DataAccessException;
 	

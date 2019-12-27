@@ -43,7 +43,7 @@
         <sql>
             UPDATE demo_city
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="name" prepend=",">
                     name =  ? 
                 </isNotNull>
@@ -59,7 +59,6 @@
                 <isNotNull property="areacode" prepend=",">
                     areacode =  ? 
                 </isNotNull>
-            </dynamic>
             where
             delete_flag = 0
             and city_id = ?
@@ -100,59 +99,59 @@
             from demo_city a
             where
             a.delete_flag = 0
-            <isNotNull property="cityId" open="and">
-               a.city_id=?
+            <isNotNull property="cityId">
+               and a.city_id=?
             </isNotNull>
-            <isNotEmpty property="cityIds" open="and">
-                a.city_id in
+            <isNotEmpty property="cityIds">
+                and a.city_id in
                 <iterate property="cityIds" conjunction="," open="(" close=")">
                     #cityIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="name" open="and">
-            a.name=?
+          <isNotNull property="name">
+            and a.name=?
           </isNotNull>
-            <isNotEmpty property="nameLike" open="and">
-                a.name like CONCAT('%',#nameLike#,'%')
+            <isNotEmpty property="nameLike">
+                and a.name like CONCAT('%',#nameLike#,'%')
             </isNotEmpty>
-          <isNotNull property="pycode" open="and">
-            a.pycode=?
+          <isNotNull property="pycode">
+            and a.pycode=?
           </isNotNull>
-            <isNotEmpty property="pycodeLike" open="and">
-                a.pycode like CONCAT('%',#pycodeLike#,'%')
+            <isNotEmpty property="pycodeLike">
+                and a.pycode like CONCAT('%',#pycodeLike#,'%')
             </isNotEmpty>
-            <isNotNull property="provinceId" open="and">
-               a.province_id=?
+            <isNotNull property="provinceId">
+               and a.province_id=?
             </isNotNull>
-            <isNotEmpty property="provinceIds" open="and">
-                a.province_id in
+            <isNotEmpty property="provinceIds">
+                and a.province_id in
                 <iterate property="provinceIds" conjunction="," open="(" close=")">
                     #provinceIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="postcode" open="and">
-            a.postcode=?
+          <isNotNull property="postcode">
+            and a.postcode=?
           </isNotNull>
-            <isNotEmpty property="postcodeLike" open="and">
-                a.postcode like CONCAT('%',#postcodeLike#,'%')
+            <isNotEmpty property="postcodeLike">
+                and a.postcode like CONCAT('%',#postcodeLike#,'%')
             </isNotEmpty>
-          <isNotNull property="areacode" open="and">
-            a.areacode=?
+          <isNotNull property="areacode">
+            and a.areacode=?
           </isNotNull>
-            <isNotEmpty property="areacodeLike" open="and">
-                a.areacode like CONCAT('%',#areacodeLike#,'%')
+            <isNotEmpty property="areacodeLike">
+                and a.areacode like CONCAT('%',#areacodeLike#,'%')
             </isNotEmpty>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="cityId">
             <isEmpty property="cityIds">
@@ -191,6 +190,7 @@
             <include refid = "getCityPageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getCitysByCityIds" multiplicity="many" remarks="">
         <sql>
@@ -207,11 +207,11 @@
             from demo_city a
             where
             a.delete_flag = 0
-            <isEmpty property="cityIds" open="and">
-                1=0
+            <isEmpty property="cityIds">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="cityIds" open="and">
-                a.city_id in
+            <isNotEmpty property="cityIds">
+                and a.city_id in
                 <iterate property="cityIds" conjunction="," open="(" close=")">
                     #cityIds[]#
                 </iterate>
@@ -228,11 +228,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="cityIds" open="and">
-                1=0
+            <isEmpty property="cityIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="cityIds" open="and">
-                city_id in
+            <isNotEmpty property="cityIds">
+                and city_id in
                 <iterate property="cityIds" conjunction="," open="(" close=")">
                     #cityIds[]#
                 </iterate>

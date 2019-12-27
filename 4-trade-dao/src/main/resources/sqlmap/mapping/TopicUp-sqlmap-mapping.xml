@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="TopicUp_RM" class="com.mycompany.biz.domain.TopicUp">
+        <result property="upId" column="up_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="objectId" column="object_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="authorId" column="author_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getTopicUpPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getTopicUpsByUpIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="TopicUp.insert">
+		insert into demo_topic_up (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="upId"> up_id </isNotNull>
+            <isNotNull prepend="," property="objectId"> object_id </isNotNull>
+            <isNotNull prepend="," property="authorId"> author_id </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="upId"> #upId# </isNotNull> 
+            <isNotNull prepend="," property="objectId"> #objectId# </isNotNull> 
+            <isNotNull prepend="," property="authorId"> #authorId# </isNotNull>)
+            <selectKey keyProperty="upId" resultClass="String" type="pre">
+                select if((#upId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#upId# ) as upId
+            </selectKey>
+	</insert>
+	
+	<update id="TopicUp.delete">
+		UPDATE demo_topic_up SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and up_id = #upId#
+	</update>
+	
+    
+	
+	<update id="TopicUp.update">
+		UPDATE demo_topic_up
+            SET update_time= CURRENT_TIMESTAMP(6)
+            
+                <isNotNull prepend="," property="objectId">
+                    object_id =  #objectId# 
+                </isNotNull>
+                <isNotNull prepend="," property="authorId">
+                    author_id =  #authorId# 
+                </isNotNull>
+            where
+            delete_flag = 0
+            and up_id = #upId#
+	</update>
+	
+    
+	
+	<select id="TopicUp.getTopicUpByUpId" resultMap="TopicUp_RM" >
+    	select
+ /* getTopicUpByUpId.TopicUp */             a.up_id,
+            a.object_id,
+            a.author_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_topic_up a
+            where
+            a.delete_flag = 0
+            and a.up_id = #upId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="TopicUp.getPageList" resultMap="TopicUp_RM" >
+    	select
+ /* getPageList.TopicUp */             a.up_id,
+            a.object_id,
+            a.author_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_topic_up a
+            where
+            a.delete_flag = 0
+            <isNotNull property="upId">
+               and a.up_id=#upId#
+            </isNotNull>
+            <isNotEmpty property="upIds">
+                and a.up_id in
+                <iterate close=")" conjunction="," open="(" property="upIds">
+                    #upIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="objectId">
+               and a.object_id=#objectId#
+            </isNotNull>
+            <isNotEmpty property="objectIds">
+                and a.object_id in
+                <iterate close=")" conjunction="," open="(" property="objectIds">
+                    #objectIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="authorId">
+               and a.author_id=#authorId#
+            </isNotNull>
+            <isNotEmpty property="authorIds">
+                and a.author_id in
+                <iterate close=")" conjunction="," open="(" property="authorIds">
+                    #authorIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="upId">
+            <isEmpty property="upIds">
+            <isNull property="objectId">
+            <isEmpty property="objectIds">
+            <isNull property="authorId">
+            <isEmpty property="authorIds">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getTopicUpPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="TopicUp.getPageList_count" resultClass="long" >
+    	select  /* TopicUp.getPageList_count */ count(*)  from demo_topic_up a
+            where
+            a.delete_flag = 0
+            <isNotNull property="upId">
+               and a.up_id=#upId#
+            </isNotNull>
+            <isNotEmpty property="upIds">
+                and a.up_id in
+                <iterate close=")" conjunction="," open="(" property="upIds">
+                    #upIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="objectId">
+               and a.object_id=#objectId#
+            </isNotNull>
+            <isNotEmpty property="objectIds">
+                and a.object_id in
+                <iterate close=")" conjunction="," open="(" property="objectIds">
+                    #objectIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="authorId">
+               and a.author_id=#authorId#
+            </isNotNull>
+            <isNotEmpty property="authorIds">
+                and a.author_id in
+                <iterate close=")" conjunction="," open="(" property="authorIds">
+                    #authorIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="upId">
+            <isEmpty property="upIds">
+            <isNull property="objectId">
+            <isEmpty property="objectIds">
+            <isNull property="authorId">
+            <isEmpty property="authorIds">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="TopicUp.getTopicUpsByUpIds" resultMap="TopicUp_RM" >
+    	select
+ /* getTopicUpsByUpIds.TopicUp */             a.up_id,
+            a.object_id,
+            a.author_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_topic_up a
+            where
+            a.delete_flag = 0
+            <isEmpty property="upIds">
+            and 1=0
+            </isEmpty>
+            <isNotEmpty property="upIds">
+                and a.up_id in
+                <iterate close=")" conjunction="," open="(" property="upIds">
+                    #upIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getTopicUpsByUpIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="TopicUp.deleteByUpIds">
+		UPDATE demo_topic_up SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="upIds">
+                and 1=0
+            </isEmpty>
+            <isNotEmpty property="upIds">
+                and up_id in
+                <iterate close=")" conjunction="," open="(" property="upIds">
+                    #upIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+    <resultMap id="getTopicUpsGroupCountByTopicIds_object_RM" class="com.mycompany.biz.domain.TopicUp">
+        <result property="objectId" column="object_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="upCount" column="upCount" javaType="java.lang.Long" jdbcType="BIGINT"  />
+    </resultMap>
+	
+	<select id="TopicUp.getTopicUpsGroupCountByTopicIds" resultMap="getTopicUpsGroupCountByTopicIds_object_RM" >
+    	SELECT
+ /* getTopicUpsGroupCountByTopicIds.TopicUp */             tu.object_id,
+            COUNT(*) AS upCount
+            FROM
+            demo_topic_up tu
+            LEFT JOIN demo_topic_reply tr ON tr.reply_id = tu.object_id
+            WHERE
+            tu.delete_flag=0
+            and tr.delete_flag=0
+            <isNotEmpty property="objectIds">
+                and tu.object_id in
+                <iterate close=")" conjunction="," open="(" property="objectIds">
+                    #objectIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isEmpty property="objectIds">
+              and 1=0
+            </isEmpty>
+            <isNotEmpty property="authorId">
+                and tu.author_id =#authorId#
+            </isNotEmpty>
+            GROUP BY
+            tu.object_id
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="TopicUp.getTopicUpByObjectIdAndAuthorId" resultMap="TopicUp_RM" >
+    	select
+ /* getTopicUpByObjectIdAndAuthorId.TopicUp */             a.up_id,
+            a.object_id,
+            a.author_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_topic_up a
+            where
+            a.delete_flag = 0
+            and a.object_id=#objectId#
+            and a.author_id=#authorId#
+	</select>	
+
+	    
+	
+	
+    
+
+</sqlMap>
+

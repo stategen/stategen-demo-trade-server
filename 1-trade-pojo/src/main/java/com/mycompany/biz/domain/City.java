@@ -16,8 +16,11 @@ import org.stategen.framework.lite.IOption;
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * City
@@ -32,6 +35,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@Accessors(chain = true)
+@AllArgsConstructor
 public class City implements java.io.Serializable, IOption {
 
     private static final long serialVersionUID = -5216457518046898601L;

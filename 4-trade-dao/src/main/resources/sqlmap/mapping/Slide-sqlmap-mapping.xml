@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="Slide_RM" class="com.mycompany.biz.domain.Slide">
+        <result property="slideId" column="slide_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="goodsId" column="goods_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="image" column="image" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="urlType" column="urlType" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+        <result property="orderNo" column="order_no" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getSlidePageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getSlidesBySlideIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="Slide.insert">
+		insert into demo_slide (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="slideId"> slide_id </isNotNull>
+            <isNotNull prepend="," property="goodsId"> goods_id </isNotNull>
+            <isNotNull prepend="," property="image"> image </isNotNull>
+            <isNotNull prepend="," property="urlType"> urlType </isNotNull>
+            <isNotNull prepend="," property="orderNo"> order_no </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="slideId"> #slideId# </isNotNull> 
+            <isNotNull prepend="," property="goodsId"> #goodsId# </isNotNull> 
+            <isNotNull prepend="," property="image"> #image# </isNotNull> 
+            <isNotNull prepend="," property="urlType"> #urlType# </isNotNull> 
+            <isNotNull prepend="," property="orderNo"> #orderNo# </isNotNull>)
+            <selectKey keyProperty="slideId" resultClass="String" type="pre">
+                select if((#slideId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#slideId# ) as slideId
+            </selectKey>
+	</insert>
+	
+	<update id="Slide.delete">
+		UPDATE demo_slide SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and slide_id = #slideId#
+	</update>
+	
+    
+	
+	<update id="Slide.update">
+		UPDATE demo_slide
+            SET update_time= CURRENT_TIMESTAMP(6)
+            
+                <isNotNull prepend="," property="goodsId">
+                    goods_id =  #goodsId# 
+                </isNotNull>
+                <isNotNull prepend="," property="image">
+                    image =  #image# 
+                </isNotNull>
+                <isNotNull prepend="," property="urlType">
+                    urlType =  #urlType# 
+                </isNotNull>
+                <isNotNull prepend="," property="orderNo">
+                    order_no =  #orderNo# 
+                </isNotNull>
+            where
+            delete_flag = 0
+            and slide_id = #slideId#
+	</update>
+	
+    
+	
+	<select id="Slide.getSlideBySlideId" resultMap="Slide_RM" >
+    	select
+ /* getSlideBySlideId.Slide */             a.slide_id,
+            a.goods_id,
+            a.image,
+            a.urlType,
+            a.order_no,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_slide a
+            where
+            a.delete_flag = 0
+            and a.slide_id = #slideId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="Slide.getPageList" resultMap="Slide_RM" >
+    	select
+ /* getPageList.Slide */             a.slide_id,
+            a.goods_id,
+            a.image,
+            a.urlType,
+            a.order_no,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_slide a
+            where
+            a.delete_flag = 0
+            <isNotNull property="slideId">
+               and a.slide_id=#slideId#
+            </isNotNull>
+            <isNotEmpty property="slideIds">
+                and a.slide_id in
+                <iterate close=")" conjunction="," open="(" property="slideIds">
+                    #slideIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="goodsId">
+               and a.goods_id=#goodsId#
+            </isNotNull>
+            <isNotEmpty property="goodsIds">
+                and a.goods_id in
+                <iterate close=")" conjunction="," open="(" property="goodsIds">
+                    #goodsIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="urlType">
+               and a.urlType=#urlType#
+            </isNotNull>
+            <isNotEmpty property="urlTypes">
+                and a.urlType in
+                <iterate close=")" conjunction="," open="(" property="urlTypes">
+                    #urlTypes[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="orderNo">
+                and a.order_no=#orderNo#
+          </isNotNull>
+            <isNotNull property="orderNoMin">
+                and a.order_no >=#orderNoMin#
+            </isNotNull>
+            <isNotNull property="orderNoMax">
+                and a.order_no &lt;#orderNoMax#
+            </isNotNull>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="slideId">
+            <isEmpty property="slideIds">
+            <isNull property="goodsId">
+            <isEmpty property="goodsIds">
+            <isNull property="urlType">
+            <isEmpty property="urlTypes">
+            <isNull property="orderNo">
+            <isNull property="orderNoMin">
+            <isNull property="orderNoMax">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getSlidePageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="Slide.getPageList_count" resultClass="long" >
+    	select  /* Slide.getPageList_count */ count(*)  from demo_slide a
+            where
+            a.delete_flag = 0
+            <isNotNull property="slideId">
+               and a.slide_id=#slideId#
+            </isNotNull>
+            <isNotEmpty property="slideIds">
+                and a.slide_id in
+                <iterate close=")" conjunction="," open="(" property="slideIds">
+                    #slideIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="goodsId">
+               and a.goods_id=#goodsId#
+            </isNotNull>
+            <isNotEmpty property="goodsIds">
+                and a.goods_id in
+                <iterate close=")" conjunction="," open="(" property="goodsIds">
+                    #goodsIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="urlType">
+               and a.urlType=#urlType#
+            </isNotNull>
+            <isNotEmpty property="urlTypes">
+                and a.urlType in
+                <iterate close=")" conjunction="," open="(" property="urlTypes">
+                    #urlTypes[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="orderNo">
+                and a.order_no=#orderNo#
+          </isNotNull>
+            <isNotNull property="orderNoMin">
+                and a.order_no >=#orderNoMin#
+            </isNotNull>
+            <isNotNull property="orderNoMax">
+                and a.order_no &lt;#orderNoMax#
+            </isNotNull>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="slideId">
+            <isEmpty property="slideIds">
+            <isNull property="goodsId">
+            <isEmpty property="goodsIds">
+            <isNull property="urlType">
+            <isEmpty property="urlTypes">
+            <isNull property="orderNo">
+            <isNull property="orderNoMin">
+            <isNull property="orderNoMax">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="Slide.getSlidesBySlideIds" resultMap="Slide_RM" >
+    	select
+ /* getSlidesBySlideIds.Slide */             a.slide_id,
+            a.goods_id,
+            a.image,
+            a.urlType,
+            a.order_no,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_slide a
+            where
+            a.delete_flag = 0
+            <isEmpty property="slideIds">
+            and 1=0
+            </isEmpty>
+            <isNotEmpty property="slideIds">
+                and a.slide_id in
+                <iterate close=")" conjunction="," open="(" property="slideIds">
+                    #slideIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getSlidesBySlideIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="Slide.deleteBySlideIds">
+		UPDATE demo_slide SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="slideIds">
+                and 1=0
+            </isEmpty>
+            <isNotEmpty property="slideIds">
+                and slide_id in
+                <iterate close=")" conjunction="," open="(" property="slideIds">
+                    #slideIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+
+</sqlMap>
+

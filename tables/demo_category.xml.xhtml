@@ -39,7 +39,7 @@
         <sql>
             UPDATE demo_category
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="categoryName" prepend=",">
                     category_name =  ? 
                 </isNotNull>
@@ -49,7 +49,6 @@
                 <isNotNull property="image" prepend=",">
                     image =  ? 
                 </isNotNull>
-            </dynamic>
             where
             delete_flag = 0
             and category_id = ?
@@ -86,45 +85,37 @@
             from demo_category a
             where
             a.delete_flag = 0
-            <isNotNull property="categoryId" open="and">
-               a.category_id=?
+            <isNotNull property="categoryId">
+               and a.category_id=?
             </isNotNull>
-            <isNotEmpty property="categoryIds" open="and">
-                a.category_id in
+            <isNotEmpty property="categoryIds">
+                and a.category_id in
                 <iterate property="categoryIds" conjunction="," open="(" close=")">
                     #categoryIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="categoryName" open="and">
-            a.category_name=?
+          <isNotNull property="categoryName">
+            and a.category_name=?
           </isNotNull>
-            <isNotEmpty property="categoryNameLike" open="and">
-                a.category_name like CONCAT('%',#categoryNameLike#,'%')
+            <isNotEmpty property="categoryNameLike">
+                and a.category_name like CONCAT('%',#categoryNameLike#,'%')
             </isNotEmpty>
-          <isNotNull property="comments" open="and">
-            a.comments=?
-          </isNotNull>
-            <isNotEmpty property="commentsLike" open="and">
-                a.comments like CONCAT('%',#commentsLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="categoryId">
             <isEmpty property="categoryIds">
             <isNull property="categoryName">
             <isEmpty property="categoryNameLike">
-            <isNull property="comments">
-            <isEmpty property="commentsLike">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
@@ -138,12 +129,11 @@
             </isNull>
             </isEmpty>
             </isNull>
-            </isEmpty>
-            </isNull>
             order by
             <include refid = "getCategoryPageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getCategorysByCategoryIds" multiplicity="many" remarks="">
         <sql>
@@ -158,11 +148,11 @@
             from demo_category a
             where
             a.delete_flag = 0
-            <isEmpty property="categoryIds" open="and">
-                1=0
+            <isEmpty property="categoryIds">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="categoryIds" open="and">
-                a.category_id in
+            <isNotEmpty property="categoryIds">
+                and a.category_id in
                 <iterate property="categoryIds" conjunction="," open="(" close=")">
                     #categoryIds[]#
                 </iterate>
@@ -179,11 +169,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="categoryIds" open="and">
-                1=0
+            <isEmpty property="categoryIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="categoryIds" open="and">
-                category_id in
+            <isNotEmpty property="categoryIds">
+                and category_id in
                 <iterate property="categoryIds" conjunction="," open="(" close=")">
                     #categoryIds[]#
                 </iterate>

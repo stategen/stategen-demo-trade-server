@@ -7,12 +7,14 @@
             , delete_flag
             <isNotNull prepend="," property="hoppyId"> hoppy_id </isNotNull>
             <isNotNull prepend="," property="hoppyName"> hoppy_name </isNotNull>
+            <isNotNull prepend="," property="testField"> test_field </isNotNull>
             ) VALUES (
             CURRENT_TIMESTAMP(6)
             , CURRENT_TIMESTAMP(6)
             , 0
             <isNotNull prepend="," property="hoppyId"> ?  </isNotNull>
             <isNotNull prepend="," property="hoppyName"> ?  </isNotNull>
+            <isNotNull prepend="," property="testField"> ?  </isNotNull>
             )
             <selectKey resultClass="long" keyProperty="hoppyId">
                 select  LAST_INSERT_ID()
@@ -35,11 +37,13 @@
         <sql>
             UPDATE demo_hoppy
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="hoppyName" prepend=",">
                     hoppy_name =  ? 
                 </isNotNull>
-            </dynamic>
+                <isNotNull property="testField" prepend=",">
+                    test_field =  ? 
+                </isNotNull>
             where
             delete_flag = 0
             and hoppy_id = ?
@@ -53,7 +57,8 @@
             a.hoppy_name,
             a.create_time,
             a.update_time,
-            a.delete_flag
+            a.delete_flag,
+            a.test_field
             from demo_hoppy a
             where
             a.delete_flag = 0
@@ -68,36 +73,46 @@
             a.hoppy_name,
             a.create_time,
             a.update_time,
-            a.delete_flag
+            a.delete_flag,
+            a.test_field
             from demo_hoppy a
             where
             a.delete_flag = 0
-            <isNotNull property="hoppyId" open="and">
-               a.hoppy_id=?
+            <isNotNull property="hoppyId">
+               and a.hoppy_id=?
             </isNotNull>
-            <isNotEmpty property="hoppyIds" open="and">
-                a.hoppy_id in
+            <isNotEmpty property="hoppyIds">
+                and a.hoppy_id in
                 <iterate property="hoppyIds" conjunction="," open="(" close=")">
                     #hoppyIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="hoppyName" open="and">
-            a.hoppy_name=?
+          <isNotNull property="hoppyName">
+            and a.hoppy_name=?
           </isNotNull>
-            <isNotEmpty property="hoppyNameLike" open="and">
-                a.hoppy_name like CONCAT('%',#hoppyNameLike#,'%')
+            <isNotEmpty property="hoppyNameLike">
+                and a.hoppy_name like CONCAT('%',#hoppyNameLike#,'%')
             </isNotEmpty>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+          <isNotNull property="testField">
+                and a.test_field=?
+          </isNotNull>
+            <isNotNull property="testFieldMin">
+                and a.test_field >=#testFieldMin#
+            </isNotNull>
+            <isNotNull property="testFieldMax">
+                and a.test_field &lt;#testFieldMax#
             </isNotNull>
             <isNull property="hoppyId">
             <isEmpty property="hoppyIds">
@@ -107,7 +122,13 @@
             <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
             <isNull property="updateTimeMax">
+            <isNull property="testField">
+            <isNull property="testFieldMin">
+            <isNull property="testFieldMax">
               and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
             </isNull>
             </isNull>
             </isNull>
@@ -120,6 +141,7 @@
             <include refid = "getHoppyPageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getHoppysByHoppyIds" multiplicity="many" remarks="">
         <sql>
@@ -128,15 +150,16 @@
             a.hoppy_name,
             a.create_time,
             a.update_time,
-            a.delete_flag
+            a.delete_flag,
+            a.test_field
             from demo_hoppy a
             where
             a.delete_flag = 0
-            <isEmpty property="hoppyIds" open="and">
-                1=0
+            <isEmpty property="hoppyIds">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="hoppyIds" open="and">
-                a.hoppy_id in
+            <isNotEmpty property="hoppyIds">
+                and a.hoppy_id in
                 <iterate property="hoppyIds" conjunction="," open="(" close=")">
                     #hoppyIds[]#
                 </iterate>
@@ -153,11 +176,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="hoppyIds" open="and">
-                1=0
+            <isEmpty property="hoppyIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="hoppyIds" open="and">
-                hoppy_id in
+            <isNotEmpty property="hoppyIds">
+                and hoppy_id in
                 <iterate property="hoppyIds" conjunction="," open="(" close=")">
                     #hoppyIds[]#
                 </iterate>

@@ -81,8 +81,6 @@ public interface TopicReplyDao {
     &#64;ApiParam()&#64;RequestParam(required =false,name="topicIds") ArrayList&lt;String&gt; topicIds,
     &#64;ApiParam() String authorId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="authorIds") ArrayList&lt;String&gt; authorIds,
-    &#64;ApiParam() String content,
-    &#64;ApiParam() String contentLike,
     &#64;ApiParam() String parentReplyId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="parentReplyIds") ArrayList&lt;String&gt; parentReplyIds,
     &#64;ApiParam() Date createTimeMin,
@@ -93,7 +91,7 @@ public interface TopicReplyDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from demo_topic_reply a where a.delete_flag = 0 and a.reply_id=? and a.reply_id in ( ? ) and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.content=? and a.content like CONCAT('%',?,'%') and a.parent_reply_id=? and a.parent_reply_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.reply_id, a.topic_id, a.author_id, a.content, a.parent_reply_id, a.create_time, a.update_time, a.delete_flag from demo_topic_reply a where a.delete_flag = 0 and a.reply_id=? and a.reply_id in ( ? ) and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.parent_reply_id=? and a.parent_reply_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<TopicReply> getPageList(TopicReply topicReply, int pageSize, int pageNum) throws DataAccessException;
 	

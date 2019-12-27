@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="RoleMenu_RM" class="com.mycompany.biz.domain.RoleMenu">
+        <result property="id" column="id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="roleId" column="role_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="menuId" column="menu_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getRoleMenuPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getRoleMenusByIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="RoleMenu.insert">
+		insert into role_menu (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="id"> id </isNotNull>
+            <isNotNull prepend="," property="roleId"> role_id </isNotNull>
+            <isNotNull prepend="," property="menuId"> menu_id </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="id"> #id# </isNotNull> 
+            <isNotNull prepend="," property="roleId"> #roleId# </isNotNull> 
+            <isNotNull prepend="," property="menuId"> #menuId# </isNotNull>)
+            <selectKey keyProperty="id" resultClass="long">
+                select  LAST_INSERT_ID()
+            </selectKey>
+	</insert>
+	
+	<update id="RoleMenu.delete">
+		UPDATE role_menu SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and id = #id#
+	</update>
+	
+    
+	
+	<update id="RoleMenu.update">
+		UPDATE role_menu
+            SET update_time= CURRENT_TIMESTAMP(6)
+            
+                <isNotNull prepend="," property="roleId">
+                    role_id =  #roleId# 
+                </isNotNull>
+                <isNotNull prepend="," property="menuId">
+                    menu_id =  #menuId# 
+                </isNotNull>
+            where
+            delete_flag = 0
+            and id = #id#
+	</update>
+	
+    
+	
+	<select id="RoleMenu.getRoleMenuById" resultMap="RoleMenu_RM" >
+    	select
+ /* getRoleMenuById.RoleMenu */             a.id,
+            a.role_id,
+            a.menu_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from role_menu a
+            where
+            a.delete_flag = 0
+            and a.id = #id#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="RoleMenu.getPageList" resultMap="RoleMenu_RM" >
+    	select
+ /* getPageList.RoleMenu */             a.id,
+            a.role_id,
+            a.menu_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from role_menu a
+            where
+            a.delete_flag = 0
+            <isNotNull property="id">
+               and a.id=#id#
+            </isNotNull>
+            <isNotEmpty property="ids">
+                and a.id in
+                <iterate close=")" conjunction="," open="(" property="ids">
+                    #ids[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="roleId">
+               and a.role_id=#roleId#
+            </isNotNull>
+            <isNotEmpty property="roleIds">
+                and a.role_id in
+                <iterate close=")" conjunction="," open="(" property="roleIds">
+                    #roleIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="menuId">
+               and a.menu_id=#menuId#
+            </isNotNull>
+            <isNotEmpty property="menuIds">
+                and a.menu_id in
+                <iterate close=")" conjunction="," open="(" property="menuIds">
+                    #menuIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="id">
+            <isEmpty property="ids">
+            <isNull property="roleId">
+            <isEmpty property="roleIds">
+            <isNull property="menuId">
+            <isEmpty property="menuIds">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getRoleMenuPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="RoleMenu.getPageList_count" resultClass="long" >
+    	select  /* RoleMenu.getPageList_count */ count(*)  from role_menu a
+            where
+            a.delete_flag = 0
+            <isNotNull property="id">
+               and a.id=#id#
+            </isNotNull>
+            <isNotEmpty property="ids">
+                and a.id in
+                <iterate close=")" conjunction="," open="(" property="ids">
+                    #ids[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="roleId">
+               and a.role_id=#roleId#
+            </isNotNull>
+            <isNotEmpty property="roleIds">
+                and a.role_id in
+                <iterate close=")" conjunction="," open="(" property="roleIds">
+                    #roleIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="menuId">
+               and a.menu_id=#menuId#
+            </isNotNull>
+            <isNotEmpty property="menuIds">
+                and a.menu_id in
+                <iterate close=")" conjunction="," open="(" property="menuIds">
+                    #menuIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="id">
+            <isEmpty property="ids">
+            <isNull property="roleId">
+            <isEmpty property="roleIds">
+            <isNull property="menuId">
+            <isEmpty property="menuIds">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="RoleMenu.getRoleMenusByIds" resultMap="RoleMenu_RM" >
+    	select
+ /* getRoleMenusByIds.RoleMenu */             a.id,
+            a.role_id,
+            a.menu_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from role_menu a
+            where
+            a.delete_flag = 0
+            <isEmpty property="ids">
+            and 1=0
+            </isEmpty>
+            <isNotEmpty property="ids">
+                and a.id in
+                <iterate close=")" conjunction="," open="(" property="ids">
+                    #ids[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getRoleMenusByIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="RoleMenu.deleteByIds">
+		UPDATE role_menu SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="ids">
+                and 1=0
+            </isEmpty>
+            <isNotEmpty property="ids">
+                and id in
+                <iterate close=")" conjunction="," open="(" property="ids">
+                    #ids[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+	
+	<select id="RoleMenu.getRoleMenusByMenuIds" resultMap="RoleMenu_RM" >
+    	select
+ /* getRoleMenusByMenuIds.RoleMenu */             a.id,
+            a.role_id,
+            a.menu_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from role_menu a
+            where
+            <isNotEmpty property="menuIds">
+                a.menu_id in
+                <iterate close=")" conjunction="," open="(" property="menuIds">
+                    #menuIds[]#
+                </iterate>
+            </isNotEmpty>
+            and a.delete_flag = 0
+	</select>	
+
+	    
+	
+	
+    
+
+</sqlMap>
+

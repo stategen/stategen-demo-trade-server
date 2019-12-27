@@ -16,8 +16,11 @@ import org.stategen.framework.annotation.OptionConvertor;
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * FileSummary
@@ -32,7 +35,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@Accessors(chain = true)
 @OptionConvertor(value = "fileId")
+@AllArgsConstructor
 public class FileSummary implements java.io.Serializable {
 
     private static final long serialVersionUID = -5216457518046898601L;

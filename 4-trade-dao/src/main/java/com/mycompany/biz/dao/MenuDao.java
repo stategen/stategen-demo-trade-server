@@ -93,6 +93,7 @@ public interface MenuDao {
     <pre>
     &#64;ApiParam() Long menuId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="menuIds") ArrayList&lt;Long&gt; menuIds,
+    &#64;ApiParam() Integer morder,
     &#64;ApiParam() Integer morderMin,
     &#64;ApiParam() Integer morderMax,
     &#64;ApiParam() Long bpid,
@@ -121,7 +122,7 @@ public interface MenuDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_id=? and a.menu_id in ( ? ) and a.morder >=? and a.morder <? and a.bpid=? and a.bpid in ( ? ) and a.mpid=? and a.mpid in ( ? ) and a.project_name=? and a.project_name like CONCAT('%',?,'%') and a.controller_name=? and a.controller_name like CONCAT('%',?,'%') and a.method_name=? and a.method_name like CONCAT('%',?,'%') and a.name=? and a.name like CONCAT('%',?,'%') and a.route=? and a.route like CONCAT('%',?,'%') and a.menu_type=? and a.menu_type in ( ? ) and a.check_type=? and a.check_type in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_id=? and a.menu_id in ( ? ) and a.morder=? and a.morder >=? and a.morder <? and a.bpid=? and a.bpid in ( ? ) and a.mpid=? and a.mpid in ( ? ) and a.project_name=? and a.project_name like CONCAT('%',?,'%') and a.controller_name=? and a.controller_name like CONCAT('%',?,'%') and a.method_name=? and a.method_name like CONCAT('%',?,'%') and a.name=? and a.name like CONCAT('%',?,'%') and a.route=? and a.route like CONCAT('%',?,'%') and a.menu_type=? and a.menu_type in ( ? ) and a.check_type=? and a.check_type in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<Menu> getPageList(Menu menu, int pageSize, int pageNum) throws DataAccessException;
 	

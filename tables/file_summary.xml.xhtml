@@ -43,7 +43,7 @@
         <sql>
             UPDATE file_summary
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="url" prepend=",">
                     url =  ? 
                 </isNotNull>
@@ -59,7 +59,6 @@
                 <isNotNull property="userId" prepend=",">
                     user_id =  ? 
                 </isNotNull>
-            </dynamic>
             where
             delete_flag = 0
             and file_id = ?
@@ -100,59 +99,63 @@
             from file_summary a
             where
             a.delete_flag = 0
-            <isNotNull property="fileId" open="and">
-               a.file_id=?
+            <isNotNull property="fileId">
+               and a.file_id=?
             </isNotNull>
-            <isNotEmpty property="fileIds" open="and">
-                a.file_id in
+            <isNotEmpty property="fileIds">
+                and a.file_id in
                 <iterate property="fileIds" conjunction="," open="(" close=")">
                     #fileIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="sizeMin" open="and">
-                a.size >=#sizeMin#
-            </isNotNull>
-            <isNotNull property="sizeMax" open="and">
-                a.size &lt;#sizeMax#
-            </isNotNull>
-          <isNotNull property="name" open="and">
-            a.name=?
+          <isNotNull property="size">
+                and a.size=?
           </isNotNull>
-            <isNotEmpty property="nameLike" open="and">
-                a.name like CONCAT('%',#nameLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="type" open="and">
-               a.type=?
+            <isNotNull property="sizeMin">
+                and a.size >=#sizeMin#
             </isNotNull>
-            <isNotEmpty property="types" open="and">
-                a.type in
+            <isNotNull property="sizeMax">
+                and a.size &lt;#sizeMax#
+            </isNotNull>
+          <isNotNull property="name">
+            and a.name=?
+          </isNotNull>
+            <isNotEmpty property="nameLike">
+                and a.name like CONCAT('%',#nameLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="type">
+               and a.type=?
+            </isNotNull>
+            <isNotEmpty property="types">
+                and a.type in
                 <iterate property="types" conjunction="," open="(" close=")">
                     #types[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="userId" open="and">
-               a.user_id=?
+            <isNotNull property="userId">
+               and a.user_id=?
             </isNotNull>
-            <isNotEmpty property="userIds" open="and">
-                a.user_id in
+            <isNotEmpty property="userIds">
+                and a.user_id in
                 <iterate property="userIds" conjunction="," open="(" close=")">
                     #userIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="fileId">
             <isEmpty property="fileIds">
+            <isNull property="size">
             <isNull property="sizeMin">
             <isNull property="sizeMax">
             <isNull property="name">
@@ -178,12 +181,14 @@
             </isNull>
             </isNull>
             </isNull>
+            </isNull>
             </isEmpty>
             </isNull>
             order by
             <include refid = "getFileSummaryPageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getFileSummarysByFileIds" multiplicity="many" remarks="">
         <sql>
@@ -200,11 +205,11 @@
             from file_summary a
             where
             a.delete_flag = 0
-            <isEmpty property="fileIds" open="and">
-                1=0
+            <isEmpty property="fileIds">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="fileIds" open="and">
-                a.file_id in
+            <isNotEmpty property="fileIds">
+                and a.file_id in
                 <iterate property="fileIds" conjunction="," open="(" close=")">
                     #fileIds[]#
                 </iterate>
@@ -221,11 +226,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="fileIds" open="and">
-                1=0
+            <isEmpty property="fileIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="fileIds" open="and">
-                file_id in
+            <isNotEmpty property="fileIds">
+                and file_id in
                 <iterate property="fileIds" conjunction="," open="(" close=")">
                     #fileIds[]#
                 </iterate>

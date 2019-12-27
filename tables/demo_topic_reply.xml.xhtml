@@ -41,7 +41,7 @@
         <sql>
             UPDATE demo_topic_reply
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="topicId" prepend=",">
                     topic_id =  ? 
                 </isNotNull>
@@ -54,7 +54,6 @@
                 <isNotNull property="parentReplyId" prepend=",">
                     parent_reply_id =  ? 
                 </isNotNull>
-            </dynamic>
             where
             delete_flag = 0
             and reply_id = ?
@@ -93,59 +92,53 @@
             from demo_topic_reply a
             where
             a.delete_flag = 0
-            <isNotNull property="replyId" open="and">
-               a.reply_id=?
+            <isNotNull property="replyId">
+               and a.reply_id=?
             </isNotNull>
-            <isNotEmpty property="replyIds" open="and">
-                a.reply_id in
+            <isNotEmpty property="replyIds">
+                and a.reply_id in
                 <iterate property="replyIds" conjunction="," open="(" close=")">
                     #replyIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="topicId" open="and">
-               a.topic_id=?
+            <isNotNull property="topicId">
+               and a.topic_id=?
             </isNotNull>
-            <isNotEmpty property="topicIds" open="and">
-                a.topic_id in
+            <isNotEmpty property="topicIds">
+                and a.topic_id in
                 <iterate property="topicIds" conjunction="," open="(" close=")">
                     #topicIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="authorId" open="and">
-               a.author_id=?
+            <isNotNull property="authorId">
+               and a.author_id=?
             </isNotNull>
-            <isNotEmpty property="authorIds" open="and">
-                a.author_id in
+            <isNotEmpty property="authorIds">
+                and a.author_id in
                 <iterate property="authorIds" conjunction="," open="(" close=")">
                     #authorIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="content" open="and">
-            a.content=?
-          </isNotNull>
-            <isNotEmpty property="contentLike" open="and">
-                a.content like CONCAT('%',#contentLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="parentReplyId" open="and">
-               a.parent_reply_id=?
+            <isNotNull property="parentReplyId">
+               and a.parent_reply_id=?
             </isNotNull>
-            <isNotEmpty property="parentReplyIds" open="and">
-                a.parent_reply_id in
+            <isNotEmpty property="parentReplyIds">
+                and a.parent_reply_id in
                 <iterate property="parentReplyIds" conjunction="," open="(" close=")">
                     #parentReplyIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="replyId">
             <isEmpty property="replyIds">
@@ -153,8 +146,6 @@
             <isEmpty property="topicIds">
             <isNull property="authorId">
             <isEmpty property="authorIds">
-            <isNull property="content">
-            <isEmpty property="contentLike">
             <isNull property="parentReplyId">
             <isEmpty property="parentReplyIds">
             <isNull property="createTimeMin">
@@ -174,12 +165,11 @@
             </isNull>
             </isEmpty>
             </isNull>
-            </isEmpty>
-            </isNull>
             order by
             <include refid = "getTopicReplyPageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getTopicReplysByReplyIds" multiplicity="many" remarks="">
         <sql>
@@ -195,11 +185,11 @@
             from demo_topic_reply a
             where
             a.delete_flag = 0
-            <isEmpty property="replyIds" open="and">
-                1=0
+            <isEmpty property="replyIds">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="replyIds" open="and">
-                a.reply_id in
+            <isNotEmpty property="replyIds">
+                and a.reply_id in
                 <iterate property="replyIds" conjunction="," open="(" close=")">
                     #replyIds[]#
                 </iterate>
@@ -216,11 +206,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="replyIds" open="and">
-                1=0
+            <isEmpty property="replyIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="replyIds" open="and">
-                reply_id in
+            <isNotEmpty property="replyIds">
+                and reply_id in
                 <iterate property="replyIds" conjunction="," open="(" close=")">
                     #replyIds[]#
                 </iterate>

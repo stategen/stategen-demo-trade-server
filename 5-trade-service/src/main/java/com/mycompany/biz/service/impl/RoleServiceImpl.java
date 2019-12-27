@@ -45,7 +45,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Menu> getAllMenusWithRoleChecked(String roleId) {
-        List<Menu> menus = this.menuService.getMenusByProjectName( null);
+        List<Menu> menus = this.menuService.getMenusByProjectName(null);
         List<Long> menuIds = CollectionUtil.toList(menus, Menu::getMenuId);
         List<RoleMenu> roleMenus = this.roleMenuService.getRoleMenusByMenuIds(menuIds);
         Map<Long, RoleMenu> menuIdRoleMenuMap = CollectionUtil.toMap(roleMenus, RoleMenu::getMenuId);

@@ -43,7 +43,7 @@
         <sql>
             UPDATE demo_goods_comment
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="goodsId" prepend=",">
                     goods_id =  ? 
                 </isNotNull>
@@ -59,7 +59,6 @@
                 <isNotNull property="score" prepend=",">
                     score =  ? 
                 </isNotNull>
-            </dynamic>
             where
             delete_flag = 0
             and comments_id = ?
@@ -100,70 +99,66 @@
             from demo_goods_comment a
             where
             a.delete_flag = 0
-            <isNotNull property="commentsId" open="and">
-               a.comments_id=?
+            <isNotNull property="commentsId">
+               and a.comments_id=?
             </isNotNull>
-            <isNotEmpty property="commentsIds" open="and">
-                a.comments_id in
+            <isNotEmpty property="commentsIds">
+                and a.comments_id in
                 <iterate property="commentsIds" conjunction="," open="(" close=")">
                     #commentsIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="goodsId" open="and">
-               a.goods_id=?
+            <isNotNull property="goodsId">
+               and a.goods_id=?
             </isNotNull>
-            <isNotEmpty property="goodsIds" open="and">
-                a.goods_id in
+            <isNotEmpty property="goodsIds">
+                and a.goods_id in
                 <iterate property="goodsIds" conjunction="," open="(" close=")">
                     #goodsIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="comments" open="and">
-            a.comments=?
+          <isNotNull property="userName">
+            and a.user_name=?
           </isNotNull>
-            <isNotEmpty property="commentsLike" open="and">
-                a.comments like CONCAT('%',#commentsLike#,'%')
+            <isNotEmpty property="userNameLike">
+                and a.user_name like CONCAT('%',#userNameLike#,'%')
             </isNotEmpty>
-          <isNotNull property="userName" open="and">
-            a.user_name=?
+            <isNotNull property="discussTimeMin">
+                and a.discuss_time >=#discussTimeMin#
+            </isNotNull>
+            <isNotNull property="discussTimeMax">
+                and a.discuss_time &lt;#discussTimeMax#
+            </isNotNull>
+          <isNotNull property="score">
+                and a.score=?
           </isNotNull>
-            <isNotEmpty property="userNameLike" open="and">
-                a.user_name like CONCAT('%',#userNameLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="discussTimeMin" open="and">
-                a.discuss_time >=#discussTimeMin#
+            <isNotNull property="scoreMin">
+                and a.score >=#scoreMin#
             </isNotNull>
-            <isNotNull property="discussTimeMax" open="and">
-                a.discuss_time &lt;#discussTimeMax#
+            <isNotNull property="scoreMax">
+                and a.score &lt;#scoreMax#
             </isNotNull>
-            <isNotNull property="scoreMin" open="and">
-                a.score >=#scoreMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="scoreMax" open="and">
-                a.score &lt;#scoreMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="commentsId">
             <isEmpty property="commentsIds">
             <isNull property="goodsId">
             <isEmpty property="goodsIds">
-            <isNull property="comments">
-            <isEmpty property="commentsLike">
             <isNull property="userName">
             <isEmpty property="userNameLike">
             <isNull property="discussTimeMin">
             <isNull property="discussTimeMax">
+            <isNull property="score">
             <isNull property="scoreMin">
             <isNull property="scoreMax">
             <isNull property="createTimeMin">
@@ -179,7 +174,6 @@
             </isNull>
             </isNull>
             </isNull>
-            </isEmpty>
             </isNull>
             </isEmpty>
             </isNull>
@@ -191,6 +185,7 @@
             <include refid = "getGoodsCommentPageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getGoodsCommentsByCommentsIds" multiplicity="many" remarks="">
         <sql>
@@ -207,11 +202,11 @@
             from demo_goods_comment a
             where
             a.delete_flag = 0
-            <isEmpty property="commentsIds" open="and">
-                1=0
+            <isEmpty property="commentsIds">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="commentsIds" open="and">
-                a.comments_id in
+            <isNotEmpty property="commentsIds">
+                and a.comments_id in
                 <iterate property="commentsIds" conjunction="," open="(" close=")">
                     #commentsIds[]#
                 </iterate>
@@ -228,11 +223,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="commentsIds" open="and">
-                1=0
+            <isEmpty property="commentsIds">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="commentsIds" open="and">
-                comments_id in
+            <isNotEmpty property="commentsIds">
+                and comments_id in
                 <iterate property="commentsIds" conjunction="," open="(" close=")">
                     #commentsIds[]#
                 </iterate>

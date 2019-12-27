@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="Goods_RM" class="com.mycompany.biz.domain.Goods">
+        <result property="goodsId" column="goods_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="goodsName" column="goods_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="categorySubId" column="categorySubId" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="amount" column="amount" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="price" column="price" javaType="java.math.BigDecimal" jdbcType="DECIMAL"  />
+        <result property="images" column="images" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="isCheck" column="is_check" javaType="java.lang.Boolean" jdbcType="BIT"  />
+        <result property="isHot" column="is_hot" javaType="java.lang.Boolean" jdbcType="BIT"  />
+        <result property="advertiseId" column="advertise_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="presentPrice" column="present_price" javaType="java.math.BigDecimal" jdbcType="DECIMAL"  />
+        <result property="image" column="image" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="image1" column="image1" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="image2" column="image2" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="image3" column="image3" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="image4" column="image4" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="image5" column="image5" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="isOnLine" column="is_on_line" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="goodsSerialNumber" column="goods_serial_number" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="state" column="state" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+        <result property="shopId" column="shop_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="goodsDetail" column="goods_detail" javaType="java.lang.String" jdbcType="LONGVARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getGoodPageListOrderBy">
+		a.goods_id
+	</sql>
+		
+	<sql id="getGoodsByGoodsIdsOrderBy">
+		a.goods_id
+	</sql>
+		
+
+	
+	
+    
+	<insert id="Goods.insert">
+		insert into demo_goods (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="goodsId"> goods_id </isNotNull>
+            <isNotNull prepend="," property="goodsName"> goods_name </isNotNull>
+            <isNotNull prepend="," property="categorySubId"> categorySubId </isNotNull>
+            <isNotNull prepend="," property="amount"> amount </isNotNull>
+            <isNotNull prepend="," property="price"> price </isNotNull>
+            <isNotNull prepend="," property="images"> images </isNotNull>
+            <isNotNull prepend="," property="isCheck"> is_check </isNotNull>
+            <isNotNull prepend="," property="isHot"> is_hot </isNotNull>
+            <isNotNull prepend="," property="advertiseId"> advertise_id </isNotNull>
+            <isNotNull prepend="," property="presentPrice"> present_price </isNotNull>
+            <isNotNull prepend="," property="image"> image </isNotNull>
+            <isNotNull prepend="," property="image1"> image1 </isNotNull>
+            <isNotNull prepend="," property="image2"> image2 </isNotNull>
+            <isNotNull prepend="," property="image3"> image3 </isNotNull>
+            <isNotNull prepend="," property="image4"> image4 </isNotNull>
+            <isNotNull prepend="," property="image5"> image5 </isNotNull>
+            <isNotNull prepend="," property="isOnLine"> is_on_line </isNotNull>
+            <isNotNull prepend="," property="goodsSerialNumber"> goods_serial_number </isNotNull>
+            <isNotNull prepend="," property="state"> state </isNotNull>
+            <isNotNull prepend="," property="shopId"> shop_id </isNotNull>
+            <isNotNull prepend="," property="goodsDetail"> goods_detail </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="goodsId"> #goodsId# </isNotNull> 
+            <isNotNull prepend="," property="goodsName"> #goodsName# </isNotNull> 
+            <isNotNull prepend="," property="categorySubId"> #categorySubId# </isNotNull> 
+            <isNotNull prepend="," property="amount"> #amount# </isNotNull> 
+            <isNotNull prepend="," property="price"> #price# </isNotNull> 
+            <isNotNull prepend="," property="images"> #images# </isNotNull> 
+            <isNotNull prepend="," property="isCheck"> #isCheck# </isNotNull> 
+            <isNotNull prepend="," property="isHot"> #isHot# </isNotNull> 
+            <isNotNull prepend="," property="advertiseId"> #advertiseId# </isNotNull> 
+            <isNotNull prepend="," property="presentPrice"> #presentPrice# </isNotNull> 
+            <isNotNull prepend="," property="image"> #image# </isNotNull> 
+            <isNotNull prepend="," property="image1"> #image1# </isNotNull> 
+            <isNotNull prepend="," property="image2"> #image2# </isNotNull> 
+            <isNotNull prepend="," property="image3"> #image3# </isNotNull> 
+            <isNotNull prepend="," property="image4"> #image4# </isNotNull> 
+            <isNotNull prepend="," property="image5"> #image5# </isNotNull> 
+            <isNotNull prepend="," property="isOnLine"> #isOnLine# </isNotNull> 
+            <isNotNull prepend="," property="goodsSerialNumber"> #goodsSerialNumber# </isNotNull> 
+            <isNotNull prepend="," property="state"> #state# </isNotNull> 
+            <isNotNull prepend="," property="shopId"> #shopId# </isNotNull> 
+            <isNotNull prepend="," property="goodsDetail"> #goodsDetail# </isNotNull>)
+            <selectKey keyProperty="goodsId" resultClass="String" type="pre">
+                select if((#goodsId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#goodsId# ) as goodsId
+            </selectKey>
+	</insert>
+	
+	<update id="Goods.delete">
+		UPDATE demo_goods SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and goods_id = #goodsId#
+	</update>
+	
+    
+	
+	<update id="Goods.update">
+		UPDATE demo_goods
+            SET update_time= CURRENT_TIMESTAMP(6)
+            
+                <isNotNull prepend="," property="goodsName">
+                    goods_name =  #goodsName# 
+                </isNotNull>
+                <isNotNull prepend="," property="categorySubId">
+                    categorySubId =  #categorySubId# 
+                </isNotNull>
+                <isNotNull prepend="," property="amount">
+                    amount =  #amount# 
+                </isNotNull>
+                <isNotNull prepend="," property="price">
+                    price =  #price# 
+                </isNotNull>
+                <isNotNull prepend="," property="images">
+                    images =  #images# 
+                </isNotNull>
+                <isNotNull prepend="," property="isCheck">
+                    is_check =  #isCheck# 
+                </isNotNull>
+                <isNotNull prepend="," property="isHot">
+                    is_hot =  #isHot# 
+                </isNotNull>
+                <isNotNull prepend="," property="advertiseId">
+                    advertise_id =  #advertiseId# 
+                </isNotNull>
+                <isNotNull prepend="," property="presentPrice">
+                    present_price =  #presentPrice# 
+                </isNotNull>
+                <isNotNull prepend="," property="image">
+                    image =  #image# 
+                </isNotNull>
+                <isNotNull prepend="," property="image1">
+                    image1 =  #image1# 
+                </isNotNull>
+                <isNotNull prepend="," property="image2">
+                    image2 =  #image2# 
+                </isNotNull>
+                <isNotNull prepend="," property="image3">
+                    image3 =  #image3# 
+                </isNotNull>
+                <isNotNull prepend="," property="image4">
+                    image4 =  #image4# 
+                </isNotNull>
+                <isNotNull prepend="," property="image5">
+                    image5 =  #image5# 
+                </isNotNull>
+                <isNotNull prepend="," property="isOnLine">
+                    is_on_line =  #isOnLine# 
+                </isNotNull>
+                <isNotNull prepend="," property="goodsSerialNumber">
+                    goods_serial_number =  #goodsSerialNumber# 
+                </isNotNull>
+                <isNotNull prepend="," property="state">
+                    state =  #state# 
+                </isNotNull>
+                <isNotNull prepend="," property="shopId">
+                    shop_id =  #shopId# 
+                </isNotNull>
+                <isNotNull prepend="," property="goodsDetail">
+                    goods_detail =  #goodsDetail# 
+                </isNotNull>
+            where
+            delete_flag = 0
+            and goods_id = #goodsId#
+	</update>
+	
+    
+	
+	<select id="Goods.getGoodByGoodsId" resultMap="Goods_RM" >
+    	select
+ /* getGoodByGoodsId.Goods */             a.goods_id,
+            a.goods_name,
+            a.categorySubId,
+            a.amount,
+            a.price,
+            a.images,
+            a.is_check,
+            a.is_hot,
+            a.advertise_id,
+            a.present_price,
+            a.image,
+            a.image1,
+            a.image2,
+            a.image3,
+            a.image4,
+            a.image5,
+            a.is_on_line,
+            a.goods_serial_number,
+            a.state,
+            a.shop_id,
+            a.goods_detail,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_goods a
+            where
+            a.delete_flag = 0
+            and a.goods_id = #goodsId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="Goods.getPageList" resultMap="Goods_RM" >
+    	select
+ /* getPageList.Goods */             a.goods_id,
+            a.goods_name,
+            a.categorySubId,
+            a.amount,
+            a.price,
+            a.images,
+            a.is_check,
+            a.is_hot,
+            a.advertise_id,
+            a.present_price,
+            a.image,
+            a.image1,
+            a.image2,
+            a.image3,
+            a.image4,
+            a.image5,
+            a.is_on_line,
+            a.goods_serial_number,
+            a.state,
+            a.shop_id,
+            a.goods_detail,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_goods a
+            where
+            a.delete_flag = 0
+            <isNotNull property="goodsId">
+               and a.goods_id=#goodsId#
+            </isNotNull>
+            <isNotEmpty property="goodsIds">
+                and a.goods_id in
+                <iterate close=")" conjunction="," open="(" property="goodsIds">
+                    #goodsIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="goodsName">
+            and a.goods_name=#goodsName#
+          </isNotNull>
+            <isNotEmpty property="goodsNameLike">
+                and a.goods_name like CONCAT('%',#goodsNameLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="categorySubId">
+               and a.categorySubId=#categorySubId#
+            </isNotNull>
+            <isNotEmpty property="categorySubIds">
+                and a.categorySubId in
+                <iterate close=")" conjunction="," open="(" property="categorySubIds">
+                    #categorySubIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="amount">
+                and a.amount=#amount#
+          </isNotNull>
+            <isNotNull property="amountMin">
+                and a.amount >=#amountMin#
+            </isNotNull>
+            <isNotNull property="amountMax">
+                and a.amount &lt;#amountMax#
+            </isNotNull>
+          <isNotNull property="price">
+                and a.price=#price#
+          </isNotNull>
+            <isNotNull property="priceMin">
+                and a.price >=#priceMin#
+            </isNotNull>
+            <isNotNull property="priceMax">
+                and a.price &lt;#priceMax#
+            </isNotNull>
+          <isNotNull property="images">
+            and a.images=#images#
+          </isNotNull>
+            <isNotEmpty property="imagesLike">
+                and a.images like CONCAT('%',#imagesLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="advertiseId">
+               and a.advertise_id=#advertiseId#
+            </isNotNull>
+            <isNotEmpty property="advertiseIds">
+                and a.advertise_id in
+                <iterate close=")" conjunction="," open="(" property="advertiseIds">
+                    #advertiseIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="presentPrice">
+                and a.present_price=#presentPrice#
+          </isNotNull>
+            <isNotNull property="presentPriceMin">
+                and a.present_price >=#presentPriceMin#
+            </isNotNull>
+            <isNotNull property="presentPriceMax">
+                and a.present_price &lt;#presentPriceMax#
+            </isNotNull>
+          <isNotNull property="image1">
+            and a.image1=#image1#
+          </isNotNull>
+            <isNotEmpty property="image1Like">
+                and a.image1 like CONCAT('%',#image1Like#,'%')
+            </isNotEmpty>
+          <isNotNull property="image2">
+            and a.image2=#image2#
+          </isNotNull>
+            <isNotEmpty property="image2Like">
+                and a.image2 like CONCAT('%',#image2Like#,'%')
+            </isNotEmpty>
+          <isNotNull property="image3">
+            and a.image3=#image3#
+          </isNotNull>
+            <isNotEmpty property="image3Like">
+                and a.image3 like CONCAT('%',#image3Like#,'%')
+            </isNotEmpty>
+          <isNotNull property="image4">
+            and a.image4=#image4#
+          </isNotNull>
+            <isNotEmpty property="image4Like">
+                and a.image4 like CONCAT('%',#image4Like#,'%')
+            </isNotEmpty>
+          <isNotNull property="image5">
+            and a.image5=#image5#
+          </isNotNull>
+            <isNotEmpty property="image5Like">
+                and a.image5 like CONCAT('%',#image5Like#,'%')
+            </isNotEmpty>
+          <isNotNull property="isOnLine">
+            and a.is_on_line=#isOnLine#
+          </isNotNull>
+            <isNotEmpty property="isOnLineLike">
+                and a.is_on_line like CONCAT('%',#isOnLineLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="goodsSerialNumber">
+            and a.goods_serial_number=#goodsSerialNumber#
+          </isNotNull>
+            <isNotEmpty property="goodsSerialNumberLike">
+                and a.goods_serial_number like CONCAT('%',#goodsSerialNumberLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="state">
+                and a.state=#state#
+          </isNotNull>
+            <isNotNull property="stateMin">
+                and a.state >=#stateMin#
+            </isNotNull>
+            <isNotNull property="stateMax">
+                and a.state &lt;#stateMax#
+            </isNotNull>
+            <isNotNull property="shopId">
+               and a.shop_id=#shopId#
+            </isNotNull>
+            <isNotEmpty property="shopIds">
+                and a.shop_id in
+                <iterate close=")" conjunction="," open="(" property="shopIds">
+                    #shopIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="goodsId">
+            <isEmpty property="goodsIds">
+            <isNull property="goodsName">
+            <isEmpty property="goodsNameLike">
+            <isNull property="categorySubId">
+            <isEmpty property="categorySubIds">
+            <isNull property="amount">
+            <isNull property="amountMin">
+            <isNull property="amountMax">
+            <isNull property="price">
+            <isNull property="priceMin">
+            <isNull property="priceMax">
+            <isNull property="images">
+            <isEmpty property="imagesLike">
+            <isNull property="advertiseId">
+            <isEmpty property="advertiseIds">
+            <isNull property="presentPrice">
+            <isNull property="presentPriceMin">
+            <isNull property="presentPriceMax">
+            <isNull property="image1">
+            <isEmpty property="image1Like">
+            <isNull property="image2">
+            <isEmpty property="image2Like">
+            <isNull property="image3">
+            <isEmpty property="image3Like">
+            <isNull property="image4">
+            <isEmpty property="image4Like">
+            <isNull property="image5">
+            <isEmpty property="image5Like">
+            <isNull property="isOnLine">
+            <isEmpty property="isOnLineLike">
+            <isNull property="goodsSerialNumber">
+            <isEmpty property="goodsSerialNumberLike">
+            <isNull property="state">
+            <isNull property="stateMin">
+            <isNull property="stateMax">
+            <isNull property="shopId">
+            <isEmpty property="shopIds">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getGoodPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="Goods.getPageList_count" resultClass="long" >
+    	select  /* Goods.getPageList_count */ count(*)  from demo_goods a
+            where
+            a.delete_flag = 0
+            <isNotNull property="goodsId">
+               and a.goods_id=#goodsId#
+            </isNotNull>
+            <isNotEmpty property="goodsIds">
+                and a.goods_id in
+                <iterate close=")" conjunction="," open="(" property="goodsIds">
+                    #goodsIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="goodsName">
+            and a.goods_name=#goodsName#
+          </isNotNull>
+            <isNotEmpty property="goodsNameLike">
+                and a.goods_name like CONCAT('%',#goodsNameLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="categorySubId">
+               and a.categorySubId=#categorySubId#
+            </isNotNull>
+            <isNotEmpty property="categorySubIds">
+                and a.categorySubId in
+                <iterate close=")" conjunction="," open="(" property="categorySubIds">
+                    #categorySubIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="amount">
+                and a.amount=#amount#
+          </isNotNull>
+            <isNotNull property="amountMin">
+                and a.amount >=#amountMin#
+            </isNotNull>
+            <isNotNull property="amountMax">
+                and a.amount &lt;#amountMax#
+            </isNotNull>
+          <isNotNull property="price">
+                and a.price=#price#
+          </isNotNull>
+            <isNotNull property="priceMin">
+                and a.price >=#priceMin#
+            </isNotNull>
+            <isNotNull property="priceMax">
+                and a.price &lt;#priceMax#
+            </isNotNull>
+          <isNotNull property="images">
+            and a.images=#images#
+          </isNotNull>
+            <isNotEmpty property="imagesLike">
+                and a.images like CONCAT('%',#imagesLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="advertiseId">
+               and a.advertise_id=#advertiseId#
+            </isNotNull>
+            <isNotEmpty property="advertiseIds">
+                and a.advertise_id in
+                <iterate close=")" conjunction="," open="(" property="advertiseIds">
+                    #advertiseIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="presentPrice">
+                and a.present_price=#presentPrice#
+          </isNotNull>
+            <isNotNull property="presentPriceMin">
+                and a.present_price >=#presentPriceMin#
+            </isNotNull>
+            <isNotNull property="presentPriceMax">
+                and a.present_price &lt;#presentPriceMax#
+            </isNotNull>
+          <isNotNull property="image1">
+            and a.image1=#image1#
+          </isNotNull>
+            <isNotEmpty property="image1Like">
+                and a.image1 like CONCAT('%',#image1Like#,'%')
+            </isNotEmpty>
+          <isNotNull property="image2">
+            and a.image2=#image2#
+          </isNotNull>
+            <isNotEmpty property="image2Like">
+                and a.image2 like CONCAT('%',#image2Like#,'%')
+            </isNotEmpty>
+          <isNotNull property="image3">
+            and a.image3=#image3#
+          </isNotNull>
+            <isNotEmpty property="image3Like">
+                and a.image3 like CONCAT('%',#image3Like#,'%')
+            </isNotEmpty>
+          <isNotNull property="image4">
+            and a.image4=#image4#
+          </isNotNull>
+            <isNotEmpty property="image4Like">
+                and a.image4 like CONCAT('%',#image4Like#,'%')
+            </isNotEmpty>
+          <isNotNull property="image5">
+            and a.image5=#image5#
+          </isNotNull>
+            <isNotEmpty property="image5Like">
+                and a.image5 like CONCAT('%',#image5Like#,'%')
+            </isNotEmpty>
+          <isNotNull property="isOnLine">
+            and a.is_on_line=#isOnLine#
+          </isNotNull>
+            <isNotEmpty property="isOnLineLike">
+                and a.is_on_line like CONCAT('%',#isOnLineLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="goodsSerialNumber">
+            and a.goods_serial_number=#goodsSerialNumber#
+          </isNotNull>
+            <isNotEmpty property="goodsSerialNumberLike">
+                and a.goods_serial_number like CONCAT('%',#goodsSerialNumberLike#,'%')
+            </isNotEmpty>
+          <isNotNull property="state">
+                and a.state=#state#
+          </isNotNull>
+            <isNotNull property="stateMin">
+                and a.state >=#stateMin#
+            </isNotNull>
+            <isNotNull property="stateMax">
+                and a.state &lt;#stateMax#
+            </isNotNull>
+            <isNotNull property="shopId">
+               and a.shop_id=#shopId#
+            </isNotNull>
+            <isNotEmpty property="shopIds">
+                and a.shop_id in
+                <iterate close=")" conjunction="," open="(" property="shopIds">
+                    #shopIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="goodsId">
+            <isEmpty property="goodsIds">
+            <isNull property="goodsName">
+            <isEmpty property="goodsNameLike">
+            <isNull property="categorySubId">
+            <isEmpty property="categorySubIds">
+            <isNull property="amount">
+            <isNull property="amountMin">
+            <isNull property="amountMax">
+            <isNull property="price">
+            <isNull property="priceMin">
+            <isNull property="priceMax">
+            <isNull property="images">
+            <isEmpty property="imagesLike">
+            <isNull property="advertiseId">
+            <isEmpty property="advertiseIds">
+            <isNull property="presentPrice">
+            <isNull property="presentPriceMin">
+            <isNull property="presentPriceMax">
+            <isNull property="image1">
+            <isEmpty property="image1Like">
+            <isNull property="image2">
+            <isEmpty property="image2Like">
+            <isNull property="image3">
+            <isEmpty property="image3Like">
+            <isNull property="image4">
+            <isEmpty property="image4Like">
+            <isNull property="image5">
+            <isEmpty property="image5Like">
+            <isNull property="isOnLine">
+            <isEmpty property="isOnLineLike">
+            <isNull property="goodsSerialNumber">
+            <isEmpty property="goodsSerialNumberLike">
+            <isNull property="state">
+            <isNull property="stateMin">
+            <isNull property="stateMax">
+            <isNull property="shopId">
+            <isEmpty property="shopIds">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="Goods.getGoodsByGoodsIds" resultMap="Goods_RM" >
+    	select
+ /* getGoodsByGoodsIds.Goods */             a.goods_id,
+            a.goods_name,
+            a.categorySubId,
+            a.amount,
+            a.price,
+            a.images,
+            a.is_check,
+            a.is_hot,
+            a.advertise_id,
+            a.present_price,
+            a.image,
+            a.image1,
+            a.image2,
+            a.image3,
+            a.image4,
+            a.image5,
+            a.is_on_line,
+            a.goods_serial_number,
+            a.state,
+            a.shop_id,
+            a.goods_detail,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_goods a
+            where
+            a.delete_flag = 0
+            <isEmpty property="goodsIds">
+            and 1=0
+            </isEmpty>
+            <isNotEmpty property="goodsIds">
+                and a.goods_id in
+                <iterate close=")" conjunction="," open="(" property="goodsIds">
+                    #goodsIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getGoodsByGoodsIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="Goods.deleteByGoodsIds">
+		UPDATE demo_goods SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="goodsIds">
+                and 1=0
+            </isEmpty>
+            <isNotEmpty property="goodsIds">
+                and goods_id in
+                <iterate close=")" conjunction="," open="(" property="goodsIds">
+                    #goodsIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+	
+	<select id="Goods.getGoodsIds" resultClass="String" >
+    	select
+ /* getGoodsIds.Goods */             a.goods_id
+            from demo_goods a
+            where
+            a.delete_flag = 0
+	</select>	
+
+	    
+	
+	
+    
+
+</sqlMap>
+

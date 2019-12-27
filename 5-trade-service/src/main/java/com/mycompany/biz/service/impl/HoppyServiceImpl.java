@@ -13,7 +13,6 @@ import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.ServiceUtil;
-import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.HoppyDao;
 import com.mycompany.biz.domain.Hoppy;

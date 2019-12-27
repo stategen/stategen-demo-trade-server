@@ -21,8 +21,11 @@ import org.stategen.framework.lite.enums.VisitCheckType;
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * Menu
@@ -37,6 +40,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@Accessors(chain = true)
+@AllArgsConstructor
 public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<Menu> {
 
     private String roleId;

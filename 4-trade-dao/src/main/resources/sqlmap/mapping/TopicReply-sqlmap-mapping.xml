@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="TopicReply_RM" class="com.mycompany.biz.domain.TopicReply">
+        <result property="replyId" column="reply_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="topicId" column="topic_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="authorId" column="author_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="content" column="content" javaType="java.lang.String" jdbcType="LONGVARCHAR"  />
+        <result property="parentReplyId" column="parent_reply_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getTopicReplyPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getTopicReplysByReplyIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="TopicReply.insert">
+		insert into demo_topic_reply (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="replyId"> reply_id </isNotNull>
+            <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
+            <isNotNull prepend="," property="authorId"> author_id </isNotNull>
+            <isNotNull prepend="," property="content"> content </isNotNull>
+            <isNotNull prepend="," property="parentReplyId"> parent_reply_id </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="replyId"> #replyId# </isNotNull> 
+            <isNotNull prepend="," property="topicId"> #topicId# </isNotNull> 
+            <isNotNull prepend="," property="authorId"> #authorId# </isNotNull> 
+            <isNotNull prepend="," property="content"> #content# </isNotNull> 
+            <isNotNull prepend="," property="parentReplyId"> #parentReplyId# </isNotNull>)
+            <selectKey keyProperty="replyId" resultClass="String" type="pre">
+                select if((#replyId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#replyId# ) as replyId
+            </selectKey>
+	</insert>
+	
+	<update id="TopicReply.delete">
+		UPDATE demo_topic_reply SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and reply_id = #replyId#
+	</update>
+	
+    
+	
+	<update id="TopicReply.update">
+		UPDATE demo_topic_reply
+            SET update_time= CURRENT_TIMESTAMP(6)
+            
+                <isNotNull prepend="," property="topicId">
+                    topic_id =  #topicId# 
+                </isNotNull>
+                <isNotNull prepend="," property="authorId">
+                    author_id =  #authorId# 
+                </isNotNull>
+                <isNotNull prepend="," property="content">
+                    content =  #content# 
+                </isNotNull>
+                <isNotNull prepend="," property="parentReplyId">
+                    parent_reply_id =  #parentReplyId# 
+                </isNotNull>
+            where
+            delete_flag = 0
+            and reply_id = #replyId#
+	</update>
+	
+    
+	
+	<select id="TopicReply.getTopicReplyByReplyId" resultMap="TopicReply_RM" >
+    	select
+ /* getTopicReplyByReplyId.TopicReply */             a.reply_id,
+            a.topic_id,
+            a.author_id,
+            a.content,
+            a.parent_reply_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_topic_reply a
+            where
+            a.delete_flag = 0
+            and a.reply_id = #replyId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="TopicReply.getPageList" resultMap="TopicReply_RM" >
+    	select
+ /* getPageList.TopicReply */             a.reply_id,
+            a.topic_id,
+            a.author_id,
+            a.content,
+            a.parent_reply_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_topic_reply a
+            where
+            a.delete_flag = 0
+            <isNotNull property="replyId">
+               and a.reply_id=#replyId#
+            </isNotNull>
+            <isNotEmpty property="replyIds">
+                and a.reply_id in
+                <iterate close=")" conjunction="," open="(" property="replyIds">
+                    #replyIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="topicId">
+               and a.topic_id=#topicId#
+            </isNotNull>
+            <isNotEmpty property="topicIds">
+                and a.topic_id in
+                <iterate close=")" conjunction="," open="(" property="topicIds">
+                    #topicIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="authorId">
+               and a.author_id=#authorId#
+            </isNotNull>
+            <isNotEmpty property="authorIds">
+                and a.author_id in
+                <iterate close=")" conjunction="," open="(" property="authorIds">
+                    #authorIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="parentReplyId">
+               and a.parent_reply_id=#parentReplyId#
+            </isNotNull>
+            <isNotEmpty property="parentReplyIds">
+                and a.parent_reply_id in
+                <iterate close=")" conjunction="," open="(" property="parentReplyIds">
+                    #parentReplyIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="replyId">
+            <isEmpty property="replyIds">
+            <isNull property="topicId">
+            <isEmpty property="topicIds">
+            <isNull property="authorId">
+            <isEmpty property="authorIds">
+            <isNull property="parentReplyId">
+            <isEmpty property="parentReplyIds">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getTopicReplyPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="TopicReply.getPageList_count" resultClass="long" >
+    	select  /* TopicReply.getPageList_count */ count(*)  from demo_topic_reply a
+            where
+            a.delete_flag = 0
+            <isNotNull property="replyId">
+               and a.reply_id=#replyId#
+            </isNotNull>
+            <isNotEmpty property="replyIds">
+                and a.reply_id in
+                <iterate close=")" conjunction="," open="(" property="replyIds">
+                    #replyIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="topicId">
+               and a.topic_id=#topicId#
+            </isNotNull>
+            <isNotEmpty property="topicIds">
+                and a.topic_id in
+                <iterate close=")" conjunction="," open="(" property="topicIds">
+                    #topicIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="authorId">
+               and a.author_id=#authorId#
+            </isNotNull>
+            <isNotEmpty property="authorIds">
+                and a.author_id in
+                <iterate close=")" conjunction="," open="(" property="authorIds">
+                    #authorIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="parentReplyId">
+               and a.parent_reply_id=#parentReplyId#
+            </isNotNull>
+            <isNotEmpty property="parentReplyIds">
+                and a.parent_reply_id in
+                <iterate close=")" conjunction="," open="(" property="parentReplyIds">
+                    #parentReplyIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="replyId">
+            <isEmpty property="replyIds">
+            <isNull property="topicId">
+            <isEmpty property="topicIds">
+            <isNull property="authorId">
+            <isEmpty property="authorIds">
+            <isNull property="parentReplyId">
+            <isEmpty property="parentReplyIds">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="TopicReply.getTopicReplysByReplyIds" resultMap="TopicReply_RM" >
+    	select
+ /* getTopicReplysByReplyIds.TopicReply */             a.reply_id,
+            a.topic_id,
+            a.author_id,
+            a.content,
+            a.parent_reply_id,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_topic_reply a
+            where
+            a.delete_flag = 0
+            <isEmpty property="replyIds">
+            and 1=0
+            </isEmpty>
+            <isNotEmpty property="replyIds">
+                and a.reply_id in
+                <iterate close=")" conjunction="," open="(" property="replyIds">
+                    #replyIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getTopicReplysByReplyIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="TopicReply.deleteByReplyIds">
+		UPDATE demo_topic_reply SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="replyIds">
+                and 1=0
+            </isEmpty>
+            <isNotEmpty property="replyIds">
+                and reply_id in
+                <iterate close=")" conjunction="," open="(" property="replyIds">
+                    #replyIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+
+</sqlMap>
+

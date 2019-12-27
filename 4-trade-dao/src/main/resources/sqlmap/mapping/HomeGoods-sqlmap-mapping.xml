@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="HomeGoods_RM" class="com.mycompany.biz.domain.HomeGoods">
+        <result property="recommendId" column="recommend_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="goodsId" column="goods_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="orderNo" column="order_no" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getHomeGoodPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getHomeGoodsByRecommendIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="HomeGoods.insert">
+		insert into demo_home_goods (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="recommendId"> recommend_id </isNotNull>
+            <isNotNull prepend="," property="goodsId"> goods_id </isNotNull>
+            <isNotNull prepend="," property="orderNo"> order_no </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="recommendId"> #recommendId# </isNotNull> 
+            <isNotNull prepend="," property="goodsId"> #goodsId# </isNotNull> 
+            <isNotNull prepend="," property="orderNo"> #orderNo# </isNotNull>)
+            <selectKey keyProperty="recommendId" resultClass="String" type="pre">
+                select if((#recommendId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#recommendId# ) as recommendId
+            </selectKey>
+	</insert>
+	
+	<update id="HomeGoods.delete">
+		UPDATE demo_home_goods SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and recommend_id = #recommendId#
+	</update>
+	
+    
+	
+	<update id="HomeGoods.update">
+		UPDATE demo_home_goods
+            SET update_time= CURRENT_TIMESTAMP(6)
+            
+                <isNotNull prepend="," property="goodsId">
+                    goods_id =  #goodsId# 
+                </isNotNull>
+                <isNotNull prepend="," property="orderNo">
+                    order_no =  #orderNo# 
+                </isNotNull>
+            where
+            delete_flag = 0
+            and recommend_id = #recommendId#
+	</update>
+	
+    
+	
+	<select id="HomeGoods.getHomeGoodByRecommendId" resultMap="HomeGoods_RM" >
+    	select
+ /* getHomeGoodByRecommendId.HomeGoods */             a.recommend_id,
+            a.goods_id,
+            a.order_no,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_home_goods a
+            where
+            a.delete_flag = 0
+            and a.recommend_id = #recommendId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="HomeGoods.getPageList" resultMap="HomeGoods_RM" >
+    	select
+ /* getPageList.HomeGoods */             a.recommend_id,
+            a.goods_id,
+            a.order_no,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_home_goods a
+            where
+            a.delete_flag = 0
+            <isNotNull property="recommendId">
+               and a.recommend_id=#recommendId#
+            </isNotNull>
+            <isNotEmpty property="recommendIds">
+                and a.recommend_id in
+                <iterate close=")" conjunction="," open="(" property="recommendIds">
+                    #recommendIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="goodsId">
+               and a.goods_id=#goodsId#
+            </isNotNull>
+            <isNotEmpty property="goodsIds">
+                and a.goods_id in
+                <iterate close=")" conjunction="," open="(" property="goodsIds">
+                    #goodsIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="orderNo">
+                and a.order_no=#orderNo#
+          </isNotNull>
+            <isNotNull property="orderNoMin">
+                and a.order_no >=#orderNoMin#
+            </isNotNull>
+            <isNotNull property="orderNoMax">
+                and a.order_no &lt;#orderNoMax#
+            </isNotNull>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="recommendId">
+            <isEmpty property="recommendIds">
+            <isNull property="goodsId">
+            <isEmpty property="goodsIds">
+            <isNull property="orderNo">
+            <isNull property="orderNoMin">
+            <isNull property="orderNoMax">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getHomeGoodPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="HomeGoods.getPageList_count" resultClass="long" >
+    	select  /* HomeGoods.getPageList_count */ count(*)  from demo_home_goods a
+            where
+            a.delete_flag = 0
+            <isNotNull property="recommendId">
+               and a.recommend_id=#recommendId#
+            </isNotNull>
+            <isNotEmpty property="recommendIds">
+                and a.recommend_id in
+                <iterate close=")" conjunction="," open="(" property="recommendIds">
+                    #recommendIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="goodsId">
+               and a.goods_id=#goodsId#
+            </isNotNull>
+            <isNotEmpty property="goodsIds">
+                and a.goods_id in
+                <iterate close=")" conjunction="," open="(" property="goodsIds">
+                    #goodsIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="orderNo">
+                and a.order_no=#orderNo#
+          </isNotNull>
+            <isNotNull property="orderNoMin">
+                and a.order_no >=#orderNoMin#
+            </isNotNull>
+            <isNotNull property="orderNoMax">
+                and a.order_no &lt;#orderNoMax#
+            </isNotNull>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="recommendId">
+            <isEmpty property="recommendIds">
+            <isNull property="goodsId">
+            <isEmpty property="goodsIds">
+            <isNull property="orderNo">
+            <isNull property="orderNoMin">
+            <isNull property="orderNoMax">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="HomeGoods.getHomeGoodsByRecommendIds" resultMap="HomeGoods_RM" >
+    	select
+ /* getHomeGoodsByRecommendIds.HomeGoods */             a.recommend_id,
+            a.goods_id,
+            a.order_no,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_home_goods a
+            where
+            a.delete_flag = 0
+            <isEmpty property="recommendIds">
+            and 1=0
+            </isEmpty>
+            <isNotEmpty property="recommendIds">
+                and a.recommend_id in
+                <iterate close=")" conjunction="," open="(" property="recommendIds">
+                    #recommendIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getHomeGoodsByRecommendIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="HomeGoods.deleteByRecommendIds">
+		UPDATE demo_home_goods SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="recommendIds">
+                and 1=0
+            </isEmpty>
+            <isNotEmpty property="recommendIds">
+                and recommend_id in
+                <iterate close=")" conjunction="," open="(" property="recommendIds">
+                    #recommendIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+
+</sqlMap>
+

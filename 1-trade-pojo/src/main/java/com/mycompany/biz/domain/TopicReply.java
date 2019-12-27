@@ -20,8 +20,11 @@ import org.stategen.framework.lite.enums.EditorType;
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * TopicReply
@@ -36,6 +39,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@Accessors(chain = true)
+@AllArgsConstructor
 public class TopicReply implements java.io.Serializable {
 
     private User author;
@@ -45,6 +51,11 @@ public class TopicReply implements java.io.Serializable {
     private Boolean isUped;
 
     private Long upCount;
+
+    /*** contentLike in getPageList */
+    @ApiModelProperty("contentLike")
+    @JSONField(serialize = false)
+    private String contentLike;
 
     private static final long serialVersionUID = -5216457518046898601L;
 
@@ -98,7 +109,6 @@ public class TopicReply implements java.io.Serializable {
         sb.append("replyIds=").append(replyIds).append('\n');
         sb.append("topicIds=").append(topicIds).append('\n');
         sb.append("authorIds=").append(authorIds).append('\n');
-        sb.append("contentLike=").append(contentLike).append('\n');
         sb.append("parentReplyIds=").append(parentReplyIds).append('\n');
         sb.append("createTimeMin=").append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
@@ -130,11 +140,6 @@ public class TopicReply implements java.io.Serializable {
     @ApiModelProperty("authorId s")
     @JSONField(serialize = false)
     private java.util.List<String> authorIds;
-
-    /*** contentLike in getPageList */
-    @ApiModelProperty("contentLike")
-    @JSONField(serialize = false)
-    private String contentLike;
 
     /*** parentReplyIds in getPageList */
     @ApiModelProperty("parentReplyId s")

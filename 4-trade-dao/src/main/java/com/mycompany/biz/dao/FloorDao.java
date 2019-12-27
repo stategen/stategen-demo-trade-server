@@ -77,6 +77,7 @@ public interface FloorDao {
     &#64;ApiParam()&#64;RequestParam(required =false,name="floorIds") ArrayList&lt;String&gt; floorIds,
     &#64;ApiParam() Long advertiseId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="advertiseIds") ArrayList&lt;Long&gt; advertiseIds,
+    &#64;ApiParam() Integer orderNo,
     &#64;ApiParam() Integer orderNoMin,
     &#64;ApiParam() Integer orderNoMax,
     &#64;ApiParam() String floorName,
@@ -89,7 +90,7 @@ public interface FloorDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.floor_id, a.advertise_id, a.order_no, a.floor_name, a.create_time, a.update_time, a.delete_flag from demo_floor a where a.delete_flag = 0 and a.floor_id=? and a.floor_id in ( ? ) and a.advertise_id=? and a.advertise_id in ( ? ) and a.order_no >=? and a.order_no <? and a.floor_name=? and a.floor_name like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.floor_id, a.advertise_id, a.order_no, a.floor_name, a.create_time, a.update_time, a.delete_flag from demo_floor a where a.delete_flag = 0 and a.floor_id=? and a.floor_id in ( ? ) and a.advertise_id=? and a.advertise_id in ( ? ) and a.order_no=? and a.order_no >=? and a.order_no <? and a.floor_name=? and a.floor_name like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<Floor> getPageList(Floor floor, int pageSize, int pageNum) throws DataAccessException;
 	

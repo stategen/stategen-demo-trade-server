@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="GoodsComment_RM" class="com.mycompany.biz.domain.GoodsComment">
+        <result property="commentsId" column="comments_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="goodsId" column="goods_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="comments" column="comments" javaType="java.lang.String" jdbcType="LONGVARCHAR"  />
+        <result property="userName" column="user_name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="discussTime" column="discuss_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="score" column="score" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Integer" jdbcType="INTEGER"  />
+    </resultMap>
+    
+	<sql id="getGoodsCommentPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getGoodsCommentsByCommentsIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="GoodsComment.insert">
+		insert into demo_goods_comment (
+            create_time
+            , update_time
+            , delete_flag
+            <isNotNull prepend="," property="commentsId"> comments_id </isNotNull>
+            <isNotNull prepend="," property="goodsId"> goods_id </isNotNull>
+            <isNotNull prepend="," property="comments"> comments </isNotNull>
+            <isNotNull prepend="," property="userName"> user_name </isNotNull>
+            <isNotNull prepend="," property="discussTime"> discuss_time </isNotNull>
+            <isNotNull prepend="," property="score"> score </isNotNull>
+            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="commentsId"> #commentsId# </isNotNull> 
+            <isNotNull prepend="," property="goodsId"> #goodsId# </isNotNull> 
+            <isNotNull prepend="," property="comments"> #comments# </isNotNull> 
+            <isNotNull prepend="," property="userName"> #userName# </isNotNull> 
+            <isNotNull prepend="," property="discussTime"> #discussTime# </isNotNull> 
+            <isNotNull prepend="," property="score"> #score# </isNotNull>)
+            <selectKey keyProperty="commentsId" resultClass="String" type="pre">
+                select if((#commentsId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#commentsId# ) as commentsId
+            </selectKey>
+	</insert>
+	
+	<update id="GoodsComment.delete">
+		UPDATE demo_goods_comment SET
+            delete_flag = 1
+            , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            and comments_id = #commentsId#
+	</update>
+	
+    
+	
+	<update id="GoodsComment.update">
+		UPDATE demo_goods_comment
+            SET update_time= CURRENT_TIMESTAMP(6)
+            
+                <isNotNull prepend="," property="goodsId">
+                    goods_id =  #goodsId# 
+                </isNotNull>
+                <isNotNull prepend="," property="comments">
+                    comments =  #comments# 
+                </isNotNull>
+                <isNotNull prepend="," property="userName">
+                    user_name =  #userName# 
+                </isNotNull>
+                <isNotNull prepend="," property="discussTime">
+                    discuss_time =  #discussTime# 
+                </isNotNull>
+                <isNotNull prepend="," property="score">
+                    score =  #score# 
+                </isNotNull>
+            where
+            delete_flag = 0
+            and comments_id = #commentsId#
+	</update>
+	
+    
+	
+	<select id="GoodsComment.getGoodsCommentByCommentsId" resultMap="GoodsComment_RM" >
+    	select
+ /* getGoodsCommentByCommentsId.GoodsComment */             a.comments_id,
+            a.goods_id,
+            a.comments,
+            a.user_name,
+            a.discuss_time,
+            a.score,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_goods_comment a
+            where
+            a.delete_flag = 0
+            and a.comments_id = #commentsId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="GoodsComment.getPageList" resultMap="GoodsComment_RM" >
+    	select
+ /* getPageList.GoodsComment */             a.comments_id,
+            a.goods_id,
+            a.comments,
+            a.user_name,
+            a.discuss_time,
+            a.score,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_goods_comment a
+            where
+            a.delete_flag = 0
+            <isNotNull property="commentsId">
+               and a.comments_id=#commentsId#
+            </isNotNull>
+            <isNotEmpty property="commentsIds">
+                and a.comments_id in
+                <iterate close=")" conjunction="," open="(" property="commentsIds">
+                    #commentsIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="goodsId">
+               and a.goods_id=#goodsId#
+            </isNotNull>
+            <isNotEmpty property="goodsIds">
+                and a.goods_id in
+                <iterate close=")" conjunction="," open="(" property="goodsIds">
+                    #goodsIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="userName">
+            and a.user_name=#userName#
+          </isNotNull>
+            <isNotEmpty property="userNameLike">
+                and a.user_name like CONCAT('%',#userNameLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="discussTimeMin">
+                and a.discuss_time >=#discussTimeMin#
+            </isNotNull>
+            <isNotNull property="discussTimeMax">
+                and a.discuss_time &lt;#discussTimeMax#
+            </isNotNull>
+          <isNotNull property="score">
+                and a.score=#score#
+          </isNotNull>
+            <isNotNull property="scoreMin">
+                and a.score >=#scoreMin#
+            </isNotNull>
+            <isNotNull property="scoreMax">
+                and a.score &lt;#scoreMax#
+            </isNotNull>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="commentsId">
+            <isEmpty property="commentsIds">
+            <isNull property="goodsId">
+            <isEmpty property="goodsIds">
+            <isNull property="userName">
+            <isEmpty property="userNameLike">
+            <isNull property="discussTimeMin">
+            <isNull property="discussTimeMax">
+            <isNull property="score">
+            <isNull property="scoreMin">
+            <isNull property="scoreMax">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            order by
+            <include refid="getGoodsCommentPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="GoodsComment.getPageList_count" resultClass="long" >
+    	select  /* GoodsComment.getPageList_count */ count(*)  from demo_goods_comment a
+            where
+            a.delete_flag = 0
+            <isNotNull property="commentsId">
+               and a.comments_id=#commentsId#
+            </isNotNull>
+            <isNotEmpty property="commentsIds">
+                and a.comments_id in
+                <iterate close=")" conjunction="," open="(" property="commentsIds">
+                    #commentsIds[]#
+                </iterate>
+            </isNotEmpty>
+            <isNotNull property="goodsId">
+               and a.goods_id=#goodsId#
+            </isNotNull>
+            <isNotEmpty property="goodsIds">
+                and a.goods_id in
+                <iterate close=")" conjunction="," open="(" property="goodsIds">
+                    #goodsIds[]#
+                </iterate>
+            </isNotEmpty>
+          <isNotNull property="userName">
+            and a.user_name=#userName#
+          </isNotNull>
+            <isNotEmpty property="userNameLike">
+                and a.user_name like CONCAT('%',#userNameLike#,'%')
+            </isNotEmpty>
+            <isNotNull property="discussTimeMin">
+                and a.discuss_time >=#discussTimeMin#
+            </isNotNull>
+            <isNotNull property="discussTimeMax">
+                and a.discuss_time &lt;#discussTimeMax#
+            </isNotNull>
+          <isNotNull property="score">
+                and a.score=#score#
+          </isNotNull>
+            <isNotNull property="scoreMin">
+                and a.score >=#scoreMin#
+            </isNotNull>
+            <isNotNull property="scoreMax">
+                and a.score &lt;#scoreMax#
+            </isNotNull>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
+            </isNotNull>
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
+            </isNotNull>
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNull property="commentsId">
+            <isEmpty property="commentsIds">
+            <isNull property="goodsId">
+            <isEmpty property="goodsIds">
+            <isNull property="userName">
+            <isEmpty property="userNameLike">
+            <isNull property="discussTimeMin">
+            <isNull property="discussTimeMax">
+            <isNull property="score">
+            <isNull property="scoreMin">
+            <isNull property="scoreMax">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
+            <isNull property="updateTimeMin">
+            <isNull property="updateTimeMax">
+              and 0 = 1
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+            </isEmpty>
+            </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="GoodsComment.getGoodsCommentsByCommentsIds" resultMap="GoodsComment_RM" >
+    	select
+ /* getGoodsCommentsByCommentsIds.GoodsComment */             a.comments_id,
+            a.goods_id,
+            a.comments,
+            a.user_name,
+            a.discuss_time,
+            a.score,
+            a.create_time,
+            a.update_time,
+            a.delete_flag
+            from demo_goods_comment a
+            where
+            a.delete_flag = 0
+            <isEmpty property="commentsIds">
+            and 1=0
+            </isEmpty>
+            <isNotEmpty property="commentsIds">
+                and a.comments_id in
+                <iterate close=")" conjunction="," open="(" property="commentsIds">
+                    #commentsIds[]#
+                </iterate>
+            </isNotEmpty>
+            order by
+            <include refid="getGoodsCommentsByCommentsIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="GoodsComment.deleteByCommentsIds">
+		UPDATE demo_goods_comment SET
+               delete_flag = 1
+               , update_time = CURRENT_TIMESTAMP(6)
+            where
+            delete_flag = 0
+            <isEmpty property="commentsIds">
+                and 1=0
+            </isEmpty>
+            <isNotEmpty property="commentsIds">
+                and comments_id in
+                <iterate close=")" conjunction="," open="(" property="commentsIds">
+                    #commentsIds[]#
+                </iterate>
+            </isNotEmpty>
+	</update>
+	
+    
+
+</sqlMap>
+

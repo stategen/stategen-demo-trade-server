@@ -81,12 +81,11 @@ public interface GoodsCommentDao {
     &#64;ApiParam()&#64;RequestParam(required =false,name="commentsIds") ArrayList&lt;String&gt; commentsIds,
     &#64;ApiParam() String goodsId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="goodsIds") ArrayList&lt;String&gt; goodsIds,
-    &#64;ApiParam() String comments,
-    &#64;ApiParam() String commentsLike,
     &#64;ApiParam() String userName,
     &#64;ApiParam() String userNameLike,
     &#64;ApiParam() Date discussTimeMin,
     &#64;ApiParam() Date discussTimeMax,
+    &#64;ApiParam() Integer score,
     &#64;ApiParam() Integer scoreMin,
     &#64;ApiParam() Integer scoreMax,
     &#64;ApiParam() Date createTimeMin,
@@ -97,7 +96,7 @@ public interface GoodsCommentDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.comments_id, a.goods_id, a.comments, a.user_name, a.discuss_time, a.score, a.create_time, a.update_time, a.delete_flag from demo_goods_comment a where a.delete_flag = 0 and a.comments_id=? and a.comments_id in ( ? ) and a.goods_id=? and a.goods_id in ( ? ) and a.comments=? and a.comments like CONCAT('%',?,'%') and a.user_name=? and a.user_name like CONCAT('%',?,'%') and a.discuss_time >=? and a.discuss_time <? and a.score >=? and a.score <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.comments_id, a.goods_id, a.comments, a.user_name, a.discuss_time, a.score, a.create_time, a.update_time, a.delete_flag from demo_goods_comment a where a.delete_flag = 0 and a.comments_id=? and a.comments_id in ( ? ) and a.goods_id=? and a.goods_id in ( ? ) and a.user_name=? and a.user_name like CONCAT('%',?,'%') and a.discuss_time >=? and a.discuss_time <? and a.score=? and a.score >=? and a.score <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<GoodsComment> getPageList(GoodsComment goodsComment, int pageSize, int pageNum) throws DataAccessException;
 	

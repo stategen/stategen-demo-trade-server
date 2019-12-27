@@ -37,14 +37,13 @@
         <sql>
             UPDATE role_menu
             SET update_time= CURRENT_TIMESTAMP(6)
-            <dynamic>
+            
                 <isNotNull property="roleId" prepend=",">
                     role_id =  ? 
                 </isNotNull>
                 <isNotNull property="menuId" prepend=",">
                     menu_id =  ? 
                 </isNotNull>
-            </dynamic>
             where
             delete_flag = 0
             and id = ?
@@ -79,44 +78,44 @@
             from role_menu a
             where
             a.delete_flag = 0
-            <isNotNull property="id" open="and">
-               a.id=?
+            <isNotNull property="id">
+               and a.id=?
             </isNotNull>
-            <isNotEmpty property="ids" open="and">
-                a.id in
+            <isNotEmpty property="ids">
+                and a.id in
                 <iterate property="ids" conjunction="," open="(" close=")">
                     #ids[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="roleId" open="and">
-               a.role_id=?
+            <isNotNull property="roleId">
+               and a.role_id=?
             </isNotNull>
-            <isNotEmpty property="roleIds" open="and">
-                a.role_id in
+            <isNotEmpty property="roleIds">
+                and a.role_id in
                 <iterate property="roleIds" conjunction="," open="(" close=")">
                     #roleIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="menuId" open="and">
-               a.menu_id=?
+            <isNotNull property="menuId">
+               and a.menu_id=?
             </isNotNull>
-            <isNotEmpty property="menuIds" open="and">
-                a.menu_id in
+            <isNotEmpty property="menuIds">
+                and a.menu_id in
                 <iterate property="menuIds" conjunction="," open="(" close=")">
                     #menuIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="createTimeMin" open="and">
-                a.create_time >=#createTimeMin#
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
             </isNotNull>
-            <isNotNull property="createTimeMax" open="and">
-                a.create_time &lt;#createTimeMax#
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
-            <isNotNull property="updateTimeMin" open="and">
-                a.update_time >=#updateTimeMin#
+            <isNotNull property="updateTimeMin">
+                and a.update_time >=#updateTimeMin#
             </isNotNull>
-            <isNotNull property="updateTimeMax" open="and">
-                a.update_time &lt;#updateTimeMax#
+            <isNotNull property="updateTimeMax">
+                and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="id">
             <isEmpty property="ids">
@@ -143,6 +142,7 @@
             <include refid = "getRoleMenuPageListOrderBy" />
         </sql>
     </operation>
+    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
 
     <operation name="getRoleMenusByIds" multiplicity="many" remarks="">
         <sql>
@@ -156,11 +156,11 @@
             from role_menu a
             where
             a.delete_flag = 0
-            <isEmpty property="ids" open="and">
-                1=0
+            <isEmpty property="ids">
+            and 1=0
             </isEmpty>
-            <isNotEmpty property="ids" open="and">
-                a.id in
+            <isNotEmpty property="ids">
+                and a.id in
                 <iterate property="ids" conjunction="," open="(" close=")">
                     #ids[]#
                 </iterate>
@@ -177,11 +177,11 @@
                , update_time = CURRENT_TIMESTAMP(6)
             where
             delete_flag = 0
-            <isEmpty property="ids" open="and">
-                1=0
+            <isEmpty property="ids">
+                and 1=0
             </isEmpty>
-            <isNotEmpty property="ids" open="and">
-                id in
+            <isNotEmpty property="ids">
+                and id in
                 <iterate property="ids" conjunction="," open="(" close=")">
                     #ids[]#
                 </iterate>

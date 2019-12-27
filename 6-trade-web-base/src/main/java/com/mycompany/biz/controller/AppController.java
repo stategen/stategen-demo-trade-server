@@ -2,6 +2,7 @@ package com.mycompany.biz.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -109,7 +110,10 @@ public class AppController {
 
     @ApiRequestMappingAutoWithMethodName(name = "爱好",method=RequestMethod.GET)
     public List<Hoppy> getHoppyOptions() {
-        return this.hoppyService.getHoppyOptions();
+        /*return this.hoppyService.getHoppyOptions();*/
+        
+        var testHoppies = this.hoppyService.getPageList(new Hoppy().setCreateTimeMax(new Date()).setTestField(1),10,1);
+        return testHoppies.getItems();
     }
 
     @ApiRequestMappingAutoWithMethodName(name = "获取地区")

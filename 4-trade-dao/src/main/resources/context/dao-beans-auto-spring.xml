@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:osgi="http://www.springframework.org/schema/osgi"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd"
+    default-autowire="byName"
+>
+    <!-- ============================================================ -->
+    <!-- DAO configs: auto generate by dalgen======================== -->
+    <!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+    <!-- ============================================================ -->
+
+    <bean id="advertisePictureDao" class="com.mycompany.biz.dao.impl.AdvertisePictureDaoImpl" parent="abstractDaoSupport" />
+    <bean id="categoryDao" class="com.mycompany.biz.dao.impl.CategoryDaoImpl" parent="abstractDaoSupport" />
+    <bean id="categorySubDao" class="com.mycompany.biz.dao.impl.CategorySubDaoImpl" parent="abstractDaoSupport" />
+    <bean id="cityDao" class="com.mycompany.biz.dao.impl.CityDaoImpl" parent="abstractDaoSupport" />
+    <bean id="fileSummaryDao" class="com.mycompany.biz.dao.impl.FileSummaryDaoImpl" parent="abstractDaoSupport" />
+    <bean id="floorDao" class="com.mycompany.biz.dao.impl.FloorDaoImpl" parent="abstractDaoSupport" />
+    <bean id="floorGoodsDao" class="com.mycompany.biz.dao.impl.FloorGoodsDaoImpl" parent="abstractDaoSupport" />
+    <bean id="goodsDao" class="com.mycompany.biz.dao.impl.GoodsDaoImpl" parent="abstractDaoSupport" />
+    <bean id="goodsCommentDao" class="com.mycompany.biz.dao.impl.GoodsCommentDaoImpl" parent="abstractDaoSupport" />
+    <bean id="homeAdvertiseDao" class="com.mycompany.biz.dao.impl.HomeAdvertiseDaoImpl" parent="abstractDaoSupport" />
+    <bean id="homeGoodsDao" class="com.mycompany.biz.dao.impl.HomeGoodsDaoImpl" parent="abstractDaoSupport" />
+    <bean id="homeShopDao" class="com.mycompany.biz.dao.impl.HomeShopDaoImpl" parent="abstractDaoSupport" />
+    <bean id="hoppyDao" class="com.mycompany.biz.dao.impl.HoppyDaoImpl" parent="abstractDaoSupport" />
+    <bean id="menuDao" class="com.mycompany.biz.dao.impl.MenuDaoImpl" parent="abstractDaoSupport" />
+    <bean id="provinceDao" class="com.mycompany.biz.dao.impl.ProvinceDaoImpl" parent="abstractDaoSupport" />
+    <bean id="regionDao" class="com.mycompany.biz.dao.impl.RegionDaoImpl" parent="abstractDaoSupport" />
+    <bean id="roleDao" class="com.mycompany.biz.dao.impl.RoleDaoImpl" parent="abstractDaoSupport" />
+    <bean id="roleMenuDao" class="com.mycompany.biz.dao.impl.RoleMenuDaoImpl" parent="abstractDaoSupport" />
+    <bean id="shopDao" class="com.mycompany.biz.dao.impl.ShopDaoImpl" parent="abstractDaoSupport" />
+    <bean id="slideDao" class="com.mycompany.biz.dao.impl.SlideDaoImpl" parent="abstractDaoSupport" />
+    <bean id="topicDao" class="com.mycompany.biz.dao.impl.TopicDaoImpl" parent="abstractDaoSupport" />
+    <bean id="topicReplyDao" class="com.mycompany.biz.dao.impl.TopicReplyDaoImpl" parent="abstractDaoSupport" />
+    <bean id="topicUpDao" class="com.mycompany.biz.dao.impl.TopicUpDaoImpl" parent="abstractDaoSupport" />
+    <bean id="userDao" class="com.mycompany.biz.dao.impl.UserDaoImpl" parent="abstractDaoSupport" />
+    <bean id="userHoppyDao" class="com.mycompany.biz.dao.impl.UserHoppyDaoImpl" parent="abstractDaoSupport" />
+    <bean id="userRoleDao" class="com.mycompany.biz.dao.impl.UserRoleDaoImpl" parent="abstractDaoSupport" />
+
+</beans>
