@@ -338,7 +338,7 @@
 	</select>	
 
 	<select id="Menu.getPageList_count" resultClass="long" >
-    	select  /* Menu.getPageList_count */ count(*)  from menu a
+    	select  /* getPageList_count.Menu */ count(*)  from menu a
             where
             a.delete_flag = 0
             <isNotNull property="menuId">

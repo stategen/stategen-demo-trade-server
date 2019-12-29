@@ -188,7 +188,7 @@
 	</select>	
 
 	<select id="UserRole.getPageList_count" resultClass="long" >
-    	select  /* UserRole.getPageList_count */ count(*)  from user_role a
+    	select  /* getPageList_count.UserRole */ count(*)  from user_role a
             where
             a.delete_flag = 0
             <isNotNull property="id">

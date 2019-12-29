@@ -167,7 +167,7 @@
 	</select>	
 
 	<select id="RoleMenu.getPageList_count" resultClass="long" >
-    	select  /* RoleMenu.getPageList_count */ count(*)  from role_menu a
+    	select  /* getPageList_count.RoleMenu */ count(*)  from role_menu a
             where
             a.delete_flag = 0
             <isNotNull property="id">

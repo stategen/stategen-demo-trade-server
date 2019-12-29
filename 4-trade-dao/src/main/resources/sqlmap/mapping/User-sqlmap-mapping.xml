@@ -617,7 +617,7 @@
 	</select>	
 
 	<select id="User.getPageList_count" resultClass="long" >
-    	select  /* User.getPageList_count */ count(*)  from user a
+    	select  /* getPageList_count.User */ count(*)  from user a
             where
             a.delete_flag = 0
             <isNotNull property="userId">

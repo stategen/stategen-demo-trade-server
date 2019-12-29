@@ -216,7 +216,7 @@
 	</select>	
 
 	<select id="FileSummary.getPageList_count" resultClass="long" >
-    	select  /* FileSummary.getPageList_count */ count(*)  from file_summary a
+    	select  /* getPageList_count.FileSummary */ count(*)  from file_summary a
             where
             a.delete_flag = 0
             <isNotNull property="fileId">

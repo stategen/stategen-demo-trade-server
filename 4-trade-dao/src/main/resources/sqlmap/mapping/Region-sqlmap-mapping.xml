@@ -280,7 +280,7 @@
 	</select>	
 
 	<select id="Region.getPageList_count" resultClass="long" >
-    	select  /* Region.getPageList_count */ count(*)  from demo_region a
+    	select  /* getPageList_count.Region */ count(*)  from demo_region a
             where
             a.delete_flag = 0
             <isNotNull property="regionId">

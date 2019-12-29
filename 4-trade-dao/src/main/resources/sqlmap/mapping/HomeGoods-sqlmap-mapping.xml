@@ -169,7 +169,7 @@
 	</select>	
 
 	<select id="HomeGoods.getPageList_count" resultClass="long" >
-    	select  /* HomeGoods.getPageList_count */ count(*)  from demo_home_goods a
+    	select  /* getPageList_count.HomeGoods */ count(*)  from demo_home_goods a
             where
             a.delete_flag = 0
             <isNotNull property="recommendId">

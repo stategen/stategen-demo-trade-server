@@ -182,7 +182,7 @@
 	</select>	
 
 	<select id="AdvertisePicture.getPageList_count" resultClass="long" >
-    	select  /* AdvertisePicture.getPageList_count */ count(*)  from demo_advertise_picture a
+    	select  /* getPageList_count.AdvertisePicture */ count(*)  from demo_advertise_picture a
             where
             a.delete_flag = 0
             <isNotNull property="advertiseId">

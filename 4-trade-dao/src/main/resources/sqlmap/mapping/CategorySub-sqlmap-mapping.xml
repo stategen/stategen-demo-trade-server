@@ -172,7 +172,7 @@
 	</select>	
 
 	<select id="CategorySub.getPageList_count" resultClass="long" >
-    	select  /* CategorySub.getPageList_count */ count(*)  from demo_category_sub a
+    	select  /* getPageList_count.CategorySub */ count(*)  from demo_category_sub a
             where
             a.delete_flag = 0
             <isNotNull property="categorySubId">

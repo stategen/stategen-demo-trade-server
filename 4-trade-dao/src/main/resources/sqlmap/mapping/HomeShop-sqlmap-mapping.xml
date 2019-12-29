@@ -146,7 +146,7 @@
 	</select>	
 
 	<select id="HomeShop.getPageList_count" resultClass="long" >
-    	select  /* HomeShop.getPageList_count */ count(*)  from demo_home_shop a
+    	select  /* getPageList_count.HomeShop */ count(*)  from demo_home_shop a
             where
             a.delete_flag = 0
             <isNotNull property="homeShopId">

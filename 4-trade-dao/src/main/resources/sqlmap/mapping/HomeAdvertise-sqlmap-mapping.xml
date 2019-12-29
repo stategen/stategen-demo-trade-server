@@ -146,7 +146,7 @@
 	</select>	
 
 	<select id="HomeAdvertise.getPageList_count" resultClass="long" >
-    	select  /* HomeAdvertise.getPageList_count */ count(*)  from demo_home_advertise a
+    	select  /* getPageList_count.HomeAdvertise */ count(*)  from demo_home_advertise a
             where
             a.delete_flag = 0
             <isNotNull property="homeAdvId">

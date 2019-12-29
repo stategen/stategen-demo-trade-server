@@ -23,6 +23,7 @@
         <property name="port" value="#{systemProperties['tradeApp.port']?: 8080}" />
         <!-- spingboot多模块应用中，用main方法在ide中启动时，无法加载web静态资源，下面配置解决这个问题,让调式变得更方便 -->
         <property name="documentRoot" value="classpath:\..\WebRoot\"/>
+        <property name="protocol" value="org.apache.coyote.http11.Http11NioProtocol"/>
     </bean>
 
 </beans>

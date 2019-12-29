@@ -35,7 +35,11 @@
 
         <spring.custom.version>5.1.10.RELEASE</spring.custom.version>
         <spring.boot.version>2.1.9.RELEASE</spring.boot.version>
+<!--         <spring.custom.version>5.2.2.RELEASE</spring.custom.version>
+        <spring.boot.version>2.2.2.RELEASE</spring.boot.version> -->
         <weixin-java.version>3.6.0</weixin-java.version>
+        <mybatis2.version>2.3.7</mybatis2.version>
+        <mybatis.version>3.5.3</mybatis.version>
 
         <distribution-id>thirdparty</distribution-id>
         <distribution-url>http://nexus:8081/content/repositories/thirdparty/</distribution-url>
@@ -539,7 +543,7 @@
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis2</artifactId>
-                <version>2.3.7</version>
+                <version>${mybatis2.version}</version>
                 <!-- 遵循里式替换原则 -->
                 <scope>runtime</scope>
             </dependency>
@@ -547,7 +551,7 @@
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
-                <version>3.5.3</version>
+                <version>${mybatis.version}</version>
                 <!-- 遵循里式替换原则 -->
                 <scope>runtime</scope>
             </dependency>
@@ -702,38 +706,95 @@
     </dependencyManagement>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>8</source>
+                        <target>8</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>delombok</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>default-deploy</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>deploy</goal>
+                            </goals>
+                            <configuration>
+                            <!-- 不发布到maven仓库 -->
+                                <skip>true</skip>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>exec-maven-plugin</artifactId>
+                                        <versionRange>[1.6.0,)</versionRange>
+                                        <goals>
+                                            <goal>java</goal>
+                                            <goal>exec</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
             </plugin>
-
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>delombok</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -213,7 +213,7 @@
 	</select>	
 
 	<select id="GoodsComment.getPageList_count" resultClass="long" >
-    	select  /* GoodsComment.getPageList_count */ count(*)  from demo_goods_comment a
+    	select  /* getPageList_count.GoodsComment */ count(*)  from demo_goods_comment a
             where
             a.delete_flag = 0
             <isNotNull property="commentsId">

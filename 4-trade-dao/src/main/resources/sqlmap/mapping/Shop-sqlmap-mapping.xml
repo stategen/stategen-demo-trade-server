@@ -151,7 +151,7 @@
 	</select>	
 
 	<select id="Shop.getPageList_count" resultClass="long" >
-    	select  /* Shop.getPageList_count */ count(*)  from demo_shop a
+    	select  /* getPageList_count.Shop */ count(*)  from demo_shop a
             where
             a.delete_flag = 0
             <isNotNull property="shopId">

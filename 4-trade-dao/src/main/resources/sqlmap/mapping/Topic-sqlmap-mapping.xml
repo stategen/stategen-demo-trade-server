@@ -280,7 +280,7 @@
 	</select>	
 
 	<select id="Topic.getPageList_count" resultClass="long" >
-    	select  /* Topic.getPageList_count */ count(*)  from demo_topic a
+    	select  /* getPageList_count.Topic */ count(*)  from demo_topic a
             where
             a.delete_flag = 0
             <isNotNull property="topicId">

@@ -167,7 +167,7 @@
 	</select>	
 
 	<select id="TopicUp.getPageList_count" resultClass="long" >
-    	select  /* TopicUp.getPageList_count */ count(*)  from demo_topic_up a
+    	select  /* getPageList_count.TopicUp */ count(*)  from demo_topic_up a
             where
             a.delete_flag = 0
             <isNotNull property="upId">

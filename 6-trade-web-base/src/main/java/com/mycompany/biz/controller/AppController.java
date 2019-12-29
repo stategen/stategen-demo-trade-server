@@ -17,6 +17,7 @@ import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.annotation.Wrap;
 import org.stategen.framework.enums.DataOpt;
+import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.SimpleResponse;
 import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.util.CollectionUtil;
@@ -30,6 +31,7 @@ import com.mycompany.biz.domain.Province;
 import com.mycompany.biz.domain.Region;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.enums.CookieType.Login.LoginCookieNames;
+import com.mycompany.biz.enums.RoleType;
 import com.mycompany.biz.service.CityService;
 import com.mycompany.biz.service.HoppyService;
 import com.mycompany.biz.service.MenuService;
@@ -66,6 +68,39 @@ public class AppController {
     @Resource
     private RegionService regionService;
 
+    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
+    public List<Region> testRegions(Long parentRegionId) {
+        User user = new User();
+        user.setAddress("abc")
+            .setAddressLike("cde")
+            .setAge(10)
+            .setAgeMax(100)
+            .setAgeMin(10)
+            .setAvatarImgIds(Arrays.asList("abc", "cde"))
+            .setBirthdayDate(new Date())
+            .setBirthdayDateMax(new Date())
+            .setBirthdayDateMin(new Date())
+            .setCityId("abc")
+            .setCityIds(Arrays.asList("abc"))
+            .setCreateTime(new Date())
+            .setCreateTimeMin(new Date())
+            .setEmail("abc")
+            .setGrade(1L)
+            .setGradeMax(1L)
+            .setGradeMin(1L)
+            .setPostAddressId(1L)
+            .setPostAddressIds(Arrays.asList(1L))
+            .setRoleType(RoleType.ADMIN)
+            .setWorkTime(new Date())
+            .setRoleTypes(Arrays.asList(RoleType.ADMIN, RoleType.DEVELOPER));
+        this.userService.getPageList(user, 1, 1);
+        
+        PageList<Region> pageList = this.regionService.getPageList(new Region().setCreateTimeMax(new Date())
+            .setParentRegionId(parentRegionId)
+            .setParentRegionIds(Arrays.asList(parentRegionId, 257L)), 100, 1);
+        return pageList.getItems();
+    }
+
     @ApiRequestMappingAutoWithMethodName(name = "")
     @State(area = User.class)
     public SimpleResponse logout(HttpServletResponse response) {
@@ -91,7 +126,7 @@ public class AppController {
         return user;
     }
 
-    @ApiRequestMappingAutoWithMethodName(name = "获所所有菜单",method=RequestMethod.GET)
+    @ApiRequestMappingAutoWithMethodName(name = "获所所有菜单", method = RequestMethod.GET)
     @State(init = true, initCheck = false, dataOpt = DataOpt.FULL_REPLACE)
     public List<Menu> getAllMenus() {
         return this.menuService.getAllMenus();
@@ -108,26 +143,25 @@ public class AppController {
         return this.cityService.getCityOptions(provinceId);
     }
 
-    @ApiRequestMappingAutoWithMethodName(name = "爱好",method=RequestMethod.GET)
+    @ApiRequestMappingAutoWithMethodName(name = "爱好", method = RequestMethod.GET)
     public List<Hoppy> getHoppyOptions() {
-        /*return this.hoppyService.getHoppyOptions();*/
-        
-        var testHoppies = this.hoppyService.getPageList(new Hoppy().setCreateTimeMax(new Date()).setTestField(1),10,1);
-        return testHoppies.getItems();
+        return this.hoppyService.getHoppyOptions();
     }
 
     @ApiRequestMappingAutoWithMethodName(name = "获取地区")
-    public List<Region> getRegionOptions(@ApiParam("父ID") @RequestParam(required = false, name = "parentRegionIds") ArrayList<Long> parentRegionIds) {
+    public List<Region> getRegionOptions(@ApiParam(
+        "父ID"
+    ) @RequestParam(required = false, name = "parentRegionIds") ArrayList<Long> parentRegionIds) {
         if (CollectionUtil.isNotEmpty(parentRegionIds)) {
             //客户端不必知道根值或处理根值的问题，直接传null上来
             if (parentRegionIds.get(0) == null) {
                 parentRegionIds.set(0, 0L);
             }
         }
-        
-        List<Region> regionOptions = this.regionService.getRegionOptions(parentRegionIds);
-        Map<Long, List<Region>> regionMap = CollectionUtil.toGroup(regionOptions, Region::getParentRegionId);
-        Long lastParentRegionId = CollectionUtil.getLast(parentRegionIds);
+
+        List<Region>            regionOptions      = this.regionService.getRegionOptions(parentRegionIds);
+        Map<Long, List<Region>> regionMap          = CollectionUtil.toGroup(regionOptions, Region::getParentRegionId);
+        Long                    lastParentRegionId = CollectionUtil.getLast(parentRegionIds);
         if (lastParentRegionId != null) {
             List<Region> children = regionMap.get(lastParentRegionId);
             while (CollectionUtil.isNotEmpty(children)) {
@@ -143,9 +177,9 @@ public class AppController {
         }
         return regionOptions;
     }
-    
+
     @ApiRequestMappingAutoWithMethodName(name = "获取用户")
-    public List<User> getUserOptions(@RequestParam(required = false, name = "userIds") ArrayList<String> userIds){
+    public List<User> getUserOptions(@RequestParam(required = false, name = "userIds") ArrayList<String> userIds) {
         return null;
     }
 

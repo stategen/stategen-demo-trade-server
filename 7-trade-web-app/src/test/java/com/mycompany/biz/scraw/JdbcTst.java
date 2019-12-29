@@ -48,7 +48,7 @@ public class JdbcTst {
             // ps.setObject(1, start);
             // ps.setObject(2, end);
 
-            var sql ="            select\r\n" + 
+            String sql ="            select\r\n" + 
                     "            a.hoppy_id,\r\n" + 
                     "            a.hoppy_name,\r\n" + 
                     "            a.create_time,\r\n" + 
@@ -62,7 +62,7 @@ public class JdbcTst {
             
             @Cleanup
             PreparedStatement ps = conn.prepareStatement(sql);
-            var end   = new Date();
+            Date end   = new Date();
             ps.setObject(1, end);
 
             rs = ps.executeQuery();

@@ -64,10 +64,6 @@ public class Hoppy implements java.io.Serializable, IOption {
     @ApiModelProperty(value = "是否删除(0:正常，1删除)", hidden = true)
     private Integer deleteFlag;
 
-    /***testField   db_column: test_field INTEGER */
-    @ApiModelProperty("testField")
-    private Integer testField;
-
     /*----------------getter & setter ignore by lombok -------------------*/
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd H:m:ss.SSS");
@@ -79,14 +75,11 @@ public class Hoppy implements java.io.Serializable, IOption {
         sb.append("createTimeMax=").append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin=").append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
         sb.append("updateTimeMax=").append(updateTimeMax != null ? df.format(updateTimeMax) : null).append('\n');
-        sb.append("testFieldMin=").append(testFieldMin).append('\n');
-        sb.append("testFieldMax=").append(testFieldMax).append('\n');
         sb.append("hoppyId=").append(hoppyId).append('\n');
         sb.append("hoppyName=").append(hoppyName).append('\n');
         sb.append("createTime=").append(createTime != null ? df.format(createTime) : null).append('\n');
         sb.append("updateTime=").append(updateTime != null ? df.format(updateTime) : null).append('\n');
-        sb.append("deleteFlag=").append(deleteFlag).append('\n');
-        sb.append("testField=").append(testField);
+        sb.append("deleteFlag=").append(deleteFlag);
         sb.append('}');
         return sb.toString();
     }
@@ -124,16 +117,6 @@ public class Hoppy implements java.io.Serializable, IOption {
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMax;
-
-    /*** testFieldMin in getPageList */
-    @ApiModelProperty("testFieldMin")
-    @JSONField(serialize = false)
-    private Integer testFieldMin;
-
-    /*** testFieldMax in getPageList */
-    @ApiModelProperty("testFieldMax")
-    @JSONField(serialize = false)
-    private Integer testFieldMax;
 
     @Override
     public String getTitle() {

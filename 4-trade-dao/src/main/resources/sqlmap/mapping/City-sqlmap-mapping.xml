@@ -218,7 +218,7 @@
 	</select>	
 
 	<select id="City.getPageList_count" resultClass="long" >
-    	select  /* City.getPageList_count */ count(*)  from demo_city a
+    	select  /* getPageList_count.City */ count(*)  from demo_city a
             where
             a.delete_flag = 0
             <isNotNull property="cityId">

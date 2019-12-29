@@ -19,7 +19,6 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.TopicType;
 import io.swagger.annotations.ApiModelProperty;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,7 +39,6 @@ import lombok.experimental.Accessors;
 @Setter
 @NoArgsConstructor
 @Accessors(chain = true)
-@AllArgsConstructor
 public class Topic implements java.io.Serializable {
 
     private User author;

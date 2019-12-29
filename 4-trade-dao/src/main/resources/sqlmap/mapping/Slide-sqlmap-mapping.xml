@@ -198,7 +198,7 @@
 	</select>	
 
 	<select id="Slide.getPageList_count" resultClass="long" >
-    	select  /* Slide.getPageList_count */ count(*)  from demo_slide a
+    	select  /* getPageList_count.Slide */ count(*)  from demo_slide a
             where
             a.delete_flag = 0
             <isNotNull property="slideId">

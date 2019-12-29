@@ -196,7 +196,7 @@
 	</select>	
 
 	<select id="TopicReply.getPageList_count" resultClass="long" >
-    	select  /* TopicReply.getPageList_count */ count(*)  from demo_topic_reply a
+    	select  /* getPageList_count.TopicReply */ count(*)  from demo_topic_reply a
             where
             a.delete_flag = 0
             <isNotNull property="replyId">

@@ -20,7 +20,6 @@ import org.stategen.framework.lite.enums.EditorType;
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,7 +40,6 @@ import lombok.experimental.Accessors;
 @Setter
 @NoArgsConstructor
 @Accessors(chain = true)
-@AllArgsConstructor
 public class TopicReply implements java.io.Serializable {
 
     private User author;

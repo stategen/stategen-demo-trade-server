@@ -68,7 +68,7 @@
     <entry key="jdbc_username">stategen</entry>
     <entry key="jdbc_password">stategen</entry>
     
+    <!-- ibatis,mybatis谁在最下面，将覆盖优先 -->
     <entry key="dao_type">mybatis</entry>
     <entry key="dao_type">ibatis</entry>
-
 </properties>

@@ -161,7 +161,7 @@
 	</select>	
 
 	<select id="Province.getPageList_count" resultClass="long" >
-    	select  /* Province.getPageList_count */ count(*)  from demo_province a
+    	select  /* getPageList_count.Province */ count(*)  from demo_province a
             where
             a.delete_flag = 0
             <isNotNull property="provinceId">

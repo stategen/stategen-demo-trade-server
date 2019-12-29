@@ -198,7 +198,7 @@
 	</select>	
 
 	<select id="FloorGoods.getPageList_count" resultClass="long" >
-    	select  /* FloorGoods.getPageList_count */ count(*)  from demo_floor_goods a
+    	select  /* getPageList_count.FloorGoods */ count(*)  from demo_floor_goods a
             where
             a.delete_flag = 0
             <isNotNull property="floorGoodsId">

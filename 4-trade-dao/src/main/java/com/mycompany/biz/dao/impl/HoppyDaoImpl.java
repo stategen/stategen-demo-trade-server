@@ -31,7 +31,7 @@ public class HoppyDaoImpl extends SqlDaoSupportBase implements HoppyDao {
 
     /**
 	 * 
-	 * sql:insert into demo_hoppy ( create_time , update_time , delete_flag , hoppy_id , hoppy_name , test_field ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
+	 * sql:insert into demo_hoppy ( create_time , update_time , delete_flag , hoppy_id , hoppy_name ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?)
 	 */
     public Hoppy insert(Hoppy hoppy) throws DataAccessException {
         if (hoppy == null) {
@@ -54,7 +54,7 @@ public class HoppyDaoImpl extends SqlDaoSupportBase implements HoppyDao {
 
     /**
 	 * 
-	 * sql:UPDATE demo_hoppy SET update_time= CURRENT_TIMESTAMP(6) , hoppy_name = ? , test_field = ? where delete_flag = 0 and hoppy_id = ?
+	 * sql:UPDATE demo_hoppy SET update_time= CURRENT_TIMESTAMP(6) , hoppy_name = ? where delete_flag = 0 and hoppy_id = ?
 	 */
     public Hoppy update(Hoppy hoppy) throws DataAccessException {
         if (hoppy == null) {
@@ -66,7 +66,7 @@ public class HoppyDaoImpl extends SqlDaoSupportBase implements HoppyDao {
 
     /**
 	 * 
-	 * sql:select a.hoppy_id, a.hoppy_name, a.create_time, a.update_time, a.delete_flag, a.test_field from demo_hoppy a where a.delete_flag = 0 and a.hoppy_id = ?
+	 * sql:select a.hoppy_id, a.hoppy_name, a.create_time, a.update_time, a.delete_flag from demo_hoppy a where a.delete_flag = 0 and a.hoppy_id = ?
 	 */
     public Hoppy getHoppyByHoppyId(Long hoppyId) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
@@ -76,7 +76,7 @@ public class HoppyDaoImpl extends SqlDaoSupportBase implements HoppyDao {
 
     /**
 	 * 
-	 * sql:select a.hoppy_id, a.hoppy_name, a.create_time, a.update_time, a.delete_flag, a.test_field from demo_hoppy a where a.delete_flag = 0 and a.hoppy_id=? and a.hoppy_id in ( ? ) and a.hoppy_name=? and a.hoppy_name like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and a.test_field=? and a.test_field >=? and a.test_field <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.hoppy_id, a.hoppy_name, a.create_time, a.update_time, a.delete_flag from demo_hoppy a where a.delete_flag = 0 and a.hoppy_id=? and a.hoppy_id in ( ? ) and a.hoppy_name=? and a.hoppy_name like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
     public PageList<Hoppy> getPageList(Hoppy hoppy, int pageSize, int pageNum) throws DataAccessException {
         return super.pageQuery("Hoppy.getPageList", hoppy, pageNum, pageSize);
@@ -84,7 +84,7 @@ public class HoppyDaoImpl extends SqlDaoSupportBase implements HoppyDao {
 
     /**
 	 * 
-	 * sql:select a.hoppy_id, a.hoppy_name, a.create_time, a.update_time, a.delete_flag, a.test_field from demo_hoppy a where a.delete_flag = 0 and 1=0 and a.hoppy_id in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.hoppy_id, a.hoppy_name, a.create_time, a.update_time, a.delete_flag from demo_hoppy a where a.delete_flag = 0 and 1=0 and a.hoppy_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
     public List<Hoppy> getHoppysByHoppyIds(java.util.List<Long> hoppyIds) throws DataAccessException {
         Map<String, Object> params = new HashMap<String, Object>(1);
