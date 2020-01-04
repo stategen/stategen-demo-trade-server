@@ -3,11 +3,6 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 >
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.stategen.framework</groupId>
-        <artifactId>stategen-parent</artifactId>
-        <version>2.0.8.stategen.RELEASE</version>
-    </parent>
 
     <groupId>com.mycompany.biz</groupId>
     <artifactId>trade-parent</artifactId>
@@ -26,30 +21,48 @@
         <module>7-trade-web-cms</module>
     </modules>
 
-    <properties>
-        <!-- 发到公司私有maven仓库中，即pojo和facade(dubbo服务的版本) -->
-        <trade-facade-version>1.0.0-release</trade-facade-version>
-        <!-- 本系统的版本，不会被发布到maven仓库中，故以snapshort结尾,后续pom.xml已控制,避免误发 -->
-        <systemVersion>trade-1.0.0-snapshot</systemVersion>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <spring.custom.version>5.1.10.RELEASE</spring.custom.version>
-        <spring.boot.version>2.1.9.RELEASE</spring.boot.version>
-<!--         <spring.custom.version>5.2.2.RELEASE</spring.custom.version>
-        <spring.boot.version>2.2.2.RELEASE</spring.boot.version> -->
+    <properties>
+        <stategen-version>stg.2.1.0.RELEASE</stategen-version>
+        <!-- 发到公司私有maven仓库中，即pojo和facade(dubbo服务的版本)，这个版本跟着pom.version一致 -->
+        <trade-facade-version>1.0.0</trade-facade-version>
+        <!-- 包含业务逻辑代码的jar，不能被发布到maven仓库中，故以snapshort结尾,请在nexus中控制禁止接收snapshot版本,避免误发 -->
+        <system.version.SNAPSHOT>trade-1.0.0.SNAPSHOT</system.version.SNAPSHOT>
         <weixin-java.version>3.6.0</weixin-java.version>
+
+        <spring.version>5.1.10.RELEASE</spring.version>
+        <spring-data-redis-version>2.1.10.RELEASE</spring-data-redis-version>
+
+        <swagger.springfox.verion>2.4.0</swagger.springfox.verion>
+        <stategen-version>stg.2.1.0.RELEASE</stategen-version>
+        <spring-orm-version>3.1.4.RELEASE</spring-orm-version>
+
+        <DI-tbSchedule-version>3.3.3.2</DI-tbSchedule-version>
+
+        <dubbo-version>2.7.5</dubbo-version>
+        <!-- <dubbo-version>2.8.4</dubbo-version> -->
+        <fastjson-version>1.2.29</fastjson-version>
+        <logback-version>1.2.3</logback-version>
+        <dom4j.version>1.6.1</dom4j.version>
+
+        <spring.boot.version>2.1.9.RELEASE</spring.boot.version>
         <mybatis2.version>2.3.7</mybatis2.version>
         <mybatis.version>3.5.3</mybatis.version>
+        <spring-data-redis-version>2.1.10.RELEASE</spring-data-redis-version>
 
-        <distribution-id>thirdparty</distribution-id>
-        <distribution-url>http://nexus:8081/content/repositories/thirdparty/</distribution-url>
+
+        <!-- 文件拷贝时的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 编译时的编码 -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
     </properties>
 
     <distributionManagement>
         <repository>
-            <id>${distribution-id}</id>
-            <url>${distribution-url}</url>
+            <id>thirdparty</id>
+            <url>http://nexus:8081/content/repositories/thirdparty/</url>
         </repository>
     </distributionManagement>
     <dependencies>
@@ -63,6 +76,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.stategen.framework</groupId>
+                <artifactId>stategen-dto-lite</artifactId>
+                <version>${stategen-version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.stategen.framework</groupId>
                 <artifactId>aa-stategen-ibatis-util</artifactId>
@@ -101,8 +120,11 @@
             </dependency>
 
             <dependency>
-                <groupId>com.alibaba</groupId>
+                <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo</artifactId>
+
+                <!-- <groupId>com.alibaba</groupId>
+                    <artifactId>dubbo</artifactId> -->
                 <version>${dubbo-version}</version>
                 <exclusions>
                     <exclusion>
@@ -114,12 +136,6 @@
                         <artifactId>commons-logging</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>org.stategen.framework</groupId>
-                <artifactId>aa-stategen-dubbox</artifactId>
-                <version>${stategen-version}</version>
             </dependency>
 
             <dependency>
@@ -156,43 +172,43 @@
             <dependency>
                 <groupId>com.mycompany.biz</groupId>
                 <artifactId>trade-intergrade</artifactId>
-                <version>${systemVersion}</version>
+                <version>${system.version.SNAPSHOT}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.mycompany.biz</groupId>
                 <artifactId>trade-dao</artifactId>
-                <version>${systemVersion}</version>
+                <version>${system.version.SNAPSHOT}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.mycompany.biz</groupId>
                 <artifactId>trade-service</artifactId>
-                <version>${systemVersion}</version>
+                <version>${system.version.SNAPSHOT}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.mycompany.biz</groupId>
                 <artifactId>trade-web-base</artifactId>
-                <version>${systemVersion}</version>
+                <version>${system.version.SNAPSHOT}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
-                <version>${spring.custom.version}</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
-                <version>${spring.custom.version}</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
-                <version>${spring.custom.version}</version>
+                <version>${spring.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>commons-logging</groupId>
@@ -204,14 +220,14 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
-                <version>${spring.custom.version}</version>
+                <version>${spring.version}</version>
                 <scope>test</scope>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
-                <version>${spring.custom.version}</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <dependency>
@@ -251,8 +267,8 @@
             <dependency>
                 <groupId>org.logback-extensions</groupId>
                 <artifactId>logback-ext-spring</artifactId>
-                <scope>runtime</scope>
                 <version>0.1.5</version>
+                <scope>runtime</scope>
                 <exclusions>
                     <exclusion>
                         <groupId>ch.qos.logback</groupId>
@@ -348,10 +364,10 @@
                 <artifactId>hibernate-validator</artifactId>
                 <version>5.2.4.Final</version>
                 <exclusions>
-<!--                     <exclusion>
+                    <!-- <exclusion>
                         <groupId>org.jboss.logging</groupId>
                         <artifactId>jboss-logging</artifactId>
-                    </exclusion> -->
+                        </exclusion> -->
                 </exclusions>
             </dependency>
 
@@ -404,19 +420,19 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context-support</artifactId>
-                <version>${spring.custom.version}</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
-                <version>${spring.custom.version}</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
-                <version>${spring.custom.version}</version>
+                <version>${spring.version}</version>
             </dependency>
 
             <dependency>
@@ -560,7 +576,7 @@
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis-spring</artifactId>
                 <version>2.0.3</version>
-            </dependency>            
+            </dependency>
 
             <!-- swagger-mvc -->
             <dependency>
@@ -669,6 +685,25 @@
                 <artifactId>javax.annotation-api</artifactId>
                 <version>1.3.2</version>
             </dependency>
+
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1.0</version>
+                <!-- <scope>provided</scope> -->
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>4.2.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>4.2.0</version>
+            </dependency>
             
             <!-- weixin bean -->
             <dependency>
@@ -750,14 +785,14 @@
                                 <goal>deploy</goal>
                             </goals>
                             <configuration>
-                            <!-- 不发布到maven仓库 -->
+                                <!-- 不发布到maven仓库 -->
                                 <skip>true</skip>
                             </configuration>
                         </execution>
                     </executions>
                 </plugin>
-                
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
@@ -776,7 +811,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>

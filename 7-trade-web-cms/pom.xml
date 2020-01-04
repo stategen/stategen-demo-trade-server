@@ -13,7 +13,7 @@
     </properties>
 
     <artifactId>trade-web-cms</artifactId>
-    <version>${systemVersion}</version>
+    <version>${system.version.SNAPSHOT}</version>
     <packaging>war</packaging>
     <name>7-trade-web-cms</name>
     
@@ -50,8 +50,13 @@
             <groupId>org.stategen.framework</groupId>
             <artifactId>progen</artifactId>
         </dependency>
+        
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
 
-		<!--qiniu begin -->
+        <!--qiniu begin -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
@@ -85,8 +90,8 @@
             <artifactId>snakeyaml</artifactId>
             <scope>test</scope>
         </dependency>
-		
-		<!--qiniu begin -->
+
+        <!--qiniu end -->
 
         <!--springboot_dependencies-->
     </dependencies>

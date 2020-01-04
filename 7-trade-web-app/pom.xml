@@ -15,8 +15,8 @@
     </properties>
 
     <artifactId>trade-web-app</artifactId>
-    <version>${systemVersion}</version>
-    <packaging>jar</packaging>
+    <version>${system.version.SNAPSHOT}</version>
+    <packaging>war</packaging>
     <name>7-trade-web-app</name>
 
     <!-- 不需要springboot请将springboot部分注释 -->
@@ -64,6 +64,11 @@
         <dependency>
             <groupId>org.stategen.framework</groupId>
             <artifactId>progen</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
         </dependency>
 
         <!--qiniu begin -->
@@ -162,13 +167,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <!-- <scope>provided</scope> -->
         </dependency>
 
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-            <scope>provided</scope>
+            <!-- <scope>provided</scope> -->
         </dependency>
         <!-- springboot end -->
     </dependencies>

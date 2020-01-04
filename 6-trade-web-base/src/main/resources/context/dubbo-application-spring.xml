@@ -7,8 +7,11 @@
        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd"
 >
 
-    <!-- 应用配置 各业务平台根据name区分,各变量从dalgenX.xml中读取 -->
-    <dubbo:protocol id="trade-dubbo-protocol" name="dubbo" port="${trade.dubbo.protocol.port}" serialization="fastjson" charset="UTF-8" />
-    <dubbo:registry id="trade-reg-addr" address="${trade.dubbo.registry.address}" protocol="trade-dubbo-protocol" />
-
+    <!-- 应用配置 各业务平台根据systemName区分 -->
+    <dubbo:application name="trade-dubbo-dalgen" owner="trade" organization="com.mycompany.biz">
+        <dubbo:parameter key="qos.enable" value="true" />
+        <dubbo:parameter key="qos.accept.foreign.ip" value="false" />
+        <dubbo:parameter key="qos.port" value="${trade.dubbo.qos.port}"/>
+    </dubbo:application>
+    <dubbo:consumer check="false" />
 </beans>

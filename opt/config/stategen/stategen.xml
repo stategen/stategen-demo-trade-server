@@ -9,11 +9,6 @@
     <!-- 开发时，将此值设为false,以便浏览器可以查看cookies,生产环境上，该值设为false-->
     <entry key="loginCookieGroupHttpOnly">false</entry>
 
-    <entry key="mysql.ip.port">jdbc:mysql://localhost:3306/trade?useUnicode=true&amp;characterEncoding=UTF8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;allowMultiQueries=true</entry>
-	<entry key="mysql.username">stategen</entry>
-	<entry key="mysql.password">stategen</entry>
-        
-
     <entry key="common.zk.ip.port">zookeeper://${THIS_IP}:2181</entry>
     <entry key="local.zk.ip.port">zookeeper://${THIS_IP}:2181</entry>
 
@@ -21,11 +16,14 @@
     <entry key="elastic.host">192.168.0.42</entry>
     <entry key="redis.host">192.168.0.42</entry>
     <entry key="redis.port">6379</entry>
-    
+    <entry key="redis.password"></entry>
+    <entry key="redis.database">0</entry>
+
+
     <entry key="dubbo.protocol.host">${THIS_IP}</entry>   
 	
 
-    <!-- 数据库通用 -->  
+    <!-- 数据库通用 -->
     <entry key="jdbc.initialSize">20</entry>
     <entry key="jdbc.minIdle">20</entry>
     <entry key="jdbc.maxActive">60</entry>
@@ -39,14 +37,14 @@
     <!-- 短信在redis中的过期时间 -->
     <entry key="dynamicPasswordExpiringSeconds">300</entry>
 
-    <!--servlet过滤器设置 ,运维请让framework_cookie_token_mix的值线上与测试环境不相同,可以随机生成一个md5字符串,注意，同一个环境中，该值必须相用--> 
+    <!--servlet过滤器设置 ,运维请让framework_cookie_token_mix的值线上与测试环境不相同,可以随机生成一个md5字符串,注意，同一个环境中，该值必须相用-->
     <entry key="framework_cookie_token_mix">343f212b-2950-4852-b61c</entry>
     <entry key="framework_max_request_per_ip_second">20</entry>    
 
     <!-- 一级缓存 -->
     <entry key="localCacheZkConfig.connectString">${common.zk.ip.port}</entry>
     <entry key="localCacheZkConfig.rootPath">/resourceNameCache</entry>
-    <entry key="localCacheZkConfig.connectionTimeout" >10000</entry> 
+    <entry key="localCacheZkConfig.connectionTimeout">10000</entry> 
 
     <!-- 调度中心 -->
     <entry key="scheduleManagerFactory.zkConfig.zkConnectString">${common.zk.ip.port}</entry>
@@ -58,24 +56,30 @@
     
 
     <!--trade system sql configs ,vendor cms app schedule-->
-    <entry key="trade.dubbo.registry.address">${local.zk.ip.port}</entry> 
-    <entry key="trade.dubbo.protocol.host">${THIS_IP}</entry>
-    <entry key="trade.dubbo.protocol.port">20872</entry>
 
+ 
+    <entry key="trade.mysql.ip.port">jdbc:mysql://localhost:3306/trade?useUnicode=true&amp;characterEncoding=UTF8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;allowMultiQueries=true</entry>
+    <entry key="trade.mysql.username">stategen</entry>
+    <entry key="trade.mysql.password">stategen</entry>
     <entry key="trade.jdbc.url">${mysql.ip.port}</entry>
     <entry key="trade.jdbc.username">${mysql.username}</entry>
     <entry key="trade.jdbc.password">${mysql.password}</entry>  
     
+    <entry key="trade.dubbo.registry.address">${local.zk.ip.port}</entry>
+    <entry key="trade.dubbo.protocol.host">${THIS_IP}</entry>
+    <entry key="trade.dubbo.protocol.port">20872</entry>
+	<entry key="trade.dubbo.qos.port">22221</entry>
     <!--特别注意这一行，检查 elasticsearch 集群名称-->
     <entry key="trade.es.clustername">my-application</entry>
     <entry key="trade.es.host">${elastic.host}</entry>
 
     <entry key="trade.redis.host">${redis.host}</entry>
     <entry key="trade.redis.port">${redis.port}</entry>
+    <entry key="trade.redis.password">${redis.password}</entry>
+    <entry key="trade.redis.database">${redis.database}</entry>
 	
     <!-- [projectName]_url 对应相应 document.ejs 中的设置，会被导出到index.html,输出时，由服务端把值下面相应设置的值传到index.html中 -->
-    <entry key="tradeApp_url">http://localhost:8080/tradeApp</entry>
     <entry key="tradeCms_url">http://localhost:8080/tradeCms</entry>
-
+    <entry key="tradeApp_url">http://localhost:8080/tradeApp</entry>
 
 </properties>

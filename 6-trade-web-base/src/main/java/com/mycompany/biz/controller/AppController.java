@@ -2,7 +2,6 @@ package com.mycompany.biz.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.annotation.Wrap;
 import org.stategen.framework.enums.DataOpt;
-import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.SimpleResponse;
 import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.util.CollectionUtil;
@@ -31,7 +29,6 @@ import com.mycompany.biz.domain.Province;
 import com.mycompany.biz.domain.Region;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.enums.CookieType.Login.LoginCookieNames;
-import com.mycompany.biz.enums.RoleType;
 import com.mycompany.biz.service.CityService;
 import com.mycompany.biz.service.HoppyService;
 import com.mycompany.biz.service.MenuService;
@@ -68,38 +65,39 @@ public class AppController {
     @Resource
     private RegionService regionService;
 
-    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
-    public List<Region> testRegions(Long parentRegionId) {
-        User user = new User();
-        user.setAddress("abc")
-            .setAddressLike("cde")
-            .setAge(10)
-            .setAgeMax(100)
-            .setAgeMin(10)
-            .setAvatarImgIds(Arrays.asList("abc", "cde"))
-            .setBirthdayDate(new Date())
-            .setBirthdayDateMax(new Date())
-            .setBirthdayDateMin(new Date())
-            .setCityId("abc")
-            .setCityIds(Arrays.asList("abc"))
-            .setCreateTime(new Date())
-            .setCreateTimeMin(new Date())
-            .setEmail("abc")
-            .setGrade(1L)
-            .setGradeMax(1L)
-            .setGradeMin(1L)
-            .setPostAddressId(1L)
-            .setPostAddressIds(Arrays.asList(1L))
-            .setRoleType(RoleType.ADMIN)
-            .setWorkTime(new Date())
-            .setRoleTypes(Arrays.asList(RoleType.ADMIN, RoleType.DEVELOPER));
-        this.userService.getPageList(user, 1, 1);
-        
-        PageList<Region> pageList = this.regionService.getPageList(new Region().setCreateTimeMax(new Date())
-            .setParentRegionId(parentRegionId)
-            .setParentRegionIds(Arrays.asList(parentRegionId, 257L)), 100, 1);
-        return pageList.getItems();
-    }
+    //这是一个dubbo服务
+    /*
+     * @Resource private UserServiceAuth userServiceAuth;
+     * 
+     * @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET) public
+     * List<Long> getLongs(Long parentRegionId) { List<Long> longParams =new
+     * ArrayList<Long>(Arrays.asList(10L,11L,100000000000000L));
+     * 
+     * if (logger.isInfoEnabled()) { logger.info(new
+     * StringBuffer("输出info信息: userServiceAuth!=null:").append(userServiceAuth!=
+     * null).toString()); } List<Long> longs =
+     * userServiceAuth.getLongs(longParams); for (Long long1 : longs) {
+     * System.out.println("long1<===========>:" + long1); } return longs; }
+     */
+    /*
+     * @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET) public
+     * List<Region> testRegions(Long parentRegionId) { User user = new User();
+     * user.setAddress("abc") .setAddressLike("cde") .setAge(10) .setAgeMax(100)
+     * .setAgeMin(10) .setAvatarImgIds(Arrays.asList("abc", "cde"))
+     * .setBirthdayDate(new Date()) .setBirthdayDateMax(new Date())
+     * .setBirthdayDateMin(new Date()) .setCityId("abc")
+     * .setCityIds(Arrays.asList("abc")) .setCreateTime(new Date())
+     * .setCreateTimeMin(new Date()) .setEmail("abc") .setGrade(1L)
+     * .setGradeMax(1L) .setGradeMin(1L) .setPostAddressId(1L)
+     * .setPostAddressIds(Arrays.asList(1L)) .setRoleType(RoleType.ADMIN)
+     * .setWorkTime(new Date()) .setRoleTypes(Arrays.asList(RoleType.ADMIN,
+     * RoleType.DEVELOPER)); this.userService.getPageList(user, 1, 1);
+     * 
+     * PageList<Region> pageList = this.regionService.getPageList(new
+     * Region().setCreateTimeMax(new Date()) .setParentRegionId(parentRegionId)
+     * .setParentRegionIds(Arrays.asList(parentRegionId, 257L)), 100, 1); return
+     * pageList.getItems(); }
+     */
 
     @ApiRequestMappingAutoWithMethodName(name = "")
     @State(area = User.class)
@@ -149,9 +147,7 @@ public class AppController {
     }
 
     @ApiRequestMappingAutoWithMethodName(name = "获取地区")
-    public List<Region> getRegionOptions(@ApiParam(
-        "父ID"
-    ) @RequestParam(required = false, name = "parentRegionIds") ArrayList<Long> parentRegionIds) {
+    public List<Region> getRegionOptions(@ApiParam("父ID") @RequestParam(required = false, name = "parentRegionIds") ArrayList<Long> parentRegionIds) {
         if (CollectionUtil.isNotEmpty(parentRegionIds)) {
             //客户端不必知道根值或处理根值的问题，直接传null上来
             if (parentRegionIds.get(0) == null) {

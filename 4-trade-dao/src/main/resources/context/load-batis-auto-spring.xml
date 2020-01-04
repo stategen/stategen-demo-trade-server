@@ -8,10 +8,6 @@
     <!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖    -->
     <!-- ============================================================ -->
     
-    <!-- 引用外面的dubbo服务,不引用自己（trade）的服务,trade为动态生成 -->
-    <import resource="classpath*:META-INF/facade/dubbo-facade-auto-{:?!.*(trade)}*.xml"/>
-    <import resource="classpath*:META-INF/facade/dubbo-facade-manual-{:?!.*(trade)}*.xml"/>
-    
-    <!-- 动态决定引用哪个持久层 -->
+    <!-- 根据gen_config.xml 中的dao_type配置动态引用持久层 -->
     <import resource="classpath*:context/sql-spring-ibatis.xml"/>
 </beans>

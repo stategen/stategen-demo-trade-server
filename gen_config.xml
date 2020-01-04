@@ -52,14 +52,8 @@
     <typeHandler javaType="[B" jdbcType="LONGVARBINARY" callback="org.springframework.orm.ibatis.support.BlobByteArrayTypeHandler" />
     ]]>
     </entry>
-    
-    
-    <!-- <entry key="java_typemapping.byte[]">java.sql.Blob</entry> -->
 
-    <!-- <entry key="java_typemapping.java.sql.Timestamp">java.time.LocalDateTime</entry>
-        <entry key="java_typemapping.java.sql.Date">java.time.LocalDateTime</entry>
-        <entry key="java_typemapping.java.sql.Time">java.time.LocalDateTime</entry>
-    -->
+
     <!-- Mysql -->
     <!-- 数据库相关配置 -->
     <entry key="jdbc_url">jdbc:mysql://localhost:3306/trade?useUnicode=true</entry>
@@ -68,7 +62,7 @@
     <entry key="jdbc_username">stategen</entry>
     <entry key="jdbc_password">stategen</entry>
     
-    <!-- ibatis,mybatis谁在最下面，将覆盖优先 -->
+    <!-- ibatis,mybatis,最下面优先 -->
     <entry key="dao_type">mybatis</entry>
     <entry key="dao_type">ibatis</entry>
 </properties>
