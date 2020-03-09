@@ -127,7 +127,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.mycompany.biz.facadegen.WebFacadeProcessor</mainClass>
+                            <mainClass>WebFacadeProcessor</mainClass>
                             <classpathScope>test</classpathScope>
                             <cleanupDaemonThreads>false</cleanupDaemonThreads>
                         </configuration>
@@ -144,7 +144,8 @@
                             <workingDirectory>./cms-frontend-web/</workingDirectory>
                             <executable>yarn</executable>
                             <arguments>
-                                <!-- <argument>install</argument> -->
+                                <argument>install</argument>
+                                <argument>--ignore-engines</argument>
                             </arguments>
                         </configuration>
 

@@ -208,7 +208,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.mycompany.biz.facadegen.H5FacadeProcessor</mainClass>
+                            <mainClass>H5FacadeProcessor</mainClass>
                             <classpathScope>test</classpathScope>
                             <cleanupDaemonThreads>false</cleanupDaemonThreads>
                         </configuration>
@@ -225,7 +225,8 @@
                             <workingDirectory>./app-frontend-h5/</workingDirectory>
                             <executable>yarn</executable>
                             <arguments>
-                                <!-- <argument>install</argument> -->
+                                <argument>install</argument>
+                                <argument>--ignore-engines</argument>
                             </arguments>
                         </configuration>
 
@@ -258,7 +259,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.mycompany.biz.facadegen.FlutterFacadeProcessor</mainClass>
+                            <mainClass>FlutterFacadeProcessor</mainClass>
                             <classpathScope>test</classpathScope>
                             <cleanupDaemonThreads>false</cleanupDaemonThreads>
                         </configuration>

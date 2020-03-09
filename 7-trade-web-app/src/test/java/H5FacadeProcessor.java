@@ -1,4 +1,4 @@
-package com.mycompany.biz.facadegen;
+
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -20,6 +20,10 @@ import org.stategen.framework.util.StringUtil;
 import freemarker.template.TemplateException;
 
 
+/**
+ * 运行可以生成前端代码，用mvn package也会自动运行该代码生成前端
+ * 
+ */
 public class H5FacadeProcessor extends BaseGenFacadeProcessor {
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(H5FacadeProcessor.class);
 
