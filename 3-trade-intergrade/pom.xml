@@ -16,12 +16,6 @@
     <name>3-trade-intergrade</name>
 
     <dependencies>
-        <dependency>
-            <groupId>com.mycompany.center</groupId>
-            <artifactId>auth-facade</artifactId>
-            <version>1.0.0-release</version>
-        </dependency>
-
         <!--
             <dependency>
             <groupId>com.xxx.xxx</groupId>
