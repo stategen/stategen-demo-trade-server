@@ -4,6 +4,8 @@
  * Powered By [stategen.dalgen]
  */package com.mycompany.biz.service;
 
+import com.mycompany.biz.domain.User;
+
 /**
  * UserService
  * <pre>
@@ -16,6 +18,8 @@
  * </pre>
  */
 public interface UserServiceTrade {
+    public User getUserByUserId(String userId);
+    public User insert(User user);
 
 }
 
