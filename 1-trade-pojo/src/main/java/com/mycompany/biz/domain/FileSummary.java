@@ -16,10 +16,11 @@ import org.stategen.framework.annotation.OptionConvertor;
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 /**
  * FileSummary
@@ -34,8 +35,9 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
-@Accessors(chain = true)
+@AllArgsConstructor
 @OptionConvertor(value = "fileId")
 public class FileSummary implements java.io.Serializable {
 
@@ -88,7 +90,7 @@ public class FileSummary implements java.io.Serializable {
     /*----------------getter & setter ignore by lombok -------------------*/
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd H:m:ss.SSS");
-        StringBuffer sb = new StringBuffer(1024);
+        StringBuilder sb = new StringBuilder(1024);
         sb.append('{');
         sb.append("fileIds=").append(fileIds).append('\n');
         sb.append("sizeMin=").append(sizeMin).append('\n');

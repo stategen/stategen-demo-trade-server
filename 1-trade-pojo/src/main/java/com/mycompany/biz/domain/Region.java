@@ -19,10 +19,11 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.RegionType;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 /**
  * Region
@@ -37,8 +38,9 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
-@Accessors(chain = true)
+@AllArgsConstructor
 @OptionConvertor(parentId = "parentRegionId", label = "name")
 public class Region implements java.io.Serializable, IOption {
 
@@ -105,7 +107,7 @@ public class Region implements java.io.Serializable, IOption {
     /*----------------getter & setter ignore by lombok -------------------*/
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd H:m:ss.SSS");
-        StringBuffer sb = new StringBuffer(1024);
+        StringBuilder sb = new StringBuilder(1024);
         sb.append('{');
         sb.append("regionIds=").append(regionIds).append('\n');
         sb.append("parentRegionIds=").append(parentRegionIds).append('\n');

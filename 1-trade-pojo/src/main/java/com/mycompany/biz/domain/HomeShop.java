@@ -13,12 +13,13 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import io.swagger.annotations.ApiModelProperty;
 
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 /**
  * HomeShop
@@ -33,8 +34,9 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Setter
+@Builder(builderMethodName = "blder")
 @NoArgsConstructor
-@Accessors(chain = true)
+@AllArgsConstructor
 public class HomeShop extends Shop implements java.io.Serializable {
 
     private static final long serialVersionUID = -5216457518046898601L;
@@ -67,7 +69,7 @@ public class HomeShop extends Shop implements java.io.Serializable {
     /*----------------getter & setter ignore by lombok -------------------*/
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd H:m:ss.SSS");
-        StringBuffer sb = new StringBuffer(1024);
+        StringBuilder sb = new StringBuilder(1024);
         sb.append('{');
         sb.append("homeShopIds=").append(homeShopIds).append('\n');
         sb.append("shopIds=").append(shopIds).append('\n');

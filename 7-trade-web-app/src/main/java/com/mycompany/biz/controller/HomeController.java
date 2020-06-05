@@ -10,11 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
+import org.stategen.framework.annotation.GenRefresh;
 import org.stategen.framework.annotation.State;
 import org.stategen.framework.annotation.Wrap;
 import org.stategen.framework.enums.DataOpt;
+import org.stategen.framework.lite.AntdPageList;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.lite.Pagination;
 import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.DatetimeUtil;
 
 import com.mycompany.biz.domain.Category;
 import com.mycompany.biz.domain.CategorySub;
@@ -26,6 +30,8 @@ import com.mycompany.biz.domain.HomeGoods;
 import com.mycompany.biz.domain.HomeShop;
 import com.mycompany.biz.domain.HomeWrap;
 import com.mycompany.biz.domain.Slide;
+import com.mycompany.biz.domain.Topic;
+import com.mycompany.biz.enums.TopicType;
 import com.mycompany.biz.service.AdvertisePictureService;
 import com.mycompany.biz.service.CategoryService;
 import com.mycompany.biz.service.CategorySubService;
@@ -38,12 +44,29 @@ import com.mycompany.biz.service.HomeGoodsService;
 import com.mycompany.biz.service.HomeShopService;
 import com.mycompany.biz.service.ShopService;
 import com.mycompany.biz.service.SlideService;
+import com.mycompany.biz.service.TopicService;
+
+import io.swagger.annotations.ApiParam;
 
 @ApiConfig
 @RequestMapping("api/home")
 @Wrap
 public class HomeController {
+    @ApiRequestMappingAutoWithMethodName
+    @State(init=true,dataOpt=DataOpt.APPEND_OR_UPDATE)
+    @GenRefresh
+    public AntdPageList<Topic> getTopicPageList(TopicType topicType,Boolean mdrender,@ApiParam(hidden=true) Topic topic, Pagination pagination){
+        topic.setCreateTimeMax(DatetimeUtil.current());
+        PageList<Topic> topicPageList = this.topicService.getPageList(topic, pagination.getPageSize(), pagination.getPage());
+        topicService.assignTopicExtraProperties(topicPageList.getItems());
+        return new AntdPageList<Topic>(topicPageList);
+    }
+
+    
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(HomeController.class);
+    
+    @Resource
+    protected TopicService topicService;
     
     @Resource
     CategoryService categoryService;

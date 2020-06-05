@@ -26,10 +26,11 @@ import com.mycompany.biz.enums.RoleType;
 import com.mycompany.biz.enums.StatusEnum;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 /**
  * User
@@ -44,8 +45,9 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
-@Accessors(chain = true)
+@AllArgsConstructor
 public class User implements java.io.Serializable {
 
     @ApiModelProperty("用户可访问的节点")
@@ -219,7 +221,7 @@ public class User implements java.io.Serializable {
     /*----------------getter & setter ignore by lombok -------------------*/
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd H:m:ss.SSS");
-        StringBuffer sb = new StringBuffer(1024);
+        StringBuilder sb = new StringBuilder(1024);
         sb.append('{');
         sb.append("userIds=").append(userIds).append('\n');
         sb.append("usernameLike=").append(usernameLike).append('\n');

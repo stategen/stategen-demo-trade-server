@@ -43,7 +43,7 @@ public class User_meController extends UserControllerBase {
     public User getTheUser() {
         User topicAuthor = this.userService.getUserByUserId("2018111306343099304690546571");
         if (logger.isInfoEnabled()) {
-            logger.info(new StringBuffer("输出info信息: topicAuthor:").append(topicAuthor).toString());
+            logger.info(new StringBuilder("输出info信息: topicAuthor:").append(topicAuthor).toString());
         }
         assignBeans(Arrays.asList(topicAuthor));
         return topicAuthor;

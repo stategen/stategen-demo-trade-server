@@ -19,12 +19,13 @@ import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.lite.enums.VisitCheckType;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import io.swagger.annotations.ApiModelProperty;
 
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 /**
  * Menu
@@ -38,9 +39,10 @@ import lombok.experimental.Accessors;
  * </pre>
  */
 @Getter
-@Setter
+@Setter()
+@Builder()
 @NoArgsConstructor
-@Accessors(chain = true)
+@AllArgsConstructor
 public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<Menu> {
 
     private String roleId;
@@ -126,7 +128,7 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
     /*----------------getter & setter ignore by lombok -------------------*/
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd H:m:ss.SSS");
-        StringBuffer sb = new StringBuffer(1024);
+        StringBuilder sb = new StringBuilder(1024);
         sb.append('{');
         sb.append("menuIds=").append(menuIds).append('\n');
         sb.append("morderMin=").append(morderMin).append('\n');

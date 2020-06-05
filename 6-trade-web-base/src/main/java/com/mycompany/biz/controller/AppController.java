@@ -1,9 +1,7 @@
 package com.mycompany.biz.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +16,6 @@ import org.stategen.framework.annotation.Wrap;
 import org.stategen.framework.enums.DataOpt;
 import org.stategen.framework.lite.SimpleResponse;
 import org.stategen.framework.lite.enums.MenuType;
-import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.StringUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
 
@@ -26,7 +23,6 @@ import com.mycompany.biz.domain.City;
 import com.mycompany.biz.domain.Hoppy;
 import com.mycompany.biz.domain.Menu;
 import com.mycompany.biz.domain.Province;
-import com.mycompany.biz.domain.Region;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.enums.CookieType.Login.LoginCookieNames;
 import com.mycompany.biz.service.CityService;
@@ -74,7 +70,7 @@ public class AppController {
      * ArrayList<Long>(Arrays.asList(10L,11L,100000000000000L));
      * 
      * if (logger.isInfoEnabled()) { logger.info(new
-     * StringBuffer("输出info信息: userServiceAuth!=null:").append(userServiceAuth!=
+     * StringBuilder("输出info信息: userServiceAuth!=null:").append(userServiceAuth!=
      * null).toString()); } List<Long> longs =
      * userServiceAuth.getLongs(longParams); for (Long long1 : longs) {
      * System.out.println("long1<===========>:" + long1); } return longs; }
@@ -137,7 +133,8 @@ public class AppController {
     }
 
     @ApiRequestMappingAutoWithMethodName(name = "城市")
-    public List<City> getCityOptions(@ApiParam("provinceId") String provinceId) {
+    public List<City> getCityOptions(@ApiParam("provinceId")
+    String provinceId) {
         return this.cityService.getCityOptions(provinceId);
     }
 
@@ -145,37 +142,47 @@ public class AppController {
     public List<Hoppy> getHoppyOptions() {
         return this.hoppyService.getHoppyOptions();
     }
-
-    @ApiRequestMappingAutoWithMethodName(name = "获取地区")
-    public List<Region> getRegionOptions(@ApiParam("父ID") @RequestParam(required = false, name = "parentRegionIds") ArrayList<Long> parentRegionIds) {
-        if (CollectionUtil.isNotEmpty(parentRegionIds)) {
-            //客户端不必知道根值或处理根值的问题，直接传null上来
-            if (parentRegionIds.get(0) == null) {
-                parentRegionIds.set(0, 0L);
-            }
-        }
-
-        List<Region>            regionOptions      = this.regionService.getRegionOptions(parentRegionIds);
-        Map<Long, List<Region>> regionMap          = CollectionUtil.toGroup(regionOptions, Region::getParentRegionId);
-        Long                    lastParentRegionId = CollectionUtil.getLast(parentRegionIds);
-        if (lastParentRegionId != null) {
-            List<Region> children = regionMap.get(lastParentRegionId);
-            while (CollectionUtil.isNotEmpty(children)) {
-                Region first = CollectionUtil.getFirst(children);
-                if (first != null && !first.getIsLeaf()) {
-                    children = this.regionService.getRegionOptions(Arrays.asList(first.getRegionId()));
-                    regionOptions.addAll(children);
-                } else {
-                    children = null;
-                }
-
-            }
-        }
-        return regionOptions;
+    
+    @ApiRequestMappingAutoWithMethodName(method=RequestMethod.GET)
+    @Wrap(exclude=true)
+    public String test() {
+        return "test";
     }
 
+
+//    @ApiRequestMappingAutoWithMethodName(name = "获取地区")
+//    public List<Region> getRegionOptions(@ApiParam("父ID")
+//    @RequestParam(required = false, name = "parentRegionIds")
+//    ArrayList<Long> parentRegionIds) {
+//        if (CollectionUtil.isNotEmpty(parentRegionIds)) {
+//            //客户端不必知道根值或处理根值的问题，直接传null上来
+//            if (parentRegionIds.get(0) == null) {
+//                parentRegionIds.set(0, 0L);
+//            }
+//        }
+//
+//        List<Region>            regionOptions      = this.regionService.getRegionOptions(parentRegionIds);
+//        Map<Long, List<Region>> regionMap          = CollectionUtil.toGroup(regionOptions, Region::getParentRegionId);
+//        Long                    lastParentRegionId = CollectionUtil.getLast(parentRegionIds);
+//        if (lastParentRegionId != null) {
+//            List<Region> children = regionMap.get(lastParentRegionId);
+//            while (CollectionUtil.isNotEmpty(children)) {
+//                Region first = CollectionUtil.getFirst(children);
+//                if (first != null && !first.getIsLeaf()) {
+//                    children = this.regionService.getRegionOptions(Arrays.asList(first.getRegionId()));
+//                    regionOptions.addAll(children);
+//                } else {
+//                    children = null;
+//                }
+//
+//            }
+//        }
+//        return regionOptions;
+//    }
+
     @ApiRequestMappingAutoWithMethodName(name = "获取用户")
-    public List<User> getUserOptions(@RequestParam(required = false, name = "userIds") ArrayList<String> userIds) {
+    public List<User> getUserOptions(@RequestParam(required = false, name = "userIds")
+    ArrayList<String> userIds) {
         return null;
     }
 

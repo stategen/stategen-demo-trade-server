@@ -2,7 +2,8 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */package com.mycompany.biz.service;
+ */
+package com.mycompany.biz.service;
 
 import com.mycompany.biz.domain.User;
 
@@ -18,10 +19,8 @@ import com.mycompany.biz.domain.User;
  * </pre>
  */
 public interface UserServiceTrade {
+
     public User getUserByUserId(String userId);
+
     public User insert(User user);
-
 }
-
-
-

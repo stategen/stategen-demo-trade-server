@@ -15,10 +15,11 @@ import javax.validation.constraints.Max;
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 /**
  * Slide
@@ -33,8 +34,9 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
-@Accessors(chain = true)
+@AllArgsConstructor
 public class Slide implements java.io.Serializable {
 
     private static final long serialVersionUID = -5216457518046898601L;
@@ -80,7 +82,7 @@ public class Slide implements java.io.Serializable {
     /*----------------getter & setter ignore by lombok -------------------*/
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd H:m:ss.SSS");
-        StringBuffer sb = new StringBuffer(1024);
+        StringBuilder sb = new StringBuilder(1024);
         sb.append('{');
         sb.append("slideIds=").append(slideIds).append('\n');
         sb.append("goodsIds=").append(goodsIds).append('\n');

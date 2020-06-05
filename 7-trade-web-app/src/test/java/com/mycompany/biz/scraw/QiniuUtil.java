@@ -29,7 +29,7 @@ public class QiniuUtil {
             String upToken = auth.uploadToken(bucketname);
             List<File> searchAllNotIgnoreFile = FileHelpers.searchAllNotIgnoreFile(new File(folder));
             int count = 0;
-            StringBuffer sb = null;
+            StringBuilder sb = null;
             for (File file : searchAllNotIgnoreFile) {
                 if (file.exists() && file.isFile() && !file.isHidden() && file.canRead()) {
                     String canonicalPath = file.getCanonicalPath();
@@ -46,7 +46,7 @@ public class QiniuUtil {
                         System.out.println(out);
                     } else {
                         if (sb == null) {
-                            sb = new StringBuffer();
+                            sb = new StringBuilder();
                         }
                         sb.append(out).append('\n');
                     }
