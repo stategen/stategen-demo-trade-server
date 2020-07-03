@@ -21,14 +21,13 @@
     http://www.springframework.org/schema/aop/spring-aop.xsd"
     default-autowire="byName"
 >
-    <import resource="classpath*:servletContextBase.xml" />
 
+    <!-- base-package 如果多个，用“,”分隔 -->
     <context:component-scan base-package="com.mycompany.biz.controller" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
-    
 
-    
+
     <!-- 处理@ResponseBody结果拦截，转换为包装类 -->
     <bean class="org.stategen.framework.spring.mvc.ResponseBodyAdviceWrapper">
         <property name="packages">
@@ -39,5 +38,6 @@
         <!-- 成功后指定的状态 -->
         <property name="responseStatusClzOfResult" value="com.mycompany.biz.enums.ResponseStatus.OK" />
     </bean>
-
+    
+    <import resource="classpath*:servletContextBase.xml" />
 </beans>

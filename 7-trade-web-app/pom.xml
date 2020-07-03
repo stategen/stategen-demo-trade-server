@@ -65,7 +65,7 @@
             <groupId>org.stategen.framework</groupId>
             <artifactId>progen</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -107,25 +107,6 @@
         </dependency>
 
         <!--qiniu end -->
-
-        <!-- weixin bean -->
-
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-pay</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-miniapp</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-common</artifactId>
-        </dependency>
-        <!-- weixin end -->
-
 
         <!-- springboot begin -->
         <dependency>

@@ -28,10 +28,9 @@
         <trade-facade-version>1.0.0</trade-facade-version>
         <!-- 包含业务逻辑代码的jar，不能被发布到maven仓库中，故以snapshort结尾,请在nexus中控制禁止接收snapshot版本,避免误发 -->
         <system.version.SNAPSHOT>trade-1.0.0.SNAPSHOT</system.version.SNAPSHOT>
-        <weixin-java.version>3.6.0</weixin-java.version>
-
-        <!-- <spring.version>5.1.10.RELEASE</spring.version> -->
-        <spring.version>5.2.7.RELEASE</spring.version>
+        <weixin-java.version>3.8.0</weixin-java.version>
+        <!-- 当项目转会为spring-boot后，这个值必须与spring-boot内的值相同，否则会有兼容问题 -->
+        <spring.version>5.1.10.RELEASE</spring.version>
         <spring-data-redis-version>2.1.10.RELEASE</spring-data-redis-version>
 
         <swagger.springfox.verion>2.4.0</swagger.springfox.verion>
@@ -706,37 +705,6 @@
                 <version>4.2.0</version>
             </dependency>
             
-            <!-- weixin bean -->
-            <dependency>
-                <groupId>com.github.binarywang</groupId>
-                <artifactId>weixin-java-open</artifactId>
-                <version>${weixin-java.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.github.binarywang</groupId>
-                <artifactId>weixin-java-pay</artifactId>
-                <version>${weixin-java.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.github.binarywang</groupId>
-                <artifactId>weixin-java-miniapp</artifactId>
-                <version>${weixin-java.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.github.binarywang</groupId>
-                <artifactId>weixin-java-common</artifactId>
-                <version>${weixin-java.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.apache.httpcomponents</groupId>
-                        <artifactId>httpmime</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>               
-            <!-- weixin end -->
 
         </dependencies>
     </dependencyManagement>
@@ -812,7 +780,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
