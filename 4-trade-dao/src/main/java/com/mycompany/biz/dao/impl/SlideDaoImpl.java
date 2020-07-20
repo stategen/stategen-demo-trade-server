@@ -76,7 +76,7 @@ public class SlideDaoImpl extends SqlDaoSupportBase implements SlideDao {
 
     /**
 	 * 
-	 * sql:select a.slide_id, a.goods_id, a.image, a.urlType, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_slide a where a.delete_flag = 0 and a.slide_id=? and a.slide_id in ( ? ) and a.goods_id=? and a.goods_id in ( ? ) and a.urlType=? and a.urlType in ( ? ) and a.order_no=? and a.order_no >=? and a.order_no <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.slide_id, a.goods_id, a.image, a.urlType, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_slide a where a.delete_flag = 0 and a.slide_id=? and a.slide_id in ( ? ) and a.goods_id=? and a.goods_id in ( ? ) and a.urlType=? and a.urlType in ( ? ) and a.order_no=? and a.order_no in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
     public PageList<Slide> getPageList(Slide slide, int pageSize, int pageNum) throws DataAccessException {
         return super.pageQuery("Slide.getPageList", slide, pageNum, pageSize);

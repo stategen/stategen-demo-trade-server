@@ -7,10 +7,9 @@ package com.mycompany.biz.dao;
 
 import java.util.List;
 
+import com.mycompany.biz.domain.Shop;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-
-import com.mycompany.biz.domain.Shop;
 
 /**
  * ShopDao

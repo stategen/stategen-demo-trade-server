@@ -100,8 +100,8 @@ public class User implements java.io.Serializable {
     /***密码，测试，明文   db_column: password VARCHAR */
     @ApiModelProperty("密码，测试，明文")
     @Max(64)
-    @Editor(EditorType.Password.class)
     @JSONField(serialize = false)
+    @Editor(EditorType.Password.class)
     private transient String password;
 
     /***用户角色 ADMIN,DEFAULT,DEVELOPER   db_column: role_type VARCHAR */
@@ -142,8 +142,8 @@ public class User implements java.io.Serializable {
     /***头像 ID   db_column: avatar_img_id VARCHAR */
     @ApiModelProperty("头像 ID")
     @Max(64)
-    @ReferConfig
     @Editor(EditorType.Image.class)
+    @ReferConfig
     private String avatarImgId;
 
     /***邮箱   db_column: email VARCHAR */
@@ -177,14 +177,14 @@ public class User implements java.io.Serializable {
     /***城市 ID   db_column: city_id VARCHAR */
     @ApiModelProperty("城市 ID")
     @Max(64)
-    @ChangeBy("provinceId")
     @ReferConfig()
+    @ChangeBy("provinceId")
     private String cityId;
 
     /***状态 enum   db_column: status VARCHAR */
     @ApiModelProperty("状态 enum")
-    @Editor(EditorType.RadioGroup.class)
     @Max(64)
+    @Editor(EditorType.RadioGroup.class)
     private StatusEnum status;
 
     /***级别   db_column: grade BIGINT */
@@ -208,19 +208,19 @@ public class User implements java.io.Serializable {
     @Editor(EditorType.Textarea.class)
     private String remark;
 
-    /***创建时间   db_column: create_time TIMESTAMP */
-    @ApiModelProperty(value = "创建时间", hidden = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date createTime;
-
     /***更新时间   db_column: update_time TIMESTAMP */
     @ApiModelProperty(value = "更新时间", hidden = true)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updateTime;
 
-    /***是否删除 (0:正常，1删除)   db_column: delete_flag INTEGER */
+    /***创建时间   db_column: create_time TIMESTAMP */
+    @ApiModelProperty(value = "创建时间", hidden = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date createTime;
+
+    /***是否删除 (0:正常，1删除)   db_column: delete_flag BIT */
     @ApiModelProperty(value = "是否删除 (0:正常，1删除)", hidden = true)
-    private Integer deleteFlag;
+    private Boolean deleteFlag;
 
     /*----------------getter & setter ignore by lombok -------------------*/
     public String toString() {
@@ -252,10 +252,10 @@ public class User implements java.io.Serializable {
         sb.append("gradeMin").append('=').append(gradeMin).append('\n');
         sb.append("gradeMax").append('=').append(gradeMax).append('\n');
         sb.append("postAddressIds").append('=').append(postAddressIds).append('\n');
-        sb.append("createTimeMin").append('=').append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
-        sb.append("createTimeMax").append('=').append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin").append('=').append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
         sb.append("updateTimeMax").append('=').append(updateTimeMax != null ? df.format(updateTimeMax) : null).append('\n');
+        sb.append("createTimeMin").append('=').append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
+        sb.append("createTimeMax").append('=').append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("userId").append('=').append(getUserId()).append('\n');
         sb.append("username").append('=').append(getUsername()).append('\n');
         sb.append("password").append('=').append(getPassword()).append('\n');
@@ -278,8 +278,8 @@ public class User implements java.io.Serializable {
         sb.append("sex").append('=').append(getSex()).append('\n');
         sb.append("postAddressId").append('=').append(getPostAddressId()).append('\n');
         sb.append("remark").append('=').append(getRemark()).append('\n');
-        sb.append("createTime").append('=').append(getCreateTime() != null ? df.format(getCreateTime()) : null).append('\n');
         sb.append("updateTime").append('=').append(getUpdateTime() != null ? df.format(getUpdateTime()) : null).append('\n');
+        sb.append("createTime").append('=').append(getCreateTime() != null ? df.format(getCreateTime()) : null).append('\n');
         sb.append("deleteFlag").append('=').append(getDeleteFlag());
         sb.append('}');
         return sb.toString();
@@ -396,8 +396,8 @@ public class User implements java.io.Serializable {
     /*** 城市 IDs in getPageList */
     @ApiModelProperty("城市 s")
     @JSONField(serialize = false)
-    @ChangeBy("provinceId")
     @ReferConfig()
+    @ChangeBy("provinceId")
     private java.util.List<String> cityIds;
 
     /*** 状态 enums in getPageList */
@@ -421,18 +421,6 @@ public class User implements java.io.Serializable {
     @JSONField(serialize = false)
     private java.util.List<Long> postAddressIds;
 
-    /*** 创建时间Min in getPageList */
-    @ApiModelProperty("创建时间Min")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JSONField(serialize = false)
-    private java.util.Date createTimeMin;
-
-    /*** 创建时间Max in getPageList */
-    @ApiModelProperty("创建时间Max")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JSONField(serialize = false)
-    private java.util.Date createTimeMax;
-
     /*** 更新时间Min in getPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
@@ -444,6 +432,18 @@ public class User implements java.io.Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMax;
+
+    /*** 创建时间Min in getPageList */
+    @ApiModelProperty("创建时间Min")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMin;
+
+    /*** 创建时间Max in getPageList */
+    @ApiModelProperty("创建时间Max")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMax;
 
     @Editor(value = EditorType.Cascader.class)
     @ReferConfig(optionClass = Region.class)

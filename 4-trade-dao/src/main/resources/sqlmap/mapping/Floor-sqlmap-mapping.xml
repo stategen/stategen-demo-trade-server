@@ -127,15 +127,15 @@
                     #advertiseIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="orderNo">
-                and a.order_no=#orderNo#
-          </isNotNull>
-            <isNotNull property="orderNoMin">
-                and a.order_no >=#orderNoMin#
+            <isNotNull property="orderNo">
+               and a.order_no=#orderNo#
             </isNotNull>
-            <isNotNull property="orderNoMax">
-                and a.order_no &lt;#orderNoMax#
-            </isNotNull>
+            <isNotEmpty property="orderNos">
+                and a.order_no in
+                <iterate close=")" conjunction="," open="(" property="orderNos">
+                    #orderNos[]#
+                </iterate>
+            </isNotEmpty>
           <isNotNull property="floorName">
             and a.floor_name=#floorName#
           </isNotNull>
@@ -159,8 +159,7 @@
             <isNull property="advertiseId">
             <isEmpty property="advertiseIds">
             <isNull property="orderNo">
-            <isNull property="orderNoMin">
-            <isNull property="orderNoMax">
+            <isEmpty property="orderNos">
             <isNull property="floorName">
             <isEmpty property="floorNameLike">
             <isNull property="createTimeMin">
@@ -174,8 +173,7 @@
             </isNull>
             </isEmpty>
             </isNull>
-            </isNull>
-            </isNull>
+            </isEmpty>
             </isNull>
             </isEmpty>
             </isNull>
@@ -208,15 +206,15 @@
                     #advertiseIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="orderNo">
-                and a.order_no=#orderNo#
-          </isNotNull>
-            <isNotNull property="orderNoMin">
-                and a.order_no >=#orderNoMin#
+            <isNotNull property="orderNo">
+               and a.order_no=#orderNo#
             </isNotNull>
-            <isNotNull property="orderNoMax">
-                and a.order_no &lt;#orderNoMax#
-            </isNotNull>
+            <isNotEmpty property="orderNos">
+                and a.order_no in
+                <iterate close=")" conjunction="," open="(" property="orderNos">
+                    #orderNos[]#
+                </iterate>
+            </isNotEmpty>
           <isNotNull property="floorName">
             and a.floor_name=#floorName#
           </isNotNull>
@@ -240,8 +238,7 @@
             <isNull property="advertiseId">
             <isEmpty property="advertiseIds">
             <isNull property="orderNo">
-            <isNull property="orderNoMin">
-            <isNull property="orderNoMax">
+            <isEmpty property="orderNos">
             <isNull property="floorName">
             <isEmpty property="floorNameLike">
             <isNull property="createTimeMin">
@@ -255,8 +252,7 @@
             </isNull>
             </isEmpty>
             </isNull>
-            </isNull>
-            </isNull>
+            </isEmpty>
             </isNull>
             </isEmpty>
             </isNull>

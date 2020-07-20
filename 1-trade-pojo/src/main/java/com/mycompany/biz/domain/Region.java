@@ -94,19 +94,19 @@ public class Region implements java.io.Serializable, IOption {
     @Max(50)
     private String code;
 
-    /***创建时间   db_column: create_time TIMESTAMP */
-    @ApiModelProperty(value = "创建时间", hidden = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date createTime;
-
     /***更新时间   db_column: update_time TIMESTAMP */
     @ApiModelProperty(value = "更新时间", hidden = true)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updateTime;
 
-    /***是否删除 (0:正常，1删除)   db_column: delete_flag INTEGER */
+    /***创建时间   db_column: create_time TIMESTAMP */
+    @ApiModelProperty(value = "创建时间", hidden = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date createTime;
+
+    /***是否删除 (0:正常，1删除)   db_column: delete_flag BIT */
     @ApiModelProperty(value = "是否删除 (0:正常，1删除)", hidden = true)
-    private Integer deleteFlag;
+    private Boolean deleteFlag;
 
     /*----------------getter & setter ignore by lombok -------------------*/
     public String toString() {
@@ -123,10 +123,10 @@ public class Region implements java.io.Serializable, IOption {
         sb.append("nameEnLike").append('=').append(nameEnLike).append('\n');
         sb.append("namePinyinLike").append('=').append(namePinyinLike).append('\n');
         sb.append("codeLike").append('=').append(codeLike).append('\n');
-        sb.append("createTimeMin").append('=').append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
-        sb.append("createTimeMax").append('=').append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin").append('=').append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
         sb.append("updateTimeMax").append('=').append(updateTimeMax != null ? df.format(updateTimeMax) : null).append('\n');
+        sb.append("createTimeMin").append('=').append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
+        sb.append("createTimeMax").append('=').append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("regionId").append('=').append(getRegionId()).append('\n');
         sb.append("parentRegionId").append('=').append(getParentRegionId()).append('\n');
         sb.append("path").append('=').append(getPath()).append('\n');
@@ -136,8 +136,8 @@ public class Region implements java.io.Serializable, IOption {
         sb.append("nameEn").append('=').append(getNameEn()).append('\n');
         sb.append("namePinyin").append('=').append(getNamePinyin()).append('\n');
         sb.append("code").append('=').append(getCode()).append('\n');
-        sb.append("createTime").append('=').append(getCreateTime() != null ? df.format(getCreateTime()) : null).append('\n');
         sb.append("updateTime").append('=').append(getUpdateTime() != null ? df.format(getUpdateTime()) : null).append('\n');
+        sb.append("createTime").append('=').append(getCreateTime() != null ? df.format(getCreateTime()) : null).append('\n');
         sb.append("deleteFlag").append('=').append(getDeleteFlag());
         sb.append('}');
         return sb.toString();
@@ -194,18 +194,6 @@ public class Region implements java.io.Serializable, IOption {
     @JSONField(serialize = false)
     private String codeLike;
 
-    /*** 创建时间Min in getPageList */
-    @ApiModelProperty("创建时间Min")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JSONField(serialize = false)
-    private java.util.Date createTimeMin;
-
-    /*** 创建时间Max in getPageList */
-    @ApiModelProperty("创建时间Max")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JSONField(serialize = false)
-    private java.util.Date createTimeMax;
-
     /*** 更新时间Min in getPageList */
     @ApiModelProperty("更新时间Min")
     @Temporal(TemporalType.TIMESTAMP)
@@ -217,6 +205,18 @@ public class Region implements java.io.Serializable, IOption {
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMax;
+
+    /*** 创建时间Min in getPageList */
+    @ApiModelProperty("创建时间Min")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMin;
+
+    /*** 创建时间Max in getPageList */
+    @ApiModelProperty("创建时间Max")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JSONField(serialize = false)
+    private java.util.Date createTimeMax;
 
     @Override
     public String getTitle() {

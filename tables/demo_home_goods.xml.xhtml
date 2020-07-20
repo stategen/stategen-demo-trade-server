@@ -96,15 +96,15 @@
                     #goodsIds[]#
                 </iterate>
             </isNotEmpty>
-          <isNotNull property="orderNo">
-                and a.order_no=?
-          </isNotNull>
-            <isNotNull property="orderNoMin">
-                and a.order_no >=#orderNoMin#
+            <isNotNull property="orderNo">
+               and a.order_no=?
             </isNotNull>
-            <isNotNull property="orderNoMax">
-                and a.order_no &lt;#orderNoMax#
-            </isNotNull>
+            <isNotEmpty property="orderNos">
+                and a.order_no in
+                <iterate property="orderNos" conjunction="," open="(" close=")">
+                    #orderNos[]#
+                </iterate>
+            </isNotEmpty>
             <isNotNull property="createTimeMin">
                 and a.create_time >=#createTimeMin#
             </isNotNull>
@@ -122,8 +122,7 @@
             <isNull property="goodsId">
             <isEmpty property="goodsIds">
             <isNull property="orderNo">
-            <isNull property="orderNoMin">
-            <isNull property="orderNoMax">
+            <isEmpty property="orderNos">
             <isNull property="createTimeMin">
             <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
@@ -133,8 +132,7 @@
             </isNull>
             </isNull>
             </isNull>
-            </isNull>
-            </isNull>
+            </isEmpty>
             </isNull>
             </isEmpty>
             </isNull>
