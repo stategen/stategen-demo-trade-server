@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.dao.DataAccessException;
+import com.mycompany.biz.domain.User;
+import com.mycompany.biz.dao.UserDao;
 import org.stategen.framework.lite.PageList;
 
-import com.mycompany.biz.dao.UserDao;
-import com.mycompany.biz.domain.User;
+import org.springframework.dao.DataAccessException;
 
 /**
  * UserDao
@@ -84,7 +84,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
 	/**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id = ?
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.update_time, a.create_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id = ?
 	 */
 	public User getUserByUserId(String userId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -94,7 +94,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
 	/**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.username = ?
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.update_time, a.create_time, a.delete_flag from user a where a.delete_flag = 0 and a.username = ?
 	 */
 	public User getUserByUsername(String username) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -104,7 +104,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
 	/**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.email = ?
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.update_time, a.create_time, a.delete_flag from user a where a.delete_flag = 0 and a.email = ?
 	 */
 	public User getUserByEmail(String email) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -114,7 +114,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
 	/**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id=? and a.user_id in ( ? ) and a.username=? and a.username like CONCAT('%',?,'%') and a.password=? and a.password like CONCAT('%',?,'%') and a.role_type=? and a.role_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.nickName=? and a.nickName like CONCAT('%',?,'%') and a.inter_code=? and a.inter_code like CONCAT('%',?,'%') and a.mobile=? and a.mobile like CONCAT('%',?,'%') and a.age=? and a.age >=? and a.age <? and a.address=? and a.address like CONCAT('%',?,'%') and a.avatar_img_id=? and a.avatar_img_id in ( ? ) and a.email=? and a.email like CONCAT('%',?,'%') and a.vali_datetime >=? and a.vali_datetime <? and a.birthday_date >=? and a.birthday_date <? and a.work_time >=? and a.work_time <? and a.province_id=? and a.province_id in ( ? ) and a.city_id=? and a.city_id in ( ? ) and a.status=? and a.status in ( ? ) and a.grade=? and a.grade >=? and a.grade <? and a.post_address_id=? and a.post_address_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.update_time, a.create_time, a.delete_flag from user a where a.delete_flag = 0 and a.user_id=? and a.user_id in ( ? ) and a.username=? and a.username like CONCAT('%',?,'%') and a.password=? and a.password like CONCAT('%',?,'%') and a.role_type=? and a.role_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.nickName=? and a.nickName like CONCAT('%',?,'%') and a.inter_code=? and a.inter_code like CONCAT('%',?,'%') and a.mobile=? and a.mobile like CONCAT('%',?,'%') and a.age=? and a.age >=? and a.age <? and a.address=? and a.address like CONCAT('%',?,'%') and a.avatar_img_id=? and a.avatar_img_id in ( ? ) and a.email=? and a.email like CONCAT('%',?,'%') and a.vali_datetime >=? and a.vali_datetime <? and a.birthday_date >=? and a.birthday_date <? and a.work_time >=? and a.work_time <? and a.province_id=? and a.province_id in ( ? ) and a.city_id=? and a.city_id in ( ? ) and a.status=? and a.status in ( ? ) and a.grade=? and a.grade >=? and a.grade <? and a.post_address_id=? and a.post_address_id in ( ? ) and a.update_time >=? and a.update_time <? and a.create_time >=? and a.create_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<User> getPageList(User user, int pageSize, int pageNum) throws DataAccessException {
 		return super.pageQuery("User.getPageList",user,pageNum,pageSize);
@@ -122,7 +122,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
 	/**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.user_id in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.update_time, a.create_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.user_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<User> getUsersByUserIds(java.util.List<String> userIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -132,7 +132,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
 	/**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.username in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.update_time, a.create_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.username in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<User> getUsersByUsernames(java.util.List<String> usernames) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -142,7 +142,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
 	/**
 	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.email in ( ? ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.update_time, a.create_time, a.delete_flag from user a where a.delete_flag = 0 and 1=0 and a.email in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
 	public List<User> getUsersByEmails(java.util.List<String> emails) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);

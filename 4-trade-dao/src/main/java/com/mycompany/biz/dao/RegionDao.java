@@ -77,7 +77,7 @@ public interface RegionDao {
     
     </pre>
 	 * 
-	 * sql:select a.region_id, a.parent_region_id, a.path, a.level, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, a.create_time, a.update_time, a.delete_flag from demo_region a where a.delete_flag = 0 and a.region_id = ?
+	 * sql:select a.region_id, a.parent_region_id, a.path, a.level, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, a.update_time, a.create_time, a.delete_flag from demo_region a where a.delete_flag = 0 and a.region_id = ?
 	 */
 	public Region getRegionByRegionId(Long regionId) throws DataAccessException;
 	
@@ -102,15 +102,15 @@ public interface RegionDao {
     &#64;ApiParam() String namePinyinLike,
     &#64;ApiParam() String code,
     &#64;ApiParam() String codeLike,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
     &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax
+    &#64;ApiParam() Date updateTimeMax,
+    &#64;ApiParam() Date createTimeMin,
+    &#64;ApiParam() Date createTimeMax
     ,&#64;ApiParam(hidden = true) Region region
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.region_id, a.parent_region_id, a.path, a.level, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, a.create_time, a.update_time, a.delete_flag from demo_region a where a.delete_flag = 0 and a.region_id=? and a.region_id in ( ? ) and a.parent_region_id=? and a.parent_region_id in ( ? ) and a.path=? and a.path like CONCAT('%',?,'%') and a.level=? and a.level >=? and a.level <? and a.region_type=? and a.region_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.name_en=? and a.name_en like CONCAT('%',?,'%') and a.name_pinyin=? and a.name_pinyin like CONCAT('%',?,'%') and a.code=? and a.code like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.region_id
+	 * sql:select a.region_id, a.parent_region_id, a.path, a.level, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, a.update_time, a.create_time, a.delete_flag from demo_region a where a.delete_flag = 0 and a.region_id=? and a.region_id in ( ? ) and a.parent_region_id=? and a.parent_region_id in ( ? ) and a.path=? and a.path like CONCAT('%',?,'%') and a.level=? and a.level >=? and a.level <? and a.region_type=? and a.region_type in ( ? ) and a.name=? and a.name like CONCAT('%',?,'%') and a.name_en=? and a.name_en like CONCAT('%',?,'%') and a.name_pinyin=? and a.name_pinyin like CONCAT('%',?,'%') and a.code=? and a.code like CONCAT('%',?,'%') and a.update_time >=? and a.update_time <? and a.create_time >=? and a.create_time <? and 0 = 1 order by a.region_id
 	 */
 	public PageList<Region> getPageList(Region region, int pageSize, int pageNum) throws DataAccessException;
 	
@@ -120,7 +120,7 @@ public interface RegionDao {
     
     </pre>
 	 * 
-	 * sql:select a.region_id, a.parent_region_id, a.path, a.level, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, a.create_time, a.update_time, a.delete_flag from demo_region a where a.delete_flag = 0 and 1=0 and a.region_id in ( ? ) order by a.region_id
+	 * sql:select a.region_id, a.parent_region_id, a.path, a.level, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, a.update_time, a.create_time, a.delete_flag from demo_region a where a.delete_flag = 0 and 1=0 and a.region_id in ( ? ) order by a.region_id
 	 */
 	public List<Region> getRegionsByRegionIds(java.util.List<Long> regionIds) throws DataAccessException;
 	

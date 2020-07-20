@@ -92,8 +92,8 @@
             a.name_en,
             a.name_pinyin,
             a.code,
-            a.create_time,
             a.update_time,
+            a.create_time,
             a.delete_flag
             from demo_region a
             where
@@ -114,8 +114,8 @@
             a.name_en,
             a.name_pinyin,
             a.code,
-            a.create_time,
             a.update_time,
+            a.create_time,
             a.delete_flag
             from demo_region a
             where
@@ -186,17 +186,17 @@
             <isNotEmpty property="codeLike">
                 and a.code like CONCAT('%',#codeLike#,'%')
             </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
             <isNotNull property="updateTimeMin">
                 and a.update_time >=#updateTimeMin#
             </isNotNull>
             <isNotNull property="updateTimeMax">
                 and a.update_time &lt;#updateTimeMax#
+            </isNotNull>
+            <isNotNull property="createTimeMin">
+                and a.create_time >=#createTimeMin#
+            </isNotNull>
+            <isNotNull property="createTimeMax">
+                and a.create_time &lt;#createTimeMax#
             </isNotNull>
             <isNull property="regionId">
             <isEmpty property="regionIds">
@@ -217,10 +217,10 @@
             <isEmpty property="namePinyinLike">
             <isNull property="code">
             <isEmpty property="codeLike">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
             <isNull property="updateTimeMin">
             <isNull property="updateTimeMax">
+            <isNull property="createTimeMin">
+            <isNull property="createTimeMax">
               and 0 = 1
             </isNull>
             </isNull>
@@ -263,8 +263,8 @@
             a.name_en,
             a.name_pinyin,
             a.code,
-            a.create_time,
             a.update_time,
+            a.create_time,
             a.delete_flag
             from demo_region a
             where

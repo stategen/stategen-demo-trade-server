@@ -47,6 +47,16 @@ public class Floor implements java.io.Serializable {
 
     AdvertisePicture advertisePicture;
 
+    /*** orderNoMin in getPageList */
+    @ApiModelProperty("orderNoMin")
+    @JSONField(serialize = false)
+    private Integer orderNoMin;
+
+    /*** orderNoMax in getPageList */
+    @ApiModelProperty("orderNoMax")
+    @JSONField(serialize = false)
+    private Integer orderNoMax;
+
     /***不使用或自定义字段在下次生成后，会移到serialVersionUID的上面*/
     private static final long serialVersionUID = -5216457518046898601L;
 
@@ -91,8 +101,7 @@ public class Floor implements java.io.Serializable {
         sb.append('{');
         sb.append("floorIds").append('=').append(floorIds).append('\n');
         sb.append("advertiseIds").append('=').append(advertiseIds).append('\n');
-        sb.append("orderNoMin").append('=').append(orderNoMin).append('\n');
-        sb.append("orderNoMax").append('=').append(orderNoMax).append('\n');
+        sb.append("orderNos").append('=').append(orderNos).append('\n');
         sb.append("floorNameLike").append('=').append(floorNameLike).append('\n');
         sb.append("createTimeMin").append('=').append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax").append('=').append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
@@ -120,15 +129,10 @@ public class Floor implements java.io.Serializable {
     @JSONField(serialize = false)
     private java.util.List<Long> advertiseIds;
 
-    /*** orderNoMin in getPageList */
-    @ApiModelProperty("orderNoMin")
+    /*** orderNos in getPageList */
+    @ApiModelProperty("orderNo s")
     @JSONField(serialize = false)
-    private Integer orderNoMin;
-
-    /*** orderNoMax in getPageList */
-    @ApiModelProperty("orderNoMax")
-    @JSONField(serialize = false)
-    private Integer orderNoMax;
+    private java.util.List<Integer> orderNos;
 
     /*** floorNameLike in getPageList */
     @ApiModelProperty("floorNameLike")

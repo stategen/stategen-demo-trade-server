@@ -16,8 +16,8 @@ import org.stategen.framework.annotation.Editor;
 import org.stategen.framework.lite.enums.EditorType;
 
 import com.alibaba.fastjson.annotation.JSONField;
-
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -188,5 +188,4 @@ public class GoodsComment implements java.io.Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date updateTimeMax;
-    
 }
