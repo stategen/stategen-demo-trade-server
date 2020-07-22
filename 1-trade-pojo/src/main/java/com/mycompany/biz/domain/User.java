@@ -82,7 +82,14 @@ public class User implements java.io.Serializable {
     @JSONField(serialize = false)
     private String remarkLike;
 
+    /*** 状态 enums in getPageList */
+    @ApiModelProperty("状态 s")
+    @JSONField(serialize = false)
+    @Editor(EditorType.CheckboxGroup.class)
+    private java.util.List<com.mycompany.biz.enums.StatusEnum> statuss;
+
     /***不使用或自定义字段在下次生成后，会移到serialVersionUID的上面*/
+    /* 如果字段注释中包括 -inherited 将不生成 */
     private static final long serialVersionUID = -5216457518046898601L;
 
     /***用户ID   db_column: user_id VARCHAR  !@Max*/
@@ -100,8 +107,8 @@ public class User implements java.io.Serializable {
     /***密码，测试，明文   db_column: password VARCHAR */
     @ApiModelProperty("密码，测试，明文")
     @Max(64)
-    @JSONField(serialize = false)
     @Editor(EditorType.Password.class)
+    @JSONField(serialize = false)
     private transient String password;
 
     /***用户角色 ADMIN,DEFAULT,DEVELOPER   db_column: role_type VARCHAR */
@@ -142,8 +149,8 @@ public class User implements java.io.Serializable {
     /***头像 ID   db_column: avatar_img_id VARCHAR */
     @ApiModelProperty("头像 ID")
     @Max(64)
-    @Editor(EditorType.Image.class)
     @ReferConfig
+    @Editor(EditorType.Image.class)
     private String avatarImgId;
 
     /***邮箱   db_column: email VARCHAR */
@@ -177,14 +184,14 @@ public class User implements java.io.Serializable {
     /***城市 ID   db_column: city_id VARCHAR */
     @ApiModelProperty("城市 ID")
     @Max(64)
-    @ReferConfig()
     @ChangeBy("provinceId")
+    @ReferConfig()
     private String cityId;
 
     /***状态 enum   db_column: status VARCHAR */
     @ApiModelProperty("状态 enum")
-    @Max(64)
     @Editor(EditorType.RadioGroup.class)
+    @Max(64)
     private StatusEnum status;
 
     /***级别   db_column: grade BIGINT */
@@ -248,7 +255,7 @@ public class User implements java.io.Serializable {
         sb.append("workTimeMax").append('=').append(workTimeMax != null ? df.format(workTimeMax) : null).append('\n');
         sb.append("provinceIds").append('=').append(provinceIds).append('\n');
         sb.append("cityIds").append('=').append(cityIds).append('\n');
-        sb.append("statuss").append('=').append(statuss).append('\n');
+        sb.append("statusLike").append('=').append(statusLike).append('\n');
         sb.append("gradeMin").append('=').append(gradeMin).append('\n');
         sb.append("gradeMax").append('=').append(gradeMax).append('\n');
         sb.append("postAddressIds").append('=').append(postAddressIds).append('\n');
@@ -396,15 +403,14 @@ public class User implements java.io.Serializable {
     /*** 城市 IDs in getPageList */
     @ApiModelProperty("城市 s")
     @JSONField(serialize = false)
-    @ReferConfig()
     @ChangeBy("provinceId")
+    @ReferConfig()
     private java.util.List<String> cityIds;
 
-    /*** 状态 enums in getPageList */
-    @ApiModelProperty("状态 s")
+    /*** 状态 enumLike in getPageList */
+    @ApiModelProperty("状态Like")
     @JSONField(serialize = false)
-    @Editor(EditorType.CheckboxGroup.class)
-    private java.util.List<com.mycompany.biz.enums.StatusEnum> statuss;
+    private com.mycompany.biz.enums.StatusEnum statusLike;
 
     /*** 级别Min in getPageList */
     @ApiModelProperty("级别Min")

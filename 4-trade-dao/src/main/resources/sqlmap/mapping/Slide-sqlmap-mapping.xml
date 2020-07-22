@@ -135,15 +135,15 @@
                     #goodsIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="urlType">
-               and a.urlType=#urlType#
+          <isNotNull property="urlType">
+                and a.urlType=#urlType#
+          </isNotNull>
+            <isNotNull property="urlTypeMin">
+                and a.urlType >=#urlTypeMin#
             </isNotNull>
-            <isNotEmpty property="urlTypes">
-                and a.urlType in
-                <iterate close=")" conjunction="," open="(" property="urlTypes">
-                    #urlTypes[]#
-                </iterate>
-            </isNotEmpty>
+            <isNotNull property="urlTypeMax">
+                and a.urlType &lt;#urlTypeMax#
+            </isNotNull>
             <isNotNull property="orderNo">
                and a.order_no=#orderNo#
             </isNotNull>
@@ -170,7 +170,8 @@
             <isNull property="goodsId">
             <isEmpty property="goodsIds">
             <isNull property="urlType">
-            <isEmpty property="urlTypes">
+            <isNull property="urlTypeMin">
+            <isNull property="urlTypeMax">
             <isNull property="orderNo">
             <isEmpty property="orderNos">
             <isNull property="createTimeMin">
@@ -184,7 +185,8 @@
             </isNull>
             </isEmpty>
             </isNull>
-            </isEmpty>
+            </isNull>
+            </isNull>
             </isNull>
             </isEmpty>
             </isNull>
@@ -217,15 +219,15 @@
                     #goodsIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="urlType">
-               and a.urlType=#urlType#
+          <isNotNull property="urlType">
+                and a.urlType=#urlType#
+          </isNotNull>
+            <isNotNull property="urlTypeMin">
+                and a.urlType >=#urlTypeMin#
             </isNotNull>
-            <isNotEmpty property="urlTypes">
-                and a.urlType in
-                <iterate close=")" conjunction="," open="(" property="urlTypes">
-                    #urlTypes[]#
-                </iterate>
-            </isNotEmpty>
+            <isNotNull property="urlTypeMax">
+                and a.urlType &lt;#urlTypeMax#
+            </isNotNull>
             <isNotNull property="orderNo">
                and a.order_no=#orderNo#
             </isNotNull>
@@ -252,7 +254,8 @@
             <isNull property="goodsId">
             <isEmpty property="goodsIds">
             <isNull property="urlType">
-            <isEmpty property="urlTypes">
+            <isNull property="urlTypeMin">
+            <isNull property="urlTypeMax">
             <isNull property="orderNo">
             <isEmpty property="orderNos">
             <isNull property="createTimeMin">
@@ -266,7 +269,8 @@
             </isNull>
             </isEmpty>
             </isNull>
-            </isEmpty>
+            </isNull>
+            </isNull>
             </isNull>
             </isEmpty>
             </isNull>

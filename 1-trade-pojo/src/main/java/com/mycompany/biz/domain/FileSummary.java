@@ -44,7 +44,13 @@ import lombok.Setter;
 @OptionConvertor(value = "fileId")
 public class FileSummary implements java.io.Serializable {
 
+    /*** types in getPageList */
+    @ApiModelProperty("type s")
+    @JSONField(serialize = false)
+    private java.util.List<String> types;
+
     /***不使用或自定义字段在下次生成后，会移到serialVersionUID的上面*/
+    /* 如果字段注释中包括 -inherited 将不生成 */
     private static final long serialVersionUID = -5216457518046898601L;
 
     /***fileId   db_column: file_id VARCHAR */
@@ -100,7 +106,7 @@ public class FileSummary implements java.io.Serializable {
         sb.append("sizeMin").append('=').append(sizeMin).append('\n');
         sb.append("sizeMax").append('=').append(sizeMax).append('\n');
         sb.append("nameLike").append('=').append(nameLike).append('\n');
-        sb.append("types").append('=').append(types).append('\n');
+        sb.append("typeLike").append('=').append(typeLike).append('\n');
         sb.append("userIds").append('=').append(userIds).append('\n');
         sb.append("createTimeMin").append('=').append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax").append('=').append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
@@ -140,10 +146,10 @@ public class FileSummary implements java.io.Serializable {
     @JSONField(serialize = false)
     private String nameLike;
 
-    /*** types in getPageList */
-    @ApiModelProperty("type s")
+    /*** typeLike in getPageList */
+    @ApiModelProperty("typeLike")
     @JSONField(serialize = false)
-    private java.util.List<String> types;
+    private String typeLike;
 
     /*** userIds in getPageList */
     @ApiModelProperty("userId s")

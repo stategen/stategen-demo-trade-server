@@ -149,14 +149,11 @@
             <isNotEmpty property="nameLike">
                 and a.name like CONCAT('%',#nameLike#,'%')
             </isNotEmpty>
-            <isNotNull property="type">
-               and a.type=#type#
-            </isNotNull>
-            <isNotEmpty property="types">
-                and a.type in
-                <iterate close=")" conjunction="," open="(" property="types">
-                    #types[]#
-                </iterate>
+          <isNotNull property="type">
+            and a.type=#type#
+          </isNotNull>
+            <isNotEmpty property="typeLike">
+                and a.type like CONCAT('%',#typeLike#,'%')
             </isNotEmpty>
             <isNotNull property="userId">
                and a.user_id=#userId#
@@ -187,7 +184,7 @@
             <isNull property="name">
             <isEmpty property="nameLike">
             <isNull property="type">
-            <isEmpty property="types">
+            <isEmpty property="typeLike">
             <isNull property="userId">
             <isEmpty property="userIds">
             <isNull property="createTimeMin">
@@ -243,14 +240,11 @@
             <isNotEmpty property="nameLike">
                 and a.name like CONCAT('%',#nameLike#,'%')
             </isNotEmpty>
-            <isNotNull property="type">
-               and a.type=#type#
-            </isNotNull>
-            <isNotEmpty property="types">
-                and a.type in
-                <iterate close=")" conjunction="," open="(" property="types">
-                    #types[]#
-                </iterate>
+          <isNotNull property="type">
+            and a.type=#type#
+          </isNotNull>
+            <isNotEmpty property="typeLike">
+                and a.type like CONCAT('%',#typeLike#,'%')
             </isNotEmpty>
             <isNotNull property="userId">
                and a.user_id=#userId#
@@ -281,7 +275,7 @@
             <isNull property="name">
             <isEmpty property="nameLike">
             <isNull property="type">
-            <isEmpty property="types">
+            <isEmpty property="typeLike">
             <isNull property="userId">
             <isEmpty property="userIds">
             <isNull property="createTimeMin">

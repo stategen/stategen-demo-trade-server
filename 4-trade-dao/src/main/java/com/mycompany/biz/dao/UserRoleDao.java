@@ -74,7 +74,8 @@ public interface UserRoleDao {
 	/**
     <pre>
     &#64;ApiParam() Long id,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="ids") ArrayList&lt;Long&gt; ids,
+    &#64;ApiParam() Long idMin,
+    &#64;ApiParam() Long idMax,
     &#64;ApiParam() String userId,
     &#64;ApiParam()&#64;RequestParam(required =false,name="userIds") ArrayList&lt;String&gt; userIds,
     &#64;ApiParam() String roleId,
@@ -89,7 +90,7 @@ public interface UserRoleDao {
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.id, a.user_id, a.role_id, a.role_type, a.create_time, a.update_time, a.delete_flag from user_role a where a.delete_flag = 0 and a.id=? and a.id in ( ? ) and a.user_id=? and a.user_id in ( ? ) and a.role_id=? and a.role_id in ( ? ) and a.role_type=? and a.role_type in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.id, a.user_id, a.role_id, a.role_type, a.create_time, a.update_time, a.delete_flag from user_role a where a.delete_flag = 0 and a.id=? and a.id >=? and a.id <? and a.user_id=? and a.user_id in ( ? ) and a.role_id=? and a.role_id in ( ? ) and a.role_type=? and a.role_type in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<UserRole> getPageList(UserRole userRole, int pageSize, int pageNum) throws DataAccessException;
 	

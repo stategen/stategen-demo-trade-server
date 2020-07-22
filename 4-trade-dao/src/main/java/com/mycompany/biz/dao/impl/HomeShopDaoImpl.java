@@ -9,13 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
-import org.stategen.framework.ibatis.util.PageQueryUtils;
+import com.mycompany.biz.domain.HomeShop;
+import com.mycompany.biz.dao.HomeShopDao;
 import org.stategen.framework.lite.PageList;
 
-import com.mycompany.biz.dao.HomeShopDao;
-import com.mycompany.biz.domain.HomeShop;
+import org.springframework.dao.DataAccessException;
 
 /**
  * HomeShopDao
@@ -27,79 +25,81 @@ import com.mycompany.biz.domain.HomeShop;
  * 该类仅可以修改引用
  * </pre>
  */
-public class HomeShopDaoImpl extends SqlDaoSupportBase implements HomeShopDao {
+public class HomeShopDaoImpl  extends SqlDaoSupportBase implements HomeShopDao {
 
-    /**
+	/**
 	 * 
 	 * sql:insert into demo_home_shop ( create_time , update_time , delete_flag , home_shop_id , shop_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?)
 	 */
-    public HomeShop insert(HomeShop homeShop) throws DataAccessException {
-        if (homeShop == null) {
-            throw new IllegalArgumentException("Can't insert a null data object into db.");
-        }
+	public HomeShop insert(HomeShop homeShop) throws DataAccessException {
+		if(homeShop == null) {
+			throw new IllegalArgumentException("Can't insert a null data object into db.");
+		}
         super.insert("HomeShop.insert", homeShop);
-        return homeShop;
-    }
+		return homeShop;
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:UPDATE demo_home_shop SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and home_shop_id = ?
 	 */
-    public String delete(String homeShopId) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("homeShopId", homeShopId);
+	public String delete(String homeShopId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("homeShopId",homeShopId);
         super.update("HomeShop.delete", params);
         return homeShopId;
-    }
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:UPDATE demo_home_shop SET update_time= CURRENT_TIMESTAMP(6) , shop_id = ? where delete_flag = 0 and home_shop_id = ?
 	 */
-    public HomeShop update(HomeShop homeShop) throws DataAccessException {
-        if (homeShop == null) {
-            throw new IllegalArgumentException("Can't update by a null data object.");
-        }
+	public HomeShop update(HomeShop homeShop) throws DataAccessException {
+		if(homeShop == null) {
+			throw new IllegalArgumentException("Can't update by a null data object.");
+		}
         super.update("HomeShop.update", homeShop);
-        return homeShop;
-    }
+		return homeShop;
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.home_shop_id, a.shop_id, a.create_time, a.update_time, a.delete_flag from demo_home_shop a where a.delete_flag = 0 and a.home_shop_id = ?
 	 */
-    public HomeShop getHomeShopByHomeShopId(String homeShopId) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("homeShopId", homeShopId);
-        return (HomeShop) super.selectOne("HomeShop.getHomeShopByHomeShopId", params);
-    }
+	public HomeShop getHomeShopByHomeShopId(String homeShopId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("homeShopId",homeShopId);
+		return (HomeShop)super.selectOne("HomeShop.getHomeShopByHomeShopId",params);
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.home_shop_id, a.shop_id, a.create_time, a.update_time, a.delete_flag from demo_home_shop a where a.delete_flag = 0 and a.home_shop_id=? and a.home_shop_id in ( ? ) and a.shop_id=? and a.shop_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-    public PageList<HomeShop> getPageList(HomeShop homeShop, int pageSize, int pageNum) throws DataAccessException {
-        return super.pageQuery("HomeShop.getPageList", homeShop, pageNum, pageSize);
-    }
+	public PageList<HomeShop> getPageList(HomeShop homeShop, int pageSize, int pageNum) throws DataAccessException {
+		return super.pageQuery("HomeShop.getPageList",homeShop,pageNum,pageSize);
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.home_shop_id, a.shop_id, a.create_time, a.update_time, a.delete_flag from demo_home_shop a where a.delete_flag = 0 and 1=0 and a.home_shop_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
-    public List<HomeShop> getHomeShopsByHomeShopIds(java.util.List<String> homeShopIds) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("homeShopIds", homeShopIds);
-        return super.selectList("HomeShop.getHomeShopsByHomeShopIds", params);
-    }
+	public List<HomeShop> getHomeShopsByHomeShopIds(java.util.List<String> homeShopIds) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("homeShopIds",homeShopIds);
+		return super.selectList("HomeShop.getHomeShopsByHomeShopIds",params);
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:UPDATE demo_home_shop SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and home_shop_id in ( ? )
 	 */
-    public java.util.List<String> deleteByHomeShopIds(java.util.List<String> homeShopIds) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("homeShopIds", homeShopIds);
+	public java.util.List<String> deleteByHomeShopIds(java.util.List<String> homeShopIds) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("homeShopIds",homeShopIds);
         super.update("HomeShop.deleteByHomeShopIds", params);
         return homeShopIds;
-    }
+	}
+
 }
+

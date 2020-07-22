@@ -1,4 +1,5 @@
-﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table user -e 会自动覆盖-->
+﻿    <!-- 表中至少有一个更新字段(update_time,gmt_update或自定义)，一个主键 -->
+    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table user -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
             insert into user (
@@ -167,6 +168,8 @@
         </sql>
     </operation>
 
+    <!-- 主建或 unique索引生成单独查询 -->
+
     <operation name="getUserByUserId" multiplicity="one" remarks="">
         <sql>
             select
@@ -272,6 +275,7 @@
         </sql>
     </operation>
 
+    <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
             select
@@ -423,14 +427,11 @@
                     #cityIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="status">
-               and a.status=?
-            </isNotNull>
-            <isNotEmpty property="statuss">
-                and a.status in
-                <iterate property="statuss" conjunction="," open="(" close=")">
-                    #statuss[]#
-                </iterate>
+          <isNotNull property="status">
+            and a.status=?
+          </isNotNull>
+            <isNotEmpty property="statusLike">
+                and a.status like CONCAT('%',#statusLike#,'%')
             </isNotEmpty>
           <isNotNull property="grade">
                 and a.grade=?
@@ -498,7 +499,7 @@
             <isNull property="cityId">
             <isEmpty property="cityIds">
             <isNull property="status">
-            <isEmpty property="statuss">
+            <isEmpty property="statusLike">
             <isNull property="grade">
             <isNull property="gradeMin">
             <isNull property="gradeMax">
@@ -559,7 +560,7 @@
             <include refid = "getUserPageListOrderBy" />
         </sql>
     </operation>
-    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
+    <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getUsersByUserIds" multiplicity="many" remarks="">
         <sql>
@@ -753,4 +754,4 @@
         </sql>
     </operation>
     
-    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table user -e 会自动覆盖-->
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table user -e 会自动覆盖 -->

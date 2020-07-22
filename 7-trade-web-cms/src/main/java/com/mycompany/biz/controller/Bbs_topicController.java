@@ -28,7 +28,7 @@ public class Bbs_topicController extends TopicControllerBase {
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Bbs_topicController.class);
 
     @Resource
-    private CookieGroup loginCookieGroup;
+    private CookieGroup<?> loginCookieGroup;
 
     @ApiRequestMappingAutoWithMethodName
     @State(init = true, dataOpt = DataOpt.FULL_REPLACE,genForm=true)

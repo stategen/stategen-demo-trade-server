@@ -1,4 +1,5 @@
-﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_slide -e 会自动覆盖-->
+﻿    <!-- 表中至少有一个更新字段(update_time,gmt_update或自定义)，一个主键 -->
+    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_slide -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
             insert into demo_slide (
@@ -60,6 +61,8 @@
         </sql>
     </operation>
 
+    <!-- 主建或 unique索引生成单独查询 -->
+
     <operation name="getSlideBySlideId" multiplicity="one" remarks="">
         <sql>
             select
@@ -78,6 +81,7 @@
         </sql>
     </operation>
 
+    <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
             select
@@ -110,15 +114,15 @@
                     #goodsIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="urlType">
-               and a.urlType=?
+          <isNotNull property="urlType">
+                and a.urlType=?
+          </isNotNull>
+            <isNotNull property="urlTypeMin">
+                and a.urlType >=#urlTypeMin#
             </isNotNull>
-            <isNotEmpty property="urlTypes">
-                and a.urlType in
-                <iterate property="urlTypes" conjunction="," open="(" close=")">
-                    #urlTypes[]#
-                </iterate>
-            </isNotEmpty>
+            <isNotNull property="urlTypeMax">
+                and a.urlType &lt;#urlTypeMax#
+            </isNotNull>
             <isNotNull property="orderNo">
                and a.order_no=?
             </isNotNull>
@@ -145,7 +149,8 @@
             <isNull property="goodsId">
             <isEmpty property="goodsIds">
             <isNull property="urlType">
-            <isEmpty property="urlTypes">
+            <isNull property="urlTypeMin">
+            <isNull property="urlTypeMax">
             <isNull property="orderNo">
             <isEmpty property="orderNos">
             <isNull property="createTimeMin">
@@ -159,7 +164,8 @@
             </isNull>
             </isEmpty>
             </isNull>
-            </isEmpty>
+            </isNull>
+            </isNull>
             </isNull>
             </isEmpty>
             </isNull>
@@ -169,7 +175,7 @@
             <include refid = "getSlidePageListOrderBy" />
         </sql>
     </operation>
-    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
+    <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getSlidesBySlideIds" multiplicity="many" remarks="">
         <sql>
@@ -218,4 +224,4 @@
         </sql>
     </operation>
     
-    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_slide -e 会自动覆盖-->
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_slide -e 会自动覆盖 -->

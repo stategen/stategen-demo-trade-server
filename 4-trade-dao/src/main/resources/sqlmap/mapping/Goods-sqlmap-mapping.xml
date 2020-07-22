@@ -260,14 +260,11 @@
             <isNotEmpty property="goodsNameLike">
                 and a.goods_name like CONCAT('%',#goodsNameLike#,'%')
             </isNotEmpty>
-            <isNotNull property="categorySubId">
-               and a.categorySubId=#categorySubId#
-            </isNotNull>
-            <isNotEmpty property="categorySubIds">
-                and a.categorySubId in
-                <iterate close=")" conjunction="," open="(" property="categorySubIds">
-                    #categorySubIds[]#
-                </iterate>
+          <isNotNull property="categorySubId">
+            and a.categorySubId=#categorySubId#
+          </isNotNull>
+            <isNotEmpty property="categorySubIdLike">
+                and a.categorySubId like CONCAT('%',#categorySubIdLike#,'%')
             </isNotEmpty>
           <isNotNull property="amount">
                 and a.amount=#amount#
@@ -388,7 +385,7 @@
             <isNull property="goodsName">
             <isEmpty property="goodsNameLike">
             <isNull property="categorySubId">
-            <isEmpty property="categorySubIds">
+            <isEmpty property="categorySubIdLike">
             <isNull property="amount">
             <isNull property="amountMin">
             <isNull property="amountMax">
@@ -492,14 +489,11 @@
             <isNotEmpty property="goodsNameLike">
                 and a.goods_name like CONCAT('%',#goodsNameLike#,'%')
             </isNotEmpty>
-            <isNotNull property="categorySubId">
-               and a.categorySubId=#categorySubId#
-            </isNotNull>
-            <isNotEmpty property="categorySubIds">
-                and a.categorySubId in
-                <iterate close=")" conjunction="," open="(" property="categorySubIds">
-                    #categorySubIds[]#
-                </iterate>
+          <isNotNull property="categorySubId">
+            and a.categorySubId=#categorySubId#
+          </isNotNull>
+            <isNotEmpty property="categorySubIdLike">
+                and a.categorySubId like CONCAT('%',#categorySubIdLike#,'%')
             </isNotEmpty>
           <isNotNull property="amount">
                 and a.amount=#amount#
@@ -620,7 +614,7 @@
             <isNull property="goodsName">
             <isEmpty property="goodsNameLike">
             <isNull property="categorySubId">
-            <isEmpty property="categorySubIds">
+            <isEmpty property="categorySubIdLike">
             <isNull property="amount">
             <isNull property="amountMin">
             <isNull property="amountMax">

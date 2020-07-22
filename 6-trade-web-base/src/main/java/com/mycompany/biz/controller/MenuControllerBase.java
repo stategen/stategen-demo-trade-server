@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.stategen.framework.annotation.Wrap;
 
-import com.mycompany.biz.domain.Menu;
 import com.mycompany.biz.service.MenuService;
 
 @RequestMapping("/api/menu")

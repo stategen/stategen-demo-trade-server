@@ -101,15 +101,15 @@
             from role_menu a
             where
             a.delete_flag = 0
-            <isNotNull property="id">
-               and a.id=#id#
+          <isNotNull property="id">
+                and a.id=#id#
+          </isNotNull>
+            <isNotNull property="idMin">
+                and a.id >=#idMin#
             </isNotNull>
-            <isNotEmpty property="ids">
-                and a.id in
-                <iterate close=")" conjunction="," open="(" property="ids">
-                    #ids[]#
-                </iterate>
-            </isNotEmpty>
+            <isNotNull property="idMax">
+                and a.id &lt;#idMax#
+            </isNotNull>
             <isNotNull property="roleId">
                and a.role_id=#roleId#
             </isNotNull>
@@ -141,7 +141,8 @@
                 and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="id">
-            <isEmpty property="ids">
+            <isNull property="idMin">
+            <isNull property="idMax">
             <isNull property="roleId">
             <isEmpty property="roleIds">
             <isNull property="menuId">
@@ -159,7 +160,8 @@
             </isNull>
             </isEmpty>
             </isNull>
-            </isEmpty>
+            </isNull>
+            </isNull>
             </isNull>
             order by
             <include refid="getRoleMenuPageListOrderBy"/>
@@ -170,15 +172,15 @@
     	select  /* getPageList_count.RoleMenu */ count(*)  from role_menu a
             where
             a.delete_flag = 0
-            <isNotNull property="id">
-               and a.id=#id#
+          <isNotNull property="id">
+                and a.id=#id#
+          </isNotNull>
+            <isNotNull property="idMin">
+                and a.id >=#idMin#
             </isNotNull>
-            <isNotEmpty property="ids">
-                and a.id in
-                <iterate close=")" conjunction="," open="(" property="ids">
-                    #ids[]#
-                </iterate>
-            </isNotEmpty>
+            <isNotNull property="idMax">
+                and a.id &lt;#idMax#
+            </isNotNull>
             <isNotNull property="roleId">
                and a.role_id=#roleId#
             </isNotNull>
@@ -210,7 +212,8 @@
                 and a.update_time &lt;#updateTimeMax#
             </isNotNull>
             <isNull property="id">
-            <isEmpty property="ids">
+            <isNull property="idMin">
+            <isNull property="idMax">
             <isNull property="roleId">
             <isEmpty property="roleIds">
             <isNull property="menuId">
@@ -228,7 +231,8 @@
             </isNull>
             </isEmpty>
             </isNull>
-            </isEmpty>
+            </isNull>
+            </isNull>
             </isNull>
 	</select>
 	    

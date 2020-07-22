@@ -199,24 +199,24 @@
             <isNotNull property="morderMax">
                 and a.morder &lt;#morderMax#
             </isNotNull>
-            <isNotNull property="bpid">
-               and a.bpid=#bpid#
+          <isNotNull property="bpid">
+                and a.bpid=#bpid#
+          </isNotNull>
+            <isNotNull property="bpidMin">
+                and a.bpid >=#bpidMin#
             </isNotNull>
-            <isNotEmpty property="bpids">
-                and a.bpid in
-                <iterate close=")" conjunction="," open="(" property="bpids">
-                    #bpids[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="mpid">
-               and a.mpid=#mpid#
+            <isNotNull property="bpidMax">
+                and a.bpid &lt;#bpidMax#
             </isNotNull>
-            <isNotEmpty property="mpids">
-                and a.mpid in
-                <iterate close=")" conjunction="," open="(" property="mpids">
-                    #mpids[]#
-                </iterate>
-            </isNotEmpty>
+          <isNotNull property="mpid">
+                and a.mpid=#mpid#
+          </isNotNull>
+            <isNotNull property="mpidMin">
+                and a.mpid >=#mpidMin#
+            </isNotNull>
+            <isNotNull property="mpidMax">
+                and a.mpid &lt;#mpidMax#
+            </isNotNull>
           <isNotNull property="projectName">
             and a.project_name=#projectName#
           </isNotNull>
@@ -283,9 +283,11 @@
             <isNull property="morderMin">
             <isNull property="morderMax">
             <isNull property="bpid">
-            <isEmpty property="bpids">
+            <isNull property="bpidMin">
+            <isNull property="bpidMax">
             <isNull property="mpid">
-            <isEmpty property="mpids">
+            <isNull property="mpidMin">
+            <isNull property="mpidMax">
             <isNull property="projectName">
             <isEmpty property="projectNameLike">
             <isNull property="controllerName">
@@ -323,9 +325,11 @@
             </isNull>
             </isEmpty>
             </isNull>
-            </isEmpty>
             </isNull>
-            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
             </isNull>
             </isNull>
             </isNull>
@@ -359,24 +363,24 @@
             <isNotNull property="morderMax">
                 and a.morder &lt;#morderMax#
             </isNotNull>
-            <isNotNull property="bpid">
-               and a.bpid=#bpid#
+          <isNotNull property="bpid">
+                and a.bpid=#bpid#
+          </isNotNull>
+            <isNotNull property="bpidMin">
+                and a.bpid >=#bpidMin#
             </isNotNull>
-            <isNotEmpty property="bpids">
-                and a.bpid in
-                <iterate close=")" conjunction="," open="(" property="bpids">
-                    #bpids[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="mpid">
-               and a.mpid=#mpid#
+            <isNotNull property="bpidMax">
+                and a.bpid &lt;#bpidMax#
             </isNotNull>
-            <isNotEmpty property="mpids">
-                and a.mpid in
-                <iterate close=")" conjunction="," open="(" property="mpids">
-                    #mpids[]#
-                </iterate>
-            </isNotEmpty>
+          <isNotNull property="mpid">
+                and a.mpid=#mpid#
+          </isNotNull>
+            <isNotNull property="mpidMin">
+                and a.mpid >=#mpidMin#
+            </isNotNull>
+            <isNotNull property="mpidMax">
+                and a.mpid &lt;#mpidMax#
+            </isNotNull>
           <isNotNull property="projectName">
             and a.project_name=#projectName#
           </isNotNull>
@@ -443,9 +447,11 @@
             <isNull property="morderMin">
             <isNull property="morderMax">
             <isNull property="bpid">
-            <isEmpty property="bpids">
+            <isNull property="bpidMin">
+            <isNull property="bpidMax">
             <isNull property="mpid">
-            <isEmpty property="mpids">
+            <isNull property="mpidMin">
+            <isNull property="mpidMax">
             <isNull property="projectName">
             <isEmpty property="projectNameLike">
             <isNull property="controllerName">
@@ -483,9 +489,11 @@
             </isNull>
             </isEmpty>
             </isNull>
-            </isEmpty>
             </isNull>
-            </isEmpty>
+            </isNull>
+            </isNull>
+            </isNull>
+            </isNull>
             </isNull>
             </isNull>
             </isNull>

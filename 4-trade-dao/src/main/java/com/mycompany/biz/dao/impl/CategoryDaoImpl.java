@@ -9,13 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
-import org.stategen.framework.ibatis.util.PageQueryUtils;
+import com.mycompany.biz.domain.Category;
+import com.mycompany.biz.dao.CategoryDao;
 import org.stategen.framework.lite.PageList;
 
-import com.mycompany.biz.dao.CategoryDao;
-import com.mycompany.biz.domain.Category;
+import org.springframework.dao.DataAccessException;
 
 /**
  * CategoryDao
@@ -27,79 +25,81 @@ import com.mycompany.biz.domain.Category;
  * 该类仅可以修改引用
  * </pre>
  */
-public class CategoryDaoImpl extends SqlDaoSupportBase implements CategoryDao {
+public class CategoryDaoImpl  extends SqlDaoSupportBase implements CategoryDao {
 
-    /**
+	/**
 	 * 
 	 * sql:insert into demo_category ( create_time , update_time , delete_flag , category_id , category_name , comments , image ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-    public Category insert(Category category) throws DataAccessException {
-        if (category == null) {
-            throw new IllegalArgumentException("Can't insert a null data object into db.");
-        }
+	public Category insert(Category category) throws DataAccessException {
+		if(category == null) {
+			throw new IllegalArgumentException("Can't insert a null data object into db.");
+		}
         super.insert("Category.insert", category);
-        return category;
-    }
+		return category;
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:UPDATE demo_category SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and category_id = ?
 	 */
-    public String delete(String categoryId) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("categoryId", categoryId);
+	public String delete(String categoryId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("categoryId",categoryId);
         super.update("Category.delete", params);
         return categoryId;
-    }
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:UPDATE demo_category SET update_time= CURRENT_TIMESTAMP(6) , category_name = ? , comments = ? , image = ? where delete_flag = 0 and category_id = ?
 	 */
-    public Category update(Category category) throws DataAccessException {
-        if (category == null) {
-            throw new IllegalArgumentException("Can't update by a null data object.");
-        }
+	public Category update(Category category) throws DataAccessException {
+		if(category == null) {
+			throw new IllegalArgumentException("Can't update by a null data object.");
+		}
         super.update("Category.update", category);
-        return category;
-    }
+		return category;
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.category_id, a.category_name, a.comments, a.image, a.create_time, a.update_time, a.delete_flag from demo_category a where a.delete_flag = 0 and a.category_id = ?
 	 */
-    public Category getCategoryByCategoryId(String categoryId) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("categoryId", categoryId);
-        return (Category) super.selectOne("Category.getCategoryByCategoryId", params);
-    }
+	public Category getCategoryByCategoryId(String categoryId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("categoryId",categoryId);
+		return (Category)super.selectOne("Category.getCategoryByCategoryId",params);
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.category_id, a.category_name, a.comments, a.image, a.create_time, a.update_time, a.delete_flag from demo_category a where a.delete_flag = 0 and a.category_id=? and a.category_id in ( ? ) and a.category_name=? and a.category_name like CONCAT('%',?,'%') and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-    public PageList<Category> getPageList(Category category, int pageSize, int pageNum) throws DataAccessException {
-        return super.pageQuery("Category.getPageList", category, pageNum, pageSize);
-    }
+	public PageList<Category> getPageList(Category category, int pageSize, int pageNum) throws DataAccessException {
+		return super.pageQuery("Category.getPageList",category,pageNum,pageSize);
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.category_id, a.category_name, a.comments, a.image, a.create_time, a.update_time, a.delete_flag from demo_category a where a.delete_flag = 0 and 1=0 and a.category_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
-    public List<Category> getCategorysByCategoryIds(java.util.List<String> categoryIds) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("categoryIds", categoryIds);
-        return super.selectList("Category.getCategorysByCategoryIds", params);
-    }
+	public List<Category> getCategorysByCategoryIds(java.util.List<String> categoryIds) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("categoryIds",categoryIds);
+		return super.selectList("Category.getCategorysByCategoryIds",params);
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:UPDATE demo_category SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and category_id in ( ? )
 	 */
-    public java.util.List<String> deleteByCategoryIds(java.util.List<String> categoryIds) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("categoryIds", categoryIds);
+	public java.util.List<String> deleteByCategoryIds(java.util.List<String> categoryIds) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("categoryIds",categoryIds);
         super.update("Category.deleteByCategoryIds", params);
         return categoryIds;
-    }
+	}
+
 }
+

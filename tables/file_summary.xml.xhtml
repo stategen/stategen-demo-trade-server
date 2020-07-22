@@ -1,4 +1,5 @@
-﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table file_summary -e 会自动覆盖-->
+﻿    <!-- 表中至少有一个更新字段(update_time,gmt_update或自定义)，一个主键 -->
+    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table file_summary -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
             insert into file_summary (
@@ -65,6 +66,8 @@
         </sql>
     </operation>
 
+    <!-- 主建或 unique索引生成单独查询 -->
+
     <operation name="getFileSummaryByFileId" multiplicity="one" remarks="">
         <sql>
             select
@@ -84,6 +87,7 @@
         </sql>
     </operation>
 
+    <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
             select
@@ -123,14 +127,11 @@
             <isNotEmpty property="nameLike">
                 and a.name like CONCAT('%',#nameLike#,'%')
             </isNotEmpty>
-            <isNotNull property="type">
-               and a.type=?
-            </isNotNull>
-            <isNotEmpty property="types">
-                and a.type in
-                <iterate property="types" conjunction="," open="(" close=")">
-                    #types[]#
-                </iterate>
+          <isNotNull property="type">
+            and a.type=?
+          </isNotNull>
+            <isNotEmpty property="typeLike">
+                and a.type like CONCAT('%',#typeLike#,'%')
             </isNotEmpty>
             <isNotNull property="userId">
                and a.user_id=?
@@ -161,7 +162,7 @@
             <isNull property="name">
             <isEmpty property="nameLike">
             <isNull property="type">
-            <isEmpty property="types">
+            <isEmpty property="typeLike">
             <isNull property="userId">
             <isEmpty property="userIds">
             <isNull property="createTimeMin">
@@ -188,7 +189,7 @@
             <include refid = "getFileSummaryPageListOrderBy" />
         </sql>
     </operation>
-    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
+    <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getFileSummarysByFileIds" multiplicity="many" remarks="">
         <sql>
@@ -238,4 +239,4 @@
         </sql>
     </operation>
     
-    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table file_summary -e 会自动覆盖-->
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table file_summary -e 会自动覆盖 -->

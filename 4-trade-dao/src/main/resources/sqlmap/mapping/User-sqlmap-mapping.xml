@@ -479,14 +479,11 @@
                     #cityIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="status">
-               and a.status=#status#
-            </isNotNull>
-            <isNotEmpty property="statuss">
-                and a.status in
-                <iterate close=")" conjunction="," open="(" property="statuss">
-                    #statuss[]#
-                </iterate>
+          <isNotNull property="status">
+            and a.status=#status#
+          </isNotNull>
+            <isNotEmpty property="statusLike">
+                and a.status like CONCAT('%',#statusLike#,'%')
             </isNotEmpty>
           <isNotNull property="grade">
                 and a.grade=#grade#
@@ -554,7 +551,7 @@
             <isNull property="cityId">
             <isEmpty property="cityIds">
             <isNull property="status">
-            <isEmpty property="statuss">
+            <isEmpty property="statusLike">
             <isNull property="grade">
             <isNull property="gradeMin">
             <isNull property="gradeMax">
@@ -740,14 +737,11 @@
                     #cityIds[]#
                 </iterate>
             </isNotEmpty>
-            <isNotNull property="status">
-               and a.status=#status#
-            </isNotNull>
-            <isNotEmpty property="statuss">
-                and a.status in
-                <iterate close=")" conjunction="," open="(" property="statuss">
-                    #statuss[]#
-                </iterate>
+          <isNotNull property="status">
+            and a.status=#status#
+          </isNotNull>
+            <isNotEmpty property="statusLike">
+                and a.status like CONCAT('%',#statusLike#,'%')
             </isNotEmpty>
           <isNotNull property="grade">
                 and a.grade=#grade#
@@ -815,7 +809,7 @@
             <isNull property="cityId">
             <isEmpty property="cityIds">
             <isNull property="status">
-            <isEmpty property="statuss">
+            <isEmpty property="statusLike">
             <isNull property="grade">
             <isNull property="gradeMin">
             <isNull property="gradeMax">

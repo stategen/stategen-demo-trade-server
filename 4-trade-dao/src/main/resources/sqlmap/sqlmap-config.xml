@@ -43,6 +43,7 @@
     <sqlMap resource="sqlmap/mapping/HomeShop-sqlmap-mapping.xml" />
     <sqlMap resource="sqlmap/mapping/Hoppy-sqlmap-mapping.xml" />
     <sqlMap resource="sqlmap/mapping/Menu-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/Organization-sqlmap-mapping.xml" />
     <sqlMap resource="sqlmap/mapping/Province-sqlmap-mapping.xml" />
     <sqlMap resource="sqlmap/mapping/Region-sqlmap-mapping.xml" />
     <sqlMap resource="sqlmap/mapping/Role-sqlmap-mapping.xml" />
