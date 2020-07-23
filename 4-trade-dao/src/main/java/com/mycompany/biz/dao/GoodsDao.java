@@ -60,7 +60,7 @@ public interface GoodsDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_goods SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and goods_id = ?
+	 * sql:UPDATE demo_goods a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.goods_id = ?
 	 */
 	public String delete(String goodsId) throws DataAccessException;
 	
@@ -91,7 +91,7 @@ public interface GoodsDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_goods SET update_time= CURRENT_TIMESTAMP(6) , goods_name = ? , categorySubId = ? , amount = ? , price = ? , images = ? , is_check = ? , is_hot = ? , advertise_id = ? , present_price = ? , image = ? , image1 = ? , image2 = ? , image3 = ? , image4 = ? , image5 = ? , is_on_line = ? , goods_serial_number = ? , state = ? , shop_id = ? , goods_detail = ? where delete_flag = 0 and goods_id = ?
+	 * sql:UPDATE demo_goods a SET a.update_time= CURRENT_TIMESTAMP(6) , a.goods_name = ? , a.categorySubId = ? , a.amount = ? , a.price = ? , a.images = ? , a.is_check = ? , a.is_hot = ? , a.advertise_id = ? , a.present_price = ? , a.image = ? , a.image1 = ? , a.image2 = ? , a.image3 = ? , a.image4 = ? , a.image5 = ? , a.is_on_line = ? , a.goods_serial_number = ? , a.state = ? , a.shop_id = ? , a.goods_detail = ? where a.delete_flag = 0 and a.goods_id = ?
 	 */
 	public Goods update(Goods goods) throws DataAccessException;
 	
@@ -103,7 +103,7 @@ public interface GoodsDao {
 	 * 
 	 * sql:select a.goods_id, a.goods_name, a.categorySubId, a.amount, a.price, a.images, a.is_check, a.is_hot, a.advertise_id, a.present_price, a.image, a.image1, a.image2, a.image3, a.image4, a.image5, a.is_on_line, a.goods_serial_number, a.state, a.shop_id, a.goods_detail, a.create_time, a.update_time, a.delete_flag from demo_goods a where a.delete_flag = 0 and a.goods_id = ?
 	 */
-	public Goods getGoodByGoodsId(String goodsId) throws DataAccessException;
+	public Goods getGoodsByGoodsId(String goodsId) throws DataAccessException;
 	
 	/**
     <pre>
@@ -165,7 +165,7 @@ public interface GoodsDao {
 	 * 
 	 * sql:select a.goods_id, a.goods_name, a.categorySubId, a.amount, a.price, a.images, a.is_check, a.is_hot, a.advertise_id, a.present_price, a.image, a.image1, a.image2, a.image3, a.image4, a.image5, a.is_on_line, a.goods_serial_number, a.state, a.shop_id, a.goods_detail, a.create_time, a.update_time, a.delete_flag from demo_goods a where a.delete_flag = 0 and 1=0 and a.goods_id in ( ? ) order by a.goods_id
 	 */
-	public List<Goods> getGoodsByGoodsIds(java.util.List<String> goodsIds) throws DataAccessException;
+	public List<Goods> getGoodssByGoodsIds(java.util.List<String> goodsIds) throws DataAccessException;
 	
 	/**
     <pre>
@@ -173,7 +173,7 @@ public interface GoodsDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_goods SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and goods_id in ( ? )
+	 * sql:UPDATE demo_goods a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.goods_id in ( ? )
 	 */
 	public java.util.List<String> deleteByGoodsIds(java.util.List<String> goodsIds) throws DataAccessException;
 	

@@ -41,7 +41,7 @@ public class OrganizationDaoImpl  extends SqlDaoSupportBase implements Organizat
 
 	/**
 	 * 
-	 * sql:UPDATE demo_organization SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and org_id = ?
+	 * sql:UPDATE demo_organization a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.org_id = ?
 	 */
 	public Long delete(Long orgId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -52,7 +52,7 @@ public class OrganizationDaoImpl  extends SqlDaoSupportBase implements Organizat
 
 	/**
 	 * 
-	 * sql:UPDATE demo_organization SET update_time= CURRENT_TIMESTAMP(6) , parent_id = ? , name = ? , org_type = ? where delete_flag = 0 and org_id = ?
+	 * sql:UPDATE demo_organization a SET a.update_time= CURRENT_TIMESTAMP(6) , a.parent_id = ? , a.name = ? , a.org_type = ? where a.delete_flag = 0 and a.org_id = ?
 	 */
 	public Organization update(Organization organization) throws DataAccessException {
 		if(organization == null) {
@@ -92,7 +92,7 @@ public class OrganizationDaoImpl  extends SqlDaoSupportBase implements Organizat
 
 	/**
 	 * 
-	 * sql:UPDATE demo_organization SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and org_id in ( ? )
+	 * sql:UPDATE demo_organization a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.org_id in ( ? )
 	 */
 	public java.util.List<Long> deleteByOrgIds(java.util.List<Long> orgIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);

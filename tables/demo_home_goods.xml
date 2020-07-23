@@ -7,10 +7,10 @@
     <!-- 不需要配置的列请删除-->
     <!-- <column name="status" javaType="com.mycompany.biz.enums.StatusEnum"/> -->
 
-    <sql id="getHomeGoodPageListOrderBy">
+    <sql id="getHomeGoodsPageListOrderBy">
         a.update_time desc, a.create_time desc
     </sql>
-    <sql id="getHomeGoodsByRecommendIdsOrderBy">
+    <sql id="getHomeGoodssByRecommendIdsOrderBy">
         a.update_time desc, a.create_time desc
     </sql>
 

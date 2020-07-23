@@ -77,4 +77,16 @@ public interface HomeGoodsService extends HomeGoodsServiceTrade, AssignService<H
      * @see com.mycompany.biz.dao.HomeGoodsDao#getPageList
      */
     public PageList<HomeGoods> getPageList(HomeGoods homeGoods, int pageSize, int pageNum);
+
+    /**
+     ** 
+     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodsByRecommendId
+     */
+    public HomeGoods getHomeGoodsByRecommendId(String recommendId);
+
+    /**
+     ** 
+     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodssByRecommendIds
+     */
+    public List<HomeGoods> getHomeGoodssByRecommendIds(java.util.List<String> recommendIds);
 }

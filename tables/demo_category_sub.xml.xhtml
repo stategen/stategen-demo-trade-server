@@ -2,57 +2,58 @@
     <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_category_sub -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_category_sub (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="categorySubId"> category_sub_id </isNotNull>
-            <isNotNull prepend="," property="categoryId"> category_id </isNotNull>
-            <isNotNull prepend="," property="subName"> sub_name </isNotNull>
-            <isNotNull prepend="," property="comments"> comments </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="categorySubId"> ?  </isNotNull>
-            <isNotNull prepend="," property="categoryId"> ?  </isNotNull>
-            <isNotNull prepend="," property="subName"> ?  </isNotNull>
-            <isNotNull prepend="," property="comments"> ?  </isNotNull>
-            )
-            <selectKey keyProperty="categorySubId" resultClass="String" type="pre">
-                select if((#categorySubId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#categorySubId# ) as categorySubId
-            </selectKey>
+           insert into demo_category_sub (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="categorySubId"> category_sub_id </isNotNull>
+             <isNotNull prepend="," property="categoryId"> category_id </isNotNull>
+             <isNotNull prepend="," property="subName"> sub_name </isNotNull>
+             <isNotNull prepend="," property="comments"> comments </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="categorySubId"> ?  </isNotNull>
+             <isNotNull prepend="," property="categoryId"> ?  </isNotNull>
+             <isNotNull prepend="," property="subName"> ?  </isNotNull>
+             <isNotNull prepend="," property="comments"> ?  </isNotNull>
+           )
+           <selectKey keyProperty="categorySubId" resultClass="String" type="pre">
+              select if((#categorySubId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#categorySubId# ) as categorySubId
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE demo_category_sub SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and category_sub_id = ?
+           UPDATE demo_category_sub a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.category_sub_id = ?
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE demo_category_sub
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="categoryId" prepend=",">
-                    category_id =  ? 
-                </isNotNull>
-                <isNotNull property="subName" prepend=",">
-                    sub_name =  ? 
-                </isNotNull>
-                <isNotNull property="comments" prepend=",">
-                    comments =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and category_sub_id = ?
+           UPDATE demo_category_sub a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="categoryId" prepend=",">
+             a.category_id =  ? 
+             </isNotNull>
+             <isNotNull property="subName" prepend=",">
+             a.sub_name =  ? 
+             </isNotNull>
+             <isNotNull property="comments" prepend=",">
+             a.comments =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.category_sub_id = ?
         </sql>
     </operation>
 
@@ -60,141 +61,142 @@
 
     <operation name="getCategorySubByCategorySubId" multiplicity="one" remarks="">
         <sql>
-            select
-            a.category_sub_id,
-            a.category_id,
-            a.sub_name,
-            a.comments,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_category_sub a
-            where
-            a.delete_flag = 0
-            and a.category_sub_id = ?
+           select
+             a.category_sub_id,
+             a.category_id,
+             a.sub_name,
+             a.comments,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_category_sub a
+           where
+             a.delete_flag = 0
+             and a.category_sub_id = ?
         </sql>
     </operation>
 
     <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
-            select
-            a.category_sub_id,
-            a.category_id,
-            a.sub_name,
-            a.comments,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_category_sub a
-            where
-            a.delete_flag = 0
-            <isNotNull property="categorySubId">
-               and a.category_sub_id=?
-            </isNotNull>
-            <isNotEmpty property="categorySubIds">
-                and a.category_sub_id in
-                <iterate property="categorySubIds" conjunction="," open="(" close=")">
-                    #categorySubIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="categoryId">
-               and a.category_id=?
-            </isNotNull>
-            <isNotEmpty property="categoryIds">
-                and a.category_id in
-                <iterate property="categoryIds" conjunction="," open="(" close=")">
-                    #categoryIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="subName">
-            and a.sub_name=?
-          </isNotNull>
-            <isNotEmpty property="subNameLike">
-                and a.sub_name like CONCAT('%',#subNameLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="categorySubId">
-            <isEmpty property="categorySubIds">
-            <isNull property="categoryId">
-            <isEmpty property="categoryIds">
-            <isNull property="subName">
-            <isEmpty property="subNameLike">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           select
+             a.category_sub_id,
+             a.category_id,
+             a.sub_name,
+             a.comments,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_category_sub a
+           where
+             a.delete_flag = 0
+             <isNotNull property="categorySubId">
+             and a.category_sub_id=?
+             </isNotNull>
+             <isNotEmpty property="categorySubIds">
+             and a.category_sub_id in
+               <iterate property="categorySubIds" conjunction="," open="(" close=")">
+               #categorySubIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="categoryId">
+             and a.category_id=?
+             </isNotNull>
+             <isNotEmpty property="categoryIds">
+             and a.category_id in
+               <iterate property="categoryIds" conjunction="," open="(" close=")">
+               #categoryIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="subName">
+             and a.sub_name=?
+             </isNotNull>
+             <isNotEmpty property="subNameLike">
+             and a.sub_name like CONCAT('%',#subNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="categorySubId">
+             <isEmpty property="categorySubIds">
+             <isNull property="categoryId">
+             <isEmpty property="categoryIds">
+             <isNull property="subName">
+             <isEmpty property="subNameLike">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid = "getCategorySubPageListOrderBy" />
+              <include refid = "getCategorySubPageListOrderBy" />
         </sql>
     </operation>
     <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getCategorySubsByCategorySubIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.category_sub_id,
-            a.category_id,
-            a.sub_name,
-            a.comments,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_category_sub a
-            where
-            a.delete_flag = 0
-            <isEmpty property="categorySubIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="categorySubIds">
-                and a.category_sub_id in
+           select
+             a.category_sub_id,
+             a.category_id,
+             a.sub_name,
+             a.comments,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_category_sub a
+           where
+             a.delete_flag = 0
+             <isEmpty property="categorySubIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="categorySubIds" prepend="and">
+             a.category_sub_id in
                 <iterate property="categorySubIds" conjunction="," open="(" close=")">
-                    #categorySubIds[]#
+                   #categorySubIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getCategorySubsByCategorySubIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getCategorySubsByCategorySubIdsOrderBy" />
         </sql>
     </operation>
 
     <operation name="deleteByCategorySubIds" remarks="">
         <sql>
-            UPDATE demo_category_sub SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="categorySubIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="categorySubIds">
-                and category_sub_id in
+           UPDATE demo_category_sub a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="categorySubIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="categorySubIds" prepend="and">
+             a.category_sub_id in
                 <iterate property="categorySubIds" conjunction="," open="(" close=")">
-                    #categorySubIds[]#
+                   #categorySubIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
         </sql>
     </operation>
     

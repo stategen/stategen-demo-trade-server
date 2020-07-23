@@ -2,52 +2,53 @@
     <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_user_hoppy -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_user_hoppy (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="id"> id </isNotNull>
-            <isNotNull prepend="," property="userId"> user_id </isNotNull>
-            <isNotNull prepend="," property="hoppyId"> hoppy_id </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="id"> ?  </isNotNull>
-            <isNotNull prepend="," property="userId"> ?  </isNotNull>
-            <isNotNull prepend="," property="hoppyId"> ?  </isNotNull>
-            )
-            <selectKey resultClass="long" keyProperty="id">
-                select  LAST_INSERT_ID()
-            </selectKey>
+           insert into demo_user_hoppy (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="id"> id </isNotNull>
+             <isNotNull prepend="," property="userId"> user_id </isNotNull>
+             <isNotNull prepend="," property="hoppyId"> hoppy_id </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="id"> ?  </isNotNull>
+             <isNotNull prepend="," property="userId"> ?  </isNotNull>
+             <isNotNull prepend="," property="hoppyId"> ?  </isNotNull>
+           )
+           <selectKey resultClass="long" keyProperty="id">
+              select  LAST_INSERT_ID()
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE demo_user_hoppy SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and id = ?
+           UPDATE demo_user_hoppy a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.id = ?
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE demo_user_hoppy
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="userId" prepend=",">
-                    user_id =  ? 
-                </isNotNull>
-                <isNotNull property="hoppyId" prepend=",">
-                    hoppy_id =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and id = ?
+           UPDATE demo_user_hoppy a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="userId" prepend=",">
+             a.user_id =  ? 
+             </isNotNull>
+             <isNotNull property="hoppyId" prepend=",">
+             a.hoppy_id =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.id = ?
         </sql>
     </operation>
 
@@ -55,169 +56,170 @@
 
     <operation name="getUserHoppyById" multiplicity="one" remarks="">
         <sql>
-            select
-            a.id,
-            a.user_id,
-            a.hoppy_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_user_hoppy a
-            where
-            a.delete_flag = 0
-            and a.id = ?
+           select
+             a.id,
+             a.user_id,
+             a.hoppy_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_user_hoppy a
+           where
+             a.delete_flag = 0
+             and a.id = ?
         </sql>
     </operation>
 
     <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
-            select
-            a.id,
-            a.user_id,
-            a.hoppy_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_user_hoppy a
-            where
-            a.delete_flag = 0
-          <isNotNull property="id">
-                and a.id=?
-          </isNotNull>
-            <isNotNull property="idMin">
-                and a.id >=#idMin#
-            </isNotNull>
-            <isNotNull property="idMax">
-                and a.id &lt;#idMax#
-            </isNotNull>
-            <isNotNull property="userId">
-               and a.user_id=?
-            </isNotNull>
-            <isNotEmpty property="userIds">
-                and a.user_id in
-                <iterate property="userIds" conjunction="," open="(" close=")">
-                    #userIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="hoppyId">
-               and a.hoppy_id=?
-            </isNotNull>
-            <isNotEmpty property="hoppyIds">
-                and a.hoppy_id in
-                <iterate property="hoppyIds" conjunction="," open="(" close=")">
-                    #hoppyIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="id">
-            <isNull property="idMin">
-            <isNull property="idMax">
-            <isNull property="userId">
-            <isEmpty property="userIds">
-            <isNull property="hoppyId">
-            <isEmpty property="hoppyIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
+           select
+             a.id,
+             a.user_id,
+             a.hoppy_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_user_hoppy a
+           where
+             a.delete_flag = 0
+             <isNotNull property="id">
+             and a.id=?
+             </isNotNull>
+             <isNotNull property="idMin">
+             and a.id >=#idMin#
+             </isNotNull>
+             <isNotNull property="idMax">
+             and a.id &lt;#idMax#
+             </isNotNull>
+             <isNotNull property="userId">
+             and a.user_id=?
+             </isNotNull>
+             <isNotEmpty property="userIds">
+             and a.user_id in
+               <iterate property="userIds" conjunction="," open="(" close=")">
+               #userIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="hoppyId">
+             and a.hoppy_id=?
+             </isNotNull>
+             <isNotEmpty property="hoppyIds">
+             and a.hoppy_id in
+               <iterate property="hoppyIds" conjunction="," open="(" close=")">
+               #hoppyIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="id">
+             <isNull property="idMin">
+             <isNull property="idMax">
+             <isNull property="userId">
+             <isEmpty property="userIds">
+             <isNull property="hoppyId">
+             <isEmpty property="hoppyIds">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
             order by
-            <include refid = "getUserHoppyPageListOrderBy" />
+              <include refid = "getUserHoppyPageListOrderBy" />
         </sql>
     </operation>
     <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getUserHoppysByIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.id,
-            a.user_id,
-            a.hoppy_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_user_hoppy a
-            where
-            a.delete_flag = 0
-            <isEmpty property="ids">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="ids">
-                and a.id in
+           select
+             a.id,
+             a.user_id,
+             a.hoppy_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_user_hoppy a
+           where
+             a.delete_flag = 0
+             <isEmpty property="ids" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="ids" prepend="and">
+             a.id in
                 <iterate property="ids" conjunction="," open="(" close=")">
-                    #ids[]#
+                   #ids[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getUserHoppysByIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getUserHoppysByIdsOrderBy" />
         </sql>
     </operation>
 
     <operation name="getUserHoppysByUserIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.id,
-            a.user_id,
-            a.hoppy_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_user_hoppy a
-            where
-            a.delete_flag = 0
-            <isEmpty property="userIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="userIds">
-                and a.user_id in
+           select
+             a.id,
+             a.user_id,
+             a.hoppy_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_user_hoppy a
+           where
+             a.delete_flag = 0
+             <isEmpty property="userIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="userIds" prepend="and">
+             a.user_id in
                 <iterate property="userIds" conjunction="," open="(" close=")">
-                    #userIds[]#
+                   #userIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getUserHoppysByUserIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getUserHoppysByUserIdsOrderBy" />
         </sql>
     </operation>
 
     <operation name="deleteByIds" remarks="">
         <sql>
-            UPDATE demo_user_hoppy SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="ids">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="ids">
-                and id in
+           UPDATE demo_user_hoppy a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="ids" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="ids" prepend="and">
+             a.id in
                 <iterate property="ids" conjunction="," open="(" close=")">
-                    #ids[]#
+                   #ids[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
         </sql>
     </operation>
     

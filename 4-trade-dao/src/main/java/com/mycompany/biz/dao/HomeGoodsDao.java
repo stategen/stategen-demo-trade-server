@@ -42,7 +42,7 @@ public interface HomeGoodsDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_home_goods SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and recommend_id = ?
+	 * sql:UPDATE demo_home_goods a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.recommend_id = ?
 	 */
 	public String delete(String recommendId) throws DataAccessException;
 	
@@ -55,7 +55,7 @@ public interface HomeGoodsDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_home_goods SET update_time= CURRENT_TIMESTAMP(6) , goods_id = ? , order_no = ? where delete_flag = 0 and recommend_id = ?
+	 * sql:UPDATE demo_home_goods a SET a.update_time= CURRENT_TIMESTAMP(6) , a.goods_id = ? , a.order_no = ? where a.delete_flag = 0 and a.recommend_id = ?
 	 */
 	public HomeGoods update(HomeGoods homeGoods) throws DataAccessException;
 	
@@ -67,7 +67,7 @@ public interface HomeGoodsDao {
 	 * 
 	 * sql:select a.recommend_id, a.goods_id, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_home_goods a where a.delete_flag = 0 and a.recommend_id = ?
 	 */
-	public HomeGoods getHomeGoodByRecommendId(String recommendId) throws DataAccessException;
+	public HomeGoods getHomeGoodsByRecommendId(String recommendId) throws DataAccessException;
 	
 	/**
     <pre>
@@ -97,7 +97,7 @@ public interface HomeGoodsDao {
 	 * 
 	 * sql:select a.recommend_id, a.goods_id, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_home_goods a where a.delete_flag = 0 and 1=0 and a.recommend_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
-	public List<HomeGoods> getHomeGoodsByRecommendIds(java.util.List<String> recommendIds) throws DataAccessException;
+	public List<HomeGoods> getHomeGoodssByRecommendIds(java.util.List<String> recommendIds) throws DataAccessException;
 	
 	/**
     <pre>
@@ -105,7 +105,7 @@ public interface HomeGoodsDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_home_goods SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and recommend_id in ( ? )
+	 * sql:UPDATE demo_home_goods a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.recommend_id in ( ? )
 	 */
 	public java.util.List<String> deleteByRecommendIds(java.util.List<String> recommendIds) throws DataAccessException;
 	

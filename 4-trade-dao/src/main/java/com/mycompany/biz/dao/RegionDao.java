@@ -48,7 +48,7 @@ public interface RegionDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_region SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and region_id = ?
+	 * sql:UPDATE demo_region a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.region_id = ?
 	 */
 	public Long delete(Long regionId) throws DataAccessException;
 	
@@ -67,7 +67,7 @@ public interface RegionDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_region SET update_time= CURRENT_TIMESTAMP(6) , parent_region_id = ? , path = ? , level = ? , region_type = ? , name = ? , name_en = ? , name_pinyin = ? , code = ? where delete_flag = 0 and region_id = ?
+	 * sql:UPDATE demo_region a SET a.update_time= CURRENT_TIMESTAMP(6) , a.parent_region_id = ? , a.path = ? , a.level = ? , a.region_type = ? , a.name = ? , a.name_en = ? , a.name_pinyin = ? , a.code = ? where a.delete_flag = 0 and a.region_id = ?
 	 */
 	public Region update(Region region) throws DataAccessException;
 	
@@ -130,7 +130,7 @@ public interface RegionDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_region SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and region_id in ( ? )
+	 * sql:UPDATE demo_region a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.region_id in ( ? )
 	 */
 	public java.util.List<Long> deleteByRegionIds(java.util.List<Long> regionIds) throws DataAccessException;
 	

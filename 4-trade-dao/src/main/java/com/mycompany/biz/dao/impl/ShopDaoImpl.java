@@ -41,7 +41,7 @@ public class ShopDaoImpl  extends SqlDaoSupportBase implements ShopDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_shop SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and shop_id = ?
+	 * sql:UPDATE demo_shop a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.shop_id = ?
 	 */
 	public String delete(String shopId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -52,7 +52,7 @@ public class ShopDaoImpl  extends SqlDaoSupportBase implements ShopDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_shop SET update_time= CURRENT_TIMESTAMP(6) , leader_image = ? , leader_phone = ? where delete_flag = 0 and shop_id = ?
+	 * sql:UPDATE demo_shop a SET a.update_time= CURRENT_TIMESTAMP(6) , a.leader_image = ? , a.leader_phone = ? where a.delete_flag = 0 and a.shop_id = ?
 	 */
 	public Shop update(Shop shop) throws DataAccessException {
 		if(shop == null) {
@@ -92,7 +92,7 @@ public class ShopDaoImpl  extends SqlDaoSupportBase implements ShopDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_shop SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and shop_id in ( ? )
+	 * sql:UPDATE demo_shop a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.shop_id in ( ? )
 	 */
 	public java.util.List<String> deleteByShopIds(java.util.List<String> shopIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);

@@ -43,7 +43,7 @@ public interface CategorySubDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_category_sub SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and category_sub_id = ?
+	 * sql:UPDATE demo_category_sub a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.category_sub_id = ?
 	 */
 	public String delete(String categorySubId) throws DataAccessException;
 	
@@ -57,7 +57,7 @@ public interface CategorySubDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_category_sub SET update_time= CURRENT_TIMESTAMP(6) , category_id = ? , sub_name = ? , comments = ? where delete_flag = 0 and category_sub_id = ?
+	 * sql:UPDATE demo_category_sub a SET a.update_time= CURRENT_TIMESTAMP(6) , a.category_id = ? , a.sub_name = ? , a.comments = ? where a.delete_flag = 0 and a.category_sub_id = ?
 	 */
 	public CategorySub update(CategorySub categorySub) throws DataAccessException;
 	
@@ -107,7 +107,7 @@ public interface CategorySubDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_category_sub SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and category_sub_id in ( ? )
+	 * sql:UPDATE demo_category_sub a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.category_sub_id in ( ? )
 	 */
 	public java.util.List<String> deleteByCategorySubIds(java.util.List<String> categorySubIds) throws DataAccessException;
 	

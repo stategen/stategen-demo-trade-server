@@ -41,7 +41,7 @@ public class MenuDaoImpl  extends SqlDaoSupportBase implements MenuDao {
 
 	/**
 	 * 
-	 * sql:UPDATE menu SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and menu_id = ?
+	 * sql:UPDATE menu a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.menu_id = ?
 	 */
 	public Long delete(Long menuId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -52,7 +52,7 @@ public class MenuDaoImpl  extends SqlDaoSupportBase implements MenuDao {
 
 	/**
 	 * 
-	 * sql:UPDATE menu SET update_time= CURRENT_TIMESTAMP(6) , morder = ? , bpid = ? , mpid = ? , project_name = ? , controller_name = ? , method_name = ? , url = ? , icon = ? , name = ? , route = ? , menu_type = ? , check_type = ? where delete_flag = 0 and menu_id = ?
+	 * sql:UPDATE menu a SET a.update_time= CURRENT_TIMESTAMP(6) , a.morder = ? , a.bpid = ? , a.mpid = ? , a.project_name = ? , a.controller_name = ? , a.method_name = ? , a.url = ? , a.icon = ? , a.name = ? , a.route = ? , a.menu_type = ? , a.check_type = ? where a.delete_flag = 0 and a.menu_id = ?
 	 */
 	public Menu update(Menu menu) throws DataAccessException {
 		if(menu == null) {
@@ -92,7 +92,7 @@ public class MenuDaoImpl  extends SqlDaoSupportBase implements MenuDao {
 
 	/**
 	 * 
-	 * sql:UPDATE menu SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and menu_id in ( ? )
+	 * sql:UPDATE menu a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.menu_id in ( ? )
 	 */
 	public java.util.List<Long> deleteByMenuIds(java.util.List<Long> menuIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);

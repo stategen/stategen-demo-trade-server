@@ -2,52 +2,53 @@
     <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_province -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_province (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="provinceId"> province_id </isNotNull>
-            <isNotNull prepend="," property="name"> name </isNotNull>
-            <isNotNull prepend="," property="pycode"> pycode </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="provinceId"> ?  </isNotNull>
-            <isNotNull prepend="," property="name"> ?  </isNotNull>
-            <isNotNull prepend="," property="pycode"> ?  </isNotNull>
-            )
-            <selectKey keyProperty="provinceId" resultClass="String" type="pre">
-                select if((#provinceId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#provinceId# ) as provinceId
-            </selectKey>
+           insert into demo_province (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="provinceId"> province_id </isNotNull>
+             <isNotNull prepend="," property="name"> name </isNotNull>
+             <isNotNull prepend="," property="pycode"> pycode </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="provinceId"> ?  </isNotNull>
+             <isNotNull prepend="," property="name"> ?  </isNotNull>
+             <isNotNull prepend="," property="pycode"> ?  </isNotNull>
+           )
+           <selectKey keyProperty="provinceId" resultClass="String" type="pre">
+              select if((#provinceId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#provinceId# ) as provinceId
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE demo_province SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and province_id = ?
+           UPDATE demo_province a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.province_id = ?
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE demo_province
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="name" prepend=",">
-                    name =  ? 
-                </isNotNull>
-                <isNotNull property="pycode" prepend=",">
-                    pycode =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and province_id = ?
+           UPDATE demo_province a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="name" prepend=",">
+             a.name =  ? 
+             </isNotNull>
+             <isNotNull property="pycode" prepend=",">
+             a.pycode =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.province_id = ?
         </sql>
     </operation>
 
@@ -55,135 +56,136 @@
 
     <operation name="getProvinceByProvinceId" multiplicity="one" remarks="">
         <sql>
-            select
-            a.province_id,
-            a.name,
-            a.pycode,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_province a
-            where
-            a.delete_flag = 0
-            and a.province_id = ?
+           select
+             a.province_id,
+             a.name,
+             a.pycode,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_province a
+           where
+             a.delete_flag = 0
+             and a.province_id = ?
         </sql>
     </operation>
 
     <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
-            select
-            a.province_id,
-            a.name,
-            a.pycode,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_province a
-            where
-            a.delete_flag = 0
-            <isNotNull property="provinceId">
-               and a.province_id=?
-            </isNotNull>
-            <isNotEmpty property="provinceIds">
-                and a.province_id in
-                <iterate property="provinceIds" conjunction="," open="(" close=")">
-                    #provinceIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="name">
-            and a.name=?
-          </isNotNull>
-            <isNotEmpty property="nameLike">
-                and a.name like CONCAT('%',#nameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="pycode">
-            and a.pycode=?
-          </isNotNull>
-            <isNotEmpty property="pycodeLike">
-                and a.pycode like CONCAT('%',#pycodeLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="provinceId">
-            <isEmpty property="provinceIds">
-            <isNull property="name">
-            <isEmpty property="nameLike">
-            <isNull property="pycode">
-            <isEmpty property="pycodeLike">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           select
+             a.province_id,
+             a.name,
+             a.pycode,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_province a
+           where
+             a.delete_flag = 0
+             <isNotNull property="provinceId">
+             and a.province_id=?
+             </isNotNull>
+             <isNotEmpty property="provinceIds">
+             and a.province_id in
+               <iterate property="provinceIds" conjunction="," open="(" close=")">
+               #provinceIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="name">
+             and a.name=?
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="pycode">
+             and a.pycode=?
+             </isNotNull>
+             <isNotEmpty property="pycodeLike">
+             and a.pycode like CONCAT('%',#pycodeLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="provinceId">
+             <isEmpty property="provinceIds">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="pycode">
+             <isEmpty property="pycodeLike">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid = "getProvincePageListOrderBy" />
+              <include refid = "getProvincePageListOrderBy" />
         </sql>
     </operation>
     <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getProvincesByProvinceIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.province_id,
-            a.name,
-            a.pycode,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_province a
-            where
-            a.delete_flag = 0
-            <isEmpty property="provinceIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="provinceIds">
-                and a.province_id in
+           select
+             a.province_id,
+             a.name,
+             a.pycode,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_province a
+           where
+             a.delete_flag = 0
+             <isEmpty property="provinceIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="provinceIds" prepend="and">
+             a.province_id in
                 <iterate property="provinceIds" conjunction="," open="(" close=")">
-                    #provinceIds[]#
+                   #provinceIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getProvincesByProvinceIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getProvincesByProvinceIdsOrderBy" />
         </sql>
     </operation>
 
     <operation name="deleteByProvinceIds" remarks="">
         <sql>
-            UPDATE demo_province SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="provinceIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="provinceIds">
-                and province_id in
+           UPDATE demo_province a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="provinceIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="provinceIds" prepend="and">
+             a.province_id in
                 <iterate property="provinceIds" conjunction="," open="(" close=")">
-                    #provinceIds[]#
+                   #provinceIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
         </sql>
     </operation>
     

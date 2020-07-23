@@ -152,4 +152,24 @@ public class GoodsServiceImpl implements GoodsService {
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, GoodsServiceImpl::getGoodsByGoodsIds, Goods::getGoodsId);
     }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.GoodsDao#getGoodsByGoodsId
+     * @see com.mycompany.biz.service.GoodsService#getGoodsByGoodsId
+     */
+    @Override
+    public Goods getGoodsByGoodsId(String goodsId) {
+        return goodsDao.getGoodsByGoodsId(goodsId);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.GoodsDao#getGoodssByGoodsIds
+     * @see com.mycompany.biz.service.GoodsService#getGoodssByGoodsIds
+     */
+    @Override
+    public List<Goods> getGoodssByGoodsIds(java.util.List<String> goodsIds) {
+        return goodsDao.getGoodssByGoodsIds(goodsIds);
+    }
 }

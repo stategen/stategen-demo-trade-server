@@ -41,7 +41,7 @@ public class FloorGoodsDaoImpl  extends SqlDaoSupportBase implements FloorGoodsD
 
 	/**
 	 * 
-	 * sql:UPDATE demo_floor_goods SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and floor_goods_id = ?
+	 * sql:UPDATE demo_floor_goods a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.floor_goods_id = ?
 	 */
 	public String delete(String floorGoodsId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -52,7 +52,7 @@ public class FloorGoodsDaoImpl  extends SqlDaoSupportBase implements FloorGoodsD
 
 	/**
 	 * 
-	 * sql:UPDATE demo_floor_goods SET update_time= CURRENT_TIMESTAMP(6) , floor_id = ? , goods_id = ? , image = ? , order_no = ? where delete_flag = 0 and floor_goods_id = ?
+	 * sql:UPDATE demo_floor_goods a SET a.update_time= CURRENT_TIMESTAMP(6) , a.floor_id = ? , a.goods_id = ? , a.image = ? , a.order_no = ? where a.delete_flag = 0 and a.floor_goods_id = ?
 	 */
 	public FloorGoods update(FloorGoods floorGoods) throws DataAccessException {
 		if(floorGoods == null) {
@@ -66,10 +66,10 @@ public class FloorGoodsDaoImpl  extends SqlDaoSupportBase implements FloorGoodsD
 	 * 
 	 * sql:select a.floor_goods_id, a.floor_id, a.goods_id, a.image, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_floor_goods a where a.delete_flag = 0 and a.floor_goods_id = ?
 	 */
-	public FloorGoods getFloorGoodByFloorGoodsId(String floorGoodsId) throws DataAccessException {
+	public FloorGoods getFloorGoodsByFloorGoodsId(String floorGoodsId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
 		params.put("floorGoodsId",floorGoodsId);
-		return (FloorGoods)super.selectOne("FloorGoods.getFloorGoodByFloorGoodsId",params);
+		return (FloorGoods)super.selectOne("FloorGoods.getFloorGoodsByFloorGoodsId",params);
 	}
 
 	/**
@@ -84,15 +84,15 @@ public class FloorGoodsDaoImpl  extends SqlDaoSupportBase implements FloorGoodsD
 	 * 
 	 * sql:select a.floor_goods_id, a.floor_id, a.goods_id, a.image, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_floor_goods a where a.delete_flag = 0 and 1=0 and a.floor_goods_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
-	public List<FloorGoods> getFloorGoodsByFloorGoodsIds(java.util.List<String> floorGoodsIds) throws DataAccessException {
+	public List<FloorGoods> getFloorGoodssByFloorGoodsIds(java.util.List<String> floorGoodsIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
 		params.put("floorGoodsIds",floorGoodsIds);
-		return super.selectList("FloorGoods.getFloorGoodsByFloorGoodsIds",params);
+		return super.selectList("FloorGoods.getFloorGoodssByFloorGoodsIds",params);
 	}
 
 	/**
 	 * 
-	 * sql:UPDATE demo_floor_goods SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and floor_goods_id in ( ? )
+	 * sql:UPDATE demo_floor_goods a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.floor_goods_id in ( ? )
 	 */
 	public java.util.List<String> deleteByFloorGoodsIds(java.util.List<String> floorGoodsIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);

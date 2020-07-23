@@ -83,4 +83,16 @@ public interface GoodsService extends GoodsServiceTrade, AssignService<Goods, St
      * @see com.mycompany.biz.dao.GoodsDao#getPageList
      */
     public PageList<Goods> getPageList(Goods goods, int pageSize, int pageNum);
+
+    /**
+     ** 
+     * @see com.mycompany.biz.dao.GoodsDao#getGoodsByGoodsId
+     */
+    public Goods getGoodsByGoodsId(String goodsId);
+
+    /**
+     ** 
+     * @see com.mycompany.biz.dao.GoodsDao#getGoodssByGoodsIds
+     */
+    public List<Goods> getGoodssByGoodsIds(java.util.List<String> goodsIds);
 }

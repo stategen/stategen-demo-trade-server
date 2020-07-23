@@ -41,7 +41,7 @@ public class FileSummaryDaoImpl  extends SqlDaoSupportBase implements FileSummar
 
 	/**
 	 * 
-	 * sql:UPDATE file_summary SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and file_id = ?
+	 * sql:UPDATE file_summary a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.file_id = ?
 	 */
 	public String delete(String fileId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -52,7 +52,7 @@ public class FileSummaryDaoImpl  extends SqlDaoSupportBase implements FileSummar
 
 	/**
 	 * 
-	 * sql:UPDATE file_summary SET update_time= CURRENT_TIMESTAMP(6) , url = ? , size = ? , name = ? , type = ? , user_id = ? where delete_flag = 0 and file_id = ?
+	 * sql:UPDATE file_summary a SET a.update_time= CURRENT_TIMESTAMP(6) , a.url = ? , a.size = ? , a.name = ? , a.type = ? , a.user_id = ? where a.delete_flag = 0 and a.file_id = ?
 	 */
 	public FileSummary update(FileSummary fileSummary) throws DataAccessException {
 		if(fileSummary == null) {
@@ -92,7 +92,7 @@ public class FileSummaryDaoImpl  extends SqlDaoSupportBase implements FileSummar
 
 	/**
 	 * 
-	 * sql:UPDATE file_summary SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and file_id in ( ? )
+	 * sql:UPDATE file_summary a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.file_id in ( ? )
 	 */
 	public java.util.List<String> deleteByFileIds(java.util.List<String> fileIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);

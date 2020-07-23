@@ -41,7 +41,7 @@ public interface HoppyDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_hoppy SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and hoppy_id = ?
+	 * sql:UPDATE demo_hoppy a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.hoppy_id = ?
 	 */
 	public Long delete(Long hoppyId) throws DataAccessException;
 	
@@ -53,7 +53,7 @@ public interface HoppyDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_hoppy SET update_time= CURRENT_TIMESTAMP(6) , hoppy_name = ? where delete_flag = 0 and hoppy_id = ?
+	 * sql:UPDATE demo_hoppy a SET a.update_time= CURRENT_TIMESTAMP(6) , a.hoppy_name = ? where a.delete_flag = 0 and a.hoppy_id = ?
 	 */
 	public Hoppy update(Hoppy hoppy) throws DataAccessException;
 	
@@ -101,7 +101,7 @@ public interface HoppyDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_hoppy SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and hoppy_id in ( ? )
+	 * sql:UPDATE demo_hoppy a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.hoppy_id in ( ? )
 	 */
 	public java.util.List<Long> deleteByHoppyIds(java.util.List<Long> hoppyIds) throws DataAccessException;
 	

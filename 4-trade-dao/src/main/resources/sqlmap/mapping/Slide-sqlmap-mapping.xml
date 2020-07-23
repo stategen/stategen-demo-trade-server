@@ -30,73 +30,74 @@
     
 	<insert id="Slide.insert">
 		insert into demo_slide (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="slideId"> slide_id </isNotNull>
-            <isNotNull prepend="," property="goodsId"> goods_id </isNotNull>
-            <isNotNull prepend="," property="image"> image </isNotNull>
-            <isNotNull prepend="," property="urlType"> urlType </isNotNull>
-            <isNotNull prepend="," property="orderNo"> order_no </isNotNull>
-            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="slideId"> slide_id </isNotNull>
+             <isNotNull prepend="," property="goodsId"> goods_id </isNotNull>
+             <isNotNull prepend="," property="image"> image </isNotNull>
+             <isNotNull prepend="," property="urlType"> urlType </isNotNull>
+             <isNotNull prepend="," property="orderNo"> order_no </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="slideId"> #slideId# </isNotNull> 
             <isNotNull prepend="," property="goodsId"> #goodsId# </isNotNull> 
             <isNotNull prepend="," property="image"> #image# </isNotNull> 
             <isNotNull prepend="," property="urlType"> #urlType# </isNotNull> 
             <isNotNull prepend="," property="orderNo"> #orderNo# </isNotNull>)
-            <selectKey keyProperty="slideId" resultClass="String" type="pre">
-                select if((#slideId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#slideId# ) as slideId
-            </selectKey>
+           <selectKey keyProperty="slideId" resultClass="String" type="pre">
+              select if((#slideId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#slideId# ) as slideId
+           </selectKey>
 	</insert>
 	
 	<update id="Slide.delete">
-		UPDATE demo_slide SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and slide_id = #slideId#
+		UPDATE demo_slide a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.slide_id = #slideId#
 	</update>
 	
     
 	
 	<update id="Slide.update">
-		UPDATE demo_slide
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull prepend="," property="goodsId">
-                    goods_id =  #goodsId# 
-                </isNotNull>
-                <isNotNull prepend="," property="image">
-                    image =  #image# 
-                </isNotNull>
-                <isNotNull prepend="," property="urlType">
-                    urlType =  #urlType# 
-                </isNotNull>
-                <isNotNull prepend="," property="orderNo">
-                    order_no =  #orderNo# 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and slide_id = #slideId#
+		UPDATE demo_slide a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="goodsId">
+             a.goods_id =  #goodsId# 
+             </isNotNull>
+             <isNotNull prepend="," property="image">
+             a.image =  #image# 
+             </isNotNull>
+             <isNotNull prepend="," property="urlType">
+             a.urlType =  #urlType# 
+             </isNotNull>
+             <isNotNull prepend="," property="orderNo">
+             a.order_no =  #orderNo# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.slide_id = #slideId#
 	</update>
 	
     
 	
 	<select id="Slide.getSlideBySlideId" resultMap="Slide_RM" >
     	select
- /* getSlideBySlideId.Slide */             a.slide_id,
-            a.goods_id,
-            a.image,
-            a.urlType,
-            a.order_no,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_slide a
-            where
-            a.delete_flag = 0
-            and a.slide_id = #slideId#
+ /* getSlideBySlideId.Slide */              a.slide_id,
+             a.goods_id,
+             a.image,
+             a.urlType,
+             a.order_no,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_slide a
+           where
+             a.delete_flag = 0
+             and a.slide_id = #slideId#
 	</select>	
 
 	    
@@ -106,176 +107,176 @@
 	
 	<select id="Slide.getPageList" resultMap="Slide_RM" >
     	select
- /* getPageList.Slide */             a.slide_id,
-            a.goods_id,
-            a.image,
-            a.urlType,
-            a.order_no,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_slide a
-            where
-            a.delete_flag = 0
-            <isNotNull property="slideId">
-               and a.slide_id=#slideId#
-            </isNotNull>
-            <isNotEmpty property="slideIds">
-                and a.slide_id in
-                <iterate close=")" conjunction="," open="(" property="slideIds">
-                    #slideIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="goodsId">
-               and a.goods_id=#goodsId#
-            </isNotNull>
-            <isNotEmpty property="goodsIds">
-                and a.goods_id in
-                <iterate close=")" conjunction="," open="(" property="goodsIds">
-                    #goodsIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="urlType">
-                and a.urlType=#urlType#
-          </isNotNull>
-            <isNotNull property="urlTypeMin">
-                and a.urlType >=#urlTypeMin#
-            </isNotNull>
-            <isNotNull property="urlTypeMax">
-                and a.urlType &lt;#urlTypeMax#
-            </isNotNull>
-            <isNotNull property="orderNo">
-               and a.order_no=#orderNo#
-            </isNotNull>
-            <isNotEmpty property="orderNos">
-                and a.order_no in
-                <iterate close=")" conjunction="," open="(" property="orderNos">
-                    #orderNos[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="slideId">
-            <isEmpty property="slideIds">
-            <isNull property="goodsId">
-            <isEmpty property="goodsIds">
-            <isNull property="urlType">
-            <isNull property="urlTypeMin">
-            <isNull property="urlTypeMax">
-            <isNull property="orderNo">
-            <isEmpty property="orderNos">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+ /* getPageList.Slide */              a.slide_id,
+             a.goods_id,
+             a.image,
+             a.urlType,
+             a.order_no,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_slide a
+           where
+             a.delete_flag = 0
+             <isNotNull property="slideId">
+             and a.slide_id=#slideId#
+             </isNotNull>
+             <isNotEmpty property="slideIds">
+             and a.slide_id in
+               <iterate close=")" conjunction="," open="(" property="slideIds">
+               #slideIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="goodsId">
+             and a.goods_id=#goodsId#
+             </isNotNull>
+             <isNotEmpty property="goodsIds">
+             and a.goods_id in
+               <iterate close=")" conjunction="," open="(" property="goodsIds">
+               #goodsIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="urlType">
+             and a.urlType=#urlType#
+             </isNotNull>
+             <isNotNull property="urlTypeMin">
+             and a.urlType >=#urlTypeMin#
+             </isNotNull>
+             <isNotNull property="urlTypeMax">
+             and a.urlType &lt;#urlTypeMax#
+             </isNotNull>
+             <isNotNull property="orderNo">
+             and a.order_no=#orderNo#
+             </isNotNull>
+             <isNotEmpty property="orderNos">
+             and a.order_no in
+               <iterate close=")" conjunction="," open="(" property="orderNos">
+               #orderNos[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="slideId">
+             <isEmpty property="slideIds">
+             <isNull property="goodsId">
+             <isEmpty property="goodsIds">
+             <isNull property="urlType">
+             <isNull property="urlTypeMin">
+             <isNull property="urlTypeMax">
+             <isNull property="orderNo">
+             <isEmpty property="orderNos">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid="getSlidePageListOrderBy"/>
+              <include refid="getSlidePageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
 	<select id="Slide.getPageList_count" resultClass="long" >
     	select  /* getPageList_count.Slide */ count(*)  from demo_slide a
-            where
-            a.delete_flag = 0
-            <isNotNull property="slideId">
-               and a.slide_id=#slideId#
-            </isNotNull>
-            <isNotEmpty property="slideIds">
-                and a.slide_id in
-                <iterate close=")" conjunction="," open="(" property="slideIds">
-                    #slideIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="goodsId">
-               and a.goods_id=#goodsId#
-            </isNotNull>
-            <isNotEmpty property="goodsIds">
-                and a.goods_id in
-                <iterate close=")" conjunction="," open="(" property="goodsIds">
-                    #goodsIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="urlType">
-                and a.urlType=#urlType#
-          </isNotNull>
-            <isNotNull property="urlTypeMin">
-                and a.urlType >=#urlTypeMin#
-            </isNotNull>
-            <isNotNull property="urlTypeMax">
-                and a.urlType &lt;#urlTypeMax#
-            </isNotNull>
-            <isNotNull property="orderNo">
-               and a.order_no=#orderNo#
-            </isNotNull>
-            <isNotEmpty property="orderNos">
-                and a.order_no in
-                <iterate close=")" conjunction="," open="(" property="orderNos">
-                    #orderNos[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="slideId">
-            <isEmpty property="slideIds">
-            <isNull property="goodsId">
-            <isEmpty property="goodsIds">
-            <isNull property="urlType">
-            <isNull property="urlTypeMin">
-            <isNull property="urlTypeMax">
-            <isNull property="orderNo">
-            <isEmpty property="orderNos">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           where
+             a.delete_flag = 0
+             <isNotNull property="slideId">
+             and a.slide_id=#slideId#
+             </isNotNull>
+             <isNotEmpty property="slideIds">
+             and a.slide_id in
+               <iterate close=")" conjunction="," open="(" property="slideIds">
+               #slideIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="goodsId">
+             and a.goods_id=#goodsId#
+             </isNotNull>
+             <isNotEmpty property="goodsIds">
+             and a.goods_id in
+               <iterate close=")" conjunction="," open="(" property="goodsIds">
+               #goodsIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="urlType">
+             and a.urlType=#urlType#
+             </isNotNull>
+             <isNotNull property="urlTypeMin">
+             and a.urlType >=#urlTypeMin#
+             </isNotNull>
+             <isNotNull property="urlTypeMax">
+             and a.urlType &lt;#urlTypeMax#
+             </isNotNull>
+             <isNotNull property="orderNo">
+             and a.order_no=#orderNo#
+             </isNotNull>
+             <isNotEmpty property="orderNos">
+             and a.order_no in
+               <iterate close=")" conjunction="," open="(" property="orderNos">
+               #orderNos[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="slideId">
+             <isEmpty property="slideIds">
+             <isNull property="goodsId">
+             <isEmpty property="goodsIds">
+             <isNull property="urlType">
+             <isNull property="urlTypeMin">
+             <isNull property="urlTypeMax">
+             <isNull property="orderNo">
+             <isEmpty property="orderNos">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
 	</select>
 	    
 	
@@ -284,28 +285,28 @@
 	
 	<select id="Slide.getSlidesBySlideIds" resultMap="Slide_RM" >
     	select
- /* getSlidesBySlideIds.Slide */             a.slide_id,
-            a.goods_id,
-            a.image,
-            a.urlType,
-            a.order_no,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_slide a
-            where
-            a.delete_flag = 0
-            <isEmpty property="slideIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="slideIds">
-                and a.slide_id in
+ /* getSlidesBySlideIds.Slide */              a.slide_id,
+             a.goods_id,
+             a.image,
+             a.urlType,
+             a.order_no,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_slide a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="slideIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="slideIds">
+             a.slide_id in
                 <iterate close=")" conjunction="," open="(" property="slideIds">
-                    #slideIds[]#
+                   #slideIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getSlidesBySlideIdsOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getSlidesBySlideIdsOrderBy"/>
 	</select>	
 
 	    
@@ -314,20 +315,21 @@
     
 	
 	<update id="Slide.deleteBySlideIds">
-		UPDATE demo_slide SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="slideIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="slideIds">
-                and slide_id in
+		UPDATE demo_slide a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="slideIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="slideIds">
+             a.slide_id in
                 <iterate close=")" conjunction="," open="(" property="slideIds">
-                    #slideIds[]#
+                   #slideIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     

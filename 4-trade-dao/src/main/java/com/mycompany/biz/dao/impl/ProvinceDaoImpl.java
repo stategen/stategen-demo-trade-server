@@ -41,7 +41,7 @@ public class ProvinceDaoImpl  extends SqlDaoSupportBase implements ProvinceDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_province SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and province_id = ?
+	 * sql:UPDATE demo_province a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.province_id = ?
 	 */
 	public String delete(String provinceId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -52,7 +52,7 @@ public class ProvinceDaoImpl  extends SqlDaoSupportBase implements ProvinceDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_province SET update_time= CURRENT_TIMESTAMP(6) , name = ? , pycode = ? where delete_flag = 0 and province_id = ?
+	 * sql:UPDATE demo_province a SET a.update_time= CURRENT_TIMESTAMP(6) , a.name = ? , a.pycode = ? where a.delete_flag = 0 and a.province_id = ?
 	 */
 	public Province update(Province province) throws DataAccessException {
 		if(province == null) {
@@ -92,7 +92,7 @@ public class ProvinceDaoImpl  extends SqlDaoSupportBase implements ProvinceDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_province SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and province_id in ( ? )
+	 * sql:UPDATE demo_province a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.province_id in ( ? )
 	 */
 	public java.util.List<String> deleteByProvinceIds(java.util.List<String> provinceIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);

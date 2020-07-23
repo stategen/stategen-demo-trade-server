@@ -41,7 +41,7 @@ public class SlideDaoImpl  extends SqlDaoSupportBase implements SlideDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_slide SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and slide_id = ?
+	 * sql:UPDATE demo_slide a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.slide_id = ?
 	 */
 	public String delete(String slideId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -52,7 +52,7 @@ public class SlideDaoImpl  extends SqlDaoSupportBase implements SlideDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_slide SET update_time= CURRENT_TIMESTAMP(6) , goods_id = ? , image = ? , urlType = ? , order_no = ? where delete_flag = 0 and slide_id = ?
+	 * sql:UPDATE demo_slide a SET a.update_time= CURRENT_TIMESTAMP(6) , a.goods_id = ? , a.image = ? , a.urlType = ? , a.order_no = ? where a.delete_flag = 0 and a.slide_id = ?
 	 */
 	public Slide update(Slide slide) throws DataAccessException {
 		if(slide == null) {
@@ -92,7 +92,7 @@ public class SlideDaoImpl  extends SqlDaoSupportBase implements SlideDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_slide SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and slide_id in ( ? )
+	 * sql:UPDATE demo_slide a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.slide_id in ( ? )
 	 */
 	public java.util.List<String> deleteBySlideIds(java.util.List<String> slideIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);

@@ -38,6 +38,9 @@ import com.mycompany.biz.service.UserService;
  */
 public class TopicServiceImpl implements TopicService {
 
+    @Resource(name = "topicDao")
+    TopicDao topicDao;
+
     @Resource
     UserService userService;
 
@@ -58,10 +61,6 @@ public class TopicServiceImpl implements TopicService {
         CollectionUtil.setFeildToFieldByMap(topics, replyCountMap, Topic::getTopicId, Topic::setReplyCount, Topic::getReplyCount);
     }
 
-    //<#--
-    @Resource(name = "topicDao")
-    TopicDao topicDao;
-
     /**
      * 
      * @see com.mycompany.biz.dao.TopicDao#insert
@@ -78,8 +77,8 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#delete
      */
     @Override
-    public String delete(String topicId) {
-        return topicDao.delete(topicId);
+    public String delete(String topicId, Long currentOrgId) {
+        return topicDao.delete(topicId, currentOrgId);
     }
 
     /**
@@ -98,9 +97,18 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#getTopicByTopicId
      */
     @Override
-    public Topic getTopicByTopicId(String topicId) {
-        Topic topic = topicDao.getTopicByTopicId(topicId);
-        return topic;
+    public Topic getTopicByTopicId(String topicId, Long currentOrgId) {
+        return topicDao.getTopicByTopicId(topicId, currentOrgId);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.TopicDao#getPageList
+     * @see com.mycompany.biz.service.TopicService#getPageList
+     */
+    @Override
+    public PageList<Topic> getPageList(Topic topic, int pageSize, int pageNum) {
+        return topicDao.getPageList(topic, pageSize, pageNum);
     }
 
     /**
@@ -109,8 +117,16 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#getTopicsByTopicIds
      */
     @Override
-    public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds) {
-        return topicDao.getTopicsByTopicIds(topicIds);
+    public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Long currentOrgId) {
+        return topicDao.getTopicsByTopicIds(topicIds, currentOrgId);
+    }
+
+    /**
+     * @see com.mycompany.biz.service.TopicService#getTopicsByTopicIds
+     */
+    @Override
+    public List<Topic> getTopicsByTopicIdsNullOrgId(java.util.List<String> topicIds) {
+        return getTopicsByTopicIds(topicIds, null);
     }
 
     /**
@@ -119,8 +135,18 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#deleteByTopicIds
      */
     @Override
-    public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds) {
-        return topicDao.deleteByTopicIds(topicIds);
+    public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Long currentOrgId) {
+        return topicDao.deleteByTopicIds(topicIds, currentOrgId);
+    }
+
+    /**
+     * 获取当前回复的数量
+     * @see com.mycompany.biz.dao.TopicDao#getReplyCounts
+     * @see com.mycompany.biz.service.TopicService#getReplyCounts
+     */
+    @Override
+    public List<Topic> getReplyCounts(java.util.List<String> topicIds) {
+        return topicDao.getReplyCounts(topicIds);
     }
 
     /*** 保存topic,有id时更新，没有id时插入,并带回新的id，返回 topic*/
@@ -146,29 +172,9 @@ public class TopicServiceImpl implements TopicService {
         return topics;
     }
 
-    /**
-     * 获取当前回复的数量
-     * @see com.mycompany.biz.dao.TopicDao#getReplyCounts
-     * @see com.mycompany.biz.service.TopicService#getReplyCounts
-     */
-    @Override
-    public List<Topic> getReplyCounts(java.util.List<String> topicIds) {
-        return topicDao.getReplyCounts(topicIds);
-    }
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.TopicDao#getPageList
-     * @see com.mycompany.biz.service.TopicService#getPageList
-     */
-    @Override
-    public PageList<Topic> getPageList(Topic topic, int pageSize, int pageNum) {
-        return topicDao.getPageList(topic, pageSize, pageNum);
-    }
-
     @Override
     public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, Topic> destSetMethod) {
-        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, TopicServiceImpl::getTopicsByTopicIds, Topic::getTopicId);
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, TopicServiceImpl::getTopicsByTopicIdsNullOrgId, Topic::getTopicId);
     }
 
     @Override
@@ -178,8 +184,6 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
-        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, TopicServiceImpl::getTopicsByTopicIds, Topic::getTopicId);
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, TopicServiceImpl::getTopicsByTopicIdsNullOrgId, Topic::getTopicId);
     }
-    //-->
-    //
 }

@@ -142,4 +142,24 @@ public class FloorGoodsServiceImpl implements FloorGoodsService {
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, FloorGoodsServiceImpl::getFloorGoodsByFloorGoodsIds, FloorGoods::getFloorGoodsId);
     }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodsByFloorGoodsId
+     * @see com.mycompany.biz.service.FloorGoodsService#getFloorGoodsByFloorGoodsId
+     */
+    @Override
+    public FloorGoods getFloorGoodsByFloorGoodsId(String floorGoodsId) {
+        return floorGoodsDao.getFloorGoodsByFloorGoodsId(floorGoodsId);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodssByFloorGoodsIds
+     * @see com.mycompany.biz.service.FloorGoodsService#getFloorGoodssByFloorGoodsIds
+     */
+    @Override
+    public List<FloorGoods> getFloorGoodssByFloorGoodsIds(java.util.List<String> floorGoodsIds) {
+        return floorGoodsDao.getFloorGoodssByFloorGoodsIds(floorGoodsIds);
+    }
 }

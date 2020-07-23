@@ -41,7 +41,7 @@ public interface HomeShopDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_home_shop SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and home_shop_id = ?
+	 * sql:UPDATE demo_home_shop a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.home_shop_id = ?
 	 */
 	public String delete(String homeShopId) throws DataAccessException;
 	
@@ -53,7 +53,7 @@ public interface HomeShopDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_home_shop SET update_time= CURRENT_TIMESTAMP(6) , shop_id = ? where delete_flag = 0 and home_shop_id = ?
+	 * sql:UPDATE demo_home_shop a SET a.update_time= CURRENT_TIMESTAMP(6) , a.shop_id = ? where a.delete_flag = 0 and a.home_shop_id = ?
 	 */
 	public HomeShop update(HomeShop homeShop) throws DataAccessException;
 	
@@ -101,7 +101,7 @@ public interface HomeShopDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_home_shop SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and home_shop_id in ( ? )
+	 * sql:UPDATE demo_home_shop a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.home_shop_id in ( ? )
 	 */
 	public java.util.List<String> deleteByHomeShopIds(java.util.List<String> homeShopIds) throws DataAccessException;
 	

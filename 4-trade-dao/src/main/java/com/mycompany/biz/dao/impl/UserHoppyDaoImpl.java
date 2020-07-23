@@ -41,7 +41,7 @@ public class UserHoppyDaoImpl  extends SqlDaoSupportBase implements UserHoppyDao
 
 	/**
 	 * 
-	 * sql:UPDATE demo_user_hoppy SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and id = ?
+	 * sql:UPDATE demo_user_hoppy a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.id = ?
 	 */
 	public Long delete(Long id) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -52,7 +52,7 @@ public class UserHoppyDaoImpl  extends SqlDaoSupportBase implements UserHoppyDao
 
 	/**
 	 * 
-	 * sql:UPDATE demo_user_hoppy SET update_time= CURRENT_TIMESTAMP(6) , user_id = ? , hoppy_id = ? where delete_flag = 0 and id = ?
+	 * sql:UPDATE demo_user_hoppy a SET a.update_time= CURRENT_TIMESTAMP(6) , a.user_id = ? , a.hoppy_id = ? where a.delete_flag = 0 and a.id = ?
 	 */
 	public UserHoppy update(UserHoppy userHoppy) throws DataAccessException {
 		if(userHoppy == null) {
@@ -102,7 +102,7 @@ public class UserHoppyDaoImpl  extends SqlDaoSupportBase implements UserHoppyDao
 
 	/**
 	 * 
-	 * sql:UPDATE demo_user_hoppy SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and id in ( ? )
+	 * sql:UPDATE demo_user_hoppy a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.id in ( ? )
 	 */
 	public java.util.List<Long> deleteByIds(java.util.List<Long> ids) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);

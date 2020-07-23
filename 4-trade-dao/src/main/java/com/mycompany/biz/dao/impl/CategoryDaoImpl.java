@@ -41,7 +41,7 @@ public class CategoryDaoImpl  extends SqlDaoSupportBase implements CategoryDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_category SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and category_id = ?
+	 * sql:UPDATE demo_category a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.category_id = ?
 	 */
 	public String delete(String categoryId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -52,7 +52,7 @@ public class CategoryDaoImpl  extends SqlDaoSupportBase implements CategoryDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_category SET update_time= CURRENT_TIMESTAMP(6) , category_name = ? , comments = ? , image = ? where delete_flag = 0 and category_id = ?
+	 * sql:UPDATE demo_category a SET a.update_time= CURRENT_TIMESTAMP(6) , a.category_name = ? , a.comments = ? , a.image = ? where a.delete_flag = 0 and a.category_id = ?
 	 */
 	public Category update(Category category) throws DataAccessException {
 		if(category == null) {
@@ -92,7 +92,7 @@ public class CategoryDaoImpl  extends SqlDaoSupportBase implements CategoryDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_category SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and category_id in ( ? )
+	 * sql:UPDATE demo_category a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.category_id in ( ? )
 	 */
 	public java.util.List<String> deleteByCategoryIds(java.util.List<String> categoryIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);

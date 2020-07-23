@@ -42,7 +42,7 @@ public interface TopicUpDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_topic_up SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and up_id = ?
+	 * sql:UPDATE demo_topic_up a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.up_id = ?
 	 */
 	public String delete(String upId) throws DataAccessException;
 	
@@ -55,7 +55,7 @@ public interface TopicUpDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_topic_up SET update_time= CURRENT_TIMESTAMP(6) , object_id = ? , author_id = ? where delete_flag = 0 and up_id = ?
+	 * sql:UPDATE demo_topic_up a SET a.update_time= CURRENT_TIMESTAMP(6) , a.object_id = ? , a.author_id = ? where a.delete_flag = 0 and a.up_id = ?
 	 */
 	public TopicUp update(TopicUp topicUp) throws DataAccessException;
 	
@@ -105,7 +105,7 @@ public interface TopicUpDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_topic_up SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and up_id in ( ? )
+	 * sql:UPDATE demo_topic_up a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.up_id in ( ? )
 	 */
 	public java.util.List<String> deleteByUpIds(java.util.List<String> upIds) throws DataAccessException;
 	

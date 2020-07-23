@@ -29,67 +29,68 @@
     
 	<insert id="Category.insert">
 		insert into demo_category (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="categoryId"> category_id </isNotNull>
-            <isNotNull prepend="," property="categoryName"> category_name </isNotNull>
-            <isNotNull prepend="," property="comments"> comments </isNotNull>
-            <isNotNull prepend="," property="image"> image </isNotNull>
-            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="categoryId"> category_id </isNotNull>
+             <isNotNull prepend="," property="categoryName"> category_name </isNotNull>
+             <isNotNull prepend="," property="comments"> comments </isNotNull>
+             <isNotNull prepend="," property="image"> image </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="categoryId"> #categoryId# </isNotNull> 
             <isNotNull prepend="," property="categoryName"> #categoryName# </isNotNull> 
             <isNotNull prepend="," property="comments"> #comments# </isNotNull> 
             <isNotNull prepend="," property="image"> #image# </isNotNull>)
-            <selectKey keyProperty="categoryId" resultClass="String" type="pre">
-                select if((#categoryId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#categoryId# ) as categoryId
-            </selectKey>
+           <selectKey keyProperty="categoryId" resultClass="String" type="pre">
+              select if((#categoryId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#categoryId# ) as categoryId
+           </selectKey>
 	</insert>
 	
 	<update id="Category.delete">
-		UPDATE demo_category SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and category_id = #categoryId#
+		UPDATE demo_category a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.category_id = #categoryId#
 	</update>
 	
     
 	
 	<update id="Category.update">
-		UPDATE demo_category
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull prepend="," property="categoryName">
-                    category_name =  #categoryName# 
-                </isNotNull>
-                <isNotNull prepend="," property="comments">
-                    comments =  #comments# 
-                </isNotNull>
-                <isNotNull prepend="," property="image">
-                    image =  #image# 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and category_id = #categoryId#
+		UPDATE demo_category a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="categoryName">
+             a.category_name =  #categoryName# 
+             </isNotNull>
+             <isNotNull prepend="," property="comments">
+             a.comments =  #comments# 
+             </isNotNull>
+             <isNotNull prepend="," property="image">
+             a.image =  #image# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.category_id = #categoryId#
 	</update>
 	
     
 	
 	<select id="Category.getCategoryByCategoryId" resultMap="Category_RM" >
     	select
- /* getCategoryByCategoryId.Category */             a.category_id,
-            a.category_name,
-            a.comments,
-            a.image,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_category a
-            where
-            a.delete_flag = 0
-            and a.category_id = #categoryId#
+ /* getCategoryByCategoryId.Category */              a.category_id,
+             a.category_name,
+             a.comments,
+             a.image,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_category a
+           where
+             a.delete_flag = 0
+             and a.category_id = #categoryId#
 	</select>	
 
 	    
@@ -99,113 +100,113 @@
 	
 	<select id="Category.getPageList" resultMap="Category_RM" >
     	select
- /* getPageList.Category */             a.category_id,
-            a.category_name,
-            a.comments,
-            a.image,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_category a
-            where
-            a.delete_flag = 0
-            <isNotNull property="categoryId">
-               and a.category_id=#categoryId#
-            </isNotNull>
-            <isNotEmpty property="categoryIds">
-                and a.category_id in
-                <iterate close=")" conjunction="," open="(" property="categoryIds">
-                    #categoryIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="categoryName">
-            and a.category_name=#categoryName#
-          </isNotNull>
-            <isNotEmpty property="categoryNameLike">
-                and a.category_name like CONCAT('%',#categoryNameLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="categoryId">
-            <isEmpty property="categoryIds">
-            <isNull property="categoryName">
-            <isEmpty property="categoryNameLike">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+ /* getPageList.Category */              a.category_id,
+             a.category_name,
+             a.comments,
+             a.image,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_category a
+           where
+             a.delete_flag = 0
+             <isNotNull property="categoryId">
+             and a.category_id=#categoryId#
+             </isNotNull>
+             <isNotEmpty property="categoryIds">
+             and a.category_id in
+               <iterate close=")" conjunction="," open="(" property="categoryIds">
+               #categoryIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="categoryName">
+             and a.category_name=#categoryName#
+             </isNotNull>
+             <isNotEmpty property="categoryNameLike">
+             and a.category_name like CONCAT('%',#categoryNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="categoryId">
+             <isEmpty property="categoryIds">
+             <isNull property="categoryName">
+             <isEmpty property="categoryNameLike">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid="getCategoryPageListOrderBy"/>
+              <include refid="getCategoryPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
 	<select id="Category.getPageList_count" resultClass="long" >
     	select  /* getPageList_count.Category */ count(*)  from demo_category a
-            where
-            a.delete_flag = 0
-            <isNotNull property="categoryId">
-               and a.category_id=#categoryId#
-            </isNotNull>
-            <isNotEmpty property="categoryIds">
-                and a.category_id in
-                <iterate close=")" conjunction="," open="(" property="categoryIds">
-                    #categoryIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="categoryName">
-            and a.category_name=#categoryName#
-          </isNotNull>
-            <isNotEmpty property="categoryNameLike">
-                and a.category_name like CONCAT('%',#categoryNameLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="categoryId">
-            <isEmpty property="categoryIds">
-            <isNull property="categoryName">
-            <isEmpty property="categoryNameLike">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           where
+             a.delete_flag = 0
+             <isNotNull property="categoryId">
+             and a.category_id=#categoryId#
+             </isNotNull>
+             <isNotEmpty property="categoryIds">
+             and a.category_id in
+               <iterate close=")" conjunction="," open="(" property="categoryIds">
+               #categoryIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="categoryName">
+             and a.category_name=#categoryName#
+             </isNotNull>
+             <isNotEmpty property="categoryNameLike">
+             and a.category_name like CONCAT('%',#categoryNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="categoryId">
+             <isEmpty property="categoryIds">
+             <isNull property="categoryName">
+             <isEmpty property="categoryNameLike">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
 	</select>
 	    
 	
@@ -214,27 +215,27 @@
 	
 	<select id="Category.getCategorysByCategoryIds" resultMap="Category_RM" >
     	select
- /* getCategorysByCategoryIds.Category */             a.category_id,
-            a.category_name,
-            a.comments,
-            a.image,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_category a
-            where
-            a.delete_flag = 0
-            <isEmpty property="categoryIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="categoryIds">
-                and a.category_id in
+ /* getCategorysByCategoryIds.Category */              a.category_id,
+             a.category_name,
+             a.comments,
+             a.image,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_category a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="categoryIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="categoryIds">
+             a.category_id in
                 <iterate close=")" conjunction="," open="(" property="categoryIds">
-                    #categoryIds[]#
+                   #categoryIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getCategorysByCategoryIdsOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getCategorysByCategoryIdsOrderBy"/>
 	</select>	
 
 	    
@@ -243,20 +244,21 @@
     
 	
 	<update id="Category.deleteByCategoryIds">
-		UPDATE demo_category SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="categoryIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="categoryIds">
-                and category_id in
+		UPDATE demo_category a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="categoryIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="categoryIds">
+             a.category_id in
                 <iterate close=")" conjunction="," open="(" property="categoryIds">
-                    #categoryIds[]#
+                   #categoryIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     

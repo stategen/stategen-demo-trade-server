@@ -2,67 +2,68 @@
     <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_goods_comment -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_goods_comment (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="commentsId"> comments_id </isNotNull>
-            <isNotNull prepend="," property="goodsId"> goods_id </isNotNull>
-            <isNotNull prepend="," property="comments"> comments </isNotNull>
-            <isNotNull prepend="," property="userName"> user_name </isNotNull>
-            <isNotNull prepend="," property="discussTime"> discuss_time </isNotNull>
-            <isNotNull prepend="," property="score"> score </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="commentsId"> ?  </isNotNull>
-            <isNotNull prepend="," property="goodsId"> ?  </isNotNull>
-            <isNotNull prepend="," property="comments"> ?  </isNotNull>
-            <isNotNull prepend="," property="userName"> ?  </isNotNull>
-            <isNotNull prepend="," property="discussTime"> ?  </isNotNull>
-            <isNotNull prepend="," property="score"> ?  </isNotNull>
-            )
-            <selectKey keyProperty="commentsId" resultClass="String" type="pre">
-                select if((#commentsId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#commentsId# ) as commentsId
-            </selectKey>
+           insert into demo_goods_comment (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="commentsId"> comments_id </isNotNull>
+             <isNotNull prepend="," property="goodsId"> goods_id </isNotNull>
+             <isNotNull prepend="," property="comments"> comments </isNotNull>
+             <isNotNull prepend="," property="userName"> user_name </isNotNull>
+             <isNotNull prepend="," property="discussTime"> discuss_time </isNotNull>
+             <isNotNull prepend="," property="score"> score </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="commentsId"> ?  </isNotNull>
+             <isNotNull prepend="," property="goodsId"> ?  </isNotNull>
+             <isNotNull prepend="," property="comments"> ?  </isNotNull>
+             <isNotNull prepend="," property="userName"> ?  </isNotNull>
+             <isNotNull prepend="," property="discussTime"> ?  </isNotNull>
+             <isNotNull prepend="," property="score"> ?  </isNotNull>
+           )
+           <selectKey keyProperty="commentsId" resultClass="String" type="pre">
+              select if((#commentsId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#commentsId# ) as commentsId
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE demo_goods_comment SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and comments_id = ?
+           UPDATE demo_goods_comment a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.comments_id = ?
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE demo_goods_comment
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="goodsId" prepend=",">
-                    goods_id =  ? 
-                </isNotNull>
-                <isNotNull property="comments" prepend=",">
-                    comments =  ? 
-                </isNotNull>
-                <isNotNull property="userName" prepend=",">
-                    user_name =  ? 
-                </isNotNull>
-                <isNotNull property="discussTime" prepend=",">
-                    discuss_time =  ? 
-                </isNotNull>
-                <isNotNull property="score" prepend=",">
-                    score =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and comments_id = ?
+           UPDATE demo_goods_comment a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="goodsId" prepend=",">
+             a.goods_id =  ? 
+             </isNotNull>
+             <isNotNull property="comments" prepend=",">
+             a.comments =  ? 
+             </isNotNull>
+             <isNotNull property="userName" prepend=",">
+             a.user_name =  ? 
+             </isNotNull>
+             <isNotNull property="discussTime" prepend=",">
+             a.discuss_time =  ? 
+             </isNotNull>
+             <isNotNull property="score" prepend=",">
+             a.score =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.comments_id = ?
         </sql>
     </operation>
 
@@ -70,172 +71,173 @@
 
     <operation name="getGoodsCommentByCommentsId" multiplicity="one" remarks="">
         <sql>
-            select
-            a.comments_id,
-            a.goods_id,
-            a.comments,
-            a.user_name,
-            a.discuss_time,
-            a.score,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_goods_comment a
-            where
-            a.delete_flag = 0
-            and a.comments_id = ?
+           select
+             a.comments_id,
+             a.goods_id,
+             a.comments,
+             a.user_name,
+             a.discuss_time,
+             a.score,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_goods_comment a
+           where
+             a.delete_flag = 0
+             and a.comments_id = ?
         </sql>
     </operation>
 
     <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
-            select
-            a.comments_id,
-            a.goods_id,
-            a.comments,
-            a.user_name,
-            a.discuss_time,
-            a.score,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_goods_comment a
-            where
-            a.delete_flag = 0
-            <isNotNull property="commentsId">
-               and a.comments_id=?
-            </isNotNull>
-            <isNotEmpty property="commentsIds">
-                and a.comments_id in
-                <iterate property="commentsIds" conjunction="," open="(" close=")">
-                    #commentsIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="goodsId">
-               and a.goods_id=?
-            </isNotNull>
-            <isNotEmpty property="goodsIds">
-                and a.goods_id in
-                <iterate property="goodsIds" conjunction="," open="(" close=")">
-                    #goodsIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="userName">
-            and a.user_name=?
-          </isNotNull>
-            <isNotEmpty property="userNameLike">
-                and a.user_name like CONCAT('%',#userNameLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="discussTimeMin">
-                and a.discuss_time >=#discussTimeMin#
-            </isNotNull>
-            <isNotNull property="discussTimeMax">
-                and a.discuss_time &lt;#discussTimeMax#
-            </isNotNull>
-          <isNotNull property="score">
-                and a.score=?
-          </isNotNull>
-            <isNotNull property="scoreMin">
-                and a.score >=#scoreMin#
-            </isNotNull>
-            <isNotNull property="scoreMax">
-                and a.score &lt;#scoreMax#
-            </isNotNull>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="commentsId">
-            <isEmpty property="commentsIds">
-            <isNull property="goodsId">
-            <isEmpty property="goodsIds">
-            <isNull property="userName">
-            <isEmpty property="userNameLike">
-            <isNull property="discussTimeMin">
-            <isNull property="discussTimeMax">
-            <isNull property="score">
-            <isNull property="scoreMin">
-            <isNull property="scoreMax">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           select
+             a.comments_id,
+             a.goods_id,
+             a.comments,
+             a.user_name,
+             a.discuss_time,
+             a.score,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_goods_comment a
+           where
+             a.delete_flag = 0
+             <isNotNull property="commentsId">
+             and a.comments_id=?
+             </isNotNull>
+             <isNotEmpty property="commentsIds">
+             and a.comments_id in
+               <iterate property="commentsIds" conjunction="," open="(" close=")">
+               #commentsIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="goodsId">
+             and a.goods_id=?
+             </isNotNull>
+             <isNotEmpty property="goodsIds">
+             and a.goods_id in
+               <iterate property="goodsIds" conjunction="," open="(" close=")">
+               #goodsIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="userName">
+             and a.user_name=?
+             </isNotNull>
+             <isNotEmpty property="userNameLike">
+             and a.user_name like CONCAT('%',#userNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="discussTimeMin">
+             and a.discuss_time >=#discussTimeMin#
+             </isNotNull>
+             <isNotNull property="discussTimeMax">
+             and a.discuss_time &lt;#discussTimeMax#
+             </isNotNull>
+             <isNotNull property="score">
+             and a.score=?
+             </isNotNull>
+             <isNotNull property="scoreMin">
+             and a.score >=#scoreMin#
+             </isNotNull>
+             <isNotNull property="scoreMax">
+             and a.score &lt;#scoreMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="commentsId">
+             <isEmpty property="commentsIds">
+             <isNull property="goodsId">
+             <isEmpty property="goodsIds">
+             <isNull property="userName">
+             <isEmpty property="userNameLike">
+             <isNull property="discussTimeMin">
+             <isNull property="discussTimeMax">
+             <isNull property="score">
+             <isNull property="scoreMin">
+             <isNull property="scoreMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid = "getGoodsCommentPageListOrderBy" />
+              <include refid = "getGoodsCommentPageListOrderBy" />
         </sql>
     </operation>
     <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getGoodsCommentsByCommentsIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.comments_id,
-            a.goods_id,
-            a.comments,
-            a.user_name,
-            a.discuss_time,
-            a.score,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_goods_comment a
-            where
-            a.delete_flag = 0
-            <isEmpty property="commentsIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="commentsIds">
-                and a.comments_id in
+           select
+             a.comments_id,
+             a.goods_id,
+             a.comments,
+             a.user_name,
+             a.discuss_time,
+             a.score,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_goods_comment a
+           where
+             a.delete_flag = 0
+             <isEmpty property="commentsIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="commentsIds" prepend="and">
+             a.comments_id in
                 <iterate property="commentsIds" conjunction="," open="(" close=")">
-                    #commentsIds[]#
+                   #commentsIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getGoodsCommentsByCommentsIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getGoodsCommentsByCommentsIdsOrderBy" />
         </sql>
     </operation>
 
     <operation name="deleteByCommentsIds" remarks="">
         <sql>
-            UPDATE demo_goods_comment SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="commentsIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="commentsIds">
-                and comments_id in
+           UPDATE demo_goods_comment a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="commentsIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="commentsIds" prepend="and">
+             a.comments_id in
                 <iterate property="commentsIds" conjunction="," open="(" close=")">
-                    #commentsIds[]#
+                   #commentsIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
         </sql>
     </operation>
     

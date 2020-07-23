@@ -43,7 +43,7 @@ public interface RoleDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE role SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and role_id = ?
+	 * sql:UPDATE role a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.role_id = ?
 	 */
 	public String delete(String roleId) throws DataAccessException;
 	
@@ -57,7 +57,7 @@ public interface RoleDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE role SET update_time= CURRENT_TIMESTAMP(6) , role_name = ? , description = ? , role_type = ? where delete_flag = 0 and role_id = ?
+	 * sql:UPDATE role a SET a.update_time= CURRENT_TIMESTAMP(6) , a.role_name = ? , a.description = ? , a.role_type = ? where a.delete_flag = 0 and a.role_id = ?
 	 */
 	public Role update(Role role) throws DataAccessException;
 	
@@ -109,7 +109,7 @@ public interface RoleDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE role SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and role_id in ( ? )
+	 * sql:UPDATE role a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.role_id in ( ? )
 	 */
 	public java.util.List<String> deleteByRoleIds(java.util.List<String> roleIds) throws DataAccessException;
 	

@@ -45,7 +45,7 @@ public interface GoodsCommentDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_goods_comment SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and comments_id = ?
+	 * sql:UPDATE demo_goods_comment a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.comments_id = ?
 	 */
 	public String delete(String commentsId) throws DataAccessException;
 	
@@ -61,7 +61,7 @@ public interface GoodsCommentDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_goods_comment SET update_time= CURRENT_TIMESTAMP(6) , goods_id = ? , comments = ? , user_name = ? , discuss_time = ? , score = ? where delete_flag = 0 and comments_id = ?
+	 * sql:UPDATE demo_goods_comment a SET a.update_time= CURRENT_TIMESTAMP(6) , a.goods_id = ? , a.comments = ? , a.user_name = ? , a.discuss_time = ? , a.score = ? where a.delete_flag = 0 and a.comments_id = ?
 	 */
 	public GoodsComment update(GoodsComment goodsComment) throws DataAccessException;
 	
@@ -116,7 +116,7 @@ public interface GoodsCommentDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_goods_comment SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and comments_id in ( ? )
+	 * sql:UPDATE demo_goods_comment a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.comments_id in ( ? )
 	 */
 	public java.util.List<String> deleteByCommentsIds(java.util.List<String> commentsIds) throws DataAccessException;
 	

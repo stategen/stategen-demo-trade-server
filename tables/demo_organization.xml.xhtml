@@ -2,57 +2,58 @@
     <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_organization -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_organization (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="orgId"> org_id </isNotNull>
-            <isNotNull prepend="," property="parentId"> parent_id </isNotNull>
-            <isNotNull prepend="," property="name"> name </isNotNull>
-            <isNotNull prepend="," property="orgType"> org_type </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="orgId"> ?  </isNotNull>
-            <isNotNull prepend="," property="parentId"> ?  </isNotNull>
-            <isNotNull prepend="," property="name"> ?  </isNotNull>
-            <isNotNull prepend="," property="orgType"> ?  </isNotNull>
-            )
-            <selectKey resultClass="long" keyProperty="orgId">
-                select  LAST_INSERT_ID()
-            </selectKey>
+           insert into demo_organization (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="orgId"> org_id </isNotNull>
+             <isNotNull prepend="," property="parentId"> parent_id </isNotNull>
+             <isNotNull prepend="," property="name"> name </isNotNull>
+             <isNotNull prepend="," property="orgType"> org_type </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="orgId"> ?  </isNotNull>
+             <isNotNull prepend="," property="parentId"> ?  </isNotNull>
+             <isNotNull prepend="," property="name"> ?  </isNotNull>
+             <isNotNull prepend="," property="orgType"> ?  </isNotNull>
+           )
+           <selectKey resultClass="long" keyProperty="orgId">
+              select  LAST_INSERT_ID()
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE demo_organization SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and org_id = ?
+           UPDATE demo_organization a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.org_id = ?
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE demo_organization
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="parentId" prepend=",">
-                    parent_id =  ? 
-                </isNotNull>
-                <isNotNull property="name" prepend=",">
-                    name =  ? 
-                </isNotNull>
-                <isNotNull property="orgType" prepend=",">
-                    org_type =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and org_id = ?
+           UPDATE demo_organization a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="parentId" prepend=",">
+             a.parent_id =  ? 
+             </isNotNull>
+             <isNotNull property="name" prepend=",">
+             a.name =  ? 
+             </isNotNull>
+             <isNotNull property="orgType" prepend=",">
+             a.org_type =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.org_id = ?
         </sql>
     </operation>
 
@@ -60,154 +61,155 @@
 
     <operation name="getOrganizationByOrgId" multiplicity="one" remarks="">
         <sql>
-            select
-            a.org_id,
-            a.parent_id,
-            a.name,
-            a.org_type,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from demo_organization a
-            where
-            a.delete_flag = 0
-            and a.org_id = ?
+           select
+             a.org_id,
+             a.parent_id,
+             a.name,
+             a.org_type,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_organization a
+           where
+             a.delete_flag = 0
+             and a.org_id = ?
         </sql>
     </operation>
 
     <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
-            select
-            a.org_id,
-            a.parent_id,
-            a.name,
-            a.org_type,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from demo_organization a
-            where
-            a.delete_flag = 0
-            <isNotNull property="orgId">
-               and a.org_id=?
-            </isNotNull>
-            <isNotEmpty property="orgIds">
-                and a.org_id in
-                <iterate property="orgIds" conjunction="," open="(" close=")">
-                    #orgIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="parentId">
-               and a.parent_id=?
-            </isNotNull>
-            <isNotEmpty property="parentIds">
-                and a.parent_id in
-                <iterate property="parentIds" conjunction="," open="(" close=")">
-                    #parentIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="name">
-            and a.name=?
-          </isNotNull>
-            <isNotEmpty property="nameLike">
-                and a.name like CONCAT('%',#nameLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="orgType">
-               and a.org_type=?
-            </isNotNull>
-            <isNotEmpty property="orgTypes">
-                and a.org_type in
-                <iterate property="orgTypes" conjunction="," open="(" close=")">
-                    #orgTypes[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNull property="orgId">
-            <isEmpty property="orgIds">
-            <isNull property="parentId">
-            <isEmpty property="parentIds">
-            <isNull property="name">
-            <isEmpty property="nameLike">
-            <isNull property="orgType">
-            <isEmpty property="orgTypes">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           select
+             a.org_id,
+             a.parent_id,
+             a.name,
+             a.org_type,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_organization a
+           where
+             a.delete_flag = 0
+             <isNotNull property="orgId">
+             and a.org_id=?
+             </isNotNull>
+             <isNotEmpty property="orgIds">
+             and a.org_id in
+               <iterate property="orgIds" conjunction="," open="(" close=")">
+               #orgIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="parentId">
+             and a.parent_id=?
+             </isNotNull>
+             <isNotEmpty property="parentIds">
+             and a.parent_id in
+               <iterate property="parentIds" conjunction="," open="(" close=")">
+               #parentIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="name">
+             and a.name=?
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="orgType">
+             and a.org_type=?
+             </isNotNull>
+             <isNotEmpty property="orgTypes">
+             and a.org_type in
+               <iterate property="orgTypes" conjunction="," open="(" close=")">
+               #orgTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNull property="orgId">
+             <isEmpty property="orgIds">
+             <isNull property="parentId">
+             <isEmpty property="parentIds">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="orgType">
+             <isEmpty property="orgTypes">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid = "getOrganizationPageListOrderBy" />
+              <include refid = "getOrganizationPageListOrderBy" />
         </sql>
     </operation>
     <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getOrganizationsByOrgIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.org_id,
-            a.parent_id,
-            a.name,
-            a.org_type,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from demo_organization a
-            where
-            a.delete_flag = 0
-            <isEmpty property="orgIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="orgIds">
-                and a.org_id in
+           select
+             a.org_id,
+             a.parent_id,
+             a.name,
+             a.org_type,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_organization a
+           where
+             a.delete_flag = 0
+             <isEmpty property="orgIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="orgIds" prepend="and">
+             a.org_id in
                 <iterate property="orgIds" conjunction="," open="(" close=")">
-                    #orgIds[]#
+                   #orgIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getOrganizationsByOrgIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getOrganizationsByOrgIdsOrderBy" />
         </sql>
     </operation>
 
     <operation name="deleteByOrgIds" remarks="">
         <sql>
-            UPDATE demo_organization SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="orgIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="orgIds">
-                and org_id in
+           UPDATE demo_organization a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="orgIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="orgIds" prepend="and">
+             a.org_id in
                 <iterate property="orgIds" conjunction="," open="(" close=")">
-                    #orgIds[]#
+                   #orgIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
         </sql>
     </operation>
     

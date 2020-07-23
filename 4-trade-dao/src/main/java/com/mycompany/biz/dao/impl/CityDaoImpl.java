@@ -41,7 +41,7 @@ public class CityDaoImpl  extends SqlDaoSupportBase implements CityDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_city SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and city_id = ?
+	 * sql:UPDATE demo_city a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.city_id = ?
 	 */
 	public String delete(String cityId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -52,7 +52,7 @@ public class CityDaoImpl  extends SqlDaoSupportBase implements CityDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_city SET update_time= CURRENT_TIMESTAMP(6) , name = ? , pycode = ? , province_id = ? , postcode = ? , areacode = ? where delete_flag = 0 and city_id = ?
+	 * sql:UPDATE demo_city a SET a.update_time= CURRENT_TIMESTAMP(6) , a.name = ? , a.pycode = ? , a.province_id = ? , a.postcode = ? , a.areacode = ? where a.delete_flag = 0 and a.city_id = ?
 	 */
 	public City update(City city) throws DataAccessException {
 		if(city == null) {
@@ -92,7 +92,7 @@ public class CityDaoImpl  extends SqlDaoSupportBase implements CityDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_city SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and city_id in ( ? )
+	 * sql:UPDATE demo_city a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.city_id in ( ? )
 	 */
 	public java.util.List<String> deleteByCityIds(java.util.List<String> cityIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);

@@ -2,47 +2,48 @@
     <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_home_shop -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_home_shop (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="homeShopId"> home_shop_id </isNotNull>
-            <isNotNull prepend="," property="shopId"> shop_id </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="homeShopId"> ?  </isNotNull>
-            <isNotNull prepend="," property="shopId"> ?  </isNotNull>
-            )
-            <selectKey keyProperty="homeShopId" resultClass="String" type="pre">
-                select if((#homeShopId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#homeShopId# ) as homeShopId
-            </selectKey>
+           insert into demo_home_shop (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="homeShopId"> home_shop_id </isNotNull>
+             <isNotNull prepend="," property="shopId"> shop_id </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="homeShopId"> ?  </isNotNull>
+             <isNotNull prepend="," property="shopId"> ?  </isNotNull>
+           )
+           <selectKey keyProperty="homeShopId" resultClass="String" type="pre">
+              select if((#homeShopId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#homeShopId# ) as homeShopId
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE demo_home_shop SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and home_shop_id = ?
+           UPDATE demo_home_shop a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.home_shop_id = ?
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE demo_home_shop
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="shopId" prepend=",">
-                    shop_id =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and home_shop_id = ?
+           UPDATE demo_home_shop a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="shopId" prepend=",">
+             a.shop_id =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.home_shop_id = ?
         </sql>
     </operation>
 
@@ -50,125 +51,126 @@
 
     <operation name="getHomeShopByHomeShopId" multiplicity="one" remarks="">
         <sql>
-            select
-            a.home_shop_id,
-            a.shop_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_home_shop a
-            where
-            a.delete_flag = 0
-            and a.home_shop_id = ?
+           select
+             a.home_shop_id,
+             a.shop_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_home_shop a
+           where
+             a.delete_flag = 0
+             and a.home_shop_id = ?
         </sql>
     </operation>
 
     <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
-            select
-            a.home_shop_id,
-            a.shop_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_home_shop a
-            where
-            a.delete_flag = 0
-            <isNotNull property="homeShopId">
-               and a.home_shop_id=?
-            </isNotNull>
-            <isNotEmpty property="homeShopIds">
-                and a.home_shop_id in
-                <iterate property="homeShopIds" conjunction="," open="(" close=")">
-                    #homeShopIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="shopId">
-               and a.shop_id=?
-            </isNotNull>
-            <isNotEmpty property="shopIds">
-                and a.shop_id in
-                <iterate property="shopIds" conjunction="," open="(" close=")">
-                    #shopIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="homeShopId">
-            <isEmpty property="homeShopIds">
-            <isNull property="shopId">
-            <isEmpty property="shopIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           select
+             a.home_shop_id,
+             a.shop_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_home_shop a
+           where
+             a.delete_flag = 0
+             <isNotNull property="homeShopId">
+             and a.home_shop_id=?
+             </isNotNull>
+             <isNotEmpty property="homeShopIds">
+             and a.home_shop_id in
+               <iterate property="homeShopIds" conjunction="," open="(" close=")">
+               #homeShopIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="shopId">
+             and a.shop_id=?
+             </isNotNull>
+             <isNotEmpty property="shopIds">
+             and a.shop_id in
+               <iterate property="shopIds" conjunction="," open="(" close=")">
+               #shopIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="homeShopId">
+             <isEmpty property="homeShopIds">
+             <isNull property="shopId">
+             <isEmpty property="shopIds">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid = "getHomeShopPageListOrderBy" />
+              <include refid = "getHomeShopPageListOrderBy" />
         </sql>
     </operation>
     <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getHomeShopsByHomeShopIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.home_shop_id,
-            a.shop_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_home_shop a
-            where
-            a.delete_flag = 0
-            <isEmpty property="homeShopIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="homeShopIds">
-                and a.home_shop_id in
+           select
+             a.home_shop_id,
+             a.shop_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_home_shop a
+           where
+             a.delete_flag = 0
+             <isEmpty property="homeShopIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="homeShopIds" prepend="and">
+             a.home_shop_id in
                 <iterate property="homeShopIds" conjunction="," open="(" close=")">
-                    #homeShopIds[]#
+                   #homeShopIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getHomeShopsByHomeShopIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getHomeShopsByHomeShopIdsOrderBy" />
         </sql>
     </operation>
 
     <operation name="deleteByHomeShopIds" remarks="">
         <sql>
-            UPDATE demo_home_shop SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="homeShopIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="homeShopIds">
-                and home_shop_id in
+           UPDATE demo_home_shop a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="homeShopIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="homeShopIds" prepend="and">
+             a.home_shop_id in
                 <iterate property="homeShopIds" conjunction="," open="(" close=")">
-                    #homeShopIds[]#
+                   #homeShopIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
         </sql>
     </operation>
     

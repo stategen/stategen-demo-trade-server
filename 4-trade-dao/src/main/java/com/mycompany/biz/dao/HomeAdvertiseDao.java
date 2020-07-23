@@ -41,7 +41,7 @@ public interface HomeAdvertiseDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_home_advertise SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and home_adv_id = ?
+	 * sql:UPDATE demo_home_advertise a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.home_adv_id = ?
 	 */
 	public String delete(String homeAdvId) throws DataAccessException;
 	
@@ -53,7 +53,7 @@ public interface HomeAdvertiseDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_home_advertise SET update_time= CURRENT_TIMESTAMP(6) , advertise_id = ? where delete_flag = 0 and home_adv_id = ?
+	 * sql:UPDATE demo_home_advertise a SET a.update_time= CURRENT_TIMESTAMP(6) , a.advertise_id = ? where a.delete_flag = 0 and a.home_adv_id = ?
 	 */
 	public HomeAdvertise update(HomeAdvertise homeAdvertise) throws DataAccessException;
 	
@@ -101,7 +101,7 @@ public interface HomeAdvertiseDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_home_advertise SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and home_adv_id in ( ? )
+	 * sql:UPDATE demo_home_advertise a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.home_adv_id in ( ? )
 	 */
 	public java.util.List<String> deleteByHomeAdvIds(java.util.List<String> homeAdvIds) throws DataAccessException;
 	

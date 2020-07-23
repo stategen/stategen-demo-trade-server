@@ -43,7 +43,7 @@ public interface FloorDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_floor SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and floor_id = ?
+	 * sql:UPDATE demo_floor a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.floor_id = ?
 	 */
 	public String delete(String floorId) throws DataAccessException;
 	
@@ -57,7 +57,7 @@ public interface FloorDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_floor SET update_time= CURRENT_TIMESTAMP(6) , advertise_id = ? , order_no = ? , floor_name = ? where delete_flag = 0 and floor_id = ?
+	 * sql:UPDATE demo_floor a SET a.update_time= CURRENT_TIMESTAMP(6) , a.advertise_id = ? , a.order_no = ? , a.floor_name = ? where a.delete_flag = 0 and a.floor_id = ?
 	 */
 	public Floor update(Floor floor) throws DataAccessException;
 	
@@ -109,7 +109,7 @@ public interface FloorDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_floor SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and floor_id in ( ? )
+	 * sql:UPDATE demo_floor a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.floor_id in ( ? )
 	 */
 	public java.util.List<String> deleteByFloorIds(java.util.List<String> floorIds) throws DataAccessException;
 	

@@ -41,7 +41,7 @@ public class RoleMenuDaoImpl  extends SqlDaoSupportBase implements RoleMenuDao {
 
 	/**
 	 * 
-	 * sql:UPDATE role_menu SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and id = ?
+	 * sql:UPDATE role_menu a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.id = ?
 	 */
 	public Long delete(Long id) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -52,7 +52,7 @@ public class RoleMenuDaoImpl  extends SqlDaoSupportBase implements RoleMenuDao {
 
 	/**
 	 * 
-	 * sql:UPDATE role_menu SET update_time= CURRENT_TIMESTAMP(6) , role_id = ? , menu_id = ? where delete_flag = 0 and id = ?
+	 * sql:UPDATE role_menu a SET a.update_time= CURRENT_TIMESTAMP(6) , a.role_id = ? , a.menu_id = ? where a.delete_flag = 0 and a.id = ?
 	 */
 	public RoleMenu update(RoleMenu roleMenu) throws DataAccessException {
 		if(roleMenu == null) {
@@ -92,7 +92,7 @@ public class RoleMenuDaoImpl  extends SqlDaoSupportBase implements RoleMenuDao {
 
 	/**
 	 * 
-	 * sql:UPDATE role_menu SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and id in ( ? )
+	 * sql:UPDATE role_menu a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.id in ( ? )
 	 */
 	public java.util.List<Long> deleteByIds(java.util.List<Long> ids) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);

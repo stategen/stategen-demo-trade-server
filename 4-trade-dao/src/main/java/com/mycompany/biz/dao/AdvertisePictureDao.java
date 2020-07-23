@@ -43,7 +43,7 @@ public interface AdvertisePictureDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_advertise_picture SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and advertise_id = ?
+	 * sql:UPDATE demo_advertise_picture a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.advertise_id = ?
 	 */
 	public Long delete(Long advertiseId) throws DataAccessException;
 	
@@ -57,7 +57,7 @@ public interface AdvertisePictureDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_advertise_picture SET update_time= CURRENT_TIMESTAMP(6) , PICTURE_ADDRESS = ? , TO_PLACE = ? , url_type = ? where delete_flag = 0 and advertise_id = ?
+	 * sql:UPDATE demo_advertise_picture a SET a.update_time= CURRENT_TIMESTAMP(6) , a.PICTURE_ADDRESS = ? , a.TO_PLACE = ? , a.url_type = ? where a.delete_flag = 0 and a.advertise_id = ?
 	 */
 	public AdvertisePicture update(AdvertisePicture advertisePicture) throws DataAccessException;
 	
@@ -109,7 +109,7 @@ public interface AdvertisePictureDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_advertise_picture SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and advertise_id in ( ? )
+	 * sql:UPDATE demo_advertise_picture a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.advertise_id in ( ? )
 	 */
 	public java.util.List<Long> deleteByAdvertiseIds(java.util.List<Long> advertiseIds) throws DataAccessException;
 	

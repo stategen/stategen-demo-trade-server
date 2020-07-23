@@ -44,7 +44,7 @@ public interface TopicReplyDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_topic_reply SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and reply_id = ?
+	 * sql:UPDATE demo_topic_reply a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.reply_id = ?
 	 */
 	public String delete(String replyId) throws DataAccessException;
 	
@@ -59,7 +59,7 @@ public interface TopicReplyDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_topic_reply SET update_time= CURRENT_TIMESTAMP(6) , topic_id = ? , author_id = ? , content = ? , parent_reply_id = ? where delete_flag = 0 and reply_id = ?
+	 * sql:UPDATE demo_topic_reply a SET a.update_time= CURRENT_TIMESTAMP(6) , a.topic_id = ? , a.author_id = ? , a.content = ? , a.parent_reply_id = ? where a.delete_flag = 0 and a.reply_id = ?
 	 */
 	public TopicReply update(TopicReply topicReply) throws DataAccessException;
 	
@@ -111,7 +111,7 @@ public interface TopicReplyDao {
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_topic_reply SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and reply_id in ( ? )
+	 * sql:UPDATE demo_topic_reply a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.reply_id in ( ? )
 	 */
 	public java.util.List<String> deleteByReplyIds(java.util.List<String> replyIds) throws DataAccessException;
 	

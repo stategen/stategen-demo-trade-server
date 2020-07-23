@@ -142,4 +142,24 @@ public class HomeGoodsServiceImpl implements HomeGoodsService {
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, HomeGoodsServiceImpl::getHomeGoodsByRecommendIds, HomeGoods::getRecommendId);
     }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodsByRecommendId
+     * @see com.mycompany.biz.service.HomeGoodsService#getHomeGoodsByRecommendId
+     */
+    @Override
+    public HomeGoods getHomeGoodsByRecommendId(String recommendId) {
+        return homeGoodsDao.getHomeGoodsByRecommendId(recommendId);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodssByRecommendIds
+     * @see com.mycompany.biz.service.HomeGoodsService#getHomeGoodssByRecommendIds
+     */
+    @Override
+    public List<HomeGoods> getHomeGoodssByRecommendIds(java.util.List<String> recommendIds) {
+        return homeGoodsDao.getHomeGoodssByRecommendIds(recommendIds);
+    }
 }

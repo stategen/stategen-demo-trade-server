@@ -28,61 +28,62 @@
     
 	<insert id="Shop.insert">
 		insert into demo_shop (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="shopId"> shop_id </isNotNull>
-            <isNotNull prepend="," property="leaderImage"> leader_image </isNotNull>
-            <isNotNull prepend="," property="leaderPhone"> leader_phone </isNotNull>
-            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="shopId"> shop_id </isNotNull>
+             <isNotNull prepend="," property="leaderImage"> leader_image </isNotNull>
+             <isNotNull prepend="," property="leaderPhone"> leader_phone </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="shopId"> #shopId# </isNotNull> 
             <isNotNull prepend="," property="leaderImage"> #leaderImage# </isNotNull> 
             <isNotNull prepend="," property="leaderPhone"> #leaderPhone# </isNotNull>)
-            <selectKey keyProperty="shopId" resultClass="String" type="pre">
-                select if((#shopId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#shopId# ) as shopId
-            </selectKey>
+           <selectKey keyProperty="shopId" resultClass="String" type="pre">
+              select if((#shopId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#shopId# ) as shopId
+           </selectKey>
 	</insert>
 	
 	<update id="Shop.delete">
-		UPDATE demo_shop SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and shop_id = #shopId#
+		UPDATE demo_shop a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.shop_id = #shopId#
 	</update>
 	
     
 	
 	<update id="Shop.update">
-		UPDATE demo_shop
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull prepend="," property="leaderImage">
-                    leader_image =  #leaderImage# 
-                </isNotNull>
-                <isNotNull prepend="," property="leaderPhone">
-                    leader_phone =  #leaderPhone# 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and shop_id = #shopId#
+		UPDATE demo_shop a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="leaderImage">
+             a.leader_image =  #leaderImage# 
+             </isNotNull>
+             <isNotNull prepend="," property="leaderPhone">
+             a.leader_phone =  #leaderPhone# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.shop_id = #shopId#
 	</update>
 	
     
 	
 	<select id="Shop.getShopByShopId" resultMap="Shop_RM" >
     	select
- /* getShopByShopId.Shop */             a.shop_id,
-            a.leader_image,
-            a.leader_phone,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_shop a
-            where
-            a.delete_flag = 0
-            and a.shop_id = #shopId#
+ /* getShopByShopId.Shop */              a.shop_id,
+             a.leader_image,
+             a.leader_phone,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_shop a
+           where
+             a.delete_flag = 0
+             and a.shop_id = #shopId#
 	</select>	
 
 	    
@@ -92,112 +93,112 @@
 	
 	<select id="Shop.getPageList" resultMap="Shop_RM" >
     	select
- /* getPageList.Shop */             a.shop_id,
-            a.leader_image,
-            a.leader_phone,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_shop a
-            where
-            a.delete_flag = 0
-            <isNotNull property="shopId">
-               and a.shop_id=#shopId#
-            </isNotNull>
-            <isNotEmpty property="shopIds">
-                and a.shop_id in
-                <iterate close=")" conjunction="," open="(" property="shopIds">
-                    #shopIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="leaderPhone">
-            and a.leader_phone=#leaderPhone#
-          </isNotNull>
-            <isNotEmpty property="leaderPhoneLike">
-                and a.leader_phone like CONCAT('%',#leaderPhoneLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="shopId">
-            <isEmpty property="shopIds">
-            <isNull property="leaderPhone">
-            <isEmpty property="leaderPhoneLike">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+ /* getPageList.Shop */              a.shop_id,
+             a.leader_image,
+             a.leader_phone,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_shop a
+           where
+             a.delete_flag = 0
+             <isNotNull property="shopId">
+             and a.shop_id=#shopId#
+             </isNotNull>
+             <isNotEmpty property="shopIds">
+             and a.shop_id in
+               <iterate close=")" conjunction="," open="(" property="shopIds">
+               #shopIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="leaderPhone">
+             and a.leader_phone=#leaderPhone#
+             </isNotNull>
+             <isNotEmpty property="leaderPhoneLike">
+             and a.leader_phone like CONCAT('%',#leaderPhoneLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="shopId">
+             <isEmpty property="shopIds">
+             <isNull property="leaderPhone">
+             <isEmpty property="leaderPhoneLike">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid="getShopPageListOrderBy"/>
+              <include refid="getShopPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
 	<select id="Shop.getPageList_count" resultClass="long" >
     	select  /* getPageList_count.Shop */ count(*)  from demo_shop a
-            where
-            a.delete_flag = 0
-            <isNotNull property="shopId">
-               and a.shop_id=#shopId#
-            </isNotNull>
-            <isNotEmpty property="shopIds">
-                and a.shop_id in
-                <iterate close=")" conjunction="," open="(" property="shopIds">
-                    #shopIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="leaderPhone">
-            and a.leader_phone=#leaderPhone#
-          </isNotNull>
-            <isNotEmpty property="leaderPhoneLike">
-                and a.leader_phone like CONCAT('%',#leaderPhoneLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="shopId">
-            <isEmpty property="shopIds">
-            <isNull property="leaderPhone">
-            <isEmpty property="leaderPhoneLike">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           where
+             a.delete_flag = 0
+             <isNotNull property="shopId">
+             and a.shop_id=#shopId#
+             </isNotNull>
+             <isNotEmpty property="shopIds">
+             and a.shop_id in
+               <iterate close=")" conjunction="," open="(" property="shopIds">
+               #shopIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="leaderPhone">
+             and a.leader_phone=#leaderPhone#
+             </isNotNull>
+             <isNotEmpty property="leaderPhoneLike">
+             and a.leader_phone like CONCAT('%',#leaderPhoneLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="shopId">
+             <isEmpty property="shopIds">
+             <isNull property="leaderPhone">
+             <isEmpty property="leaderPhoneLike">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
 	</select>
 	    
 	
@@ -206,26 +207,26 @@
 	
 	<select id="Shop.getShopsByShopIds" resultMap="Shop_RM" >
     	select
- /* getShopsByShopIds.Shop */             a.shop_id,
-            a.leader_image,
-            a.leader_phone,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_shop a
-            where
-            a.delete_flag = 0
-            <isEmpty property="shopIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="shopIds">
-                and a.shop_id in
+ /* getShopsByShopIds.Shop */              a.shop_id,
+             a.leader_image,
+             a.leader_phone,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_shop a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="shopIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="shopIds">
+             a.shop_id in
                 <iterate close=")" conjunction="," open="(" property="shopIds">
-                    #shopIds[]#
+                   #shopIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getShopsByShopIdsOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getShopsByShopIdsOrderBy"/>
 	</select>	
 
 	    
@@ -234,20 +235,21 @@
     
 	
 	<update id="Shop.deleteByShopIds">
-		UPDATE demo_shop SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="shopIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="shopIds">
-                and shop_id in
+		UPDATE demo_shop a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="shopIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="shopIds">
+             a.shop_id in
                 <iterate close=")" conjunction="," open="(" property="shopIds">
-                    #shopIds[]#
+                   #shopIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     

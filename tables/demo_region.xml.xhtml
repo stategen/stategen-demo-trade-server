@@ -2,82 +2,83 @@
     <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_region -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_region (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="regionId"> region_id </isNotNull>
-            <isNotNull prepend="," property="parentRegionId"> parent_region_id </isNotNull>
-            <isNotNull prepend="," property="path"> path </isNotNull>
-            <isNotNull prepend="," property="level"> level </isNotNull>
-            <isNotNull prepend="," property="regionType"> region_type </isNotNull>
-            <isNotNull prepend="," property="name"> name </isNotNull>
-            <isNotNull prepend="," property="nameEn"> name_en </isNotNull>
-            <isNotNull prepend="," property="namePinyin"> name_pinyin </isNotNull>
-            <isNotNull prepend="," property="code"> code </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="regionId"> ?  </isNotNull>
-            <isNotNull prepend="," property="parentRegionId"> ?  </isNotNull>
-            <isNotNull prepend="," property="path"> ?  </isNotNull>
-            <isNotNull prepend="," property="level"> ?  </isNotNull>
-            <isNotNull prepend="," property="regionType"> ?  </isNotNull>
-            <isNotNull prepend="," property="name"> ?  </isNotNull>
-            <isNotNull prepend="," property="nameEn"> ?  </isNotNull>
-            <isNotNull prepend="," property="namePinyin"> ?  </isNotNull>
-            <isNotNull prepend="," property="code"> ?  </isNotNull>
-            )
-            <selectKey resultClass="long" keyProperty="regionId">
-                select  LAST_INSERT_ID()
-            </selectKey>
+           insert into demo_region (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="regionId"> region_id </isNotNull>
+             <isNotNull prepend="," property="parentRegionId"> parent_region_id </isNotNull>
+             <isNotNull prepend="," property="path"> path </isNotNull>
+             <isNotNull prepend="," property="level"> level </isNotNull>
+             <isNotNull prepend="," property="regionType"> region_type </isNotNull>
+             <isNotNull prepend="," property="name"> name </isNotNull>
+             <isNotNull prepend="," property="nameEn"> name_en </isNotNull>
+             <isNotNull prepend="," property="namePinyin"> name_pinyin </isNotNull>
+             <isNotNull prepend="," property="code"> code </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="regionId"> ?  </isNotNull>
+             <isNotNull prepend="," property="parentRegionId"> ?  </isNotNull>
+             <isNotNull prepend="," property="path"> ?  </isNotNull>
+             <isNotNull prepend="," property="level"> ?  </isNotNull>
+             <isNotNull prepend="," property="regionType"> ?  </isNotNull>
+             <isNotNull prepend="," property="name"> ?  </isNotNull>
+             <isNotNull prepend="," property="nameEn"> ?  </isNotNull>
+             <isNotNull prepend="," property="namePinyin"> ?  </isNotNull>
+             <isNotNull prepend="," property="code"> ?  </isNotNull>
+           )
+           <selectKey resultClass="long" keyProperty="regionId">
+              select  LAST_INSERT_ID()
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE demo_region SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and region_id = ?
+           UPDATE demo_region a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.region_id = ?
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE demo_region
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="parentRegionId" prepend=",">
-                    parent_region_id =  ? 
-                </isNotNull>
-                <isNotNull property="path" prepend=",">
-                    path =  ? 
-                </isNotNull>
-                <isNotNull property="level" prepend=",">
-                    level =  ? 
-                </isNotNull>
-                <isNotNull property="regionType" prepend=",">
-                    region_type =  ? 
-                </isNotNull>
-                <isNotNull property="name" prepend=",">
-                    name =  ? 
-                </isNotNull>
-                <isNotNull property="nameEn" prepend=",">
-                    name_en =  ? 
-                </isNotNull>
-                <isNotNull property="namePinyin" prepend=",">
-                    name_pinyin =  ? 
-                </isNotNull>
-                <isNotNull property="code" prepend=",">
-                    code =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and region_id = ?
+           UPDATE demo_region a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="parentRegionId" prepend=",">
+             a.parent_region_id =  ? 
+             </isNotNull>
+             <isNotNull property="path" prepend=",">
+             a.path =  ? 
+             </isNotNull>
+             <isNotNull property="level" prepend=",">
+             a.level =  ? 
+             </isNotNull>
+             <isNotNull property="regionType" prepend=",">
+             a.region_type =  ? 
+             </isNotNull>
+             <isNotNull property="name" prepend=",">
+             a.name =  ? 
+             </isNotNull>
+             <isNotNull property="nameEn" prepend=",">
+             a.name_en =  ? 
+             </isNotNull>
+             <isNotNull property="namePinyin" prepend=",">
+             a.name_pinyin =  ? 
+             </isNotNull>
+             <isNotNull property="code" prepend=",">
+             a.code =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.region_id = ?
         </sql>
     </operation>
 
@@ -85,224 +86,225 @@
 
     <operation name="getRegionByRegionId" multiplicity="one" remarks="">
         <sql>
-            select
-            a.region_id,
-            a.parent_region_id,
-            a.path,
-            a.level,
-            a.region_type,
-            a.name,
-            a.name_en,
-            a.name_pinyin,
-            a.code,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from demo_region a
-            where
-            a.delete_flag = 0
-            and a.region_id = ?
+           select
+             a.region_id,
+             a.parent_region_id,
+             a.path,
+             a.level,
+             a.region_type,
+             a.name,
+             a.name_en,
+             a.name_pinyin,
+             a.code,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_region a
+           where
+             a.delete_flag = 0
+             and a.region_id = ?
         </sql>
     </operation>
 
     <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
-            select
-            a.region_id,
-            a.parent_region_id,
-            a.path,
-            a.level,
-            a.region_type,
-            a.name,
-            a.name_en,
-            a.name_pinyin,
-            a.code,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from demo_region a
-            where
-            a.delete_flag = 0
-            <isNotNull property="regionId">
-               and a.region_id=?
-            </isNotNull>
-            <isNotEmpty property="regionIds">
-                and a.region_id in
-                <iterate property="regionIds" conjunction="," open="(" close=")">
-                    #regionIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="parentRegionId">
-               and a.parent_region_id=?
-            </isNotNull>
-            <isNotEmpty property="parentRegionIds">
-                and a.parent_region_id in
-                <iterate property="parentRegionIds" conjunction="," open="(" close=")">
-                    #parentRegionIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="path">
-            and a.path=?
-          </isNotNull>
-            <isNotEmpty property="pathLike">
-                and a.path like CONCAT('%',#pathLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="level">
-                and a.level=?
-          </isNotNull>
-            <isNotNull property="levelMin">
-                and a.level >=#levelMin#
-            </isNotNull>
-            <isNotNull property="levelMax">
-                and a.level &lt;#levelMax#
-            </isNotNull>
-            <isNotNull property="regionType">
-               and a.region_type=?
-            </isNotNull>
-            <isNotEmpty property="regionTypes">
-                and a.region_type in
-                <iterate property="regionTypes" conjunction="," open="(" close=")">
-                    #regionTypes[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="name">
-            and a.name=?
-          </isNotNull>
-            <isNotEmpty property="nameLike">
-                and a.name like CONCAT('%',#nameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="nameEn">
-            and a.name_en=?
-          </isNotNull>
-            <isNotEmpty property="nameEnLike">
-                and a.name_en like CONCAT('%',#nameEnLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="namePinyin">
-            and a.name_pinyin=?
-          </isNotNull>
-            <isNotEmpty property="namePinyinLike">
-                and a.name_pinyin like CONCAT('%',#namePinyinLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="code">
-            and a.code=?
-          </isNotNull>
-            <isNotEmpty property="codeLike">
-                and a.code like CONCAT('%',#codeLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNull property="regionId">
-            <isEmpty property="regionIds">
-            <isNull property="parentRegionId">
-            <isEmpty property="parentRegionIds">
-            <isNull property="path">
-            <isEmpty property="pathLike">
-            <isNull property="level">
-            <isNull property="levelMin">
-            <isNull property="levelMax">
-            <isNull property="regionType">
-            <isEmpty property="regionTypes">
-            <isNull property="name">
-            <isEmpty property="nameLike">
-            <isNull property="nameEn">
-            <isEmpty property="nameEnLike">
-            <isNull property="namePinyin">
-            <isEmpty property="namePinyinLike">
-            <isNull property="code">
-            <isEmpty property="codeLike">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           select
+             a.region_id,
+             a.parent_region_id,
+             a.path,
+             a.level,
+             a.region_type,
+             a.name,
+             a.name_en,
+             a.name_pinyin,
+             a.code,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_region a
+           where
+             a.delete_flag = 0
+             <isNotNull property="regionId">
+             and a.region_id=?
+             </isNotNull>
+             <isNotEmpty property="regionIds">
+             and a.region_id in
+               <iterate property="regionIds" conjunction="," open="(" close=")">
+               #regionIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="parentRegionId">
+             and a.parent_region_id=?
+             </isNotNull>
+             <isNotEmpty property="parentRegionIds">
+             and a.parent_region_id in
+               <iterate property="parentRegionIds" conjunction="," open="(" close=")">
+               #parentRegionIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="path">
+             and a.path=?
+             </isNotNull>
+             <isNotEmpty property="pathLike">
+             and a.path like CONCAT('%',#pathLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="level">
+             and a.level=?
+             </isNotNull>
+             <isNotNull property="levelMin">
+             and a.level >=#levelMin#
+             </isNotNull>
+             <isNotNull property="levelMax">
+             and a.level &lt;#levelMax#
+             </isNotNull>
+             <isNotNull property="regionType">
+             and a.region_type=?
+             </isNotNull>
+             <isNotEmpty property="regionTypes">
+             and a.region_type in
+               <iterate property="regionTypes" conjunction="," open="(" close=")">
+               #regionTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="name">
+             and a.name=?
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="nameEn">
+             and a.name_en=?
+             </isNotNull>
+             <isNotEmpty property="nameEnLike">
+             and a.name_en like CONCAT('%',#nameEnLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="namePinyin">
+             and a.name_pinyin=?
+             </isNotNull>
+             <isNotEmpty property="namePinyinLike">
+             and a.name_pinyin like CONCAT('%',#namePinyinLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="code">
+             and a.code=?
+             </isNotNull>
+             <isNotEmpty property="codeLike">
+             and a.code like CONCAT('%',#codeLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNull property="regionId">
+             <isEmpty property="regionIds">
+             <isNull property="parentRegionId">
+             <isEmpty property="parentRegionIds">
+             <isNull property="path">
+             <isEmpty property="pathLike">
+             <isNull property="level">
+             <isNull property="levelMin">
+             <isNull property="levelMax">
+             <isNull property="regionType">
+             <isEmpty property="regionTypes">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="nameEn">
+             <isEmpty property="nameEnLike">
+             <isNull property="namePinyin">
+             <isEmpty property="namePinyinLike">
+             <isNull property="code">
+             <isEmpty property="codeLike">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid = "getRegionPageListOrderBy" />
+              <include refid = "getRegionPageListOrderBy" />
         </sql>
     </operation>
     <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getRegionsByRegionIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.region_id,
-            a.parent_region_id,
-            a.path,
-            a.level,
-            a.region_type,
-            a.name,
-            a.name_en,
-            a.name_pinyin,
-            a.code,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from demo_region a
-            where
-            a.delete_flag = 0
-            <isEmpty property="regionIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="regionIds">
-                and a.region_id in
+           select
+             a.region_id,
+             a.parent_region_id,
+             a.path,
+             a.level,
+             a.region_type,
+             a.name,
+             a.name_en,
+             a.name_pinyin,
+             a.code,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_region a
+           where
+             a.delete_flag = 0
+             <isEmpty property="regionIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="regionIds" prepend="and">
+             a.region_id in
                 <iterate property="regionIds" conjunction="," open="(" close=")">
-                    #regionIds[]#
+                   #regionIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getRegionsByRegionIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getRegionsByRegionIdsOrderBy" />
         </sql>
     </operation>
 
     <operation name="deleteByRegionIds" remarks="">
         <sql>
-            UPDATE demo_region SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="regionIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="regionIds">
-                and region_id in
+           UPDATE demo_region a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="regionIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="regionIds" prepend="and">
+             a.region_id in
                 <iterate property="regionIds" conjunction="," open="(" close=")">
-                    #regionIds[]#
+                   #regionIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
         </sql>
     </operation>
     

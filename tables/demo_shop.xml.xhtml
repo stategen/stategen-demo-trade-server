@@ -2,52 +2,53 @@
     <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_shop -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_shop (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="shopId"> shop_id </isNotNull>
-            <isNotNull prepend="," property="leaderImage"> leader_image </isNotNull>
-            <isNotNull prepend="," property="leaderPhone"> leader_phone </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="shopId"> ?  </isNotNull>
-            <isNotNull prepend="," property="leaderImage"> ?  </isNotNull>
-            <isNotNull prepend="," property="leaderPhone"> ?  </isNotNull>
-            )
-            <selectKey keyProperty="shopId" resultClass="String" type="pre">
-                select if((#shopId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#shopId# ) as shopId
-            </selectKey>
+           insert into demo_shop (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="shopId"> shop_id </isNotNull>
+             <isNotNull prepend="," property="leaderImage"> leader_image </isNotNull>
+             <isNotNull prepend="," property="leaderPhone"> leader_phone </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="shopId"> ?  </isNotNull>
+             <isNotNull prepend="," property="leaderImage"> ?  </isNotNull>
+             <isNotNull prepend="," property="leaderPhone"> ?  </isNotNull>
+           )
+           <selectKey keyProperty="shopId" resultClass="String" type="pre">
+              select if((#shopId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#shopId# ) as shopId
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE demo_shop SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and shop_id = ?
+           UPDATE demo_shop a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.shop_id = ?
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE demo_shop
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="leaderImage" prepend=",">
-                    leader_image =  ? 
-                </isNotNull>
-                <isNotNull property="leaderPhone" prepend=",">
-                    leader_phone =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and shop_id = ?
+           UPDATE demo_shop a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="leaderImage" prepend=",">
+             a.leader_image =  ? 
+             </isNotNull>
+             <isNotNull property="leaderPhone" prepend=",">
+             a.leader_phone =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.shop_id = ?
         </sql>
     </operation>
 
@@ -55,125 +56,126 @@
 
     <operation name="getShopByShopId" multiplicity="one" remarks="">
         <sql>
-            select
-            a.shop_id,
-            a.leader_image,
-            a.leader_phone,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_shop a
-            where
-            a.delete_flag = 0
-            and a.shop_id = ?
+           select
+             a.shop_id,
+             a.leader_image,
+             a.leader_phone,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_shop a
+           where
+             a.delete_flag = 0
+             and a.shop_id = ?
         </sql>
     </operation>
 
     <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
-            select
-            a.shop_id,
-            a.leader_image,
-            a.leader_phone,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_shop a
-            where
-            a.delete_flag = 0
-            <isNotNull property="shopId">
-               and a.shop_id=?
-            </isNotNull>
-            <isNotEmpty property="shopIds">
-                and a.shop_id in
-                <iterate property="shopIds" conjunction="," open="(" close=")">
-                    #shopIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="leaderPhone">
-            and a.leader_phone=?
-          </isNotNull>
-            <isNotEmpty property="leaderPhoneLike">
-                and a.leader_phone like CONCAT('%',#leaderPhoneLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="shopId">
-            <isEmpty property="shopIds">
-            <isNull property="leaderPhone">
-            <isEmpty property="leaderPhoneLike">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           select
+             a.shop_id,
+             a.leader_image,
+             a.leader_phone,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_shop a
+           where
+             a.delete_flag = 0
+             <isNotNull property="shopId">
+             and a.shop_id=?
+             </isNotNull>
+             <isNotEmpty property="shopIds">
+             and a.shop_id in
+               <iterate property="shopIds" conjunction="," open="(" close=")">
+               #shopIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="leaderPhone">
+             and a.leader_phone=?
+             </isNotNull>
+             <isNotEmpty property="leaderPhoneLike">
+             and a.leader_phone like CONCAT('%',#leaderPhoneLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="shopId">
+             <isEmpty property="shopIds">
+             <isNull property="leaderPhone">
+             <isEmpty property="leaderPhoneLike">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid = "getShopPageListOrderBy" />
+              <include refid = "getShopPageListOrderBy" />
         </sql>
     </operation>
     <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getShopsByShopIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.shop_id,
-            a.leader_image,
-            a.leader_phone,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_shop a
-            where
-            a.delete_flag = 0
-            <isEmpty property="shopIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="shopIds">
-                and a.shop_id in
+           select
+             a.shop_id,
+             a.leader_image,
+             a.leader_phone,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_shop a
+           where
+             a.delete_flag = 0
+             <isEmpty property="shopIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="shopIds" prepend="and">
+             a.shop_id in
                 <iterate property="shopIds" conjunction="," open="(" close=")">
-                    #shopIds[]#
+                   #shopIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getShopsByShopIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getShopsByShopIdsOrderBy" />
         </sql>
     </operation>
 
     <operation name="deleteByShopIds" remarks="">
         <sql>
-            UPDATE demo_shop SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="shopIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="shopIds">
-                and shop_id in
+           UPDATE demo_shop a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="shopIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="shopIds" prepend="and">
+             a.shop_id in
                 <iterate property="shopIds" conjunction="," open="(" close=")">
-                    #shopIds[]#
+                   #shopIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
         </sql>
     </operation>
     

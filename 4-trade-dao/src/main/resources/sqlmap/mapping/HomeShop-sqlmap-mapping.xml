@@ -27,55 +27,56 @@
     
 	<insert id="HomeShop.insert">
 		insert into demo_home_shop (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="homeShopId"> home_shop_id </isNotNull>
-            <isNotNull prepend="," property="shopId"> shop_id </isNotNull>
-            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="homeShopId"> home_shop_id </isNotNull>
+             <isNotNull prepend="," property="shopId"> shop_id </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="homeShopId"> #homeShopId# </isNotNull> 
             <isNotNull prepend="," property="shopId"> #shopId# </isNotNull>)
-            <selectKey keyProperty="homeShopId" resultClass="String" type="pre">
-                select if((#homeShopId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#homeShopId# ) as homeShopId
-            </selectKey>
+           <selectKey keyProperty="homeShopId" resultClass="String" type="pre">
+              select if((#homeShopId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#homeShopId# ) as homeShopId
+           </selectKey>
 	</insert>
 	
 	<update id="HomeShop.delete">
-		UPDATE demo_home_shop SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and home_shop_id = #homeShopId#
+		UPDATE demo_home_shop a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.home_shop_id = #homeShopId#
 	</update>
 	
     
 	
 	<update id="HomeShop.update">
-		UPDATE demo_home_shop
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull prepend="," property="shopId">
-                    shop_id =  #shopId# 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and home_shop_id = #homeShopId#
+		UPDATE demo_home_shop a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="shopId">
+             a.shop_id =  #shopId# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.home_shop_id = #homeShopId#
 	</update>
 	
     
 	
 	<select id="HomeShop.getHomeShopByHomeShopId" resultMap="HomeShop_RM" >
     	select
- /* getHomeShopByHomeShopId.HomeShop */             a.home_shop_id,
-            a.shop_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_home_shop a
-            where
-            a.delete_flag = 0
-            and a.home_shop_id = #homeShopId#
+ /* getHomeShopByHomeShopId.HomeShop */              a.home_shop_id,
+             a.shop_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_home_shop a
+           where
+             a.delete_flag = 0
+             and a.home_shop_id = #homeShopId#
 	</select>	
 
 	    
@@ -85,117 +86,117 @@
 	
 	<select id="HomeShop.getPageList" resultMap="HomeShop_RM" >
     	select
- /* getPageList.HomeShop */             a.home_shop_id,
-            a.shop_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_home_shop a
-            where
-            a.delete_flag = 0
-            <isNotNull property="homeShopId">
-               and a.home_shop_id=#homeShopId#
-            </isNotNull>
-            <isNotEmpty property="homeShopIds">
-                and a.home_shop_id in
-                <iterate close=")" conjunction="," open="(" property="homeShopIds">
-                    #homeShopIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="shopId">
-               and a.shop_id=#shopId#
-            </isNotNull>
-            <isNotEmpty property="shopIds">
-                and a.shop_id in
-                <iterate close=")" conjunction="," open="(" property="shopIds">
-                    #shopIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="homeShopId">
-            <isEmpty property="homeShopIds">
-            <isNull property="shopId">
-            <isEmpty property="shopIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+ /* getPageList.HomeShop */              a.home_shop_id,
+             a.shop_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_home_shop a
+           where
+             a.delete_flag = 0
+             <isNotNull property="homeShopId">
+             and a.home_shop_id=#homeShopId#
+             </isNotNull>
+             <isNotEmpty property="homeShopIds">
+             and a.home_shop_id in
+               <iterate close=")" conjunction="," open="(" property="homeShopIds">
+               #homeShopIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="shopId">
+             and a.shop_id=#shopId#
+             </isNotNull>
+             <isNotEmpty property="shopIds">
+             and a.shop_id in
+               <iterate close=")" conjunction="," open="(" property="shopIds">
+               #shopIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="homeShopId">
+             <isEmpty property="homeShopIds">
+             <isNull property="shopId">
+             <isEmpty property="shopIds">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid="getHomeShopPageListOrderBy"/>
+              <include refid="getHomeShopPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
 	<select id="HomeShop.getPageList_count" resultClass="long" >
     	select  /* getPageList_count.HomeShop */ count(*)  from demo_home_shop a
-            where
-            a.delete_flag = 0
-            <isNotNull property="homeShopId">
-               and a.home_shop_id=#homeShopId#
-            </isNotNull>
-            <isNotEmpty property="homeShopIds">
-                and a.home_shop_id in
-                <iterate close=")" conjunction="," open="(" property="homeShopIds">
-                    #homeShopIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="shopId">
-               and a.shop_id=#shopId#
-            </isNotNull>
-            <isNotEmpty property="shopIds">
-                and a.shop_id in
-                <iterate close=")" conjunction="," open="(" property="shopIds">
-                    #shopIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="homeShopId">
-            <isEmpty property="homeShopIds">
-            <isNull property="shopId">
-            <isEmpty property="shopIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           where
+             a.delete_flag = 0
+             <isNotNull property="homeShopId">
+             and a.home_shop_id=#homeShopId#
+             </isNotNull>
+             <isNotEmpty property="homeShopIds">
+             and a.home_shop_id in
+               <iterate close=")" conjunction="," open="(" property="homeShopIds">
+               #homeShopIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="shopId">
+             and a.shop_id=#shopId#
+             </isNotNull>
+             <isNotEmpty property="shopIds">
+             and a.shop_id in
+               <iterate close=")" conjunction="," open="(" property="shopIds">
+               #shopIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="homeShopId">
+             <isEmpty property="homeShopIds">
+             <isNull property="shopId">
+             <isEmpty property="shopIds">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
 	</select>
 	    
 	
@@ -204,25 +205,25 @@
 	
 	<select id="HomeShop.getHomeShopsByHomeShopIds" resultMap="HomeShop_RM" >
     	select
- /* getHomeShopsByHomeShopIds.HomeShop */             a.home_shop_id,
-            a.shop_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_home_shop a
-            where
-            a.delete_flag = 0
-            <isEmpty property="homeShopIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="homeShopIds">
-                and a.home_shop_id in
+ /* getHomeShopsByHomeShopIds.HomeShop */              a.home_shop_id,
+             a.shop_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_home_shop a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="homeShopIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="homeShopIds">
+             a.home_shop_id in
                 <iterate close=")" conjunction="," open="(" property="homeShopIds">
-                    #homeShopIds[]#
+                   #homeShopIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getHomeShopsByHomeShopIdsOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getHomeShopsByHomeShopIdsOrderBy"/>
 	</select>	
 
 	    
@@ -231,20 +232,21 @@
     
 	
 	<update id="HomeShop.deleteByHomeShopIds">
-		UPDATE demo_home_shop SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="homeShopIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="homeShopIds">
-                and home_shop_id in
+		UPDATE demo_home_shop a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="homeShopIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="homeShopIds">
+             a.home_shop_id in
                 <iterate close=")" conjunction="," open="(" property="homeShopIds">
-                    #homeShopIds[]#
+                   #homeShopIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     

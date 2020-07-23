@@ -55,32 +55,32 @@
     
 	<insert id="User.insert">
 		insert into user (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="userId"> user_id </isNotNull>
-            <isNotNull prepend="," property="username"> username </isNotNull>
-            <isNotNull prepend="," property="password"> password </isNotNull>
-            <isNotNull prepend="," property="roleType"> role_type </isNotNull>
-            <isNotNull prepend="," property="name"> name </isNotNull>
-            <isNotNull prepend="," property="nickName"> nickName </isNotNull>
-            <isNotNull prepend="," property="interCode"> inter_code </isNotNull>
-            <isNotNull prepend="," property="mobile"> mobile </isNotNull>
-            <isNotNull prepend="," property="age"> age </isNotNull>
-            <isNotNull prepend="," property="address"> address </isNotNull>
-            <isNotNull prepend="," property="avatarImgId"> avatar_img_id </isNotNull>
-            <isNotNull prepend="," property="email"> email </isNotNull>
-            <isNotNull prepend="," property="valiDatetime"> vali_datetime </isNotNull>
-            <isNotNull prepend="," property="birthdayDate"> birthday_date </isNotNull>
-            <isNotNull prepend="," property="workTime"> work_time </isNotNull>
-            <isNotNull prepend="," property="provinceId"> province_id </isNotNull>
-            <isNotNull prepend="," property="cityId"> city_id </isNotNull>
-            <isNotNull prepend="," property="status"> status </isNotNull>
-            <isNotNull prepend="," property="grade"> grade </isNotNull>
-            <isNotNull prepend="," property="sex"> sex </isNotNull>
-            <isNotNull prepend="," property="postAddressId"> post_address_id </isNotNull>
-            <isNotNull prepend="," property="remark"> remark </isNotNull>
-            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="userId"> user_id </isNotNull>
+             <isNotNull prepend="," property="username"> username </isNotNull>
+             <isNotNull prepend="," property="password"> password </isNotNull>
+             <isNotNull prepend="," property="roleType"> role_type </isNotNull>
+             <isNotNull prepend="," property="name"> name </isNotNull>
+             <isNotNull prepend="," property="nickName"> nickName </isNotNull>
+             <isNotNull prepend="," property="interCode"> inter_code </isNotNull>
+             <isNotNull prepend="," property="mobile"> mobile </isNotNull>
+             <isNotNull prepend="," property="age"> age </isNotNull>
+             <isNotNull prepend="," property="address"> address </isNotNull>
+             <isNotNull prepend="," property="avatarImgId"> avatar_img_id </isNotNull>
+             <isNotNull prepend="," property="email"> email </isNotNull>
+             <isNotNull prepend="," property="valiDatetime"> vali_datetime </isNotNull>
+             <isNotNull prepend="," property="birthdayDate"> birthday_date </isNotNull>
+             <isNotNull prepend="," property="workTime"> work_time </isNotNull>
+             <isNotNull prepend="," property="provinceId"> province_id </isNotNull>
+             <isNotNull prepend="," property="cityId"> city_id </isNotNull>
+             <isNotNull prepend="," property="status"> status </isNotNull>
+             <isNotNull prepend="," property="grade"> grade </isNotNull>
+             <isNotNull prepend="," property="sex"> sex </isNotNull>
+             <isNotNull prepend="," property="postAddressId"> post_address_id </isNotNull>
+             <isNotNull prepend="," property="remark"> remark </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="userId"> #userId# </isNotNull> 
             <isNotNull prepend="," property="username"> #username# </isNotNull> 
             <isNotNull prepend="," property="password"> #password# </isNotNull> 
@@ -103,149 +103,152 @@
             <isNotNull prepend="," property="sex"> #sex# </isNotNull> 
             <isNotNull prepend="," property="postAddressId"> #postAddressId# </isNotNull> 
             <isNotNull prepend="," property="remark"> #remark# </isNotNull>)
-            <selectKey keyProperty="userId" resultClass="String" type="pre">
-                select if((#userId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#userId# ) as userId
-            </selectKey>
+           <selectKey keyProperty="userId" resultClass="String" type="pre">
+              select if((#userId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#userId# ) as userId
+           </selectKey>
 	</insert>
 	
 	<update id="User.delete">
-		UPDATE user SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and user_id = #userId#
+		UPDATE user a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.user_id = #userId#
 	</update>
 	
     
 	
 	<update id="User.deleteByUsername">
-		UPDATE user SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and username = #username#
+		UPDATE user a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.username = #username#
 	</update>
 	
     
 	
 	<update id="User.deleteByEmail">
-		UPDATE user SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and email = #email#
+		UPDATE user a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.email = #email#
 	</update>
 	
     
 	
 	<update id="User.update">
-		UPDATE user
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull prepend="," property="username">
-                    username =  #username# 
-                </isNotNull>
-                <isNotNull prepend="," property="password">
-                    password =  #password# 
-                </isNotNull>
-                <isNotNull prepend="," property="roleType">
-                    role_type =  #roleType# 
-                </isNotNull>
-                <isNotNull prepend="," property="name">
-                    name =  #name# 
-                </isNotNull>
-                <isNotNull prepend="," property="nickName">
-                    nickName =  #nickName# 
-                </isNotNull>
-                <isNotNull prepend="," property="interCode">
-                    inter_code =  #interCode# 
-                </isNotNull>
-                <isNotNull prepend="," property="mobile">
-                    mobile =  #mobile# 
-                </isNotNull>
-                <isNotNull prepend="," property="age">
-                    age =  #age# 
-                </isNotNull>
-                <isNotNull prepend="," property="address">
-                    address =  #address# 
-                </isNotNull>
-                <isNotNull prepend="," property="avatarImgId">
-                    avatar_img_id =  #avatarImgId# 
-                </isNotNull>
-                <isNotNull prepend="," property="email">
-                    email =  #email# 
-                </isNotNull>
-                <isNotNull prepend="," property="valiDatetime">
-                    vali_datetime =  #valiDatetime# 
-                </isNotNull>
-                <isNotNull prepend="," property="birthdayDate">
-                    birthday_date =  #birthdayDate# 
-                </isNotNull>
-                <isNotNull prepend="," property="workTime">
-                    work_time =  #workTime# 
-                </isNotNull>
-                <isNotNull prepend="," property="provinceId">
-                    province_id =  #provinceId# 
-                </isNotNull>
-                <isNotNull prepend="," property="cityId">
-                    city_id =  #cityId# 
-                </isNotNull>
-                <isNotNull prepend="," property="status">
-                    status =  #status# 
-                </isNotNull>
-                <isNotNull prepend="," property="grade">
-                    grade =  #grade# 
-                </isNotNull>
-                <isNotNull prepend="," property="sex">
-                    sex =  #sex# 
-                </isNotNull>
-                <isNotNull prepend="," property="postAddressId">
-                    post_address_id =  #postAddressId# 
-                </isNotNull>
-                <isNotNull prepend="," property="remark">
-                    remark =  #remark# 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and user_id = #userId#
+		UPDATE user a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="username">
+             a.username =  #username# 
+             </isNotNull>
+             <isNotNull prepend="," property="password">
+             a.password =  #password# 
+             </isNotNull>
+             <isNotNull prepend="," property="roleType">
+             a.role_type =  #roleType# 
+             </isNotNull>
+             <isNotNull prepend="," property="name">
+             a.name =  #name# 
+             </isNotNull>
+             <isNotNull prepend="," property="nickName">
+             a.nickName =  #nickName# 
+             </isNotNull>
+             <isNotNull prepend="," property="interCode">
+             a.inter_code =  #interCode# 
+             </isNotNull>
+             <isNotNull prepend="," property="mobile">
+             a.mobile =  #mobile# 
+             </isNotNull>
+             <isNotNull prepend="," property="age">
+             a.age =  #age# 
+             </isNotNull>
+             <isNotNull prepend="," property="address">
+             a.address =  #address# 
+             </isNotNull>
+             <isNotNull prepend="," property="avatarImgId">
+             a.avatar_img_id =  #avatarImgId# 
+             </isNotNull>
+             <isNotNull prepend="," property="email">
+             a.email =  #email# 
+             </isNotNull>
+             <isNotNull prepend="," property="valiDatetime">
+             a.vali_datetime =  #valiDatetime# 
+             </isNotNull>
+             <isNotNull prepend="," property="birthdayDate">
+             a.birthday_date =  #birthdayDate# 
+             </isNotNull>
+             <isNotNull prepend="," property="workTime">
+             a.work_time =  #workTime# 
+             </isNotNull>
+             <isNotNull prepend="," property="provinceId">
+             a.province_id =  #provinceId# 
+             </isNotNull>
+             <isNotNull prepend="," property="cityId">
+             a.city_id =  #cityId# 
+             </isNotNull>
+             <isNotNull prepend="," property="status">
+             a.status =  #status# 
+             </isNotNull>
+             <isNotNull prepend="," property="grade">
+             a.grade =  #grade# 
+             </isNotNull>
+             <isNotNull prepend="," property="sex">
+             a.sex =  #sex# 
+             </isNotNull>
+             <isNotNull prepend="," property="postAddressId">
+             a.post_address_id =  #postAddressId# 
+             </isNotNull>
+             <isNotNull prepend="," property="remark">
+             a.remark =  #remark# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.user_id = #userId#
 	</update>
 	
     
 	
 	<select id="User.getUserByUserId" resultMap="User_RM" >
     	select
- /* getUserByUserId.User */             a.user_id,
-            a.username,
-            a.password,
-            a.role_type,
-            a.name,
-            a.nickName,
-            a.inter_code,
-            a.mobile,
-            a.age,
-            a.address,
-            a.avatar_img_id,
-            a.email,
-            a.vali_datetime,
-            a.birthday_date,
-            a.work_time,
-            a.province_id,
-            a.city_id,
-            a.status,
-            a.grade,
-            a.sex,
-            a.post_address_id,
-            a.remark,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from user a
-            where
-            a.delete_flag = 0
-            and a.user_id = #userId#
+ /* getUserByUserId.User */              a.user_id,
+             a.username,
+             a.password,
+             a.role_type,
+             a.name,
+             a.nickName,
+             a.inter_code,
+             a.mobile,
+             a.age,
+             a.address,
+             a.avatar_img_id,
+             a.email,
+             a.vali_datetime,
+             a.birthday_date,
+             a.work_time,
+             a.province_id,
+             a.city_id,
+             a.status,
+             a.grade,
+             a.sex,
+             a.post_address_id,
+             a.remark,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from user a
+           where
+             a.delete_flag = 0
+             and a.user_id = #userId#
 	</select>	
 
 	    
@@ -255,35 +258,35 @@
 	
 	<select id="User.getUserByUsername" resultMap="User_RM" >
     	select
- /* getUserByUsername.User */             a.user_id,
-            a.username,
-            a.password,
-            a.role_type,
-            a.name,
-            a.nickName,
-            a.inter_code,
-            a.mobile,
-            a.age,
-            a.address,
-            a.avatar_img_id,
-            a.email,
-            a.vali_datetime,
-            a.birthday_date,
-            a.work_time,
-            a.province_id,
-            a.city_id,
-            a.status,
-            a.grade,
-            a.sex,
-            a.post_address_id,
-            a.remark,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from user a
-            where
-            a.delete_flag = 0
-            and a.username = #username#
+ /* getUserByUsername.User */              a.user_id,
+             a.username,
+             a.password,
+             a.role_type,
+             a.name,
+             a.nickName,
+             a.inter_code,
+             a.mobile,
+             a.age,
+             a.address,
+             a.avatar_img_id,
+             a.email,
+             a.vali_datetime,
+             a.birthday_date,
+             a.work_time,
+             a.province_id,
+             a.city_id,
+             a.status,
+             a.grade,
+             a.sex,
+             a.post_address_id,
+             a.remark,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from user a
+           where
+             a.delete_flag = 0
+             and a.username = #username#
 	</select>	
 
 	    
@@ -293,35 +296,35 @@
 	
 	<select id="User.getUserByEmail" resultMap="User_RM" >
     	select
- /* getUserByEmail.User */             a.user_id,
-            a.username,
-            a.password,
-            a.role_type,
-            a.name,
-            a.nickName,
-            a.inter_code,
-            a.mobile,
-            a.age,
-            a.address,
-            a.avatar_img_id,
-            a.email,
-            a.vali_datetime,
-            a.birthday_date,
-            a.work_time,
-            a.province_id,
-            a.city_id,
-            a.status,
-            a.grade,
-            a.sex,
-            a.post_address_id,
-            a.remark,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from user a
-            where
-            a.delete_flag = 0
-            and a.email = #email#
+ /* getUserByEmail.User */              a.user_id,
+             a.username,
+             a.password,
+             a.role_type,
+             a.name,
+             a.nickName,
+             a.inter_code,
+             a.mobile,
+             a.age,
+             a.address,
+             a.avatar_img_id,
+             a.email,
+             a.vali_datetime,
+             a.birthday_date,
+             a.work_time,
+             a.province_id,
+             a.city_id,
+             a.status,
+             a.grade,
+             a.sex,
+             a.post_address_id,
+             a.remark,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from user a
+           where
+             a.delete_flag = 0
+             and a.email = #email#
 	</select>	
 
 	    
@@ -331,541 +334,521 @@
 	
 	<select id="User.getPageList" resultMap="User_RM" >
     	select
- /* getPageList.User */             a.user_id,
-            a.username,
-            a.password,
-            a.role_type,
-            a.name,
-            a.nickName,
-            a.inter_code,
-            a.mobile,
-            a.age,
-            a.address,
-            a.avatar_img_id,
-            a.email,
-            a.vali_datetime,
-            a.birthday_date,
-            a.work_time,
-            a.province_id,
-            a.city_id,
-            a.status,
-            a.grade,
-            a.sex,
-            a.post_address_id,
-            a.remark,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from user a
-            where
-            a.delete_flag = 0
-            <isNotNull property="userId">
-               and a.user_id=#userId#
-            </isNotNull>
-            <isNotEmpty property="userIds">
-                and a.user_id in
-                <iterate close=")" conjunction="," open="(" property="userIds">
-                    #userIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="username">
-            and a.username=#username#
-          </isNotNull>
-            <isNotEmpty property="usernameLike">
-                and a.username like CONCAT('%',#usernameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="password">
-            and a.password=#password#
-          </isNotNull>
-            <isNotEmpty property="passwordLike">
-                and a.password like CONCAT('%',#passwordLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="roleType">
-               and a.role_type=#roleType#
-            </isNotNull>
-            <isNotEmpty property="roleTypes">
-                and a.role_type in
-                <iterate close=")" conjunction="," open="(" property="roleTypes">
-                    #roleTypes[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="name">
-            and a.name=#name#
-          </isNotNull>
-            <isNotEmpty property="nameLike">
-                and a.name like CONCAT('%',#nameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="nickName">
-            and a.nickName=#nickName#
-          </isNotNull>
-            <isNotEmpty property="nickNameLike">
-                and a.nickName like CONCAT('%',#nickNameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="interCode">
-            and a.inter_code=#interCode#
-          </isNotNull>
-            <isNotEmpty property="interCodeLike">
-                and a.inter_code like CONCAT('%',#interCodeLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="mobile">
-            and a.mobile=#mobile#
-          </isNotNull>
-            <isNotEmpty property="mobileLike">
-                and a.mobile like CONCAT('%',#mobileLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="age">
-                and a.age=#age#
-          </isNotNull>
-            <isNotNull property="ageMin">
-                and a.age >=#ageMin#
-            </isNotNull>
-            <isNotNull property="ageMax">
-                and a.age &lt;#ageMax#
-            </isNotNull>
-          <isNotNull property="address">
-            and a.address=#address#
-          </isNotNull>
-            <isNotEmpty property="addressLike">
-                and a.address like CONCAT('%',#addressLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="avatarImgId">
-               and a.avatar_img_id=#avatarImgId#
-            </isNotNull>
-            <isNotEmpty property="avatarImgIds">
-                and a.avatar_img_id in
-                <iterate close=")" conjunction="," open="(" property="avatarImgIds">
-                    #avatarImgIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="email">
-            and a.email=#email#
-          </isNotNull>
-            <isNotEmpty property="emailLike">
-                and a.email like CONCAT('%',#emailLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="valiDatetimeMin">
-                and a.vali_datetime >=#valiDatetimeMin#
-            </isNotNull>
-            <isNotNull property="valiDatetimeMax">
-                and a.vali_datetime &lt;#valiDatetimeMax#
-            </isNotNull>
-            <isNotNull property="birthdayDateMin">
-                and a.birthday_date >=#birthdayDateMin#
-            </isNotNull>
-            <isNotNull property="birthdayDateMax">
-                and a.birthday_date &lt;#birthdayDateMax#
-            </isNotNull>
-            <isNotNull property="workTimeMin">
-                and a.work_time >=#workTimeMin#
-            </isNotNull>
-            <isNotNull property="workTimeMax">
-                and a.work_time &lt;#workTimeMax#
-            </isNotNull>
-            <isNotNull property="provinceId">
-               and a.province_id=#provinceId#
-            </isNotNull>
-            <isNotEmpty property="provinceIds">
-                and a.province_id in
-                <iterate close=")" conjunction="," open="(" property="provinceIds">
-                    #provinceIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="cityId">
-               and a.city_id=#cityId#
-            </isNotNull>
-            <isNotEmpty property="cityIds">
-                and a.city_id in
-                <iterate close=")" conjunction="," open="(" property="cityIds">
-                    #cityIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="status">
-            and a.status=#status#
-          </isNotNull>
-            <isNotEmpty property="statusLike">
-                and a.status like CONCAT('%',#statusLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="grade">
-                and a.grade=#grade#
-          </isNotNull>
-            <isNotNull property="gradeMin">
-                and a.grade >=#gradeMin#
-            </isNotNull>
-            <isNotNull property="gradeMax">
-                and a.grade &lt;#gradeMax#
-            </isNotNull>
-            <isNotNull property="postAddressId">
-               and a.post_address_id=#postAddressId#
-            </isNotNull>
-            <isNotEmpty property="postAddressIds">
-                and a.post_address_id in
-                <iterate close=")" conjunction="," open="(" property="postAddressIds">
-                    #postAddressIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNull property="userId">
-            <isEmpty property="userIds">
-            <isNull property="username">
-            <isEmpty property="usernameLike">
-            <isNull property="password">
-            <isEmpty property="passwordLike">
-            <isNull property="roleType">
-            <isEmpty property="roleTypes">
-            <isNull property="name">
-            <isEmpty property="nameLike">
-            <isNull property="nickName">
-            <isEmpty property="nickNameLike">
-            <isNull property="interCode">
-            <isEmpty property="interCodeLike">
-            <isNull property="mobile">
-            <isEmpty property="mobileLike">
-            <isNull property="age">
-            <isNull property="ageMin">
-            <isNull property="ageMax">
-            <isNull property="address">
-            <isEmpty property="addressLike">
-            <isNull property="avatarImgId">
-            <isEmpty property="avatarImgIds">
-            <isNull property="email">
-            <isEmpty property="emailLike">
-            <isNull property="valiDatetimeMin">
-            <isNull property="valiDatetimeMax">
-            <isNull property="birthdayDateMin">
-            <isNull property="birthdayDateMax">
-            <isNull property="workTimeMin">
-            <isNull property="workTimeMax">
-            <isNull property="provinceId">
-            <isEmpty property="provinceIds">
-            <isNull property="cityId">
-            <isEmpty property="cityIds">
-            <isNull property="status">
-            <isEmpty property="statusLike">
-            <isNull property="grade">
-            <isNull property="gradeMin">
-            <isNull property="gradeMax">
-            <isNull property="postAddressId">
-            <isEmpty property="postAddressIds">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+ /* getPageList.User */              a.user_id,
+             a.username,
+             a.password,
+             a.role_type,
+             a.name,
+             a.nickName,
+             a.inter_code,
+             a.mobile,
+             a.age,
+             a.address,
+             a.avatar_img_id,
+             a.email,
+             a.vali_datetime,
+             a.birthday_date,
+             a.work_time,
+             a.province_id,
+             a.city_id,
+             a.status,
+             a.grade,
+             a.sex,
+             a.post_address_id,
+             a.remark,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from user a
+           where
+             a.delete_flag = 0
+             <isNotNull property="userId">
+             and a.user_id=#userId#
+             </isNotNull>
+             <isNotEmpty property="userIds">
+             and a.user_id in
+               <iterate close=")" conjunction="," open="(" property="userIds">
+               #userIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="username">
+             and a.username=#username#
+             </isNotNull>
+             <isNotEmpty property="usernameLike">
+             and a.username like CONCAT('%',#usernameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="password">
+             and a.password=#password#
+             </isNotNull>
+             <isNotEmpty property="passwordLike">
+             and a.password like CONCAT('%',#passwordLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="roleType">
+             and a.role_type=#roleType#
+             </isNotNull>
+             <isNotEmpty property="roleTypes">
+             and a.role_type in
+               <iterate close=")" conjunction="," open="(" property="roleTypes">
+               #roleTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="name">
+             and a.name=#name#
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="nickName">
+             and a.nickName=#nickName#
+             </isNotNull>
+             <isNotEmpty property="nickNameLike">
+             and a.nickName like CONCAT('%',#nickNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="interCode">
+             and a.inter_code=#interCode#
+             </isNotNull>
+             <isNotEmpty property="interCodeLike">
+             and a.inter_code like CONCAT('%',#interCodeLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="mobile">
+             and a.mobile=#mobile#
+             </isNotNull>
+             <isNotEmpty property="mobileLike">
+             and a.mobile like CONCAT('%',#mobileLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="age">
+             and a.age=#age#
+             </isNotNull>
+             <isNotNull property="ageMin">
+             and a.age >=#ageMin#
+             </isNotNull>
+             <isNotNull property="ageMax">
+             and a.age &lt;#ageMax#
+             </isNotNull>
+             <isNotNull property="address">
+             and a.address=#address#
+             </isNotNull>
+             <isNotEmpty property="addressLike">
+             and a.address like CONCAT('%',#addressLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="avatarImgId">
+             and a.avatar_img_id=#avatarImgId#
+             </isNotNull>
+             <isNotEmpty property="avatarImgIds">
+             and a.avatar_img_id in
+               <iterate close=")" conjunction="," open="(" property="avatarImgIds">
+               #avatarImgIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="email">
+             and a.email=#email#
+             </isNotNull>
+             <isNotEmpty property="emailLike">
+             and a.email like CONCAT('%',#emailLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="valiDatetimeMin">
+             and a.vali_datetime >=#valiDatetimeMin#
+             </isNotNull>
+             <isNotNull property="valiDatetimeMax">
+             and a.vali_datetime &lt;#valiDatetimeMax#
+             </isNotNull>
+             <isNotNull property="birthdayDateMin">
+             and a.birthday_date >=#birthdayDateMin#
+             </isNotNull>
+             <isNotNull property="birthdayDateMax">
+             and a.birthday_date &lt;#birthdayDateMax#
+             </isNotNull>
+             <isNotNull property="workTimeMin">
+             and a.work_time >=#workTimeMin#
+             </isNotNull>
+             <isNotNull property="workTimeMax">
+             and a.work_time &lt;#workTimeMax#
+             </isNotNull>
+             <isNotNull property="provinceId">
+             and a.province_id=#provinceId#
+             </isNotNull>
+             <isNotEmpty property="provinceIds">
+             and a.province_id in
+               <iterate close=")" conjunction="," open="(" property="provinceIds">
+               #provinceIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="cityId">
+             and a.city_id=#cityId#
+             </isNotNull>
+             <isNotEmpty property="cityIds">
+             and a.city_id in
+               <iterate close=")" conjunction="," open="(" property="cityIds">
+               #cityIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="grade">
+             and a.grade=#grade#
+             </isNotNull>
+             <isNotNull property="gradeMin">
+             and a.grade >=#gradeMin#
+             </isNotNull>
+             <isNotNull property="gradeMax">
+             and a.grade &lt;#gradeMax#
+             </isNotNull>
+             <isNotNull property="postAddressId">
+             and a.post_address_id=#postAddressId#
+             </isNotNull>
+             <isNotEmpty property="postAddressIds">
+             and a.post_address_id in
+               <iterate close=")" conjunction="," open="(" property="postAddressIds">
+               #postAddressIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNull property="userId">
+             <isEmpty property="userIds">
+             <isNull property="username">
+             <isEmpty property="usernameLike">
+             <isNull property="password">
+             <isEmpty property="passwordLike">
+             <isNull property="roleType">
+             <isEmpty property="roleTypes">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="nickName">
+             <isEmpty property="nickNameLike">
+             <isNull property="interCode">
+             <isEmpty property="interCodeLike">
+             <isNull property="mobile">
+             <isEmpty property="mobileLike">
+             <isNull property="age">
+             <isNull property="ageMin">
+             <isNull property="ageMax">
+             <isNull property="address">
+             <isEmpty property="addressLike">
+             <isNull property="avatarImgId">
+             <isEmpty property="avatarImgIds">
+             <isNull property="email">
+             <isEmpty property="emailLike">
+             <isNull property="valiDatetimeMin">
+             <isNull property="valiDatetimeMax">
+             <isNull property="birthdayDateMin">
+             <isNull property="birthdayDateMax">
+             <isNull property="workTimeMin">
+             <isNull property="workTimeMax">
+             <isNull property="provinceId">
+             <isEmpty property="provinceIds">
+             <isNull property="cityId">
+             <isEmpty property="cityIds">
+             <isNull property="grade">
+             <isNull property="gradeMin">
+             <isNull property="gradeMax">
+             <isNull property="postAddressId">
+             <isEmpty property="postAddressIds">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid="getUserPageListOrderBy"/>
+              <include refid="getUserPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
 	<select id="User.getPageList_count" resultClass="long" >
     	select  /* getPageList_count.User */ count(*)  from user a
-            where
-            a.delete_flag = 0
-            <isNotNull property="userId">
-               and a.user_id=#userId#
-            </isNotNull>
-            <isNotEmpty property="userIds">
-                and a.user_id in
-                <iterate close=")" conjunction="," open="(" property="userIds">
-                    #userIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="username">
-            and a.username=#username#
-          </isNotNull>
-            <isNotEmpty property="usernameLike">
-                and a.username like CONCAT('%',#usernameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="password">
-            and a.password=#password#
-          </isNotNull>
-            <isNotEmpty property="passwordLike">
-                and a.password like CONCAT('%',#passwordLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="roleType">
-               and a.role_type=#roleType#
-            </isNotNull>
-            <isNotEmpty property="roleTypes">
-                and a.role_type in
-                <iterate close=")" conjunction="," open="(" property="roleTypes">
-                    #roleTypes[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="name">
-            and a.name=#name#
-          </isNotNull>
-            <isNotEmpty property="nameLike">
-                and a.name like CONCAT('%',#nameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="nickName">
-            and a.nickName=#nickName#
-          </isNotNull>
-            <isNotEmpty property="nickNameLike">
-                and a.nickName like CONCAT('%',#nickNameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="interCode">
-            and a.inter_code=#interCode#
-          </isNotNull>
-            <isNotEmpty property="interCodeLike">
-                and a.inter_code like CONCAT('%',#interCodeLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="mobile">
-            and a.mobile=#mobile#
-          </isNotNull>
-            <isNotEmpty property="mobileLike">
-                and a.mobile like CONCAT('%',#mobileLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="age">
-                and a.age=#age#
-          </isNotNull>
-            <isNotNull property="ageMin">
-                and a.age >=#ageMin#
-            </isNotNull>
-            <isNotNull property="ageMax">
-                and a.age &lt;#ageMax#
-            </isNotNull>
-          <isNotNull property="address">
-            and a.address=#address#
-          </isNotNull>
-            <isNotEmpty property="addressLike">
-                and a.address like CONCAT('%',#addressLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="avatarImgId">
-               and a.avatar_img_id=#avatarImgId#
-            </isNotNull>
-            <isNotEmpty property="avatarImgIds">
-                and a.avatar_img_id in
-                <iterate close=")" conjunction="," open="(" property="avatarImgIds">
-                    #avatarImgIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="email">
-            and a.email=#email#
-          </isNotNull>
-            <isNotEmpty property="emailLike">
-                and a.email like CONCAT('%',#emailLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="valiDatetimeMin">
-                and a.vali_datetime >=#valiDatetimeMin#
-            </isNotNull>
-            <isNotNull property="valiDatetimeMax">
-                and a.vali_datetime &lt;#valiDatetimeMax#
-            </isNotNull>
-            <isNotNull property="birthdayDateMin">
-                and a.birthday_date >=#birthdayDateMin#
-            </isNotNull>
-            <isNotNull property="birthdayDateMax">
-                and a.birthday_date &lt;#birthdayDateMax#
-            </isNotNull>
-            <isNotNull property="workTimeMin">
-                and a.work_time >=#workTimeMin#
-            </isNotNull>
-            <isNotNull property="workTimeMax">
-                and a.work_time &lt;#workTimeMax#
-            </isNotNull>
-            <isNotNull property="provinceId">
-               and a.province_id=#provinceId#
-            </isNotNull>
-            <isNotEmpty property="provinceIds">
-                and a.province_id in
-                <iterate close=")" conjunction="," open="(" property="provinceIds">
-                    #provinceIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="cityId">
-               and a.city_id=#cityId#
-            </isNotNull>
-            <isNotEmpty property="cityIds">
-                and a.city_id in
-                <iterate close=")" conjunction="," open="(" property="cityIds">
-                    #cityIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="status">
-            and a.status=#status#
-          </isNotNull>
-            <isNotEmpty property="statusLike">
-                and a.status like CONCAT('%',#statusLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="grade">
-                and a.grade=#grade#
-          </isNotNull>
-            <isNotNull property="gradeMin">
-                and a.grade >=#gradeMin#
-            </isNotNull>
-            <isNotNull property="gradeMax">
-                and a.grade &lt;#gradeMax#
-            </isNotNull>
-            <isNotNull property="postAddressId">
-               and a.post_address_id=#postAddressId#
-            </isNotNull>
-            <isNotEmpty property="postAddressIds">
-                and a.post_address_id in
-                <iterate close=")" conjunction="," open="(" property="postAddressIds">
-                    #postAddressIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNull property="userId">
-            <isEmpty property="userIds">
-            <isNull property="username">
-            <isEmpty property="usernameLike">
-            <isNull property="password">
-            <isEmpty property="passwordLike">
-            <isNull property="roleType">
-            <isEmpty property="roleTypes">
-            <isNull property="name">
-            <isEmpty property="nameLike">
-            <isNull property="nickName">
-            <isEmpty property="nickNameLike">
-            <isNull property="interCode">
-            <isEmpty property="interCodeLike">
-            <isNull property="mobile">
-            <isEmpty property="mobileLike">
-            <isNull property="age">
-            <isNull property="ageMin">
-            <isNull property="ageMax">
-            <isNull property="address">
-            <isEmpty property="addressLike">
-            <isNull property="avatarImgId">
-            <isEmpty property="avatarImgIds">
-            <isNull property="email">
-            <isEmpty property="emailLike">
-            <isNull property="valiDatetimeMin">
-            <isNull property="valiDatetimeMax">
-            <isNull property="birthdayDateMin">
-            <isNull property="birthdayDateMax">
-            <isNull property="workTimeMin">
-            <isNull property="workTimeMax">
-            <isNull property="provinceId">
-            <isEmpty property="provinceIds">
-            <isNull property="cityId">
-            <isEmpty property="cityIds">
-            <isNull property="status">
-            <isEmpty property="statusLike">
-            <isNull property="grade">
-            <isNull property="gradeMin">
-            <isNull property="gradeMax">
-            <isNull property="postAddressId">
-            <isEmpty property="postAddressIds">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           where
+             a.delete_flag = 0
+             <isNotNull property="userId">
+             and a.user_id=#userId#
+             </isNotNull>
+             <isNotEmpty property="userIds">
+             and a.user_id in
+               <iterate close=")" conjunction="," open="(" property="userIds">
+               #userIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="username">
+             and a.username=#username#
+             </isNotNull>
+             <isNotEmpty property="usernameLike">
+             and a.username like CONCAT('%',#usernameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="password">
+             and a.password=#password#
+             </isNotNull>
+             <isNotEmpty property="passwordLike">
+             and a.password like CONCAT('%',#passwordLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="roleType">
+             and a.role_type=#roleType#
+             </isNotNull>
+             <isNotEmpty property="roleTypes">
+             and a.role_type in
+               <iterate close=")" conjunction="," open="(" property="roleTypes">
+               #roleTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="name">
+             and a.name=#name#
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="nickName">
+             and a.nickName=#nickName#
+             </isNotNull>
+             <isNotEmpty property="nickNameLike">
+             and a.nickName like CONCAT('%',#nickNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="interCode">
+             and a.inter_code=#interCode#
+             </isNotNull>
+             <isNotEmpty property="interCodeLike">
+             and a.inter_code like CONCAT('%',#interCodeLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="mobile">
+             and a.mobile=#mobile#
+             </isNotNull>
+             <isNotEmpty property="mobileLike">
+             and a.mobile like CONCAT('%',#mobileLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="age">
+             and a.age=#age#
+             </isNotNull>
+             <isNotNull property="ageMin">
+             and a.age >=#ageMin#
+             </isNotNull>
+             <isNotNull property="ageMax">
+             and a.age &lt;#ageMax#
+             </isNotNull>
+             <isNotNull property="address">
+             and a.address=#address#
+             </isNotNull>
+             <isNotEmpty property="addressLike">
+             and a.address like CONCAT('%',#addressLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="avatarImgId">
+             and a.avatar_img_id=#avatarImgId#
+             </isNotNull>
+             <isNotEmpty property="avatarImgIds">
+             and a.avatar_img_id in
+               <iterate close=")" conjunction="," open="(" property="avatarImgIds">
+               #avatarImgIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="email">
+             and a.email=#email#
+             </isNotNull>
+             <isNotEmpty property="emailLike">
+             and a.email like CONCAT('%',#emailLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="valiDatetimeMin">
+             and a.vali_datetime >=#valiDatetimeMin#
+             </isNotNull>
+             <isNotNull property="valiDatetimeMax">
+             and a.vali_datetime &lt;#valiDatetimeMax#
+             </isNotNull>
+             <isNotNull property="birthdayDateMin">
+             and a.birthday_date >=#birthdayDateMin#
+             </isNotNull>
+             <isNotNull property="birthdayDateMax">
+             and a.birthday_date &lt;#birthdayDateMax#
+             </isNotNull>
+             <isNotNull property="workTimeMin">
+             and a.work_time >=#workTimeMin#
+             </isNotNull>
+             <isNotNull property="workTimeMax">
+             and a.work_time &lt;#workTimeMax#
+             </isNotNull>
+             <isNotNull property="provinceId">
+             and a.province_id=#provinceId#
+             </isNotNull>
+             <isNotEmpty property="provinceIds">
+             and a.province_id in
+               <iterate close=")" conjunction="," open="(" property="provinceIds">
+               #provinceIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="cityId">
+             and a.city_id=#cityId#
+             </isNotNull>
+             <isNotEmpty property="cityIds">
+             and a.city_id in
+               <iterate close=")" conjunction="," open="(" property="cityIds">
+               #cityIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="grade">
+             and a.grade=#grade#
+             </isNotNull>
+             <isNotNull property="gradeMin">
+             and a.grade >=#gradeMin#
+             </isNotNull>
+             <isNotNull property="gradeMax">
+             and a.grade &lt;#gradeMax#
+             </isNotNull>
+             <isNotNull property="postAddressId">
+             and a.post_address_id=#postAddressId#
+             </isNotNull>
+             <isNotEmpty property="postAddressIds">
+             and a.post_address_id in
+               <iterate close=")" conjunction="," open="(" property="postAddressIds">
+               #postAddressIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNull property="userId">
+             <isEmpty property="userIds">
+             <isNull property="username">
+             <isEmpty property="usernameLike">
+             <isNull property="password">
+             <isEmpty property="passwordLike">
+             <isNull property="roleType">
+             <isEmpty property="roleTypes">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="nickName">
+             <isEmpty property="nickNameLike">
+             <isNull property="interCode">
+             <isEmpty property="interCodeLike">
+             <isNull property="mobile">
+             <isEmpty property="mobileLike">
+             <isNull property="age">
+             <isNull property="ageMin">
+             <isNull property="ageMax">
+             <isNull property="address">
+             <isEmpty property="addressLike">
+             <isNull property="avatarImgId">
+             <isEmpty property="avatarImgIds">
+             <isNull property="email">
+             <isEmpty property="emailLike">
+             <isNull property="valiDatetimeMin">
+             <isNull property="valiDatetimeMax">
+             <isNull property="birthdayDateMin">
+             <isNull property="birthdayDateMax">
+             <isNull property="workTimeMin">
+             <isNull property="workTimeMax">
+             <isNull property="provinceId">
+             <isEmpty property="provinceIds">
+             <isNull property="cityId">
+             <isEmpty property="cityIds">
+             <isNull property="grade">
+             <isNull property="gradeMin">
+             <isNull property="gradeMax">
+             <isNull property="postAddressId">
+             <isEmpty property="postAddressIds">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
 	</select>
 	    
 	
@@ -874,45 +857,45 @@
 	
 	<select id="User.getUsersByUserIds" resultMap="User_RM" >
     	select
- /* getUsersByUserIds.User */             a.user_id,
-            a.username,
-            a.password,
-            a.role_type,
-            a.name,
-            a.nickName,
-            a.inter_code,
-            a.mobile,
-            a.age,
-            a.address,
-            a.avatar_img_id,
-            a.email,
-            a.vali_datetime,
-            a.birthday_date,
-            a.work_time,
-            a.province_id,
-            a.city_id,
-            a.status,
-            a.grade,
-            a.sex,
-            a.post_address_id,
-            a.remark,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from user a
-            where
-            a.delete_flag = 0
-            <isEmpty property="userIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="userIds">
-                and a.user_id in
+ /* getUsersByUserIds.User */              a.user_id,
+             a.username,
+             a.password,
+             a.role_type,
+             a.name,
+             a.nickName,
+             a.inter_code,
+             a.mobile,
+             a.age,
+             a.address,
+             a.avatar_img_id,
+             a.email,
+             a.vali_datetime,
+             a.birthday_date,
+             a.work_time,
+             a.province_id,
+             a.city_id,
+             a.status,
+             a.grade,
+             a.sex,
+             a.post_address_id,
+             a.remark,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from user a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="userIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="userIds">
+             a.user_id in
                 <iterate close=")" conjunction="," open="(" property="userIds">
-                    #userIds[]#
+                   #userIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getUsersByUserIdsOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getUsersByUserIdsOrderBy"/>
 	</select>	
 
 	    
@@ -922,45 +905,45 @@
 	
 	<select id="User.getUsersByUsernames" resultMap="User_RM" >
     	select
- /* getUsersByUsernames.User */             a.user_id,
-            a.username,
-            a.password,
-            a.role_type,
-            a.name,
-            a.nickName,
-            a.inter_code,
-            a.mobile,
-            a.age,
-            a.address,
-            a.avatar_img_id,
-            a.email,
-            a.vali_datetime,
-            a.birthday_date,
-            a.work_time,
-            a.province_id,
-            a.city_id,
-            a.status,
-            a.grade,
-            a.sex,
-            a.post_address_id,
-            a.remark,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from user a
-            where
-            a.delete_flag = 0
-            <isEmpty property="usernames">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="usernames">
-                and a.username in
+ /* getUsersByUsernames.User */              a.user_id,
+             a.username,
+             a.password,
+             a.role_type,
+             a.name,
+             a.nickName,
+             a.inter_code,
+             a.mobile,
+             a.age,
+             a.address,
+             a.avatar_img_id,
+             a.email,
+             a.vali_datetime,
+             a.birthday_date,
+             a.work_time,
+             a.province_id,
+             a.city_id,
+             a.status,
+             a.grade,
+             a.sex,
+             a.post_address_id,
+             a.remark,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from user a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="usernames">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="usernames">
+             a.username in
                 <iterate close=")" conjunction="," open="(" property="usernames">
-                    #usernames[]#
+                   #usernames[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getUsersByUsernamesOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getUsersByUsernamesOrderBy"/>
 	</select>	
 
 	    
@@ -970,45 +953,45 @@
 	
 	<select id="User.getUsersByEmails" resultMap="User_RM" >
     	select
- /* getUsersByEmails.User */             a.user_id,
-            a.username,
-            a.password,
-            a.role_type,
-            a.name,
-            a.nickName,
-            a.inter_code,
-            a.mobile,
-            a.age,
-            a.address,
-            a.avatar_img_id,
-            a.email,
-            a.vali_datetime,
-            a.birthday_date,
-            a.work_time,
-            a.province_id,
-            a.city_id,
-            a.status,
-            a.grade,
-            a.sex,
-            a.post_address_id,
-            a.remark,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from user a
-            where
-            a.delete_flag = 0
-            <isEmpty property="emails">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="emails">
-                and a.email in
+ /* getUsersByEmails.User */              a.user_id,
+             a.username,
+             a.password,
+             a.role_type,
+             a.name,
+             a.nickName,
+             a.inter_code,
+             a.mobile,
+             a.age,
+             a.address,
+             a.avatar_img_id,
+             a.email,
+             a.vali_datetime,
+             a.birthday_date,
+             a.work_time,
+             a.province_id,
+             a.city_id,
+             a.status,
+             a.grade,
+             a.sex,
+             a.post_address_id,
+             a.remark,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from user a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="emails">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="emails">
+             a.email in
                 <iterate close=")" conjunction="," open="(" property="emails">
-                    #emails[]#
+                   #emails[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getUsersByEmailsOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getUsersByEmailsOrderBy"/>
 	</select>	
 
 	    
@@ -1017,58 +1000,61 @@
     
 	
 	<update id="User.deleteByUserIds">
-		UPDATE user SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="userIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="userIds">
-                and user_id in
+		UPDATE user a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="userIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="userIds">
+             a.user_id in
                 <iterate close=")" conjunction="," open="(" property="userIds">
-                    #userIds[]#
+                   #userIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     
 	
 	<update id="User.deleteByUsernames">
-		UPDATE user SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="usernames">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="usernames">
-                and username in
+		UPDATE user a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="usernames">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="usernames">
+             a.username in
                 <iterate close=")" conjunction="," open="(" property="usernames">
-                    #usernames[]#
+                   #usernames[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     
 	
 	<update id="User.deleteByEmails">
-		UPDATE user SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="emails">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="emails">
-                and email in
+		UPDATE user a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="emails">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="emails">
+             a.email in
                 <iterate close=")" conjunction="," open="(" property="emails">
-                    #emails[]#
+                   #emails[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     

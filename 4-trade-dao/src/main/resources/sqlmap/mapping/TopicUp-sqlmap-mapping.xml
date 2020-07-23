@@ -28,61 +28,62 @@
     
 	<insert id="TopicUp.insert">
 		insert into demo_topic_up (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="upId"> up_id </isNotNull>
-            <isNotNull prepend="," property="objectId"> object_id </isNotNull>
-            <isNotNull prepend="," property="authorId"> author_id </isNotNull>
-            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="upId"> up_id </isNotNull>
+             <isNotNull prepend="," property="objectId"> object_id </isNotNull>
+             <isNotNull prepend="," property="authorId"> author_id </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="upId"> #upId# </isNotNull> 
             <isNotNull prepend="," property="objectId"> #objectId# </isNotNull> 
             <isNotNull prepend="," property="authorId"> #authorId# </isNotNull>)
-            <selectKey keyProperty="upId" resultClass="String" type="pre">
-                select if((#upId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#upId# ) as upId
-            </selectKey>
+           <selectKey keyProperty="upId" resultClass="String" type="pre">
+              select if((#upId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#upId# ) as upId
+           </selectKey>
 	</insert>
 	
 	<update id="TopicUp.delete">
-		UPDATE demo_topic_up SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and up_id = #upId#
+		UPDATE demo_topic_up a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.up_id = #upId#
 	</update>
 	
     
 	
 	<update id="TopicUp.update">
-		UPDATE demo_topic_up
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull prepend="," property="objectId">
-                    object_id =  #objectId# 
-                </isNotNull>
-                <isNotNull prepend="," property="authorId">
-                    author_id =  #authorId# 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and up_id = #upId#
+		UPDATE demo_topic_up a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="objectId">
+             a.object_id =  #objectId# 
+             </isNotNull>
+             <isNotNull prepend="," property="authorId">
+             a.author_id =  #authorId# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.up_id = #upId#
 	</update>
 	
     
 	
 	<select id="TopicUp.getTopicUpByUpId" resultMap="TopicUp_RM" >
     	select
- /* getTopicUpByUpId.TopicUp */             a.up_id,
-            a.object_id,
-            a.author_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_topic_up a
-            where
-            a.delete_flag = 0
-            and a.up_id = #upId#
+ /* getTopicUpByUpId.TopicUp */              a.up_id,
+             a.object_id,
+             a.author_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_topic_up a
+           where
+             a.delete_flag = 0
+             and a.up_id = #upId#
 	</select>	
 
 	    
@@ -92,144 +93,144 @@
 	
 	<select id="TopicUp.getPageList" resultMap="TopicUp_RM" >
     	select
- /* getPageList.TopicUp */             a.up_id,
-            a.object_id,
-            a.author_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_topic_up a
-            where
-            a.delete_flag = 0
-            <isNotNull property="upId">
-               and a.up_id=#upId#
-            </isNotNull>
-            <isNotEmpty property="upIds">
-                and a.up_id in
-                <iterate close=")" conjunction="," open="(" property="upIds">
-                    #upIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="objectId">
-               and a.object_id=#objectId#
-            </isNotNull>
-            <isNotEmpty property="objectIds">
-                and a.object_id in
-                <iterate close=")" conjunction="," open="(" property="objectIds">
-                    #objectIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="authorId">
-               and a.author_id=#authorId#
-            </isNotNull>
-            <isNotEmpty property="authorIds">
-                and a.author_id in
-                <iterate close=")" conjunction="," open="(" property="authorIds">
-                    #authorIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="upId">
-            <isEmpty property="upIds">
-            <isNull property="objectId">
-            <isEmpty property="objectIds">
-            <isNull property="authorId">
-            <isEmpty property="authorIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+ /* getPageList.TopicUp */              a.up_id,
+             a.object_id,
+             a.author_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_topic_up a
+           where
+             a.delete_flag = 0
+             <isNotNull property="upId">
+             and a.up_id=#upId#
+             </isNotNull>
+             <isNotEmpty property="upIds">
+             and a.up_id in
+               <iterate close=")" conjunction="," open="(" property="upIds">
+               #upIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="objectId">
+             and a.object_id=#objectId#
+             </isNotNull>
+             <isNotEmpty property="objectIds">
+             and a.object_id in
+               <iterate close=")" conjunction="," open="(" property="objectIds">
+               #objectIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="authorId">
+             and a.author_id=#authorId#
+             </isNotNull>
+             <isNotEmpty property="authorIds">
+             and a.author_id in
+               <iterate close=")" conjunction="," open="(" property="authorIds">
+               #authorIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="upId">
+             <isEmpty property="upIds">
+             <isNull property="objectId">
+             <isEmpty property="objectIds">
+             <isNull property="authorId">
+             <isEmpty property="authorIds">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid="getTopicUpPageListOrderBy"/>
+              <include refid="getTopicUpPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
 	<select id="TopicUp.getPageList_count" resultClass="long" >
     	select  /* getPageList_count.TopicUp */ count(*)  from demo_topic_up a
-            where
-            a.delete_flag = 0
-            <isNotNull property="upId">
-               and a.up_id=#upId#
-            </isNotNull>
-            <isNotEmpty property="upIds">
-                and a.up_id in
-                <iterate close=")" conjunction="," open="(" property="upIds">
-                    #upIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="objectId">
-               and a.object_id=#objectId#
-            </isNotNull>
-            <isNotEmpty property="objectIds">
-                and a.object_id in
-                <iterate close=")" conjunction="," open="(" property="objectIds">
-                    #objectIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="authorId">
-               and a.author_id=#authorId#
-            </isNotNull>
-            <isNotEmpty property="authorIds">
-                and a.author_id in
-                <iterate close=")" conjunction="," open="(" property="authorIds">
-                    #authorIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="upId">
-            <isEmpty property="upIds">
-            <isNull property="objectId">
-            <isEmpty property="objectIds">
-            <isNull property="authorId">
-            <isEmpty property="authorIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           where
+             a.delete_flag = 0
+             <isNotNull property="upId">
+             and a.up_id=#upId#
+             </isNotNull>
+             <isNotEmpty property="upIds">
+             and a.up_id in
+               <iterate close=")" conjunction="," open="(" property="upIds">
+               #upIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="objectId">
+             and a.object_id=#objectId#
+             </isNotNull>
+             <isNotEmpty property="objectIds">
+             and a.object_id in
+               <iterate close=")" conjunction="," open="(" property="objectIds">
+               #objectIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="authorId">
+             and a.author_id=#authorId#
+             </isNotNull>
+             <isNotEmpty property="authorIds">
+             and a.author_id in
+               <iterate close=")" conjunction="," open="(" property="authorIds">
+               #authorIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="upId">
+             <isEmpty property="upIds">
+             <isNull property="objectId">
+             <isEmpty property="objectIds">
+             <isNull property="authorId">
+             <isEmpty property="authorIds">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
 	</select>
 	    
 	
@@ -238,26 +239,26 @@
 	
 	<select id="TopicUp.getTopicUpsByUpIds" resultMap="TopicUp_RM" >
     	select
- /* getTopicUpsByUpIds.TopicUp */             a.up_id,
-            a.object_id,
-            a.author_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_topic_up a
-            where
-            a.delete_flag = 0
-            <isEmpty property="upIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="upIds">
-                and a.up_id in
+ /* getTopicUpsByUpIds.TopicUp */              a.up_id,
+             a.object_id,
+             a.author_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_topic_up a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="upIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="upIds">
+             a.up_id in
                 <iterate close=")" conjunction="," open="(" property="upIds">
-                    #upIds[]#
+                   #upIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getTopicUpsByUpIdsOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getTopicUpsByUpIdsOrderBy"/>
 	</select>	
 
 	    
@@ -266,20 +267,21 @@
     
 	
 	<update id="TopicUp.deleteByUpIds">
-		UPDATE demo_topic_up SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="upIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="upIds">
-                and up_id in
+		UPDATE demo_topic_up a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="upIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="upIds">
+             a.up_id in
                 <iterate close=")" conjunction="," open="(" property="upIds">
-                    #upIds[]#
+                   #upIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     

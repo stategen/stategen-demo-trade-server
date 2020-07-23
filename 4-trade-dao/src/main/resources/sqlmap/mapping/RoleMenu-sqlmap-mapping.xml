@@ -28,61 +28,62 @@
     
 	<insert id="RoleMenu.insert">
 		insert into role_menu (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="id"> id </isNotNull>
-            <isNotNull prepend="," property="roleId"> role_id </isNotNull>
-            <isNotNull prepend="," property="menuId"> menu_id </isNotNull>
-            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="id"> id </isNotNull>
+             <isNotNull prepend="," property="roleId"> role_id </isNotNull>
+             <isNotNull prepend="," property="menuId"> menu_id </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="id"> #id# </isNotNull> 
             <isNotNull prepend="," property="roleId"> #roleId# </isNotNull> 
             <isNotNull prepend="," property="menuId"> #menuId# </isNotNull>)
-            <selectKey keyProperty="id" resultClass="long">
-                select  LAST_INSERT_ID()
-            </selectKey>
+           <selectKey keyProperty="id" resultClass="long">
+              select  LAST_INSERT_ID()
+           </selectKey>
 	</insert>
 	
 	<update id="RoleMenu.delete">
-		UPDATE role_menu SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and id = #id#
+		UPDATE role_menu a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.id = #id#
 	</update>
 	
     
 	
 	<update id="RoleMenu.update">
-		UPDATE role_menu
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull prepend="," property="roleId">
-                    role_id =  #roleId# 
-                </isNotNull>
-                <isNotNull prepend="," property="menuId">
-                    menu_id =  #menuId# 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and id = #id#
+		UPDATE role_menu a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="roleId">
+             a.role_id =  #roleId# 
+             </isNotNull>
+             <isNotNull prepend="," property="menuId">
+             a.menu_id =  #menuId# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.id = #id#
 	</update>
 	
     
 	
 	<select id="RoleMenu.getRoleMenuById" resultMap="RoleMenu_RM" >
     	select
- /* getRoleMenuById.RoleMenu */             a.id,
-            a.role_id,
-            a.menu_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from role_menu a
-            where
-            a.delete_flag = 0
-            and a.id = #id#
+ /* getRoleMenuById.RoleMenu */              a.id,
+             a.role_id,
+             a.menu_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from role_menu a
+           where
+             a.delete_flag = 0
+             and a.id = #id#
 	</select>	
 
 	    
@@ -92,148 +93,148 @@
 	
 	<select id="RoleMenu.getPageList" resultMap="RoleMenu_RM" >
     	select
- /* getPageList.RoleMenu */             a.id,
-            a.role_id,
-            a.menu_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from role_menu a
-            where
-            a.delete_flag = 0
-          <isNotNull property="id">
-                and a.id=#id#
-          </isNotNull>
-            <isNotNull property="idMin">
-                and a.id >=#idMin#
-            </isNotNull>
-            <isNotNull property="idMax">
-                and a.id &lt;#idMax#
-            </isNotNull>
-            <isNotNull property="roleId">
-               and a.role_id=#roleId#
-            </isNotNull>
-            <isNotEmpty property="roleIds">
-                and a.role_id in
-                <iterate close=")" conjunction="," open="(" property="roleIds">
-                    #roleIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="menuId">
-               and a.menu_id=#menuId#
-            </isNotNull>
-            <isNotEmpty property="menuIds">
-                and a.menu_id in
-                <iterate close=")" conjunction="," open="(" property="menuIds">
-                    #menuIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="id">
-            <isNull property="idMin">
-            <isNull property="idMax">
-            <isNull property="roleId">
-            <isEmpty property="roleIds">
-            <isNull property="menuId">
-            <isEmpty property="menuIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
+ /* getPageList.RoleMenu */              a.id,
+             a.role_id,
+             a.menu_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from role_menu a
+           where
+             a.delete_flag = 0
+             <isNotNull property="id">
+             and a.id=#id#
+             </isNotNull>
+             <isNotNull property="idMin">
+             and a.id >=#idMin#
+             </isNotNull>
+             <isNotNull property="idMax">
+             and a.id &lt;#idMax#
+             </isNotNull>
+             <isNotNull property="roleId">
+             and a.role_id=#roleId#
+             </isNotNull>
+             <isNotEmpty property="roleIds">
+             and a.role_id in
+               <iterate close=")" conjunction="," open="(" property="roleIds">
+               #roleIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="menuId">
+             and a.menu_id=#menuId#
+             </isNotNull>
+             <isNotEmpty property="menuIds">
+             and a.menu_id in
+               <iterate close=")" conjunction="," open="(" property="menuIds">
+               #menuIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="id">
+             <isNull property="idMin">
+             <isNull property="idMax">
+             <isNull property="roleId">
+             <isEmpty property="roleIds">
+             <isNull property="menuId">
+             <isEmpty property="menuIds">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
             order by
-            <include refid="getRoleMenuPageListOrderBy"/>
+              <include refid="getRoleMenuPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
 	<select id="RoleMenu.getPageList_count" resultClass="long" >
     	select  /* getPageList_count.RoleMenu */ count(*)  from role_menu a
-            where
-            a.delete_flag = 0
-          <isNotNull property="id">
-                and a.id=#id#
-          </isNotNull>
-            <isNotNull property="idMin">
-                and a.id >=#idMin#
-            </isNotNull>
-            <isNotNull property="idMax">
-                and a.id &lt;#idMax#
-            </isNotNull>
-            <isNotNull property="roleId">
-               and a.role_id=#roleId#
-            </isNotNull>
-            <isNotEmpty property="roleIds">
-                and a.role_id in
-                <iterate close=")" conjunction="," open="(" property="roleIds">
-                    #roleIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="menuId">
-               and a.menu_id=#menuId#
-            </isNotNull>
-            <isNotEmpty property="menuIds">
-                and a.menu_id in
-                <iterate close=")" conjunction="," open="(" property="menuIds">
-                    #menuIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="id">
-            <isNull property="idMin">
-            <isNull property="idMax">
-            <isNull property="roleId">
-            <isEmpty property="roleIds">
-            <isNull property="menuId">
-            <isEmpty property="menuIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
+           where
+             a.delete_flag = 0
+             <isNotNull property="id">
+             and a.id=#id#
+             </isNotNull>
+             <isNotNull property="idMin">
+             and a.id >=#idMin#
+             </isNotNull>
+             <isNotNull property="idMax">
+             and a.id &lt;#idMax#
+             </isNotNull>
+             <isNotNull property="roleId">
+             and a.role_id=#roleId#
+             </isNotNull>
+             <isNotEmpty property="roleIds">
+             and a.role_id in
+               <iterate close=")" conjunction="," open="(" property="roleIds">
+               #roleIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="menuId">
+             and a.menu_id=#menuId#
+             </isNotNull>
+             <isNotEmpty property="menuIds">
+             and a.menu_id in
+               <iterate close=")" conjunction="," open="(" property="menuIds">
+               #menuIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="id">
+             <isNull property="idMin">
+             <isNull property="idMax">
+             <isNull property="roleId">
+             <isEmpty property="roleIds">
+             <isNull property="menuId">
+             <isEmpty property="menuIds">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
 	</select>
 	    
 	
@@ -242,26 +243,26 @@
 	
 	<select id="RoleMenu.getRoleMenusByIds" resultMap="RoleMenu_RM" >
     	select
- /* getRoleMenusByIds.RoleMenu */             a.id,
-            a.role_id,
-            a.menu_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from role_menu a
-            where
-            a.delete_flag = 0
-            <isEmpty property="ids">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="ids">
-                and a.id in
+ /* getRoleMenusByIds.RoleMenu */              a.id,
+             a.role_id,
+             a.menu_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from role_menu a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="ids">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="ids">
+             a.id in
                 <iterate close=")" conjunction="," open="(" property="ids">
-                    #ids[]#
+                   #ids[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getRoleMenusByIdsOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getRoleMenusByIdsOrderBy"/>
 	</select>	
 
 	    
@@ -270,20 +271,21 @@
     
 	
 	<update id="RoleMenu.deleteByIds">
-		UPDATE role_menu SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="ids">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="ids">
-                and id in
+		UPDATE role_menu a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="ids">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="ids">
+             a.id in
                 <iterate close=")" conjunction="," open="(" property="ids">
-                    #ids[]#
+                   #ids[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     

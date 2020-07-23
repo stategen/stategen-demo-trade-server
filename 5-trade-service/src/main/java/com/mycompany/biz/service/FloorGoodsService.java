@@ -77,4 +77,16 @@ public interface FloorGoodsService extends FloorGoodsServiceTrade, AssignService
      * @see com.mycompany.biz.dao.FloorGoodsDao#insert
      */
     public List<FloorGoods> saveFloorGoodss(List<FloorGoods> floorGoodss);
+
+    /**
+     ** 
+     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodsByFloorGoodsId
+     */
+    public FloorGoods getFloorGoodsByFloorGoodsId(String floorGoodsId);
+
+    /**
+     ** 
+     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodssByFloorGoodsIds
+     */
+    public List<FloorGoods> getFloorGoodssByFloorGoodsIds(java.util.List<String> floorGoodsIds);
 }

@@ -38,23 +38,23 @@
     
 	<insert id="Menu.insert">
 		insert into menu (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="menuId"> menu_id </isNotNull>
-            <isNotNull prepend="," property="morder"> morder </isNotNull>
-            <isNotNull prepend="," property="bpid"> bpid </isNotNull>
-            <isNotNull prepend="," property="mpid"> mpid </isNotNull>
-            <isNotNull prepend="," property="projectName"> project_name </isNotNull>
-            <isNotNull prepend="," property="controllerName"> controller_name </isNotNull>
-            <isNotNull prepend="," property="methodName"> method_name </isNotNull>
-            <isNotNull prepend="," property="url"> url </isNotNull>
-            <isNotNull prepend="," property="icon"> icon </isNotNull>
-            <isNotNull prepend="," property="name"> name </isNotNull>
-            <isNotNull prepend="," property="route"> route </isNotNull>
-            <isNotNull prepend="," property="menuType"> menu_type </isNotNull>
-            <isNotNull prepend="," property="checkType"> check_type </isNotNull>
-            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="menuId"> menu_id </isNotNull>
+             <isNotNull prepend="," property="morder"> morder </isNotNull>
+             <isNotNull prepend="," property="bpid"> bpid </isNotNull>
+             <isNotNull prepend="," property="mpid"> mpid </isNotNull>
+             <isNotNull prepend="," property="projectName"> project_name </isNotNull>
+             <isNotNull prepend="," property="controllerName"> controller_name </isNotNull>
+             <isNotNull prepend="," property="methodName"> method_name </isNotNull>
+             <isNotNull prepend="," property="url"> url </isNotNull>
+             <isNotNull prepend="," property="icon"> icon </isNotNull>
+             <isNotNull prepend="," property="name"> name </isNotNull>
+             <isNotNull prepend="," property="route"> route </isNotNull>
+             <isNotNull prepend="," property="menuType"> menu_type </isNotNull>
+             <isNotNull prepend="," property="checkType"> check_type </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="menuId"> #menuId# </isNotNull> 
             <isNotNull prepend="," property="morder"> #morder# </isNotNull> 
             <isNotNull prepend="," property="bpid"> #bpid# </isNotNull> 
@@ -68,91 +68,92 @@
             <isNotNull prepend="," property="route"> #route# </isNotNull> 
             <isNotNull prepend="," property="menuType"> #menuType# </isNotNull> 
             <isNotNull prepend="," property="checkType"> #checkType# </isNotNull>)
-            <selectKey keyProperty="menuId" resultClass="long">
-                select  LAST_INSERT_ID()
-            </selectKey>
+           <selectKey keyProperty="menuId" resultClass="long">
+              select  LAST_INSERT_ID()
+           </selectKey>
 	</insert>
 	
 	<update id="Menu.delete">
-		UPDATE menu SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and menu_id = #menuId#
+		UPDATE menu a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.menu_id = #menuId#
 	</update>
 	
     
 	
 	<update id="Menu.update">
-		UPDATE menu
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull prepend="," property="morder">
-                    morder =  #morder# 
-                </isNotNull>
-                <isNotNull prepend="," property="bpid">
-                    bpid =  #bpid# 
-                </isNotNull>
-                <isNotNull prepend="," property="mpid">
-                    mpid =  #mpid# 
-                </isNotNull>
-                <isNotNull prepend="," property="projectName">
-                    project_name =  #projectName# 
-                </isNotNull>
-                <isNotNull prepend="," property="controllerName">
-                    controller_name =  #controllerName# 
-                </isNotNull>
-                <isNotNull prepend="," property="methodName">
-                    method_name =  #methodName# 
-                </isNotNull>
-                <isNotNull prepend="," property="url">
-                    url =  #url# 
-                </isNotNull>
-                <isNotNull prepend="," property="icon">
-                    icon =  #icon# 
-                </isNotNull>
-                <isNotNull prepend="," property="name">
-                    name =  #name# 
-                </isNotNull>
-                <isNotNull prepend="," property="route">
-                    route =  #route# 
-                </isNotNull>
-                <isNotNull prepend="," property="menuType">
-                    menu_type =  #menuType# 
-                </isNotNull>
-                <isNotNull prepend="," property="checkType">
-                    check_type =  #checkType# 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and menu_id = #menuId#
+		UPDATE menu a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="morder">
+             a.morder =  #morder# 
+             </isNotNull>
+             <isNotNull prepend="," property="bpid">
+             a.bpid =  #bpid# 
+             </isNotNull>
+             <isNotNull prepend="," property="mpid">
+             a.mpid =  #mpid# 
+             </isNotNull>
+             <isNotNull prepend="," property="projectName">
+             a.project_name =  #projectName# 
+             </isNotNull>
+             <isNotNull prepend="," property="controllerName">
+             a.controller_name =  #controllerName# 
+             </isNotNull>
+             <isNotNull prepend="," property="methodName">
+             a.method_name =  #methodName# 
+             </isNotNull>
+             <isNotNull prepend="," property="url">
+             a.url =  #url# 
+             </isNotNull>
+             <isNotNull prepend="," property="icon">
+             a.icon =  #icon# 
+             </isNotNull>
+             <isNotNull prepend="," property="name">
+             a.name =  #name# 
+             </isNotNull>
+             <isNotNull prepend="," property="route">
+             a.route =  #route# 
+             </isNotNull>
+             <isNotNull prepend="," property="menuType">
+             a.menu_type =  #menuType# 
+             </isNotNull>
+             <isNotNull prepend="," property="checkType">
+             a.check_type =  #checkType# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.menu_id = #menuId#
 	</update>
 	
     
 	
 	<select id="Menu.getMenuByMenuId" resultMap="Menu_RM" >
     	select
- /* getMenuByMenuId.Menu */             a.menu_id,
-            a.morder,
-            a.bpid,
-            a.mpid,
-            a.project_name,
-            a.controller_name,
-            a.method_name,
-            a.url,
-            a.icon,
-            a.name,
-            a.route,
-            a.menu_type,
-            a.check_type,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from menu a
-            where
-            a.delete_flag = 0
-            and a.menu_id = #menuId#
+ /* getMenuByMenuId.Menu */              a.menu_id,
+             a.morder,
+             a.bpid,
+             a.mpid,
+             a.project_name,
+             a.controller_name,
+             a.method_name,
+             a.url,
+             a.icon,
+             a.name,
+             a.route,
+             a.menu_type,
+             a.check_type,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from menu a
+           where
+             a.delete_flag = 0
+             and a.menu_id = #menuId#
 	</select>	
 
 	    
@@ -162,344 +163,344 @@
 	
 	<select id="Menu.getPageList" resultMap="Menu_RM" >
     	select
- /* getPageList.Menu */             a.menu_id,
-            a.morder,
-            a.bpid,
-            a.mpid,
-            a.project_name,
-            a.controller_name,
-            a.method_name,
-            a.url,
-            a.icon,
-            a.name,
-            a.route,
-            a.menu_type,
-            a.check_type,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from menu a
-            where
-            a.delete_flag = 0
-            <isNotNull property="menuId">
-               and a.menu_id=#menuId#
-            </isNotNull>
-            <isNotEmpty property="menuIds">
-                and a.menu_id in
-                <iterate close=")" conjunction="," open="(" property="menuIds">
-                    #menuIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="morder">
-                and a.morder=#morder#
-          </isNotNull>
-            <isNotNull property="morderMin">
-                and a.morder >=#morderMin#
-            </isNotNull>
-            <isNotNull property="morderMax">
-                and a.morder &lt;#morderMax#
-            </isNotNull>
-          <isNotNull property="bpid">
-                and a.bpid=#bpid#
-          </isNotNull>
-            <isNotNull property="bpidMin">
-                and a.bpid >=#bpidMin#
-            </isNotNull>
-            <isNotNull property="bpidMax">
-                and a.bpid &lt;#bpidMax#
-            </isNotNull>
-          <isNotNull property="mpid">
-                and a.mpid=#mpid#
-          </isNotNull>
-            <isNotNull property="mpidMin">
-                and a.mpid >=#mpidMin#
-            </isNotNull>
-            <isNotNull property="mpidMax">
-                and a.mpid &lt;#mpidMax#
-            </isNotNull>
-          <isNotNull property="projectName">
-            and a.project_name=#projectName#
-          </isNotNull>
-            <isNotEmpty property="projectNameLike">
-                and a.project_name like CONCAT('%',#projectNameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="controllerName">
-            and a.controller_name=#controllerName#
-          </isNotNull>
-            <isNotEmpty property="controllerNameLike">
-                and a.controller_name like CONCAT('%',#controllerNameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="methodName">
-            and a.method_name=#methodName#
-          </isNotNull>
-            <isNotEmpty property="methodNameLike">
-                and a.method_name like CONCAT('%',#methodNameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="name">
-            and a.name=#name#
-          </isNotNull>
-            <isNotEmpty property="nameLike">
-                and a.name like CONCAT('%',#nameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="route">
-            and a.route=#route#
-          </isNotNull>
-            <isNotEmpty property="routeLike">
-                and a.route like CONCAT('%',#routeLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="menuType">
-               and a.menu_type=#menuType#
-            </isNotNull>
-            <isNotEmpty property="menuTypes">
-                and a.menu_type in
-                <iterate close=")" conjunction="," open="(" property="menuTypes">
-                    #menuTypes[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="checkType">
-               and a.check_type=#checkType#
-            </isNotNull>
-            <isNotEmpty property="checkTypes">
-                and a.check_type in
-                <iterate close=")" conjunction="," open="(" property="checkTypes">
-                    #checkTypes[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="menuId">
-            <isEmpty property="menuIds">
-            <isNull property="morder">
-            <isNull property="morderMin">
-            <isNull property="morderMax">
-            <isNull property="bpid">
-            <isNull property="bpidMin">
-            <isNull property="bpidMax">
-            <isNull property="mpid">
-            <isNull property="mpidMin">
-            <isNull property="mpidMax">
-            <isNull property="projectName">
-            <isEmpty property="projectNameLike">
-            <isNull property="controllerName">
-            <isEmpty property="controllerNameLike">
-            <isNull property="methodName">
-            <isEmpty property="methodNameLike">
-            <isNull property="name">
-            <isEmpty property="nameLike">
-            <isNull property="route">
-            <isEmpty property="routeLike">
-            <isNull property="menuType">
-            <isEmpty property="menuTypes">
-            <isNull property="checkType">
-            <isEmpty property="checkTypes">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
+ /* getPageList.Menu */              a.menu_id,
+             a.morder,
+             a.bpid,
+             a.mpid,
+             a.project_name,
+             a.controller_name,
+             a.method_name,
+             a.url,
+             a.icon,
+             a.name,
+             a.route,
+             a.menu_type,
+             a.check_type,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from menu a
+           where
+             a.delete_flag = 0
+             <isNotNull property="menuId">
+             and a.menu_id=#menuId#
+             </isNotNull>
+             <isNotEmpty property="menuIds">
+             and a.menu_id in
+               <iterate close=")" conjunction="," open="(" property="menuIds">
+               #menuIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="morder">
+             and a.morder=#morder#
+             </isNotNull>
+             <isNotNull property="morderMin">
+             and a.morder >=#morderMin#
+             </isNotNull>
+             <isNotNull property="morderMax">
+             and a.morder &lt;#morderMax#
+             </isNotNull>
+             <isNotNull property="bpid">
+             and a.bpid=#bpid#
+             </isNotNull>
+             <isNotNull property="bpidMin">
+             and a.bpid >=#bpidMin#
+             </isNotNull>
+             <isNotNull property="bpidMax">
+             and a.bpid &lt;#bpidMax#
+             </isNotNull>
+             <isNotNull property="mpid">
+             and a.mpid=#mpid#
+             </isNotNull>
+             <isNotNull property="mpidMin">
+             and a.mpid >=#mpidMin#
+             </isNotNull>
+             <isNotNull property="mpidMax">
+             and a.mpid &lt;#mpidMax#
+             </isNotNull>
+             <isNotNull property="projectName">
+             and a.project_name=#projectName#
+             </isNotNull>
+             <isNotEmpty property="projectNameLike">
+             and a.project_name like CONCAT('%',#projectNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="controllerName">
+             and a.controller_name=#controllerName#
+             </isNotNull>
+             <isNotEmpty property="controllerNameLike">
+             and a.controller_name like CONCAT('%',#controllerNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="methodName">
+             and a.method_name=#methodName#
+             </isNotNull>
+             <isNotEmpty property="methodNameLike">
+             and a.method_name like CONCAT('%',#methodNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="name">
+             and a.name=#name#
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="route">
+             and a.route=#route#
+             </isNotNull>
+             <isNotEmpty property="routeLike">
+             and a.route like CONCAT('%',#routeLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="menuType">
+             and a.menu_type=#menuType#
+             </isNotNull>
+             <isNotEmpty property="menuTypes">
+             and a.menu_type in
+               <iterate close=")" conjunction="," open="(" property="menuTypes">
+               #menuTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="checkType">
+             and a.check_type=#checkType#
+             </isNotNull>
+             <isNotEmpty property="checkTypes">
+             and a.check_type in
+               <iterate close=")" conjunction="," open="(" property="checkTypes">
+               #checkTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="menuId">
+             <isEmpty property="menuIds">
+             <isNull property="morder">
+             <isNull property="morderMin">
+             <isNull property="morderMax">
+             <isNull property="bpid">
+             <isNull property="bpidMin">
+             <isNull property="bpidMax">
+             <isNull property="mpid">
+             <isNull property="mpidMin">
+             <isNull property="mpidMax">
+             <isNull property="projectName">
+             <isEmpty property="projectNameLike">
+             <isNull property="controllerName">
+             <isEmpty property="controllerNameLike">
+             <isNull property="methodName">
+             <isEmpty property="methodNameLike">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="route">
+             <isEmpty property="routeLike">
+             <isNull property="menuType">
+             <isEmpty property="menuTypes">
+             <isNull property="checkType">
+             <isEmpty property="checkTypes">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid="getMenuPageListOrderBy"/>
+              <include refid="getMenuPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
 	<select id="Menu.getPageList_count" resultClass="long" >
     	select  /* getPageList_count.Menu */ count(*)  from menu a
-            where
-            a.delete_flag = 0
-            <isNotNull property="menuId">
-               and a.menu_id=#menuId#
-            </isNotNull>
-            <isNotEmpty property="menuIds">
-                and a.menu_id in
-                <iterate close=")" conjunction="," open="(" property="menuIds">
-                    #menuIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="morder">
-                and a.morder=#morder#
-          </isNotNull>
-            <isNotNull property="morderMin">
-                and a.morder >=#morderMin#
-            </isNotNull>
-            <isNotNull property="morderMax">
-                and a.morder &lt;#morderMax#
-            </isNotNull>
-          <isNotNull property="bpid">
-                and a.bpid=#bpid#
-          </isNotNull>
-            <isNotNull property="bpidMin">
-                and a.bpid >=#bpidMin#
-            </isNotNull>
-            <isNotNull property="bpidMax">
-                and a.bpid &lt;#bpidMax#
-            </isNotNull>
-          <isNotNull property="mpid">
-                and a.mpid=#mpid#
-          </isNotNull>
-            <isNotNull property="mpidMin">
-                and a.mpid >=#mpidMin#
-            </isNotNull>
-            <isNotNull property="mpidMax">
-                and a.mpid &lt;#mpidMax#
-            </isNotNull>
-          <isNotNull property="projectName">
-            and a.project_name=#projectName#
-          </isNotNull>
-            <isNotEmpty property="projectNameLike">
-                and a.project_name like CONCAT('%',#projectNameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="controllerName">
-            and a.controller_name=#controllerName#
-          </isNotNull>
-            <isNotEmpty property="controllerNameLike">
-                and a.controller_name like CONCAT('%',#controllerNameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="methodName">
-            and a.method_name=#methodName#
-          </isNotNull>
-            <isNotEmpty property="methodNameLike">
-                and a.method_name like CONCAT('%',#methodNameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="name">
-            and a.name=#name#
-          </isNotNull>
-            <isNotEmpty property="nameLike">
-                and a.name like CONCAT('%',#nameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="route">
-            and a.route=#route#
-          </isNotNull>
-            <isNotEmpty property="routeLike">
-                and a.route like CONCAT('%',#routeLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="menuType">
-               and a.menu_type=#menuType#
-            </isNotNull>
-            <isNotEmpty property="menuTypes">
-                and a.menu_type in
-                <iterate close=")" conjunction="," open="(" property="menuTypes">
-                    #menuTypes[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="checkType">
-               and a.check_type=#checkType#
-            </isNotNull>
-            <isNotEmpty property="checkTypes">
-                and a.check_type in
-                <iterate close=")" conjunction="," open="(" property="checkTypes">
-                    #checkTypes[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="menuId">
-            <isEmpty property="menuIds">
-            <isNull property="morder">
-            <isNull property="morderMin">
-            <isNull property="morderMax">
-            <isNull property="bpid">
-            <isNull property="bpidMin">
-            <isNull property="bpidMax">
-            <isNull property="mpid">
-            <isNull property="mpidMin">
-            <isNull property="mpidMax">
-            <isNull property="projectName">
-            <isEmpty property="projectNameLike">
-            <isNull property="controllerName">
-            <isEmpty property="controllerNameLike">
-            <isNull property="methodName">
-            <isEmpty property="methodNameLike">
-            <isNull property="name">
-            <isEmpty property="nameLike">
-            <isNull property="route">
-            <isEmpty property="routeLike">
-            <isNull property="menuType">
-            <isEmpty property="menuTypes">
-            <isNull property="checkType">
-            <isEmpty property="checkTypes">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           where
+             a.delete_flag = 0
+             <isNotNull property="menuId">
+             and a.menu_id=#menuId#
+             </isNotNull>
+             <isNotEmpty property="menuIds">
+             and a.menu_id in
+               <iterate close=")" conjunction="," open="(" property="menuIds">
+               #menuIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="morder">
+             and a.morder=#morder#
+             </isNotNull>
+             <isNotNull property="morderMin">
+             and a.morder >=#morderMin#
+             </isNotNull>
+             <isNotNull property="morderMax">
+             and a.morder &lt;#morderMax#
+             </isNotNull>
+             <isNotNull property="bpid">
+             and a.bpid=#bpid#
+             </isNotNull>
+             <isNotNull property="bpidMin">
+             and a.bpid >=#bpidMin#
+             </isNotNull>
+             <isNotNull property="bpidMax">
+             and a.bpid &lt;#bpidMax#
+             </isNotNull>
+             <isNotNull property="mpid">
+             and a.mpid=#mpid#
+             </isNotNull>
+             <isNotNull property="mpidMin">
+             and a.mpid >=#mpidMin#
+             </isNotNull>
+             <isNotNull property="mpidMax">
+             and a.mpid &lt;#mpidMax#
+             </isNotNull>
+             <isNotNull property="projectName">
+             and a.project_name=#projectName#
+             </isNotNull>
+             <isNotEmpty property="projectNameLike">
+             and a.project_name like CONCAT('%',#projectNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="controllerName">
+             and a.controller_name=#controllerName#
+             </isNotNull>
+             <isNotEmpty property="controllerNameLike">
+             and a.controller_name like CONCAT('%',#controllerNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="methodName">
+             and a.method_name=#methodName#
+             </isNotNull>
+             <isNotEmpty property="methodNameLike">
+             and a.method_name like CONCAT('%',#methodNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="name">
+             and a.name=#name#
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="route">
+             and a.route=#route#
+             </isNotNull>
+             <isNotEmpty property="routeLike">
+             and a.route like CONCAT('%',#routeLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="menuType">
+             and a.menu_type=#menuType#
+             </isNotNull>
+             <isNotEmpty property="menuTypes">
+             and a.menu_type in
+               <iterate close=")" conjunction="," open="(" property="menuTypes">
+               #menuTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="checkType">
+             and a.check_type=#checkType#
+             </isNotNull>
+             <isNotEmpty property="checkTypes">
+             and a.check_type in
+               <iterate close=")" conjunction="," open="(" property="checkTypes">
+               #checkTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="menuId">
+             <isEmpty property="menuIds">
+             <isNull property="morder">
+             <isNull property="morderMin">
+             <isNull property="morderMax">
+             <isNull property="bpid">
+             <isNull property="bpidMin">
+             <isNull property="bpidMax">
+             <isNull property="mpid">
+             <isNull property="mpidMin">
+             <isNull property="mpidMax">
+             <isNull property="projectName">
+             <isEmpty property="projectNameLike">
+             <isNull property="controllerName">
+             <isEmpty property="controllerNameLike">
+             <isNull property="methodName">
+             <isEmpty property="methodNameLike">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="route">
+             <isEmpty property="routeLike">
+             <isNull property="menuType">
+             <isEmpty property="menuTypes">
+             <isNull property="checkType">
+             <isEmpty property="checkTypes">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
 	</select>
 	    
 	
@@ -508,36 +509,36 @@
 	
 	<select id="Menu.getMenusByMenuIds" resultMap="Menu_RM" >
     	select
- /* getMenusByMenuIds.Menu */             a.menu_id,
-            a.morder,
-            a.bpid,
-            a.mpid,
-            a.project_name,
-            a.controller_name,
-            a.method_name,
-            a.url,
-            a.icon,
-            a.name,
-            a.route,
-            a.menu_type,
-            a.check_type,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from menu a
-            where
-            a.delete_flag = 0
-            <isEmpty property="menuIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="menuIds">
-                and a.menu_id in
+ /* getMenusByMenuIds.Menu */              a.menu_id,
+             a.morder,
+             a.bpid,
+             a.mpid,
+             a.project_name,
+             a.controller_name,
+             a.method_name,
+             a.url,
+             a.icon,
+             a.name,
+             a.route,
+             a.menu_type,
+             a.check_type,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from menu a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="menuIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="menuIds">
+             a.menu_id in
                 <iterate close=")" conjunction="," open="(" property="menuIds">
-                    #menuIds[]#
+                   #menuIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getMenusByMenuIdsOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getMenusByMenuIdsOrderBy"/>
 	</select>	
 
 	    
@@ -546,20 +547,21 @@
     
 	
 	<update id="Menu.deleteByMenuIds">
-		UPDATE menu SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="menuIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="menuIds">
-                and menu_id in
+		UPDATE menu a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="menuIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="menuIds">
+             a.menu_id in
                 <iterate close=")" conjunction="," open="(" property="menuIds">
-                    #menuIds[]#
+                   #menuIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     

@@ -34,19 +34,19 @@
     
 	<insert id="Region.insert">
 		insert into demo_region (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="regionId"> region_id </isNotNull>
-            <isNotNull prepend="," property="parentRegionId"> parent_region_id </isNotNull>
-            <isNotNull prepend="," property="path"> path </isNotNull>
-            <isNotNull prepend="," property="level"> level </isNotNull>
-            <isNotNull prepend="," property="regionType"> region_type </isNotNull>
-            <isNotNull prepend="," property="name"> name </isNotNull>
-            <isNotNull prepend="," property="nameEn"> name_en </isNotNull>
-            <isNotNull prepend="," property="namePinyin"> name_pinyin </isNotNull>
-            <isNotNull prepend="," property="code"> code </isNotNull>
-            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="regionId"> region_id </isNotNull>
+             <isNotNull prepend="," property="parentRegionId"> parent_region_id </isNotNull>
+             <isNotNull prepend="," property="path"> path </isNotNull>
+             <isNotNull prepend="," property="level"> level </isNotNull>
+             <isNotNull prepend="," property="regionType"> region_type </isNotNull>
+             <isNotNull prepend="," property="name"> name </isNotNull>
+             <isNotNull prepend="," property="nameEn"> name_en </isNotNull>
+             <isNotNull prepend="," property="namePinyin"> name_pinyin </isNotNull>
+             <isNotNull prepend="," property="code"> code </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="regionId"> #regionId# </isNotNull> 
             <isNotNull prepend="," property="parentRegionId"> #parentRegionId# </isNotNull> 
             <isNotNull prepend="," property="path"> #path# </isNotNull> 
@@ -56,75 +56,76 @@
             <isNotNull prepend="," property="nameEn"> #nameEn# </isNotNull> 
             <isNotNull prepend="," property="namePinyin"> #namePinyin# </isNotNull> 
             <isNotNull prepend="," property="code"> #code# </isNotNull>)
-            <selectKey keyProperty="regionId" resultClass="long">
-                select  LAST_INSERT_ID()
-            </selectKey>
+           <selectKey keyProperty="regionId" resultClass="long">
+              select  LAST_INSERT_ID()
+           </selectKey>
 	</insert>
 	
 	<update id="Region.delete">
-		UPDATE demo_region SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and region_id = #regionId#
+		UPDATE demo_region a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.region_id = #regionId#
 	</update>
 	
     
 	
 	<update id="Region.update">
-		UPDATE demo_region
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull prepend="," property="parentRegionId">
-                    parent_region_id =  #parentRegionId# 
-                </isNotNull>
-                <isNotNull prepend="," property="path">
-                    path =  #path# 
-                </isNotNull>
-                <isNotNull prepend="," property="level">
-                    level =  #level# 
-                </isNotNull>
-                <isNotNull prepend="," property="regionType">
-                    region_type =  #regionType# 
-                </isNotNull>
-                <isNotNull prepend="," property="name">
-                    name =  #name# 
-                </isNotNull>
-                <isNotNull prepend="," property="nameEn">
-                    name_en =  #nameEn# 
-                </isNotNull>
-                <isNotNull prepend="," property="namePinyin">
-                    name_pinyin =  #namePinyin# 
-                </isNotNull>
-                <isNotNull prepend="," property="code">
-                    code =  #code# 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and region_id = #regionId#
+		UPDATE demo_region a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="parentRegionId">
+             a.parent_region_id =  #parentRegionId# 
+             </isNotNull>
+             <isNotNull prepend="," property="path">
+             a.path =  #path# 
+             </isNotNull>
+             <isNotNull prepend="," property="level">
+             a.level =  #level# 
+             </isNotNull>
+             <isNotNull prepend="," property="regionType">
+             a.region_type =  #regionType# 
+             </isNotNull>
+             <isNotNull prepend="," property="name">
+             a.name =  #name# 
+             </isNotNull>
+             <isNotNull prepend="," property="nameEn">
+             a.name_en =  #nameEn# 
+             </isNotNull>
+             <isNotNull prepend="," property="namePinyin">
+             a.name_pinyin =  #namePinyin# 
+             </isNotNull>
+             <isNotNull prepend="," property="code">
+             a.code =  #code# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.region_id = #regionId#
 	</update>
 	
     
 	
 	<select id="Region.getRegionByRegionId" resultMap="Region_RM" >
     	select
- /* getRegionByRegionId.Region */             a.region_id,
-            a.parent_region_id,
-            a.path,
-            a.level,
-            a.region_type,
-            a.name,
-            a.name_en,
-            a.name_pinyin,
-            a.code,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from demo_region a
-            where
-            a.delete_flag = 0
-            and a.region_id = #regionId#
+ /* getRegionByRegionId.Region */              a.region_id,
+             a.parent_region_id,
+             a.path,
+             a.level,
+             a.region_type,
+             a.name,
+             a.name_en,
+             a.name_pinyin,
+             a.code,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_region a
+           where
+             a.delete_flag = 0
+             and a.region_id = #regionId#
 	</select>	
 
 	    
@@ -134,280 +135,280 @@
 	
 	<select id="Region.getPageList" resultMap="Region_RM" >
     	select
- /* getPageList.Region */             a.region_id,
-            a.parent_region_id,
-            a.path,
-            a.level,
-            a.region_type,
-            a.name,
-            a.name_en,
-            a.name_pinyin,
-            a.code,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from demo_region a
-            where
-            a.delete_flag = 0
-            <isNotNull property="regionId">
-               and a.region_id=#regionId#
-            </isNotNull>
-            <isNotEmpty property="regionIds">
-                and a.region_id in
-                <iterate close=")" conjunction="," open="(" property="regionIds">
-                    #regionIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="parentRegionId">
-               and a.parent_region_id=#parentRegionId#
-            </isNotNull>
-            <isNotEmpty property="parentRegionIds">
-                and a.parent_region_id in
-                <iterate close=")" conjunction="," open="(" property="parentRegionIds">
-                    #parentRegionIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="path">
-            and a.path=#path#
-          </isNotNull>
-            <isNotEmpty property="pathLike">
-                and a.path like CONCAT('%',#pathLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="level">
-                and a.level=#level#
-          </isNotNull>
-            <isNotNull property="levelMin">
-                and a.level >=#levelMin#
-            </isNotNull>
-            <isNotNull property="levelMax">
-                and a.level &lt;#levelMax#
-            </isNotNull>
-            <isNotNull property="regionType">
-               and a.region_type=#regionType#
-            </isNotNull>
-            <isNotEmpty property="regionTypes">
-                and a.region_type in
-                <iterate close=")" conjunction="," open="(" property="regionTypes">
-                    #regionTypes[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="name">
-            and a.name=#name#
-          </isNotNull>
-            <isNotEmpty property="nameLike">
-                and a.name like CONCAT('%',#nameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="nameEn">
-            and a.name_en=#nameEn#
-          </isNotNull>
-            <isNotEmpty property="nameEnLike">
-                and a.name_en like CONCAT('%',#nameEnLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="namePinyin">
-            and a.name_pinyin=#namePinyin#
-          </isNotNull>
-            <isNotEmpty property="namePinyinLike">
-                and a.name_pinyin like CONCAT('%',#namePinyinLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="code">
-            and a.code=#code#
-          </isNotNull>
-            <isNotEmpty property="codeLike">
-                and a.code like CONCAT('%',#codeLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNull property="regionId">
-            <isEmpty property="regionIds">
-            <isNull property="parentRegionId">
-            <isEmpty property="parentRegionIds">
-            <isNull property="path">
-            <isEmpty property="pathLike">
-            <isNull property="level">
-            <isNull property="levelMin">
-            <isNull property="levelMax">
-            <isNull property="regionType">
-            <isEmpty property="regionTypes">
-            <isNull property="name">
-            <isEmpty property="nameLike">
-            <isNull property="nameEn">
-            <isEmpty property="nameEnLike">
-            <isNull property="namePinyin">
-            <isEmpty property="namePinyinLike">
-            <isNull property="code">
-            <isEmpty property="codeLike">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+ /* getPageList.Region */              a.region_id,
+             a.parent_region_id,
+             a.path,
+             a.level,
+             a.region_type,
+             a.name,
+             a.name_en,
+             a.name_pinyin,
+             a.code,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_region a
+           where
+             a.delete_flag = 0
+             <isNotNull property="regionId">
+             and a.region_id=#regionId#
+             </isNotNull>
+             <isNotEmpty property="regionIds">
+             and a.region_id in
+               <iterate close=")" conjunction="," open="(" property="regionIds">
+               #regionIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="parentRegionId">
+             and a.parent_region_id=#parentRegionId#
+             </isNotNull>
+             <isNotEmpty property="parentRegionIds">
+             and a.parent_region_id in
+               <iterate close=")" conjunction="," open="(" property="parentRegionIds">
+               #parentRegionIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="path">
+             and a.path=#path#
+             </isNotNull>
+             <isNotEmpty property="pathLike">
+             and a.path like CONCAT('%',#pathLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="level">
+             and a.level=#level#
+             </isNotNull>
+             <isNotNull property="levelMin">
+             and a.level >=#levelMin#
+             </isNotNull>
+             <isNotNull property="levelMax">
+             and a.level &lt;#levelMax#
+             </isNotNull>
+             <isNotNull property="regionType">
+             and a.region_type=#regionType#
+             </isNotNull>
+             <isNotEmpty property="regionTypes">
+             and a.region_type in
+               <iterate close=")" conjunction="," open="(" property="regionTypes">
+               #regionTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="name">
+             and a.name=#name#
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="nameEn">
+             and a.name_en=#nameEn#
+             </isNotNull>
+             <isNotEmpty property="nameEnLike">
+             and a.name_en like CONCAT('%',#nameEnLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="namePinyin">
+             and a.name_pinyin=#namePinyin#
+             </isNotNull>
+             <isNotEmpty property="namePinyinLike">
+             and a.name_pinyin like CONCAT('%',#namePinyinLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="code">
+             and a.code=#code#
+             </isNotNull>
+             <isNotEmpty property="codeLike">
+             and a.code like CONCAT('%',#codeLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNull property="regionId">
+             <isEmpty property="regionIds">
+             <isNull property="parentRegionId">
+             <isEmpty property="parentRegionIds">
+             <isNull property="path">
+             <isEmpty property="pathLike">
+             <isNull property="level">
+             <isNull property="levelMin">
+             <isNull property="levelMax">
+             <isNull property="regionType">
+             <isEmpty property="regionTypes">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="nameEn">
+             <isEmpty property="nameEnLike">
+             <isNull property="namePinyin">
+             <isEmpty property="namePinyinLike">
+             <isNull property="code">
+             <isEmpty property="codeLike">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid="getRegionPageListOrderBy"/>
+              <include refid="getRegionPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
 	<select id="Region.getPageList_count" resultClass="long" >
     	select  /* getPageList_count.Region */ count(*)  from demo_region a
-            where
-            a.delete_flag = 0
-            <isNotNull property="regionId">
-               and a.region_id=#regionId#
-            </isNotNull>
-            <isNotEmpty property="regionIds">
-                and a.region_id in
-                <iterate close=")" conjunction="," open="(" property="regionIds">
-                    #regionIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="parentRegionId">
-               and a.parent_region_id=#parentRegionId#
-            </isNotNull>
-            <isNotEmpty property="parentRegionIds">
-                and a.parent_region_id in
-                <iterate close=")" conjunction="," open="(" property="parentRegionIds">
-                    #parentRegionIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="path">
-            and a.path=#path#
-          </isNotNull>
-            <isNotEmpty property="pathLike">
-                and a.path like CONCAT('%',#pathLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="level">
-                and a.level=#level#
-          </isNotNull>
-            <isNotNull property="levelMin">
-                and a.level >=#levelMin#
-            </isNotNull>
-            <isNotNull property="levelMax">
-                and a.level &lt;#levelMax#
-            </isNotNull>
-            <isNotNull property="regionType">
-               and a.region_type=#regionType#
-            </isNotNull>
-            <isNotEmpty property="regionTypes">
-                and a.region_type in
-                <iterate close=")" conjunction="," open="(" property="regionTypes">
-                    #regionTypes[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="name">
-            and a.name=#name#
-          </isNotNull>
-            <isNotEmpty property="nameLike">
-                and a.name like CONCAT('%',#nameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="nameEn">
-            and a.name_en=#nameEn#
-          </isNotNull>
-            <isNotEmpty property="nameEnLike">
-                and a.name_en like CONCAT('%',#nameEnLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="namePinyin">
-            and a.name_pinyin=#namePinyin#
-          </isNotNull>
-            <isNotEmpty property="namePinyinLike">
-                and a.name_pinyin like CONCAT('%',#namePinyinLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="code">
-            and a.code=#code#
-          </isNotNull>
-            <isNotEmpty property="codeLike">
-                and a.code like CONCAT('%',#codeLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNull property="regionId">
-            <isEmpty property="regionIds">
-            <isNull property="parentRegionId">
-            <isEmpty property="parentRegionIds">
-            <isNull property="path">
-            <isEmpty property="pathLike">
-            <isNull property="level">
-            <isNull property="levelMin">
-            <isNull property="levelMax">
-            <isNull property="regionType">
-            <isEmpty property="regionTypes">
-            <isNull property="name">
-            <isEmpty property="nameLike">
-            <isNull property="nameEn">
-            <isEmpty property="nameEnLike">
-            <isNull property="namePinyin">
-            <isEmpty property="namePinyinLike">
-            <isNull property="code">
-            <isEmpty property="codeLike">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           where
+             a.delete_flag = 0
+             <isNotNull property="regionId">
+             and a.region_id=#regionId#
+             </isNotNull>
+             <isNotEmpty property="regionIds">
+             and a.region_id in
+               <iterate close=")" conjunction="," open="(" property="regionIds">
+               #regionIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="parentRegionId">
+             and a.parent_region_id=#parentRegionId#
+             </isNotNull>
+             <isNotEmpty property="parentRegionIds">
+             and a.parent_region_id in
+               <iterate close=")" conjunction="," open="(" property="parentRegionIds">
+               #parentRegionIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="path">
+             and a.path=#path#
+             </isNotNull>
+             <isNotEmpty property="pathLike">
+             and a.path like CONCAT('%',#pathLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="level">
+             and a.level=#level#
+             </isNotNull>
+             <isNotNull property="levelMin">
+             and a.level >=#levelMin#
+             </isNotNull>
+             <isNotNull property="levelMax">
+             and a.level &lt;#levelMax#
+             </isNotNull>
+             <isNotNull property="regionType">
+             and a.region_type=#regionType#
+             </isNotNull>
+             <isNotEmpty property="regionTypes">
+             and a.region_type in
+               <iterate close=")" conjunction="," open="(" property="regionTypes">
+               #regionTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="name">
+             and a.name=#name#
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="nameEn">
+             and a.name_en=#nameEn#
+             </isNotNull>
+             <isNotEmpty property="nameEnLike">
+             and a.name_en like CONCAT('%',#nameEnLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="namePinyin">
+             and a.name_pinyin=#namePinyin#
+             </isNotNull>
+             <isNotEmpty property="namePinyinLike">
+             and a.name_pinyin like CONCAT('%',#namePinyinLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="code">
+             and a.code=#code#
+             </isNotNull>
+             <isNotEmpty property="codeLike">
+             and a.code like CONCAT('%',#codeLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNull property="regionId">
+             <isEmpty property="regionIds">
+             <isNull property="parentRegionId">
+             <isEmpty property="parentRegionIds">
+             <isNull property="path">
+             <isEmpty property="pathLike">
+             <isNull property="level">
+             <isNull property="levelMin">
+             <isNull property="levelMax">
+             <isNull property="regionType">
+             <isEmpty property="regionTypes">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="nameEn">
+             <isEmpty property="nameEnLike">
+             <isNull property="namePinyin">
+             <isEmpty property="namePinyinLike">
+             <isNull property="code">
+             <isEmpty property="codeLike">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
 	</select>
 	    
 	
@@ -416,32 +417,32 @@
 	
 	<select id="Region.getRegionsByRegionIds" resultMap="Region_RM" >
     	select
- /* getRegionsByRegionIds.Region */             a.region_id,
-            a.parent_region_id,
-            a.path,
-            a.level,
-            a.region_type,
-            a.name,
-            a.name_en,
-            a.name_pinyin,
-            a.code,
-            a.update_time,
-            a.create_time,
-            a.delete_flag
-            from demo_region a
-            where
-            a.delete_flag = 0
-            <isEmpty property="regionIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="regionIds">
-                and a.region_id in
+ /* getRegionsByRegionIds.Region */              a.region_id,
+             a.parent_region_id,
+             a.path,
+             a.level,
+             a.region_type,
+             a.name,
+             a.name_en,
+             a.name_pinyin,
+             a.code,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_region a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="regionIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="regionIds">
+             a.region_id in
                 <iterate close=")" conjunction="," open="(" property="regionIds">
-                    #regionIds[]#
+                   #regionIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getRegionsByRegionIdsOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getRegionsByRegionIdsOrderBy"/>
 	</select>	
 
 	    
@@ -450,20 +451,21 @@
     
 	
 	<update id="Region.deleteByRegionIds">
-		UPDATE demo_region SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="regionIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="regionIds">
-                and region_id in
+		UPDATE demo_region a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="regionIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="regionIds">
+             a.region_id in
                 <iterate close=")" conjunction="," open="(" property="regionIds">
-                    #regionIds[]#
+                   #regionIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     

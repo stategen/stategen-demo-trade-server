@@ -2,52 +2,53 @@
     <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_topic_up -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_topic_up (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="upId"> up_id </isNotNull>
-            <isNotNull prepend="," property="objectId"> object_id </isNotNull>
-            <isNotNull prepend="," property="authorId"> author_id </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="upId"> ?  </isNotNull>
-            <isNotNull prepend="," property="objectId"> ?  </isNotNull>
-            <isNotNull prepend="," property="authorId"> ?  </isNotNull>
-            )
-            <selectKey keyProperty="upId" resultClass="String" type="pre">
-                select if((#upId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#upId# ) as upId
-            </selectKey>
+           insert into demo_topic_up (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="upId"> up_id </isNotNull>
+             <isNotNull prepend="," property="objectId"> object_id </isNotNull>
+             <isNotNull prepend="," property="authorId"> author_id </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="upId"> ?  </isNotNull>
+             <isNotNull prepend="," property="objectId"> ?  </isNotNull>
+             <isNotNull prepend="," property="authorId"> ?  </isNotNull>
+           )
+           <selectKey keyProperty="upId" resultClass="String" type="pre">
+              select if((#upId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#upId# ) as upId
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE demo_topic_up SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and up_id = ?
+           UPDATE demo_topic_up a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.up_id = ?
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE demo_topic_up
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="objectId" prepend=",">
-                    object_id =  ? 
-                </isNotNull>
-                <isNotNull property="authorId" prepend=",">
-                    author_id =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and up_id = ?
+           UPDATE demo_topic_up a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="objectId" prepend=",">
+             a.object_id =  ? 
+             </isNotNull>
+             <isNotNull property="authorId" prepend=",">
+             a.author_id =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.up_id = ?
         </sql>
     </operation>
 
@@ -55,141 +56,142 @@
 
     <operation name="getTopicUpByUpId" multiplicity="one" remarks="">
         <sql>
-            select
-            a.up_id,
-            a.object_id,
-            a.author_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_topic_up a
-            where
-            a.delete_flag = 0
-            and a.up_id = ?
+           select
+             a.up_id,
+             a.object_id,
+             a.author_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_topic_up a
+           where
+             a.delete_flag = 0
+             and a.up_id = ?
         </sql>
     </operation>
 
     <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
-            select
-            a.up_id,
-            a.object_id,
-            a.author_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_topic_up a
-            where
-            a.delete_flag = 0
-            <isNotNull property="upId">
-               and a.up_id=?
-            </isNotNull>
-            <isNotEmpty property="upIds">
-                and a.up_id in
-                <iterate property="upIds" conjunction="," open="(" close=")">
-                    #upIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="objectId">
-               and a.object_id=?
-            </isNotNull>
-            <isNotEmpty property="objectIds">
-                and a.object_id in
-                <iterate property="objectIds" conjunction="," open="(" close=")">
-                    #objectIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="authorId">
-               and a.author_id=?
-            </isNotNull>
-            <isNotEmpty property="authorIds">
-                and a.author_id in
-                <iterate property="authorIds" conjunction="," open="(" close=")">
-                    #authorIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="upId">
-            <isEmpty property="upIds">
-            <isNull property="objectId">
-            <isEmpty property="objectIds">
-            <isNull property="authorId">
-            <isEmpty property="authorIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           select
+             a.up_id,
+             a.object_id,
+             a.author_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_topic_up a
+           where
+             a.delete_flag = 0
+             <isNotNull property="upId">
+             and a.up_id=?
+             </isNotNull>
+             <isNotEmpty property="upIds">
+             and a.up_id in
+               <iterate property="upIds" conjunction="," open="(" close=")">
+               #upIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="objectId">
+             and a.object_id=?
+             </isNotNull>
+             <isNotEmpty property="objectIds">
+             and a.object_id in
+               <iterate property="objectIds" conjunction="," open="(" close=")">
+               #objectIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="authorId">
+             and a.author_id=?
+             </isNotNull>
+             <isNotEmpty property="authorIds">
+             and a.author_id in
+               <iterate property="authorIds" conjunction="," open="(" close=")">
+               #authorIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="upId">
+             <isEmpty property="upIds">
+             <isNull property="objectId">
+             <isEmpty property="objectIds">
+             <isNull property="authorId">
+             <isEmpty property="authorIds">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid = "getTopicUpPageListOrderBy" />
+              <include refid = "getTopicUpPageListOrderBy" />
         </sql>
     </operation>
     <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getTopicUpsByUpIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.up_id,
-            a.object_id,
-            a.author_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_topic_up a
-            where
-            a.delete_flag = 0
-            <isEmpty property="upIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="upIds">
-                and a.up_id in
+           select
+             a.up_id,
+             a.object_id,
+             a.author_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_topic_up a
+           where
+             a.delete_flag = 0
+             <isEmpty property="upIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="upIds" prepend="and">
+             a.up_id in
                 <iterate property="upIds" conjunction="," open="(" close=")">
-                    #upIds[]#
+                   #upIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getTopicUpsByUpIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getTopicUpsByUpIdsOrderBy" />
         </sql>
     </operation>
 
     <operation name="deleteByUpIds" remarks="">
         <sql>
-            UPDATE demo_topic_up SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="upIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="upIds">
-                and up_id in
+           UPDATE demo_topic_up a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="upIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="upIds" prepend="and">
+             a.up_id in
                 <iterate property="upIds" conjunction="," open="(" close=")">
-                    #upIds[]#
+                   #upIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
         </sql>
     </operation>
     

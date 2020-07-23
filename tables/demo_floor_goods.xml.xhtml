@@ -2,223 +2,225 @@
     <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_floor_goods -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_floor_goods (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="floorGoodsId"> floor_goods_id </isNotNull>
-            <isNotNull prepend="," property="floorId"> floor_id </isNotNull>
-            <isNotNull prepend="," property="goodsId"> goods_id </isNotNull>
-            <isNotNull prepend="," property="image"> image </isNotNull>
-            <isNotNull prepend="," property="orderNo"> order_no </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="floorGoodsId"> ?  </isNotNull>
-            <isNotNull prepend="," property="floorId"> ?  </isNotNull>
-            <isNotNull prepend="," property="goodsId"> ?  </isNotNull>
-            <isNotNull prepend="," property="image"> ?  </isNotNull>
-            <isNotNull prepend="," property="orderNo"> ?  </isNotNull>
-            )
-            <selectKey keyProperty="floorGoodsId" resultClass="String" type="pre">
-                select if((#floorGoodsId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#floorGoodsId# ) as floorGoodsId
-            </selectKey>
+           insert into demo_floor_goods (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="floorGoodsId"> floor_goods_id </isNotNull>
+             <isNotNull prepend="," property="floorId"> floor_id </isNotNull>
+             <isNotNull prepend="," property="goodsId"> goods_id </isNotNull>
+             <isNotNull prepend="," property="image"> image </isNotNull>
+             <isNotNull prepend="," property="orderNo"> order_no </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="floorGoodsId"> ?  </isNotNull>
+             <isNotNull prepend="," property="floorId"> ?  </isNotNull>
+             <isNotNull prepend="," property="goodsId"> ?  </isNotNull>
+             <isNotNull prepend="," property="image"> ?  </isNotNull>
+             <isNotNull prepend="," property="orderNo"> ?  </isNotNull>
+           )
+           <selectKey keyProperty="floorGoodsId" resultClass="String" type="pre">
+              select if((#floorGoodsId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#floorGoodsId# ) as floorGoodsId
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE demo_floor_goods SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and floor_goods_id = ?
+           UPDATE demo_floor_goods a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.floor_goods_id = ?
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE demo_floor_goods
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="floorId" prepend=",">
-                    floor_id =  ? 
-                </isNotNull>
-                <isNotNull property="goodsId" prepend=",">
-                    goods_id =  ? 
-                </isNotNull>
-                <isNotNull property="image" prepend=",">
-                    image =  ? 
-                </isNotNull>
-                <isNotNull property="orderNo" prepend=",">
-                    order_no =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and floor_goods_id = ?
+           UPDATE demo_floor_goods a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="floorId" prepend=",">
+             a.floor_id =  ? 
+             </isNotNull>
+             <isNotNull property="goodsId" prepend=",">
+             a.goods_id =  ? 
+             </isNotNull>
+             <isNotNull property="image" prepend=",">
+             a.image =  ? 
+             </isNotNull>
+             <isNotNull property="orderNo" prepend=",">
+             a.order_no =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.floor_goods_id = ?
         </sql>
     </operation>
 
     <!-- 主建或 unique索引生成单独查询 -->
 
-    <operation name="getFloorGoodByFloorGoodsId" multiplicity="one" remarks="">
+    <operation name="getFloorGoodsByFloorGoodsId" multiplicity="one" remarks="">
         <sql>
-            select
-            a.floor_goods_id,
-            a.floor_id,
-            a.goods_id,
-            a.image,
-            a.order_no,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_floor_goods a
-            where
-            a.delete_flag = 0
-            and a.floor_goods_id = ?
+           select
+             a.floor_goods_id,
+             a.floor_id,
+             a.goods_id,
+             a.image,
+             a.order_no,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_floor_goods a
+           where
+             a.delete_flag = 0
+             and a.floor_goods_id = ?
         </sql>
     </operation>
 
     <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
-            select
-            a.floor_goods_id,
-            a.floor_id,
-            a.goods_id,
-            a.image,
-            a.order_no,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_floor_goods a
-            where
-            a.delete_flag = 0
-            <isNotNull property="floorGoodsId">
-               and a.floor_goods_id=?
-            </isNotNull>
-            <isNotEmpty property="floorGoodsIds">
-                and a.floor_goods_id in
-                <iterate property="floorGoodsIds" conjunction="," open="(" close=")">
-                    #floorGoodsIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="floorId">
-               and a.floor_id=?
-            </isNotNull>
-            <isNotEmpty property="floorIds">
-                and a.floor_id in
-                <iterate property="floorIds" conjunction="," open="(" close=")">
-                    #floorIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="goodsId">
-               and a.goods_id=?
-            </isNotNull>
-            <isNotEmpty property="goodsIds">
-                and a.goods_id in
-                <iterate property="goodsIds" conjunction="," open="(" close=")">
-                    #goodsIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="orderNo">
-               and a.order_no=?
-            </isNotNull>
-            <isNotEmpty property="orderNos">
-                and a.order_no in
-                <iterate property="orderNos" conjunction="," open="(" close=")">
-                    #orderNos[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="floorGoodsId">
-            <isEmpty property="floorGoodsIds">
-            <isNull property="floorId">
-            <isEmpty property="floorIds">
-            <isNull property="goodsId">
-            <isEmpty property="goodsIds">
-            <isNull property="orderNo">
-            <isEmpty property="orderNos">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           select
+             a.floor_goods_id,
+             a.floor_id,
+             a.goods_id,
+             a.image,
+             a.order_no,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_floor_goods a
+           where
+             a.delete_flag = 0
+             <isNotNull property="floorGoodsId">
+             and a.floor_goods_id=?
+             </isNotNull>
+             <isNotEmpty property="floorGoodsIds">
+             and a.floor_goods_id in
+               <iterate property="floorGoodsIds" conjunction="," open="(" close=")">
+               #floorGoodsIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="floorId">
+             and a.floor_id=?
+             </isNotNull>
+             <isNotEmpty property="floorIds">
+             and a.floor_id in
+               <iterate property="floorIds" conjunction="," open="(" close=")">
+               #floorIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="goodsId">
+             and a.goods_id=?
+             </isNotNull>
+             <isNotEmpty property="goodsIds">
+             and a.goods_id in
+               <iterate property="goodsIds" conjunction="," open="(" close=")">
+               #goodsIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="orderNo">
+             and a.order_no=?
+             </isNotNull>
+             <isNotEmpty property="orderNos">
+             and a.order_no in
+               <iterate property="orderNos" conjunction="," open="(" close=")">
+               #orderNos[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="floorGoodsId">
+             <isEmpty property="floorGoodsIds">
+             <isNull property="floorId">
+             <isEmpty property="floorIds">
+             <isNull property="goodsId">
+             <isEmpty property="goodsIds">
+             <isNull property="orderNo">
+             <isEmpty property="orderNos">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
             order by
-            <include refid = "getFloorGoodPageListOrderBy" />
+              <include refid = "getFloorGoodsPageListOrderBy" />
         </sql>
     </operation>
     <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
-    <operation name="getFloorGoodsByFloorGoodsIds" multiplicity="many" remarks="">
+    <operation name="getFloorGoodssByFloorGoodsIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.floor_goods_id,
-            a.floor_id,
-            a.goods_id,
-            a.image,
-            a.order_no,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_floor_goods a
-            where
-            a.delete_flag = 0
-            <isEmpty property="floorGoodsIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="floorGoodsIds">
-                and a.floor_goods_id in
+           select
+             a.floor_goods_id,
+             a.floor_id,
+             a.goods_id,
+             a.image,
+             a.order_no,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_floor_goods a
+           where
+             a.delete_flag = 0
+             <isEmpty property="floorGoodsIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="floorGoodsIds" prepend="and">
+             a.floor_goods_id in
                 <iterate property="floorGoodsIds" conjunction="," open="(" close=")">
-                    #floorGoodsIds[]#
+                   #floorGoodsIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getFloorGoodsByFloorGoodsIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getFloorGoodssByFloorGoodsIdsOrderBy" />
         </sql>
     </operation>
 
     <operation name="deleteByFloorGoodsIds" remarks="">
         <sql>
-            UPDATE demo_floor_goods SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="floorGoodsIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="floorGoodsIds">
-                and floor_goods_id in
+           UPDATE demo_floor_goods a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="floorGoodsIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="floorGoodsIds" prepend="and">
+             a.floor_goods_id in
                 <iterate property="floorGoodsIds" conjunction="," open="(" close=")">
-                    #floorGoodsIds[]#
+                   #floorGoodsIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
         </sql>
     </operation>
     
