@@ -27,43 +27,43 @@ import com.mycompany.biz.domain.FloorGoods;
 public interface FloorGoodsService extends FloorGoodsServiceTrade, AssignService<FloorGoods, String>, BaseService<FloorGoods> {
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.FloorGoodsDao#insert
      */
     public FloorGoods insert(FloorGoods floorGoods);
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.FloorGoodsDao#delete
      */
     public String delete(String floorGoodsId);
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.FloorGoodsDao#update
      */
     public FloorGoods update(FloorGoods floorGoods);
 
     /**
-     * 
-     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodByFloorGoodsId
+     ** 
+     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodsByFloorGoodsId
      */
-    public FloorGoods getFloorGoodByFloorGoodsId(String floorGoodsId);
+    public FloorGoods getFloorGoodsByFloorGoodsId(String floorGoodsId);
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.FloorGoodsDao#getPageList
      */
     public PageList<FloorGoods> getPageList(FloorGoods floorGoods, int pageSize, int pageNum);
 
     /**
-     * 
-     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodsByFloorGoodsIds
+     ** 
+     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodssByFloorGoodsIds
      */
-    public List<FloorGoods> getFloorGoodsByFloorGoodsIds(java.util.List<String> floorGoodsIds);
+    public List<FloorGoods> getFloorGoodssByFloorGoodsIds(java.util.List<String> floorGoodsIds);
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.FloorGoodsDao#deleteByFloorGoodsIds
      */
     public java.util.List<String> deleteByFloorGoodsIds(java.util.List<String> floorGoodsIds);
@@ -77,16 +77,4 @@ public interface FloorGoodsService extends FloorGoodsServiceTrade, AssignService
      * @see com.mycompany.biz.dao.FloorGoodsDao#insert
      */
     public List<FloorGoods> saveFloorGoodss(List<FloorGoods> floorGoodss);
-
-    /**
-     ** 
-     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodsByFloorGoodsId
-     */
-    public FloorGoods getFloorGoodsByFloorGoodsId(String floorGoodsId);
-
-    /**
-     ** 
-     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodssByFloorGoodsIds
-     */
-    public List<FloorGoods> getFloorGoodssByFloorGoodsIds(java.util.List<String> floorGoodsIds);
 }

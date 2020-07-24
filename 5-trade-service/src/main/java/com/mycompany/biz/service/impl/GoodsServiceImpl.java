@@ -67,22 +67,32 @@ public class GoodsServiceImpl implements GoodsService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.GoodsDao#getGoodByGoodsId
-     * @see com.mycompany.biz.service.GoodsService#getGoodByGoodsId
+     * @see com.mycompany.biz.dao.GoodsDao#getGoodsByGoodsId
+     * @see com.mycompany.biz.service.GoodsService#getGoodsByGoodsId
      */
     @Override
-    public Goods getGoodByGoodsId(String goodsId) {
-        return goodsDao.getGoodByGoodsId(goodsId);
+    public Goods getGoodsByGoodsId(String goodsId) {
+        return goodsDao.getGoodsByGoodsId(goodsId);
     }
 
     /**
      * 
-     * @see com.mycompany.biz.dao.GoodsDao#getGoodsByGoodsIds
-     * @see com.mycompany.biz.service.GoodsService#getGoodsByGoodsIds
+     * @see com.mycompany.biz.dao.GoodsDao#getPageList
+     * @see com.mycompany.biz.service.GoodsService#getPageList
      */
     @Override
-    public List<Goods> getGoodsByGoodsIds(java.util.List<String> goodsIds) {
-        return goodsDao.getGoodsByGoodsIds(goodsIds);
+    public PageList<Goods> getPageList(Goods goods, int pageSize, int pageNum) {
+        return goodsDao.getPageList(goods, pageSize, pageNum);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.GoodsDao#getGoodssByGoodsIds
+     * @see com.mycompany.biz.service.GoodsService#getGoodssByGoodsIds
+     */
+    @Override
+    public List<Goods> getGoodssByGoodsIds(java.util.List<String> goodsIds) {
+        return goodsDao.getGoodssByGoodsIds(goodsIds);
     }
 
     /**
@@ -93,6 +103,16 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public java.util.List<String> deleteByGoodsIds(java.util.List<String> goodsIds) {
         return goodsDao.deleteByGoodsIds(goodsIds);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.GoodsDao#getGoodsIds
+     * @see com.mycompany.biz.service.GoodsService#getGoodsIds
+     */
+    @Override
+    public List<String> getGoodsIds() {
+        return goodsDao.getGoodsIds();
     }
 
     /*** 保存goods,有id时更新，没有id时插入,并带回新的id，返回 goods*/
@@ -118,29 +138,9 @@ public class GoodsServiceImpl implements GoodsService {
         return goodss;
     }
 
-    /**
-     * 
-     * @see com.mycompany.biz.dao.GoodsDao#getGoodsIds
-     * @see com.mycompany.biz.service.GoodsService#getGoodsIds
-     */
-    @Override
-    public List<String> getGoodsIds() {
-        return goodsDao.getGoodsIds();
-    }
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.GoodsDao#getPageList
-     * @see com.mycompany.biz.service.GoodsService#getPageList
-     */
-    @Override
-    public PageList<Goods> getPageList(Goods goods, int pageSize, int pageNum) {
-        return goodsDao.getPageList(goods, pageSize, pageNum);
-    }
-
     @Override
     public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, Goods> destSetMethod) {
-        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, GoodsServiceImpl::getGoodsByGoodsIds, Goods::getGoodsId);
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, GoodsServiceImpl::getGoodssByGoodsIds, Goods::getGoodsId);
     }
 
     @Override
@@ -150,26 +150,6 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
-        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, GoodsServiceImpl::getGoodsByGoodsIds, Goods::getGoodsId);
-    }
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.GoodsDao#getGoodsByGoodsId
-     * @see com.mycompany.biz.service.GoodsService#getGoodsByGoodsId
-     */
-    @Override
-    public Goods getGoodsByGoodsId(String goodsId) {
-        return goodsDao.getGoodsByGoodsId(goodsId);
-    }
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.GoodsDao#getGoodssByGoodsIds
-     * @see com.mycompany.biz.service.GoodsService#getGoodssByGoodsIds
-     */
-    @Override
-    public List<Goods> getGoodssByGoodsIds(java.util.List<String> goodsIds) {
-        return goodsDao.getGoodssByGoodsIds(goodsIds);
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, GoodsServiceImpl::getGoodssByGoodsIds, Goods::getGoodsId);
     }
 }

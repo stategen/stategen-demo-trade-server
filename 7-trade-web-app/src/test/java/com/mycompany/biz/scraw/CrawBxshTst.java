@@ -451,7 +451,7 @@ public class CrawBxshTst {
     }
 
     private void updateOrInsertGoods(String categorySubId, Boolean isHot, Goods goods) {
-        Goods goodByGoodsId = this.goodsService.getGoodByGoodsId(goods.getGoodsId());
+        Goods goodByGoodsId = this.goodsService.getGoodsByGoodsId(goods.getGoodsId());
         if (categorySubId != null) {
             goods.setCategorySubId(categorySubId);
         }

@@ -27,40 +27,52 @@ import com.mycompany.biz.domain.Goods;
 public interface GoodsService extends GoodsServiceTrade, AssignService<Goods, String>, BaseService<Goods> {
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.GoodsDao#insert
      */
     public Goods insert(Goods goods);
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.GoodsDao#delete
      */
     public String delete(String goodsId);
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.GoodsDao#update
      */
     public Goods update(Goods goods);
 
     /**
-     * 
-     * @see com.mycompany.biz.dao.GoodsDao#getGoodByGoodsId
+     ** 
+     * @see com.mycompany.biz.dao.GoodsDao#getGoodsByGoodsId
      */
-    public Goods getGoodByGoodsId(String goodsId);
+    public Goods getGoodsByGoodsId(String goodsId);
 
     /**
-     * 
-     * @see com.mycompany.biz.dao.GoodsDao#getGoodsByGoodsIds
+     ** 
+     * @see com.mycompany.biz.dao.GoodsDao#getPageList
      */
-    public List<Goods> getGoodsByGoodsIds(java.util.List<String> goodsIds);
+    public PageList<Goods> getPageList(Goods goods, int pageSize, int pageNum);
 
     /**
-     * 
+     ** 
+     * @see com.mycompany.biz.dao.GoodsDao#getGoodssByGoodsIds
+     */
+    public List<Goods> getGoodssByGoodsIds(java.util.List<String> goodsIds);
+
+    /**
+     ** 
      * @see com.mycompany.biz.dao.GoodsDao#deleteByGoodsIds
      */
     public java.util.List<String> deleteByGoodsIds(java.util.List<String> goodsIds);
+
+    /**
+     ** 
+     * @see com.mycompany.biz.dao.GoodsDao#getGoodsIds
+     */
+    public List<String> getGoodsIds();
 
     /*** 保存goods,有id时更新，没有id时插入,并带回新的id，返回 goods
      * @see com.mycompany.biz.dao.GoodsDao#insert
@@ -71,28 +83,4 @@ public interface GoodsService extends GoodsServiceTrade, AssignService<Goods, St
      * @see com.mycompany.biz.dao.GoodsDao#insert
      */
     public List<Goods> saveGoodss(List<Goods> goodss);
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.GoodsDao#getGoodsIds
-     */
-    public List<String> getGoodsIds();
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.GoodsDao#getPageList
-     */
-    public PageList<Goods> getPageList(Goods goods, int pageSize, int pageNum);
-
-    /**
-     ** 
-     * @see com.mycompany.biz.dao.GoodsDao#getGoodsByGoodsId
-     */
-    public Goods getGoodsByGoodsId(String goodsId);
-
-    /**
-     ** 
-     * @see com.mycompany.biz.dao.GoodsDao#getGoodssByGoodsIds
-     */
-    public List<Goods> getGoodssByGoodsIds(java.util.List<String> goodsIds);
 }

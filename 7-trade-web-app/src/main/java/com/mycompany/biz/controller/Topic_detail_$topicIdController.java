@@ -40,12 +40,13 @@ public class Topic_detail_$topicIdController extends TopicControllerBase {
     
     /***这个值是当前用户所有在部门，对下级（本级）数据可达，水平权限*/
     final Long currentOrd =null;
+    final String currentUserId =null;
 
     @ApiRequestMappingAutoWithMethodName
     @RequestMapping("/{topicId}")
     @State(init = true, dataOpt = DataOpt.FULL_REPLACE,genRefresh=true)
     public Topic getTopicDetail(@PathVariable("topicId") String topicId) {
-        Topic topic = this.topicService.getTopicByTopicId(topicId,currentOrd);
+        Topic topic = this.topicService.getTopicByTopicId(topicId,currentOrd,currentUserId);
         topicService.assignTopicExtraProperties(Arrays.asList(topic));
         return topic;
     }

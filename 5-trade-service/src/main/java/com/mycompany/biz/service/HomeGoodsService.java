@@ -27,37 +27,43 @@ import com.mycompany.biz.domain.HomeGoods;
 public interface HomeGoodsService extends HomeGoodsServiceTrade, AssignService<HomeGoods, String>, BaseService<HomeGoods> {
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.HomeGoodsDao#insert
      */
     public HomeGoods insert(HomeGoods homeGoods);
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.HomeGoodsDao#delete
      */
     public String delete(String recommendId);
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.HomeGoodsDao#update
      */
     public HomeGoods update(HomeGoods homeGoods);
 
     /**
-     * 
-     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodByRecommendId
+     ** 
+     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodsByRecommendId
      */
-    public HomeGoods getHomeGoodByRecommendId(String recommendId);
+    public HomeGoods getHomeGoodsByRecommendId(String recommendId);
 
     /**
-     * 
-     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodsByRecommendIds
+     ** 
+     * @see com.mycompany.biz.dao.HomeGoodsDao#getPageList
      */
-    public List<HomeGoods> getHomeGoodsByRecommendIds(java.util.List<String> recommendIds);
+    public PageList<HomeGoods> getPageList(HomeGoods homeGoods, int pageSize, int pageNum);
 
     /**
-     * 
+     ** 
+     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodssByRecommendIds
+     */
+    public List<HomeGoods> getHomeGoodssByRecommendIds(java.util.List<String> recommendIds);
+
+    /**
+     ** 
      * @see com.mycompany.biz.dao.HomeGoodsDao#deleteByRecommendIds
      */
     public java.util.List<String> deleteByRecommendIds(java.util.List<String> recommendIds);
@@ -71,22 +77,4 @@ public interface HomeGoodsService extends HomeGoodsServiceTrade, AssignService<H
      * @see com.mycompany.biz.dao.HomeGoodsDao#insert
      */
     public List<HomeGoods> saveHomeGoodss(List<HomeGoods> homeGoodss);
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.HomeGoodsDao#getPageList
-     */
-    public PageList<HomeGoods> getPageList(HomeGoods homeGoods, int pageSize, int pageNum);
-
-    /**
-     ** 
-     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodsByRecommendId
-     */
-    public HomeGoods getHomeGoodsByRecommendId(String recommendId);
-
-    /**
-     ** 
-     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodssByRecommendIds
-     */
-    public List<HomeGoods> getHomeGoodssByRecommendIds(java.util.List<String> recommendIds);
 }

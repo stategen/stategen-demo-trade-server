@@ -67,22 +67,32 @@ public class HomeGoodsServiceImpl implements HomeGoodsService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodByRecommendId
-     * @see com.mycompany.biz.service.HomeGoodsService#getHomeGoodByRecommendId
+     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodsByRecommendId
+     * @see com.mycompany.biz.service.HomeGoodsService#getHomeGoodsByRecommendId
      */
     @Override
-    public HomeGoods getHomeGoodByRecommendId(String recommendId) {
-        return homeGoodsDao.getHomeGoodByRecommendId(recommendId);
+    public HomeGoods getHomeGoodsByRecommendId(String recommendId) {
+        return homeGoodsDao.getHomeGoodsByRecommendId(recommendId);
     }
 
     /**
      * 
-     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodsByRecommendIds
-     * @see com.mycompany.biz.service.HomeGoodsService#getHomeGoodsByRecommendIds
+     * @see com.mycompany.biz.dao.HomeGoodsDao#getPageList
+     * @see com.mycompany.biz.service.HomeGoodsService#getPageList
      */
     @Override
-    public List<HomeGoods> getHomeGoodsByRecommendIds(java.util.List<String> recommendIds) {
-        return homeGoodsDao.getHomeGoodsByRecommendIds(recommendIds);
+    public PageList<HomeGoods> getPageList(HomeGoods homeGoods, int pageSize, int pageNum) {
+        return homeGoodsDao.getPageList(homeGoods, pageSize, pageNum);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodssByRecommendIds
+     * @see com.mycompany.biz.service.HomeGoodsService#getHomeGoodssByRecommendIds
+     */
+    @Override
+    public List<HomeGoods> getHomeGoodssByRecommendIds(java.util.List<String> recommendIds) {
+        return homeGoodsDao.getHomeGoodssByRecommendIds(recommendIds);
     }
 
     /**
@@ -118,19 +128,9 @@ public class HomeGoodsServiceImpl implements HomeGoodsService {
         return homeGoodss;
     }
 
-    /**
-     * 
-     * @see com.mycompany.biz.dao.HomeGoodsDao#getPageList
-     * @see com.mycompany.biz.service.HomeGoodsService#getPageList
-     */
-    @Override
-    public PageList<HomeGoods> getPageList(HomeGoods homeGoods, int pageSize, int pageNum) {
-        return homeGoodsDao.getPageList(homeGoods, pageSize, pageNum);
-    }
-
     @Override
     public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, HomeGoods> destSetMethod) {
-        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, HomeGoodsServiceImpl::getHomeGoodsByRecommendIds, HomeGoods::getRecommendId);
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, HomeGoodsServiceImpl::getHomeGoodssByRecommendIds, HomeGoods::getRecommendId);
     }
 
     @Override
@@ -140,26 +140,6 @@ public class HomeGoodsServiceImpl implements HomeGoodsService {
 
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
-        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, HomeGoodsServiceImpl::getHomeGoodsByRecommendIds, HomeGoods::getRecommendId);
-    }
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodsByRecommendId
-     * @see com.mycompany.biz.service.HomeGoodsService#getHomeGoodsByRecommendId
-     */
-    @Override
-    public HomeGoods getHomeGoodsByRecommendId(String recommendId) {
-        return homeGoodsDao.getHomeGoodsByRecommendId(recommendId);
-    }
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodssByRecommendIds
-     * @see com.mycompany.biz.service.HomeGoodsService#getHomeGoodssByRecommendIds
-     */
-    @Override
-    public List<HomeGoods> getHomeGoodssByRecommendIds(java.util.List<String> recommendIds) {
-        return homeGoodsDao.getHomeGoodssByRecommendIds(recommendIds);
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, HomeGoodsServiceImpl::getHomeGoodssByRecommendIds, HomeGoods::getRecommendId);
     }
 }

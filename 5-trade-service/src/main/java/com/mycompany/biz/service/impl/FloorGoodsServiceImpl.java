@@ -67,12 +67,12 @@ public class FloorGoodsServiceImpl implements FloorGoodsService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodByFloorGoodsId
-     * @see com.mycompany.biz.service.FloorGoodsService#getFloorGoodByFloorGoodsId
+     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodsByFloorGoodsId
+     * @see com.mycompany.biz.service.FloorGoodsService#getFloorGoodsByFloorGoodsId
      */
     @Override
-    public FloorGoods getFloorGoodByFloorGoodsId(String floorGoodsId) {
-        return floorGoodsDao.getFloorGoodByFloorGoodsId(floorGoodsId);
+    public FloorGoods getFloorGoodsByFloorGoodsId(String floorGoodsId) {
+        return floorGoodsDao.getFloorGoodsByFloorGoodsId(floorGoodsId);
     }
 
     /**
@@ -87,12 +87,12 @@ public class FloorGoodsServiceImpl implements FloorGoodsService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodsByFloorGoodsIds
-     * @see com.mycompany.biz.service.FloorGoodsService#getFloorGoodsByFloorGoodsIds
+     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodssByFloorGoodsIds
+     * @see com.mycompany.biz.service.FloorGoodsService#getFloorGoodssByFloorGoodsIds
      */
     @Override
-    public List<FloorGoods> getFloorGoodsByFloorGoodsIds(java.util.List<String> floorGoodsIds) {
-        return floorGoodsDao.getFloorGoodsByFloorGoodsIds(floorGoodsIds);
+    public List<FloorGoods> getFloorGoodssByFloorGoodsIds(java.util.List<String> floorGoodsIds) {
+        return floorGoodsDao.getFloorGoodssByFloorGoodsIds(floorGoodsIds);
     }
 
     /**
@@ -130,7 +130,7 @@ public class FloorGoodsServiceImpl implements FloorGoodsService {
 
     @Override
     public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, FloorGoods> destSetMethod) {
-        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, FloorGoodsServiceImpl::getFloorGoodsByFloorGoodsIds, FloorGoods::getFloorGoodsId);
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, FloorGoodsServiceImpl::getFloorGoodssByFloorGoodsIds, FloorGoods::getFloorGoodsId);
     }
 
     @Override
@@ -140,26 +140,6 @@ public class FloorGoodsServiceImpl implements FloorGoodsService {
 
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
-        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, FloorGoodsServiceImpl::getFloorGoodsByFloorGoodsIds, FloorGoods::getFloorGoodsId);
-    }
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodsByFloorGoodsId
-     * @see com.mycompany.biz.service.FloorGoodsService#getFloorGoodsByFloorGoodsId
-     */
-    @Override
-    public FloorGoods getFloorGoodsByFloorGoodsId(String floorGoodsId) {
-        return floorGoodsDao.getFloorGoodsByFloorGoodsId(floorGoodsId);
-    }
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodssByFloorGoodsIds
-     * @see com.mycompany.biz.service.FloorGoodsService#getFloorGoodssByFloorGoodsIds
-     */
-    @Override
-    public List<FloorGoods> getFloorGoodssByFloorGoodsIds(java.util.List<String> floorGoodsIds) {
-        return floorGoodsDao.getFloorGoodssByFloorGoodsIds(floorGoodsIds);
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, FloorGoodsServiceImpl::getFloorGoodssByFloorGoodsIds, FloorGoods::getFloorGoodsId);
     }
 }

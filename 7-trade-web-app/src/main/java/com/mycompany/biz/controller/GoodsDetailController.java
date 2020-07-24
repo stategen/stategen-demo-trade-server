@@ -23,7 +23,7 @@ public class GoodsDetailController extends GoodsControllerBase {
     @ApiRequestMappingAutoWithMethodName
     @State(dataOpt=DataOpt.FULL_REPLACE)
     public Goods getGoodDetailById(String goodsId) {
-        Goods goods = this.goodsService.getGoodByGoodsId(goodsId);
+        Goods goods = this.goodsService.getGoodsByGoodsId(goodsId);
         goodsCommentService.assignBeansTo(Arrays.asList(goods), Goods::getGoodsId, Goods::setGoodComments, GoodsComment::setGoodsIds, GoodsComment::getGoodsId);
         return goods;
     }

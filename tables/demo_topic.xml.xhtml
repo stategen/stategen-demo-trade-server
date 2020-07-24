@@ -38,11 +38,16 @@
     <operation name="delete" remarks="">
         <extraparams>
            <param name="currentOrgId" javaType="Long"/>
+           <param name="currentUserId" javaType="String"/>
         </extraparams>
         <sql>
            UPDATE demo_topic a
            <isNotNull property="currentOrgId">
            left join demo_topic_level_h h on (a.topic_id = h.topic_id)
+           </isNotNull>
+           <isNotNull property="currentUserId">
+           left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
+           left join user u on (u.user_id = o.user_id)
            </isNotNull>
            SET
              a.delete_flag = 1
@@ -51,7 +56,19 @@
              a.delete_flag = 0
              and a.topic_id = ?
              <isNotNull property="currentOrgId">
-             and exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currentOrgId# and delete_flag = 0)
+               <isNull property="currentUserId">
+                 and exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currentOrgId# and delete_flag = 0)
+               </isNull>
+             </isNotNull>
+             <isNotNull property="currentUserId">
+               <isNull property="currentOrgId">
+                 and (o.user_id = #currentUserId# and and u.delete_flag = 0)
+               </isNull>
+             </isNotNull>
+             <isNotNull property="currentOrgId">
+               <isNotNull property="currentUserId">
+                 and (exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currentOrgId# and delete_flag = 0) or (o.user_id = #currentUserId# and u.delete_flag = 0) )
+               </isNotNull>
              </isNotNull>
         </sql>
     </operation>
@@ -59,11 +76,16 @@
     <operation name="update" paramType="object" remarks="">
         <extraparams>
            <param name="currentOrgId" javaType="Long"/>
+           <param name="currentUserId" javaType="String"/>
         </extraparams>
         <sql>
            UPDATE demo_topic a
            <isNotNull property="currentOrgId">
            left join demo_topic_level_h h on (a.topic_id = h.topic_id)
+           </isNotNull>
+           <isNotNull property="currentUserId">
+           left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
+           left join user u on (u.user_id = o.user_id)
            </isNotNull>
            SET a.update_time= CURRENT_TIMESTAMP(6)
            
@@ -95,7 +117,19 @@
              a.delete_flag = 0
              and a.topic_id = ?
              <isNotNull property="currentOrgId">
-             and exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currentOrgId# and delete_flag = 0)
+               <isNull property="currentUserId">
+                 and exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currentOrgId# and delete_flag = 0)
+               </isNull>
+             </isNotNull>
+             <isNotNull property="currentUserId">
+               <isNull property="currentOrgId">
+                 and (o.user_id = #currentUserId# and and u.delete_flag = 0)
+               </isNull>
+             </isNotNull>
+             <isNotNull property="currentOrgId">
+               <isNotNull property="currentUserId">
+                 and (exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currentOrgId# and delete_flag = 0) or (o.user_id = #currentUserId# and u.delete_flag = 0) )
+               </isNotNull>
              </isNotNull>
         </sql>
     </operation>
@@ -105,6 +139,7 @@
     <operation name="getTopicByTopicId" multiplicity="one" remarks="">
         <extraparams>
            <param name="currentOrgId" javaType="Long"/>
+           <param name="currentUserId" javaType="String"/>
         </extraparams>
         <sql>
            select
@@ -124,11 +159,27 @@
            <isNotNull property="currentOrgId">
            left join demo_topic_level_h h on (a.topic_id = h.topic_id)
            </isNotNull>
+           <isNotNull property="currentUserId">
+           left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
+           left join user u on (u.user_id = o.user_id)
+           </isNotNull>
            where
              a.delete_flag = 0
              and a.topic_id = ?
              <isNotNull property="currentOrgId">
-             and exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currentOrgId# and delete_flag = 0)
+               <isNull property="currentUserId">
+                 and exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currentOrgId# and delete_flag = 0)
+               </isNull>
+             </isNotNull>
+             <isNotNull property="currentUserId">
+               <isNull property="currentOrgId">
+                 and (o.user_id = #currentUserId# and and u.delete_flag = 0)
+               </isNull>
+             </isNotNull>
+             <isNotNull property="currentOrgId">
+               <isNotNull property="currentUserId">
+                 and (exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currentOrgId# and delete_flag = 0) or (o.user_id = #currentUserId# and u.delete_flag = 0) )
+               </isNotNull>
              </isNotNull>
         </sql>
     </operation>
@@ -137,6 +188,7 @@
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <extraparams>
            <param name="currentOrgId" javaType="Long"/>
+           <param name="currentUserId" javaType="String"/>
         </extraparams>
         <sql>
            select
@@ -155,6 +207,10 @@
            from demo_topic a
            <isNotNull property="currentOrgId">
            left join demo_topic_level_h h on (a.topic_id = h.topic_id)
+           </isNotNull>
+           <isNotNull property="currentUserId">
+           left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
+           left join user u on (u.user_id = o.user_id)
            </isNotNull>
            where
              a.delete_flag = 0
@@ -237,7 +293,19 @@
              and a.update_time &lt;#updateTimeMax#
              </isNotNull>
              <isNotNull property="currentOrgId">
-             and h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currentOrgId# and delete_flag = 0)
+               <isNull property="currentUserId">
+                 and h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currentOrgId# and delete_flag = 0)
+               </isNull>
+             </isNotNull>
+             <isNotNull property="currentUserId">
+               <isNull property="currentOrgId">
+                 and (o.user_id = #currentUserId# and u.delete_flag = 0)
+               </isNull>
+             </isNotNull>
+             <isNotNull property="currentOrgId">
+               <isNotNull property="currentUserId">
+                 and (h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currentOrgId# and delete_flag = 0) or (o.user_id = #currentUserId# and u.delete_flag = 0) )
+               </isNotNull>
              </isNotNull>
              <isNull property="topicId">
              <isEmpty property="topicIds">
@@ -295,6 +363,7 @@
     <operation name="getTopicsByTopicIds" multiplicity="many" remarks="">
         <extraparams>
            <param name="currentOrgId" javaType="Long"/>
+           <param name="currentUserId" javaType="String"/>
         </extraparams>
         <sql>
            select
@@ -314,6 +383,10 @@
            <isNotNull property="currentOrgId">
            left join demo_topic_level_h h on (a.topic_id = h.topic_id)
            </isNotNull>
+           <isNotNull property="currentUserId">
+           left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
+           left join user u on (u.user_id = o.user_id)
+           </isNotNull>
            where
              a.delete_flag = 0
              <isEmpty property="topicIds" prepend="and">
@@ -326,7 +399,19 @@
                 </iterate>
              </isNotEmpty>
              <isNotNull property="currentOrgId">
-             and h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currentOrgId# and delete_flag = 0)
+               <isNull property="currentUserId">
+                 and h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currentOrgId# and delete_flag = 0)
+               </isNull>
+             </isNotNull>
+             <isNotNull property="currentUserId">
+               <isNull property="currentOrgId">
+                 and (o.user_id = #currentUserId# and u.delete_flag = 0)
+               </isNull>
+             </isNotNull>
+             <isNotNull property="currentOrgId">
+               <isNotNull property="currentUserId">
+                 and (h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currentOrgId# and delete_flag = 0) or (o.user_id = #currentUserId# and u.delete_flag = 0) )
+               </isNotNull>
              </isNotNull>
            order by
              <include refid="getTopicsByTopicIdsOrderBy" />
@@ -336,11 +421,16 @@
     <operation name="deleteByTopicIds" remarks="">
         <extraparams>
            <param name="currentOrgId" javaType="Long"/>
+           <param name="currentUserId" javaType="String"/>
         </extraparams>
         <sql>
            UPDATE demo_topic a
            <isNotNull property="currentOrgId">
            left join demo_topic_level_h h on (a.topic_id = h.topic_id)
+           </isNotNull>
+           <isNotNull property="currentUserId">
+           left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
+           left join user u on (u.user_id = o.user_id)
            </isNotNull>
            SET
              a.delete_flag = 1
@@ -357,7 +447,19 @@
                 </iterate>
              </isNotEmpty>
              <isNotNull property="currentOrgId">
-             and h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currentOrgId# and delete_flag = 0)
+               <isNull property="currentUserId">
+                 and h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currentOrgId# and delete_flag = 0)
+               </isNull>
+             </isNotNull>
+             <isNotNull property="currentUserId">
+               <isNull property="currentOrgId">
+                 and (o.user_id = #currentUserId# and u.delete_flag = 0)
+               </isNull>
+             </isNotNull>
+             <isNotNull property="currentOrgId">
+               <isNotNull property="currentUserId">
+                 and (h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currentOrgId# and delete_flag = 0) or (o.user_id = #currentUserId# and u.delete_flag = 0) )
+               </isNotNull>
              </isNotNull>
         </sql>
     </operation>

@@ -77,8 +77,8 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#delete
      */
     @Override
-    public String delete(String topicId, Long currentOrgId) {
-        return topicDao.delete(topicId, currentOrgId);
+    public String delete(String topicId, Long currentOrgId, String currentUserId) {
+        return topicDao.delete(topicId, currentOrgId, currentUserId);
     }
 
     /**
@@ -97,8 +97,8 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#getTopicByTopicId
      */
     @Override
-    public Topic getTopicByTopicId(String topicId, Long currentOrgId) {
-        return topicDao.getTopicByTopicId(topicId, currentOrgId);
+    public Topic getTopicByTopicId(String topicId, Long currentOrgId, String currentUserId) {
+        return topicDao.getTopicByTopicId(topicId, currentOrgId, currentUserId);
     }
 
     /**
@@ -117,16 +117,16 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#getTopicsByTopicIds
      */
     @Override
-    public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Long currentOrgId) {
-        return topicDao.getTopicsByTopicIds(topicIds, currentOrgId);
+    public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Long currentOrgId, String currentUserId) {
+        return topicDao.getTopicsByTopicIds(topicIds, currentOrgId, currentUserId);
     }
 
     /**
      * @see com.mycompany.biz.service.TopicService#getTopicsByTopicIds
      */
     @Override
-    public List<Topic> getTopicsByTopicIdsNullOrgId(java.util.List<String> topicIds) {
-        return getTopicsByTopicIds(topicIds, null);
+    public List<Topic> getTopicsByTopicIdsNoLevelAuthority(java.util.List<String> topicIds) {
+        return getTopicsByTopicIds(topicIds, null, null);
     }
 
     /**
@@ -135,8 +135,8 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#deleteByTopicIds
      */
     @Override
-    public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Long currentOrgId) {
-        return topicDao.deleteByTopicIds(topicIds, currentOrgId);
+    public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Long currentOrgId, String currentUserId) {
+        return topicDao.deleteByTopicIds(topicIds, currentOrgId, currentUserId);
     }
 
     /**
@@ -174,7 +174,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, Topic> destSetMethod) {
-        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, TopicServiceImpl::getTopicsByTopicIdsNullOrgId, Topic::getTopicId);
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, TopicServiceImpl::getTopicsByTopicIdsNoLevelAuthority, Topic::getTopicId);
     }
 
     @Override
@@ -184,6 +184,6 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
-        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, TopicServiceImpl::getTopicsByTopicIdsNullOrgId, Topic::getTopicId);
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, TopicServiceImpl::getTopicsByTopicIdsNoLevelAuthority, Topic::getTopicId);
     }
 }

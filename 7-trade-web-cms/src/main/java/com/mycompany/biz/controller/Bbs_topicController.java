@@ -31,6 +31,7 @@ public class Bbs_topicController extends TopicControllerBase {
     private CookieGroup<?> loginCookieGroup;
     /***这个值是当前用户所有在部门，对下级（本级）数据可达，水平权限*/
     final Long currentOrd =null;
+    final String currentUserId =null;
 
     @ApiRequestMappingAutoWithMethodName
     @State(init = true, dataOpt = DataOpt.FULL_REPLACE,genForm=true)
@@ -57,13 +58,13 @@ public class Bbs_topicController extends TopicControllerBase {
     @ApiRequestMappingAutoWithMethodName
     @State(dataOpt = DataOpt.DELETE_IF_EXIST,area=Topic.class)
     public String delete(String topicId) {
-        return this.topicService.delete(topicId, currentOrd);
+        return this.topicService.delete(topicId, currentOrd,currentUserId);
     }
 
     @ApiRequestMappingAutoWithMethodName
     @State(dataOpt = DataOpt.DELETE_IF_EXIST,area=Topic.class)
     public List<String> deleteByTopicIds(@ApiParam("topicId") @RequestParam(required = false, name = "topicIds") ArrayList<String> topicIds) {
-        return this.topicService.deleteByTopicIds(topicIds, currentOrd);
+        return this.topicService.deleteByTopicIds(topicIds, currentOrd,currentUserId);
     }
 
     @ApiRequestMappingAutoWithMethodName
