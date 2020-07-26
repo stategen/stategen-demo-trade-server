@@ -45,14 +45,15 @@ public interface TopicDao {
 	/**
     <pre>
     &#64;ApiParam("主题ID") String topicId,
-    &#64;ApiParam("currentOrgId") Long currentOrgId,
-    &#64;ApiParam("currentUserId") String currentUserId
+    &#64;ApiParam("inclInvokerOrgId") Boolean inclInvokerOrgId,
+    &#64;ApiParam("invokerOrgId") Long invokerOrgId,
+    &#64;ApiParam("invokerUserId") String invokerUserId
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.topic_id = ? and exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) or ( o.user_id = ? and u.delete_flag = 0 ) )
+	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.topic_id = ? and ( 1=0 ) and ( ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) )
 	 */
-	public String delete(String topicId, Long currentOrgId, String currentUserId) throws DataAccessException;
+	public String delete(String topicId, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) throws DataAccessException;
 	
 	/**
     <pre>
@@ -65,27 +66,29 @@ public interface TopicDao {
     &#64;ApiParam() TopicType top,
     &#64;ApiParam() Long visitCount,
     &#64;ApiParam() String topicId,
-    &#64;ApiParam() Long currentOrgId,
-    &#64;ApiParam() String currentUserId
+    &#64;ApiParam() Boolean inclInvokerOrgId,
+    &#64;ApiParam() Long invokerOrgId,
+    &#64;ApiParam() String invokerUserId
     ,&#64;ApiParam(hidden = true) Topic topic
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.update_time= CURRENT_TIMESTAMP(6) , a.author_id = ? , a.topic_type = ? , a.content = ? , a.title = ? , a.last_reply_at = ? , a.good = ? , a.top = ? , a.visit_count = ? where a.delete_flag = 0 and a.topic_id = ? and exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) or ( o.user_id = ? and u.delete_flag = 0 ) )
+	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.update_time= CURRENT_TIMESTAMP(6) , a.author_id = ? , a.topic_type = ? , a.content = ? , a.title = ? , a.last_reply_at = ? , a.good = ? , a.top = ? , a.visit_count = ? where a.delete_flag = 0 and a.topic_id = ? and ( 1=0 ) and ( ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) )
 	 */
 	public Topic update(Topic topic) throws DataAccessException;
 	
 	/**
     <pre>
     &#64;ApiParam("主题ID") String topicId,
-    &#64;ApiParam("currentOrgId") Long currentOrgId,
-    &#64;ApiParam("userId") String currentUserId
+    &#64;ApiParam("inclInvokerOrgId") Boolean inclInvokerOrgId,
+    &#64;ApiParam("树(类似部门)主键") Long invokerOrgId,
+    &#64;ApiParam("所有者") String invokerUserId
     
     </pre>
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and a.topic_id = ? and exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) or ( o.user_id = ? and u.delete_flag = 0 ) )
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and a.topic_id = ? and ( ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) )
 	 */
-	public Topic getTopicByTopicId(String topicId, Long currentOrgId, String currentUserId) throws DataAccessException;
+	public Topic getTopicByTopicId(String topicId, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) throws DataAccessException;
 	
 	/**
     <pre>
@@ -112,39 +115,42 @@ public interface TopicDao {
     &#64;ApiParam() Date createTimeMax,
     &#64;ApiParam() Date updateTimeMin,
     &#64;ApiParam() Date updateTimeMax,
-    &#64;ApiParam() Long currentOrgId,
-    &#64;ApiParam() String currentUserId
+    &#64;ApiParam() Boolean inclInvokerOrgId,
+    &#64;ApiParam() Long invokerOrgId,
+    &#64;ApiParam() String invokerUserId
     ,&#64;ApiParam(hidden = true) Topic topic
     ,Pagination pagination
     </pre>
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.topic_type=? and a.topic_type in ( ? ) and a.title=? and a.title like CONCAT('%',?,'%') and a.last_reply_at >=? and a.last_reply_at <? and a.good=? and a.good >=? and a.good <? and a.top=? and a.top >=? and a.top <? and a.visit_count=? and a.visit_count >=? and a.visit_count <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) or ( o.user_id = ? and u.delete_flag = 0 ) ) and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.topic_type=? and a.topic_type in ( ? ) and a.title=? and a.title like CONCAT('%',?,'%') and a.last_reply_at >=? and a.last_reply_at <? and a.good=? and a.good >=? and a.good <? and a.top=? and a.top >=? and a.top <? and a.visit_count=? and a.visit_count >=? and a.visit_count <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and ( ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) ) and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<Topic> getPageList(Topic topic, int pageSize, int pageNum) throws DataAccessException;
 	
 	/**
     <pre>
     &#64;ApiParam("主题ID")&#64;RequestParam(required =false,name="topicIds") ArrayList&lt;String&gt; topicIds,
-    &#64;ApiParam("currentOrgId") Long currentOrgId,
-    &#64;ApiParam("userId") String currentUserId
+    &#64;ApiParam("inclInvokerOrgId") Boolean inclInvokerOrgId,
+    &#64;ApiParam("树(类似部门)主键") Long invokerOrgId,
+    &#64;ApiParam("所有者") String invokerUserId
     
     </pre>
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? ) and h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) or ( o.user_id = ? and u.delete_flag = 0 ) ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? ) and ( ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) ) order by a.update_time desc, a.create_time desc
 	 */
-	public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Long currentOrgId, String currentUserId) throws DataAccessException;
+	public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) throws DataAccessException;
 	
 	/**
     <pre>
     &#64;ApiParam("主题ID")&#64;RequestParam(required =false,name="topicIds") ArrayList&lt;String&gt; topicIds,
-    &#64;ApiParam("currentOrgId") Long currentOrgId,
-    &#64;ApiParam("currentUserId") String currentUserId
+    &#64;ApiParam("inclInvokerOrgId") Boolean inclInvokerOrgId,
+    &#64;ApiParam("invokerOrgId") Long invokerOrgId,
+    &#64;ApiParam("invokerUserId") String invokerUserId
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? ) and h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) or ( o.user_id = ? and u.delete_flag = 0 ) )
+	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and ( 1=0 ) and a.topic_id in ( ? ) and ( ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) )
 	 */
-	public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Long currentOrgId, String currentUserId) throws DataAccessException;
+	public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) throws DataAccessException;
 	
 	/**
     <pre>

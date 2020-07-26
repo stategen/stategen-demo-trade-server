@@ -77,8 +77,8 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#delete
      */
     @Override
-    public String delete(String topicId, Long currentOrgId, String currentUserId) {
-        return topicDao.delete(topicId, currentOrgId, currentUserId);
+    public String delete(String topicId, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) {
+        return topicDao.delete(topicId, inclInvokerOrgId, invokerOrgId, invokerUserId);
     }
 
     /**
@@ -97,8 +97,8 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#getTopicByTopicId
      */
     @Override
-    public Topic getTopicByTopicId(String topicId, Long currentOrgId, String currentUserId) {
-        return topicDao.getTopicByTopicId(topicId, currentOrgId, currentUserId);
+    public Topic getTopicByTopicId(String topicId, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) {
+        return topicDao.getTopicByTopicId(topicId, inclInvokerOrgId, invokerOrgId, invokerUserId);
     }
 
     /**
@@ -117,8 +117,8 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#getTopicsByTopicIds
      */
     @Override
-    public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Long currentOrgId, String currentUserId) {
-        return topicDao.getTopicsByTopicIds(topicIds, currentOrgId, currentUserId);
+    public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) {
+        return topicDao.getTopicsByTopicIds(topicIds, inclInvokerOrgId, invokerOrgId, invokerUserId);
     }
 
     /**
@@ -126,7 +126,7 @@ public class TopicServiceImpl implements TopicService {
      */
     @Override
     public List<Topic> getTopicsByTopicIdsNoLevelAuthority(java.util.List<String> topicIds) {
-        return getTopicsByTopicIds(topicIds, null, null);
+        return getTopicsByTopicIds(topicIds, null, null, null);
     }
 
     /**
@@ -135,8 +135,8 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#deleteByTopicIds
      */
     @Override
-    public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Long currentOrgId, String currentUserId) {
-        return topicDao.deleteByTopicIds(topicIds, currentOrgId, currentUserId);
+    public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) {
+        return topicDao.deleteByTopicIds(topicIds, inclInvokerOrgId, invokerOrgId, invokerUserId);
     }
 
     /**

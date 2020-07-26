@@ -50,6 +50,21 @@ public class Topic implements java.io.Serializable {
 
     private Long replyCount;
 
+    /*** inclCurrentOrgId in getPageList */
+    @ApiModelProperty("inclCurrentOrgId")
+    @JSONField(serialize = false)
+    private Boolean inclCurrentOrgId;
+
+    /*** 树(类似部门)主键 水平权限currentOrgId in getPageList */
+    @ApiModelProperty("树(类似部门)主键currentOrgId")
+    @JSONField(serialize = false)
+    private Long currentOrgId;
+
+    /*** 所有者 水平权限currentUserId in getPageList */
+    @ApiModelProperty("userIdcurrentUserId")
+    @JSONField(serialize = false)
+    private String currentUserId;
+
     /***不使用或自定义字段在下次生成后，会移到serialVersionUID的上面*/
     /* 如果字段注释中包括 -inherited 将不生成 */
     private static final long serialVersionUID = -5216457518046898601L;
@@ -132,8 +147,9 @@ public class Topic implements java.io.Serializable {
         sb.append("createTimeMax").append('=').append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("updateTimeMin").append('=').append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
         sb.append("updateTimeMax").append('=').append(updateTimeMax != null ? df.format(updateTimeMax) : null).append('\n');
-        sb.append("currentOrgId").append('=').append(currentOrgId).append('\n');
-        sb.append("currentUserId").append('=').append(currentUserId).append('\n');
+        sb.append("inclInvokerOrgId").append('=').append(inclInvokerOrgId).append('\n');
+        sb.append("invokerOrgId").append('=').append(invokerOrgId).append('\n');
+        sb.append("invokerUserId").append('=').append(invokerUserId).append('\n');
         sb.append("topicId").append('=').append(getTopicId()).append('\n');
         sb.append("authorId").append('=').append(getAuthorId()).append('\n');
         sb.append("topicType").append('=').append(getTopicType()).append('\n');
@@ -237,13 +253,18 @@ public class Topic implements java.io.Serializable {
     @JSONField(serialize = false)
     private java.util.Date updateTimeMax;
 
-    /*** currentOrgId in getPageList */
-    @ApiModelProperty("currentOrgId")
+    /*** inclInvokerOrgId in getPageList */
+    @ApiModelProperty("inclInvokerOrgId")
     @JSONField(serialize = false)
-    private Long currentOrgId;
+    private Boolean inclInvokerOrgId;
 
-    /*** userIdcurrentUserId in getPageList */
-    @ApiModelProperty("userIdcurrentUserId")
+    /*** 树(类似部门)主键 水平权限invokerOrgId in getPageList */
+    @ApiModelProperty("树(类似部门)主键invokerOrgId")
     @JSONField(serialize = false)
-    private String currentUserId;
+    private Long invokerOrgId;
+
+    /*** 所有者 水平权限invokerUserId in getPageList */
+    @ApiModelProperty("所有者invokerUserId")
+    @JSONField(serialize = false)
+    private String invokerUserId;
 }

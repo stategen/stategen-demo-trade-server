@@ -41,20 +41,21 @@ public class TopicDaoImpl  extends SqlDaoSupportBase implements TopicDao {
 
 	/**
 	 * 
-	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.topic_id = ? and exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) or ( o.user_id = ? and u.delete_flag = 0 ) )
+	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.topic_id = ? and ( 1=0 ) and ( ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) )
 	 */
-	public String delete(String topicId, Long currentOrgId, String currentUserId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(3);
+	public String delete(String topicId, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(4);
 		params.put("topicId",topicId);
-		params.put("currentOrgId",currentOrgId);
-		params.put("currentUserId",currentUserId);
+		params.put("inclInvokerOrgId",inclInvokerOrgId);
+		params.put("invokerOrgId",invokerOrgId);
+		params.put("invokerUserId",invokerUserId);
         super.update("Topic.delete", params);
         return topicId;
 	}
 
 	/**
 	 * 
-	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.update_time= CURRENT_TIMESTAMP(6) , a.author_id = ? , a.topic_type = ? , a.content = ? , a.title = ? , a.last_reply_at = ? , a.good = ? , a.top = ? , a.visit_count = ? where a.delete_flag = 0 and a.topic_id = ? and exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) or ( o.user_id = ? and u.delete_flag = 0 ) )
+	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.update_time= CURRENT_TIMESTAMP(6) , a.author_id = ? , a.topic_type = ? , a.content = ? , a.title = ? , a.last_reply_at = ? , a.good = ? , a.top = ? , a.visit_count = ? where a.delete_flag = 0 and a.topic_id = ? and ( 1=0 ) and ( ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) )
 	 */
 	public Topic update(Topic topic) throws DataAccessException {
 		if(topic == null) {
@@ -66,19 +67,20 @@ public class TopicDaoImpl  extends SqlDaoSupportBase implements TopicDao {
 
 	/**
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and a.topic_id = ? and exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) or ( o.user_id = ? and u.delete_flag = 0 ) )
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and a.topic_id = ? and ( ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) )
 	 */
-	public Topic getTopicByTopicId(String topicId, Long currentOrgId, String currentUserId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(3);
+	public Topic getTopicByTopicId(String topicId, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(4);
 		params.put("topicId",topicId);
-		params.put("currentOrgId",currentOrgId);
-		params.put("currentUserId",currentUserId);
+		params.put("inclInvokerOrgId",inclInvokerOrgId);
+		params.put("invokerOrgId",invokerOrgId);
+		params.put("invokerUserId",invokerUserId);
 		return (Topic)super.selectOne("Topic.getTopicByTopicId",params);
 	}
 
 	/**
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.topic_type=? and a.topic_type in ( ? ) and a.title=? and a.title like CONCAT('%',?,'%') and a.last_reply_at >=? and a.last_reply_at <? and a.good=? and a.good >=? and a.good <? and a.top=? and a.top >=? and a.top <? and a.visit_count=? and a.visit_count >=? and a.visit_count <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) or ( o.user_id = ? and u.delete_flag = 0 ) ) and 0 = 1 order by a.update_time desc, a.create_time desc
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and a.topic_id=? and a.topic_id in ( ? ) and a.author_id=? and a.author_id in ( ? ) and a.topic_type=? and a.topic_type in ( ? ) and a.title=? and a.title like CONCAT('%',?,'%') and a.last_reply_at >=? and a.last_reply_at <? and a.good=? and a.good >=? and a.good <? and a.top=? and a.top >=? and a.top <? and a.visit_count=? and a.visit_count >=? and a.visit_count <? and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and ( ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) ) and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<Topic> getPageList(Topic topic, int pageSize, int pageNum) throws DataAccessException {
 		return super.pageQuery("Topic.getPageList",topic,pageNum,pageSize);
@@ -86,25 +88,27 @@ public class TopicDaoImpl  extends SqlDaoSupportBase implements TopicDao {
 
 	/**
 	 * 
-	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? ) and h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) or ( o.user_id = ? and u.delete_flag = 0 ) ) order by a.update_time desc, a.create_time desc
+	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? ) and ( ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) ) order by a.update_time desc, a.create_time desc
 	 */
-	public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Long currentOrgId, String currentUserId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(3);
+	public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(4);
 		params.put("topicIds",topicIds);
-		params.put("currentOrgId",currentOrgId);
-		params.put("currentUserId",currentUserId);
+		params.put("inclInvokerOrgId",inclInvokerOrgId);
+		params.put("invokerOrgId",invokerOrgId);
+		params.put("invokerUserId",invokerUserId);
 		return super.selectList("Topic.getTopicsByTopicIds",params);
 	}
 
 	/**
 	 * 
-	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? ) and h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) or ( o.user_id = ? and u.delete_flag = 0 ) )
+	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and ( 1=0 ) and a.topic_id in ( ? ) and ( ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) )
 	 */
-	public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Long currentOrgId, String currentUserId) throws DataAccessException {
-		Map<String,Object> params = new HashMap<String,Object>(3);
+	public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(4);
 		params.put("topicIds",topicIds);
-		params.put("currentOrgId",currentOrgId);
-		params.put("currentUserId",currentUserId);
+		params.put("inclInvokerOrgId",inclInvokerOrgId);
+		params.put("invokerOrgId",invokerOrgId);
+		params.put("invokerUserId",invokerUserId);
         super.update("Topic.deleteByTopicIds", params);
         return topicIds;
 	}
