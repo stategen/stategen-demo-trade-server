@@ -12,17 +12,26 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.stategen.framework.cache.BaseCacheTaker;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.AfterInsertService;
+import org.stategen.framework.util.BusinessAssert;
 import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.TopicDao;
 import com.mycompany.biz.domain.Topic;
+import com.mycompany.biz.domain.TopicLevelH;
+import com.mycompany.biz.domain.TopicOwnerH;
 import com.mycompany.biz.domain.User;
+import com.mycompany.biz.enums.CookieType.Login.LoginCookieNames;
 import com.mycompany.biz.service.FileSummaryService;
+import com.mycompany.biz.service.TopicLevelHService;
+import com.mycompany.biz.service.TopicOwnerHService;
 import com.mycompany.biz.service.TopicService;
-import com.mycompany.biz.service.TopicUpService;
 import com.mycompany.biz.service.UserService;
 
 /**
@@ -36,18 +45,24 @@ import com.mycompany.biz.service.UserService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class TopicServiceImpl implements TopicService {
+public class TopicServiceImpl implements TopicService, AfterInsertService<Topic>, IIDGenerator<String> {
+
+    @Resource()
+    private TopicLevelHService topicLevelHService;
+
+    @Resource()
+    private TopicOwnerHService topicOwnerHService;
+
+    @Autowired
+    private BaseCacheTaker<LoginCookieNames> baseCacheTaker;
 
     @Resource(name = "topicDao")
-    TopicDao topicDao;
+    private TopicDao topicDao;
 
-    @Resource
-    UserService userService;
+    @Resource()
+    private UserService userService;
 
-    @Resource
-    TopicUpService topicUpService;
-
-    @Resource
+    @Resource()
     private FileSummaryService fileSummaryService;
 
     @Override
@@ -61,6 +76,31 @@ public class TopicServiceImpl implements TopicService {
         CollectionUtil.setFeildToFieldByMap(topics, replyCountMap, Topic::getTopicId, Topic::setReplyCount, Topic::getReplyCount);
     }
 
+    @Override
+    public String generateId() {
+        //TODO generate id;
+        return null;
+    }
+
+    @Override
+    public void afterInsert(Topic topic) {
+        String topicId = topic.getTopicId();
+        //--demo_topic_level_h
+        Long currOrgId = baseCacheTaker.get(LoginCookieNames.currOrgId, Long.class);
+        BusinessAssert.mustNotNull(currOrgId, "currOrgId connot be null");
+        TopicLevelH topicLevelH = new TopicLevelH();
+        topicLevelH.setTopicId(topicId);
+        topicLevelH.setOrgId(currOrgId);
+        this.topicLevelHService.insert(topicLevelH);
+        //--demo_topic_owner_h
+        String currUserId = baseCacheTaker.get(LoginCookieNames.currUserId, String.class);
+        BusinessAssert.mustNotNull(currUserId, "currUserId connot be null");
+        TopicOwnerH topicOwnerH = new TopicOwnerH();
+        topicOwnerH.setTopicId(topicId);
+        topicOwnerH.setUserId(currUserId);
+        this.topicOwnerHService.insert(topicOwnerH);
+    }
+
     /**
      * 
      * @see com.mycompany.biz.dao.TopicDao#insert
@@ -68,7 +108,7 @@ public class TopicServiceImpl implements TopicService {
      */
     @Override
     public Topic insert(Topic topic) {
-        return topicDao.insert(topic);
+        return topicDao.insert(topic, this, this);
     }
 
     /**
@@ -77,8 +117,8 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#delete
      */
     @Override
-    public String delete(String topicId, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) {
-        return topicDao.delete(topicId, inclInvokerOrgId, invokerOrgId, invokerUserId);
+    public String delete(String topicId, Boolean inclCurrOrgId, Long currOrgId, String currUserId) {
+        return topicDao.delete(topicId, inclCurrOrgId, currOrgId, currUserId);
     }
 
     /**
@@ -97,8 +137,8 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#getTopicByTopicId
      */
     @Override
-    public Topic getTopicByTopicId(String topicId, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) {
-        return topicDao.getTopicByTopicId(topicId, inclInvokerOrgId, invokerOrgId, invokerUserId);
+    public Topic getTopicByTopicId(String topicId, Boolean inclCurrOrgId, Long currOrgId, String currUserId) {
+        return topicDao.getTopicByTopicId(topicId, inclCurrOrgId, currOrgId, currUserId);
     }
 
     /**
@@ -117,8 +157,8 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#getTopicsByTopicIds
      */
     @Override
-    public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) {
-        return topicDao.getTopicsByTopicIds(topicIds, inclInvokerOrgId, invokerOrgId, invokerUserId);
+    public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Boolean inclCurrOrgId, Long currOrgId, String currUserId) {
+        return topicDao.getTopicsByTopicIds(topicIds, inclCurrOrgId, currOrgId, currUserId);
     }
 
     /**
@@ -135,8 +175,8 @@ public class TopicServiceImpl implements TopicService {
      * @see com.mycompany.biz.service.TopicService#deleteByTopicIds
      */
     @Override
-    public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) {
-        return topicDao.deleteByTopicIds(topicIds, inclInvokerOrgId, invokerOrgId, invokerUserId);
+    public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Boolean inclCurrOrgId, Long currOrgId, String currUserId) {
+        return topicDao.deleteByTopicIds(topicIds, inclCurrOrgId, currOrgId, currUserId);
     }
 
     /**

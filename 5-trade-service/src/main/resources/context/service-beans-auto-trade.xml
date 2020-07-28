@@ -31,6 +31,8 @@
     <bean id="shopService" class="com.mycompany.biz.service.impl.ShopServiceImpl" />
     <bean id="slideService" class="com.mycompany.biz.service.impl.SlideServiceImpl" />
     <bean id="topicService" class="com.mycompany.biz.service.impl.TopicServiceImpl" />
+    <bean id="topicLevelHService" class="com.mycompany.biz.service.impl.TopicLevelHServiceImpl" />
+    <bean id="topicOwnerHService" class="com.mycompany.biz.service.impl.TopicOwnerHServiceImpl" />
     <bean id="topicReplyService" class="com.mycompany.biz.service.impl.TopicReplyServiceImpl" />
     <bean id="topicUpService" class="com.mycompany.biz.service.impl.TopicUpServiceImpl" />
     <bean id="userService" class="com.mycompany.biz.service.impl.UserServiceImpl" />

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgenx生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="TopicLevelH_RM" class="com.mycompany.biz.domain.TopicLevelH">
+        <result property="topicId" column="topic_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="orgId" column="org_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Boolean" jdbcType="BIT"  />
+    </resultMap>
+    
+	<sql id="getTopicLevelHPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getTopicLevelHsByTopicIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="TopicLevelH.insert">
+		insert into demo_topic_level_h (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
+             <isNotNull prepend="," property="orgId"> org_id </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="topicId"> #topicId# </isNotNull> 
+            <isNotNull prepend="," property="orgId"> #orgId# </isNotNull>)
+           <selectKey keyProperty="topicId" resultClass="String" type="pre">
+              select if((#topicId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#topicId# ) as topicId
+           </selectKey>
+	</insert>
+	
+	<update id="TopicLevelH.delete">
+		UPDATE demo_topic_level_h a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.topic_id = #topicId#
+	</update>
+	
+    
+	
+	<update id="TopicLevelH.update">
+		UPDATE demo_topic_level_h a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="orgId">
+             a.org_id =  #orgId# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.topic_id = #topicId#
+	</update>
+	
+    
+	
+	<select id="TopicLevelH.getTopicLevelHByTopicId" resultMap="TopicLevelH_RM" >
+    	select
+ /* getTopicLevelHByTopicId.TopicLevelH */              a.topic_id,
+             a.org_id,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_topic_level_h a
+           where
+             a.delete_flag = 0
+             and a.topic_id = #topicId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="TopicLevelH.getPageList" resultMap="TopicLevelH_RM" >
+    	select
+ /* getPageList.TopicLevelH */              a.topic_id,
+             a.org_id,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_topic_level_h a
+           where
+             a.delete_flag = 0
+             <isNotNull property="topicId">
+             and a.topic_id=#topicId#
+             </isNotNull>
+             <isNotEmpty property="topicIds">
+             and a.topic_id in
+               <iterate close=")" conjunction="," open="(" property="topicIds">
+               #topicIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="orgId">
+             and a.org_id=#orgId#
+             </isNotNull>
+             <isNotEmpty property="orgIds">
+             and a.org_id in
+               <iterate close=")" conjunction="," open="(" property="orgIds">
+               #orgIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNull property="topicId">
+             <isEmpty property="topicIds">
+             <isNull property="orgId">
+             <isEmpty property="orgIds">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+           order by
+             <include refid="getTopicLevelHPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="TopicLevelH.getPageList_count" resultClass="long" >
+    	select  /* getPageList_count.TopicLevelH */ count(*)  from demo_topic_level_h a
+           where
+             a.delete_flag = 0
+             <isNotNull property="topicId">
+             and a.topic_id=#topicId#
+             </isNotNull>
+             <isNotEmpty property="topicIds">
+             and a.topic_id in
+               <iterate close=")" conjunction="," open="(" property="topicIds">
+               #topicIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="orgId">
+             and a.org_id=#orgId#
+             </isNotNull>
+             <isNotEmpty property="orgIds">
+             and a.org_id in
+               <iterate close=")" conjunction="," open="(" property="orgIds">
+               #orgIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNull property="topicId">
+             <isEmpty property="topicIds">
+             <isNull property="orgId">
+             <isEmpty property="orgIds">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="TopicLevelH.getTopicLevelHsByTopicIds" resultMap="TopicLevelH_RM" >
+    	select
+ /* getTopicLevelHsByTopicIds.TopicLevelH */              a.topic_id,
+             a.org_id,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_topic_level_h a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="topicIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="topicIds">
+             a.topic_id in
+                <iterate close=")" conjunction="," open="(" property="topicIds">
+                   #topicIds[]#
+                </iterate>
+             </isNotEmpty>
+           order by
+             <include refid="getTopicLevelHsByTopicIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="TopicLevelH.deleteByTopicIds">
+		UPDATE demo_topic_level_h a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="topicIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="topicIds">
+             a.topic_id in
+                <iterate close=")" conjunction="," open="(" property="topicIds">
+                   #topicIds[]#
+                </iterate>
+             </isNotEmpty>
+	</update>
+	
+    
+
+</sqlMap>
+

@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -12,9 +12,10 @@ import java.util.Map;
 import com.mycompany.biz.domain.Topic;
 import com.mycompany.biz.dao.TopicDao;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.AfterInsertService;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * TopicDao
  * <pre>
@@ -27,15 +28,23 @@ import org.springframework.dao.DataAccessException;
  */
 public class TopicDaoImpl  extends SqlDaoSupportBase implements TopicDao {
 
+
 	/**
 	 * 
 	 * sql:insert into demo_topic ( create_time , update_time , delete_flag , topic_id , author_id , topic_type , content , title , last_reply_at , good , top , visit_count ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?)
 	 */
-	public Topic insert(Topic topic) throws DataAccessException {
+	public Topic insert(Topic topic, IIDGenerator<String> idGenerator, AfterInsertService<Topic> afterInsertService) throws DataAccessException {
 		if(topic == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            String topicId = idGenerator.generateId();
+            topic.setTopicId(topicId);
+        }
         super.insert("Topic.insert", topic);
+        if (afterInsertService != null) {
+            afterInsertService.afterInsert(topic);
+        }
 		return topic;
 	}
 
@@ -43,12 +52,12 @@ public class TopicDaoImpl  extends SqlDaoSupportBase implements TopicDao {
 	 * 
 	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.topic_id = ? and ( 1=0 ) and ( ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) )
 	 */
-	public String delete(String topicId, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) throws DataAccessException {
+	public String delete(String topicId, Boolean inclCurrOrgId, Long currOrgId, String currUserId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(4);
 		params.put("topicId",topicId);
-		params.put("inclInvokerOrgId",inclInvokerOrgId);
-		params.put("invokerOrgId",invokerOrgId);
-		params.put("invokerUserId",invokerUserId);
+		params.put("inclCurrOrgId",inclCurrOrgId);
+		params.put("currOrgId",currOrgId);
+		params.put("currUserId",currUserId);
         super.update("Topic.delete", params);
         return topicId;
 	}
@@ -69,12 +78,12 @@ public class TopicDaoImpl  extends SqlDaoSupportBase implements TopicDao {
 	 * 
 	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and a.topic_id = ? and ( ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or exists ( select null from demo_organization_flat_h where org_id = h.org_id and parent_id = ? and delete_flag = 0 ) ) )
 	 */
-	public Topic getTopicByTopicId(String topicId, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) throws DataAccessException {
+	public Topic getTopicByTopicId(String topicId, Boolean inclCurrOrgId, Long currOrgId, String currUserId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(4);
 		params.put("topicId",topicId);
-		params.put("inclInvokerOrgId",inclInvokerOrgId);
-		params.put("invokerOrgId",invokerOrgId);
-		params.put("invokerUserId",invokerUserId);
+		params.put("inclCurrOrgId",inclCurrOrgId);
+		params.put("currOrgId",currOrgId);
+		params.put("currUserId",currUserId);
 		return (Topic)super.selectOne("Topic.getTopicByTopicId",params);
 	}
 
@@ -90,12 +99,12 @@ public class TopicDaoImpl  extends SqlDaoSupportBase implements TopicDao {
 	 * 
 	 * sql:select a.topic_id, a.author_id, a.topic_type, a.content, a.title, a.last_reply_at, a.good, a.top, a.visit_count, a.create_time, a.update_time, a.delete_flag from demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) where a.delete_flag = 0 and 1=0 and a.topic_id in ( ? ) and ( ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) ) order by a.update_time desc, a.create_time desc
 	 */
-	public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) throws DataAccessException {
+	public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Boolean inclCurrOrgId, Long currOrgId, String currUserId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(4);
 		params.put("topicIds",topicIds);
-		params.put("inclInvokerOrgId",inclInvokerOrgId);
-		params.put("invokerOrgId",invokerOrgId);
-		params.put("invokerUserId",invokerUserId);
+		params.put("inclCurrOrgId",inclCurrOrgId);
+		params.put("currOrgId",currOrgId);
+		params.put("currUserId",currUserId);
 		return super.selectList("Topic.getTopicsByTopicIds",params);
 	}
 
@@ -103,12 +112,12 @@ public class TopicDaoImpl  extends SqlDaoSupportBase implements TopicDao {
 	 * 
 	 * sql:UPDATE demo_topic a left join demo_topic_level_h h on ( a.topic_id = h.topic_id ) left join demo_topic_owner_h o on ( a.topic_id = o.topic_id ) left join user u on ( u.user_id = o.user_id ) SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and ( 1=0 ) and a.topic_id in ( ? ) and ( ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) ) and ( o.user_id = ? and u.delete_flag = 0 ) and ( ( o.user_id = ? and u.delete_flag = 0 ) or ( ( 1=? and h.org_id = ? ) or h.org_id in ( select org_id from demo_organization_flat_h where parent_id = ? and delete_flag = 0 ) ) )
 	 */
-	public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId) throws DataAccessException {
+	public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Boolean inclCurrOrgId, Long currOrgId, String currUserId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(4);
 		params.put("topicIds",topicIds);
-		params.put("inclInvokerOrgId",inclInvokerOrgId);
-		params.put("invokerOrgId",invokerOrgId);
-		params.put("invokerUserId",invokerUserId);
+		params.put("inclCurrOrgId",inclCurrOrgId);
+		params.put("currOrgId",currOrgId);
+		params.put("currUserId",currUserId);
         super.update("Topic.deleteByTopicIds", params);
         return topicIds;
 	}
@@ -122,6 +131,5 @@ public class TopicDaoImpl  extends SqlDaoSupportBase implements TopicDao {
 		params.put("topicIds",topicIds);
 		return super.selectList("Topic.getReplyCounts",params);
 	}
-
 }
 

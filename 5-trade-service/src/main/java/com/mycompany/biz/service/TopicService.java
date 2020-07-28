@@ -38,7 +38,7 @@ public interface TopicService extends AssignService<Topic, String>, TopicService
      ** 
      * @see com.mycompany.biz.dao.TopicDao#delete
      */
-    public String delete(String topicId, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId);
+    public String delete(String topicId, Boolean inclCurrOrgId, Long currOrgId, String currUserId);
 
     /**
      ** 
@@ -50,7 +50,7 @@ public interface TopicService extends AssignService<Topic, String>, TopicService
      ** 
      * @see com.mycompany.biz.dao.TopicDao#getTopicByTopicId
      */
-    public Topic getTopicByTopicId(String topicId, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId);
+    public Topic getTopicByTopicId(String topicId, Boolean inclCurrOrgId, Long currOrgId, String currUserId);
 
     /**
      ** 
@@ -62,7 +62,7 @@ public interface TopicService extends AssignService<Topic, String>, TopicService
      ** 
      * @see com.mycompany.biz.dao.TopicDao#getTopicsByTopicIds
      */
-    public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId);
+    public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Boolean inclCurrOrgId, Long currOrgId, String currUserId);
 
     /**
      * @see com.mycompany.biz.service.TopicService#getTopicsByTopicIds
@@ -73,7 +73,7 @@ public interface TopicService extends AssignService<Topic, String>, TopicService
      ** 
      * @see com.mycompany.biz.dao.TopicDao#deleteByTopicIds
      */
-    public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Boolean inclInvokerOrgId, Long invokerOrgId, String invokerUserId);
+    public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Boolean inclCurrOrgId, Long currOrgId, String currUserId);
 
     /**
      ** 获取当前回复的数量

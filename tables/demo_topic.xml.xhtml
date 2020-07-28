@@ -37,16 +37,16 @@
 
     <operation name="delete" remarks="">
         <extraparams>
-           <param name="invokerOrgId" javaType="Long"/>
-           <param name="inclInvokerOrgId" javaType="Boolean"/>
-           <param name="invokerUserId" javaType="String"/>
+           <param name="currOrgId" javaType="Long"/>
+           <param name="inclCurrOrgId" javaType="Boolean"/>
+           <param name="currUserId" javaType="String"/>
         </extraparams>
         <sql>
            UPDATE demo_topic a
-           <isNotNull property="invokerOrgId">
+           <isNotNull property="currOrgId">
            left join demo_topic_level_h h on (a.topic_id = h.topic_id)
            </isNotNull>
-           <isNotNull property="invokerUserId">
+           <isNotNull property="currUserId">
            left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
            left join user u on (u.user_id = o.user_id)
            </isNotNull>
@@ -56,24 +56,24 @@
            where
              a.delete_flag = 0
              and a.topic_id = ?
-             <isNull property="invokerOrgId">
-               <isNull property="invokerUserId">
+             <isNull property="currOrgId">
+               <isNull property="currUserId">
                   and (1=0)
                </isNull>
              </isNull>
-             <isNotNull property="invokerOrgId">
-                <isNull property="invokerUserId">
-                   and (((1=#inclInvokerOrgId# and h.org_id = #invokerOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #invokerOrgId# and delete_flag = 0)))
+             <isNotNull property="currOrgId">
+                <isNull property="currUserId">
+                   and (((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currOrgId# and delete_flag = 0)))
                 </isNull>
              </isNotNull>
-             <isNotNull property="invokerUserId">
-                <isNull property="invokerOrgId">
-                   and (o.user_id = #invokerUserId# and u.delete_flag = 0)
+             <isNotNull property="currUserId">
+                <isNull property="currOrgId">
+                   and (o.user_id = #currUserId# and u.delete_flag = 0)
                 </isNull>
              </isNotNull>
-             <isNotNull property="invokerOrgId">
-                <isNotNull property="invokerUserId">
-                   and ((o.user_id = #invokerUserId# and u.delete_flag = 0) or ((1=#inclInvokerOrgId# and h.org_id = #invokerOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #invokerOrgId# and delete_flag = 0)))
+             <isNotNull property="currOrgId">
+                <isNotNull property="currUserId">
+                   and ((o.user_id = #currUserId# and u.delete_flag = 0) or ((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currOrgId# and delete_flag = 0)))
                 </isNotNull>
              </isNotNull>
         </sql>
@@ -81,16 +81,16 @@
 
     <operation name="update" paramType="object" remarks="">
         <extraparams>
-           <param name="invokerOrgId" javaType="Long"/>
-           <param name="inclInvokerOrgId" javaType="Boolean"/>
-           <param name="invokerUserId" javaType="String"/>
+           <param name="currOrgId" javaType="Long"/>
+           <param name="inclCurrOrgId" javaType="Boolean"/>
+           <param name="currUserId" javaType="String"/>
         </extraparams>
         <sql>
            UPDATE demo_topic a
-           <isNotNull property="invokerOrgId">
+           <isNotNull property="currOrgId">
            left join demo_topic_level_h h on (a.topic_id = h.topic_id)
            </isNotNull>
-           <isNotNull property="invokerUserId">
+           <isNotNull property="currUserId">
            left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
            left join user u on (u.user_id = o.user_id)
            </isNotNull>
@@ -123,24 +123,24 @@
            where
              a.delete_flag = 0
              and a.topic_id = ?
-             <isNull property="invokerOrgId">
-               <isNull property="invokerUserId">
+             <isNull property="currOrgId">
+               <isNull property="currUserId">
                   and (1=0)
                </isNull>
              </isNull>
-             <isNotNull property="invokerOrgId">
-                <isNull property="invokerUserId">
-                   and (((1=#inclInvokerOrgId# and h.org_id = #invokerOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #invokerOrgId# and delete_flag = 0)))
+             <isNotNull property="currOrgId">
+                <isNull property="currUserId">
+                   and (((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currOrgId# and delete_flag = 0)))
                 </isNull>
              </isNotNull>
-             <isNotNull property="invokerUserId">
-                <isNull property="invokerOrgId">
-                   and (o.user_id = #invokerUserId# and u.delete_flag = 0)
+             <isNotNull property="currUserId">
+                <isNull property="currOrgId">
+                   and (o.user_id = #currUserId# and u.delete_flag = 0)
                 </isNull>
              </isNotNull>
-             <isNotNull property="invokerOrgId">
-                <isNotNull property="invokerUserId">
-                   and ((o.user_id = #invokerUserId# and u.delete_flag = 0) or ((1=#inclInvokerOrgId# and h.org_id = #invokerOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #invokerOrgId# and delete_flag = 0)))
+             <isNotNull property="currOrgId">
+                <isNotNull property="currUserId">
+                   and ((o.user_id = #currUserId# and u.delete_flag = 0) or ((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currOrgId# and delete_flag = 0)))
                 </isNotNull>
              </isNotNull>
         </sql>
@@ -150,9 +150,9 @@
 
     <operation name="getTopicByTopicId" multiplicity="one" remarks="">
         <extraparams>
-           <param name="invokerOrgId" javaType="Long"/>
-           <param name="inclInvokerOrgId" javaType="Boolean"/>
-           <param name="invokerUserId" javaType="String"/>
+           <param name="currOrgId" javaType="Long"/>
+           <param name="inclCurrOrgId" javaType="Boolean"/>
+           <param name="currUserId" javaType="String"/>
         </extraparams>
         <sql>
            select
@@ -169,29 +169,29 @@
              a.update_time,
              a.delete_flag
            from demo_topic a
-           <isNotNull property="invokerOrgId">
+           <isNotNull property="currOrgId">
            left join demo_topic_level_h h on (a.topic_id = h.topic_id)
            </isNotNull>
-           <isNotNull property="invokerUserId">
+           <isNotNull property="currUserId">
            left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
            left join user u on (u.user_id = o.user_id)
            </isNotNull>
            where
              a.delete_flag = 0
              and a.topic_id = ?
-             <isNotNull property="invokerOrgId">
-                <isNull property="invokerUserId">
-                   and (((1=#inclInvokerOrgId# and h.org_id = #invokerOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #invokerOrgId# and delete_flag = 0)))
+             <isNotNull property="currOrgId">
+                <isNull property="currUserId">
+                   and (((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currOrgId# and delete_flag = 0)))
                 </isNull>
              </isNotNull>
-             <isNotNull property="invokerUserId">
-                <isNull property="invokerOrgId">
-                   and (o.user_id = #invokerUserId# and u.delete_flag = 0)
+             <isNotNull property="currUserId">
+                <isNull property="currOrgId">
+                   and (o.user_id = #currUserId# and u.delete_flag = 0)
                 </isNull>
              </isNotNull>
-             <isNotNull property="invokerOrgId">
-                <isNotNull property="invokerUserId">
-                   and ((o.user_id = #invokerUserId# and u.delete_flag = 0) or ((1=#inclInvokerOrgId# and h.org_id = #invokerOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #invokerOrgId# and delete_flag = 0)))
+             <isNotNull property="currOrgId">
+                <isNotNull property="currUserId">
+                   and ((o.user_id = #currUserId# and u.delete_flag = 0) or ((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currOrgId# and delete_flag = 0)))
                 </isNotNull>
              </isNotNull>
         </sql>
@@ -200,9 +200,9 @@
     <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <extraparams>
-           <param name="invokerOrgId" javaType="Long"/>
-           <param name="inclInvokerOrgId" javaType="Boolean"/>
-           <param name="invokerUserId" javaType="String"/>
+           <param name="currOrgId" javaType="Long"/>
+           <param name="inclCurrOrgId" javaType="Boolean"/>
+           <param name="currUserId" javaType="String"/>
         </extraparams>
         <sql>
            select
@@ -219,10 +219,10 @@
              a.update_time,
              a.delete_flag
            from demo_topic a
-           <isNotNull property="invokerOrgId">
+           <isNotNull property="currOrgId">
            left join demo_topic_level_h h on (a.topic_id = h.topic_id)
            </isNotNull>
-           <isNotNull property="invokerUserId">
+           <isNotNull property="currUserId">
            left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
            left join user u on (u.user_id = o.user_id)
            </isNotNull>
@@ -306,19 +306,19 @@
              <isNotNull property="updateTimeMax">
              and a.update_time &lt;#updateTimeMax#
              </isNotNull>
-             <isNotNull property="invokerOrgId">
-                <isNull property="invokerUserId">
-                   and (((1=#inclInvokerOrgId# and h.org_id = #invokerOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #invokerOrgId# and delete_flag = 0)) )
+             <isNotNull property="currOrgId">
+                <isNull property="currUserId">
+                   and (((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currOrgId# and delete_flag = 0)) )
                 </isNull>
              </isNotNull>
-             <isNotNull property="invokerUserId">
-                <isNull property="invokerOrgId">
-                   and (o.user_id = #invokerUserId# and u.delete_flag = 0)
+             <isNotNull property="currUserId">
+                <isNull property="currOrgId">
+                   and (o.user_id = #currUserId# and u.delete_flag = 0)
                 </isNull>
              </isNotNull>
-             <isNotNull property="invokerOrgId">
-                <isNotNull property="invokerUserId">
-                   and ((o.user_id = #invokerUserId# and u.delete_flag = 0) or ((1=#inclInvokerOrgId# and h.org_id = #invokerOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #invokerOrgId# and delete_flag = 0)) )
+             <isNotNull property="currOrgId">
+                <isNotNull property="currUserId">
+                   and ((o.user_id = #currUserId# and u.delete_flag = 0) or ((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currOrgId# and delete_flag = 0)) )
                 </isNotNull>
              </isNotNull>
              <isNull property="topicId">
@@ -376,9 +376,9 @@
 
     <operation name="getTopicsByTopicIds" multiplicity="many" remarks="">
         <extraparams>
-           <param name="invokerOrgId" javaType="Long"/>
-           <param name="inclInvokerOrgId" javaType="Boolean"/>
-           <param name="invokerUserId" javaType="String"/>
+           <param name="currOrgId" javaType="Long"/>
+           <param name="inclCurrOrgId" javaType="Boolean"/>
+           <param name="currUserId" javaType="String"/>
         </extraparams>
         <sql>
            select
@@ -395,10 +395,10 @@
              a.update_time,
              a.delete_flag
            from demo_topic a
-           <isNotNull property="invokerOrgId">
+           <isNotNull property="currOrgId">
            left join demo_topic_level_h h on (a.topic_id = h.topic_id)
            </isNotNull>
-           <isNotNull property="invokerUserId">
+           <isNotNull property="currUserId">
            left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
            left join user u on (u.user_id = o.user_id)
            </isNotNull>
@@ -413,19 +413,19 @@
                    #topicIds[]#
                 </iterate>
              </isNotEmpty>
-             <isNotNull property="invokerOrgId">
-                <isNull property="invokerUserId">
-                   and (((1=#inclInvokerOrgId# and h.org_id = #invokerOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #invokerOrgId# and delete_flag = 0)) )
+             <isNotNull property="currOrgId">
+                <isNull property="currUserId">
+                   and (((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currOrgId# and delete_flag = 0)) )
                 </isNull>
              </isNotNull>
-             <isNotNull property="invokerUserId">
-                <isNull property="invokerOrgId">
-                   and (o.user_id = #invokerUserId# and u.delete_flag = 0)
+             <isNotNull property="currUserId">
+                <isNull property="currOrgId">
+                   and (o.user_id = #currUserId# and u.delete_flag = 0)
                 </isNull>
              </isNotNull>
-             <isNotNull property="invokerOrgId">
-                <isNotNull property="invokerUserId">
-                   and ((o.user_id = #invokerUserId# and u.delete_flag = 0) or ((1=#inclInvokerOrgId# and h.org_id = #invokerOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #invokerOrgId# and delete_flag = 0)) )
+             <isNotNull property="currOrgId">
+                <isNotNull property="currUserId">
+                   and ((o.user_id = #currUserId# and u.delete_flag = 0) or ((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currOrgId# and delete_flag = 0)) )
                 </isNotNull>
              </isNotNull>
            order by
@@ -435,16 +435,16 @@
 
     <operation name="deleteByTopicIds" remarks="">
         <extraparams>
-           <param name="invokerOrgId" javaType="Long"/>
-           <param name="inclInvokerOrgId" javaType="Boolean"/>
-           <param name="invokerUserId" javaType="String"/>
+           <param name="currOrgId" javaType="Long"/>
+           <param name="inclCurrOrgId" javaType="Boolean"/>
+           <param name="currUserId" javaType="String"/>
         </extraparams>
         <sql>
            UPDATE demo_topic a
-           <isNotNull property="invokerOrgId">
+           <isNotNull property="currOrgId">
            left join demo_topic_level_h h on (a.topic_id = h.topic_id)
            </isNotNull>
-           <isNotNull property="invokerUserId">
+           <isNotNull property="currUserId">
            left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
            left join user u on (u.user_id = o.user_id)
            </isNotNull>
@@ -456,8 +456,8 @@
              <isEmpty property="topicIds" prepend="and">
              1=0
              </isEmpty>
-             <isNull property="invokerOrgId">
-               <isNull property="invokerUserId">
+             <isNull property="currOrgId">
+               <isNull property="currUserId">
                   and (1=0)
                </isNull>
              </isNull>
@@ -467,19 +467,19 @@
                    #topicIds[]#
                 </iterate>
              </isNotEmpty>
-             <isNotNull property="invokerOrgId">
-                <isNull property="invokerUserId">
-                   and (((1=#inclInvokerOrgId# and h.org_id = #invokerOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #invokerOrgId# and delete_flag = 0)) )
+             <isNotNull property="currOrgId">
+                <isNull property="currUserId">
+                   and (((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currOrgId# and delete_flag = 0)) )
                 </isNull>
              </isNotNull>
-             <isNotNull property="invokerUserId">
-                <isNull property="invokerOrgId">
-                   and (o.user_id = #invokerUserId# and u.delete_flag = 0)
+             <isNotNull property="currUserId">
+                <isNull property="currOrgId">
+                   and (o.user_id = #currUserId# and u.delete_flag = 0)
                 </isNull>
              </isNotNull>
-             <isNotNull property="invokerOrgId">
-                <isNotNull property="invokerUserId">
-                   and ((o.user_id = #invokerUserId# and u.delete_flag = 0) or ((1=#inclInvokerOrgId# and h.org_id = #invokerOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #invokerOrgId# and delete_flag = 0)) )
+             <isNotNull property="currOrgId">
+                <isNotNull property="currUserId">
+                   and ((o.user_id = #currUserId# and u.delete_flag = 0) or ((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currOrgId# and delete_flag = 0)) )
                 </isNotNull>
              </isNotNull>
         </sql>

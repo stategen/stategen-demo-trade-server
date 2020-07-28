@@ -51,6 +51,8 @@
     <sqlMap resource="sqlmap/mapping/Shop-sqlmap-mapping.xml" />
     <sqlMap resource="sqlmap/mapping/Slide-sqlmap-mapping.xml" />
     <sqlMap resource="sqlmap/mapping/Topic-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/TopicLevelH-sqlmap-mapping.xml" />
+    <sqlMap resource="sqlmap/mapping/TopicOwnerH-sqlmap-mapping.xml" />
     <sqlMap resource="sqlmap/mapping/TopicReply-sqlmap-mapping.xml" />
     <sqlMap resource="sqlmap/mapping/TopicUp-sqlmap-mapping.xml" />
     <sqlMap resource="sqlmap/mapping/User-sqlmap-mapping.xml" />

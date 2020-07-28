@@ -32,6 +32,8 @@
     <bean id="shopDao" class="com.mycompany.biz.dao.impl.ShopDaoImpl" parent="abstractDaoSupport" />
     <bean id="slideDao" class="com.mycompany.biz.dao.impl.SlideDaoImpl" parent="abstractDaoSupport" />
     <bean id="topicDao" class="com.mycompany.biz.dao.impl.TopicDaoImpl" parent="abstractDaoSupport" />
+    <bean id="topicLevelHDao" class="com.mycompany.biz.dao.impl.TopicLevelHDaoImpl" parent="abstractDaoSupport" />
+    <bean id="topicOwnerHDao" class="com.mycompany.biz.dao.impl.TopicOwnerHDaoImpl" parent="abstractDaoSupport" />
     <bean id="topicReplyDao" class="com.mycompany.biz.dao.impl.TopicReplyDaoImpl" parent="abstractDaoSupport" />
     <bean id="topicUpDao" class="com.mycompany.biz.dao.impl.TopicUpDaoImpl" parent="abstractDaoSupport" />
     <bean id="userDao" class="com.mycompany.biz.dao.impl.UserDaoImpl" parent="abstractDaoSupport" />

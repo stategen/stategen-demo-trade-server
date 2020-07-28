@@ -3,6 +3,7 @@ package com.mycompany.biz.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -58,10 +59,9 @@ public class TopicController extends TopicControllerBase {
             @ApiParam() @RequestParam(required = false) TopicType top,
             @ApiParam() @RequestParam(required = false) Long visitCount,
             @ApiParam() @RequestParam(required = false) String topicId,
-            @ApiParam() @RequestParam(required = false) Boolean inclInvokerOrgId,
-            @ApiParam() @RequestParam(required = false) Long invokerOrgId,
-            @ApiParam() @RequestParam(required = false) String invokerUserId,
-            @ApiParam(hidden = true) Topic topic) {
+            @ApiParam(hidden = true) Topic topic
+    
+    ) {
         topic = this.topicService.update(topic);
         //forceUseLevelAuthorForWrite ，必须提供 至少invokerOrgId,invokerUserId之一
         topicService.assignTopicExtraProperties(Arrays.asList(topic));
@@ -78,7 +78,7 @@ public class TopicController extends TopicControllerBase {
     
     @ApiRequestMappingAutoWithMethodName
     @State(area = Topic.class, dataOpt = DataOpt.DELETE_IF_EXIST)
-    public String[] deleteBatch(
+    public List<String>  deleteBatch(
             @ApiParam("主题ID") @RequestParam(required = false, name = "topicIds") ArrayList<String> topicIds,
             @ApiParam("inclInvokerOrgId") @RequestParam(required = false) Boolean inclInvokerOrgId,
             @ApiParam("invokerOrgId") @RequestParam(required = false) Long invokerOrgId,
