@@ -71,20 +71,17 @@ public class TopicController extends TopicControllerBase {
     @ApiRequestMappingAutoWithMethodName
     @State(area = Topic.class, dataOpt = DataOpt.DELETE_IF_EXIST)
     public String delete(String topicId) {
-        //forceUseLevelAuthorForWrite ，必须提供 至少invokerOrgId,invokerUserId之一
-        //this.topicService.delete(topicId, inclInvokerOrgId, invokerOrgId, invokerUserId);
+        //gen_config.xml中 forceUseLevelAuthorForWrite ，必须提供 至少invokerOrgId,invokerUserId之一
+        //this.topicService.delete(topicId, null, null, null);
         return topicId;
     }
     
     @ApiRequestMappingAutoWithMethodName
     @State(area = Topic.class, dataOpt = DataOpt.DELETE_IF_EXIST)
     public List<String>  deleteBatch(
-            @ApiParam("主题ID") @RequestParam(required = false, name = "topicIds") ArrayList<String> topicIds,
-            @ApiParam("inclInvokerOrgId") @RequestParam(required = false) Boolean inclInvokerOrgId,
-            @ApiParam("invokerOrgId") @RequestParam(required = false) Long invokerOrgId,
-            @ApiParam("invokerUserId") @RequestParam(required = false) String invokerUserId) {
-        //forceUseLevelAuthorForWrite ，必须提供 至少invokerOrgId,invokerUserId之一
-        //        this.topicService.deleteByTopicIds(topicIds, inclInvokerOrgId, invokerOrgId, invokerUserId)
+            @ApiParam("主题ID") @RequestParam(required = false, name="topicIds") ArrayList<String> topicIds ) {
+        //gen_config.xml中 forceUseLevelAuthorForWrite ，必须提供 至少invokerOrgId,invokerUserId之一
+        //this.topicService.deleteByTopicIds(topicIds, null, null, null);
         return topicIds;
     }
     

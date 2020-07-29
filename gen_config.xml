@@ -65,4 +65,6 @@
     <!-- ibatis,mybatis,最下面优先 -->
     <entry key="dao_type">mybatis</entry>
     <entry key="dao_type">ibatis</entry>
+    <!-- 如果表有水平权限(-level(xxx),-owner(xxxx))，下面属生为true,必须提示水平权限参数，否则更不了 -->
+    <entry key="forceUseLevelAuthorForWrite">true</entry>
 </properties>
