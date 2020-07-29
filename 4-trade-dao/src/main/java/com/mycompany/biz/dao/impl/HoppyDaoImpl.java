@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.HoppyDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * HoppyDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class HoppyDaoImpl  extends SqlDaoSupportBase implements HoppyDao {
 
+
 	/**
 	 * 
 	 * sql:insert into demo_hoppy ( create_time , update_time , delete_flag , hoppy_id , hoppy_name ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?)
 	 */
-	public Hoppy insert(Hoppy hoppy) throws DataAccessException {
+	public Hoppy insert(Hoppy hoppy, IIDGenerator<Long> idGenerator) throws DataAccessException {
 		if(hoppy == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            Long hoppyId = idGenerator.generateId();
+            hoppy.setHoppyId(hoppyId);
+        }
         super.insert("Hoppy.insert", hoppy);
 		return hoppy;
 	}
@@ -108,6 +113,5 @@ public class HoppyDaoImpl  extends SqlDaoSupportBase implements HoppyDao {
 	public List<Hoppy> getHoppyOptions() throws DataAccessException {
 		return super.selectList("Hoppy.getHoppyOptions",null);
 	}
-
 }
 

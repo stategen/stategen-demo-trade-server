@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.HomeShop;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 
 /**
  * HomeShopDao
@@ -25,20 +26,19 @@ public interface HomeShopDao {
 
 	/**
     <pre>
-    &#64;ApiParam() String homeShopId,
-    &#64;ApiParam() String shopId
+    &#64;ApiParam() &#64;RequestParam(required = false) String homeShopId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String shopId
     ,&#64;ApiParam(hidden = true) HomeShop homeShop
     
     </pre>
 	 * 
 	 * sql:insert into demo_home_shop ( create_time , update_time , delete_flag , home_shop_id , shop_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?)
 	 */
-	public HomeShop insert(HomeShop homeShop) throws DataAccessException;
+	public HomeShop insert(HomeShop homeShop, IIDGenerator<String> idGenerator) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("homeShopId") String homeShopId
-    
+    &#64;ApiParam("homeShopId") &#64;RequestParam(required = false) String homeShopId    
     </pre>
 	 * 
 	 * sql:UPDATE demo_home_shop a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.home_shop_id = ?
@@ -47,8 +47,8 @@ public interface HomeShopDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String shopId,
-    &#64;ApiParam() String homeShopId
+    &#64;ApiParam() &#64;RequestParam(required = false) String shopId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String homeShopId
     ,&#64;ApiParam(hidden = true) HomeShop homeShop
     
     </pre>
@@ -59,8 +59,7 @@ public interface HomeShopDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("homeShopId") String homeShopId
-    
+    &#64;ApiParam("homeShopId") &#64;RequestParam(required = false) String homeShopId    
     </pre>
 	 * 
 	 * sql:select a.home_shop_id, a.shop_id, a.create_time, a.update_time, a.delete_flag from demo_home_shop a where a.delete_flag = 0 and a.home_shop_id = ?
@@ -69,14 +68,14 @@ public interface HomeShopDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String homeShopId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="homeShopIds") ArrayList&lt;String&gt; homeShopIds,
-    &#64;ApiParam() String shopId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="shopIds") ArrayList&lt;String&gt; shopIds,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax
+    &#64;ApiParam() &#64;RequestParam(required = false) String homeShopId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="homeShopIds") ArrayList&lt;String&gt; homeShopIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String shopId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="shopIds") ArrayList&lt;String&gt; shopIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax
     ,&#64;ApiParam(hidden = true) HomeShop homeShop
     ,Pagination pagination
     </pre>
@@ -87,8 +86,7 @@ public interface HomeShopDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("homeShopId")&#64;RequestParam(required =false,name="homeShopIds") ArrayList&lt;String&gt; homeShopIds
-    
+    &#64;ApiParam("homeShopId") &#64;RequestParam(required = false, name="homeShopIds") ArrayList&lt;String&gt; homeShopIds    
     </pre>
 	 * 
 	 * sql:select a.home_shop_id, a.shop_id, a.create_time, a.update_time, a.delete_flag from demo_home_shop a where a.delete_flag = 0 and 1=0 and a.home_shop_id in ( ? ) order by a.update_time desc, a.create_time desc
@@ -97,8 +95,7 @@ public interface HomeShopDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("homeShopId")&#64;RequestParam(required =false,name="homeShopIds") ArrayList&lt;String&gt; homeShopIds
-    
+    &#64;ApiParam("homeShopId") &#64;RequestParam(required = false, name="homeShopIds") ArrayList&lt;String&gt; homeShopIds    
     </pre>
 	 * 
 	 * sql:UPDATE demo_home_shop a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.home_shop_id in ( ? )

@@ -8,11 +8,14 @@ package com.mycompany.biz.domain;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
+import org.stategen.framework.annotation.FieldNameConst;
 import org.stategen.framework.lite.IMenu;
 import org.stategen.framework.lite.TreeNode;
 import org.stategen.framework.lite.enums.MenuType;
@@ -73,6 +76,7 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
 
     /***morder   db_column: morder INTEGER */
     @ApiModelProperty("morder")
+    @Column
     private Integer morder;
 
     /***menuId与bpid组成树图   db_column: bpid BIGINT */
@@ -115,6 +119,8 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
 
     /***route   db_column: route VARCHAR */
     @ApiModelProperty("route")
+    @FieldNameConst
+    @NotNull
     @Max(64)
     private String route;
 

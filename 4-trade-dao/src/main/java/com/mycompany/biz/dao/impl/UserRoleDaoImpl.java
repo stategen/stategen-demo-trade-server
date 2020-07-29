@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.UserRoleDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * UserRoleDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class UserRoleDaoImpl  extends SqlDaoSupportBase implements UserRoleDao {
 
+
 	/**
 	 * 
 	 * sql:insert into user_role ( create_time , update_time , delete_flag , id , user_id , role_id , role_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public UserRole insert(UserRole userRole) throws DataAccessException {
+	public UserRole insert(UserRole userRole, IIDGenerator<Long> idGenerator) throws DataAccessException {
 		if(userRole == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            Long id = idGenerator.generateId();
+            userRole.setId(id);
+        }
         super.insert("UserRole.insert", userRole);
 		return userRole;
 	}
@@ -100,6 +105,5 @@ public class UserRoleDaoImpl  extends SqlDaoSupportBase implements UserRoleDao {
         super.update("UserRole.deleteByIds", params);
         return ids;
 	}
-
 }
 

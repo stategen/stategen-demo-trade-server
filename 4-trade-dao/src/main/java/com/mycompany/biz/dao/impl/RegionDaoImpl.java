@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.RegionDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * RegionDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class RegionDaoImpl  extends SqlDaoSupportBase implements RegionDao {
 
+
 	/**
 	 * 
 	 * sql:insert into demo_region ( create_time , update_time , delete_flag , region_id , parent_region_id , path , level , region_type , name , name_en , name_pinyin , code ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?)
 	 */
-	public Region insert(Region region) throws DataAccessException {
+	public Region insert(Region region, IIDGenerator<Long> idGenerator) throws DataAccessException {
 		if(region == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            Long regionId = idGenerator.generateId();
+            region.setRegionId(regionId);
+        }
         super.insert("Region.insert", region);
 		return region;
 	}
@@ -120,6 +125,5 @@ public class RegionDaoImpl  extends SqlDaoSupportBase implements RegionDao {
 		params.put("regionIds",regionIds);
 		return super.selectList("Region.getRegionsWithIsLeafByRegionIds",params);
 	}
-
 }
 

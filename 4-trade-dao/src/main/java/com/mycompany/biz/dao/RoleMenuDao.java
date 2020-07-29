@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.RoleMenu;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 
 /**
  * RoleMenuDao
@@ -25,21 +26,20 @@ public interface RoleMenuDao {
 
 	/**
     <pre>
-    &#64;ApiParam() Long id,
-    &#64;ApiParam() String roleId,
-    &#64;ApiParam() Long menuId
+    &#64;ApiParam() &#64;RequestParam(required = false) Long id,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleId,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long menuId
     ,&#64;ApiParam(hidden = true) RoleMenu roleMenu
     
     </pre>
 	 * 
 	 * sql:insert into role_menu ( create_time , update_time , delete_flag , id , role_id , menu_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public RoleMenu insert(RoleMenu roleMenu) throws DataAccessException;
+	public RoleMenu insert(RoleMenu roleMenu, IIDGenerator<Long> idGenerator) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("id") Long id
-    
+    &#64;ApiParam("id") &#64;RequestParam(required = false) Long id    
     </pre>
 	 * 
 	 * sql:UPDATE role_menu a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.id = ?
@@ -48,9 +48,9 @@ public interface RoleMenuDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String roleId,
-    &#64;ApiParam() Long menuId,
-    &#64;ApiParam() Long id
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleId,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long menuId,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long id
     ,&#64;ApiParam(hidden = true) RoleMenu roleMenu
     
     </pre>
@@ -61,8 +61,7 @@ public interface RoleMenuDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("id") Long id
-    
+    &#64;ApiParam("id") &#64;RequestParam(required = false) Long id    
     </pre>
 	 * 
 	 * sql:select a.id, a.role_id, a.menu_id, a.create_time, a.update_time, a.delete_flag from role_menu a where a.delete_flag = 0 and a.id = ?
@@ -71,17 +70,17 @@ public interface RoleMenuDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() Long id,
-    &#64;ApiParam() Long idMin,
-    &#64;ApiParam() Long idMax,
-    &#64;ApiParam() String roleId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="roleIds") ArrayList&lt;String&gt; roleIds,
-    &#64;ApiParam() Long menuId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="menuIds") ArrayList&lt;Long&gt; menuIds,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax
+    &#64;ApiParam() &#64;RequestParam(required = false) Long id,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long idMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long idMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="roleIds") ArrayList&lt;String&gt; roleIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long menuId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="menuIds") ArrayList&lt;Long&gt; menuIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax
     ,&#64;ApiParam(hidden = true) RoleMenu roleMenu
     ,Pagination pagination
     </pre>
@@ -92,8 +91,7 @@ public interface RoleMenuDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("id")&#64;RequestParam(required =false,name="ids") ArrayList&lt;Long&gt; ids
-    
+    &#64;ApiParam("id") &#64;RequestParam(required = false, name="ids") ArrayList&lt;Long&gt; ids    
     </pre>
 	 * 
 	 * sql:select a.id, a.role_id, a.menu_id, a.create_time, a.update_time, a.delete_flag from role_menu a where a.delete_flag = 0 and 1=0 and a.id in ( ? ) order by a.update_time desc, a.create_time desc
@@ -102,8 +100,7 @@ public interface RoleMenuDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("id")&#64;RequestParam(required =false,name="ids") ArrayList&lt;Long&gt; ids
-    
+    &#64;ApiParam("id") &#64;RequestParam(required = false, name="ids") ArrayList&lt;Long&gt; ids    
     </pre>
 	 * 
 	 * sql:UPDATE role_menu a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.id in ( ? )
@@ -112,8 +109,7 @@ public interface RoleMenuDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("menuId")&#64;RequestParam(required =false,name="menuIds") ArrayList&lt;Long&gt; menuIds
-    
+    &#64;ApiParam("menuId") &#64;RequestParam(required = false, name="menuIds") ArrayList&lt;Long&gt; menuIds    
     </pre>
 	 * 
 	 * sql:select a.id, a.role_id, a.menu_id, a.create_time, a.update_time, a.delete_flag from role_menu a where a.menu_id in ( ? ) and a.delete_flag = 0

@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.UserHoppy;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 
 /**
  * UserHoppyDao
@@ -25,21 +26,20 @@ public interface UserHoppyDao {
 
 	/**
     <pre>
-    &#64;ApiParam() Long id,
-    &#64;ApiParam() String userId,
-    &#64;ApiParam() Long hoppyId
+    &#64;ApiParam() &#64;RequestParam(required = false) Long id,
+    &#64;ApiParam() &#64;RequestParam(required = false) String userId,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long hoppyId
     ,&#64;ApiParam(hidden = true) UserHoppy userHoppy
     
     </pre>
 	 * 
 	 * sql:insert into demo_user_hoppy ( create_time , update_time , delete_flag , id , user_id , hoppy_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public UserHoppy insert(UserHoppy userHoppy) throws DataAccessException;
+	public UserHoppy insert(UserHoppy userHoppy, IIDGenerator<Long> idGenerator) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("id") Long id
-    
+    &#64;ApiParam("id") &#64;RequestParam(required = false) Long id    
     </pre>
 	 * 
 	 * sql:UPDATE demo_user_hoppy a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.id = ?
@@ -48,9 +48,9 @@ public interface UserHoppyDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String userId,
-    &#64;ApiParam() Long hoppyId,
-    &#64;ApiParam() Long id
+    &#64;ApiParam() &#64;RequestParam(required = false) String userId,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long hoppyId,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long id
     ,&#64;ApiParam(hidden = true) UserHoppy userHoppy
     
     </pre>
@@ -61,8 +61,7 @@ public interface UserHoppyDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("id") Long id
-    
+    &#64;ApiParam("id") &#64;RequestParam(required = false) Long id    
     </pre>
 	 * 
 	 * sql:select a.id, a.user_id, a.hoppy_id, a.create_time, a.update_time, a.delete_flag from demo_user_hoppy a where a.delete_flag = 0 and a.id = ?
@@ -71,17 +70,17 @@ public interface UserHoppyDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() Long id,
-    &#64;ApiParam() Long idMin,
-    &#64;ApiParam() Long idMax,
-    &#64;ApiParam() String userId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="userIds") ArrayList&lt;String&gt; userIds,
-    &#64;ApiParam() Long hoppyId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="hoppyIds") ArrayList&lt;Long&gt; hoppyIds,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax
+    &#64;ApiParam() &#64;RequestParam(required = false) Long id,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long idMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long idMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) String userId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="userIds") ArrayList&lt;String&gt; userIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long hoppyId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="hoppyIds") ArrayList&lt;Long&gt; hoppyIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax
     ,&#64;ApiParam(hidden = true) UserHoppy userHoppy
     ,Pagination pagination
     </pre>
@@ -92,8 +91,7 @@ public interface UserHoppyDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("id")&#64;RequestParam(required =false,name="ids") ArrayList&lt;Long&gt; ids
-    
+    &#64;ApiParam("id") &#64;RequestParam(required = false, name="ids") ArrayList&lt;Long&gt; ids    
     </pre>
 	 * 
 	 * sql:select a.id, a.user_id, a.hoppy_id, a.create_time, a.update_time, a.delete_flag from demo_user_hoppy a where a.delete_flag = 0 and 1=0 and a.id in ( ? ) order by a.update_time desc, a.create_time desc
@@ -102,8 +100,7 @@ public interface UserHoppyDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("用户ID")&#64;RequestParam(required =false,name="userIds") ArrayList&lt;String&gt; userIds
-    
+    &#64;ApiParam("用户ID") &#64;RequestParam(required = false, name="userIds") ArrayList&lt;String&gt; userIds    
     </pre>
 	 * 
 	 * sql:select a.id, a.user_id, a.hoppy_id, a.create_time, a.update_time, a.delete_flag from demo_user_hoppy a where a.delete_flag = 0 and 1=0 and a.user_id in ( ? ) order by a.update_time desc, a.create_time desc
@@ -112,8 +109,7 @@ public interface UserHoppyDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("id")&#64;RequestParam(required =false,name="ids") ArrayList&lt;Long&gt; ids
-    
+    &#64;ApiParam("id") &#64;RequestParam(required = false, name="ids") ArrayList&lt;Long&gt; ids    
     </pre>
 	 * 
 	 * sql:UPDATE demo_user_hoppy a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.id in ( ? )

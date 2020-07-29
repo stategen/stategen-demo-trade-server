@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.GoodsCommentDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * GoodsCommentDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class GoodsCommentDaoImpl  extends SqlDaoSupportBase implements GoodsCommentDao {
 
+
 	/**
 	 * 
 	 * sql:insert into demo_goods_comment ( create_time , update_time , delete_flag , comments_id , goods_id , comments , user_name , discuss_time , score ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?)
 	 */
-	public GoodsComment insert(GoodsComment goodsComment) throws DataAccessException {
+	public GoodsComment insert(GoodsComment goodsComment, IIDGenerator<String> idGenerator) throws DataAccessException {
 		if(goodsComment == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            String commentsId = idGenerator.generateId();
+            goodsComment.setCommentsId(commentsId);
+        }
         super.insert("GoodsComment.insert", goodsComment);
 		return goodsComment;
 	}
@@ -100,6 +105,5 @@ public class GoodsCommentDaoImpl  extends SqlDaoSupportBase implements GoodsComm
         super.update("GoodsComment.deleteByCommentsIds", params);
         return commentsIds;
 	}
-
 }
 

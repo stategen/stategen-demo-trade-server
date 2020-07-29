@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.CityDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * CityDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class CityDaoImpl  extends SqlDaoSupportBase implements CityDao {
 
+
 	/**
 	 * 
 	 * sql:insert into demo_city ( create_time , update_time , delete_flag , city_id , name , pycode , province_id , postcode , areacode ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?)
 	 */
-	public City insert(City city) throws DataAccessException {
+	public City insert(City city, IIDGenerator<String> idGenerator) throws DataAccessException {
 		if(city == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            String cityId = idGenerator.generateId();
+            city.setCityId(cityId);
+        }
         super.insert("City.insert", city);
 		return city;
 	}
@@ -110,6 +115,5 @@ public class CityDaoImpl  extends SqlDaoSupportBase implements CityDao {
 		params.put("provinceId",provinceId);
 		return super.selectList("City.getCityOptions",params);
 	}
-
 }
 

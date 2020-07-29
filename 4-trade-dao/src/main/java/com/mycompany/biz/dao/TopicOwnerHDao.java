@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.TopicOwnerH;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 
 /**
  * TopicOwnerHDao
@@ -34,7 +35,7 @@ public interface TopicOwnerHDao {
 	 * 
 	 * sql:insert into demo_topic_owner_h ( create_time , update_time , delete_flag , id , topic_id , user_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public TopicOwnerH insert(TopicOwnerH topicOwnerH) throws DataAccessException;
+	public TopicOwnerH insert(TopicOwnerH topicOwnerH, IIDGenerator<Long> idGenerator) throws DataAccessException;
 	
 	/**
     <pre>

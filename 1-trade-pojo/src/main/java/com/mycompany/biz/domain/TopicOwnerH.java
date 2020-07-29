@@ -14,8 +14,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 import com.alibaba.fastjson.annotation.JSONField;
-
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,9 +42,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TopicOwnerH implements java.io.Serializable {
+
     /***不使用或自定义字段在下次生成后，会移到serialVersionUID的上面*/
     /* 如果字段注释中包括 -inherited 将不生成 */
-private static final long serialVersionUID = -5216457518046898601L;
+    private static final long serialVersionUID = -5216457518046898601L;
+
     /***id   db_column: id BIGINT */
     @ApiModelProperty("id")
     @Id
@@ -63,43 +65,43 @@ private static final long serialVersionUID = -5216457518046898601L;
     private String userId;
 
     /***更新时间   db_column: update_time TIMESTAMP */
-    @ApiModelProperty(value="更新时间", hidden = true)
+    @ApiModelProperty(value = "更新时间", hidden = true)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updateTime;
 
     /***创建时间   db_column: create_time TIMESTAMP */
-    @ApiModelProperty(value="创建时间", hidden = true)
+    @ApiModelProperty(value = "创建时间", hidden = true)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date createTime;
 
     /***是否删除 (0:正常，1删除)   db_column: delete_flag BIT */
-    @ApiModelProperty(value="是否删除 (0:正常，1删除)", hidden = true)
+    @ApiModelProperty(value = "是否删除 (0:正常，1删除)", hidden = true)
     private Boolean deleteFlag;
 
-  
     /*----------------getter & setter ignore by lombok -------------------*/
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd H:m:ss.SSS");
-        StringBuilder sb=new StringBuilder(1024);
+        StringBuilder sb = new StringBuilder(1024);
         sb.append('{');
         sb.append("idMin").append('=').append(idMin).append('\n');
         sb.append("idMax").append('=').append(idMax).append('\n');
         sb.append("topicIds").append('=').append(topicIds).append('\n');
         sb.append("userIds").append('=').append(userIds).append('\n');
-        sb.append("updateTimeMin").append('=').append(updateTimeMin!=null?df.format(updateTimeMin):null).append('\n');
-        sb.append("updateTimeMax").append('=').append(updateTimeMax!=null?df.format(updateTimeMax):null).append('\n');
-        sb.append("createTimeMin").append('=').append(createTimeMin!=null?df.format(createTimeMin):null).append('\n');
-        sb.append("createTimeMax").append('=').append(createTimeMax!=null?df.format(createTimeMax):null).append('\n');
+        sb.append("updateTimeMin").append('=').append(updateTimeMin != null ? df.format(updateTimeMin) : null).append('\n');
+        sb.append("updateTimeMax").append('=').append(updateTimeMax != null ? df.format(updateTimeMax) : null).append('\n');
+        sb.append("createTimeMin").append('=').append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
+        sb.append("createTimeMax").append('=').append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
         sb.append("id").append('=').append(getId()).append('\n');
         sb.append("topicId").append('=').append(getTopicId()).append('\n');
         sb.append("userId").append('=').append(getUserId()).append('\n');
-        sb.append("updateTime").append('=').append(getUpdateTime() != null?df.format(getUpdateTime()):null).append('\n');
-        sb.append("createTime").append('=').append(getCreateTime() != null?df.format(getCreateTime()):null).append('\n');
+        sb.append("updateTime").append('=').append(getUpdateTime() != null ? df.format(getUpdateTime()) : null).append('\n');
+        sb.append("createTime").append('=').append(getCreateTime() != null ? df.format(getCreateTime()) : null).append('\n');
         sb.append("deleteFlag").append('=').append(getDeleteFlag());
         sb.append('}');
         return sb.toString();
     }
-/***查询字段下次生成时会自动移到toString()方法下面*/
+
+    /***查询字段下次生成时会自动移到toString()方法下面*/
     /*** idMin in getPageList */
     @ApiModelProperty("idMin")
     @JSONField(serialize = false)
@@ -143,6 +145,4 @@ private static final long serialVersionUID = -5216457518046898601L;
     @Temporal(TemporalType.TIMESTAMP)
     @JSONField(serialize = false)
     private java.util.Date createTimeMax;
-
-
 }

@@ -5,25 +5,20 @@
  */
 package com.mycompany.biz.service.impl;
 
-import java.util.List;
-
-import java.util.List;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
 import javax.annotation.Resource;
 
-
-
 import org.stategen.framework.lite.PageList;
-
+import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
+import com.mycompany.biz.dao.TopicLevelHDao;
 import com.mycompany.biz.domain.TopicLevelH;
 import com.mycompany.biz.service.TopicLevelHService;
-import com.mycompany.biz.dao.TopicLevelHDao;
 
 /**
  * TopicLevelHServiceImpl
@@ -36,9 +31,9 @@ import com.mycompany.biz.dao.TopicLevelHDao;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class TopicLevelHServiceImpl  implements TopicLevelHService {
+public class TopicLevelHServiceImpl implements TopicLevelHService, IIDGenerator<String> {
 
-    @Resource(name="topicLevelHDao")
+    @Resource(name = "topicLevelHDao")
     TopicLevelHDao topicLevelHDao;
 
     /**
@@ -48,9 +43,8 @@ public class TopicLevelHServiceImpl  implements TopicLevelHService {
      */
     @Override
     public TopicLevelH insert(TopicLevelH topicLevelH) {
-        return topicLevelHDao.insert(topicLevelH);
+        return topicLevelHDao.insert(topicLevelH, this);
     }
-
 
     /**
      * 
@@ -62,7 +56,6 @@ public class TopicLevelHServiceImpl  implements TopicLevelHService {
         return topicLevelHDao.delete(topicId);
     }
 
-
     /**
      * 
      * @see com.mycompany.biz.dao.TopicLevelHDao#update
@@ -72,7 +65,6 @@ public class TopicLevelHServiceImpl  implements TopicLevelHService {
     public TopicLevelH update(TopicLevelH topicLevelH) {
         return topicLevelHDao.update(topicLevelH);
     }
-
 
     /**
      * 
@@ -84,7 +76,6 @@ public class TopicLevelHServiceImpl  implements TopicLevelHService {
         return topicLevelHDao.getTopicLevelHByTopicId(topicId);
     }
 
-
     /**
      * 
      * @see com.mycompany.biz.dao.TopicLevelHDao#getPageList
@@ -94,7 +85,6 @@ public class TopicLevelHServiceImpl  implements TopicLevelHService {
     public PageList<TopicLevelH> getPageList(TopicLevelH topicLevelH, int pageSize, int pageNum) {
         return topicLevelHDao.getPageList(topicLevelH, pageSize, pageNum);
     }
-
 
     /**
      * 
@@ -106,7 +96,6 @@ public class TopicLevelHServiceImpl  implements TopicLevelHService {
         return topicLevelHDao.getTopicLevelHsByTopicIds(topicIds);
     }
 
-
     /**
      * 
      * @see com.mycompany.biz.dao.TopicLevelHDao#deleteByTopicIds
@@ -117,11 +106,9 @@ public class TopicLevelHServiceImpl  implements TopicLevelHService {
         return topicLevelHDao.deleteByTopicIds(topicIds);
     }
 
-
-
     /*** 保存topicLevelH,有id时更新，没有id时插入,并带回新的id，返回 topicLevelH*/
     @Override
-    public TopicLevelH saveTopicLevelH(TopicLevelH topicLevelH){
+    public TopicLevelH saveTopicLevelH(TopicLevelH topicLevelH) {
         if (topicLevelH != null) {
             java.lang.String topicId = topicLevelH.getTopicId();
             if (StringUtil.isBlank(topicId)) {
@@ -142,5 +129,9 @@ public class TopicLevelHServiceImpl  implements TopicLevelHService {
         return topicLevelHs;
     }
 
-
+    @Override
+    public String generateId() {
+        //TODO generate id;
+        return null;
+    }
 }

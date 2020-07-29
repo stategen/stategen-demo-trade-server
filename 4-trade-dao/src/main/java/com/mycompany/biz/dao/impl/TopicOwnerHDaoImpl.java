@@ -2,7 +2,8 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */package com.mycompany.biz.dao.impl;
+ */    
+package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,7 @@ import com.mycompany.biz.dao.TopicOwnerHDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * TopicOwnerHDao
  * <pre>
@@ -31,10 +32,14 @@ public class TopicOwnerHDaoImpl  extends SqlDaoSupportBase implements TopicOwner
 	 * 
 	 * sql:insert into demo_topic_owner_h ( create_time , update_time , delete_flag , id , topic_id , user_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public TopicOwnerH insert(TopicOwnerH topicOwnerH) throws DataAccessException {
+	public TopicOwnerH insert(TopicOwnerH topicOwnerH, IIDGenerator<Long> idGenerator) throws DataAccessException {
 		if(topicOwnerH == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            Long id = idGenerator.generateId();
+            topicOwnerH.setId(id);
+        }
         super.insert("TopicOwnerH.insert", topicOwnerH);
 		return topicOwnerH;
 	}

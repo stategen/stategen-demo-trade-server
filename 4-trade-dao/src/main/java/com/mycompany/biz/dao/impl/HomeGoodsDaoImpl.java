@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.HomeGoodsDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * HomeGoodsDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class HomeGoodsDaoImpl  extends SqlDaoSupportBase implements HomeGoodsDao {
 
+
 	/**
 	 * 
 	 * sql:insert into demo_home_goods ( create_time , update_time , delete_flag , recommend_id , goods_id , order_no ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public HomeGoods insert(HomeGoods homeGoods) throws DataAccessException {
+	public HomeGoods insert(HomeGoods homeGoods, IIDGenerator<String> idGenerator) throws DataAccessException {
 		if(homeGoods == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            String recommendId = idGenerator.generateId();
+            homeGoods.setRecommendId(recommendId);
+        }
         super.insert("HomeGoods.insert", homeGoods);
 		return homeGoods;
 	}
@@ -100,6 +105,5 @@ public class HomeGoodsDaoImpl  extends SqlDaoSupportBase implements HomeGoodsDao
         super.update("HomeGoods.deleteByRecommendIds", params);
         return recommendIds;
 	}
-
 }
 

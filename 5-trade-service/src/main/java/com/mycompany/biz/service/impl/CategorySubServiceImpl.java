@@ -12,6 +12,7 @@ import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
@@ -30,7 +31,7 @@ import com.mycompany.biz.service.CategorySubService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class CategorySubServiceImpl implements CategorySubService {
+public class CategorySubServiceImpl implements CategorySubService, IIDGenerator<String> {
 
     @Resource(name = "categorySubDao")
     CategorySubDao categorySubDao;
@@ -42,7 +43,7 @@ public class CategorySubServiceImpl implements CategorySubService {
      */
     @Override
     public CategorySub insert(CategorySub categorySub) {
-        return categorySubDao.insert(categorySub);
+        return categorySubDao.insert(categorySub, this);
     }
 
     /**
@@ -141,5 +142,11 @@ public class CategorySubServiceImpl implements CategorySubService {
     @Override
     public java.util.List<String> deleteByCategorySubIds(java.util.List<String> categorySubIds) {
         return categorySubDao.deleteByCategorySubIds(categorySubIds);
+    }
+
+    @Override
+    public String generateId() {
+        //TODO generate id;
+        return null;
     }
 }

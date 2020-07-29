@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.Shop;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 
 /**
  * ShopDao
@@ -25,21 +26,20 @@ public interface ShopDao {
 
 	/**
     <pre>
-    &#64;ApiParam() String shopId,
-    &#64;ApiParam() String leaderImage,
-    &#64;ApiParam() String leaderPhone
+    &#64;ApiParam() &#64;RequestParam(required = false) String shopId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String leaderImage,
+    &#64;ApiParam() &#64;RequestParam(required = false) String leaderPhone
     ,&#64;ApiParam(hidden = true) Shop shop
     
     </pre>
 	 * 
 	 * sql:insert into demo_shop ( create_time , update_time , delete_flag , shop_id , leader_image , leader_phone ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public Shop insert(Shop shop) throws DataAccessException;
+	public Shop insert(Shop shop, IIDGenerator<String> idGenerator) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("shopId") String shopId
-    
+    &#64;ApiParam("shopId") &#64;RequestParam(required = false) String shopId    
     </pre>
 	 * 
 	 * sql:UPDATE demo_shop a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.shop_id = ?
@@ -48,9 +48,9 @@ public interface ShopDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String leaderImage,
-    &#64;ApiParam() String leaderPhone,
-    &#64;ApiParam() String shopId
+    &#64;ApiParam() &#64;RequestParam(required = false) String leaderImage,
+    &#64;ApiParam() &#64;RequestParam(required = false) String leaderPhone,
+    &#64;ApiParam() &#64;RequestParam(required = false) String shopId
     ,&#64;ApiParam(hidden = true) Shop shop
     
     </pre>
@@ -61,8 +61,7 @@ public interface ShopDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("shopId") String shopId
-    
+    &#64;ApiParam("shopId") &#64;RequestParam(required = false) String shopId    
     </pre>
 	 * 
 	 * sql:select a.shop_id, a.leader_image, a.leader_phone, a.create_time, a.update_time, a.delete_flag from demo_shop a where a.delete_flag = 0 and a.shop_id = ?
@@ -71,14 +70,14 @@ public interface ShopDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String shopId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="shopIds") ArrayList&lt;String&gt; shopIds,
-    &#64;ApiParam() String leaderPhone,
-    &#64;ApiParam() String leaderPhoneLike,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax
+    &#64;ApiParam() &#64;RequestParam(required = false) String shopId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="shopIds") ArrayList&lt;String&gt; shopIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String leaderPhone,
+    &#64;ApiParam() &#64;RequestParam(required = false) String leaderPhoneLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax
     ,&#64;ApiParam(hidden = true) Shop shop
     ,Pagination pagination
     </pre>
@@ -89,8 +88,7 @@ public interface ShopDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("shopId")&#64;RequestParam(required =false,name="shopIds") ArrayList&lt;String&gt; shopIds
-    
+    &#64;ApiParam("shopId") &#64;RequestParam(required = false, name="shopIds") ArrayList&lt;String&gt; shopIds    
     </pre>
 	 * 
 	 * sql:select a.shop_id, a.leader_image, a.leader_phone, a.create_time, a.update_time, a.delete_flag from demo_shop a where a.delete_flag = 0 and 1=0 and a.shop_id in ( ? ) order by a.update_time desc, a.create_time desc
@@ -99,8 +97,7 @@ public interface ShopDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("shopId")&#64;RequestParam(required =false,name="shopIds") ArrayList&lt;String&gt; shopIds
-    
+    &#64;ApiParam("shopId") &#64;RequestParam(required = false, name="shopIds") ArrayList&lt;String&gt; shopIds    
     </pre>
 	 * 
 	 * sql:UPDATE demo_shop a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.shop_id in ( ? )

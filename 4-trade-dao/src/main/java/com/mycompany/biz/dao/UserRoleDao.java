@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.UserRole;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 
 /**
  * UserRoleDao
@@ -25,22 +26,21 @@ public interface UserRoleDao {
 
 	/**
     <pre>
-    &#64;ApiParam() Long id,
-    &#64;ApiParam() String userId,
-    &#64;ApiParam() String roleId,
-    &#64;ApiParam() String roleType
+    &#64;ApiParam() &#64;RequestParam(required = false) Long id,
+    &#64;ApiParam() &#64;RequestParam(required = false) String userId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleType
     ,&#64;ApiParam(hidden = true) UserRole userRole
     
     </pre>
 	 * 
 	 * sql:insert into user_role ( create_time , update_time , delete_flag , id , user_id , role_id , role_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public UserRole insert(UserRole userRole) throws DataAccessException;
+	public UserRole insert(UserRole userRole, IIDGenerator<Long> idGenerator) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("id") Long id
-    
+    &#64;ApiParam("id") &#64;RequestParam(required = false) Long id    
     </pre>
 	 * 
 	 * sql:UPDATE user_role a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.id = ?
@@ -49,10 +49,10 @@ public interface UserRoleDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String userId,
-    &#64;ApiParam() String roleId,
-    &#64;ApiParam() String roleType,
-    &#64;ApiParam() Long id
+    &#64;ApiParam() &#64;RequestParam(required = false) String userId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleType,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long id
     ,&#64;ApiParam(hidden = true) UserRole userRole
     
     </pre>
@@ -63,8 +63,7 @@ public interface UserRoleDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("id") Long id
-    
+    &#64;ApiParam("id") &#64;RequestParam(required = false) Long id    
     </pre>
 	 * 
 	 * sql:select a.id, a.user_id, a.role_id, a.role_type, a.create_time, a.update_time, a.delete_flag from user_role a where a.delete_flag = 0 and a.id = ?
@@ -73,19 +72,19 @@ public interface UserRoleDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() Long id,
-    &#64;ApiParam() Long idMin,
-    &#64;ApiParam() Long idMax,
-    &#64;ApiParam() String userId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="userIds") ArrayList&lt;String&gt; userIds,
-    &#64;ApiParam() String roleId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="roleIds") ArrayList&lt;String&gt; roleIds,
-    &#64;ApiParam() String roleType,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="roleTypes") ArrayList&lt;String&gt; roleTypes,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax
+    &#64;ApiParam() &#64;RequestParam(required = false) Long id,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long idMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long idMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) String userId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="userIds") ArrayList&lt;String&gt; userIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="roleIds") ArrayList&lt;String&gt; roleIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleType,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="roleTypes") ArrayList&lt;String&gt; roleTypes,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax
     ,&#64;ApiParam(hidden = true) UserRole userRole
     ,Pagination pagination
     </pre>
@@ -96,8 +95,7 @@ public interface UserRoleDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("id")&#64;RequestParam(required =false,name="ids") ArrayList&lt;Long&gt; ids
-    
+    &#64;ApiParam("id") &#64;RequestParam(required = false, name="ids") ArrayList&lt;Long&gt; ids    
     </pre>
 	 * 
 	 * sql:select a.id, a.user_id, a.role_id, a.role_type, a.create_time, a.update_time, a.delete_flag from user_role a where a.delete_flag = 0 and 1=0 and a.id in ( ? ) order by a.update_time desc, a.create_time desc
@@ -106,8 +104,7 @@ public interface UserRoleDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("id")&#64;RequestParam(required =false,name="ids") ArrayList&lt;Long&gt; ids
-    
+    &#64;ApiParam("id") &#64;RequestParam(required = false, name="ids") ArrayList&lt;Long&gt; ids    
     </pre>
 	 * 
 	 * sql:UPDATE user_role a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.id in ( ? )

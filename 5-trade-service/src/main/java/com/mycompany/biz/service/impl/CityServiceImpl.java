@@ -12,6 +12,7 @@ import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
@@ -30,7 +31,7 @@ import com.mycompany.biz.service.CityService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class CityServiceImpl implements CityService {
+public class CityServiceImpl implements CityService, IIDGenerator<String> {
 
     //<#--
     @Resource(name = "cityDao")
@@ -43,7 +44,7 @@ public class CityServiceImpl implements CityService {
      */
     @Override
     public City insert(City city) {
-        return cityDao.insert(city);
+        return cityDao.insert(city, this);
     }
 
     /**
@@ -154,5 +155,11 @@ public class CityServiceImpl implements CityService {
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, CityServiceImpl::getCitysByCityIds, City::getCityId);
+    }
+
+    @Override
+    public String generateId() {
+        //TODO generate id;
+        return null;
     }
 }

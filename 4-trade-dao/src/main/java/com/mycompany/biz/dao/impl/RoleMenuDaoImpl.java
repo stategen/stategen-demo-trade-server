@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.RoleMenuDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * RoleMenuDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class RoleMenuDaoImpl  extends SqlDaoSupportBase implements RoleMenuDao {
 
+
 	/**
 	 * 
 	 * sql:insert into role_menu ( create_time , update_time , delete_flag , id , role_id , menu_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public RoleMenu insert(RoleMenu roleMenu) throws DataAccessException {
+	public RoleMenu insert(RoleMenu roleMenu, IIDGenerator<Long> idGenerator) throws DataAccessException {
 		if(roleMenu == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            Long id = idGenerator.generateId();
+            roleMenu.setId(id);
+        }
         super.insert("RoleMenu.insert", roleMenu);
 		return roleMenu;
 	}
@@ -110,6 +115,5 @@ public class RoleMenuDaoImpl  extends SqlDaoSupportBase implements RoleMenuDao {
 		params.put("menuIds",menuIds);
 		return super.selectList("RoleMenu.getRoleMenusByMenuIds",params);
 	}
-
 }
 

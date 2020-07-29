@@ -2,7 +2,8 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */package com.mycompany.biz.dao.impl;
+ */    
+package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,7 @@ import com.mycompany.biz.dao.TopicLevelHDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * TopicLevelHDao
  * <pre>
@@ -31,10 +32,14 @@ public class TopicLevelHDaoImpl  extends SqlDaoSupportBase implements TopicLevel
 	 * 
 	 * sql:insert into demo_topic_level_h ( create_time , update_time , delete_flag , topic_id , org_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?)
 	 */
-	public TopicLevelH insert(TopicLevelH topicLevelH) throws DataAccessException {
+	public TopicLevelH insert(TopicLevelH topicLevelH, IIDGenerator<String> idGenerator) throws DataAccessException {
 		if(topicLevelH == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            String topicId = idGenerator.generateId();
+            topicLevelH.setTopicId(topicId);
+        }
         super.insert("TopicLevelH.insert", topicLevelH);
 		return topicLevelH;
 	}

@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.FileSummaryDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * FileSummaryDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class FileSummaryDaoImpl  extends SqlDaoSupportBase implements FileSummaryDao {
 
+
 	/**
 	 * 
 	 * sql:insert into file_summary ( create_time , update_time , delete_flag , file_id , url , size , name , type , user_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?)
 	 */
-	public FileSummary insert(FileSummary fileSummary) throws DataAccessException {
+	public FileSummary insert(FileSummary fileSummary, IIDGenerator<String> idGenerator) throws DataAccessException {
 		if(fileSummary == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            String fileId = idGenerator.generateId();
+            fileSummary.setFileId(fileId);
+        }
         super.insert("FileSummary.insert", fileSummary);
 		return fileSummary;
 	}
@@ -100,6 +105,5 @@ public class FileSummaryDaoImpl  extends SqlDaoSupportBase implements FileSummar
         super.update("FileSummary.deleteByFileIds", params);
         return fileIds;
 	}
-
 }
 

@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.MenuDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * MenuDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class MenuDaoImpl  extends SqlDaoSupportBase implements MenuDao {
 
+
 	/**
 	 * 
 	 * sql:insert into menu ( create_time , update_time , delete_flag , menu_id , morder , bpid , mpid , project_name , controller_name , method_name , url , icon , name , route , menu_type , check_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
-	public Menu insert(Menu menu) throws DataAccessException {
+	public Menu insert(Menu menu, IIDGenerator<Long> idGenerator) throws DataAccessException {
 		if(menu == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            Long menuId = idGenerator.generateId();
+            menu.setMenuId(menuId);
+        }
         super.insert("Menu.insert", menu);
 		return menu;
 	}
@@ -132,6 +137,5 @@ public class MenuDaoImpl  extends SqlDaoSupportBase implements MenuDao {
 		}
 		return (long)super.update("Menu.forceUpdateById", menu);
 	}
-
 }
 

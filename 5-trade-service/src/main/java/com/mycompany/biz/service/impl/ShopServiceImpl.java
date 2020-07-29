@@ -12,6 +12,7 @@ import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
@@ -30,7 +31,7 @@ import com.mycompany.biz.service.ShopService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class ShopServiceImpl implements ShopService {
+public class ShopServiceImpl implements ShopService, IIDGenerator<String> {
 
     @Resource(name = "shopDao")
     ShopDao shopDao;
@@ -42,7 +43,7 @@ public class ShopServiceImpl implements ShopService {
      */
     @Override
     public Shop insert(Shop shop) {
-        return shopDao.insert(shop);
+        return shopDao.insert(shop, this);
     }
 
     /**
@@ -141,5 +142,11 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, ShopServiceImpl::getShopsByShopIds, Shop::getShopId);
+    }
+
+    @Override
+    public String generateId() {
+        //TODO generate id;
+        return null;
     }
 }

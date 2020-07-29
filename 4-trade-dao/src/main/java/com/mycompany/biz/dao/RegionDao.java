@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.Region;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 
 /**
  * RegionDao
@@ -25,27 +26,26 @@ public interface RegionDao {
 
 	/**
     <pre>
-    &#64;ApiParam() Long regionId,
-    &#64;ApiParam() Long parentRegionId,
-    &#64;ApiParam() String path,
-    &#64;ApiParam() Integer level,
-    &#64;ApiParam() RegionType regionType,
-    &#64;ApiParam() String name,
-    &#64;ApiParam() String nameEn,
-    &#64;ApiParam() String namePinyin,
-    &#64;ApiParam() String code
+    &#64;ApiParam() &#64;RequestParam(required = false) Long regionId,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long parentRegionId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String path,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer level,
+    &#64;ApiParam() &#64;RequestParam(required = false) RegionType regionType,
+    &#64;ApiParam() &#64;RequestParam(required = false) String name,
+    &#64;ApiParam() &#64;RequestParam(required = false) String nameEn,
+    &#64;ApiParam() &#64;RequestParam(required = false) String namePinyin,
+    &#64;ApiParam() &#64;RequestParam(required = false) String code
     ,&#64;ApiParam(hidden = true) Region region
     
     </pre>
 	 * 
 	 * sql:insert into demo_region ( create_time , update_time , delete_flag , region_id , parent_region_id , path , level , region_type , name , name_en , name_pinyin , code ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?)
 	 */
-	public Region insert(Region region) throws DataAccessException;
+	public Region insert(Region region, IIDGenerator<Long> idGenerator) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("主键") Long regionId
-    
+    &#64;ApiParam("主键") &#64;RequestParam(required = false) Long regionId    
     </pre>
 	 * 
 	 * sql:UPDATE demo_region a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.region_id = ?
@@ -54,15 +54,15 @@ public interface RegionDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() Long parentRegionId,
-    &#64;ApiParam() String path,
-    &#64;ApiParam() Integer level,
-    &#64;ApiParam() RegionType regionType,
-    &#64;ApiParam() String name,
-    &#64;ApiParam() String nameEn,
-    &#64;ApiParam() String namePinyin,
-    &#64;ApiParam() String code,
-    &#64;ApiParam() Long regionId
+    &#64;ApiParam() &#64;RequestParam(required = false) Long parentRegionId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String path,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer level,
+    &#64;ApiParam() &#64;RequestParam(required = false) RegionType regionType,
+    &#64;ApiParam() &#64;RequestParam(required = false) String name,
+    &#64;ApiParam() &#64;RequestParam(required = false) String nameEn,
+    &#64;ApiParam() &#64;RequestParam(required = false) String namePinyin,
+    &#64;ApiParam() &#64;RequestParam(required = false) String code,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long regionId
     ,&#64;ApiParam(hidden = true) Region region
     
     </pre>
@@ -73,8 +73,7 @@ public interface RegionDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("主键") Long regionId
-    
+    &#64;ApiParam("主键") &#64;RequestParam(required = false) Long regionId    
     </pre>
 	 * 
 	 * sql:select a.region_id, a.parent_region_id, a.path, a.level, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, a.update_time, a.create_time, a.delete_flag from demo_region a where a.delete_flag = 0 and a.region_id = ?
@@ -83,29 +82,29 @@ public interface RegionDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() Long regionId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="regionIds") ArrayList&lt;Long&gt; regionIds,
-    &#64;ApiParam() Long parentRegionId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="parentRegionIds") ArrayList&lt;Long&gt; parentRegionIds,
-    &#64;ApiParam() String path,
-    &#64;ApiParam() String pathLike,
-    &#64;ApiParam() Integer level,
-    &#64;ApiParam() Integer levelMin,
-    &#64;ApiParam() Integer levelMax,
-    &#64;ApiParam() RegionType regionType,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="regionTypes") ArrayList&lt;RegionType&gt; regionTypes,
-    &#64;ApiParam() String name,
-    &#64;ApiParam() String nameLike,
-    &#64;ApiParam() String nameEn,
-    &#64;ApiParam() String nameEnLike,
-    &#64;ApiParam() String namePinyin,
-    &#64;ApiParam() String namePinyinLike,
-    &#64;ApiParam() String code,
-    &#64;ApiParam() String codeLike,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax
+    &#64;ApiParam() &#64;RequestParam(required = false) Long regionId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="regionIds") ArrayList&lt;Long&gt; regionIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long parentRegionId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="parentRegionIds") ArrayList&lt;Long&gt; parentRegionIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String path,
+    &#64;ApiParam() &#64;RequestParam(required = false) String pathLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer level,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer levelMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer levelMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) RegionType regionType,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="regionTypes") ArrayList&lt;RegionType&gt; regionTypes,
+    &#64;ApiParam() &#64;RequestParam(required = false) String name,
+    &#64;ApiParam() &#64;RequestParam(required = false) String nameLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) String nameEn,
+    &#64;ApiParam() &#64;RequestParam(required = false) String nameEnLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) String namePinyin,
+    &#64;ApiParam() &#64;RequestParam(required = false) String namePinyinLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) String code,
+    &#64;ApiParam() &#64;RequestParam(required = false) String codeLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax
     ,&#64;ApiParam(hidden = true) Region region
     ,Pagination pagination
     </pre>
@@ -116,8 +115,7 @@ public interface RegionDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("主键")&#64;RequestParam(required =false,name="regionIds") ArrayList&lt;Long&gt; regionIds
-    
+    &#64;ApiParam("主键") &#64;RequestParam(required = false, name="regionIds") ArrayList&lt;Long&gt; regionIds    
     </pre>
 	 * 
 	 * sql:select a.region_id, a.parent_region_id, a.path, a.level, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, a.update_time, a.create_time, a.delete_flag from demo_region a where a.delete_flag = 0 and 1=0 and a.region_id in ( ? ) order by a.region_id
@@ -126,8 +124,7 @@ public interface RegionDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("主键")&#64;RequestParam(required =false,name="regionIds") ArrayList&lt;Long&gt; regionIds
-    
+    &#64;ApiParam("主键") &#64;RequestParam(required = false, name="regionIds") ArrayList&lt;Long&gt; regionIds    
     </pre>
 	 * 
 	 * sql:UPDATE demo_region a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.region_id in ( ? )
@@ -136,8 +133,7 @@ public interface RegionDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("父ID")&#64;RequestParam(required =false,name="parentRegionIds") ArrayList&lt;Long&gt; parentRegionIds
-    
+    &#64;ApiParam("父ID") &#64;RequestParam(required = false, name="parentRegionIds") ArrayList&lt;Long&gt; parentRegionIds    
     </pre>
 	 * 
 	 * sql:select a.region_id, a.parent_region_id, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, not exists( SELECT b.region_id from demo_region b where b.parent_region_id=a.region_id) as isLeaf from demo_region a where a.delete_flag = 0 and a.parent_region_id in ( ? ) and a.parent_region_id =0
@@ -146,8 +142,7 @@ public interface RegionDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("主键")&#64;RequestParam(required =false,name="regionIds") ArrayList&lt;Long&gt; regionIds
-    
+    &#64;ApiParam("主键") &#64;RequestParam(required = false, name="regionIds") ArrayList&lt;Long&gt; regionIds    
     </pre>
 	 * 
 	 * sql:select a.region_id, a.parent_region_id, a.region_type, a.name, a.name_en, a.name_pinyin, a.code, not exists( SELECT b.region_id from demo_region b where b.parent_region_id=a.region_id) as isLeaf from demo_region a where a.delete_flag = 0 and 1=0 and a.region_id in ( ? ) order by a.region_id

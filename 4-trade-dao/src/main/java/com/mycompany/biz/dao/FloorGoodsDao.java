@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.FloorGoods;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 
 /**
  * FloorGoodsDao
@@ -25,23 +26,22 @@ public interface FloorGoodsDao {
 
 	/**
     <pre>
-    &#64;ApiParam() String floorGoodsId,
-    &#64;ApiParam() String floorId,
-    &#64;ApiParam() String goodsId,
-    &#64;ApiParam() String image,
-    &#64;ApiParam() Integer orderNo
+    &#64;ApiParam() &#64;RequestParam(required = false) String floorGoodsId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String floorId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer orderNo
     ,&#64;ApiParam(hidden = true) FloorGoods floorGoods
     
     </pre>
 	 * 
 	 * sql:insert into demo_floor_goods ( create_time , update_time , delete_flag , floor_goods_id , floor_id , goods_id , image , order_no ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?)
 	 */
-	public FloorGoods insert(FloorGoods floorGoods) throws DataAccessException;
+	public FloorGoods insert(FloorGoods floorGoods, IIDGenerator<String> idGenerator) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("floorGoodsId") String floorGoodsId
-    
+    &#64;ApiParam("floorGoodsId") &#64;RequestParam(required = false) String floorGoodsId    
     </pre>
 	 * 
 	 * sql:UPDATE demo_floor_goods a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.floor_goods_id = ?
@@ -50,11 +50,11 @@ public interface FloorGoodsDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String floorId,
-    &#64;ApiParam() String goodsId,
-    &#64;ApiParam() String image,
-    &#64;ApiParam() Integer orderNo,
-    &#64;ApiParam() String floorGoodsId
+    &#64;ApiParam() &#64;RequestParam(required = false) String floorId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer orderNo,
+    &#64;ApiParam() &#64;RequestParam(required = false) String floorGoodsId
     ,&#64;ApiParam(hidden = true) FloorGoods floorGoods
     
     </pre>
@@ -65,8 +65,7 @@ public interface FloorGoodsDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("floorGoodsId") String floorGoodsId
-    
+    &#64;ApiParam("floorGoodsId") &#64;RequestParam(required = false) String floorGoodsId    
     </pre>
 	 * 
 	 * sql:select a.floor_goods_id, a.floor_id, a.goods_id, a.image, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_floor_goods a where a.delete_flag = 0 and a.floor_goods_id = ?
@@ -75,18 +74,18 @@ public interface FloorGoodsDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String floorGoodsId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="floorGoodsIds") ArrayList&lt;String&gt; floorGoodsIds,
-    &#64;ApiParam() String floorId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="floorIds") ArrayList&lt;String&gt; floorIds,
-    &#64;ApiParam() String goodsId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="goodsIds") ArrayList&lt;String&gt; goodsIds,
-    &#64;ApiParam() Integer orderNo,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="orderNos") ArrayList&lt;Integer&gt; orderNos,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax
+    &#64;ApiParam() &#64;RequestParam(required = false) String floorGoodsId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="floorGoodsIds") ArrayList&lt;String&gt; floorGoodsIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String floorId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="floorIds") ArrayList&lt;String&gt; floorIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="goodsIds") ArrayList&lt;String&gt; goodsIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer orderNo,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="orderNos") ArrayList&lt;Integer&gt; orderNos,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax
     ,&#64;ApiParam(hidden = true) FloorGoods floorGoods
     ,Pagination pagination
     </pre>
@@ -97,8 +96,7 @@ public interface FloorGoodsDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("floorGoodsId")&#64;RequestParam(required =false,name="floorGoodsIds") ArrayList&lt;String&gt; floorGoodsIds
-    
+    &#64;ApiParam("floorGoodsId") &#64;RequestParam(required = false, name="floorGoodsIds") ArrayList&lt;String&gt; floorGoodsIds    
     </pre>
 	 * 
 	 * sql:select a.floor_goods_id, a.floor_id, a.goods_id, a.image, a.order_no, a.create_time, a.update_time, a.delete_flag from demo_floor_goods a where a.delete_flag = 0 and 1=0 and a.floor_goods_id in ( ? ) order by a.update_time desc, a.create_time desc
@@ -107,8 +105,7 @@ public interface FloorGoodsDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("floorGoodsId")&#64;RequestParam(required =false,name="floorGoodsIds") ArrayList&lt;String&gt; floorGoodsIds
-    
+    &#64;ApiParam("floorGoodsId") &#64;RequestParam(required = false, name="floorGoodsIds") ArrayList&lt;String&gt; floorGoodsIds    
     </pre>
 	 * 
 	 * sql:UPDATE demo_floor_goods a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.floor_goods_id in ( ? )

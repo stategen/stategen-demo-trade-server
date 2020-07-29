@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
@@ -31,7 +32,7 @@ import com.mycompany.biz.service.FileSummaryService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class FileSummaryServiceImpl implements FileSummaryService {
+public class FileSummaryServiceImpl implements FileSummaryService, IIDGenerator<String> {
 
     @Value("${project.name}")
     private String projectName;
@@ -51,7 +52,7 @@ public class FileSummaryServiceImpl implements FileSummaryService {
      */
     @Override
     public FileSummary insert(FileSummary fileSummary) {
-        return fileSummaryDao.insert(fileSummary);
+        return fileSummaryDao.insert(fileSummary, this);
     }
 
     /**
@@ -152,5 +153,11 @@ public class FileSummaryServiceImpl implements FileSummaryService {
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, FileSummaryServiceImpl::getFileSummarysByFileIds, FileSummary::getFileId);
+    }
+
+    @Override
+    public String generateId() {
+        //TODO generate id;
+        return null;
     }
 }

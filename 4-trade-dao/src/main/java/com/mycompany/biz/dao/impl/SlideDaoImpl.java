@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.SlideDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * SlideDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class SlideDaoImpl  extends SqlDaoSupportBase implements SlideDao {
 
+
 	/**
 	 * 
 	 * sql:insert into demo_slide ( create_time , update_time , delete_flag , slide_id , goods_id , image , urlType , order_no ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?)
 	 */
-	public Slide insert(Slide slide) throws DataAccessException {
+	public Slide insert(Slide slide, IIDGenerator<String> idGenerator) throws DataAccessException {
 		if(slide == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            String slideId = idGenerator.generateId();
+            slide.setSlideId(slideId);
+        }
         super.insert("Slide.insert", slide);
 		return slide;
 	}
@@ -100,6 +105,5 @@ public class SlideDaoImpl  extends SqlDaoSupportBase implements SlideDao {
         super.update("Slide.deleteBySlideIds", params);
         return slideIds;
 	}
-
 }
 

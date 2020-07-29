@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.AdvertisePictureDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * AdvertisePictureDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class AdvertisePictureDaoImpl  extends SqlDaoSupportBase implements AdvertisePictureDao {
 
+
 	/**
 	 * 
 	 * sql:insert into demo_advertise_picture ( create_time , update_time , delete_flag , advertise_id , PICTURE_ADDRESS , TO_PLACE , url_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public AdvertisePicture insert(AdvertisePicture advertisePicture) throws DataAccessException {
+	public AdvertisePicture insert(AdvertisePicture advertisePicture, IIDGenerator<Long> idGenerator) throws DataAccessException {
 		if(advertisePicture == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            Long advertiseId = idGenerator.generateId();
+            advertisePicture.setAdvertiseId(advertiseId);
+        }
         super.insert("AdvertisePicture.insert", advertisePicture);
 		return advertisePicture;
 	}
@@ -100,6 +105,5 @@ public class AdvertisePictureDaoImpl  extends SqlDaoSupportBase implements Adver
         super.update("AdvertisePicture.deleteByAdvertiseIds", params);
         return advertiseIds;
 	}
-
 }
 

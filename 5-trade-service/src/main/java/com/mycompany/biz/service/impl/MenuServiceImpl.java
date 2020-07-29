@@ -16,6 +16,7 @@ import org.springframework.util.LinkedCaseInsensitiveMap;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 
 import com.mycompany.biz.dao.MenuDao;
@@ -33,7 +34,7 @@ import com.mycompany.biz.service.MenuService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class MenuServiceImpl implements MenuService {
+public class MenuServiceImpl implements MenuService, IIDGenerator<Long> {
 
     @Value("${project.name}")
     private String projectName;
@@ -98,7 +99,7 @@ public class MenuServiceImpl implements MenuService {
      */
     @Override
     public Menu insert(Menu menu) {
-        return menuDao.insert(menu);
+        return menuDao.insert(menu, this);
     }
 
     /**
@@ -227,6 +228,12 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, MenuServiceImpl::getMenusByMenuIds, Menu::getMenuId);
+    }
+
+    @Override
+    public Long generateId() {
+        //TODO generate id;
+        return null;
     }
     //-->
     //

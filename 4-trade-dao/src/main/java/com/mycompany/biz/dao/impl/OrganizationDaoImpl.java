@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.OrganizationDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * OrganizationDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class OrganizationDaoImpl  extends SqlDaoSupportBase implements OrganizationDao {
 
+
 	/**
 	 * 
 	 * sql:insert into demo_organization ( create_time , update_time , delete_flag , org_id , parent_id , name , org_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public Organization insert(Organization organization) throws DataAccessException {
+	public Organization insert(Organization organization, IIDGenerator<Long> idGenerator) throws DataAccessException {
 		if(organization == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            Long orgId = idGenerator.generateId();
+            organization.setOrgId(orgId);
+        }
         super.insert("Organization.insert", organization);
 		return organization;
 	}
@@ -100,6 +105,5 @@ public class OrganizationDaoImpl  extends SqlDaoSupportBase implements Organizat
         super.update("Organization.deleteByOrgIds", params);
         return orgIds;
 	}
-
 }
 

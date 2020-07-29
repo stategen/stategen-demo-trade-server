@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
@@ -37,7 +38,7 @@ import com.mycompany.biz.service.UserService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class TopicReplyServiceImpl implements TopicReplyService {
+public class TopicReplyServiceImpl implements TopicReplyService, IIDGenerator<String> {
 
     @Resource
     TopicUpService topicUpService;
@@ -92,7 +93,7 @@ public class TopicReplyServiceImpl implements TopicReplyService {
      */
     @Override
     public TopicReply insert(TopicReply topicReply) {
-        return topicReplyDao.insert(topicReply);
+        return topicReplyDao.insert(topicReply, this);
     }
 
     /**
@@ -191,6 +192,12 @@ public class TopicReplyServiceImpl implements TopicReplyService {
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, TopicReplyServiceImpl::getTopicReplysByReplyIds, TopicReply::getReplyId);
+    }
+
+    @Override
+    public String generateId() {
+        //TODO generate id;
+        return null;
     }
     //-->
     //

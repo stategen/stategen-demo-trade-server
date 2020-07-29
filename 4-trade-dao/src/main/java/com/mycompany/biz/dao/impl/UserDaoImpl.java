@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.UserDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * UserDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
+
 	/**
 	 * 
 	 * sql:insert into user ( create_time , update_time , delete_flag , user_id , username , password , role_type , name , nickName , inter_code , mobile , age , address , avatar_img_id , email , vali_datetime , birthday_date , work_time , province_id , city_id , status , grade , sex , post_address_id , remark ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
-	public User insert(User user) throws DataAccessException {
+	public User insert(User user, IIDGenerator<String> idGenerator) throws DataAccessException {
 		if(user == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            String userId = idGenerator.generateId();
+            user.setUserId(userId);
+        }
         super.insert("User.insert", user);
 		return user;
 	}
@@ -191,6 +196,5 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 		params.put("mobile",mobile);
 		return (User)super.selectOne("User.getUserByMobile",params);
 	}
-
 }
 

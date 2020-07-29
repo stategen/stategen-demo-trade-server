@@ -12,6 +12,7 @@ import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
@@ -30,7 +31,7 @@ import com.mycompany.biz.service.SlideService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class SlideServiceImpl implements SlideService {
+public class SlideServiceImpl implements SlideService, IIDGenerator<String> {
 
     @Resource(name = "slideDao")
     SlideDao slideDao;
@@ -42,7 +43,7 @@ public class SlideServiceImpl implements SlideService {
      */
     @Override
     public Slide insert(Slide slide) {
-        return slideDao.insert(slide);
+        return slideDao.insert(slide, this);
     }
 
     /**
@@ -141,5 +142,11 @@ public class SlideServiceImpl implements SlideService {
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, SlideServiceImpl::getSlidesBySlideIds, Slide::getSlideId);
+    }
+
+    @Override
+    public String generateId() {
+        //TODO generate id;
+        return null;
     }
 }

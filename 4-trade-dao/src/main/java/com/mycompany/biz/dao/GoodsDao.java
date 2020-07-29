@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.Goods;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 
 /**
  * GoodsDao
@@ -25,39 +26,38 @@ public interface GoodsDao {
 
 	/**
     <pre>
-    &#64;ApiParam() String goodsId,
-    &#64;ApiParam() String goodsName,
-    &#64;ApiParam() String categorySubId,
-    &#64;ApiParam() Long amount,
-    &#64;ApiParam() BigDecimal price,
-    &#64;ApiParam() String images,
-    &#64;ApiParam() Boolean isCheck,
-    &#64;ApiParam() Boolean isHot,
-    &#64;ApiParam() Long advertiseId,
-    &#64;ApiParam() BigDecimal presentPrice,
-    &#64;ApiParam() String image,
-    &#64;ApiParam() String image1,
-    &#64;ApiParam() String image2,
-    &#64;ApiParam() String image3,
-    &#64;ApiParam() String image4,
-    &#64;ApiParam() String image5,
-    &#64;ApiParam() String isOnLine,
-    &#64;ApiParam() String goodsSerialNumber,
-    &#64;ApiParam() Integer state,
-    &#64;ApiParam() String shopId,
-    &#64;ApiParam() String goodsDetail
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsName,
+    &#64;ApiParam() &#64;RequestParam(required = false) String categorySubId,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long amount,
+    &#64;ApiParam() &#64;RequestParam(required = false) BigDecimal price,
+    &#64;ApiParam() &#64;RequestParam(required = false) String images,
+    &#64;ApiParam() &#64;RequestParam(required = false) Boolean isCheck,
+    &#64;ApiParam() &#64;RequestParam(required = false) Boolean isHot,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long advertiseId,
+    &#64;ApiParam() &#64;RequestParam(required = false) BigDecimal presentPrice,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image1,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image2,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image3,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image4,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image5,
+    &#64;ApiParam() &#64;RequestParam(required = false) String isOnLine,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsSerialNumber,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer state,
+    &#64;ApiParam() &#64;RequestParam(required = false) String shopId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsDetail
     ,&#64;ApiParam(hidden = true) Goods goods
     
     </pre>
 	 * 
 	 * sql:insert into demo_goods ( create_time , update_time , delete_flag , goods_id , goods_name , categorySubId , amount , price , images , is_check , is_hot , advertise_id , present_price , image , image1 , image2 , image3 , image4 , image5 , is_on_line , goods_serial_number , state , shop_id , goods_detail ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
-	public Goods insert(Goods goods) throws DataAccessException;
+	public Goods insert(Goods goods, IIDGenerator<String> idGenerator) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("商品ID") String goodsId
-    
+    &#64;ApiParam("商品ID") &#64;RequestParam(required = false) String goodsId    
     </pre>
 	 * 
 	 * sql:UPDATE demo_goods a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.goods_id = ?
@@ -66,27 +66,27 @@ public interface GoodsDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String goodsName,
-    &#64;ApiParam() String categorySubId,
-    &#64;ApiParam() Long amount,
-    &#64;ApiParam() BigDecimal price,
-    &#64;ApiParam() String images,
-    &#64;ApiParam() Boolean isCheck,
-    &#64;ApiParam() Boolean isHot,
-    &#64;ApiParam() Long advertiseId,
-    &#64;ApiParam() BigDecimal presentPrice,
-    &#64;ApiParam() String image,
-    &#64;ApiParam() String image1,
-    &#64;ApiParam() String image2,
-    &#64;ApiParam() String image3,
-    &#64;ApiParam() String image4,
-    &#64;ApiParam() String image5,
-    &#64;ApiParam() String isOnLine,
-    &#64;ApiParam() String goodsSerialNumber,
-    &#64;ApiParam() Integer state,
-    &#64;ApiParam() String shopId,
-    &#64;ApiParam() String goodsDetail,
-    &#64;ApiParam() String goodsId
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsName,
+    &#64;ApiParam() &#64;RequestParam(required = false) String categorySubId,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long amount,
+    &#64;ApiParam() &#64;RequestParam(required = false) BigDecimal price,
+    &#64;ApiParam() &#64;RequestParam(required = false) String images,
+    &#64;ApiParam() &#64;RequestParam(required = false) Boolean isCheck,
+    &#64;ApiParam() &#64;RequestParam(required = false) Boolean isHot,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long advertiseId,
+    &#64;ApiParam() &#64;RequestParam(required = false) BigDecimal presentPrice,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image1,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image2,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image3,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image4,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image5,
+    &#64;ApiParam() &#64;RequestParam(required = false) String isOnLine,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsSerialNumber,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer state,
+    &#64;ApiParam() &#64;RequestParam(required = false) String shopId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsDetail,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsId
     ,&#64;ApiParam(hidden = true) Goods goods
     
     </pre>
@@ -97,8 +97,7 @@ public interface GoodsDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("商品ID") String goodsId
-    
+    &#64;ApiParam("商品ID") &#64;RequestParam(required = false) String goodsId    
     </pre>
 	 * 
 	 * sql:select a.goods_id, a.goods_name, a.categorySubId, a.amount, a.price, a.images, a.is_check, a.is_hot, a.advertise_id, a.present_price, a.image, a.image1, a.image2, a.image3, a.image4, a.image5, a.is_on_line, a.goods_serial_number, a.state, a.shop_id, a.goods_detail, a.create_time, a.update_time, a.delete_flag from demo_goods a where a.delete_flag = 0 and a.goods_id = ?
@@ -107,48 +106,48 @@ public interface GoodsDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String goodsId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="goodsIds") ArrayList&lt;String&gt; goodsIds,
-    &#64;ApiParam() String goodsName,
-    &#64;ApiParam() String goodsNameLike,
-    &#64;ApiParam() String categorySubId,
-    &#64;ApiParam() String categorySubIdLike,
-    &#64;ApiParam() Long amount,
-    &#64;ApiParam() Long amountMin,
-    &#64;ApiParam() Long amountMax,
-    &#64;ApiParam() BigDecimal price,
-    &#64;ApiParam() BigDecimal priceMin,
-    &#64;ApiParam() BigDecimal priceMax,
-    &#64;ApiParam() String images,
-    &#64;ApiParam() String imagesLike,
-    &#64;ApiParam() Long advertiseId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="advertiseIds") ArrayList&lt;Long&gt; advertiseIds,
-    &#64;ApiParam() BigDecimal presentPrice,
-    &#64;ApiParam() BigDecimal presentPriceMin,
-    &#64;ApiParam() BigDecimal presentPriceMax,
-    &#64;ApiParam() String image1,
-    &#64;ApiParam() String image1Like,
-    &#64;ApiParam() String image2,
-    &#64;ApiParam() String image2Like,
-    &#64;ApiParam() String image3,
-    &#64;ApiParam() String image3Like,
-    &#64;ApiParam() String image4,
-    &#64;ApiParam() String image4Like,
-    &#64;ApiParam() String image5,
-    &#64;ApiParam() String image5Like,
-    &#64;ApiParam() String isOnLine,
-    &#64;ApiParam() String isOnLineLike,
-    &#64;ApiParam() String goodsSerialNumber,
-    &#64;ApiParam() String goodsSerialNumberLike,
-    &#64;ApiParam() Integer state,
-    &#64;ApiParam() Integer stateMin,
-    &#64;ApiParam() Integer stateMax,
-    &#64;ApiParam() String shopId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="shopIds") ArrayList&lt;String&gt; shopIds,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="goodsIds") ArrayList&lt;String&gt; goodsIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsName,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsNameLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) String categorySubId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String categorySubIdLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long amount,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long amountMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long amountMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) BigDecimal price,
+    &#64;ApiParam() &#64;RequestParam(required = false) BigDecimal priceMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) BigDecimal priceMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) String images,
+    &#64;ApiParam() &#64;RequestParam(required = false) String imagesLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long advertiseId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="advertiseIds") ArrayList&lt;Long&gt; advertiseIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) BigDecimal presentPrice,
+    &#64;ApiParam() &#64;RequestParam(required = false) BigDecimal presentPriceMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) BigDecimal presentPriceMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image1,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image1Like,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image2,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image2Like,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image3,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image3Like,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image4,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image4Like,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image5,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image5Like,
+    &#64;ApiParam() &#64;RequestParam(required = false) String isOnLine,
+    &#64;ApiParam() &#64;RequestParam(required = false) String isOnLineLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsSerialNumber,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsSerialNumberLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer state,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer stateMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer stateMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) String shopId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="shopIds") ArrayList&lt;String&gt; shopIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax
     ,&#64;ApiParam(hidden = true) Goods goods
     ,Pagination pagination
     </pre>
@@ -159,8 +158,7 @@ public interface GoodsDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("商品ID")&#64;RequestParam(required =false,name="goodsIds") ArrayList&lt;String&gt; goodsIds
-    
+    &#64;ApiParam("商品ID") &#64;RequestParam(required = false, name="goodsIds") ArrayList&lt;String&gt; goodsIds    
     </pre>
 	 * 
 	 * sql:select a.goods_id, a.goods_name, a.categorySubId, a.amount, a.price, a.images, a.is_check, a.is_hot, a.advertise_id, a.present_price, a.image, a.image1, a.image2, a.image3, a.image4, a.image5, a.is_on_line, a.goods_serial_number, a.state, a.shop_id, a.goods_detail, a.create_time, a.update_time, a.delete_flag from demo_goods a where a.delete_flag = 0 and 1=0 and a.goods_id in ( ? ) order by a.goods_id
@@ -169,8 +167,7 @@ public interface GoodsDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("商品ID")&#64;RequestParam(required =false,name="goodsIds") ArrayList&lt;String&gt; goodsIds
-    
+    &#64;ApiParam("商品ID") &#64;RequestParam(required = false, name="goodsIds") ArrayList&lt;String&gt; goodsIds    
     </pre>
 	 * 
 	 * sql:UPDATE demo_goods a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.goods_id in ( ? )

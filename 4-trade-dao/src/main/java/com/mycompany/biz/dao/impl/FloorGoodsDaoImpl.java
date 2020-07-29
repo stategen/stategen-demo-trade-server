@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.FloorGoodsDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * FloorGoodsDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class FloorGoodsDaoImpl  extends SqlDaoSupportBase implements FloorGoodsDao {
 
+
 	/**
 	 * 
 	 * sql:insert into demo_floor_goods ( create_time , update_time , delete_flag , floor_goods_id , floor_id , goods_id , image , order_no ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?)
 	 */
-	public FloorGoods insert(FloorGoods floorGoods) throws DataAccessException {
+	public FloorGoods insert(FloorGoods floorGoods, IIDGenerator<String> idGenerator) throws DataAccessException {
 		if(floorGoods == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            String floorGoodsId = idGenerator.generateId();
+            floorGoods.setFloorGoodsId(floorGoodsId);
+        }
         super.insert("FloorGoods.insert", floorGoods);
 		return floorGoods;
 	}
@@ -100,6 +105,5 @@ public class FloorGoodsDaoImpl  extends SqlDaoSupportBase implements FloorGoodsD
         super.update("FloorGoods.deleteByFloorGoodsIds", params);
         return floorGoodsIds;
 	}
-
 }
 

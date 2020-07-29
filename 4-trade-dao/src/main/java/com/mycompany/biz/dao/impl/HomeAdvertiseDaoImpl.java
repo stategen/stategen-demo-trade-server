@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.HomeAdvertiseDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.util.IIDGenerator;
 /**
  * HomeAdvertiseDao
  * <pre>
@@ -27,14 +27,19 @@ import org.springframework.dao.DataAccessException;
  */
 public class HomeAdvertiseDaoImpl  extends SqlDaoSupportBase implements HomeAdvertiseDao {
 
+
 	/**
 	 * 
 	 * sql:insert into demo_home_advertise ( create_time , update_time , delete_flag , home_adv_id , advertise_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?)
 	 */
-	public HomeAdvertise insert(HomeAdvertise homeAdvertise) throws DataAccessException {
+	public HomeAdvertise insert(HomeAdvertise homeAdvertise, IIDGenerator<String> idGenerator) throws DataAccessException {
 		if(homeAdvertise == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerator != null) {
+            String homeAdvId = idGenerator.generateId();
+            homeAdvertise.setHomeAdvId(homeAdvId);
+        }
         super.insert("HomeAdvertise.insert", homeAdvertise);
 		return homeAdvertise;
 	}
@@ -100,6 +105,5 @@ public class HomeAdvertiseDaoImpl  extends SqlDaoSupportBase implements HomeAdve
         super.update("HomeAdvertise.deleteByHomeAdvIds", params);
         return homeAdvIds;
 	}
-
 }
 

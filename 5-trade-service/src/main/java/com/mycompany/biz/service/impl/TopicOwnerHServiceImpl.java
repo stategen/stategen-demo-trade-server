@@ -5,24 +5,19 @@
  */
 package com.mycompany.biz.service.impl;
 
-import java.util.List;
-
-import java.util.List;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
 import javax.annotation.Resource;
 
-
-
 import org.stategen.framework.lite.PageList;
-
+import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 
+import com.mycompany.biz.dao.TopicOwnerHDao;
 import com.mycompany.biz.domain.TopicOwnerH;
 import com.mycompany.biz.service.TopicOwnerHService;
-import com.mycompany.biz.dao.TopicOwnerHDao;
 
 /**
  * TopicOwnerHServiceImpl
@@ -35,9 +30,9 @@ import com.mycompany.biz.dao.TopicOwnerHDao;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class TopicOwnerHServiceImpl  implements TopicOwnerHService {
+public class TopicOwnerHServiceImpl implements TopicOwnerHService, IIDGenerator<Long> {
 
-    @Resource(name="topicOwnerHDao")
+    @Resource(name = "topicOwnerHDao")
     TopicOwnerHDao topicOwnerHDao;
 
     /**
@@ -47,9 +42,8 @@ public class TopicOwnerHServiceImpl  implements TopicOwnerHService {
      */
     @Override
     public TopicOwnerH insert(TopicOwnerH topicOwnerH) {
-        return topicOwnerHDao.insert(topicOwnerH);
+        return topicOwnerHDao.insert(topicOwnerH, this);
     }
-
 
     /**
      * 
@@ -61,7 +55,6 @@ public class TopicOwnerHServiceImpl  implements TopicOwnerHService {
         return topicOwnerHDao.delete(id);
     }
 
-
     /**
      * 
      * @see com.mycompany.biz.dao.TopicOwnerHDao#update
@@ -71,7 +64,6 @@ public class TopicOwnerHServiceImpl  implements TopicOwnerHService {
     public TopicOwnerH update(TopicOwnerH topicOwnerH) {
         return topicOwnerHDao.update(topicOwnerH);
     }
-
 
     /**
      * 
@@ -83,7 +75,6 @@ public class TopicOwnerHServiceImpl  implements TopicOwnerHService {
         return topicOwnerHDao.getTopicOwnerHById(id);
     }
 
-
     /**
      * 
      * @see com.mycompany.biz.dao.TopicOwnerHDao#getPageList
@@ -93,7 +84,6 @@ public class TopicOwnerHServiceImpl  implements TopicOwnerHService {
     public PageList<TopicOwnerH> getPageList(TopicOwnerH topicOwnerH, int pageSize, int pageNum) {
         return topicOwnerHDao.getPageList(topicOwnerH, pageSize, pageNum);
     }
-
 
     /**
      * 
@@ -105,7 +95,6 @@ public class TopicOwnerHServiceImpl  implements TopicOwnerHService {
         return topicOwnerHDao.getTopicOwnerHsByIds(ids);
     }
 
-
     /**
      * 
      * @see com.mycompany.biz.dao.TopicOwnerHDao#deleteByIds
@@ -116,11 +105,9 @@ public class TopicOwnerHServiceImpl  implements TopicOwnerHService {
         return topicOwnerHDao.deleteByIds(ids);
     }
 
-
-
     /*** 保存topicOwnerH,有id时更新，没有id时插入,并带回新的id，返回 topicOwnerH*/
     @Override
-    public TopicOwnerH saveTopicOwnerH(TopicOwnerH topicOwnerH){
+    public TopicOwnerH saveTopicOwnerH(TopicOwnerH topicOwnerH) {
         if (topicOwnerH != null) {
             java.lang.Long id = topicOwnerH.getId();
             if (id != null) {
@@ -141,5 +128,9 @@ public class TopicOwnerHServiceImpl  implements TopicOwnerHService {
         return topicOwnerHs;
     }
 
-
+    @Override
+    public Long generateId() {
+        //TODO generate id;
+        return null;
+    }
 }

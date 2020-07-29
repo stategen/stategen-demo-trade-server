@@ -2,14 +2,15 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */package com.mycompany.biz.service;
+ */
+package com.mycompany.biz.service;
 
 import java.util.List;
 
-import com.mycompany.biz.domain.TopicOwnerH;
-
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.BaseService;
+
+import com.mycompany.biz.domain.TopicOwnerH;
 
 /**
  * TopicOwnerHService
@@ -66,7 +67,6 @@ public interface TopicOwnerHService extends TopicOwnerHServiceTrade, BaseService
      */
     public java.util.List<Long> deleteByIds(java.util.List<Long> ids);
 
-
     /*** 保存topicOwnerH,有id时更新，没有id时插入,并带回新的id，返回 topicOwnerH
      * @see com.mycompany.biz.dao.TopicOwnerHDao#insert
      */
@@ -77,6 +77,3 @@ public interface TopicOwnerHService extends TopicOwnerHServiceTrade, BaseService
      */
     public List<TopicOwnerH> saveTopicOwnerHs(List<TopicOwnerH> topicOwnerHs);
 }
-
-
-

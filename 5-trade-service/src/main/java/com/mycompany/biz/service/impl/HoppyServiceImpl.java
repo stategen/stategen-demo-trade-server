@@ -12,6 +12,7 @@ import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 
 import com.mycompany.biz.dao.HoppyDao;
@@ -29,7 +30,7 @@ import com.mycompany.biz.service.HoppyService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class HoppyServiceImpl implements HoppyService {
+public class HoppyServiceImpl implements HoppyService, IIDGenerator<Long> {
 
     @Resource(name = "hoppyDao")
     HoppyDao hoppyDao;
@@ -41,7 +42,7 @@ public class HoppyServiceImpl implements HoppyService {
      */
     @Override
     public Hoppy insert(Hoppy hoppy) {
-        return hoppyDao.insert(hoppy);
+        return hoppyDao.insert(hoppy, this);
     }
 
     /**
@@ -152,5 +153,11 @@ public class HoppyServiceImpl implements HoppyService {
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, HoppyServiceImpl::getHoppysByHoppyIds, Hoppy::getHoppyId);
+    }
+
+    @Override
+    public Long generateId() {
+        //TODO generate id;
+        return null;
     }
 }

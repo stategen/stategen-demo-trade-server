@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.Province;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 
 /**
  * ProvinceDao
@@ -25,21 +26,20 @@ public interface ProvinceDao {
 
 	/**
     <pre>
-    &#64;ApiParam() String provinceId,
-    &#64;ApiParam() String name,
-    &#64;ApiParam() String pycode
+    &#64;ApiParam() &#64;RequestParam(required = false) String provinceId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String name,
+    &#64;ApiParam() &#64;RequestParam(required = false) String pycode
     ,&#64;ApiParam(hidden = true) Province province
     
     </pre>
 	 * 
 	 * sql:insert into demo_province ( create_time , update_time , delete_flag , province_id , name , pycode ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public Province insert(Province province) throws DataAccessException;
+	public Province insert(Province province, IIDGenerator<String> idGenerator) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("provinceId") String provinceId
-    
+    &#64;ApiParam("provinceId") &#64;RequestParam(required = false) String provinceId    
     </pre>
 	 * 
 	 * sql:UPDATE demo_province a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.province_id = ?
@@ -48,9 +48,9 @@ public interface ProvinceDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String name,
-    &#64;ApiParam() String pycode,
-    &#64;ApiParam() String provinceId
+    &#64;ApiParam() &#64;RequestParam(required = false) String name,
+    &#64;ApiParam() &#64;RequestParam(required = false) String pycode,
+    &#64;ApiParam() &#64;RequestParam(required = false) String provinceId
     ,&#64;ApiParam(hidden = true) Province province
     
     </pre>
@@ -61,8 +61,7 @@ public interface ProvinceDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("provinceId") String provinceId
-    
+    &#64;ApiParam("provinceId") &#64;RequestParam(required = false) String provinceId    
     </pre>
 	 * 
 	 * sql:select a.province_id, a.name, a.pycode, a.create_time, a.update_time, a.delete_flag from demo_province a where a.delete_flag = 0 and a.province_id = ?
@@ -71,16 +70,16 @@ public interface ProvinceDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String provinceId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="provinceIds") ArrayList&lt;String&gt; provinceIds,
-    &#64;ApiParam() String name,
-    &#64;ApiParam() String nameLike,
-    &#64;ApiParam() String pycode,
-    &#64;ApiParam() String pycodeLike,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax
+    &#64;ApiParam() &#64;RequestParam(required = false) String provinceId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="provinceIds") ArrayList&lt;String&gt; provinceIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String name,
+    &#64;ApiParam() &#64;RequestParam(required = false) String nameLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) String pycode,
+    &#64;ApiParam() &#64;RequestParam(required = false) String pycodeLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax
     ,&#64;ApiParam(hidden = true) Province province
     ,Pagination pagination
     </pre>
@@ -91,8 +90,7 @@ public interface ProvinceDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("provinceId")&#64;RequestParam(required =false,name="provinceIds") ArrayList&lt;String&gt; provinceIds
-    
+    &#64;ApiParam("provinceId") &#64;RequestParam(required = false, name="provinceIds") ArrayList&lt;String&gt; provinceIds    
     </pre>
 	 * 
 	 * sql:select a.province_id, a.name, a.pycode, a.create_time, a.update_time, a.delete_flag from demo_province a where a.delete_flag = 0 and 1=0 and a.province_id in ( ? ) order by a.update_time desc, a.create_time desc
@@ -101,8 +99,7 @@ public interface ProvinceDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("provinceId")&#64;RequestParam(required =false,name="provinceIds") ArrayList&lt;String&gt; provinceIds
-    
+    &#64;ApiParam("provinceId") &#64;RequestParam(required = false, name="provinceIds") ArrayList&lt;String&gt; provinceIds    
     </pre>
 	 * 
 	 * sql:UPDATE demo_province a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.province_id in ( ? )

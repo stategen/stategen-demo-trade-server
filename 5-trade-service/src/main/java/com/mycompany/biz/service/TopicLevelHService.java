@@ -2,14 +2,15 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */package com.mycompany.biz.service;
+ */
+package com.mycompany.biz.service;
 
 import java.util.List;
 
-import com.mycompany.biz.domain.TopicLevelH;
-
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.BaseService;
+
+import com.mycompany.biz.domain.TopicLevelH;
 
 /**
  * TopicLevelHService
@@ -66,7 +67,6 @@ public interface TopicLevelHService extends TopicLevelHServiceTrade, BaseService
      */
     public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds);
 
-
     /*** 保存topicLevelH,有id时更新，没有id时插入,并带回新的id，返回 topicLevelH
      * @see com.mycompany.biz.dao.TopicLevelHDao#insert
      */
@@ -77,6 +77,3 @@ public interface TopicLevelHService extends TopicLevelHServiceTrade, BaseService
      */
     public List<TopicLevelH> saveTopicLevelHs(List<TopicLevelH> topicLevelHs);
 }
-
-
-

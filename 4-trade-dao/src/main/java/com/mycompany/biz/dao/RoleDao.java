@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.Role;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.util.IIDGenerator;
 
 /**
  * RoleDao
@@ -25,22 +26,21 @@ public interface RoleDao {
 
 	/**
     <pre>
-    &#64;ApiParam() String roleId,
-    &#64;ApiParam() String roleName,
-    &#64;ApiParam() String description,
-    &#64;ApiParam() String roleType
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleName,
+    &#64;ApiParam() &#64;RequestParam(required = false) String description,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleType
     ,&#64;ApiParam(hidden = true) Role role
     
     </pre>
 	 * 
 	 * sql:insert into role ( create_time , update_time , delete_flag , role_id , role_name , description , role_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public Role insert(Role role) throws DataAccessException;
+	public Role insert(Role role, IIDGenerator<String> idGenerator) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("角色ID") String roleId
-    
+    &#64;ApiParam("角色ID") &#64;RequestParam(required = false) String roleId    
     </pre>
 	 * 
 	 * sql:UPDATE role a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.role_id = ?
@@ -49,10 +49,10 @@ public interface RoleDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String roleName,
-    &#64;ApiParam() String description,
-    &#64;ApiParam() String roleType,
-    &#64;ApiParam() String roleId
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleName,
+    &#64;ApiParam() &#64;RequestParam(required = false) String description,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleType,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleId
     ,&#64;ApiParam(hidden = true) Role role
     
     </pre>
@@ -63,8 +63,7 @@ public interface RoleDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("角色ID") String roleId
-    
+    &#64;ApiParam("角色ID") &#64;RequestParam(required = false) String roleId    
     </pre>
 	 * 
 	 * sql:select a.role_id, a.role_name, a.description, a.create_time, a.update_time, a.delete_flag, a.role_type from role a where a.delete_flag = 0 and a.role_id = ?
@@ -73,18 +72,18 @@ public interface RoleDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String roleId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="roleIds") ArrayList&lt;String&gt; roleIds,
-    &#64;ApiParam() String roleName,
-    &#64;ApiParam() String roleNameLike,
-    &#64;ApiParam() String description,
-    &#64;ApiParam() String descriptionLike,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax,
-    &#64;ApiParam() String roleType,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="roleTypes") ArrayList&lt;String&gt; roleTypes
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="roleIds") ArrayList&lt;String&gt; roleIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleName,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleNameLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) String description,
+    &#64;ApiParam() &#64;RequestParam(required = false) String descriptionLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) String roleType,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="roleTypes") ArrayList&lt;String&gt; roleTypes
     ,&#64;ApiParam(hidden = true) Role role
     ,Pagination pagination
     </pre>
@@ -95,8 +94,7 @@ public interface RoleDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("角色ID")&#64;RequestParam(required =false,name="roleIds") ArrayList&lt;String&gt; roleIds
-    
+    &#64;ApiParam("角色ID") &#64;RequestParam(required = false, name="roleIds") ArrayList&lt;String&gt; roleIds    
     </pre>
 	 * 
 	 * sql:select a.role_id, a.role_name, a.description, a.create_time, a.update_time, a.delete_flag, a.role_type from role a where a.delete_flag = 0 and 1=0 and a.role_id in ( ? ) order by a.update_time desc, a.create_time desc
@@ -105,8 +103,7 @@ public interface RoleDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("角色ID")&#64;RequestParam(required =false,name="roleIds") ArrayList&lt;String&gt; roleIds
-    
+    &#64;ApiParam("角色ID") &#64;RequestParam(required = false, name="roleIds") ArrayList&lt;String&gt; roleIds    
     </pre>
 	 * 
 	 * sql:UPDATE role a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.role_id in ( ? )
