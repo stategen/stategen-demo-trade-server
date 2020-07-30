@@ -238,4 +238,44 @@ public class MenuServiceImpl implements MenuService, IdGenerateService<Long> {
     public <T> Long generateId(Class<T> bizTagClz) {
         return this.idGenerator.generateId(Long.class, bizTagClz);
     }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.MenuDao#deleteByRoute
+     * @see com.mycompany.biz.service.MenuService#deleteByRoute
+     */
+    @Override
+    public Long deleteByRoute(String route) {
+        return menuDao.deleteByRoute(route);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.MenuDao#getMenuByRoute
+     * @see com.mycompany.biz.service.MenuService#getMenuByRoute
+     */
+    @Override
+    public Menu getMenuByRoute(String route) {
+        return menuDao.getMenuByRoute(route);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.MenuDao#getMenusByRoutes
+     * @see com.mycompany.biz.service.MenuService#getMenusByRoutes
+     */
+    @Override
+    public List<Menu> getMenusByRoutes(java.util.List<String> routes) {
+        return menuDao.getMenusByRoutes(routes);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.MenuDao#deleteByRoutes
+     * @see com.mycompany.biz.service.MenuService#deleteByRoutes
+     */
+    @Override
+    public Long deleteByRoutes(java.util.List<String> routes) {
+        return menuDao.deleteByRoutes(routes);
+    }
 }

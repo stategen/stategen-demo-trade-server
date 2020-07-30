@@ -310,53 +310,53 @@ public class CrawBxshTst {
     //这个image做丢了
     //@Test
     public void crawFloorImages() {
-        String floorImageString = "{        \"floor1\": [\r\n" + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116133522_9332.jpg\",\r\n"
-                                  + "                \"goodsId\": \"faa86c6ee451445a9475870656f04192\"\r\n" + "            },\r\n"
-                                  + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116135616_4151.jpg\",\r\n"
-                                  + "                \"goodsId\": \"80817b9fd00b48f296ce939ae197030b\"\r\n" + "            },\r\n"
-                                  + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116133626_1248.jpg\",\r\n"
-                                  + "                \"goodsId\": \"00cee04d12474910bfeb7930f6251c22\"\r\n" + "            },\r\n"
-                                  + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116133740_8452.jpg\",\r\n"
-                                  + "                \"goodsId\": \"bdfa9a9a358f436594a740e486fd2060\"\r\n" + "            },\r\n"
-                                  + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116133753_7874.jpg\",\r\n"
-                                  + "                \"goodsId\": \"516f9db6ee8e499cb8a8758cf2e567c7\"\r\n" + "            }\r\n" + "        ],\r\n"
-                                  + "        \"floor2\": [\r\n" + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190710/20190710170952_4452.jpg\",\r\n"
-                                  + "                \"goodsId\": \"ec3c55fb0d4a4f68beb80dc6d1fbf7eb\"\r\n" + "            },\r\n"
-                                  + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116134314_7748.jpg\",\r\n"
-                                  + "                \"goodsId\": \"ca055522081f4315a654384ebb524051\"\r\n" + "            },\r\n"
-                                  + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190117/20190117151627_6993.jpg\",\r\n"
-                                  + "                \"goodsId\": \"c0999c03df344e1ab322b3ce6dffdeb1\"\r\n" + "            },\r\n"
-                                  + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116134424_3185.jpg\",\r\n"
-                                  + "                \"goodsId\": \"3236991d77754e47a5cbf8e5d1a04902\"\r\n" + "            },\r\n"
-                                  + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116134608_5991.jpg\",\r\n"
-                                  + "                \"goodsId\": \"1140c709d608439d8fc85b650e0c477b\"\r\n" + "            }\r\n" + "        ],\r\n"
-                                  + "        \"floor3\": [\r\n" + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190122/20190122143838_7004.jpg\",\r\n"
-                                  + "                \"goodsId\": \"ec3c55fb0d4a4f68beb80dc6d1fbf7eb\"\r\n" + "            },\r\n"
-                                  + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116135202_4384.jpg\",\r\n"
-                                  + "                \"goodsId\": \"81f919f9719e4e7498a3a53f5b294376\"\r\n" + "            },\r\n"
-                                  + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190122/20190122144023_7291.jpg\",\r\n"
-                                  + "                \"goodsId\": \"138f0836ea664544b06f0ddba5331564\"\r\n" + "            },\r\n"
-                                  + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116135302_3912.jpg\",\r\n"
-                                  + "                \"goodsId\": \"b7e06b8248f049d2a50ed727d5988558\"\r\n" + "            },\r\n"
-                                  + "            {\r\n"
-                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116135334_5716.jpg\",\r\n"
-                                  + "                \"goodsId\": \"80cd0b81997d41ceacdf3781a36dc13d\"\r\n" + "            }\r\n" + "        ],\r\n"
-                                  + "        }";
-        HomeWrap homeWrap = JSONObject.parseObject(floorImageString, HomeWrap.class);
+//        String floorImageString = "{        \"floor1\": [\r\n" + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116133522_9332.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"faa86c6ee451445a9475870656f04192\"\r\n" + "            },\r\n"
+//                                  + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116135616_4151.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"80817b9fd00b48f296ce939ae197030b\"\r\n" + "            },\r\n"
+//                                  + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116133626_1248.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"00cee04d12474910bfeb7930f6251c22\"\r\n" + "            },\r\n"
+//                                  + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116133740_8452.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"bdfa9a9a358f436594a740e486fd2060\"\r\n" + "            },\r\n"
+//                                  + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116133753_7874.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"516f9db6ee8e499cb8a8758cf2e567c7\"\r\n" + "            }\r\n" + "        ],\r\n"
+//                                  + "        \"floor2\": [\r\n" + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190710/20190710170952_4452.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"ec3c55fb0d4a4f68beb80dc6d1fbf7eb\"\r\n" + "            },\r\n"
+//                                  + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116134314_7748.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"ca055522081f4315a654384ebb524051\"\r\n" + "            },\r\n"
+//                                  + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190117/20190117151627_6993.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"c0999c03df344e1ab322b3ce6dffdeb1\"\r\n" + "            },\r\n"
+//                                  + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116134424_3185.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"3236991d77754e47a5cbf8e5d1a04902\"\r\n" + "            },\r\n"
+//                                  + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116134608_5991.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"1140c709d608439d8fc85b650e0c477b\"\r\n" + "            }\r\n" + "        ],\r\n"
+//                                  + "        \"floor3\": [\r\n" + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190122/20190122143838_7004.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"ec3c55fb0d4a4f68beb80dc6d1fbf7eb\"\r\n" + "            },\r\n"
+//                                  + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116135202_4384.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"81f919f9719e4e7498a3a53f5b294376\"\r\n" + "            },\r\n"
+//                                  + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190122/20190122144023_7291.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"138f0836ea664544b06f0ddba5331564\"\r\n" + "            },\r\n"
+//                                  + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116135302_3912.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"b7e06b8248f049d2a50ed727d5988558\"\r\n" + "            },\r\n"
+//                                  + "            {\r\n"
+//                                  + "                \"image\": \"https://images.baixingliangfan.cn/homeFloor/20190116/20190116135334_5716.jpg\",\r\n"
+//                                  + "                \"goodsId\": \"80cd0b81997d41ceacdf3781a36dc13d\"\r\n" + "            }\r\n" + "        ],\r\n"
+//                                  + "        }";
+//        HomeWrap homeWrap = JSONObject.parseObject(floorImageString, HomeWrap.class);
 //        List<FloorGoods> floor1 = homeWrap.getFloor1();
 //        List<FloorGoods> floor2 = homeWrap.getFloor2();
 //        List<FloorGoods> floor3 = homeWrap.getFloor3();
@@ -365,22 +365,22 @@ public class CrawBxshTst {
 //        updateFloorImage(floor3);
     }
 
-    private void updateFloorImage(List<FloorGoods> floorGoods) {
-        Map<String, FloorGoods> group = CollectionUtil.toMap(floorGoods, FloorGoods::getGoodsId);
-        FloorGoods query = new FloorGoods();
-        query.setGoodsIds(new ArrayList<String>(group.keySet()));
-        PageList<FloorGoods> pageList = this.floorGoodsService.getPageList(query, 100, 1);
-        List<FloorGoods> items = pageList.getItems();
-        for (FloorGoods floorGoods2 : items) {
-            String goodsId = floorGoods2.getGoodsId();
-            FloorGoods floorGoods3 = group.get(goodsId);
-            if (floorGoods3 != null) {
-                CopyUtil.merge(floorGoods2, floorGoods3);
-                this.floorGoodsService.update(floorGoods2);
-            }
-        }
-
-    }
+//    private void updateFloorImage(List<FloorGoods> floorGoods) {
+//        Map<String, FloorGoods> group = CollectionUtil.toMap(floorGoods, FloorGoods::getGoodsId);
+//        FloorGoods query = new FloorGoods();
+//        query.setGoodsIds(new ArrayList<String>(group.keySet()));
+//        PageList<FloorGoods> pageList = this.floorGoodsService.getPageList(query, 100, 1);
+//        List<FloorGoods> items = pageList.getItems();
+//        for (FloorGoods floorGoods2 : items) {
+//            String goodsId = floorGoods2.getGoodsId();
+//            FloorGoods floorGoods3 = group.get(goodsId);
+//            if (floorGoods3 != null) {
+//                CopyUtil.merge(floorGoods2, floorGoods3);
+//                this.floorGoodsService.update(floorGoods2);
+//            }
+//        }
+//
+//    }
 
     //
     //@Test

@@ -466,8 +466,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid="getGoodsPageListOrderBy"/>
+           order by
+             <include refid="getGoodsPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 

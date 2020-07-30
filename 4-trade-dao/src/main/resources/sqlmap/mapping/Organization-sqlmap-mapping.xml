@@ -180,8 +180,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid="getOrganizationPageListOrderBy"/>
+           order by
+             <include refid="getOrganizationPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 

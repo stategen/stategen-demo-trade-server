@@ -191,8 +191,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid="getTopicReplyPageListOrderBy"/>
+           order by
+             <include refid="getTopicReplyPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 

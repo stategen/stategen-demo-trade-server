@@ -162,8 +162,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid="getTopicUpPageListOrderBy"/>
+           order by
+             <include refid="getTopicUpPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 

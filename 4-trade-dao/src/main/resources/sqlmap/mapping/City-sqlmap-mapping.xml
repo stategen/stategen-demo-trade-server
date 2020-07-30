@@ -213,8 +213,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid="getCityPageListOrderBy"/>
+           order by
+             <include refid="getCityPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 

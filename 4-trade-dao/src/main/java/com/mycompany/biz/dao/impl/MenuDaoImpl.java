@@ -59,6 +59,16 @@ public class MenuDaoImpl  extends SqlDaoSupportBase implements MenuDao {
 
 	/**
 	 * 
+	 * sql:UPDATE menu a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.route = ?
+	 */
+	public Long deleteByRoute(String route) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("route",route);
+		return (long)super.update("Menu.deleteByRoute", params);
+	}
+
+	/**
+	 * 
 	 * sql:UPDATE menu a SET a.update_time= CURRENT_TIMESTAMP(6) , a.morder = ? , a.bpid = ? , a.mpid = ? , a.project_name = ? , a.controller_name = ? , a.method_name = ? , a.url = ? , a.icon = ? , a.name = ? , a.route = ? , a.menu_type = ? , a.check_type = ? where a.delete_flag = 0 and a.menu_id = ?
 	 */
 	public Menu update(Menu menu) throws DataAccessException {
@@ -81,6 +91,16 @@ public class MenuDaoImpl  extends SqlDaoSupportBase implements MenuDao {
 
 	/**
 	 * 
+	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.route = ?
+	 */
+	public Menu getMenuByRoute(String route) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("route",route);
+		return (Menu)super.selectOne("Menu.getMenuByRoute",params);
+	}
+
+	/**
+	 * 
 	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_id=? and a.menu_id in ( ? ) and a.morder=? and a.morder >=? and a.morder <? and a.bpid=? and a.bpid >=? and a.bpid <? and a.mpid=? and a.mpid >=? and a.mpid <? and a.project_name=? and a.project_name like CONCAT('%',?,'%') and a.controller_name=? and a.controller_name like CONCAT('%',?,'%') and a.method_name=? and a.method_name like CONCAT('%',?,'%') and a.name=? and a.name like CONCAT('%',?,'%') and a.route=? and a.route like CONCAT('%',?,'%') and a.menu_type=? and a.menu_type in ( ? ) and a.check_type=? and a.check_type in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
 	public PageList<Menu> getPageList(Menu menu, int pageSize, int pageNum) throws DataAccessException {
@@ -99,6 +119,16 @@ public class MenuDaoImpl  extends SqlDaoSupportBase implements MenuDao {
 
 	/**
 	 * 
+	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and 1=0 and a.route in ( ? ) order by a.update_time desc, a.create_time desc
+	 */
+	public List<Menu> getMenusByRoutes(java.util.List<String> routes) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("routes",routes);
+		return super.selectList("Menu.getMenusByRoutes",params);
+	}
+
+	/**
+	 * 
 	 * sql:UPDATE menu a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.menu_id in ( ? )
 	 */
 	public java.util.List<Long> deleteByMenuIds(java.util.List<Long> menuIds) throws DataAccessException {
@@ -106,6 +136,16 @@ public class MenuDaoImpl  extends SqlDaoSupportBase implements MenuDao {
 		params.put("menuIds",menuIds);
         super.update("Menu.deleteByMenuIds", params);
         return menuIds;
+	}
+
+	/**
+	 * 
+	 * sql:UPDATE menu a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.route in ( ? )
+	 */
+	public Long deleteByRoutes(java.util.List<String> routes) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("routes",routes);
+		return (long)super.update("Menu.deleteByRoutes", params);
 	}
 
 	/**

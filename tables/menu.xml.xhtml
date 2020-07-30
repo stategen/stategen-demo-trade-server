@@ -55,6 +55,18 @@
         </sql>
     </operation>
 
+    <operation name="deleteByRoute" remarks="">
+        <sql>
+           UPDATE menu a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.route = ?
+        </sql>
+    </operation>
+
     <operation name="update" paramType="object" remarks="">
         <sql>
            UPDATE menu a
@@ -127,6 +139,32 @@
            where
              a.delete_flag = 0
              and a.menu_id = ?
+        </sql>
+    </operation>
+
+    <operation name="getMenuByRoute" multiplicity="one" remarks="">
+        <sql>
+           select
+             a.menu_id,
+             a.morder,
+             a.bpid,
+             a.mpid,
+             a.project_name,
+             a.controller_name,
+             a.method_name,
+             a.url,
+             a.icon,
+             a.name,
+             a.route,
+             a.menu_type,
+             a.check_type,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from menu a
+           where
+             a.delete_flag = 0
+             and a.route = ?
         </sql>
     </operation>
 
@@ -308,8 +346,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid = "getMenuPageListOrderBy" />
+           order by
+             <include refid="getMenuPageListOrderBy"/>
         </sql>
     </operation>
     <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
@@ -346,7 +384,43 @@
                 </iterate>
              </isNotEmpty>
            order by
-             <include refid="getMenusByMenuIdsOrderBy" />
+             <include refid="getMenusByMenuIdsOrderBy"/>
+        </sql>
+    </operation>
+
+    <operation name="getMenusByRoutes" multiplicity="many" remarks="">
+        <sql>
+           select
+             a.menu_id,
+             a.morder,
+             a.bpid,
+             a.mpid,
+             a.project_name,
+             a.controller_name,
+             a.method_name,
+             a.url,
+             a.icon,
+             a.name,
+             a.route,
+             a.menu_type,
+             a.check_type,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from menu a
+           where
+             a.delete_flag = 0
+             <isEmpty property="routes" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="routes" prepend="and">
+             a.route in
+                <iterate property="routes" conjunction="," open="(" close=")">
+                   #routes[]#
+                </iterate>
+             </isNotEmpty>
+           order by
+             <include refid="getMenusByRoutesOrderBy"/>
         </sql>
     </operation>
 
@@ -365,6 +439,26 @@
              a.menu_id in
                 <iterate property="menuIds" conjunction="," open="(" close=")">
                    #menuIds[]#
+                </iterate>
+             </isNotEmpty>
+        </sql>
+    </operation>
+
+    <operation name="deleteByRoutes" remarks="">
+        <sql>
+           UPDATE menu a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="routes" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="routes" prepend="and">
+             a.route in
+                <iterate property="routes" conjunction="," open="(" close=")">
+                   #routes[]#
                 </iterate>
              </isNotEmpty>
         </sql>

@@ -164,8 +164,8 @@
              </isNull>
              </isNull>
              </isNull>
-            order by
-              <include refid="getRoleMenuPageListOrderBy"/>
+           order by
+             <include refid="getRoleMenuPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 

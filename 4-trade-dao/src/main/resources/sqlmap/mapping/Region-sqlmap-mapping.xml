@@ -275,8 +275,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid="getRegionPageListOrderBy"/>
+           order by
+             <include refid="getRegionPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 

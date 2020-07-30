@@ -7,7 +7,7 @@ public class XmlReadTest {
     
    @Test 
    public void testReader() throws DocumentException{
-       String xmlFileName ="D:\\works\\fm\\trade\\tables\\menu.xml";
+       //String xmlFileName ="D:\\works\\fm\\trade\\tables\\menu.xml";
        
          
    }  

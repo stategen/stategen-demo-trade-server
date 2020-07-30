@@ -58,6 +58,15 @@ public interface MenuDao {
 	
 	/**
     <pre>
+    &#64;ApiParam("route") &#64;RequestParam(required = false) String route    
+    </pre>
+	 * 
+	 * sql:UPDATE menu a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.route = ?
+	 */
+	public Long deleteByRoute(String route) throws DataAccessException;
+	
+	/**
+    <pre>
     &#64;ApiParam() &#64;RequestParam(required = false) Integer morder,
     &#64;ApiParam() &#64;RequestParam(required = false) Long bpid,
     &#64;ApiParam() &#64;RequestParam(required = false) Long mpid,
@@ -87,6 +96,15 @@ public interface MenuDao {
 	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.menu_id = ?
 	 */
 	public Menu getMenuByMenuId(Long menuId) throws DataAccessException;
+	
+	/**
+    <pre>
+    &#64;ApiParam("route") &#64;RequestParam(required = false) String route    
+    </pre>
+	 * 
+	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and a.route = ?
+	 */
+	public Menu getMenuByRoute(String route) throws DataAccessException;
 	
 	/**
     <pre>
@@ -138,12 +156,30 @@ public interface MenuDao {
 	
 	/**
     <pre>
+    &#64;ApiParam("route") &#64;RequestParam(required = false, name="routes") ArrayList&lt;String&gt; routes    
+    </pre>
+	 * 
+	 * sql:select a.menu_id, a.morder, a.bpid, a.mpid, a.project_name, a.controller_name, a.method_name, a.url, a.icon, a.name, a.route, a.menu_type, a.check_type, a.create_time, a.update_time, a.delete_flag from menu a where a.delete_flag = 0 and 1=0 and a.route in ( ? ) order by a.update_time desc, a.create_time desc
+	 */
+	public List<Menu> getMenusByRoutes(java.util.List<String> routes) throws DataAccessException;
+	
+	/**
+    <pre>
     &#64;ApiParam("menuId") &#64;RequestParam(required = false, name="menuIds") ArrayList&lt;Long&gt; menuIds    
     </pre>
 	 * 
 	 * sql:UPDATE menu a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.menu_id in ( ? )
 	 */
 	public java.util.List<Long> deleteByMenuIds(java.util.List<Long> menuIds) throws DataAccessException;
+	
+	/**
+    <pre>
+    &#64;ApiParam("route") &#64;RequestParam(required = false, name="routes") ArrayList&lt;String&gt; routes    
+    </pre>
+	 * 
+	 * sql:UPDATE menu a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.route in ( ? )
+	 */
+	public Long deleteByRoutes(java.util.List<String> routes) throws DataAccessException;
 	
 	/**
     <pre>

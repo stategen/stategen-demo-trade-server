@@ -168,8 +168,8 @@
              </isNull>
              </isNull>
              </isNull>
-            order by
-              <include refid="getUserHoppyPageListOrderBy"/>
+           order by
+             <include refid="getUserHoppyPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 

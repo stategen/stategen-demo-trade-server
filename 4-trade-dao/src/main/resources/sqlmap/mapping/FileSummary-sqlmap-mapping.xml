@@ -208,8 +208,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid="getFileSummaryPageListOrderBy"/>
+           order by
+             <include refid="getFileSummaryPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 

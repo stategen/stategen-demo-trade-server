@@ -32,6 +32,10 @@
 		a.update_time desc, a.create_time desc
 	</sql>
 		
+	<sql id="getMenusByRoutesOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
 
 	
 	
@@ -81,6 +85,18 @@
            where
              a.delete_flag = 0
              and a.menu_id = #menuId#
+	</update>
+	
+    
+	
+	<update id="Menu.deleteByRoute">
+		UPDATE menu a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.route = #route#
 	</update>
 	
     
@@ -154,6 +170,35 @@
            where
              a.delete_flag = 0
              and a.menu_id = #menuId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="Menu.getMenuByRoute" resultMap="Menu_RM" >
+    	select
+ /* getMenuByRoute.Menu */              a.menu_id,
+             a.morder,
+             a.bpid,
+             a.mpid,
+             a.project_name,
+             a.controller_name,
+             a.method_name,
+             a.url,
+             a.icon,
+             a.name,
+             a.route,
+             a.menu_type,
+             a.check_type,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from menu a
+           where
+             a.delete_flag = 0
+             and a.route = #route#
 	</select>	
 
 	    
@@ -337,8 +382,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid="getMenuPageListOrderBy"/>
+           order by
+             <include refid="getMenuPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
@@ -546,6 +591,45 @@
 	
     
 	
+	<select id="Menu.getMenusByRoutes" resultMap="Menu_RM" >
+    	select
+ /* getMenusByRoutes.Menu */              a.menu_id,
+             a.morder,
+             a.bpid,
+             a.mpid,
+             a.project_name,
+             a.controller_name,
+             a.method_name,
+             a.url,
+             a.icon,
+             a.name,
+             a.route,
+             a.menu_type,
+             a.check_type,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from menu a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="routes">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="routes">
+             a.route in
+                <iterate close=")" conjunction="," open="(" property="routes">
+                   #routes[]#
+                </iterate>
+             </isNotEmpty>
+           order by
+             <include refid="getMenusByRoutesOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
 	<update id="Menu.deleteByMenuIds">
 		UPDATE menu a
            SET
@@ -560,6 +644,26 @@
              a.menu_id in
                 <iterate close=")" conjunction="," open="(" property="menuIds">
                    #menuIds[]#
+                </iterate>
+             </isNotEmpty>
+	</update>
+	
+    
+	
+	<update id="Menu.deleteByRoutes">
+		UPDATE menu a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="routes">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="routes">
+             a.route in
+                <iterate close=")" conjunction="," open="(" property="routes">
+                   #routes[]#
                 </iterate>
              </isNotEmpty>
 	</update>

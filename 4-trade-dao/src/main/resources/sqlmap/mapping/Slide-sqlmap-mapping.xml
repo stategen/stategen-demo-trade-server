@@ -193,8 +193,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid="getSlidePageListOrderBy"/>
+           order by
+             <include refid="getSlidePageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 

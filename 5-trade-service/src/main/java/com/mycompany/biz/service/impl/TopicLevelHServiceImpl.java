@@ -5,16 +5,12 @@
  */
 package com.mycompany.biz.service.impl;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.IIdGenerator;
 import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.TopicLevelHDao;

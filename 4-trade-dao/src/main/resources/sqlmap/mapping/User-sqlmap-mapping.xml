@@ -482,6 +482,15 @@
                #cityIds[]#
                </iterate>
              </isNotEmpty>
+             <isNotNull property="status">
+             and a.status=#status#
+             </isNotNull>
+             <isNotEmpty property="statuss">
+             and a.status in
+               <iterate close=")" conjunction="," open="(" property="statuss">
+               #statuss[]#
+               </iterate>
+             </isNotEmpty>
              <isNotNull property="grade">
              and a.grade=#grade#
              </isNotNull>
@@ -547,6 +556,8 @@
              <isEmpty property="provinceIds">
              <isNull property="cityId">
              <isEmpty property="cityIds">
+             <isNull property="status">
+             <isEmpty property="statuss">
              <isNull property="grade">
              <isNull property="gradeMin">
              <isNull property="gradeMax">
@@ -570,6 +581,8 @@
              </isNull>
              </isEmpty>
              </isNull>
+             </isEmpty>
+             </isNull>
              </isNull>
              </isNull>
              </isNull>
@@ -601,8 +614,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid="getUserPageListOrderBy"/>
+           order by
+             <include refid="getUserPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
@@ -730,6 +743,15 @@
                #cityIds[]#
                </iterate>
              </isNotEmpty>
+             <isNotNull property="status">
+             and a.status=#status#
+             </isNotNull>
+             <isNotEmpty property="statuss">
+             and a.status in
+               <iterate close=")" conjunction="," open="(" property="statuss">
+               #statuss[]#
+               </iterate>
+             </isNotEmpty>
              <isNotNull property="grade">
              and a.grade=#grade#
              </isNotNull>
@@ -795,6 +817,8 @@
              <isEmpty property="provinceIds">
              <isNull property="cityId">
              <isEmpty property="cityIds">
+             <isNull property="status">
+             <isEmpty property="statuss">
              <isNull property="grade">
              <isNull property="gradeMin">
              <isNull property="gradeMax">
@@ -813,6 +837,8 @@
              </isNull>
              </isNull>
              </isNull>
+             </isNull>
+             </isEmpty>
              </isNull>
              </isEmpty>
              </isNull>

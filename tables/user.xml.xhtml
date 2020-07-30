@@ -430,6 +430,15 @@
                #cityIds[]#
                </iterate>
              </isNotEmpty>
+             <isNotNull property="status">
+             and a.status=?
+             </isNotNull>
+             <isNotEmpty property="statuss">
+             and a.status in
+               <iterate property="statuss" conjunction="," open="(" close=")">
+               #statuss[]#
+               </iterate>
+             </isNotEmpty>
              <isNotNull property="grade">
              and a.grade=?
              </isNotNull>
@@ -495,6 +504,8 @@
              <isEmpty property="provinceIds">
              <isNull property="cityId">
              <isEmpty property="cityIds">
+             <isNull property="status">
+             <isEmpty property="statuss">
              <isNull property="grade">
              <isNull property="gradeMin">
              <isNull property="gradeMax">
@@ -518,6 +529,8 @@
              </isNull>
              </isEmpty>
              </isNull>
+             </isEmpty>
+             </isNull>
              </isNull>
              </isNull>
              </isNull>
@@ -549,8 +562,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid = "getUserPageListOrderBy" />
+           order by
+             <include refid="getUserPageListOrderBy"/>
         </sql>
     </operation>
     <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
@@ -596,7 +609,7 @@
                 </iterate>
              </isNotEmpty>
            order by
-             <include refid="getUsersByUserIdsOrderBy" />
+             <include refid="getUsersByUserIdsOrderBy"/>
         </sql>
     </operation>
 
@@ -641,7 +654,7 @@
                 </iterate>
              </isNotEmpty>
            order by
-             <include refid="getUsersByUsernamesOrderBy" />
+             <include refid="getUsersByUsernamesOrderBy"/>
         </sql>
     </operation>
 
@@ -686,7 +699,7 @@
                 </iterate>
              </isNotEmpty>
            order by
-             <include refid="getUsersByEmailsOrderBy" />
+             <include refid="getUsersByEmailsOrderBy"/>
         </sql>
     </operation>
 

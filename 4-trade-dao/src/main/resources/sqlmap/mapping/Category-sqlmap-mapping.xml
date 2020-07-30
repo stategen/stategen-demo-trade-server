@@ -154,8 +154,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid="getCategoryPageListOrderBy"/>
+           order by
+             <include refid="getCategoryPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 

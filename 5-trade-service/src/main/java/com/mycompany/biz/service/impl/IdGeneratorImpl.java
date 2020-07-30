@@ -9,6 +9,7 @@ import com.baidu.fsg.uid.impl.CachedUidGenerator;
 
 public class IdGeneratorImpl implements IIdGenerator {
     
+    /***初始化BAIDU UID, 可以用别的id生成器,**/
     @Resource
     private CachedUidGenerator cachedUidGenerator;
     

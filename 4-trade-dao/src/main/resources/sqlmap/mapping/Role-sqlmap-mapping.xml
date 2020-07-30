@@ -177,8 +177,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid="getRolePageListOrderBy"/>
+           order by
+             <include refid="getRolePageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 

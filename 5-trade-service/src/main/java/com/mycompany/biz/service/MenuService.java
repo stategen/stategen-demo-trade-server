@@ -97,6 +97,30 @@ public interface MenuService extends AssignService<Menu, Long>, MenuServiceTrade
      * @see com.mycompany.biz.dao.MenuDao#getPageList
      */
     public PageList<Menu> getPageList(Menu menu, int pageSize, int pageNum);
+
+    /**
+     ** 
+     * @see com.mycompany.biz.dao.MenuDao#deleteByRoute
+     */
+    public Long deleteByRoute(String route);
+
+    /**
+     ** 
+     * @see com.mycompany.biz.dao.MenuDao#getMenuByRoute
+     */
+    public Menu getMenuByRoute(String route);
+
+    /**
+     ** 
+     * @see com.mycompany.biz.dao.MenuDao#getMenusByRoutes
+     */
+    public List<Menu> getMenusByRoutes(java.util.List<String> routes);
+
+    /**
+     ** 
+     * @see com.mycompany.biz.dao.MenuDao#deleteByRoutes
+     */
+    public Long deleteByRoutes(java.util.List<String> routes);
     //-->
     //
 }

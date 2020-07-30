@@ -186,8 +186,8 @@
              </isNull>
              </isEmpty>
              </isNull>
-            order by
-              <include refid = "getGoodsCommentPageListOrderBy" />
+           order by
+             <include refid="getGoodsCommentPageListOrderBy"/>
         </sql>
     </operation>
     <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
@@ -217,7 +217,7 @@
                 </iterate>
              </isNotEmpty>
            order by
-             <include refid="getGoodsCommentsByCommentsIdsOrderBy" />
+             <include refid="getGoodsCommentsByCommentsIdsOrderBy"/>
         </sql>
     </operation>
 
