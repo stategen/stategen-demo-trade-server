@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.RegionDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * RegionDao
  * <pre>
@@ -32,13 +32,15 @@ public class RegionDaoImpl  extends SqlDaoSupportBase implements RegionDao {
 	 * 
 	 * sql:insert into demo_region ( create_time , update_time , delete_flag , region_id , parent_region_id , path , level , region_type , name , name_en , name_pinyin , code ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?)
 	 */
-	public Region insert(Region region, IIDGenerator<Long> idGenerator) throws DataAccessException {
+	public Region insert(Region region, IdGenerateService<Long> idGenerateService) throws DataAccessException {
 		if(region == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            Long regionId = idGenerator.generateId();
-            region.setRegionId(regionId);
+        if (idGenerateService != null) {
+            Long regionId = idGenerateService.generateId(Region.class);
+            if (regionId != null) {
+                region.setRegionId(regionId);
+            }
         }
         super.insert("Region.insert", region);
 		return region;

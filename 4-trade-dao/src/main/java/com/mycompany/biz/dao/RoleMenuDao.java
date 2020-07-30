@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.RoleMenu;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * RoleMenuDao
@@ -35,7 +35,7 @@ public interface RoleMenuDao {
 	 * 
 	 * sql:insert into role_menu ( create_time , update_time , delete_flag , id , role_id , menu_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public RoleMenu insert(RoleMenu roleMenu, IIDGenerator<Long> idGenerator) throws DataAccessException;
+	public RoleMenu insert(RoleMenu roleMenu, IdGenerateService<Long> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

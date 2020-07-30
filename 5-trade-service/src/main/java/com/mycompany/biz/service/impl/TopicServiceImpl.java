@@ -14,11 +14,12 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.stategen.framework.cache.BaseCacheTaker;
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AfterInsertService;
 import org.stategen.framework.util.BusinessAssert;
 import org.stategen.framework.util.CollectionUtil;
-import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
@@ -45,7 +46,10 @@ import com.mycompany.biz.service.UserService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class TopicServiceImpl implements TopicService, AfterInsertService<Topic>, IIDGenerator<String> {
+public class TopicServiceImpl implements TopicService, AfterInsertService<Topic>, IdGenerateService<String> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     @Resource()
     private TopicLevelHService topicLevelHService;
@@ -74,12 +78,6 @@ public class TopicServiceImpl implements TopicService, AfterInsertService<Topic>
         List<Topic> replyCounts = this.getReplyCounts(topicIds);
         Map<String, Topic> replyCountMap = CollectionUtil.toMap(replyCounts, Topic::getTopicId);
         CollectionUtil.setFeildToFieldByMap(topics, replyCountMap, Topic::getTopicId, Topic::setReplyCount, Topic::getReplyCount);
-    }
-
-    @Override
-    public String generateId() {
-        //TODO generate id;
-        return null;
     }
 
     @Override
@@ -225,5 +223,10 @@ public class TopicServiceImpl implements TopicService, AfterInsertService<Topic>
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, TopicServiceImpl::getTopicsByTopicIdsNoLevelAuthority, Topic::getTopicId);
+    }
+
+    @Override
+    public <T> String generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(String.class, bizTagClz);
     }
 }

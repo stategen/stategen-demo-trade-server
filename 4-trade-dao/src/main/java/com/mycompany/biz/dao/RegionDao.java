@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.Region;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * RegionDao
@@ -41,7 +41,7 @@ public interface RegionDao {
 	 * 
 	 * sql:insert into demo_region ( create_time , update_time , delete_flag , region_id , parent_region_id , path , level , region_type , name , name_en , name_pinyin , code ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?)
 	 */
-	public Region insert(Region region, IIDGenerator<Long> idGenerator) throws DataAccessException;
+	public Region insert(Region region, IdGenerateService<Long> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

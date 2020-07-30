@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.CategorySubDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * CategorySubDao
  * <pre>
@@ -32,13 +32,15 @@ public class CategorySubDaoImpl  extends SqlDaoSupportBase implements CategorySu
 	 * 
 	 * sql:insert into demo_category_sub ( create_time , update_time , delete_flag , category_sub_id , category_id , sub_name , comments ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public CategorySub insert(CategorySub categorySub, IIDGenerator<String> idGenerator) throws DataAccessException {
+	public CategorySub insert(CategorySub categorySub, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(categorySub == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            String categorySubId = idGenerator.generateId();
-            categorySub.setCategorySubId(categorySubId);
+        if (idGenerateService != null) {
+            String categorySubId = idGenerateService.generateId(CategorySub.class);
+            if (categorySubId != null) {
+                categorySub.setCategorySubId(categorySubId);
+            }
         }
         super.insert("CategorySub.insert", categorySub);
 		return categorySub;

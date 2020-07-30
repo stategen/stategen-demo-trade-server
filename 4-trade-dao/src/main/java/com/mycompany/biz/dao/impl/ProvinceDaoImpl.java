@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.ProvinceDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * ProvinceDao
  * <pre>
@@ -32,13 +32,15 @@ public class ProvinceDaoImpl  extends SqlDaoSupportBase implements ProvinceDao {
 	 * 
 	 * sql:insert into demo_province ( create_time , update_time , delete_flag , province_id , name , pycode ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public Province insert(Province province, IIDGenerator<String> idGenerator) throws DataAccessException {
+	public Province insert(Province province, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(province == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            String provinceId = idGenerator.generateId();
-            province.setProvinceId(provinceId);
+        if (idGenerateService != null) {
+            String provinceId = idGenerateService.generateId(Province.class);
+            if (provinceId != null) {
+                province.setProvinceId(provinceId);
+            }
         }
         super.insert("Province.insert", province);
 		return province;

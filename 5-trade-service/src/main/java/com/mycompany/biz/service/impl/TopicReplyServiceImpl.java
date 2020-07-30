@@ -12,9 +12,10 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.CollectionUtil;
-import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
@@ -38,7 +39,10 @@ import com.mycompany.biz.service.UserService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class TopicReplyServiceImpl implements TopicReplyService, IIDGenerator<String> {
+public class TopicReplyServiceImpl implements TopicReplyService, IdGenerateService<String> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     @Resource
     TopicUpService topicUpService;
@@ -195,10 +199,7 @@ public class TopicReplyServiceImpl implements TopicReplyService, IIDGenerator<St
     }
 
     @Override
-    public String generateId() {
-        //TODO generate id;
-        return null;
+    public <T> String generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(String.class, bizTagClz);
     }
-    //-->
-    //
 }

@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.HomeAdvertiseDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * HomeAdvertiseDao
  * <pre>
@@ -32,13 +32,15 @@ public class HomeAdvertiseDaoImpl  extends SqlDaoSupportBase implements HomeAdve
 	 * 
 	 * sql:insert into demo_home_advertise ( create_time , update_time , delete_flag , home_adv_id , advertise_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?)
 	 */
-	public HomeAdvertise insert(HomeAdvertise homeAdvertise, IIDGenerator<String> idGenerator) throws DataAccessException {
+	public HomeAdvertise insert(HomeAdvertise homeAdvertise, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(homeAdvertise == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            String homeAdvId = idGenerator.generateId();
-            homeAdvertise.setHomeAdvId(homeAdvId);
+        if (idGenerateService != null) {
+            String homeAdvId = idGenerateService.generateId(HomeAdvertise.class);
+            if (homeAdvId != null) {
+                homeAdvertise.setHomeAdvId(homeAdvId);
+            }
         }
         super.insert("HomeAdvertise.insert", homeAdvertise);
 		return homeAdvertise;

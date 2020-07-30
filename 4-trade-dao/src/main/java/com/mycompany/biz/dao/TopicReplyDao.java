@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.TopicReply;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * TopicReplyDao
@@ -37,7 +37,7 @@ public interface TopicReplyDao {
 	 * 
 	 * sql:insert into demo_topic_reply ( create_time , update_time , delete_flag , reply_id , topic_id , author_id , content , parent_reply_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?)
 	 */
-	public TopicReply insert(TopicReply topicReply, IIDGenerator<String> idGenerator) throws DataAccessException;
+	public TopicReply insert(TopicReply topicReply, IdGenerateService<String> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

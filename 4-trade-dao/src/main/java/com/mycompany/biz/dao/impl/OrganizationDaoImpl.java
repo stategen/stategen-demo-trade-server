@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.OrganizationDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * OrganizationDao
  * <pre>
@@ -32,13 +32,15 @@ public class OrganizationDaoImpl  extends SqlDaoSupportBase implements Organizat
 	 * 
 	 * sql:insert into demo_organization ( create_time , update_time , delete_flag , org_id , parent_id , name , org_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public Organization insert(Organization organization, IIDGenerator<Long> idGenerator) throws DataAccessException {
+	public Organization insert(Organization organization, IdGenerateService<Long> idGenerateService) throws DataAccessException {
 		if(organization == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            Long orgId = idGenerator.generateId();
-            organization.setOrgId(orgId);
+        if (idGenerateService != null) {
+            Long orgId = idGenerateService.generateId(Organization.class);
+            if (orgId != null) {
+                organization.setOrgId(orgId);
+            }
         }
         super.insert("Organization.insert", organization);
 		return organization;

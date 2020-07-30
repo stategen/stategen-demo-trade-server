@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import org.stategen.framework.annotation.FieldNameConst;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
@@ -55,12 +56,14 @@ public class TopicOwnerH implements java.io.Serializable {
     /***topicId   db_column: topic_id VARCHAR */
     @ApiModelProperty("topicId")
     @NotNull
+    @FieldNameConst
     @Max(64)
     private String topicId;
 
     /***所有者 水平权限   db_column: user_id VARCHAR */
     @ApiModelProperty("所有者 水平权限")
     @NotNull
+    @FieldNameConst
     @Max(64)
     private String userId;
 

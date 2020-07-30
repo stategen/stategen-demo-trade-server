@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.City;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * CityDao
@@ -38,7 +38,7 @@ public interface CityDao {
 	 * 
 	 * sql:insert into demo_city ( create_time , update_time , delete_flag , city_id , name , pycode , province_id , postcode , areacode ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?)
 	 */
-	public City insert(City city, IIDGenerator<String> idGenerator) throws DataAccessException;
+	public City insert(City city, IdGenerateService<String> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

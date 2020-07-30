@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.Goods;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * GoodsDao
@@ -53,7 +53,7 @@ public interface GoodsDao {
 	 * 
 	 * sql:insert into demo_goods ( create_time , update_time , delete_flag , goods_id , goods_name , categorySubId , amount , price , images , is_check , is_hot , advertise_id , present_price , image , image1 , image2 , image3 , image4 , image5 , is_on_line , goods_serial_number , state , shop_id , goods_detail ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
-	public Goods insert(Goods goods, IIDGenerator<String> idGenerator) throws DataAccessException;
+	public Goods insert(Goods goods, IdGenerateService<String> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

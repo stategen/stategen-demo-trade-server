@@ -11,8 +11,9 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
@@ -31,7 +32,10 @@ import com.mycompany.biz.service.CityService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class CityServiceImpl implements CityService, IIDGenerator<String> {
+public class CityServiceImpl implements CityService, IdGenerateService<String> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     //<#--
     @Resource(name = "cityDao")
@@ -158,8 +162,7 @@ public class CityServiceImpl implements CityService, IIDGenerator<String> {
     }
 
     @Override
-    public String generateId() {
-        //TODO generate id;
-        return null;
+    public <T> String generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(String.class, bizTagClz);
     }
 }

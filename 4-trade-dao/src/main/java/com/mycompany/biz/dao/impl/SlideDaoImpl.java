@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.SlideDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * SlideDao
  * <pre>
@@ -32,13 +32,15 @@ public class SlideDaoImpl  extends SqlDaoSupportBase implements SlideDao {
 	 * 
 	 * sql:insert into demo_slide ( create_time , update_time , delete_flag , slide_id , goods_id , image , urlType , order_no ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?)
 	 */
-	public Slide insert(Slide slide, IIDGenerator<String> idGenerator) throws DataAccessException {
+	public Slide insert(Slide slide, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(slide == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            String slideId = idGenerator.generateId();
-            slide.setSlideId(slideId);
+        if (idGenerateService != null) {
+            String slideId = idGenerateService.generateId(Slide.class);
+            if (slideId != null) {
+                slide.setSlideId(slideId);
+            }
         }
         super.insert("Slide.insert", slide);
 		return slide;

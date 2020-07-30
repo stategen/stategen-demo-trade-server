@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.Hoppy;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * HoppyDao
@@ -34,7 +34,7 @@ public interface HoppyDao {
 	 * 
 	 * sql:insert into demo_hoppy ( create_time , update_time , delete_flag , hoppy_id , hoppy_name ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?)
 	 */
-	public Hoppy insert(Hoppy hoppy, IIDGenerator<Long> idGenerator) throws DataAccessException;
+	public Hoppy insert(Hoppy hoppy, IdGenerateService<Long> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

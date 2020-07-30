@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.Slide;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * SlideDao
@@ -37,7 +37,7 @@ public interface SlideDao {
 	 * 
 	 * sql:insert into demo_slide ( create_time , update_time , delete_flag , slide_id , goods_id , image , urlType , order_no ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?)
 	 */
-	public Slide insert(Slide slide, IIDGenerator<String> idGenerator) throws DataAccessException;
+	public Slide insert(Slide slide, IdGenerateService<String> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

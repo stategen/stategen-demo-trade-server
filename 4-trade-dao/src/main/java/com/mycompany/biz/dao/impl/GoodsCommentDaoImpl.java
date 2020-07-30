@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.GoodsCommentDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * GoodsCommentDao
  * <pre>
@@ -32,13 +32,15 @@ public class GoodsCommentDaoImpl  extends SqlDaoSupportBase implements GoodsComm
 	 * 
 	 * sql:insert into demo_goods_comment ( create_time , update_time , delete_flag , comments_id , goods_id , comments , user_name , discuss_time , score ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?)
 	 */
-	public GoodsComment insert(GoodsComment goodsComment, IIDGenerator<String> idGenerator) throws DataAccessException {
+	public GoodsComment insert(GoodsComment goodsComment, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(goodsComment == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            String commentsId = idGenerator.generateId();
-            goodsComment.setCommentsId(commentsId);
+        if (idGenerateService != null) {
+            String commentsId = idGenerateService.generateId(GoodsComment.class);
+            if (commentsId != null) {
+                goodsComment.setCommentsId(commentsId);
+            }
         }
         super.insert("GoodsComment.insert", goodsComment);
 		return goodsComment;

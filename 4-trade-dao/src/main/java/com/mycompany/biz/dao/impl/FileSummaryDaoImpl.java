@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.FileSummaryDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * FileSummaryDao
  * <pre>
@@ -32,13 +32,15 @@ public class FileSummaryDaoImpl  extends SqlDaoSupportBase implements FileSummar
 	 * 
 	 * sql:insert into file_summary ( create_time , update_time , delete_flag , file_id , url , size , name , type , user_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?)
 	 */
-	public FileSummary insert(FileSummary fileSummary, IIDGenerator<String> idGenerator) throws DataAccessException {
+	public FileSummary insert(FileSummary fileSummary, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(fileSummary == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            String fileId = idGenerator.generateId();
-            fileSummary.setFileId(fileId);
+        if (idGenerateService != null) {
+            String fileId = idGenerateService.generateId(FileSummary.class);
+            if (fileId != null) {
+                fileSummary.setFileId(fileId);
+            }
         }
         super.insert("FileSummary.insert", fileSummary);
 		return fileSummary;

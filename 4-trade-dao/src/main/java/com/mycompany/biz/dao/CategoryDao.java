@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.Category;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * CategoryDao
@@ -36,7 +36,7 @@ public interface CategoryDao {
 	 * 
 	 * sql:insert into demo_category ( create_time , update_time , delete_flag , category_id , category_name , comments , image ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public Category insert(Category category, IIDGenerator<String> idGenerator) throws DataAccessException;
+	public Category insert(Category category, IdGenerateService<String> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

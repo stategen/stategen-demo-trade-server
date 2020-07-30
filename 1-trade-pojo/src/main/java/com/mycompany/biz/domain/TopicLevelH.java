@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import org.stategen.framework.annotation.FieldNameConst;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;
@@ -56,6 +57,7 @@ public class TopicLevelH implements java.io.Serializable {
     /***树(类似部门)主键 水平权限   db_column: org_id BIGINT */
     @ApiModelProperty("树(类似部门)主键 水平权限")
     @NotNull
+    @FieldNameConst
     private Long orgId;
 
     /***更新时间   db_column: update_time TIMESTAMP */

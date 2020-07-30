@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.Menu;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * MenuDao
@@ -45,7 +45,7 @@ public interface MenuDao {
 	 * 
 	 * sql:insert into menu ( create_time , update_time , delete_flag , menu_id , morder , bpid , mpid , project_name , controller_name , method_name , url , icon , name , route , menu_type , check_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
-	public Menu insert(Menu menu, IIDGenerator<Long> idGenerator) throws DataAccessException;
+	public Menu insert(Menu menu, IdGenerateService<Long> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

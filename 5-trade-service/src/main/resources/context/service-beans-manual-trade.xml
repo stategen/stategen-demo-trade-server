@@ -10,4 +10,6 @@
 >
     <!-- <bean id="xxxService" class="com.mycompany.biz.impl.xxxServiceImpl" /> -->
 
+    <bean id="idGenerator" class="com.mycompany.biz.service.impl.IdGeneratorImpl">
+    </bean>
 </beans>

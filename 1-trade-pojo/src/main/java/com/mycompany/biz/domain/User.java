@@ -114,8 +114,8 @@ public class User implements java.io.Serializable {
     /***密码，测试，明文   db_column: password VARCHAR */
     @ApiModelProperty("密码，测试，明文")
     @Max(64)
-    @Editor(EditorType.Password.class)
     @JSONField(serialize = false)
+    @Editor(EditorType.Password.class)
     private transient String password;
 
     /***用户角色 ADMIN,DEFAULT,DEVELOPER   db_column: role_type VARCHAR */
@@ -156,8 +156,8 @@ public class User implements java.io.Serializable {
     /***头像 ID   db_column: avatar_img_id VARCHAR */
     @ApiModelProperty("头像 ID")
     @Max(64)
-    @ReferConfig
     @Editor(EditorType.Image.class)
+    @ReferConfig
     private String avatarImgId;
 
     /***邮箱   db_column: email VARCHAR */
@@ -192,14 +192,14 @@ public class User implements java.io.Serializable {
     /***城市 ID   db_column: city_id VARCHAR */
     @ApiModelProperty("城市 ID")
     @Max(64)
-    @ChangeBy("provinceId")
     @ReferConfig()
+    @ChangeBy("provinceId")
     private String cityId;
 
     /***状态 -enum   db_column: status VARCHAR */
     @ApiModelProperty("状态 enum")
-    @Editor(EditorType.RadioGroup.class)
     @Max(64)
+    @Editor(EditorType.RadioGroup.class)
     private StatusEnum status;
 
     /***级别   db_column: grade BIGINT */
@@ -410,8 +410,8 @@ public class User implements java.io.Serializable {
     /*** 城市 IDs in getPageList */
     @ApiModelProperty("城市 s")
     @JSONField(serialize = false)
-    @ChangeBy("provinceId")
     @ReferConfig()
+    @ChangeBy("provinceId")
     private java.util.List<String> cityIds;
 
     /*** 级别Min in getPageList */

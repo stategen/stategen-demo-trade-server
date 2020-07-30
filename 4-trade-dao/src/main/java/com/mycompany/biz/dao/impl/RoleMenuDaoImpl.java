@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.RoleMenuDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * RoleMenuDao
  * <pre>
@@ -32,13 +32,15 @@ public class RoleMenuDaoImpl  extends SqlDaoSupportBase implements RoleMenuDao {
 	 * 
 	 * sql:insert into role_menu ( create_time , update_time , delete_flag , id , role_id , menu_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public RoleMenu insert(RoleMenu roleMenu, IIDGenerator<Long> idGenerator) throws DataAccessException {
+	public RoleMenu insert(RoleMenu roleMenu, IdGenerateService<Long> idGenerateService) throws DataAccessException {
 		if(roleMenu == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            Long id = idGenerator.generateId();
-            roleMenu.setId(id);
+        if (idGenerateService != null) {
+            Long id = idGenerateService.generateId(RoleMenu.class);
+            if (id != null) {
+                roleMenu.setId(id);
+            }
         }
         super.insert("RoleMenu.insert", roleMenu);
 		return roleMenu;

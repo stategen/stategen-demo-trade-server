@@ -17,8 +17,8 @@ import org.stategen.framework.lite.enums.EditorType;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.mycompany.biz.enums.TopicType;
-
 import io.swagger.annotations.ApiModelProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,7 +48,7 @@ public class Topic implements java.io.Serializable {
 
     /***自定义字段，不属于别的表或类中的属性，只能添加在该类上*/
     private Long replyCount;
-    
+
     /***author为属性集合，不能拆分成各个属性与再与topic中的属性组合，而是通过authorId关联*/
     private User author;
 
@@ -56,17 +56,16 @@ public class Topic implements java.io.Serializable {
     /* 如果字段注释中包括 -inherited 将不生成 */
     private static final long serialVersionUID = -5216457518046898601L;
 
-    /***作者ID   db_column: author_id VARCHAR */
-    @ApiModelProperty("作者ID")
-    @Max(64)
-    private String authorId;
-
-    
     /***主题ID   db_column: topic_id VARCHAR */
     @ApiModelProperty("主题ID")
     @Id
     @Max(64)
     private String topicId;
+
+    /***作者ID   db_column: author_id VARCHAR */
+    @ApiModelProperty("作者ID")
+    @Max(64)
+    private String authorId;
 
     /***主题类型   db_column: topic_type VARCHAR */
     @ApiModelProperty("主题类型")

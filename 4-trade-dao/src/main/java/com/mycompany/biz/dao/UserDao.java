@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.User;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * UserDao
@@ -54,7 +54,7 @@ public interface UserDao {
 	 * 
 	 * sql:insert into user ( create_time , update_time , delete_flag , user_id , username , password , role_type , name , nickName , inter_code , mobile , age , address , avatar_img_id , email , vali_datetime , birthday_date , work_time , province_id , city_id , status , grade , sex , post_address_id , remark ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
-	public User insert(User user, IIDGenerator<String> idGenerator) throws DataAccessException;
+	public User insert(User user, IdGenerateService<String> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

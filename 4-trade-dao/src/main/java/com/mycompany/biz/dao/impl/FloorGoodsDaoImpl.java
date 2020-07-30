@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.FloorGoodsDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * FloorGoodsDao
  * <pre>
@@ -32,13 +32,15 @@ public class FloorGoodsDaoImpl  extends SqlDaoSupportBase implements FloorGoodsD
 	 * 
 	 * sql:insert into demo_floor_goods ( create_time , update_time , delete_flag , floor_goods_id , floor_id , goods_id , image , order_no ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?)
 	 */
-	public FloorGoods insert(FloorGoods floorGoods, IIDGenerator<String> idGenerator) throws DataAccessException {
+	public FloorGoods insert(FloorGoods floorGoods, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(floorGoods == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            String floorGoodsId = idGenerator.generateId();
-            floorGoods.setFloorGoodsId(floorGoodsId);
+        if (idGenerateService != null) {
+            String floorGoodsId = idGenerateService.generateId(FloorGoods.class);
+            if (floorGoodsId != null) {
+                floorGoods.setFloorGoodsId(floorGoodsId);
+            }
         }
         super.insert("FloorGoods.insert", floorGoods);
 		return floorGoods;

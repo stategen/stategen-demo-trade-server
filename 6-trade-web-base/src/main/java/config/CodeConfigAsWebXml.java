@@ -125,5 +125,7 @@ public class CodeConfigAsWebXml extends AbstractAnnotationConfigDispatcherServle
     protected String[] getServletMappings() {
         return new String[] { "/*" };
     }
+    
+    
 
 }

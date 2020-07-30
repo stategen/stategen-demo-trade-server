@@ -13,10 +13,11 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.LinkedCaseInsensitiveMap;
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.util.CollectionUtil;
-import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 
 import com.mycompany.biz.dao.MenuDao;
@@ -34,7 +35,10 @@ import com.mycompany.biz.service.MenuService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class MenuServiceImpl implements MenuService, IIDGenerator<Long> {
+public class MenuServiceImpl implements MenuService, IdGenerateService<Long> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     @Value("${project.name}")
     private String projectName;
@@ -231,10 +235,7 @@ public class MenuServiceImpl implements MenuService, IIDGenerator<Long> {
     }
 
     @Override
-    public Long generateId() {
-        //TODO generate id;
-        return null;
+    public <T> Long generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(Long.class, bizTagClz);
     }
-    //-->
-    //
 }

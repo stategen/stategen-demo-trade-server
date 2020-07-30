@@ -14,6 +14,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 import org.stategen.framework.annotation.Editor;
+import org.stategen.framework.annotation.FieldNameConst;
 import org.stategen.framework.lite.enums.EditorType;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -60,12 +61,14 @@ public class Role implements java.io.Serializable {
     /***角色名称   db_column: role_name VARCHAR */
     @ApiModelProperty("角色名称")
     @NotNull
+    @FieldNameConst
     @Max(64)
     private String roleName;
 
     /***描述   db_column: description VARCHAR */
     @ApiModelProperty("描述")
     @NotNull
+    @FieldNameConst
     @Max(255)
     private String description;
 

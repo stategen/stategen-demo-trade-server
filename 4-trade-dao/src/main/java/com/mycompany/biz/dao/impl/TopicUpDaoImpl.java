@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.TopicUpDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * TopicUpDao
  * <pre>
@@ -32,13 +32,15 @@ public class TopicUpDaoImpl  extends SqlDaoSupportBase implements TopicUpDao {
 	 * 
 	 * sql:insert into demo_topic_up ( create_time , update_time , delete_flag , up_id , object_id , author_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public TopicUp insert(TopicUp topicUp, IIDGenerator<String> idGenerator) throws DataAccessException {
+	public TopicUp insert(TopicUp topicUp, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(topicUp == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            String upId = idGenerator.generateId();
-            topicUp.setUpId(upId);
+        if (idGenerateService != null) {
+            String upId = idGenerateService.generateId(TopicUp.class);
+            if (upId != null) {
+                topicUp.setUpId(upId);
+            }
         }
         super.insert("TopicUp.insert", topicUp);
 		return topicUp;

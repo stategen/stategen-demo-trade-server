@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.RoleDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * RoleDao
  * <pre>
@@ -32,13 +32,15 @@ public class RoleDaoImpl  extends SqlDaoSupportBase implements RoleDao {
 	 * 
 	 * sql:insert into role ( create_time , update_time , delete_flag , role_id , role_name , description , role_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public Role insert(Role role, IIDGenerator<String> idGenerator) throws DataAccessException {
+	public Role insert(Role role, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(role == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            String roleId = idGenerator.generateId();
-            role.setRoleId(roleId);
+        if (idGenerateService != null) {
+            String roleId = idGenerateService.generateId(Role.class);
+            if (roleId != null) {
+                role.setRoleId(roleId);
+            }
         }
         super.insert("Role.insert", role);
 		return role;

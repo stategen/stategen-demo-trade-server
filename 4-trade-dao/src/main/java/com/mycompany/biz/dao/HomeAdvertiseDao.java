@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.HomeAdvertise;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * HomeAdvertiseDao
@@ -34,7 +34,7 @@ public interface HomeAdvertiseDao {
 	 * 
 	 * sql:insert into demo_home_advertise ( create_time , update_time , delete_flag , home_adv_id , advertise_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?)
 	 */
-	public HomeAdvertise insert(HomeAdvertise homeAdvertise, IIDGenerator<String> idGenerator) throws DataAccessException;
+	public HomeAdvertise insert(HomeAdvertise homeAdvertise, IdGenerateService<String> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.HomeShopDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * HomeShopDao
  * <pre>
@@ -32,13 +32,15 @@ public class HomeShopDaoImpl  extends SqlDaoSupportBase implements HomeShopDao {
 	 * 
 	 * sql:insert into demo_home_shop ( create_time , update_time , delete_flag , home_shop_id , shop_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?)
 	 */
-	public HomeShop insert(HomeShop homeShop, IIDGenerator<String> idGenerator) throws DataAccessException {
+	public HomeShop insert(HomeShop homeShop, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(homeShop == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            String homeShopId = idGenerator.generateId();
-            homeShop.setHomeShopId(homeShopId);
+        if (idGenerateService != null) {
+            String homeShopId = idGenerateService.generateId(HomeShop.class);
+            if (homeShopId != null) {
+                homeShop.setHomeShopId(homeShopId);
+            }
         }
         super.insert("HomeShop.insert", homeShop);
 		return homeShop;

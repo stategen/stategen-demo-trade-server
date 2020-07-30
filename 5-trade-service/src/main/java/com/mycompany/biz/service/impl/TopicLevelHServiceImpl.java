@@ -11,8 +11,9 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
@@ -31,7 +32,10 @@ import com.mycompany.biz.service.TopicLevelHService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class TopicLevelHServiceImpl implements TopicLevelHService, IIDGenerator<String> {
+public class TopicLevelHServiceImpl implements TopicLevelHService, IdGenerateService<String> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     @Resource(name = "topicLevelHDao")
     TopicLevelHDao topicLevelHDao;
@@ -130,8 +134,7 @@ public class TopicLevelHServiceImpl implements TopicLevelHService, IIDGenerator<
     }
 
     @Override
-    public String generateId() {
-        //TODO generate id;
-        return null;
+    public <T> String generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(String.class, bizTagClz);
     }
 }

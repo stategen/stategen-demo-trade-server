@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.GoodsComment;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * GoodsCommentDao
@@ -38,7 +38,7 @@ public interface GoodsCommentDao {
 	 * 
 	 * sql:insert into demo_goods_comment ( create_time , update_time , delete_flag , comments_id , goods_id , comments , user_name , discuss_time , score ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?)
 	 */
-	public GoodsComment insert(GoodsComment goodsComment, IIDGenerator<String> idGenerator) throws DataAccessException;
+	public GoodsComment insert(GoodsComment goodsComment, IdGenerateService<String> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

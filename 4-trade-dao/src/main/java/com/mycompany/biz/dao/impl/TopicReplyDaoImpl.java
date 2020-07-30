@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.TopicReplyDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * TopicReplyDao
  * <pre>
@@ -32,13 +32,15 @@ public class TopicReplyDaoImpl  extends SqlDaoSupportBase implements TopicReplyD
 	 * 
 	 * sql:insert into demo_topic_reply ( create_time , update_time , delete_flag , reply_id , topic_id , author_id , content , parent_reply_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?)
 	 */
-	public TopicReply insert(TopicReply topicReply, IIDGenerator<String> idGenerator) throws DataAccessException {
+	public TopicReply insert(TopicReply topicReply, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(topicReply == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            String replyId = idGenerator.generateId();
-            topicReply.setReplyId(replyId);
+        if (idGenerateService != null) {
+            String replyId = idGenerateService.generateId(TopicReply.class);
+            if (replyId != null) {
+                topicReply.setReplyId(replyId);
+            }
         }
         super.insert("TopicReply.insert", topicReply);
 		return topicReply;

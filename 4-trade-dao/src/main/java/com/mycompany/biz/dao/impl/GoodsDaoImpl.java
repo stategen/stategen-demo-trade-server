@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.GoodsDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * GoodsDao
  * <pre>
@@ -32,13 +32,15 @@ public class GoodsDaoImpl  extends SqlDaoSupportBase implements GoodsDao {
 	 * 
 	 * sql:insert into demo_goods ( create_time , update_time , delete_flag , goods_id , goods_name , categorySubId , amount , price , images , is_check , is_hot , advertise_id , present_price , image , image1 , image2 , image3 , image4 , image5 , is_on_line , goods_serial_number , state , shop_id , goods_detail ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
-	public Goods insert(Goods goods, IIDGenerator<String> idGenerator) throws DataAccessException {
+	public Goods insert(Goods goods, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(goods == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            String goodsId = idGenerator.generateId();
-            goods.setGoodsId(goodsId);
+        if (idGenerateService != null) {
+            String goodsId = idGenerateService.generateId(Goods.class);
+            if (goodsId != null) {
+                goods.setGoodsId(goodsId);
+            }
         }
         super.insert("Goods.insert", goods);
 		return goods;

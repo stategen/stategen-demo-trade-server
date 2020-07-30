@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.HomeGoodsDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * HomeGoodsDao
  * <pre>
@@ -32,13 +32,15 @@ public class HomeGoodsDaoImpl  extends SqlDaoSupportBase implements HomeGoodsDao
 	 * 
 	 * sql:insert into demo_home_goods ( create_time , update_time , delete_flag , recommend_id , goods_id , order_no ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public HomeGoods insert(HomeGoods homeGoods, IIDGenerator<String> idGenerator) throws DataAccessException {
+	public HomeGoods insert(HomeGoods homeGoods, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(homeGoods == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            String recommendId = idGenerator.generateId();
-            homeGoods.setRecommendId(recommendId);
+        if (idGenerateService != null) {
+            String recommendId = idGenerateService.generateId(HomeGoods.class);
+            if (recommendId != null) {
+                homeGoods.setRecommendId(recommendId);
+            }
         }
         super.insert("HomeGoods.insert", homeGoods);
 		return homeGoods;

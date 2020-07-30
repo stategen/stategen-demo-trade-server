@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.HomeGoods;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * HomeGoodsDao
@@ -35,7 +35,7 @@ public interface HomeGoodsDao {
 	 * 
 	 * sql:insert into demo_home_goods ( create_time , update_time , delete_flag , recommend_id , goods_id , order_no ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public HomeGoods insert(HomeGoods homeGoods, IIDGenerator<String> idGenerator) throws DataAccessException;
+	public HomeGoods insert(HomeGoods homeGoods, IdGenerateService<String> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.Floor;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * FloorDao
@@ -36,7 +36,7 @@ public interface FloorDao {
 	 * 
 	 * sql:insert into demo_floor ( create_time , update_time , delete_flag , floor_id , advertise_id , order_no , floor_name ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public Floor insert(Floor floor, IIDGenerator<String> idGenerator) throws DataAccessException;
+	public Floor insert(Floor floor, IdGenerateService<String> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

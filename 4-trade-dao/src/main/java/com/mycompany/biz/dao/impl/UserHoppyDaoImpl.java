@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.UserHoppyDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * UserHoppyDao
  * <pre>
@@ -32,13 +32,15 @@ public class UserHoppyDaoImpl  extends SqlDaoSupportBase implements UserHoppyDao
 	 * 
 	 * sql:insert into demo_user_hoppy ( create_time , update_time , delete_flag , id , user_id , hoppy_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
-	public UserHoppy insert(UserHoppy userHoppy, IIDGenerator<Long> idGenerator) throws DataAccessException {
+	public UserHoppy insert(UserHoppy userHoppy, IdGenerateService<Long> idGenerateService) throws DataAccessException {
 		if(userHoppy == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            Long id = idGenerator.generateId();
-            userHoppy.setId(id);
+        if (idGenerateService != null) {
+            Long id = idGenerateService.generateId(UserHoppy.class);
+            if (id != null) {
+                userHoppy.setId(id);
+            }
         }
         super.insert("UserHoppy.insert", userHoppy);
 		return userHoppy;

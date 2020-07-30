@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.AdvertisePicture;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * AdvertisePictureDao
@@ -36,7 +36,7 @@ public interface AdvertisePictureDao {
 	 * 
 	 * sql:insert into demo_advertise_picture ( create_time , update_time , delete_flag , advertise_id , PICTURE_ADDRESS , TO_PLACE , url_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public AdvertisePicture insert(AdvertisePicture advertisePicture, IIDGenerator<Long> idGenerator) throws DataAccessException;
+	public AdvertisePicture insert(AdvertisePicture advertisePicture, IdGenerateService<Long> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

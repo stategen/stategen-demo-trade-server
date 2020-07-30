@@ -10,7 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.UserRole;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * UserRoleDao
@@ -36,7 +36,7 @@ public interface UserRoleDao {
 	 * 
 	 * sql:insert into user_role ( create_time , update_time , delete_flag , id , user_id , role_id , role_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public UserRole insert(UserRole userRole, IIDGenerator<Long> idGenerator) throws DataAccessException;
+	public UserRole insert(UserRole userRole, IdGenerateService<Long> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>

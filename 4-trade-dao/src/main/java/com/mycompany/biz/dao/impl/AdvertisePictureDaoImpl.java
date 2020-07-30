@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.AdvertisePictureDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-import org.stategen.framework.util.IIDGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * AdvertisePictureDao
  * <pre>
@@ -32,13 +32,15 @@ public class AdvertisePictureDaoImpl  extends SqlDaoSupportBase implements Adver
 	 * 
 	 * sql:insert into demo_advertise_picture ( create_time , update_time , delete_flag , advertise_id , PICTURE_ADDRESS , TO_PLACE , url_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public AdvertisePicture insert(AdvertisePicture advertisePicture, IIDGenerator<Long> idGenerator) throws DataAccessException {
+	public AdvertisePicture insert(AdvertisePicture advertisePicture, IdGenerateService<Long> idGenerateService) throws DataAccessException {
 		if(advertisePicture == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerator != null) {
-            Long advertiseId = idGenerator.generateId();
-            advertisePicture.setAdvertiseId(advertiseId);
+        if (idGenerateService != null) {
+            Long advertiseId = idGenerateService.generateId(AdvertisePicture.class);
+            if (advertiseId != null) {
+                advertisePicture.setAdvertiseId(advertiseId);
+            }
         }
         super.insert("AdvertisePicture.insert", advertisePicture);
 		return advertisePicture;

@@ -12,8 +12,9 @@ import java.util.function.Function;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
-import org.stategen.framework.util.IIDGenerator;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
 
@@ -32,7 +33,10 @@ import com.mycompany.biz.service.FileSummaryService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class FileSummaryServiceImpl implements FileSummaryService, IIDGenerator<String> {
+public class FileSummaryServiceImpl implements FileSummaryService, IdGenerateService<String> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     @Value("${project.name}")
     private String projectName;
@@ -156,8 +160,7 @@ public class FileSummaryServiceImpl implements FileSummaryService, IIDGenerator<
     }
 
     @Override
-    public String generateId() {
-        //TODO generate id;
-        return null;
+    public <T> String generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(String.class, bizTagClz);
     }
 }
