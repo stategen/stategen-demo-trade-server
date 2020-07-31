@@ -36,7 +36,7 @@ public class CategorySubDaoImpl  extends SqlDaoSupportBase implements CategorySu
 		if(categorySub == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerateService != null) {
+        if (idGenerateService != null && categorySub.getCategorySubId() == null) {
             String categorySubId = idGenerateService.generateId(CategorySub.class);
             if (categorySubId != null) {
                 categorySub.setCategorySubId(categorySubId);

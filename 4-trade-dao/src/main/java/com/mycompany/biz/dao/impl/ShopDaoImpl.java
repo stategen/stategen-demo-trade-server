@@ -36,7 +36,7 @@ public class ShopDaoImpl  extends SqlDaoSupportBase implements ShopDao {
 		if(shop == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerateService != null) {
+        if (idGenerateService != null && shop.getShopId() == null) {
             String shopId = idGenerateService.generateId(Shop.class);
             if (shopId != null) {
                 shop.setShopId(shopId);

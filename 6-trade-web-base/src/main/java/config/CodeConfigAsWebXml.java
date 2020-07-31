@@ -53,7 +53,7 @@ public class CodeConfigAsWebXml extends AbstractAnnotationConfigDispatcherServle
         
     }
     
-    
+    /*** {serverName}/druid/index.html*/
     @WebServlet(name = "StatViewServlet", urlPatterns = "/druid/*",
             /*--*/
             initParams = {

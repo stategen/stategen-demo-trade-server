@@ -36,7 +36,7 @@ public class HoppyDaoImpl  extends SqlDaoSupportBase implements HoppyDao {
 		if(hoppy == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerateService != null) {
+        if (idGenerateService != null && hoppy.getHoppyId() == null) {
             Long hoppyId = idGenerateService.generateId(Hoppy.class);
             if (hoppyId != null) {
                 hoppy.setHoppyId(hoppyId);

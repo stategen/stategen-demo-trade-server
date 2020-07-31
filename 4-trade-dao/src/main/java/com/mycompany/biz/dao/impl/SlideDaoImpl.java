@@ -36,7 +36,7 @@ public class SlideDaoImpl  extends SqlDaoSupportBase implements SlideDao {
 		if(slide == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerateService != null) {
+        if (idGenerateService != null && slide.getSlideId() == null) {
             String slideId = idGenerateService.generateId(Slide.class);
             if (slideId != null) {
                 slide.setSlideId(slideId);

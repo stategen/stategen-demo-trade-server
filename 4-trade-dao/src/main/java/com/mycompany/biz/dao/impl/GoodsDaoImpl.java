@@ -36,7 +36,7 @@ public class GoodsDaoImpl  extends SqlDaoSupportBase implements GoodsDao {
 		if(goods == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerateService != null) {
+        if (idGenerateService != null && goods.getGoodsId() == null) {
             String goodsId = idGenerateService.generateId(Goods.class);
             if (goodsId != null) {
                 goods.setGoodsId(goodsId);

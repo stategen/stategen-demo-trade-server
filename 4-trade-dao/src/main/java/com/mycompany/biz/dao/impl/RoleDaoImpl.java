@@ -36,7 +36,7 @@ public class RoleDaoImpl  extends SqlDaoSupportBase implements RoleDao {
 		if(role == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerateService != null) {
+        if (idGenerateService != null && role.getRoleId() == null) {
             String roleId = idGenerateService.generateId(Role.class);
             if (roleId != null) {
                 role.setRoleId(roleId);

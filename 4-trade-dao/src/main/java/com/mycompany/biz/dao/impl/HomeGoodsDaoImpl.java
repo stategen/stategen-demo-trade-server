@@ -36,7 +36,7 @@ public class HomeGoodsDaoImpl  extends SqlDaoSupportBase implements HomeGoodsDao
 		if(homeGoods == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerateService != null) {
+        if (idGenerateService != null && homeGoods.getRecommendId() == null) {
             String recommendId = idGenerateService.generateId(HomeGoods.class);
             if (recommendId != null) {
                 homeGoods.setRecommendId(recommendId);

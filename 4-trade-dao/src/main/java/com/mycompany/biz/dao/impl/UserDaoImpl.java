@@ -36,7 +36,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 		if(user == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerateService != null) {
+        if (idGenerateService != null && user.getUserId() == null) {
             String userId = idGenerateService.generateId(User.class);
             if (userId != null) {
                 user.setUserId(userId);

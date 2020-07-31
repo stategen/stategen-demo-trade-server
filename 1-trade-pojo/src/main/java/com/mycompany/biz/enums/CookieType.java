@@ -18,7 +18,8 @@ public enum CookieType implements ICookieType {
     
     private Class<? extends IResponseStatus> responseStatusClzOfTokenError;
     
-    CookieType(Class<? extends ICookieType> cookieTypeClz,
+    CookieType(
+            Class<? extends ICookieType> cookieTypeClz,
             String cookiePrefixName,
             Class<? extends IResponseStatus> responseStatusClzOfTokenError) {
         this.cookiePrefixName              = cookiePrefixName;

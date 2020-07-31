@@ -36,7 +36,7 @@ public class TopicReplyDaoImpl  extends SqlDaoSupportBase implements TopicReplyD
 		if(topicReply == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerateService != null) {
+        if (idGenerateService != null && topicReply.getReplyId() == null) {
             String replyId = idGenerateService.generateId(TopicReply.class);
             if (replyId != null) {
                 topicReply.setReplyId(replyId);

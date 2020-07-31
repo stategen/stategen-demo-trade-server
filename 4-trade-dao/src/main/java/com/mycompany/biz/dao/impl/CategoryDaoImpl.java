@@ -36,7 +36,7 @@ public class CategoryDaoImpl  extends SqlDaoSupportBase implements CategoryDao {
 		if(category == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerateService != null) {
+        if (idGenerateService != null && category.getCategoryId() == null) {
             String categoryId = idGenerateService.generateId(Category.class);
             if (categoryId != null) {
                 category.setCategoryId(categoryId);

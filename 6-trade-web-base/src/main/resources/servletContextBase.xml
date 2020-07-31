@@ -128,6 +128,7 @@
     <bean class="org.stategen.framework.spring.mvc.SwaggerConfig" />
 
     <!-- 文档转文档 -->
+    <!-- swagger2 {serverName}/doc/index.html -->
     <mvc:resources mapping="/doc/**" location="classpath:/doc/" />
     <mvc:resources mapping="/uploads/**" location="file:/uploads/" />
 

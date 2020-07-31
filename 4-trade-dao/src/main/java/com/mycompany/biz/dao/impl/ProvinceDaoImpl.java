@@ -36,7 +36,7 @@ public class ProvinceDaoImpl  extends SqlDaoSupportBase implements ProvinceDao {
 		if(province == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerateService != null) {
+        if (idGenerateService != null && province.getProvinceId() == null) {
             String provinceId = idGenerateService.generateId(Province.class);
             if (provinceId != null) {
                 province.setProvinceId(provinceId);

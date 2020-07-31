@@ -36,7 +36,7 @@ public class FileSummaryDaoImpl  extends SqlDaoSupportBase implements FileSummar
 		if(fileSummary == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
-        if (idGenerateService != null) {
+        if (idGenerateService != null && fileSummary.getFileId() == null) {
             String fileId = idGenerateService.generateId(FileSummary.class);
             if (fileId != null) {
                 fileSummary.setFileId(fileId);

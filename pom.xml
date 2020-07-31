@@ -28,7 +28,7 @@
         <trade-facade-version>1.0.0</trade-facade-version>
         <!-- 包含业务逻辑代码的jar，不能被发布到maven仓库中，故以snapshort结尾,请在nexus中控制禁止接收snapshot版本,避免误发 -->
         <system.version.SNAPSHOT>trade-1.0.0.SNAPSHOT</system.version.SNAPSHOT>
-        <weixin-java.version>3.8.0</weixin-java.version>
+
         <!-- 当项目转会为spring-boot后，这个值必须与spring-boot内的值相同，否则会有兼容问题 -->
         <spring.version>5.1.10.RELEASE</spring.version>
         <spring-data-redis-version>2.1.10.RELEASE</spring-data-redis-version>
