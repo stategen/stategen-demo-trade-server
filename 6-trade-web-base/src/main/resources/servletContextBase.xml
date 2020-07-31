@@ -19,8 +19,7 @@
     http://www.springframework.org/schema/task/spring-task.xsd
     http://www.springframework.org/schema/aop 
     http://www.springframework.org/schema/aop/spring-aop.xsd"
-    default-autowire="byName"
->
+    default-autowire="byName">
     <aop:aspectj-autoproxy />
 
     
@@ -144,6 +143,6 @@
             </mvc:resolvers>
         </mvc:resource-chain>
     </mvc:resources>
-
+    
     <import resource="classpath*:servlet/*-spring.xml" />
 </beans>
