@@ -11,6 +11,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
@@ -30,7 +32,10 @@ import com.mycompany.biz.service.HomeShopService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class HomeShopServiceImpl implements HomeShopService {
+public class HomeShopServiceImpl implements HomeShopService, IdGenerateService<String> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     @Resource(name = "homeShopDao")
     HomeShopDao homeShopDao;
@@ -42,7 +47,7 @@ public class HomeShopServiceImpl implements HomeShopService {
      */
     @Override
     public HomeShop insert(HomeShop homeShop) {
-        return homeShopDao.insert(homeShop);
+        return homeShopDao.insert(homeShop, this);
     }
 
     /**
@@ -141,5 +146,10 @@ public class HomeShopServiceImpl implements HomeShopService {
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, HomeShopServiceImpl::getHomeShopsByHomeShopIds, HomeShop::getHomeShopId);
+    }
+
+    @Override
+    public <T> String generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(String.class, bizTagClz);
     }
 }

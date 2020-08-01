@@ -24,6 +24,7 @@
     <bean id="homeShopDao" class="com.mycompany.biz.dao.impl.HomeShopDaoImpl" parent="abstractDaoSupport" />
     <bean id="hoppyDao" class="com.mycompany.biz.dao.impl.HoppyDaoImpl" parent="abstractDaoSupport" />
     <bean id="menuDao" class="com.mycompany.biz.dao.impl.MenuDaoImpl" parent="abstractDaoSupport" />
+    <bean id="organizationDao" class="com.mycompany.biz.dao.impl.OrganizationDaoImpl" parent="abstractDaoSupport" />
     <bean id="provinceDao" class="com.mycompany.biz.dao.impl.ProvinceDaoImpl" parent="abstractDaoSupport" />
     <bean id="regionDao" class="com.mycompany.biz.dao.impl.RegionDaoImpl" parent="abstractDaoSupport" />
     <bean id="roleDao" class="com.mycompany.biz.dao.impl.RoleDaoImpl" parent="abstractDaoSupport" />
@@ -31,6 +32,8 @@
     <bean id="shopDao" class="com.mycompany.biz.dao.impl.ShopDaoImpl" parent="abstractDaoSupport" />
     <bean id="slideDao" class="com.mycompany.biz.dao.impl.SlideDaoImpl" parent="abstractDaoSupport" />
     <bean id="topicDao" class="com.mycompany.biz.dao.impl.TopicDaoImpl" parent="abstractDaoSupport" />
+    <bean id="topicLevelHDao" class="com.mycompany.biz.dao.impl.TopicLevelHDaoImpl" parent="abstractDaoSupport" />
+    <bean id="topicOwnerHDao" class="com.mycompany.biz.dao.impl.TopicOwnerHDaoImpl" parent="abstractDaoSupport" />
     <bean id="topicReplyDao" class="com.mycompany.biz.dao.impl.TopicReplyDaoImpl" parent="abstractDaoSupport" />
     <bean id="topicUpDao" class="com.mycompany.biz.dao.impl.TopicUpDaoImpl" parent="abstractDaoSupport" />
     <bean id="userDao" class="com.mycompany.biz.dao.impl.UserDaoImpl" parent="abstractDaoSupport" />

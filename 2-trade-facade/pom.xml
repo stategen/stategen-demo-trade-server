@@ -20,6 +20,12 @@
             <groupId>com.mycompany.biz</groupId>
             <artifactId>trade-pojo</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo</artifactId>
+            <!-- for validate file dubbo-env-auto-trade-spring.xml -->
+            <scope>provided</scope>
+        </dependency>        
     </dependencies>
 
     <build>

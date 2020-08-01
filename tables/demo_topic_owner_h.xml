@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE
+    table SYSTEM "https://github.com/stategen/dalgenx/blob/master/gen.schemas-1.0.dtd"
+    [<!ENTITY TOPICOWNERH SYSTEM "demo_topic_owner_h.xml.xhtml">
+]>
+<table sqlName="demo_topic_owner_h" className="TopicOwnerH" remarks="数据水平权限，只有直系上级有权限" isSimple="true">
+    <!-- table描述中有'-tree' 或 '-level(tableName)' 或(和) '-owner(tableName)'  将生成相应的辅助sql-->
+    <!-- 特殊类型字段，如枚举 -->
+    <!-- <column name="status" javaType="com.mycompany.biz.enums.StatusEnum"/> -->
+
+    <sql id="getTopicOwnerHPageListOrderBy">
+        a.update_time desc, a.create_time desc
+    </sql>
+    <sql id="getTopicOwnerHsByIdsOrderBy">
+        a.update_time desc, a.create_time desc
+    </sql>
+
+    <!-- 引用 demo_topic_owner_h.xml.xhtml ,表修改后，需重新执行 gen.sh table demo_topic_owner_h -e -->
+    &TOPICOWNERH;
+    <!-- 引用 demo_topic_owner_h.xml.xhtml 结束 -->
+
+    <!-- 自定义方法请写在下面 需要自动提示，请将dalgenX目录下的 gen.schemas-1.0.dtd 配到 eclipse 或 idea中
+      file:gen.schemas-1.0.dtd
+      System Id
+      https://github.com/stategen/dalgenx/blob/master/gen.schemas-1.0.dtd
+    -->
+    <!--
+    <operation name="..." remarks="">
+        <sql>
+            ...
+        </sql>
+    </operation>
+    -->
+
+</table>

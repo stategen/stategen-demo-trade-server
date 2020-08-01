@@ -54,7 +54,13 @@ public class Goods implements java.io.Serializable {
     @JSONField(serialize = false)
     private String goodsDetailLike;
 
+    /*** categorySubIds in getPageList */
+    @ApiModelProperty("categorySubId s")
+    @JSONField(serialize = false)
+    private java.util.List<String> categorySubIds;
+
     /***不使用或自定义字段在下次生成后，会移到serialVersionUID的上面*/
+    /* 如果字段注释中包括 -inherited 将不生成 */
     private static final long serialVersionUID = -5216457518046898601L;
 
     /***商品ID   db_column: goods_id VARCHAR */
@@ -178,7 +184,7 @@ public class Goods implements java.io.Serializable {
         sb.append('{');
         sb.append("goodsIds").append('=').append(goodsIds).append('\n');
         sb.append("goodsNameLike").append('=').append(goodsNameLike).append('\n');
-        sb.append("categorySubIds").append('=').append(categorySubIds).append('\n');
+        sb.append("categorySubIdLike").append('=').append(categorySubIdLike).append('\n');
         sb.append("amountMin").append('=').append(amountMin).append('\n');
         sb.append("amountMax").append('=').append(amountMax).append('\n');
         sb.append("priceMin").append('=').append(priceMin).append('\n');
@@ -240,10 +246,10 @@ public class Goods implements java.io.Serializable {
     @JSONField(serialize = false)
     private String goodsNameLike;
 
-    /*** categorySubIds in getPageList */
-    @ApiModelProperty("categorySubId s")
+    /*** categorySubIdLike in getPageList */
+    @ApiModelProperty("categorySubIdLike")
     @JSONField(serialize = false)
-    private java.util.List<String> categorySubIds;
+    private String categorySubIdLike;
 
     /*** 数量 代替countMin in getPageList */
     @ApiModelProperty("数量Min")

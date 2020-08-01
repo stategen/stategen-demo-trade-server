@@ -1,221 +1,229 @@
-﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_slide -e 会自动覆盖-->
+﻿    <!-- 表中至少有一个更新字段(update_time,gmt_update或自定义)，一个主键 -->
+    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_slide -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_slide (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="slideId"> slide_id </isNotNull>
-            <isNotNull prepend="," property="goodsId"> goods_id </isNotNull>
-            <isNotNull prepend="," property="image"> image </isNotNull>
-            <isNotNull prepend="," property="urlType"> urlType </isNotNull>
-            <isNotNull prepend="," property="orderNo"> order_no </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="slideId"> ?  </isNotNull>
-            <isNotNull prepend="," property="goodsId"> ?  </isNotNull>
-            <isNotNull prepend="," property="image"> ?  </isNotNull>
-            <isNotNull prepend="," property="urlType"> ?  </isNotNull>
-            <isNotNull prepend="," property="orderNo"> ?  </isNotNull>
-            )
-            <selectKey keyProperty="slideId" resultClass="String" type="pre">
-                select if((#slideId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#slideId# ) as slideId
-            </selectKey>
+           insert into demo_slide (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="slideId"> slide_id </isNotNull>
+             <isNotNull prepend="," property="goodsId"> goods_id </isNotNull>
+             <isNotNull prepend="," property="image"> image </isNotNull>
+             <isNotNull prepend="," property="urlType"> urlType </isNotNull>
+             <isNotNull prepend="," property="orderNo"> order_no </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="slideId"> ?  </isNotNull>
+             <isNotNull prepend="," property="goodsId"> ?  </isNotNull>
+             <isNotNull prepend="," property="image"> ?  </isNotNull>
+             <isNotNull prepend="," property="urlType"> ?  </isNotNull>
+             <isNotNull prepend="," property="orderNo"> ?  </isNotNull>
+           )
+           <selectKey keyProperty="slideId" resultClass="String" type="pre">
+              select if((#slideId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#slideId# ) as slideId
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE demo_slide SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and slide_id = ?
+           UPDATE demo_slide a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.slide_id = ?
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE demo_slide
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="goodsId" prepend=",">
-                    goods_id =  ? 
-                </isNotNull>
-                <isNotNull property="image" prepend=",">
-                    image =  ? 
-                </isNotNull>
-                <isNotNull property="urlType" prepend=",">
-                    urlType =  ? 
-                </isNotNull>
-                <isNotNull property="orderNo" prepend=",">
-                    order_no =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and slide_id = ?
+           UPDATE demo_slide a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="goodsId" prepend=",">
+             a.goods_id =  ? 
+             </isNotNull>
+             <isNotNull property="image" prepend=",">
+             a.image =  ? 
+             </isNotNull>
+             <isNotNull property="urlType" prepend=",">
+             a.urlType =  ? 
+             </isNotNull>
+             <isNotNull property="orderNo" prepend=",">
+             a.order_no =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.slide_id = ?
         </sql>
     </operation>
+
+    <!-- 主建或 unique索引生成单独查询 -->
 
     <operation name="getSlideBySlideId" multiplicity="one" remarks="">
         <sql>
-            select
-            a.slide_id,
-            a.goods_id,
-            a.image,
-            a.urlType,
-            a.order_no,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_slide a
-            where
-            a.delete_flag = 0
-            and a.slide_id = ?
+           select
+             a.slide_id,
+             a.goods_id,
+             a.image,
+             a.urlType,
+             a.order_no,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_slide a
+           where
+             a.delete_flag = 0
+             and a.slide_id = ?
         </sql>
     </operation>
 
+    <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
-            select
-            a.slide_id,
-            a.goods_id,
-            a.image,
-            a.urlType,
-            a.order_no,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_slide a
-            where
-            a.delete_flag = 0
-            <isNotNull property="slideId">
-               and a.slide_id=?
-            </isNotNull>
-            <isNotEmpty property="slideIds">
-                and a.slide_id in
-                <iterate property="slideIds" conjunction="," open="(" close=")">
-                    #slideIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="goodsId">
-               and a.goods_id=?
-            </isNotNull>
-            <isNotEmpty property="goodsIds">
-                and a.goods_id in
-                <iterate property="goodsIds" conjunction="," open="(" close=")">
-                    #goodsIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="urlType">
-               and a.urlType=?
-            </isNotNull>
-            <isNotEmpty property="urlTypes">
-                and a.urlType in
-                <iterate property="urlTypes" conjunction="," open="(" close=")">
-                    #urlTypes[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="orderNo">
-               and a.order_no=?
-            </isNotNull>
-            <isNotEmpty property="orderNos">
-                and a.order_no in
-                <iterate property="orderNos" conjunction="," open="(" close=")">
-                    #orderNos[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="slideId">
-            <isEmpty property="slideIds">
-            <isNull property="goodsId">
-            <isEmpty property="goodsIds">
-            <isNull property="urlType">
-            <isEmpty property="urlTypes">
-            <isNull property="orderNo">
-            <isEmpty property="orderNos">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            order by
-            <include refid = "getSlidePageListOrderBy" />
+           select
+             a.slide_id,
+             a.goods_id,
+             a.image,
+             a.urlType,
+             a.order_no,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_slide a
+           where
+             a.delete_flag = 0
+             <isNotNull property="slideId">
+             and a.slide_id=?
+             </isNotNull>
+             <isNotEmpty property="slideIds">
+             and a.slide_id in
+               <iterate property="slideIds" conjunction="," open="(" close=")">
+               #slideIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="goodsId">
+             and a.goods_id=?
+             </isNotNull>
+             <isNotEmpty property="goodsIds">
+             and a.goods_id in
+               <iterate property="goodsIds" conjunction="," open="(" close=")">
+               #goodsIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="urlType">
+             and a.urlType=?
+             </isNotNull>
+             <isNotNull property="urlTypeMin">
+             and a.urlType >=#urlTypeMin#
+             </isNotNull>
+             <isNotNull property="urlTypeMax">
+             and a.urlType &lt;#urlTypeMax#
+             </isNotNull>
+             <isNotNull property="orderNo">
+             and a.order_no=?
+             </isNotNull>
+             <isNotEmpty property="orderNos">
+             and a.order_no in
+               <iterate property="orderNos" conjunction="," open="(" close=")">
+               #orderNos[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="slideId">
+             <isEmpty property="slideIds">
+             <isNull property="goodsId">
+             <isEmpty property="goodsIds">
+             <isNull property="urlType">
+             <isNull property="urlTypeMin">
+             <isNull property="urlTypeMax">
+             <isNull property="orderNo">
+             <isEmpty property="orderNos">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+           order by
+             <include refid="getSlidePageListOrderBy"/>
         </sql>
     </operation>
-    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
+    <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getSlidesBySlideIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.slide_id,
-            a.goods_id,
-            a.image,
-            a.urlType,
-            a.order_no,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_slide a
-            where
-            a.delete_flag = 0
-            <isEmpty property="slideIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="slideIds">
-                and a.slide_id in
+           select
+             a.slide_id,
+             a.goods_id,
+             a.image,
+             a.urlType,
+             a.order_no,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_slide a
+           where
+             a.delete_flag = 0
+             <isEmpty property="slideIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="slideIds" prepend="and">
+             a.slide_id in
                 <iterate property="slideIds" conjunction="," open="(" close=")">
-                    #slideIds[]#
+                   #slideIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getSlidesBySlideIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getSlidesBySlideIdsOrderBy"/>
         </sql>
     </operation>
 
     <operation name="deleteBySlideIds" remarks="">
         <sql>
-            UPDATE demo_slide SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="slideIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="slideIds">
-                and slide_id in
+           UPDATE demo_slide a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="slideIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="slideIds" prepend="and">
+             a.slide_id in
                 <iterate property="slideIds" conjunction="," open="(" close=")">
-                    #slideIds[]#
+                   #slideIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
         </sql>
     </operation>
     
-    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_slide -e 会自动覆盖-->
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_slide -e 会自动覆盖 -->

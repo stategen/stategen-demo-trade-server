@@ -2,21 +2,19 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
-import org.stategen.framework.ibatis.util.PageQueryUtils;
+import com.mycompany.biz.domain.AdvertisePicture;
+import com.mycompany.biz.dao.AdvertisePictureDao;
 import org.stategen.framework.lite.PageList;
 
-import com.mycompany.biz.dao.AdvertisePictureDao;
-import com.mycompany.biz.domain.AdvertisePicture;
-
+import org.springframework.dao.DataAccessException;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * AdvertisePictureDao
  * <pre>
@@ -27,79 +25,87 @@ import com.mycompany.biz.domain.AdvertisePicture;
  * 该类仅可以修改引用
  * </pre>
  */
-public class AdvertisePictureDaoImpl extends SqlDaoSupportBase implements AdvertisePictureDao {
+public class AdvertisePictureDaoImpl  extends SqlDaoSupportBase implements AdvertisePictureDao {
 
-    /**
+
+	/**
 	 * 
 	 * sql:insert into demo_advertise_picture ( create_time , update_time , delete_flag , advertise_id , PICTURE_ADDRESS , TO_PLACE , url_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-    public AdvertisePicture insert(AdvertisePicture advertisePicture) throws DataAccessException {
-        if (advertisePicture == null) {
-            throw new IllegalArgumentException("Can't insert a null data object into db.");
+	public AdvertisePicture insert(AdvertisePicture advertisePicture, IdGenerateService<Long> idGenerateService) throws DataAccessException {
+		if(advertisePicture == null) {
+			throw new IllegalArgumentException("Can't insert a null data object into db.");
+		}
+        if (idGenerateService != null && advertisePicture.getAdvertiseId() == null) {
+            Long advertiseId = idGenerateService.generateId(AdvertisePicture.class);
+            if (advertiseId != null) {
+                advertisePicture.setAdvertiseId(advertiseId);
+            }
         }
         super.insert("AdvertisePicture.insert", advertisePicture);
-        return advertisePicture;
-    }
+		return advertisePicture;
+	}
 
-    /**
+	/**
 	 * 
-	 * sql:UPDATE demo_advertise_picture SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and advertise_id = ?
+	 * sql:UPDATE demo_advertise_picture a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.advertise_id = ?
 	 */
-    public Long delete(Long advertiseId) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("advertiseId", advertiseId);
+	public Long delete(Long advertiseId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("advertiseId",advertiseId);
         super.update("AdvertisePicture.delete", params);
         return advertiseId;
-    }
+	}
 
-    /**
+	/**
 	 * 
-	 * sql:UPDATE demo_advertise_picture SET update_time= CURRENT_TIMESTAMP(6) , PICTURE_ADDRESS = ? , TO_PLACE = ? , url_type = ? where delete_flag = 0 and advertise_id = ?
+	 * sql:UPDATE demo_advertise_picture a SET a.update_time= CURRENT_TIMESTAMP(6) , a.PICTURE_ADDRESS = ? , a.TO_PLACE = ? , a.url_type = ? where a.delete_flag = 0 and a.advertise_id = ?
 	 */
-    public AdvertisePicture update(AdvertisePicture advertisePicture) throws DataAccessException {
-        if (advertisePicture == null) {
-            throw new IllegalArgumentException("Can't update by a null data object.");
-        }
+	public AdvertisePicture update(AdvertisePicture advertisePicture) throws DataAccessException {
+		if(advertisePicture == null) {
+			throw new IllegalArgumentException("Can't update by a null data object.");
+		}
         super.update("AdvertisePicture.update", advertisePicture);
-        return advertisePicture;
-    }
+		return advertisePicture;
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.advertise_id, a.PICTURE_ADDRESS, a.TO_PLACE, a.url_type, a.create_time, a.update_time, a.delete_flag from demo_advertise_picture a where a.delete_flag = 0 and a.advertise_id = ?
 	 */
-    public AdvertisePicture getAdvertisePictureByAdvertiseId(Long advertiseId) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("advertiseId", advertiseId);
-        return (AdvertisePicture) super.selectOne("AdvertisePicture.getAdvertisePictureByAdvertiseId", params);
-    }
+	public AdvertisePicture getAdvertisePictureByAdvertiseId(Long advertiseId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("advertiseId",advertiseId);
+		return (AdvertisePicture)super.selectOne("AdvertisePicture.getAdvertisePictureByAdvertiseId",params);
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.advertise_id, a.PICTURE_ADDRESS, a.TO_PLACE, a.url_type, a.create_time, a.update_time, a.delete_flag from demo_advertise_picture a where a.delete_flag = 0 and a.advertise_id=? and a.advertise_id in ( ? ) and a.PICTURE_ADDRESS=? and a.PICTURE_ADDRESS like CONCAT('%',?,'%') and a.TO_PLACE=? and a.TO_PLACE like CONCAT('%',?,'%') and a.url_type=? and a.url_type in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.update_time desc, a.create_time desc
 	 */
-    public PageList<AdvertisePicture> getPageList(AdvertisePicture advertisePicture, int pageSize, int pageNum) throws DataAccessException {
-        return super.pageQuery("AdvertisePicture.getPageList", advertisePicture, pageNum, pageSize);
-    }
+	public PageList<AdvertisePicture> getPageList(AdvertisePicture advertisePicture, int pageSize, int pageNum) throws DataAccessException {
+		return super.pageQuery("AdvertisePicture.getPageList",advertisePicture,pageNum,pageSize);
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.advertise_id, a.PICTURE_ADDRESS, a.TO_PLACE, a.url_type, a.create_time, a.update_time, a.delete_flag from demo_advertise_picture a where a.delete_flag = 0 and 1=0 and a.advertise_id in ( ? ) order by a.update_time desc, a.create_time desc
 	 */
-    public List<AdvertisePicture> getAdvertisePicturesByAdvertiseIds(java.util.List<Long> advertiseIds) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("advertiseIds", advertiseIds);
-        return super.selectList("AdvertisePicture.getAdvertisePicturesByAdvertiseIds", params);
-    }
+	public List<AdvertisePicture> getAdvertisePicturesByAdvertiseIds(java.util.List<Long> advertiseIds) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("advertiseIds",advertiseIds);
+		return super.selectList("AdvertisePicture.getAdvertisePicturesByAdvertiseIds",params);
+	}
 
-    /**
+	/**
 	 * 
-	 * sql:UPDATE demo_advertise_picture SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and advertise_id in ( ? )
+	 * sql:UPDATE demo_advertise_picture a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.advertise_id in ( ? )
 	 */
-    public java.util.List<Long> deleteByAdvertiseIds(java.util.List<Long> advertiseIds) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("advertiseIds", advertiseIds);
+	public java.util.List<Long> deleteByAdvertiseIds(java.util.List<Long> advertiseIds) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("advertiseIds",advertiseIds);
         super.update("AdvertisePicture.deleteByAdvertiseIds", params);
         return advertiseIds;
-    }
+	}
 }
+

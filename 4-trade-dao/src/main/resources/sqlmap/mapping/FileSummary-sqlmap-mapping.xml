@@ -31,79 +31,80 @@
     
 	<insert id="FileSummary.insert">
 		insert into file_summary (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="fileId"> file_id </isNotNull>
-            <isNotNull prepend="," property="url"> url </isNotNull>
-            <isNotNull prepend="," property="size"> size </isNotNull>
-            <isNotNull prepend="," property="name"> name </isNotNull>
-            <isNotNull prepend="," property="type"> type </isNotNull>
-            <isNotNull prepend="," property="userId"> user_id </isNotNull>
-            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="fileId"> file_id </isNotNull>
+             <isNotNull prepend="," property="url"> url </isNotNull>
+             <isNotNull prepend="," property="size"> size </isNotNull>
+             <isNotNull prepend="," property="name"> name </isNotNull>
+             <isNotNull prepend="," property="type"> type </isNotNull>
+             <isNotNull prepend="," property="userId"> user_id </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="fileId"> #fileId# </isNotNull> 
             <isNotNull prepend="," property="url"> #url# </isNotNull> 
             <isNotNull prepend="," property="size"> #size# </isNotNull> 
             <isNotNull prepend="," property="name"> #name# </isNotNull> 
             <isNotNull prepend="," property="type"> #type# </isNotNull> 
             <isNotNull prepend="," property="userId"> #userId# </isNotNull>)
-            <selectKey keyProperty="fileId" resultClass="String" type="pre">
-                select if((#fileId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#fileId# ) as fileId
-            </selectKey>
+           <selectKey keyProperty="fileId" resultClass="String" type="pre">
+              select if((#fileId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#fileId# ) as fileId
+           </selectKey>
 	</insert>
 	
 	<update id="FileSummary.delete">
-		UPDATE file_summary SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and file_id = #fileId#
+		UPDATE file_summary a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.file_id = #fileId#
 	</update>
 	
     
 	
 	<update id="FileSummary.update">
-		UPDATE file_summary
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull prepend="," property="url">
-                    url =  #url# 
-                </isNotNull>
-                <isNotNull prepend="," property="size">
-                    size =  #size# 
-                </isNotNull>
-                <isNotNull prepend="," property="name">
-                    name =  #name# 
-                </isNotNull>
-                <isNotNull prepend="," property="type">
-                    type =  #type# 
-                </isNotNull>
-                <isNotNull prepend="," property="userId">
-                    user_id =  #userId# 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and file_id = #fileId#
+		UPDATE file_summary a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="url">
+             a.url =  #url# 
+             </isNotNull>
+             <isNotNull prepend="," property="size">
+             a.size =  #size# 
+             </isNotNull>
+             <isNotNull prepend="," property="name">
+             a.name =  #name# 
+             </isNotNull>
+             <isNotNull prepend="," property="type">
+             a.type =  #type# 
+             </isNotNull>
+             <isNotNull prepend="," property="userId">
+             a.user_id =  #userId# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.file_id = #fileId#
 	</update>
 	
     
 	
 	<select id="FileSummary.getFileSummaryByFileId" resultMap="FileSummary_RM" >
     	select
- /* getFileSummaryByFileId.FileSummary */             a.file_id,
-            a.url,
-            a.size,
-            a.name,
-            a.type,
-            a.user_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from file_summary a
-            where
-            a.delete_flag = 0
-            and a.file_id = #fileId#
+ /* getFileSummaryByFileId.FileSummary */              a.file_id,
+             a.url,
+             a.size,
+             a.name,
+             a.type,
+             a.user_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from file_summary a
+           where
+             a.delete_flag = 0
+             and a.file_id = #fileId#
 	</select>	
 
 	    
@@ -113,197 +114,191 @@
 	
 	<select id="FileSummary.getPageList" resultMap="FileSummary_RM" >
     	select
- /* getPageList.FileSummary */             a.file_id,
-            a.url,
-            a.size,
-            a.name,
-            a.type,
-            a.user_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from file_summary a
-            where
-            a.delete_flag = 0
-            <isNotNull property="fileId">
-               and a.file_id=#fileId#
-            </isNotNull>
-            <isNotEmpty property="fileIds">
-                and a.file_id in
-                <iterate close=")" conjunction="," open="(" property="fileIds">
-                    #fileIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="size">
-                and a.size=#size#
-          </isNotNull>
-            <isNotNull property="sizeMin">
-                and a.size >=#sizeMin#
-            </isNotNull>
-            <isNotNull property="sizeMax">
-                and a.size &lt;#sizeMax#
-            </isNotNull>
-          <isNotNull property="name">
-            and a.name=#name#
-          </isNotNull>
-            <isNotEmpty property="nameLike">
-                and a.name like CONCAT('%',#nameLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="type">
-               and a.type=#type#
-            </isNotNull>
-            <isNotEmpty property="types">
-                and a.type in
-                <iterate close=")" conjunction="," open="(" property="types">
-                    #types[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="userId">
-               and a.user_id=#userId#
-            </isNotNull>
-            <isNotEmpty property="userIds">
-                and a.user_id in
-                <iterate close=")" conjunction="," open="(" property="userIds">
-                    #userIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="fileId">
-            <isEmpty property="fileIds">
-            <isNull property="size">
-            <isNull property="sizeMin">
-            <isNull property="sizeMax">
-            <isNull property="name">
-            <isEmpty property="nameLike">
-            <isNull property="type">
-            <isEmpty property="types">
-            <isNull property="userId">
-            <isEmpty property="userIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            order by
-            <include refid="getFileSummaryPageListOrderBy"/>
+ /* getPageList.FileSummary */              a.file_id,
+             a.url,
+             a.size,
+             a.name,
+             a.type,
+             a.user_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from file_summary a
+           where
+             a.delete_flag = 0
+             <isNotNull property="fileId">
+             and a.file_id=#fileId#
+             </isNotNull>
+             <isNotEmpty property="fileIds">
+             and a.file_id in
+               <iterate close=")" conjunction="," open="(" property="fileIds">
+               #fileIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="size">
+             and a.size=#size#
+             </isNotNull>
+             <isNotNull property="sizeMin">
+             and a.size >=#sizeMin#
+             </isNotNull>
+             <isNotNull property="sizeMax">
+             and a.size &lt;#sizeMax#
+             </isNotNull>
+             <isNotNull property="name">
+             and a.name=#name#
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="type">
+             and a.type=#type#
+             </isNotNull>
+             <isNotEmpty property="typeLike">
+             and a.type like CONCAT('%',#typeLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="userId">
+             and a.user_id=#userId#
+             </isNotNull>
+             <isNotEmpty property="userIds">
+             and a.user_id in
+               <iterate close=")" conjunction="," open="(" property="userIds">
+               #userIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="fileId">
+             <isEmpty property="fileIds">
+             <isNull property="size">
+             <isNull property="sizeMin">
+             <isNull property="sizeMax">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="type">
+             <isEmpty property="typeLike">
+             <isNull property="userId">
+             <isEmpty property="userIds">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+           order by
+             <include refid="getFileSummaryPageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
 	<select id="FileSummary.getPageList_count" resultClass="long" >
     	select  /* getPageList_count.FileSummary */ count(*)  from file_summary a
-            where
-            a.delete_flag = 0
-            <isNotNull property="fileId">
-               and a.file_id=#fileId#
-            </isNotNull>
-            <isNotEmpty property="fileIds">
-                and a.file_id in
-                <iterate close=")" conjunction="," open="(" property="fileIds">
-                    #fileIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="size">
-                and a.size=#size#
-          </isNotNull>
-            <isNotNull property="sizeMin">
-                and a.size >=#sizeMin#
-            </isNotNull>
-            <isNotNull property="sizeMax">
-                and a.size &lt;#sizeMax#
-            </isNotNull>
-          <isNotNull property="name">
-            and a.name=#name#
-          </isNotNull>
-            <isNotEmpty property="nameLike">
-                and a.name like CONCAT('%',#nameLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="type">
-               and a.type=#type#
-            </isNotNull>
-            <isNotEmpty property="types">
-                and a.type in
-                <iterate close=")" conjunction="," open="(" property="types">
-                    #types[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="userId">
-               and a.user_id=#userId#
-            </isNotNull>
-            <isNotEmpty property="userIds">
-                and a.user_id in
-                <iterate close=")" conjunction="," open="(" property="userIds">
-                    #userIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="fileId">
-            <isEmpty property="fileIds">
-            <isNull property="size">
-            <isNull property="sizeMin">
-            <isNull property="sizeMax">
-            <isNull property="name">
-            <isEmpty property="nameLike">
-            <isNull property="type">
-            <isEmpty property="types">
-            <isNull property="userId">
-            <isEmpty property="userIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           where
+             a.delete_flag = 0
+             <isNotNull property="fileId">
+             and a.file_id=#fileId#
+             </isNotNull>
+             <isNotEmpty property="fileIds">
+             and a.file_id in
+               <iterate close=")" conjunction="," open="(" property="fileIds">
+               #fileIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="size">
+             and a.size=#size#
+             </isNotNull>
+             <isNotNull property="sizeMin">
+             and a.size >=#sizeMin#
+             </isNotNull>
+             <isNotNull property="sizeMax">
+             and a.size &lt;#sizeMax#
+             </isNotNull>
+             <isNotNull property="name">
+             and a.name=#name#
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="type">
+             and a.type=#type#
+             </isNotNull>
+             <isNotEmpty property="typeLike">
+             and a.type like CONCAT('%',#typeLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="userId">
+             and a.user_id=#userId#
+             </isNotNull>
+             <isNotEmpty property="userIds">
+             and a.user_id in
+               <iterate close=")" conjunction="," open="(" property="userIds">
+               #userIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="fileId">
+             <isEmpty property="fileIds">
+             <isNull property="size">
+             <isNull property="sizeMin">
+             <isNull property="sizeMax">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="type">
+             <isEmpty property="typeLike">
+             <isNull property="userId">
+             <isEmpty property="userIds">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
 	</select>
 	    
 	
@@ -312,29 +307,29 @@
 	
 	<select id="FileSummary.getFileSummarysByFileIds" resultMap="FileSummary_RM" >
     	select
- /* getFileSummarysByFileIds.FileSummary */             a.file_id,
-            a.url,
-            a.size,
-            a.name,
-            a.type,
-            a.user_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from file_summary a
-            where
-            a.delete_flag = 0
-            <isEmpty property="fileIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="fileIds">
-                and a.file_id in
+ /* getFileSummarysByFileIds.FileSummary */              a.file_id,
+             a.url,
+             a.size,
+             a.name,
+             a.type,
+             a.user_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from file_summary a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="fileIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="fileIds">
+             a.file_id in
                 <iterate close=")" conjunction="," open="(" property="fileIds">
-                    #fileIds[]#
+                   #fileIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getFileSummarysByFileIdsOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getFileSummarysByFileIdsOrderBy"/>
 	</select>	
 
 	    
@@ -343,20 +338,21 @@
     
 	
 	<update id="FileSummary.deleteByFileIds">
-		UPDATE file_summary SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="fileIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="fileIds">
-                and file_id in
+		UPDATE file_summary a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="fileIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="fileIds">
+             a.file_id in
                 <iterate close=")" conjunction="," open="(" property="fileIds">
-                    #fileIds[]#
+                   #fileIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     

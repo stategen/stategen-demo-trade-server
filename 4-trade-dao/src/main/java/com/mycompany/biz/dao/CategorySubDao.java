@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.CategorySub;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * CategorySubDao
@@ -25,46 +26,44 @@ public interface CategorySubDao {
 
 	/**
     <pre>
-    &#64;ApiParam() String categorySubId,
-    &#64;ApiParam() String categoryId,
-    &#64;ApiParam() String subName,
-    &#64;ApiParam() String comments
+    &#64;ApiParam() &#64;RequestParam(required = false) String categorySubId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String categoryId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String subName,
+    &#64;ApiParam() &#64;RequestParam(required = false) String comments
     ,&#64;ApiParam(hidden = true) CategorySub categorySub
     
     </pre>
 	 * 
 	 * sql:insert into demo_category_sub ( create_time , update_time , delete_flag , category_sub_id , category_id , sub_name , comments ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public CategorySub insert(CategorySub categorySub) throws DataAccessException;
+	public CategorySub insert(CategorySub categorySub, IdGenerateService<String> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("categorySubId") String categorySubId
-    
+    &#64;ApiParam("categorySubId") &#64;RequestParam(required = false) String categorySubId    
     </pre>
 	 * 
-	 * sql:UPDATE demo_category_sub SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and category_sub_id = ?
+	 * sql:UPDATE demo_category_sub a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.category_sub_id = ?
 	 */
 	public String delete(String categorySubId) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam() String categoryId,
-    &#64;ApiParam() String subName,
-    &#64;ApiParam() String comments,
-    &#64;ApiParam() String categorySubId
+    &#64;ApiParam() &#64;RequestParam(required = false) String categoryId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String subName,
+    &#64;ApiParam() &#64;RequestParam(required = false) String comments,
+    &#64;ApiParam() &#64;RequestParam(required = false) String categorySubId
     ,&#64;ApiParam(hidden = true) CategorySub categorySub
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_category_sub SET update_time= CURRENT_TIMESTAMP(6) , category_id = ? , sub_name = ? , comments = ? where delete_flag = 0 and category_sub_id = ?
+	 * sql:UPDATE demo_category_sub a SET a.update_time= CURRENT_TIMESTAMP(6) , a.category_id = ? , a.sub_name = ? , a.comments = ? where a.delete_flag = 0 and a.category_sub_id = ?
 	 */
 	public CategorySub update(CategorySub categorySub) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("categorySubId") String categorySubId
-    
+    &#64;ApiParam("categorySubId") &#64;RequestParam(required = false) String categorySubId    
     </pre>
 	 * 
 	 * sql:select a.category_sub_id, a.category_id, a.sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from demo_category_sub a where a.delete_flag = 0 and a.category_sub_id = ?
@@ -73,16 +72,16 @@ public interface CategorySubDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String categorySubId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="categorySubIds") ArrayList&lt;String&gt; categorySubIds,
-    &#64;ApiParam() String categoryId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="categoryIds") ArrayList&lt;String&gt; categoryIds,
-    &#64;ApiParam() String subName,
-    &#64;ApiParam() String subNameLike,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax
+    &#64;ApiParam() &#64;RequestParam(required = false) String categorySubId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="categorySubIds") ArrayList&lt;String&gt; categorySubIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String categoryId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="categoryIds") ArrayList&lt;String&gt; categoryIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String subName,
+    &#64;ApiParam() &#64;RequestParam(required = false) String subNameLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax
     ,&#64;ApiParam(hidden = true) CategorySub categorySub
     ,Pagination pagination
     </pre>
@@ -93,8 +92,7 @@ public interface CategorySubDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("categorySubId")&#64;RequestParam(required =false,name="categorySubIds") ArrayList&lt;String&gt; categorySubIds
-    
+    &#64;ApiParam("categorySubId") &#64;RequestParam(required = false, name="categorySubIds") ArrayList&lt;String&gt; categorySubIds    
     </pre>
 	 * 
 	 * sql:select a.category_sub_id, a.category_id, a.sub_name, a.comments, a.create_time, a.update_time, a.delete_flag from demo_category_sub a where a.delete_flag = 0 and 1=0 and a.category_sub_id in ( ? ) order by a.update_time desc, a.create_time desc
@@ -103,11 +101,10 @@ public interface CategorySubDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("categorySubId")&#64;RequestParam(required =false,name="categorySubIds") ArrayList&lt;String&gt; categorySubIds
-    
+    &#64;ApiParam("categorySubId") &#64;RequestParam(required = false, name="categorySubIds") ArrayList&lt;String&gt; categorySubIds    
     </pre>
 	 * 
-	 * sql:UPDATE demo_category_sub SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and category_sub_id in ( ? )
+	 * sql:UPDATE demo_category_sub a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.category_sub_id in ( ? )
 	 */
 	public java.util.List<String> deleteByCategorySubIds(java.util.List<String> categorySubIds) throws DataAccessException;
 	

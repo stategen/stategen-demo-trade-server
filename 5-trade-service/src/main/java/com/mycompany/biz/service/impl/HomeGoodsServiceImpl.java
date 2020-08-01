@@ -11,6 +11,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
@@ -30,7 +32,10 @@ import com.mycompany.biz.service.HomeGoodsService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class HomeGoodsServiceImpl implements HomeGoodsService {
+public class HomeGoodsServiceImpl implements HomeGoodsService, IdGenerateService<String> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     @Resource(name = "homeGoodsDao")
     HomeGoodsDao homeGoodsDao;
@@ -42,7 +47,7 @@ public class HomeGoodsServiceImpl implements HomeGoodsService {
      */
     @Override
     public HomeGoods insert(HomeGoods homeGoods) {
-        return homeGoodsDao.insert(homeGoods);
+        return homeGoodsDao.insert(homeGoods, this);
     }
 
     /**
@@ -67,22 +72,32 @@ public class HomeGoodsServiceImpl implements HomeGoodsService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodByRecommendId
-     * @see com.mycompany.biz.service.HomeGoodsService#getHomeGoodByRecommendId
+     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodsByRecommendId
+     * @see com.mycompany.biz.service.HomeGoodsService#getHomeGoodsByRecommendId
      */
     @Override
-    public HomeGoods getHomeGoodByRecommendId(String recommendId) {
-        return homeGoodsDao.getHomeGoodByRecommendId(recommendId);
+    public HomeGoods getHomeGoodsByRecommendId(String recommendId) {
+        return homeGoodsDao.getHomeGoodsByRecommendId(recommendId);
     }
 
     /**
      * 
-     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodsByRecommendIds
-     * @see com.mycompany.biz.service.HomeGoodsService#getHomeGoodsByRecommendIds
+     * @see com.mycompany.biz.dao.HomeGoodsDao#getPageList
+     * @see com.mycompany.biz.service.HomeGoodsService#getPageList
      */
     @Override
-    public List<HomeGoods> getHomeGoodsByRecommendIds(java.util.List<String> recommendIds) {
-        return homeGoodsDao.getHomeGoodsByRecommendIds(recommendIds);
+    public PageList<HomeGoods> getPageList(HomeGoods homeGoods, int pageSize, int pageNum) {
+        return homeGoodsDao.getPageList(homeGoods, pageSize, pageNum);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.HomeGoodsDao#getHomeGoodssByRecommendIds
+     * @see com.mycompany.biz.service.HomeGoodsService#getHomeGoodssByRecommendIds
+     */
+    @Override
+    public List<HomeGoods> getHomeGoodssByRecommendIds(java.util.List<String> recommendIds) {
+        return homeGoodsDao.getHomeGoodssByRecommendIds(recommendIds);
     }
 
     /**
@@ -118,19 +133,9 @@ public class HomeGoodsServiceImpl implements HomeGoodsService {
         return homeGoodss;
     }
 
-    /**
-     * 
-     * @see com.mycompany.biz.dao.HomeGoodsDao#getPageList
-     * @see com.mycompany.biz.service.HomeGoodsService#getPageList
-     */
-    @Override
-    public PageList<HomeGoods> getPageList(HomeGoods homeGoods, int pageSize, int pageNum) {
-        return homeGoodsDao.getPageList(homeGoods, pageSize, pageNum);
-    }
-
     @Override
     public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, HomeGoods> destSetMethod) {
-        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, HomeGoodsServiceImpl::getHomeGoodsByRecommendIds, HomeGoods::getRecommendId);
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, HomeGoodsServiceImpl::getHomeGoodssByRecommendIds, HomeGoods::getRecommendId);
     }
 
     @Override
@@ -140,6 +145,11 @@ public class HomeGoodsServiceImpl implements HomeGoodsService {
 
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
-        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, HomeGoodsServiceImpl::getHomeGoodsByRecommendIds, HomeGoods::getRecommendId);
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, HomeGoodsServiceImpl::getHomeGoodssByRecommendIds, HomeGoods::getRecommendId);
+    }
+
+    @Override
+    public <T> String generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(String.class, bizTagClz);
     }
 }

@@ -2,21 +2,19 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
-import org.stategen.framework.ibatis.util.PageQueryUtils;
+import com.mycompany.biz.domain.Goods;
+import com.mycompany.biz.dao.GoodsDao;
 import org.stategen.framework.lite.PageList;
 
-import com.mycompany.biz.dao.GoodsDao;
-import com.mycompany.biz.domain.Goods;
-
+import org.springframework.dao.DataAccessException;
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * GoodsDao
  * <pre>
@@ -27,87 +25,95 @@ import com.mycompany.biz.domain.Goods;
  * 该类仅可以修改引用
  * </pre>
  */
-public class GoodsDaoImpl extends SqlDaoSupportBase implements GoodsDao {
+public class GoodsDaoImpl  extends SqlDaoSupportBase implements GoodsDao {
 
-    /**
+
+	/**
 	 * 
 	 * sql:insert into demo_goods ( create_time , update_time , delete_flag , goods_id , goods_name , categorySubId , amount , price , images , is_check , is_hot , advertise_id , present_price , image , image1 , image2 , image3 , image4 , image5 , is_on_line , goods_serial_number , state , shop_id , goods_detail ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
-    public Goods insert(Goods goods) throws DataAccessException {
-        if (goods == null) {
-            throw new IllegalArgumentException("Can't insert a null data object into db.");
+	public Goods insert(Goods goods, IdGenerateService<String> idGenerateService) throws DataAccessException {
+		if(goods == null) {
+			throw new IllegalArgumentException("Can't insert a null data object into db.");
+		}
+        if (idGenerateService != null && goods.getGoodsId() == null) {
+            String goodsId = idGenerateService.generateId(Goods.class);
+            if (goodsId != null) {
+                goods.setGoodsId(goodsId);
+            }
         }
         super.insert("Goods.insert", goods);
-        return goods;
-    }
+		return goods;
+	}
 
-    /**
+	/**
 	 * 
-	 * sql:UPDATE demo_goods SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and goods_id = ?
+	 * sql:UPDATE demo_goods a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.goods_id = ?
 	 */
-    public String delete(String goodsId) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("goodsId", goodsId);
+	public String delete(String goodsId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("goodsId",goodsId);
         super.update("Goods.delete", params);
         return goodsId;
-    }
+	}
 
-    /**
+	/**
 	 * 
-	 * sql:UPDATE demo_goods SET update_time= CURRENT_TIMESTAMP(6) , goods_name = ? , categorySubId = ? , amount = ? , price = ? , images = ? , is_check = ? , is_hot = ? , advertise_id = ? , present_price = ? , image = ? , image1 = ? , image2 = ? , image3 = ? , image4 = ? , image5 = ? , is_on_line = ? , goods_serial_number = ? , state = ? , shop_id = ? , goods_detail = ? where delete_flag = 0 and goods_id = ?
+	 * sql:UPDATE demo_goods a SET a.update_time= CURRENT_TIMESTAMP(6) , a.goods_name = ? , a.categorySubId = ? , a.amount = ? , a.price = ? , a.images = ? , a.is_check = ? , a.is_hot = ? , a.advertise_id = ? , a.present_price = ? , a.image = ? , a.image1 = ? , a.image2 = ? , a.image3 = ? , a.image4 = ? , a.image5 = ? , a.is_on_line = ? , a.goods_serial_number = ? , a.state = ? , a.shop_id = ? , a.goods_detail = ? where a.delete_flag = 0 and a.goods_id = ?
 	 */
-    public Goods update(Goods goods) throws DataAccessException {
-        if (goods == null) {
-            throw new IllegalArgumentException("Can't update by a null data object.");
-        }
+	public Goods update(Goods goods) throws DataAccessException {
+		if(goods == null) {
+			throw new IllegalArgumentException("Can't update by a null data object.");
+		}
         super.update("Goods.update", goods);
-        return goods;
-    }
+		return goods;
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.goods_id, a.goods_name, a.categorySubId, a.amount, a.price, a.images, a.is_check, a.is_hot, a.advertise_id, a.present_price, a.image, a.image1, a.image2, a.image3, a.image4, a.image5, a.is_on_line, a.goods_serial_number, a.state, a.shop_id, a.goods_detail, a.create_time, a.update_time, a.delete_flag from demo_goods a where a.delete_flag = 0 and a.goods_id = ?
 	 */
-    public Goods getGoodByGoodsId(String goodsId) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("goodsId", goodsId);
-        return (Goods) super.selectOne("Goods.getGoodByGoodsId", params);
-    }
+	public Goods getGoodsByGoodsId(String goodsId) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("goodsId",goodsId);
+		return (Goods)super.selectOne("Goods.getGoodsByGoodsId",params);
+	}
 
-    /**
+	/**
 	 * 
-	 * sql:select a.goods_id, a.goods_name, a.categorySubId, a.amount, a.price, a.images, a.is_check, a.is_hot, a.advertise_id, a.present_price, a.image, a.image1, a.image2, a.image3, a.image4, a.image5, a.is_on_line, a.goods_serial_number, a.state, a.shop_id, a.goods_detail, a.create_time, a.update_time, a.delete_flag from demo_goods a where a.delete_flag = 0 and a.goods_id=? and a.goods_id in ( ? ) and a.goods_name=? and a.goods_name like CONCAT('%',?,'%') and a.categorySubId=? and a.categorySubId in ( ? ) and a.amount=? and a.amount >=? and a.amount <? and a.price=? and a.price >=? and a.price <? and a.images=? and a.images like CONCAT('%',?,'%') and a.advertise_id=? and a.advertise_id in ( ? ) and a.present_price=? and a.present_price >=? and a.present_price <? and a.image1=? and a.image1 like CONCAT('%',?,'%') and a.image2=? and a.image2 like CONCAT('%',?,'%') and a.image3=? and a.image3 like CONCAT('%',?,'%') and a.image4=? and a.image4 like CONCAT('%',?,'%') and a.image5=? and a.image5 like CONCAT('%',?,'%') and a.is_on_line=? and a.is_on_line like CONCAT('%',?,'%') and a.goods_serial_number=? and a.goods_serial_number like CONCAT('%',?,'%') and a.state=? and a.state >=? and a.state <? and a.shop_id=? and a.shop_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.goods_id
+	 * sql:select a.goods_id, a.goods_name, a.categorySubId, a.amount, a.price, a.images, a.is_check, a.is_hot, a.advertise_id, a.present_price, a.image, a.image1, a.image2, a.image3, a.image4, a.image5, a.is_on_line, a.goods_serial_number, a.state, a.shop_id, a.goods_detail, a.create_time, a.update_time, a.delete_flag from demo_goods a where a.delete_flag = 0 and a.goods_id=? and a.goods_id in ( ? ) and a.goods_name=? and a.goods_name like CONCAT('%',?,'%') and a.categorySubId=? and a.categorySubId like CONCAT('%',?,'%') and a.amount=? and a.amount >=? and a.amount <? and a.price=? and a.price >=? and a.price <? and a.images=? and a.images like CONCAT('%',?,'%') and a.advertise_id=? and a.advertise_id in ( ? ) and a.present_price=? and a.present_price >=? and a.present_price <? and a.image1=? and a.image1 like CONCAT('%',?,'%') and a.image2=? and a.image2 like CONCAT('%',?,'%') and a.image3=? and a.image3 like CONCAT('%',?,'%') and a.image4=? and a.image4 like CONCAT('%',?,'%') and a.image5=? and a.image5 like CONCAT('%',?,'%') and a.is_on_line=? and a.is_on_line like CONCAT('%',?,'%') and a.goods_serial_number=? and a.goods_serial_number like CONCAT('%',?,'%') and a.state=? and a.state >=? and a.state <? and a.shop_id=? and a.shop_id in ( ? ) and a.create_time >=? and a.create_time <? and a.update_time >=? and a.update_time <? and 0 = 1 order by a.goods_id
 	 */
-    public PageList<Goods> getPageList(Goods goods, int pageSize, int pageNum) throws DataAccessException {
-        return super.pageQuery("Goods.getPageList", goods, pageNum, pageSize);
-    }
+	public PageList<Goods> getPageList(Goods goods, int pageSize, int pageNum) throws DataAccessException {
+		return super.pageQuery("Goods.getPageList",goods,pageNum,pageSize);
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.goods_id, a.goods_name, a.categorySubId, a.amount, a.price, a.images, a.is_check, a.is_hot, a.advertise_id, a.present_price, a.image, a.image1, a.image2, a.image3, a.image4, a.image5, a.is_on_line, a.goods_serial_number, a.state, a.shop_id, a.goods_detail, a.create_time, a.update_time, a.delete_flag from demo_goods a where a.delete_flag = 0 and 1=0 and a.goods_id in ( ? ) order by a.goods_id
 	 */
-    public List<Goods> getGoodsByGoodsIds(java.util.List<String> goodsIds) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("goodsIds", goodsIds);
-        return super.selectList("Goods.getGoodsByGoodsIds", params);
-    }
+	public List<Goods> getGoodssByGoodsIds(java.util.List<String> goodsIds) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("goodsIds",goodsIds);
+		return super.selectList("Goods.getGoodssByGoodsIds",params);
+	}
 
-    /**
+	/**
 	 * 
-	 * sql:UPDATE demo_goods SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and goods_id in ( ? )
+	 * sql:UPDATE demo_goods a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.goods_id in ( ? )
 	 */
-    public java.util.List<String> deleteByGoodsIds(java.util.List<String> goodsIds) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>(1);
-        params.put("goodsIds", goodsIds);
+	public java.util.List<String> deleteByGoodsIds(java.util.List<String> goodsIds) throws DataAccessException {
+		Map<String,Object> params = new HashMap<String,Object>(1);
+		params.put("goodsIds",goodsIds);
         super.update("Goods.deleteByGoodsIds", params);
         return goodsIds;
-    }
+	}
 
-    /**
+	/**
 	 * 
 	 * sql:select a.goods_id from demo_goods a where a.delete_flag = 0
 	 */
-    public List<String> getGoodsIds() throws DataAccessException {
-        return super.selectList("Goods.getGoodsIds", null);
-    }
+	public List<String> getGoodsIds() throws DataAccessException {
+		return super.selectList("Goods.getGoodsIds",null);
+	}
 }
+

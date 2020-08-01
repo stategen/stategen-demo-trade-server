@@ -1,221 +1,227 @@
-﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_topic_reply -e 会自动覆盖-->
+﻿    <!-- 表中至少有一个更新字段(update_time,gmt_update或自定义)，一个主键 -->
+    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_topic_reply -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_topic_reply (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="replyId"> reply_id </isNotNull>
-            <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
-            <isNotNull prepend="," property="authorId"> author_id </isNotNull>
-            <isNotNull prepend="," property="content"> content </isNotNull>
-            <isNotNull prepend="," property="parentReplyId"> parent_reply_id </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="replyId"> ?  </isNotNull>
-            <isNotNull prepend="," property="topicId"> ?  </isNotNull>
-            <isNotNull prepend="," property="authorId"> ?  </isNotNull>
-            <isNotNull prepend="," property="content"> ?  </isNotNull>
-            <isNotNull prepend="," property="parentReplyId"> ?  </isNotNull>
-            )
-            <selectKey keyProperty="replyId" resultClass="String" type="pre">
-                select if((#replyId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#replyId# ) as replyId
-            </selectKey>
+           insert into demo_topic_reply (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="replyId"> reply_id </isNotNull>
+             <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
+             <isNotNull prepend="," property="authorId"> author_id </isNotNull>
+             <isNotNull prepend="," property="content"> content </isNotNull>
+             <isNotNull prepend="," property="parentReplyId"> parent_reply_id </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="replyId"> ?  </isNotNull>
+             <isNotNull prepend="," property="topicId"> ?  </isNotNull>
+             <isNotNull prepend="," property="authorId"> ?  </isNotNull>
+             <isNotNull prepend="," property="content"> ?  </isNotNull>
+             <isNotNull prepend="," property="parentReplyId"> ?  </isNotNull>
+           )
+           <selectKey keyProperty="replyId" resultClass="String" type="pre">
+              select if((#replyId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#replyId# ) as replyId
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE demo_topic_reply SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and reply_id = ?
+           UPDATE demo_topic_reply a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.reply_id = ?
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE demo_topic_reply
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="topicId" prepend=",">
-                    topic_id =  ? 
-                </isNotNull>
-                <isNotNull property="authorId" prepend=",">
-                    author_id =  ? 
-                </isNotNull>
-                <isNotNull property="content" prepend=",">
-                    content =  ? 
-                </isNotNull>
-                <isNotNull property="parentReplyId" prepend=",">
-                    parent_reply_id =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and reply_id = ?
+           UPDATE demo_topic_reply a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="topicId" prepend=",">
+             a.topic_id =  ? 
+             </isNotNull>
+             <isNotNull property="authorId" prepend=",">
+             a.author_id =  ? 
+             </isNotNull>
+             <isNotNull property="content" prepend=",">
+             a.content =  ? 
+             </isNotNull>
+             <isNotNull property="parentReplyId" prepend=",">
+             a.parent_reply_id =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.reply_id = ?
         </sql>
     </operation>
+
+    <!-- 主建或 unique索引生成单独查询 -->
 
     <operation name="getTopicReplyByReplyId" multiplicity="one" remarks="">
         <sql>
-            select
-            a.reply_id,
-            a.topic_id,
-            a.author_id,
-            a.content,
-            a.parent_reply_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_topic_reply a
-            where
-            a.delete_flag = 0
-            and a.reply_id = ?
+           select
+             a.reply_id,
+             a.topic_id,
+             a.author_id,
+             a.content,
+             a.parent_reply_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_topic_reply a
+           where
+             a.delete_flag = 0
+             and a.reply_id = ?
         </sql>
     </operation>
 
+    <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
-            select
-            a.reply_id,
-            a.topic_id,
-            a.author_id,
-            a.content,
-            a.parent_reply_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_topic_reply a
-            where
-            a.delete_flag = 0
-            <isNotNull property="replyId">
-               and a.reply_id=?
-            </isNotNull>
-            <isNotEmpty property="replyIds">
-                and a.reply_id in
-                <iterate property="replyIds" conjunction="," open="(" close=")">
-                    #replyIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="topicId">
-               and a.topic_id=?
-            </isNotNull>
-            <isNotEmpty property="topicIds">
-                and a.topic_id in
-                <iterate property="topicIds" conjunction="," open="(" close=")">
-                    #topicIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="authorId">
-               and a.author_id=?
-            </isNotNull>
-            <isNotEmpty property="authorIds">
-                and a.author_id in
-                <iterate property="authorIds" conjunction="," open="(" close=")">
-                    #authorIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="parentReplyId">
-               and a.parent_reply_id=?
-            </isNotNull>
-            <isNotEmpty property="parentReplyIds">
-                and a.parent_reply_id in
-                <iterate property="parentReplyIds" conjunction="," open="(" close=")">
-                    #parentReplyIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="replyId">
-            <isEmpty property="replyIds">
-            <isNull property="topicId">
-            <isEmpty property="topicIds">
-            <isNull property="authorId">
-            <isEmpty property="authorIds">
-            <isNull property="parentReplyId">
-            <isEmpty property="parentReplyIds">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            order by
-            <include refid = "getTopicReplyPageListOrderBy" />
+           select
+             a.reply_id,
+             a.topic_id,
+             a.author_id,
+             a.content,
+             a.parent_reply_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_topic_reply a
+           where
+             a.delete_flag = 0
+             <isNotNull property="replyId">
+             and a.reply_id=?
+             </isNotNull>
+             <isNotEmpty property="replyIds">
+             and a.reply_id in
+               <iterate property="replyIds" conjunction="," open="(" close=")">
+               #replyIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="topicId">
+             and a.topic_id=?
+             </isNotNull>
+             <isNotEmpty property="topicIds">
+             and a.topic_id in
+               <iterate property="topicIds" conjunction="," open="(" close=")">
+               #topicIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="authorId">
+             and a.author_id=?
+             </isNotNull>
+             <isNotEmpty property="authorIds">
+             and a.author_id in
+               <iterate property="authorIds" conjunction="," open="(" close=")">
+               #authorIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="parentReplyId">
+             and a.parent_reply_id=?
+             </isNotNull>
+             <isNotEmpty property="parentReplyIds">
+             and a.parent_reply_id in
+               <iterate property="parentReplyIds" conjunction="," open="(" close=")">
+               #parentReplyIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="replyId">
+             <isEmpty property="replyIds">
+             <isNull property="topicId">
+             <isEmpty property="topicIds">
+             <isNull property="authorId">
+             <isEmpty property="authorIds">
+             <isNull property="parentReplyId">
+             <isEmpty property="parentReplyIds">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+           order by
+             <include refid="getTopicReplyPageListOrderBy"/>
         </sql>
     </operation>
-    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
+    <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getTopicReplysByReplyIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.reply_id,
-            a.topic_id,
-            a.author_id,
-            a.content,
-            a.parent_reply_id,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_topic_reply a
-            where
-            a.delete_flag = 0
-            <isEmpty property="replyIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="replyIds">
-                and a.reply_id in
+           select
+             a.reply_id,
+             a.topic_id,
+             a.author_id,
+             a.content,
+             a.parent_reply_id,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_topic_reply a
+           where
+             a.delete_flag = 0
+             <isEmpty property="replyIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="replyIds" prepend="and">
+             a.reply_id in
                 <iterate property="replyIds" conjunction="," open="(" close=")">
-                    #replyIds[]#
+                   #replyIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getTopicReplysByReplyIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getTopicReplysByReplyIdsOrderBy"/>
         </sql>
     </operation>
 
     <operation name="deleteByReplyIds" remarks="">
         <sql>
-            UPDATE demo_topic_reply SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="replyIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="replyIds">
-                and reply_id in
+           UPDATE demo_topic_reply a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="replyIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="replyIds" prepend="and">
+             a.reply_id in
                 <iterate property="replyIds" conjunction="," open="(" close=")">
-                    #replyIds[]#
+                   #replyIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
         </sql>
     </operation>
     
-    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_topic_reply -e 会自动覆盖-->
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_topic_reply -e 会自动覆盖 -->

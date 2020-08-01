@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.Category;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * CategoryDao
@@ -25,46 +26,44 @@ public interface CategoryDao {
 
 	/**
     <pre>
-    &#64;ApiParam() String categoryId,
-    &#64;ApiParam() String categoryName,
-    &#64;ApiParam() String comments,
-    &#64;ApiParam() String image
+    &#64;ApiParam() &#64;RequestParam(required = false) String categoryId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String categoryName,
+    &#64;ApiParam() &#64;RequestParam(required = false) String comments,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image
     ,&#64;ApiParam(hidden = true) Category category
     
     </pre>
 	 * 
 	 * sql:insert into demo_category ( create_time , update_time , delete_flag , category_id , category_name , comments , image ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public Category insert(Category category) throws DataAccessException;
+	public Category insert(Category category, IdGenerateService<String> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("大类目录ID") String categoryId
-    
+    &#64;ApiParam("大类目录ID") &#64;RequestParam(required = false) String categoryId    
     </pre>
 	 * 
-	 * sql:UPDATE demo_category SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and category_id = ?
+	 * sql:UPDATE demo_category a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.category_id = ?
 	 */
 	public String delete(String categoryId) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam() String categoryName,
-    &#64;ApiParam() String comments,
-    &#64;ApiParam() String image,
-    &#64;ApiParam() String categoryId
+    &#64;ApiParam() &#64;RequestParam(required = false) String categoryName,
+    &#64;ApiParam() &#64;RequestParam(required = false) String comments,
+    &#64;ApiParam() &#64;RequestParam(required = false) String image,
+    &#64;ApiParam() &#64;RequestParam(required = false) String categoryId
     ,&#64;ApiParam(hidden = true) Category category
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_category SET update_time= CURRENT_TIMESTAMP(6) , category_name = ? , comments = ? , image = ? where delete_flag = 0 and category_id = ?
+	 * sql:UPDATE demo_category a SET a.update_time= CURRENT_TIMESTAMP(6) , a.category_name = ? , a.comments = ? , a.image = ? where a.delete_flag = 0 and a.category_id = ?
 	 */
 	public Category update(Category category) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("大类目录ID") String categoryId
-    
+    &#64;ApiParam("大类目录ID") &#64;RequestParam(required = false) String categoryId    
     </pre>
 	 * 
 	 * sql:select a.category_id, a.category_name, a.comments, a.image, a.create_time, a.update_time, a.delete_flag from demo_category a where a.delete_flag = 0 and a.category_id = ?
@@ -73,14 +72,14 @@ public interface CategoryDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String categoryId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="categoryIds") ArrayList&lt;String&gt; categoryIds,
-    &#64;ApiParam() String categoryName,
-    &#64;ApiParam() String categoryNameLike,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax
+    &#64;ApiParam() &#64;RequestParam(required = false) String categoryId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="categoryIds") ArrayList&lt;String&gt; categoryIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String categoryName,
+    &#64;ApiParam() &#64;RequestParam(required = false) String categoryNameLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax
     ,&#64;ApiParam(hidden = true) Category category
     ,Pagination pagination
     </pre>
@@ -91,8 +90,7 @@ public interface CategoryDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("大类目录ID")&#64;RequestParam(required =false,name="categoryIds") ArrayList&lt;String&gt; categoryIds
-    
+    &#64;ApiParam("大类目录ID") &#64;RequestParam(required = false, name="categoryIds") ArrayList&lt;String&gt; categoryIds    
     </pre>
 	 * 
 	 * sql:select a.category_id, a.category_name, a.comments, a.image, a.create_time, a.update_time, a.delete_flag from demo_category a where a.delete_flag = 0 and 1=0 and a.category_id in ( ? ) order by a.update_time desc, a.create_time desc
@@ -101,11 +99,10 @@ public interface CategoryDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("大类目录ID")&#64;RequestParam(required =false,name="categoryIds") ArrayList&lt;String&gt; categoryIds
-    
+    &#64;ApiParam("大类目录ID") &#64;RequestParam(required = false, name="categoryIds") ArrayList&lt;String&gt; categoryIds    
     </pre>
 	 * 
-	 * sql:UPDATE demo_category SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and category_id in ( ? )
+	 * sql:UPDATE demo_category a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.category_id in ( ? )
 	 */
 	public java.util.List<String> deleteByCategoryIds(java.util.List<String> categoryIds) throws DataAccessException;
 	

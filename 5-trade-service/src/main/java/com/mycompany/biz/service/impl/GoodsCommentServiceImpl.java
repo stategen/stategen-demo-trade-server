@@ -11,6 +11,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
@@ -30,7 +32,10 @@ import com.mycompany.biz.service.GoodsCommentService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class GoodsCommentServiceImpl implements GoodsCommentService {
+public class GoodsCommentServiceImpl implements GoodsCommentService, IdGenerateService<String> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     @Resource(name = "goodsCommentDao")
     GoodsCommentDao goodsCommentDao;
@@ -42,7 +47,7 @@ public class GoodsCommentServiceImpl implements GoodsCommentService {
      */
     @Override
     public GoodsComment insert(GoodsComment goodsComment) {
-        return goodsCommentDao.insert(goodsComment);
+        return goodsCommentDao.insert(goodsComment, this);
     }
 
     /**
@@ -141,5 +146,10 @@ public class GoodsCommentServiceImpl implements GoodsCommentService {
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, GoodsCommentServiceImpl::getGoodsCommentsByCommentsIds, GoodsComment::getCommentsId);
+    }
+
+    @Override
+    public <T> String generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(String.class, bizTagClz);
     }
 }

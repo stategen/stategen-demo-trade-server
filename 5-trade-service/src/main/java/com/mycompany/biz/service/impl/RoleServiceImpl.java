@@ -11,6 +11,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.ServiceUtil;
@@ -35,7 +37,10 @@ import com.mycompany.biz.service.RoleService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl implements RoleService, IdGenerateService<String> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     @Resource
     MenuService menuService;
@@ -90,7 +95,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Role insert(Role role) {
-        return roleDao.insert(role);
+        return roleDao.insert(role, this);
     }
 
     /**
@@ -167,6 +172,9 @@ public class RoleServiceImpl implements RoleService {
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, RoleServiceImpl::getRolesByRoleIds, Role::getRoleId);
     }
-    //-->
-    //
+
+    @Override
+    public <T> String generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(String.class, bizTagClz);
+    }
 }

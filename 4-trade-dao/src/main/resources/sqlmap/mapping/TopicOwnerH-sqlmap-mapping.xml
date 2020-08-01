@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgenx生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="TopicOwnerH_RM" class="com.mycompany.biz.domain.TopicOwnerH">
+        <result property="id" column="id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="topicId" column="topic_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="userId" column="user_id" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Boolean" jdbcType="BIT"  />
+    </resultMap>
+    
+	<sql id="getTopicOwnerHPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getTopicOwnerHsByIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="TopicOwnerH.insert">
+		insert into demo_topic_owner_h (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="id"> id </isNotNull>
+             <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
+             <isNotNull prepend="," property="userId"> user_id </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="id"> #id# </isNotNull> 
+            <isNotNull prepend="," property="topicId"> #topicId# </isNotNull> 
+            <isNotNull prepend="," property="userId"> #userId# </isNotNull>)
+           <selectKey keyProperty="id" resultClass="long">
+              select  LAST_INSERT_ID()
+           </selectKey>
+	</insert>
+	
+	<update id="TopicOwnerH.delete">
+		UPDATE demo_topic_owner_h a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.id = #id#
+	</update>
+	
+    
+	
+	<update id="TopicOwnerH.update">
+		UPDATE demo_topic_owner_h a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="topicId">
+             a.topic_id =  #topicId# 
+             </isNotNull>
+             <isNotNull prepend="," property="userId">
+             a.user_id =  #userId# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.id = #id#
+	</update>
+	
+    
+	
+	<select id="TopicOwnerH.getTopicOwnerHById" resultMap="TopicOwnerH_RM" >
+    	select
+ /* getTopicOwnerHById.TopicOwnerH */              a.id,
+             a.topic_id,
+             a.user_id,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_topic_owner_h a
+           where
+             a.delete_flag = 0
+             and a.id = #id#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="TopicOwnerH.getPageList" resultMap="TopicOwnerH_RM" >
+    	select
+ /* getPageList.TopicOwnerH */              a.id,
+             a.topic_id,
+             a.user_id,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_topic_owner_h a
+           where
+             a.delete_flag = 0
+             <isNotNull property="id">
+             and a.id=#id#
+             </isNotNull>
+             <isNotNull property="idMin">
+             and a.id >=#idMin#
+             </isNotNull>
+             <isNotNull property="idMax">
+             and a.id &lt;#idMax#
+             </isNotNull>
+             <isNotNull property="topicId">
+             and a.topic_id=#topicId#
+             </isNotNull>
+             <isNotEmpty property="topicIds">
+             and a.topic_id in
+               <iterate close=")" conjunction="," open="(" property="topicIds">
+               #topicIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="userId">
+             and a.user_id=#userId#
+             </isNotNull>
+             <isNotEmpty property="userIds">
+             and a.user_id in
+               <iterate close=")" conjunction="," open="(" property="userIds">
+               #userIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNull property="id">
+             <isNull property="idMin">
+             <isNull property="idMax">
+             <isNull property="topicId">
+             <isEmpty property="topicIds">
+             <isNull property="userId">
+             <isEmpty property="userIds">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+           order by
+             <include refid="getTopicOwnerHPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="TopicOwnerH.getPageList_count" resultClass="long" >
+    	select  /* getPageList_count.TopicOwnerH */ count(*)  from demo_topic_owner_h a
+           where
+             a.delete_flag = 0
+             <isNotNull property="id">
+             and a.id=#id#
+             </isNotNull>
+             <isNotNull property="idMin">
+             and a.id >=#idMin#
+             </isNotNull>
+             <isNotNull property="idMax">
+             and a.id &lt;#idMax#
+             </isNotNull>
+             <isNotNull property="topicId">
+             and a.topic_id=#topicId#
+             </isNotNull>
+             <isNotEmpty property="topicIds">
+             and a.topic_id in
+               <iterate close=")" conjunction="," open="(" property="topicIds">
+               #topicIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="userId">
+             and a.user_id=#userId#
+             </isNotNull>
+             <isNotEmpty property="userIds">
+             and a.user_id in
+               <iterate close=")" conjunction="," open="(" property="userIds">
+               #userIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNull property="id">
+             <isNull property="idMin">
+             <isNull property="idMax">
+             <isNull property="topicId">
+             <isEmpty property="topicIds">
+             <isNull property="userId">
+             <isEmpty property="userIds">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="TopicOwnerH.getTopicOwnerHsByIds" resultMap="TopicOwnerH_RM" >
+    	select
+ /* getTopicOwnerHsByIds.TopicOwnerH */              a.id,
+             a.topic_id,
+             a.user_id,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_topic_owner_h a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="ids">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="ids">
+             a.id in
+                <iterate close=")" conjunction="," open="(" property="ids">
+                   #ids[]#
+                </iterate>
+             </isNotEmpty>
+           order by
+             <include refid="getTopicOwnerHsByIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="TopicOwnerH.deleteByIds">
+		UPDATE demo_topic_owner_h a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="ids">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="ids">
+             a.id in
+                <iterate close=")" conjunction="," open="(" property="ids">
+                   #ids[]#
+                </iterate>
+             </isNotEmpty>
+	</update>
+	
+    
+
+</sqlMap>
+

@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 
 import org.stategen.framework.annotation.ChangeBy;
 import org.stategen.framework.annotation.Editor;
+import org.stategen.framework.annotation.FieldNameConst;
 import org.stategen.framework.annotation.ReferConfig;
 import org.stategen.framework.lite.enums.EditorType;
 
@@ -72,7 +73,7 @@ public class User implements java.io.Serializable {
     @ApiModelProperty("爱好 ids")
     private List<Long> hoppyIds;
 
-    /***头像   db_column: avatar_img VARCHAR */
+    /*** 头像 db_column: avatar_img VARCHAR */
     @ApiModelProperty("头像")
     @Max(255)
     private FileSummary avatarImg;
@@ -82,7 +83,13 @@ public class User implements java.io.Serializable {
     @JSONField(serialize = false)
     private String remarkLike;
 
+    /*** 状态 enumLike in getPageList */
+    @ApiModelProperty("状态Like")
+    @JSONField(serialize = false)
+    private com.mycompany.biz.enums.StatusEnum statusLike;
+
     /***不使用或自定义字段在下次生成后，会移到serialVersionUID的上面*/
+    /* 如果字段注释中包括 -inherited 将不生成 */
     private static final long serialVersionUID = -5216457518046898601L;
 
     /***用户ID   db_column: user_id VARCHAR  !@Max*/
@@ -93,6 +100,7 @@ public class User implements java.io.Serializable {
 
     /***用户名   db_column: username VARCHAR */
     @ApiModelProperty("用户名")
+    @FieldNameConst
     @NotNull
     @Max(64)
     private String username;
@@ -148,6 +156,7 @@ public class User implements java.io.Serializable {
 
     /***邮箱   db_column: email VARCHAR */
     @ApiModelProperty("邮箱")
+    @FieldNameConst
     @NotNull
     @Email
     @Max(128)
@@ -181,7 +190,7 @@ public class User implements java.io.Serializable {
     @ChangeBy("provinceId")
     private String cityId;
 
-    /***状态 enum   db_column: status VARCHAR */
+    /***状态 -enum   db_column: status VARCHAR */
     @ApiModelProperty("状态 enum")
     @Max(64)
     @Editor(EditorType.RadioGroup.class)
@@ -400,7 +409,7 @@ public class User implements java.io.Serializable {
     @ChangeBy("provinceId")
     private java.util.List<String> cityIds;
 
-    /*** 状态 enums in getPageList */
+    /*** 状态 -enums in getPageList */
     @ApiModelProperty("状态 s")
     @JSONField(serialize = false)
     @Editor(EditorType.CheckboxGroup.class)

@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.AdvertisePicture;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * AdvertisePictureDao
@@ -25,46 +26,44 @@ public interface AdvertisePictureDao {
 
 	/**
     <pre>
-    &#64;ApiParam() Long advertiseId,
-    &#64;ApiParam() String pictureAddress,
-    &#64;ApiParam() String toPlace,
-    &#64;ApiParam() Integer urlType
+    &#64;ApiParam() &#64;RequestParam(required = false) Long advertiseId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String pictureAddress,
+    &#64;ApiParam() &#64;RequestParam(required = false) String toPlace,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer urlType
     ,&#64;ApiParam(hidden = true) AdvertisePicture advertisePicture
     
     </pre>
 	 * 
 	 * sql:insert into demo_advertise_picture ( create_time , update_time , delete_flag , advertise_id , PICTURE_ADDRESS , TO_PLACE , url_type ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?)
 	 */
-	public AdvertisePicture insert(AdvertisePicture advertisePicture) throws DataAccessException;
+	public AdvertisePicture insert(AdvertisePicture advertisePicture, IdGenerateService<Long> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("advertiseId") Long advertiseId
-    
+    &#64;ApiParam("advertiseId") &#64;RequestParam(required = false) Long advertiseId    
     </pre>
 	 * 
-	 * sql:UPDATE demo_advertise_picture SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and advertise_id = ?
+	 * sql:UPDATE demo_advertise_picture a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.advertise_id = ?
 	 */
 	public Long delete(Long advertiseId) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam() String pictureAddress,
-    &#64;ApiParam() String toPlace,
-    &#64;ApiParam() Integer urlType,
-    &#64;ApiParam() Long advertiseId
+    &#64;ApiParam() &#64;RequestParam(required = false) String pictureAddress,
+    &#64;ApiParam() &#64;RequestParam(required = false) String toPlace,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer urlType,
+    &#64;ApiParam() &#64;RequestParam(required = false) Long advertiseId
     ,&#64;ApiParam(hidden = true) AdvertisePicture advertisePicture
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_advertise_picture SET update_time= CURRENT_TIMESTAMP(6) , PICTURE_ADDRESS = ? , TO_PLACE = ? , url_type = ? where delete_flag = 0 and advertise_id = ?
+	 * sql:UPDATE demo_advertise_picture a SET a.update_time= CURRENT_TIMESTAMP(6) , a.PICTURE_ADDRESS = ? , a.TO_PLACE = ? , a.url_type = ? where a.delete_flag = 0 and a.advertise_id = ?
 	 */
 	public AdvertisePicture update(AdvertisePicture advertisePicture) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("advertiseId") Long advertiseId
-    
+    &#64;ApiParam("advertiseId") &#64;RequestParam(required = false) Long advertiseId    
     </pre>
 	 * 
 	 * sql:select a.advertise_id, a.PICTURE_ADDRESS, a.TO_PLACE, a.url_type, a.create_time, a.update_time, a.delete_flag from demo_advertise_picture a where a.delete_flag = 0 and a.advertise_id = ?
@@ -73,18 +72,18 @@ public interface AdvertisePictureDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() Long advertiseId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="advertiseIds") ArrayList&lt;Long&gt; advertiseIds,
-    &#64;ApiParam() String pictureAddress,
-    &#64;ApiParam() String pictureAddressLike,
-    &#64;ApiParam() String toPlace,
-    &#64;ApiParam() String toPlaceLike,
-    &#64;ApiParam() Integer urlType,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="urlTypes") ArrayList&lt;Integer&gt; urlTypes,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax
+    &#64;ApiParam() &#64;RequestParam(required = false) Long advertiseId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="advertiseIds") ArrayList&lt;Long&gt; advertiseIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String pictureAddress,
+    &#64;ApiParam() &#64;RequestParam(required = false) String pictureAddressLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) String toPlace,
+    &#64;ApiParam() &#64;RequestParam(required = false) String toPlaceLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer urlType,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="urlTypes") ArrayList&lt;Integer&gt; urlTypes,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax
     ,&#64;ApiParam(hidden = true) AdvertisePicture advertisePicture
     ,Pagination pagination
     </pre>
@@ -95,8 +94,7 @@ public interface AdvertisePictureDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("advertiseId")&#64;RequestParam(required =false,name="advertiseIds") ArrayList&lt;Long&gt; advertiseIds
-    
+    &#64;ApiParam("advertiseId") &#64;RequestParam(required = false, name="advertiseIds") ArrayList&lt;Long&gt; advertiseIds    
     </pre>
 	 * 
 	 * sql:select a.advertise_id, a.PICTURE_ADDRESS, a.TO_PLACE, a.url_type, a.create_time, a.update_time, a.delete_flag from demo_advertise_picture a where a.delete_flag = 0 and 1=0 and a.advertise_id in ( ? ) order by a.update_time desc, a.create_time desc
@@ -105,11 +103,10 @@ public interface AdvertisePictureDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("advertiseId")&#64;RequestParam(required =false,name="advertiseIds") ArrayList&lt;Long&gt; advertiseIds
-    
+    &#64;ApiParam("advertiseId") &#64;RequestParam(required = false, name="advertiseIds") ArrayList&lt;Long&gt; advertiseIds    
     </pre>
 	 * 
-	 * sql:UPDATE demo_advertise_picture SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and advertise_id in ( ? )
+	 * sql:UPDATE demo_advertise_picture a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.advertise_id in ( ? )
 	 */
 	public java.util.List<Long> deleteByAdvertiseIds(java.util.List<Long> advertiseIds) throws DataAccessException;
 	

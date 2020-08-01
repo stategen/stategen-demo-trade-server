@@ -60,8 +60,6 @@ public class FlutterFacadeProcessor extends BaseGenFacadeProcessor {
         //
         GenContext.tempDirs = Arrays.asList("/flutter/dart-api", "/flutter/dart-flutter");
         GenContext.outDir = "app-frontend-flutter/lib/intergrade/";
-        //因为jekins中的没有运行环境，所以不能用spring配置读取
-        GenContext.extPackageNames =Arrays.asList("com.github.binarywang.stategen.wx.pay.controller");
 
         PathType[] pathTypes = PathType.values();
         for (PathType pathType : pathTypes) {

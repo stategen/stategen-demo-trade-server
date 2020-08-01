@@ -1,243 +1,249 @@
-﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_city -e 会自动覆盖-->
+﻿    <!-- 表中至少有一个更新字段(update_time,gmt_update或自定义)，一个主键 -->
+    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_city -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_city (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="cityId"> city_id </isNotNull>
-            <isNotNull prepend="," property="name"> name </isNotNull>
-            <isNotNull prepend="," property="pycode"> pycode </isNotNull>
-            <isNotNull prepend="," property="provinceId"> province_id </isNotNull>
-            <isNotNull prepend="," property="postcode"> postcode </isNotNull>
-            <isNotNull prepend="," property="areacode"> areacode </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="cityId"> ?  </isNotNull>
-            <isNotNull prepend="," property="name"> ?  </isNotNull>
-            <isNotNull prepend="," property="pycode"> ?  </isNotNull>
-            <isNotNull prepend="," property="provinceId"> ?  </isNotNull>
-            <isNotNull prepend="," property="postcode"> ?  </isNotNull>
-            <isNotNull prepend="," property="areacode"> ?  </isNotNull>
-            )
-            <selectKey keyProperty="cityId" resultClass="String" type="pre">
-                select if((#cityId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#cityId# ) as cityId
-            </selectKey>
+           insert into demo_city (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="cityId"> city_id </isNotNull>
+             <isNotNull prepend="," property="name"> name </isNotNull>
+             <isNotNull prepend="," property="pycode"> pycode </isNotNull>
+             <isNotNull prepend="," property="provinceId"> province_id </isNotNull>
+             <isNotNull prepend="," property="postcode"> postcode </isNotNull>
+             <isNotNull prepend="," property="areacode"> areacode </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="cityId"> ?  </isNotNull>
+             <isNotNull prepend="," property="name"> ?  </isNotNull>
+             <isNotNull prepend="," property="pycode"> ?  </isNotNull>
+             <isNotNull prepend="," property="provinceId"> ?  </isNotNull>
+             <isNotNull prepend="," property="postcode"> ?  </isNotNull>
+             <isNotNull prepend="," property="areacode"> ?  </isNotNull>
+           )
+           <selectKey keyProperty="cityId" resultClass="String" type="pre">
+              select if((#cityId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#cityId# ) as cityId
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
         <sql>
-            UPDATE demo_city SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and city_id = ?
+           UPDATE demo_city a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.city_id = ?
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
         <sql>
-            UPDATE demo_city
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="name" prepend=",">
-                    name =  ? 
-                </isNotNull>
-                <isNotNull property="pycode" prepend=",">
-                    pycode =  ? 
-                </isNotNull>
-                <isNotNull property="provinceId" prepend=",">
-                    province_id =  ? 
-                </isNotNull>
-                <isNotNull property="postcode" prepend=",">
-                    postcode =  ? 
-                </isNotNull>
-                <isNotNull property="areacode" prepend=",">
-                    areacode =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and city_id = ?
+           UPDATE demo_city a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="name" prepend=",">
+             a.name =  ? 
+             </isNotNull>
+             <isNotNull property="pycode" prepend=",">
+             a.pycode =  ? 
+             </isNotNull>
+             <isNotNull property="provinceId" prepend=",">
+             a.province_id =  ? 
+             </isNotNull>
+             <isNotNull property="postcode" prepend=",">
+             a.postcode =  ? 
+             </isNotNull>
+             <isNotNull property="areacode" prepend=",">
+             a.areacode =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.city_id = ?
         </sql>
     </operation>
+
+    <!-- 主建或 unique索引生成单独查询 -->
 
     <operation name="getCityByCityId" multiplicity="one" remarks="">
         <sql>
-            select
-            a.city_id,
-            a.name,
-            a.pycode,
-            a.province_id,
-            a.postcode,
-            a.areacode,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_city a
-            where
-            a.delete_flag = 0
-            and a.city_id = ?
+           select
+             a.city_id,
+             a.name,
+             a.pycode,
+             a.province_id,
+             a.postcode,
+             a.areacode,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_city a
+           where
+             a.delete_flag = 0
+             and a.city_id = ?
         </sql>
     </operation>
 
+    <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
         <sql>
-            select
-            a.city_id,
-            a.name,
-            a.pycode,
-            a.province_id,
-            a.postcode,
-            a.areacode,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_city a
-            where
-            a.delete_flag = 0
-            <isNotNull property="cityId">
-               and a.city_id=?
-            </isNotNull>
-            <isNotEmpty property="cityIds">
-                and a.city_id in
-                <iterate property="cityIds" conjunction="," open="(" close=")">
-                    #cityIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="name">
-            and a.name=?
-          </isNotNull>
-            <isNotEmpty property="nameLike">
-                and a.name like CONCAT('%',#nameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="pycode">
-            and a.pycode=?
-          </isNotNull>
-            <isNotEmpty property="pycodeLike">
-                and a.pycode like CONCAT('%',#pycodeLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="provinceId">
-               and a.province_id=?
-            </isNotNull>
-            <isNotEmpty property="provinceIds">
-                and a.province_id in
-                <iterate property="provinceIds" conjunction="," open="(" close=")">
-                    #provinceIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="postcode">
-            and a.postcode=?
-          </isNotNull>
-            <isNotEmpty property="postcodeLike">
-                and a.postcode like CONCAT('%',#postcodeLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="areacode">
-            and a.areacode=?
-          </isNotNull>
-            <isNotEmpty property="areacodeLike">
-                and a.areacode like CONCAT('%',#areacodeLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="cityId">
-            <isEmpty property="cityIds">
-            <isNull property="name">
-            <isEmpty property="nameLike">
-            <isNull property="pycode">
-            <isEmpty property="pycodeLike">
-            <isNull property="provinceId">
-            <isEmpty property="provinceIds">
-            <isNull property="postcode">
-            <isEmpty property="postcodeLike">
-            <isNull property="areacode">
-            <isEmpty property="areacodeLike">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            order by
-            <include refid = "getCityPageListOrderBy" />
+           select
+             a.city_id,
+             a.name,
+             a.pycode,
+             a.province_id,
+             a.postcode,
+             a.areacode,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_city a
+           where
+             a.delete_flag = 0
+             <isNotNull property="cityId">
+             and a.city_id=?
+             </isNotNull>
+             <isNotEmpty property="cityIds">
+             and a.city_id in
+               <iterate property="cityIds" conjunction="," open="(" close=")">
+               #cityIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="name">
+             and a.name=?
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="pycode">
+             and a.pycode=?
+             </isNotNull>
+             <isNotEmpty property="pycodeLike">
+             and a.pycode like CONCAT('%',#pycodeLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="provinceId">
+             and a.province_id=?
+             </isNotNull>
+             <isNotEmpty property="provinceIds">
+             and a.province_id in
+               <iterate property="provinceIds" conjunction="," open="(" close=")">
+               #provinceIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="postcode">
+             and a.postcode=?
+             </isNotNull>
+             <isNotEmpty property="postcodeLike">
+             and a.postcode like CONCAT('%',#postcodeLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="areacode">
+             and a.areacode=?
+             </isNotNull>
+             <isNotEmpty property="areacodeLike">
+             and a.areacode like CONCAT('%',#areacodeLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="cityId">
+             <isEmpty property="cityIds">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="pycode">
+             <isEmpty property="pycodeLike">
+             <isNull property="provinceId">
+             <isEmpty property="provinceIds">
+             <isNull property="postcode">
+             <isEmpty property="postcodeLike">
+             <isNull property="areacode">
+             <isEmpty property="areacodeLike">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+           order by
+             <include refid="getCityPageListOrderBy"/>
         </sql>
     </operation>
-    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
+    <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getCitysByCityIds" multiplicity="many" remarks="">
         <sql>
-            select
-            a.city_id,
-            a.name,
-            a.pycode,
-            a.province_id,
-            a.postcode,
-            a.areacode,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_city a
-            where
-            a.delete_flag = 0
-            <isEmpty property="cityIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="cityIds">
-                and a.city_id in
+           select
+             a.city_id,
+             a.name,
+             a.pycode,
+             a.province_id,
+             a.postcode,
+             a.areacode,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_city a
+           where
+             a.delete_flag = 0
+             <isEmpty property="cityIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="cityIds" prepend="and">
+             a.city_id in
                 <iterate property="cityIds" conjunction="," open="(" close=")">
-                    #cityIds[]#
+                   #cityIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getCitysByCityIdsOrderBy" />
+             </isNotEmpty>
+           order by
+             <include refid="getCitysByCityIdsOrderBy"/>
         </sql>
     </operation>
 
     <operation name="deleteByCityIds" remarks="">
         <sql>
-            UPDATE demo_city SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="cityIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="cityIds">
-                and city_id in
+           UPDATE demo_city a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="cityIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="cityIds" prepend="and">
+             a.city_id in
                 <iterate property="cityIds" conjunction="," open="(" close=")">
-                    #cityIds[]#
+                   #cityIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
         </sql>
     </operation>
     
-    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_city -e 会自动覆盖-->
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_city -e 会自动覆盖 -->

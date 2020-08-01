@@ -11,6 +11,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
@@ -30,7 +32,10 @@ import com.mycompany.biz.service.HomeAdvertiseService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class HomeAdvertiseServiceImpl implements HomeAdvertiseService {
+public class HomeAdvertiseServiceImpl implements HomeAdvertiseService, IdGenerateService<String> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     @Resource(name = "homeAdvertiseDao")
     HomeAdvertiseDao homeAdvertiseDao;
@@ -42,7 +47,7 @@ public class HomeAdvertiseServiceImpl implements HomeAdvertiseService {
      */
     @Override
     public HomeAdvertise insert(HomeAdvertise homeAdvertise) {
-        return homeAdvertiseDao.insert(homeAdvertise);
+        return homeAdvertiseDao.insert(homeAdvertise, this);
     }
 
     /**
@@ -141,5 +146,10 @@ public class HomeAdvertiseServiceImpl implements HomeAdvertiseService {
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, HomeAdvertiseServiceImpl::getHomeAdvertisesByHomeAdvIds, HomeAdvertise::getHomeAdvId);
+    }
+
+    @Override
+    public <T> String generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(String.class, bizTagClz);
     }
 }

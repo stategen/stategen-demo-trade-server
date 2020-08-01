@@ -2,7 +2,7 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */
+ */    
 package com.mycompany.biz.dao.impl;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import com.mycompany.biz.dao.UserDao;
 import org.stategen.framework.lite.PageList;
 
 import org.springframework.dao.DataAccessException;
-
+import org.stategen.framework.lite.IdGenerateService;
 /**
  * UserDao
  * <pre>
@@ -27,21 +27,28 @@ import org.springframework.dao.DataAccessException;
  */
 public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
+
 	/**
 	 * 
 	 * sql:insert into user ( create_time , update_time , delete_flag , user_id , username , password , role_type , name , nickName , inter_code , mobile , age , address , avatar_img_id , email , vali_datetime , birthday_date , work_time , province_id , city_id , status , grade , sex , post_address_id , remark ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 	 */
-	public User insert(User user) throws DataAccessException {
+	public User insert(User user, IdGenerateService<String> idGenerateService) throws DataAccessException {
 		if(user == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
+        if (idGenerateService != null && user.getUserId() == null) {
+            String userId = idGenerateService.generateId(User.class);
+            if (userId != null) {
+                user.setUserId(userId);
+            }
+        }
         super.insert("User.insert", user);
 		return user;
 	}
 
 	/**
 	 * 
-	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and user_id = ?
+	 * sql:UPDATE user a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.user_id = ?
 	 */
 	public String delete(String userId) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -52,7 +59,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
 	/**
 	 * 
-	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and username = ?
+	 * sql:UPDATE user a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.username = ?
 	 */
 	public Long deleteByUsername(String username) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -62,7 +69,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
 	/**
 	 * 
-	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and email = ?
+	 * sql:UPDATE user a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.email = ?
 	 */
 	public Long deleteByEmail(String email) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -72,7 +79,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
 	/**
 	 * 
-	 * sql:UPDATE user SET update_time= CURRENT_TIMESTAMP(6) , username = ? , password = ? , role_type = ? , name = ? , nickName = ? , inter_code = ? , mobile = ? , age = ? , address = ? , avatar_img_id = ? , email = ? , vali_datetime = ? , birthday_date = ? , work_time = ? , province_id = ? , city_id = ? , status = ? , grade = ? , sex = ? , post_address_id = ? , remark = ? where delete_flag = 0 and user_id = ?
+	 * sql:UPDATE user a SET a.update_time= CURRENT_TIMESTAMP(6) , a.username = ? , a.password = ? , a.role_type = ? , a.name = ? , a.nickName = ? , a.inter_code = ? , a.mobile = ? , a.age = ? , a.address = ? , a.avatar_img_id = ? , a.email = ? , a.vali_datetime = ? , a.birthday_date = ? , a.work_time = ? , a.province_id = ? , a.city_id = ? , a.status = ? , a.grade = ? , a.sex = ? , a.post_address_id = ? , a.remark = ? where a.delete_flag = 0 and a.user_id = ?
 	 */
 	public User update(User user) throws DataAccessException {
 		if(user == null) {
@@ -152,7 +159,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
 	/**
 	 * 
-	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and user_id in ( ? )
+	 * sql:UPDATE user a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.user_id in ( ? )
 	 */
 	public java.util.List<String> deleteByUserIds(java.util.List<String> userIds) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -163,7 +170,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
 	/**
 	 * 
-	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and username in ( ? )
+	 * sql:UPDATE user a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.username in ( ? )
 	 */
 	public Long deleteByUsernames(java.util.List<String> usernames) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -173,7 +180,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 
 	/**
 	 * 
-	 * sql:UPDATE user SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and email in ( ? )
+	 * sql:UPDATE user a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.email in ( ? )
 	 */
 	public Long deleteByEmails(java.util.List<String> emails) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(1);
@@ -191,6 +198,5 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 		params.put("mobile",mobile);
 		return (User)super.selectOne("User.getUserByMobile",params);
 	}
-
 }
 

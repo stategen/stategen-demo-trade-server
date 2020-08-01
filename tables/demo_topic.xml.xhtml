@@ -1,305 +1,488 @@
-﻿    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_topic -e 会自动覆盖-->
+﻿    <!-- 表中至少有一个更新字段(update_time,gmt_update或自定义)，一个主键 -->
+    <!-- 以下是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_topic -e 会自动覆盖 -->
     <operation name="insert" paramType="object" remarks="">
         <sql>
-            insert into demo_topic (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
-            <isNotNull prepend="," property="authorId"> author_id </isNotNull>
-            <isNotNull prepend="," property="topicType"> topic_type </isNotNull>
-            <isNotNull prepend="," property="content"> content </isNotNull>
-            <isNotNull prepend="," property="title"> title </isNotNull>
-            <isNotNull prepend="," property="lastReplyAt"> last_reply_at </isNotNull>
-            <isNotNull prepend="," property="good"> good </isNotNull>
-            <isNotNull prepend="," property="top"> top </isNotNull>
-            <isNotNull prepend="," property="visitCount"> visit_count </isNotNull>
-            ) VALUES (
-            CURRENT_TIMESTAMP(6)
-            , CURRENT_TIMESTAMP(6)
-            , 0
-            <isNotNull prepend="," property="topicId"> ?  </isNotNull>
-            <isNotNull prepend="," property="authorId"> ?  </isNotNull>
-            <isNotNull prepend="," property="topicType"> ?  </isNotNull>
-            <isNotNull prepend="," property="content"> ?  </isNotNull>
-            <isNotNull prepend="," property="title"> ?  </isNotNull>
-            <isNotNull prepend="," property="lastReplyAt"> ?  </isNotNull>
-            <isNotNull prepend="," property="good"> ?  </isNotNull>
-            <isNotNull prepend="," property="top"> ?  </isNotNull>
-            <isNotNull prepend="," property="visitCount"> ?  </isNotNull>
-            )
-            <selectKey keyProperty="topicId" resultClass="String" type="pre">
-                select if((#topicId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#topicId# ) as topicId
-            </selectKey>
+           insert into demo_topic (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="topicId"> topic_id </isNotNull>
+             <isNotNull prepend="," property="authorId"> author_id </isNotNull>
+             <isNotNull prepend="," property="topicType"> topic_type </isNotNull>
+             <isNotNull prepend="," property="content"> content </isNotNull>
+             <isNotNull prepend="," property="title"> title </isNotNull>
+             <isNotNull prepend="," property="lastReplyAt"> last_reply_at </isNotNull>
+             <isNotNull prepend="," property="good"> good </isNotNull>
+             <isNotNull prepend="," property="top"> top </isNotNull>
+             <isNotNull prepend="," property="visitCount"> visit_count </isNotNull>
+           ) VALUES (
+             CURRENT_TIMESTAMP(6)
+             , CURRENT_TIMESTAMP(6)
+             , 0
+             <isNotNull prepend="," property="topicId"> ?  </isNotNull>
+             <isNotNull prepend="," property="authorId"> ?  </isNotNull>
+             <isNotNull prepend="," property="topicType"> ?  </isNotNull>
+             <isNotNull prepend="," property="content"> ?  </isNotNull>
+             <isNotNull prepend="," property="title"> ?  </isNotNull>
+             <isNotNull prepend="," property="lastReplyAt"> ?  </isNotNull>
+             <isNotNull prepend="," property="good"> ?  </isNotNull>
+             <isNotNull prepend="," property="top"> ?  </isNotNull>
+             <isNotNull prepend="," property="visitCount"> ?  </isNotNull>
+           )
+           <selectKey keyProperty="topicId" resultClass="String" type="pre">
+              select if((#topicId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#topicId# ) as topicId
+           </selectKey>
         </sql>
     </operation>
 
     <operation name="delete" remarks="">
+        <extraparams>
+           <param name="currOrgId" javaType="Long"/>
+           <param name="inclCurrOrgId" javaType="Boolean"/>
+           <param name="currUserId" javaType="String"/>
+        </extraparams>
         <sql>
-            UPDATE demo_topic SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and topic_id = ?
+           UPDATE demo_topic a
+           <isNotNull property="currOrgId">
+           left join demo_topic_level_h h on (a.topic_id = h.topic_id)
+           </isNotNull>
+           <isNotNull property="currUserId">
+           left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
+           left join user u on (u.user_id = o.user_id)
+           </isNotNull>
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.topic_id = ?
+             <isNull property="currOrgId">
+               <isNull property="currUserId">
+                  and (1=0)
+               </isNull>
+             </isNull>
+             <isNotNull property="currOrgId">
+                <isNull property="currUserId">
+                   and (((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currOrgId# and delete_flag = 0)))
+                </isNull>
+             </isNotNull>
+             <isNotNull property="currUserId">
+                <isNull property="currOrgId">
+                   and (o.user_id = #currUserId# and u.delete_flag = 0)
+                </isNull>
+             </isNotNull>
+             <isNotNull property="currOrgId">
+                <isNotNull property="currUserId">
+                   and ((o.user_id = #currUserId# and u.delete_flag = 0) or ((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currOrgId# and delete_flag = 0)))
+                </isNotNull>
+             </isNotNull>
         </sql>
     </operation>
 
     <operation name="update" paramType="object" remarks="">
+        <extraparams>
+           <param name="currOrgId" javaType="Long"/>
+           <param name="inclCurrOrgId" javaType="Boolean"/>
+           <param name="currUserId" javaType="String"/>
+        </extraparams>
         <sql>
-            UPDATE demo_topic
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull property="authorId" prepend=",">
-                    author_id =  ? 
+           UPDATE demo_topic a
+           <isNotNull property="currOrgId">
+           left join demo_topic_level_h h on (a.topic_id = h.topic_id)
+           </isNotNull>
+           <isNotNull property="currUserId">
+           left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
+           left join user u on (u.user_id = o.user_id)
+           </isNotNull>
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull property="authorId" prepend=",">
+             a.author_id =  ? 
+             </isNotNull>
+             <isNotNull property="topicType" prepend=",">
+             a.topic_type =  ? 
+             </isNotNull>
+             <isNotNull property="content" prepend=",">
+             a.content =  ? 
+             </isNotNull>
+             <isNotNull property="title" prepend=",">
+             a.title =  ? 
+             </isNotNull>
+             <isNotNull property="lastReplyAt" prepend=",">
+             a.last_reply_at =  ? 
+             </isNotNull>
+             <isNotNull property="good" prepend=",">
+             a.good =  ? 
+             </isNotNull>
+             <isNotNull property="top" prepend=",">
+             a.top =  ? 
+             </isNotNull>
+             <isNotNull property="visitCount" prepend=",">
+             a.visit_count =  ? 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.topic_id = ?
+             <isNull property="currOrgId">
+               <isNull property="currUserId">
+                  and (1=0)
+               </isNull>
+             </isNull>
+             <isNotNull property="currOrgId">
+                <isNull property="currUserId">
+                   and (((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currOrgId# and delete_flag = 0)))
+                </isNull>
+             </isNotNull>
+             <isNotNull property="currUserId">
+                <isNull property="currOrgId">
+                   and (o.user_id = #currUserId# and u.delete_flag = 0)
+                </isNull>
+             </isNotNull>
+             <isNotNull property="currOrgId">
+                <isNotNull property="currUserId">
+                   and ((o.user_id = #currUserId# and u.delete_flag = 0) or ((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currOrgId# and delete_flag = 0)))
                 </isNotNull>
-                <isNotNull property="topicType" prepend=",">
-                    topic_type =  ? 
-                </isNotNull>
-                <isNotNull property="content" prepend=",">
-                    content =  ? 
-                </isNotNull>
-                <isNotNull property="title" prepend=",">
-                    title =  ? 
-                </isNotNull>
-                <isNotNull property="lastReplyAt" prepend=",">
-                    last_reply_at =  ? 
-                </isNotNull>
-                <isNotNull property="good" prepend=",">
-                    good =  ? 
-                </isNotNull>
-                <isNotNull property="top" prepend=",">
-                    top =  ? 
-                </isNotNull>
-                <isNotNull property="visitCount" prepend=",">
-                    visit_count =  ? 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and topic_id = ?
+             </isNotNull>
         </sql>
     </operation>
+
+    <!-- 主建或 unique索引生成单独查询 -->
 
     <operation name="getTopicByTopicId" multiplicity="one" remarks="">
+        <extraparams>
+           <param name="currOrgId" javaType="Long"/>
+           <param name="inclCurrOrgId" javaType="Boolean"/>
+           <param name="currUserId" javaType="String"/>
+        </extraparams>
         <sql>
-            select
-            a.topic_id,
-            a.author_id,
-            a.topic_type,
-            a.content,
-            a.title,
-            a.last_reply_at,
-            a.good,
-            a.top,
-            a.visit_count,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_topic a
-            where
-            a.delete_flag = 0
-            and a.topic_id = ?
+           select
+             a.topic_id,
+             a.author_id,
+             a.topic_type,
+             a.content,
+             a.title,
+             a.last_reply_at,
+             a.good,
+             a.top,
+             a.visit_count,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_topic a
+           <isNotNull property="currOrgId">
+           left join demo_topic_level_h h on (a.topic_id = h.topic_id)
+           </isNotNull>
+           <isNotNull property="currUserId">
+           left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
+           left join user u on (u.user_id = o.user_id)
+           </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.topic_id = ?
+             <isNotNull property="currOrgId">
+                <isNull property="currUserId">
+                   and (((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currOrgId# and delete_flag = 0)))
+                </isNull>
+             </isNotNull>
+             <isNotNull property="currUserId">
+                <isNull property="currOrgId">
+                   and (o.user_id = #currUserId# and u.delete_flag = 0)
+                </isNull>
+             </isNotNull>
+             <isNotNull property="currOrgId">
+                <isNotNull property="currUserId">
+                   and ((o.user_id = #currUserId# and u.delete_flag = 0) or ((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or exists (select null from demo_organization_flat_h where org_id = h.org_id and parent_id = #currOrgId# and delete_flag = 0)))
+                </isNotNull>
+             </isNotNull>
         </sql>
     </operation>
 
+    <!-- 键结尾  _id, _no, _type, _enum,描述中有(-type,-enum),主建 生成 in 查询 -->
     <operation name="getPageList" paramType="object" multiplicity="paging" remarks="">
+        <extraparams>
+           <param name="currOrgId" javaType="Long"/>
+           <param name="inclCurrOrgId" javaType="Boolean"/>
+           <param name="currUserId" javaType="String"/>
+        </extraparams>
         <sql>
-            select
-            a.topic_id,
-            a.author_id,
-            a.topic_type,
-            a.content,
-            a.title,
-            a.last_reply_at,
-            a.good,
-            a.top,
-            a.visit_count,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_topic a
-            where
-            a.delete_flag = 0
-            <isNotNull property="topicId">
-               and a.topic_id=?
-            </isNotNull>
-            <isNotEmpty property="topicIds">
-                and a.topic_id in
-                <iterate property="topicIds" conjunction="," open="(" close=")">
-                    #topicIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="authorId">
-               and a.author_id=?
-            </isNotNull>
-            <isNotEmpty property="authorIds">
-                and a.author_id in
-                <iterate property="authorIds" conjunction="," open="(" close=")">
-                    #authorIds[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="topicType">
-               and a.topic_type=?
-            </isNotNull>
-            <isNotEmpty property="topicTypes">
-                and a.topic_type in
-                <iterate property="topicTypes" conjunction="," open="(" close=")">
-                    #topicTypes[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="title">
-            and a.title=?
-          </isNotNull>
-            <isNotEmpty property="titleLike">
-                and a.title like CONCAT('%',#titleLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="lastReplyAtMin">
-                and a.last_reply_at >=#lastReplyAtMin#
-            </isNotNull>
-            <isNotNull property="lastReplyAtMax">
-                and a.last_reply_at &lt;#lastReplyAtMax#
-            </isNotNull>
-          <isNotNull property="good">
-                and a.good=?
-          </isNotNull>
-            <isNotNull property="goodMin">
-                and a.good >=#goodMin#
-            </isNotNull>
-            <isNotNull property="goodMax">
-                and a.good &lt;#goodMax#
-            </isNotNull>
-          <isNotNull property="top">
-                and a.top=?
-          </isNotNull>
-            <isNotNull property="topMin">
-                and a.top >=#topMin#
-            </isNotNull>
-            <isNotNull property="topMax">
-                and a.top &lt;#topMax#
-            </isNotNull>
-          <isNotNull property="visitCount">
-                and a.visit_count=?
-          </isNotNull>
-            <isNotNull property="visitCountMin">
-                and a.visit_count >=#visitCountMin#
-            </isNotNull>
-            <isNotNull property="visitCountMax">
-                and a.visit_count &lt;#visitCountMax#
-            </isNotNull>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="topicId">
-            <isEmpty property="topicIds">
-            <isNull property="authorId">
-            <isEmpty property="authorIds">
-            <isNull property="topicType">
-            <isEmpty property="topicTypes">
-            <isNull property="title">
-            <isEmpty property="titleLike">
-            <isNull property="lastReplyAtMin">
-            <isNull property="lastReplyAtMax">
-            <isNull property="good">
-            <isNull property="goodMin">
-            <isNull property="goodMax">
-            <isNull property="top">
-            <isNull property="topMin">
-            <isNull property="topMax">
-            <isNull property="visitCount">
-            <isNull property="visitCountMin">
-            <isNull property="visitCountMax">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            order by
-            <include refid = "getTopicPageListOrderBy" />
+           select
+             a.topic_id,
+             a.author_id,
+             a.topic_type,
+             a.content,
+             a.title,
+             a.last_reply_at,
+             a.good,
+             a.top,
+             a.visit_count,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_topic a
+           <isNotNull property="currOrgId">
+           left join demo_topic_level_h h on (a.topic_id = h.topic_id)
+           </isNotNull>
+           <isNotNull property="currUserId">
+           left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
+           left join user u on (u.user_id = o.user_id)
+           </isNotNull>
+           where
+             a.delete_flag = 0
+             <isNotNull property="topicId">
+             and a.topic_id=?
+             </isNotNull>
+             <isNotEmpty property="topicIds">
+             and a.topic_id in
+               <iterate property="topicIds" conjunction="," open="(" close=")">
+               #topicIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="authorId">
+             and a.author_id=?
+             </isNotNull>
+             <isNotEmpty property="authorIds">
+             and a.author_id in
+               <iterate property="authorIds" conjunction="," open="(" close=")">
+               #authorIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="topicType">
+             and a.topic_type=?
+             </isNotNull>
+             <isNotEmpty property="topicTypes">
+             and a.topic_type in
+               <iterate property="topicTypes" conjunction="," open="(" close=")">
+               #topicTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="title">
+             and a.title=?
+             </isNotNull>
+             <isNotEmpty property="titleLike">
+             and a.title like CONCAT('%',#titleLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="lastReplyAtMin">
+             and a.last_reply_at >=#lastReplyAtMin#
+             </isNotNull>
+             <isNotNull property="lastReplyAtMax">
+             and a.last_reply_at &lt;#lastReplyAtMax#
+             </isNotNull>
+             <isNotNull property="good">
+             and a.good=?
+             </isNotNull>
+             <isNotNull property="goodMin">
+             and a.good >=#goodMin#
+             </isNotNull>
+             <isNotNull property="goodMax">
+             and a.good &lt;#goodMax#
+             </isNotNull>
+             <isNotNull property="top">
+             and a.top=?
+             </isNotNull>
+             <isNotNull property="topMin">
+             and a.top >=#topMin#
+             </isNotNull>
+             <isNotNull property="topMax">
+             and a.top &lt;#topMax#
+             </isNotNull>
+             <isNotNull property="visitCount">
+             and a.visit_count=?
+             </isNotNull>
+             <isNotNull property="visitCountMin">
+             and a.visit_count >=#visitCountMin#
+             </isNotNull>
+             <isNotNull property="visitCountMax">
+             and a.visit_count &lt;#visitCountMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="currOrgId">
+                <isNull property="currUserId">
+                   and (((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currOrgId# and delete_flag = 0)) )
+                </isNull>
+             </isNotNull>
+             <isNotNull property="currUserId">
+                <isNull property="currOrgId">
+                   and (o.user_id = #currUserId# and u.delete_flag = 0)
+                </isNull>
+             </isNotNull>
+             <isNotNull property="currOrgId">
+                <isNotNull property="currUserId">
+                   and ((o.user_id = #currUserId# and u.delete_flag = 0) or ((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currOrgId# and delete_flag = 0)) )
+                </isNotNull>
+             </isNotNull>
+             <isNull property="topicId">
+             <isEmpty property="topicIds">
+             <isNull property="authorId">
+             <isEmpty property="authorIds">
+             <isNull property="topicType">
+             <isEmpty property="topicTypes">
+             <isNull property="title">
+             <isEmpty property="titleLike">
+             <isNull property="lastReplyAtMin">
+             <isNull property="lastReplyAtMax">
+             <isNull property="good">
+             <isNull property="goodMin">
+             <isNull property="goodMax">
+             <isNull property="top">
+             <isNull property="topMin">
+             <isNull property="topMax">
+             <isNull property="visitCount">
+             <isNull property="visitCountMin">
+             <isNull property="visitCountMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+           order by
+             <include refid="getTopicPageListOrderBy"/>
         </sql>
     </operation>
-    <!-- 如何键满足 主键|唯一|外键|备注中包括'select' 将生成in查询-->
+    <!-- 如果键满足 主键|唯一|外键|备注中包括'-select' 将生成in查询 -->
 
     <operation name="getTopicsByTopicIds" multiplicity="many" remarks="">
+        <extraparams>
+           <param name="currOrgId" javaType="Long"/>
+           <param name="inclCurrOrgId" javaType="Boolean"/>
+           <param name="currUserId" javaType="String"/>
+        </extraparams>
         <sql>
-            select
-            a.topic_id,
-            a.author_id,
-            a.topic_type,
-            a.content,
-            a.title,
-            a.last_reply_at,
-            a.good,
-            a.top,
-            a.visit_count,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_topic a
-            where
-            a.delete_flag = 0
-            <isEmpty property="topicIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="topicIds">
-                and a.topic_id in
+           select
+             a.topic_id,
+             a.author_id,
+             a.topic_type,
+             a.content,
+             a.title,
+             a.last_reply_at,
+             a.good,
+             a.top,
+             a.visit_count,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_topic a
+           <isNotNull property="currOrgId">
+           left join demo_topic_level_h h on (a.topic_id = h.topic_id)
+           </isNotNull>
+           <isNotNull property="currUserId">
+           left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
+           left join user u on (u.user_id = o.user_id)
+           </isNotNull>
+           where
+             a.delete_flag = 0
+             <isEmpty property="topicIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNotEmpty property="topicIds" prepend="and">
+             a.topic_id in
                 <iterate property="topicIds" conjunction="," open="(" close=")">
-                    #topicIds[]#
+                   #topicIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getTopicsByTopicIdsOrderBy" />
+             </isNotEmpty>
+             <isNotNull property="currOrgId">
+                <isNull property="currUserId">
+                   and (((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currOrgId# and delete_flag = 0)) )
+                </isNull>
+             </isNotNull>
+             <isNotNull property="currUserId">
+                <isNull property="currOrgId">
+                   and (o.user_id = #currUserId# and u.delete_flag = 0)
+                </isNull>
+             </isNotNull>
+             <isNotNull property="currOrgId">
+                <isNotNull property="currUserId">
+                   and ((o.user_id = #currUserId# and u.delete_flag = 0) or ((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currOrgId# and delete_flag = 0)) )
+                </isNotNull>
+             </isNotNull>
+           order by
+             <include refid="getTopicsByTopicIdsOrderBy"/>
         </sql>
     </operation>
 
     <operation name="deleteByTopicIds" remarks="">
+        <extraparams>
+           <param name="currOrgId" javaType="Long"/>
+           <param name="inclCurrOrgId" javaType="Boolean"/>
+           <param name="currUserId" javaType="String"/>
+        </extraparams>
         <sql>
-            UPDATE demo_topic SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="topicIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="topicIds">
-                and topic_id in
+           UPDATE demo_topic a
+           <isNotNull property="currOrgId">
+           left join demo_topic_level_h h on (a.topic_id = h.topic_id)
+           </isNotNull>
+           <isNotNull property="currUserId">
+           left join demo_topic_owner_h o on (a.topic_id = o.topic_id)
+           left join user u on (u.user_id = o.user_id)
+           </isNotNull>
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty property="topicIds" prepend="and">
+             1=0
+             </isEmpty>
+             <isNull property="currOrgId">
+               <isNull property="currUserId">
+                  and (1=0)
+               </isNull>
+             </isNull>
+             <isNotEmpty property="topicIds" prepend="and">
+             a.topic_id in
                 <iterate property="topicIds" conjunction="," open="(" close=")">
-                    #topicIds[]#
+                   #topicIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
+             <isNotNull property="currOrgId">
+                <isNull property="currUserId">
+                   and (((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currOrgId# and delete_flag = 0)) )
+                </isNull>
+             </isNotNull>
+             <isNotNull property="currUserId">
+                <isNull property="currOrgId">
+                   and (o.user_id = #currUserId# and u.delete_flag = 0)
+                </isNull>
+             </isNotNull>
+             <isNotNull property="currOrgId">
+                <isNotNull property="currUserId">
+                   and ((o.user_id = #currUserId# and u.delete_flag = 0) or ((1=#inclCurrOrgId# and h.org_id = #currOrgId#) or h.org_id in (select org_id from demo_organization_flat_h where parent_id = #currOrgId# and delete_flag = 0)) )
+                </isNotNull>
+             </isNotNull>
         </sql>
     </operation>
     
-    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_topic -e 会自动覆盖-->
+    <!-- 以上是生成代码，勿动 ,如果表变更，重新执行 gen.sh table demo_topic -e 会自动覆盖 -->

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 本文件由dalgenx生成，任何在本文件上的手工修改将会在下次生成时被覆盖 -->
+<sqlMap>
+
+
+    <resultMap id="Organization_RM" class="com.mycompany.biz.domain.Organization">
+        <result property="orgId" column="org_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="parentId" column="parent_id" javaType="java.lang.Long" jdbcType="BIGINT"  />
+        <result property="name" column="name" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="orgType" column="org_type" javaType="java.lang.String" jdbcType="VARCHAR"  />
+        <result property="updateTime" column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP"  />
+        <result property="deleteFlag" column="delete_flag" javaType="java.lang.Boolean" jdbcType="BIT"  />
+    </resultMap>
+    
+	<sql id="getOrganizationPageListOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+	<sql id="getOrganizationsByOrgIdsOrderBy">
+		a.update_time desc, a.create_time desc
+	</sql>
+		
+
+	
+	
+    
+	<insert id="Organization.insert">
+		insert into demo_organization (
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="orgId"> org_id </isNotNull>
+             <isNotNull prepend="," property="parentId"> parent_id </isNotNull>
+             <isNotNull prepend="," property="name"> name </isNotNull>
+             <isNotNull prepend="," property="orgType"> org_type </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+            <isNotNull prepend="," property="orgId"> #orgId# </isNotNull> 
+            <isNotNull prepend="," property="parentId"> #parentId# </isNotNull> 
+            <isNotNull prepend="," property="name"> #name# </isNotNull> 
+            <isNotNull prepend="," property="orgType"> #orgType# </isNotNull>)
+           <selectKey keyProperty="orgId" resultClass="long">
+              select  LAST_INSERT_ID()
+           </selectKey>
+	</insert>
+	
+	<update id="Organization.delete">
+		UPDATE demo_organization a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.org_id = #orgId#
+	</update>
+	
+    
+	
+	<update id="Organization.update">
+		UPDATE demo_organization a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="parentId">
+             a.parent_id =  #parentId# 
+             </isNotNull>
+             <isNotNull prepend="," property="name">
+             a.name =  #name# 
+             </isNotNull>
+             <isNotNull prepend="," property="orgType">
+             a.org_type =  #orgType# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.org_id = #orgId#
+	</update>
+	
+    
+	
+	<select id="Organization.getOrganizationByOrgId" resultMap="Organization_RM" >
+    	select
+ /* getOrganizationByOrgId.Organization */              a.org_id,
+             a.parent_id,
+             a.name,
+             a.org_type,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_organization a
+           where
+             a.delete_flag = 0
+             and a.org_id = #orgId#
+	</select>	
+
+	    
+	
+	
+    
+	
+	<select id="Organization.getPageList" resultMap="Organization_RM" >
+    	select
+ /* getPageList.Organization */              a.org_id,
+             a.parent_id,
+             a.name,
+             a.org_type,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_organization a
+           where
+             a.delete_flag = 0
+             <isNotNull property="orgId">
+             and a.org_id=#orgId#
+             </isNotNull>
+             <isNotEmpty property="orgIds">
+             and a.org_id in
+               <iterate close=")" conjunction="," open="(" property="orgIds">
+               #orgIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="parentId">
+             and a.parent_id=#parentId#
+             </isNotNull>
+             <isNotEmpty property="parentIds">
+             and a.parent_id in
+               <iterate close=")" conjunction="," open="(" property="parentIds">
+               #parentIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="name">
+             and a.name=#name#
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="orgType">
+             and a.org_type=#orgType#
+             </isNotNull>
+             <isNotEmpty property="orgTypes">
+             and a.org_type in
+               <iterate close=")" conjunction="," open="(" property="orgTypes">
+               #orgTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNull property="orgId">
+             <isEmpty property="orgIds">
+             <isNull property="parentId">
+             <isEmpty property="parentIds">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="orgType">
+             <isEmpty property="orgTypes">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+           order by
+             <include refid="getOrganizationPageListOrderBy"/>
+			limit #offset#,#limit#
+	</select>	
+
+	<select id="Organization.getPageList_count" resultClass="long" >
+    	select  /* getPageList_count.Organization */ count(*)  from demo_organization a
+           where
+             a.delete_flag = 0
+             <isNotNull property="orgId">
+             and a.org_id=#orgId#
+             </isNotNull>
+             <isNotEmpty property="orgIds">
+             and a.org_id in
+               <iterate close=")" conjunction="," open="(" property="orgIds">
+               #orgIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="parentId">
+             and a.parent_id=#parentId#
+             </isNotNull>
+             <isNotEmpty property="parentIds">
+             and a.parent_id in
+               <iterate close=")" conjunction="," open="(" property="parentIds">
+               #parentIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="name">
+             and a.name=#name#
+             </isNotNull>
+             <isNotEmpty property="nameLike">
+             and a.name like CONCAT('%',#nameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="orgType">
+             and a.org_type=#orgType#
+             </isNotNull>
+             <isNotEmpty property="orgTypes">
+             and a.org_type in
+               <iterate close=")" conjunction="," open="(" property="orgTypes">
+               #orgTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNull property="orgId">
+             <isEmpty property="orgIds">
+             <isNull property="parentId">
+             <isEmpty property="parentIds">
+             <isNull property="name">
+             <isEmpty property="nameLike">
+             <isNull property="orgType">
+             <isEmpty property="orgTypes">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+	</select>
+	    
+	
+	
+    
+	
+	<select id="Organization.getOrganizationsByOrgIds" resultMap="Organization_RM" >
+    	select
+ /* getOrganizationsByOrgIds.Organization */              a.org_id,
+             a.parent_id,
+             a.name,
+             a.org_type,
+             a.update_time,
+             a.create_time,
+             a.delete_flag
+           from demo_organization a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="orgIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="orgIds">
+             a.org_id in
+                <iterate close=")" conjunction="," open="(" property="orgIds">
+                   #orgIds[]#
+                </iterate>
+             </isNotEmpty>
+           order by
+             <include refid="getOrganizationsByOrgIdsOrderBy"/>
+	</select>	
+
+	    
+	
+	
+    
+	
+	<update id="Organization.deleteByOrgIds">
+		UPDATE demo_organization a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="orgIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="orgIds">
+             a.org_id in
+                <iterate close=")" conjunction="," open="(" property="orgIds">
+                   #orgIds[]#
+                </iterate>
+             </isNotEmpty>
+	</update>
+	
+    
+
+</sqlMap>
+

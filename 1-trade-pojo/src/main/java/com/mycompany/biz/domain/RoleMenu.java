@@ -42,7 +42,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RoleMenu implements java.io.Serializable {
 
+    /*** ids in getPageList */
+    @ApiModelProperty("id s")
+    @JSONField(serialize = false)
+    private java.util.List<Long> ids;
+
     /***不使用或自定义字段在下次生成后，会移到serialVersionUID的上面*/
+    /* 如果字段注释中包括 -inherited 将不生成 */
     private static final long serialVersionUID = -5216457518046898601L;
 
     /***id   db_column: id BIGINT */
@@ -78,7 +84,8 @@ public class RoleMenu implements java.io.Serializable {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd H:m:ss.SSS");
         StringBuilder sb = new StringBuilder(1024);
         sb.append('{');
-        sb.append("ids").append('=').append(ids).append('\n');
+        sb.append("idMin").append('=').append(idMin).append('\n');
+        sb.append("idMax").append('=').append(idMax).append('\n');
         sb.append("roleIds").append('=').append(roleIds).append('\n');
         sb.append("menuIds").append('=').append(menuIds).append('\n');
         sb.append("createTimeMin").append('=').append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
@@ -96,10 +103,15 @@ public class RoleMenu implements java.io.Serializable {
     }
 
     /***查询字段下次生成时会自动移到toString()方法下面*/
-    /*** ids in getPageList */
-    @ApiModelProperty("id s")
+    /*** idMin in getPageList */
+    @ApiModelProperty("idMin")
     @JSONField(serialize = false)
-    private java.util.List<Long> ids;
+    private Long idMin;
+
+    /*** idMax in getPageList */
+    @ApiModelProperty("idMax")
+    @JSONField(serialize = false)
+    private Long idMax;
 
     /*** roleIds in getPageList */
     @ApiModelProperty("roleId s")

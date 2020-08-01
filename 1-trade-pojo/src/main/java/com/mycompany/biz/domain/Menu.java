@@ -8,11 +8,14 @@ package com.mycompany.biz.domain;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
+import org.stategen.framework.annotation.FieldNameConst;
 import org.stategen.framework.lite.IMenu;
 import org.stategen.framework.lite.TreeNode;
 import org.stategen.framework.lite.enums.MenuType;
@@ -52,7 +55,18 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
 
     private Boolean checked;
 
+    /*** menuId与bpid组成树图s in getPageList */
+    @ApiModelProperty("menuId与bpid组成树图 s")
+    @JSONField(serialize = false)
+    private java.util.List<Long> bpids;
+
+    /*** 大部分情况下与bpid相同，当为动态目录时，mpid=-1s in getPageList */
+    @ApiModelProperty("大部分情况下与bpid相同 s")
+    @JSONField(serialize = false)
+    private java.util.List<Long> mpids;
+
     /***不使用或自定义字段在下次生成后，会移到serialVersionUID的上面*/
+    /* 如果字段注释中包括 -inherited 将不生成 */
     private static final long serialVersionUID = -5216457518046898601L;
 
     /***menuId   db_column: menu_id BIGINT */
@@ -62,6 +76,7 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
 
     /***morder   db_column: morder INTEGER */
     @ApiModelProperty("morder")
+    @Column
     private Integer morder;
 
     /***menuId与bpid组成树图   db_column: bpid BIGINT */
@@ -104,6 +119,8 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
 
     /***route   db_column: route VARCHAR */
     @ApiModelProperty("route")
+    @FieldNameConst
+    @NotNull
     @Max(64)
     private String route;
 
@@ -137,8 +154,10 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
         sb.append("menuIds").append('=').append(menuIds).append('\n');
         sb.append("morderMin").append('=').append(morderMin).append('\n');
         sb.append("morderMax").append('=').append(morderMax).append('\n');
-        sb.append("bpids").append('=').append(bpids).append('\n');
-        sb.append("mpids").append('=').append(mpids).append('\n');
+        sb.append("bpidMin").append('=').append(bpidMin).append('\n');
+        sb.append("bpidMax").append('=').append(bpidMax).append('\n');
+        sb.append("mpidMin").append('=').append(mpidMin).append('\n');
+        sb.append("mpidMax").append('=').append(mpidMax).append('\n');
         sb.append("projectNameLike").append('=').append(projectNameLike).append('\n');
         sb.append("controllerNameLike").append('=').append(controllerNameLike).append('\n');
         sb.append("methodNameLike").append('=').append(methodNameLike).append('\n');
@@ -186,15 +205,25 @@ public class Menu extends TreeNode<Menu> implements java.io.Serializable, IMenu<
     @JSONField(serialize = false)
     private Integer morderMax;
 
-    /*** menuId与bpid组成树图s in getPageList */
-    @ApiModelProperty("menuId与bpid组成树图 s")
+    /*** menuId与bpid组成树图Min in getPageList */
+    @ApiModelProperty("menuId与bpid组成树图Min")
     @JSONField(serialize = false)
-    private java.util.List<Long> bpids;
+    private Long bpidMin;
 
-    /*** 大部分情况下与bpid相同，当为动态目录时，mpid=-1s in getPageList */
-    @ApiModelProperty("大部分情况下与bpid相同 s")
+    /*** menuId与bpid组成树图Max in getPageList */
+    @ApiModelProperty("menuId与bpid组成树图Max")
     @JSONField(serialize = false)
-    private java.util.List<Long> mpids;
+    private Long bpidMax;
+
+    /*** 大部分情况下与bpid相同，当为动态目录时，mpid=-1Min in getPageList */
+    @ApiModelProperty("大部分情况下与bpid相同Min")
+    @JSONField(serialize = false)
+    private Long mpidMin;
+
+    /*** 大部分情况下与bpid相同，当为动态目录时，mpid=-1Max in getPageList */
+    @ApiModelProperty("大部分情况下与bpid相同Max")
+    @JSONField(serialize = false)
+    private Long mpidMax;
 
     /*** 对应的项目idLike in getPageList */
     @ApiModelProperty("对应的项目idLike")

@@ -13,6 +13,8 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.LinkedCaseInsensitiveMap;
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.util.CollectionUtil;
@@ -33,7 +35,10 @@ import com.mycompany.biz.service.MenuService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class MenuServiceImpl implements MenuService {
+public class MenuServiceImpl implements MenuService, IdGenerateService<Long> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     @Value("${project.name}")
     private String projectName;
@@ -98,7 +103,7 @@ public class MenuServiceImpl implements MenuService {
      */
     @Override
     public Menu insert(Menu menu) {
-        return menuDao.insert(menu);
+        return menuDao.insert(menu, this);
     }
 
     /**
@@ -228,6 +233,49 @@ public class MenuServiceImpl implements MenuService {
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, MenuServiceImpl::getMenusByMenuIds, Menu::getMenuId);
     }
-    //-->
-    //
+
+    @Override
+    public <T> Long generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(Long.class, bizTagClz);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.MenuDao#deleteByRoute
+     * @see com.mycompany.biz.service.MenuService#deleteByRoute
+     */
+    @Override
+    public Long deleteByRoute(String route) {
+        return menuDao.deleteByRoute(route);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.MenuDao#getMenuByRoute
+     * @see com.mycompany.biz.service.MenuService#getMenuByRoute
+     */
+    @Override
+    public Menu getMenuByRoute(String route) {
+        return menuDao.getMenuByRoute(route);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.MenuDao#getMenusByRoutes
+     * @see com.mycompany.biz.service.MenuService#getMenusByRoutes
+     */
+    @Override
+    public List<Menu> getMenusByRoutes(java.util.List<String> routes) {
+        return menuDao.getMenusByRoutes(routes);
+    }
+
+    /**
+     * 
+     * @see com.mycompany.biz.dao.MenuDao#deleteByRoutes
+     * @see com.mycompany.biz.service.MenuService#deleteByRoutes
+     */
+    @Override
+    public Long deleteByRoutes(java.util.List<String> routes) {
+        return menuDao.deleteByRoutes(routes);
+    }
 }

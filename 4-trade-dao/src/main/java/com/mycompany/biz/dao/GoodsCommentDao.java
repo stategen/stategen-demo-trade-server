@@ -10,6 +10,7 @@ import java.util.List;
 import com.mycompany.biz.domain.GoodsComment;
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.PageList;
+import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * GoodsCommentDao
@@ -25,50 +26,48 @@ public interface GoodsCommentDao {
 
 	/**
     <pre>
-    &#64;ApiParam() String commentsId,
-    &#64;ApiParam() String goodsId,
-    &#64;ApiParam() String comments,
-    &#64;ApiParam() String userName,
-    &#64;ApiParam() Date discussTime,
-    &#64;ApiParam() Integer score
+    &#64;ApiParam() &#64;RequestParam(required = false) String commentsId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String comments,
+    &#64;ApiParam() &#64;RequestParam(required = false) String userName,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date discussTime,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer score
     ,&#64;ApiParam(hidden = true) GoodsComment goodsComment
     
     </pre>
 	 * 
 	 * sql:insert into demo_goods_comment ( create_time , update_time , delete_flag , comments_id , goods_id , comments , user_name , discuss_time , score ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?,?,?,?)
 	 */
-	public GoodsComment insert(GoodsComment goodsComment) throws DataAccessException;
+	public GoodsComment insert(GoodsComment goodsComment, IdGenerateService<String> idGenerateService) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("commentsId") String commentsId
-    
+    &#64;ApiParam("commentsId") &#64;RequestParam(required = false) String commentsId    
     </pre>
 	 * 
-	 * sql:UPDATE demo_goods_comment SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and comments_id = ?
+	 * sql:UPDATE demo_goods_comment a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and a.comments_id = ?
 	 */
 	public String delete(String commentsId) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam() String goodsId,
-    &#64;ApiParam() String comments,
-    &#64;ApiParam() String userName,
-    &#64;ApiParam() Date discussTime,
-    &#64;ApiParam() Integer score,
-    &#64;ApiParam() String commentsId
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsId,
+    &#64;ApiParam() &#64;RequestParam(required = false) String comments,
+    &#64;ApiParam() &#64;RequestParam(required = false) String userName,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date discussTime,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer score,
+    &#64;ApiParam() &#64;RequestParam(required = false) String commentsId
     ,&#64;ApiParam(hidden = true) GoodsComment goodsComment
     
     </pre>
 	 * 
-	 * sql:UPDATE demo_goods_comment SET update_time= CURRENT_TIMESTAMP(6) , goods_id = ? , comments = ? , user_name = ? , discuss_time = ? , score = ? where delete_flag = 0 and comments_id = ?
+	 * sql:UPDATE demo_goods_comment a SET a.update_time= CURRENT_TIMESTAMP(6) , a.goods_id = ? , a.comments = ? , a.user_name = ? , a.discuss_time = ? , a.score = ? where a.delete_flag = 0 and a.comments_id = ?
 	 */
 	public GoodsComment update(GoodsComment goodsComment) throws DataAccessException;
 	
 	/**
     <pre>
-    &#64;ApiParam("commentsId") String commentsId
-    
+    &#64;ApiParam("commentsId") &#64;RequestParam(required = false) String commentsId    
     </pre>
 	 * 
 	 * sql:select a.comments_id, a.goods_id, a.comments, a.user_name, a.discuss_time, a.score, a.create_time, a.update_time, a.delete_flag from demo_goods_comment a where a.delete_flag = 0 and a.comments_id = ?
@@ -77,21 +76,21 @@ public interface GoodsCommentDao {
 	
 	/**
     <pre>
-    &#64;ApiParam() String commentsId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="commentsIds") ArrayList&lt;String&gt; commentsIds,
-    &#64;ApiParam() String goodsId,
-    &#64;ApiParam()&#64;RequestParam(required =false,name="goodsIds") ArrayList&lt;String&gt; goodsIds,
-    &#64;ApiParam() String userName,
-    &#64;ApiParam() String userNameLike,
-    &#64;ApiParam() Date discussTimeMin,
-    &#64;ApiParam() Date discussTimeMax,
-    &#64;ApiParam() Integer score,
-    &#64;ApiParam() Integer scoreMin,
-    &#64;ApiParam() Integer scoreMax,
-    &#64;ApiParam() Date createTimeMin,
-    &#64;ApiParam() Date createTimeMax,
-    &#64;ApiParam() Date updateTimeMin,
-    &#64;ApiParam() Date updateTimeMax
+    &#64;ApiParam() &#64;RequestParam(required = false) String commentsId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="commentsIds") ArrayList&lt;String&gt; commentsIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String goodsId,
+    &#64;ApiParam() &#64;RequestParam(required = false, name="goodsIds") ArrayList&lt;String&gt; goodsIds,
+    &#64;ApiParam() &#64;RequestParam(required = false) String userName,
+    &#64;ApiParam() &#64;RequestParam(required = false) String userNameLike,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date discussTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date discussTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer score,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer scoreMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Integer scoreMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date createTimeMax,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMin,
+    &#64;ApiParam() &#64;RequestParam(required = false) Date updateTimeMax
     ,&#64;ApiParam(hidden = true) GoodsComment goodsComment
     ,Pagination pagination
     </pre>
@@ -102,8 +101,7 @@ public interface GoodsCommentDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("commentsId")&#64;RequestParam(required =false,name="commentsIds") ArrayList&lt;String&gt; commentsIds
-    
+    &#64;ApiParam("commentsId") &#64;RequestParam(required = false, name="commentsIds") ArrayList&lt;String&gt; commentsIds    
     </pre>
 	 * 
 	 * sql:select a.comments_id, a.goods_id, a.comments, a.user_name, a.discuss_time, a.score, a.create_time, a.update_time, a.delete_flag from demo_goods_comment a where a.delete_flag = 0 and 1=0 and a.comments_id in ( ? ) order by a.update_time desc, a.create_time desc
@@ -112,11 +110,10 @@ public interface GoodsCommentDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("commentsId")&#64;RequestParam(required =false,name="commentsIds") ArrayList&lt;String&gt; commentsIds
-    
+    &#64;ApiParam("commentsId") &#64;RequestParam(required = false, name="commentsIds") ArrayList&lt;String&gt; commentsIds    
     </pre>
 	 * 
-	 * sql:UPDATE demo_goods_comment SET delete_flag = 1 , update_time = CURRENT_TIMESTAMP(6) where delete_flag = 0 and 1=0 and comments_id in ( ? )
+	 * sql:UPDATE demo_goods_comment a SET a.delete_flag = 1 , a.update_time = CURRENT_TIMESTAMP(6) where a.delete_flag = 0 and 1=0 and a.comments_id in ( ? )
 	 */
 	public java.util.List<String> deleteByCommentsIds(java.util.List<String> commentsIds) throws DataAccessException;
 	

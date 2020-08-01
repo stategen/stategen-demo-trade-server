@@ -14,10 +14,11 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.ServiceUtil;
-import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.RegionDao;
 import com.mycompany.biz.domain.Region;
@@ -34,7 +35,10 @@ import com.mycompany.biz.service.RegionService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class RegionServiceImpl implements RegionService {
+public class RegionServiceImpl implements RegionService, IdGenerateService<Long> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     /**
      * 
@@ -68,7 +72,7 @@ public class RegionServiceImpl implements RegionService {
      */
     @Override
     public Region insert(Region region) {
-        return regionDao.insert(region);
+        return regionDao.insert(region, this);
     }
 
     /**
@@ -188,6 +192,9 @@ public class RegionServiceImpl implements RegionService {
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, RegionServiceImpl::getRegionsByRegionIds, Region::getRegionId);
     }
-    //-->
-    //
+
+    @Override
+    public <T> Long generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(Long.class, bizTagClz);
+    }
 }

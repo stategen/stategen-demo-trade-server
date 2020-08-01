@@ -28,42 +28,58 @@ public interface TopicService extends AssignService<Topic, String>, TopicService
 
     void assignTopicExtraProperties(List<Topic> topics);
 
-    //<#--
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.TopicDao#insert
      */
     public Topic insert(Topic topic);
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.TopicDao#delete
      */
-    public String delete(String topicId);
+    public String delete(String topicId, Boolean inclCurrOrgId, Long currOrgId, String currUserId);
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.TopicDao#update
      */
     public Topic update(Topic topic);
 
     /**
-     * 
+     ** 
      * @see com.mycompany.biz.dao.TopicDao#getTopicByTopicId
      */
-    public Topic getTopicByTopicId(String topicId);
+    public Topic getTopicByTopicId(String topicId, Boolean inclCurrOrgId, Long currOrgId, String currUserId);
 
     /**
-     * 
+     ** 
+     * @see com.mycompany.biz.dao.TopicDao#getPageList
+     */
+    public PageList<Topic> getPageList(Topic topic, int pageSize, int pageNum);
+
+    /**
+     ** 
      * @see com.mycompany.biz.dao.TopicDao#getTopicsByTopicIds
      */
-    public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds);
+    public List<Topic> getTopicsByTopicIds(java.util.List<String> topicIds, Boolean inclCurrOrgId, Long currOrgId, String currUserId);
 
     /**
-     * 
+     * @see com.mycompany.biz.service.TopicService#getTopicsByTopicIds
+     */
+    public List<Topic> getTopicsByTopicIdsNoLevelAuthority(java.util.List<String> topicIds);
+
+    /**
+     ** 
      * @see com.mycompany.biz.dao.TopicDao#deleteByTopicIds
      */
-    public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds);
+    public java.util.List<String> deleteByTopicIds(java.util.List<String> topicIds, Boolean inclCurrOrgId, Long currOrgId, String currUserId);
+
+    /**
+     ** 获取当前回复的数量
+     * @see com.mycompany.biz.dao.TopicDao#getReplyCounts
+     */
+    public List<Topic> getReplyCounts(java.util.List<String> topicIds);
 
     /*** 保存topic,有id时更新，没有id时插入,并带回新的id，返回 topic
      * @see com.mycompany.biz.dao.TopicDao#insert
@@ -74,18 +90,4 @@ public interface TopicService extends AssignService<Topic, String>, TopicService
      * @see com.mycompany.biz.dao.TopicDao#insert
      */
     public List<Topic> saveTopics(List<Topic> topics);
-
-    /**
-     * 获取当前回复的数量
-     * @see com.mycompany.biz.dao.TopicDao#getReplyCounts
-     */
-    public List<Topic> getReplyCounts(java.util.List<String> topicIds);
-
-    /**
-     * 
-     * @see com.mycompany.biz.dao.TopicDao#getPageList
-     */
-    public PageList<Topic> getPageList(Topic topic, int pageSize, int pageNum);
-    //-->
-    //
 }

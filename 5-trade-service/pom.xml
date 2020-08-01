@@ -120,13 +120,14 @@
             <artifactId>kryo-serializers</artifactId>
         </dependency>
         
-        <!-- weixin begin -->
+       <!-- 百度uidgenerator 唯一ID生成器
+             这个jar包maven仓库里面没有上传，需要自己把源码拉下来本地打包
+             源码地址：https://github.com/baidu/uid-generator 
+             再把Snapshort改成RELEASE,当然你可以用其它生成器-->
         <dependency>
-            <groupId>org.stategen.framework</groupId>
-            <artifactId>wechat-open-sdk</artifactId>
-            <version>${stategen-version}</version>
-        </dependency>           
-        <!-- weixin end -->
+            <groupId>com.baidu.fsg</groupId>
+            <artifactId>uid-generator</artifactId>
+        </dependency>         
     </dependencies>
 
     <build>

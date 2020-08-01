@@ -10,6 +10,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
@@ -29,7 +31,10 @@ import com.mycompany.biz.service.UserService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, IdGenerateService<String> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     //<#--
     @Resource(name = "userDao")
@@ -145,7 +150,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User insert(User user) {
-        return userDao.insert(user);
+        return userDao.insert(user, this);
     }
 
     /**
@@ -233,5 +238,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, UserServiceImpl::getUsersByUserIds, User::getUserId);
+    }
+
+    @Override
+    public <T> String generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(String.class, bizTagClz);
     }
 }

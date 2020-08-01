@@ -29,67 +29,68 @@
     
 	<insert id="AdvertisePicture.insert">
 		insert into demo_advertise_picture (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="advertiseId"> advertise_id </isNotNull>
-            <isNotNull prepend="," property="pictureAddress"> PICTURE_ADDRESS </isNotNull>
-            <isNotNull prepend="," property="toPlace"> TO_PLACE </isNotNull>
-            <isNotNull prepend="," property="urlType"> url_type </isNotNull>
-            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="advertiseId"> advertise_id </isNotNull>
+             <isNotNull prepend="," property="pictureAddress"> PICTURE_ADDRESS </isNotNull>
+             <isNotNull prepend="," property="toPlace"> TO_PLACE </isNotNull>
+             <isNotNull prepend="," property="urlType"> url_type </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="advertiseId"> #advertiseId# </isNotNull> 
             <isNotNull prepend="," property="pictureAddress"> #pictureAddress# </isNotNull> 
             <isNotNull prepend="," property="toPlace"> #toPlace# </isNotNull> 
             <isNotNull prepend="," property="urlType"> #urlType# </isNotNull>)
-            <selectKey keyProperty="advertiseId" resultClass="long">
-                select  LAST_INSERT_ID()
-            </selectKey>
+           <selectKey keyProperty="advertiseId" resultClass="long">
+              select  LAST_INSERT_ID()
+           </selectKey>
 	</insert>
 	
 	<update id="AdvertisePicture.delete">
-		UPDATE demo_advertise_picture SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and advertise_id = #advertiseId#
+		UPDATE demo_advertise_picture a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.advertise_id = #advertiseId#
 	</update>
 	
     
 	
 	<update id="AdvertisePicture.update">
-		UPDATE demo_advertise_picture
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull prepend="," property="pictureAddress">
-                    PICTURE_ADDRESS =  #pictureAddress# 
-                </isNotNull>
-                <isNotNull prepend="," property="toPlace">
-                    TO_PLACE =  #toPlace# 
-                </isNotNull>
-                <isNotNull prepend="," property="urlType">
-                    url_type =  #urlType# 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and advertise_id = #advertiseId#
+		UPDATE demo_advertise_picture a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="pictureAddress">
+             a.PICTURE_ADDRESS =  #pictureAddress# 
+             </isNotNull>
+             <isNotNull prepend="," property="toPlace">
+             a.TO_PLACE =  #toPlace# 
+             </isNotNull>
+             <isNotNull prepend="," property="urlType">
+             a.url_type =  #urlType# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.advertise_id = #advertiseId#
 	</update>
 	
     
 	
 	<select id="AdvertisePicture.getAdvertisePictureByAdvertiseId" resultMap="AdvertisePicture_RM" >
     	select
- /* getAdvertisePictureByAdvertiseId.AdvertisePicture */             a.advertise_id,
-            a.PICTURE_ADDRESS,
-            a.TO_PLACE,
-            a.url_type,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_advertise_picture a
-            where
-            a.delete_flag = 0
-            and a.advertise_id = #advertiseId#
+ /* getAdvertisePictureByAdvertiseId.AdvertisePicture */              a.advertise_id,
+             a.PICTURE_ADDRESS,
+             a.TO_PLACE,
+             a.url_type,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_advertise_picture a
+           where
+             a.delete_flag = 0
+             and a.advertise_id = #advertiseId#
 	</select>	
 
 	    
@@ -99,159 +100,159 @@
 	
 	<select id="AdvertisePicture.getPageList" resultMap="AdvertisePicture_RM" >
     	select
- /* getPageList.AdvertisePicture */             a.advertise_id,
-            a.PICTURE_ADDRESS,
-            a.TO_PLACE,
-            a.url_type,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_advertise_picture a
-            where
-            a.delete_flag = 0
-            <isNotNull property="advertiseId">
-               and a.advertise_id=#advertiseId#
-            </isNotNull>
-            <isNotEmpty property="advertiseIds">
-                and a.advertise_id in
-                <iterate close=")" conjunction="," open="(" property="advertiseIds">
-                    #advertiseIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="pictureAddress">
-            and a.PICTURE_ADDRESS=#pictureAddress#
-          </isNotNull>
-            <isNotEmpty property="pictureAddressLike">
-                and a.PICTURE_ADDRESS like CONCAT('%',#pictureAddressLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="toPlace">
-            and a.TO_PLACE=#toPlace#
-          </isNotNull>
-            <isNotEmpty property="toPlaceLike">
-                and a.TO_PLACE like CONCAT('%',#toPlaceLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="urlType">
-               and a.url_type=#urlType#
-            </isNotNull>
-            <isNotEmpty property="urlTypes">
-                and a.url_type in
-                <iterate close=")" conjunction="," open="(" property="urlTypes">
-                    #urlTypes[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="advertiseId">
-            <isEmpty property="advertiseIds">
-            <isNull property="pictureAddress">
-            <isEmpty property="pictureAddressLike">
-            <isNull property="toPlace">
-            <isEmpty property="toPlaceLike">
-            <isNull property="urlType">
-            <isEmpty property="urlTypes">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            order by
-            <include refid="getAdvertisePicturePageListOrderBy"/>
+ /* getPageList.AdvertisePicture */              a.advertise_id,
+             a.PICTURE_ADDRESS,
+             a.TO_PLACE,
+             a.url_type,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_advertise_picture a
+           where
+             a.delete_flag = 0
+             <isNotNull property="advertiseId">
+             and a.advertise_id=#advertiseId#
+             </isNotNull>
+             <isNotEmpty property="advertiseIds">
+             and a.advertise_id in
+               <iterate close=")" conjunction="," open="(" property="advertiseIds">
+               #advertiseIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="pictureAddress">
+             and a.PICTURE_ADDRESS=#pictureAddress#
+             </isNotNull>
+             <isNotEmpty property="pictureAddressLike">
+             and a.PICTURE_ADDRESS like CONCAT('%',#pictureAddressLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="toPlace">
+             and a.TO_PLACE=#toPlace#
+             </isNotNull>
+             <isNotEmpty property="toPlaceLike">
+             and a.TO_PLACE like CONCAT('%',#toPlaceLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="urlType">
+             and a.url_type=#urlType#
+             </isNotNull>
+             <isNotEmpty property="urlTypes">
+             and a.url_type in
+               <iterate close=")" conjunction="," open="(" property="urlTypes">
+               #urlTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="advertiseId">
+             <isEmpty property="advertiseIds">
+             <isNull property="pictureAddress">
+             <isEmpty property="pictureAddressLike">
+             <isNull property="toPlace">
+             <isEmpty property="toPlaceLike">
+             <isNull property="urlType">
+             <isEmpty property="urlTypes">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+           order by
+             <include refid="getAdvertisePicturePageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
 	<select id="AdvertisePicture.getPageList_count" resultClass="long" >
     	select  /* getPageList_count.AdvertisePicture */ count(*)  from demo_advertise_picture a
-            where
-            a.delete_flag = 0
-            <isNotNull property="advertiseId">
-               and a.advertise_id=#advertiseId#
-            </isNotNull>
-            <isNotEmpty property="advertiseIds">
-                and a.advertise_id in
-                <iterate close=")" conjunction="," open="(" property="advertiseIds">
-                    #advertiseIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="pictureAddress">
-            and a.PICTURE_ADDRESS=#pictureAddress#
-          </isNotNull>
-            <isNotEmpty property="pictureAddressLike">
-                and a.PICTURE_ADDRESS like CONCAT('%',#pictureAddressLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="toPlace">
-            and a.TO_PLACE=#toPlace#
-          </isNotNull>
-            <isNotEmpty property="toPlaceLike">
-                and a.TO_PLACE like CONCAT('%',#toPlaceLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="urlType">
-               and a.url_type=#urlType#
-            </isNotNull>
-            <isNotEmpty property="urlTypes">
-                and a.url_type in
-                <iterate close=")" conjunction="," open="(" property="urlTypes">
-                    #urlTypes[]#
-                </iterate>
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNull property="advertiseId">
-            <isEmpty property="advertiseIds">
-            <isNull property="pictureAddress">
-            <isEmpty property="pictureAddressLike">
-            <isNull property="toPlace">
-            <isEmpty property="toPlaceLike">
-            <isNull property="urlType">
-            <isEmpty property="urlTypes">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-              and 0 = 1
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           where
+             a.delete_flag = 0
+             <isNotNull property="advertiseId">
+             and a.advertise_id=#advertiseId#
+             </isNotNull>
+             <isNotEmpty property="advertiseIds">
+             and a.advertise_id in
+               <iterate close=")" conjunction="," open="(" property="advertiseIds">
+               #advertiseIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="pictureAddress">
+             and a.PICTURE_ADDRESS=#pictureAddress#
+             </isNotNull>
+             <isNotEmpty property="pictureAddressLike">
+             and a.PICTURE_ADDRESS like CONCAT('%',#pictureAddressLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="toPlace">
+             and a.TO_PLACE=#toPlace#
+             </isNotNull>
+             <isNotEmpty property="toPlaceLike">
+             and a.TO_PLACE like CONCAT('%',#toPlaceLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="urlType">
+             and a.url_type=#urlType#
+             </isNotNull>
+             <isNotEmpty property="urlTypes">
+             and a.url_type in
+               <iterate close=")" conjunction="," open="(" property="urlTypes">
+               #urlTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNull property="advertiseId">
+             <isEmpty property="advertiseIds">
+             <isNull property="pictureAddress">
+             <isEmpty property="pictureAddressLike">
+             <isNull property="toPlace">
+             <isEmpty property="toPlaceLike">
+             <isNull property="urlType">
+             <isEmpty property="urlTypes">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             and 0 = 1
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
 	</select>
 	    
 	
@@ -260,27 +261,27 @@
 	
 	<select id="AdvertisePicture.getAdvertisePicturesByAdvertiseIds" resultMap="AdvertisePicture_RM" >
     	select
- /* getAdvertisePicturesByAdvertiseIds.AdvertisePicture */             a.advertise_id,
-            a.PICTURE_ADDRESS,
-            a.TO_PLACE,
-            a.url_type,
-            a.create_time,
-            a.update_time,
-            a.delete_flag
-            from demo_advertise_picture a
-            where
-            a.delete_flag = 0
-            <isEmpty property="advertiseIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="advertiseIds">
-                and a.advertise_id in
+ /* getAdvertisePicturesByAdvertiseIds.AdvertisePicture */              a.advertise_id,
+             a.PICTURE_ADDRESS,
+             a.TO_PLACE,
+             a.url_type,
+             a.create_time,
+             a.update_time,
+             a.delete_flag
+           from demo_advertise_picture a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="advertiseIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="advertiseIds">
+             a.advertise_id in
                 <iterate close=")" conjunction="," open="(" property="advertiseIds">
-                    #advertiseIds[]#
+                   #advertiseIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getAdvertisePicturesByAdvertiseIdsOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getAdvertisePicturesByAdvertiseIdsOrderBy"/>
 	</select>	
 
 	    
@@ -289,20 +290,21 @@
     
 	
 	<update id="AdvertisePicture.deleteByAdvertiseIds">
-		UPDATE demo_advertise_picture SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="advertiseIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="advertiseIds">
-                and advertise_id in
+		UPDATE demo_advertise_picture a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="advertiseIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="advertiseIds">
+             a.advertise_id in
                 <iterate close=")" conjunction="," open="(" property="advertiseIds">
-                    #advertiseIds[]#
+                   #advertiseIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     

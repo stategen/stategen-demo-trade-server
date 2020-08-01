@@ -51,6 +51,7 @@ public class CategorySub implements java.io.Serializable {
     private String commentsLike;
 
     /***不使用或自定义字段在下次生成后，会移到serialVersionUID的上面*/
+    /* 如果字段注释中包括 -inherited 将不生成 */
     private static final long serialVersionUID = -5216457518046898601L;
 
     /***categorySubId   db_column: category_sub_id VARCHAR */

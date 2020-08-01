@@ -10,9 +10,10 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.ServiceUtil;
-import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.RoleMenuDao;
 import com.mycompany.biz.domain.RoleMenu;
@@ -29,7 +30,10 @@ import com.mycompany.biz.service.RoleMenuService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class RoleMenuServiceImpl implements RoleMenuService {
+public class RoleMenuServiceImpl implements RoleMenuService, IdGenerateService<Long> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     //<#--
     @Resource(name = "roleMenuDao")
@@ -42,7 +46,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
      */
     @Override
     public RoleMenu insert(RoleMenu roleMenu) {
-        return roleMenuDao.insert(roleMenu);
+        return roleMenuDao.insert(roleMenu, this);
     }
 
     /**
@@ -153,5 +157,10 @@ public class RoleMenuServiceImpl implements RoleMenuService {
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, RoleMenuServiceImpl::getRoleMenusByIds, RoleMenu::getId);
+    }
+
+    @Override
+    public <T> Long generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(Long.class, bizTagClz);
     }
 }

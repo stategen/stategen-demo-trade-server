@@ -52,7 +52,13 @@ public class Slide implements java.io.Serializable {
     @JSONField(serialize = false)
     private Integer orderNoMax;
 
+    /*** urlTypes in getPageList */
+    @ApiModelProperty("urlType s")
+    @JSONField(serialize = false)
+    private java.util.List<Integer> urlTypes;
+
     /***不使用或自定义字段在下次生成后，会移到serialVersionUID的上面*/
+    /* 如果字段注释中包括 -inherited 将不生成 */
     private static final long serialVersionUID = -5216457518046898601L;
 
     /***slideId   db_column: slide_id VARCHAR */
@@ -100,7 +106,8 @@ public class Slide implements java.io.Serializable {
         sb.append('{');
         sb.append("slideIds").append('=').append(slideIds).append('\n');
         sb.append("goodsIds").append('=').append(goodsIds).append('\n');
-        sb.append("urlTypes").append('=').append(urlTypes).append('\n');
+        sb.append("urlTypeMin").append('=').append(urlTypeMin).append('\n');
+        sb.append("urlTypeMax").append('=').append(urlTypeMax).append('\n');
         sb.append("orderNos").append('=').append(orderNos).append('\n');
         sb.append("createTimeMin").append('=').append(createTimeMin != null ? df.format(createTimeMin) : null).append('\n');
         sb.append("createTimeMax").append('=').append(createTimeMax != null ? df.format(createTimeMax) : null).append('\n');
@@ -129,10 +136,15 @@ public class Slide implements java.io.Serializable {
     @JSONField(serialize = false)
     private java.util.List<String> goodsIds;
 
-    /*** urlTypes in getPageList */
-    @ApiModelProperty("urlType s")
+    /*** urlTypeMin in getPageList */
+    @ApiModelProperty("urlTypeMin")
     @JSONField(serialize = false)
-    private java.util.List<Integer> urlTypes;
+    private Integer urlTypeMin;
+
+    /*** urlTypeMax in getPageList */
+    @ApiModelProperty("urlTypeMax")
+    @JSONField(serialize = false)
+    private Integer urlTypeMax;
 
     /*** orderNos in getPageList */
     @ApiModelProperty("orderNo s")

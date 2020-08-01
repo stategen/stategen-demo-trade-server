@@ -27,6 +27,7 @@
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="homeShopServiceTrade" interface="com.mycompany.biz.service.HomeShopServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="hoppyServiceTrade" interface="com.mycompany.biz.service.HoppyServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="menuServiceTrade" interface="com.mycompany.biz.service.MenuServiceTrade"/>
+    <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="organizationServiceTrade" interface="com.mycompany.biz.service.OrganizationServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="provinceServiceTrade" interface="com.mycompany.biz.service.ProvinceServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="regionServiceTrade" interface="com.mycompany.biz.service.RegionServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="roleServiceTrade" interface="com.mycompany.biz.service.RoleServiceTrade"/>
@@ -34,6 +35,8 @@
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="shopServiceTrade" interface="com.mycompany.biz.service.ShopServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="slideServiceTrade" interface="com.mycompany.biz.service.SlideServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicServiceTrade" interface="com.mycompany.biz.service.TopicServiceTrade"/>
+    <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicLevelHServiceTrade" interface="com.mycompany.biz.service.TopicLevelHServiceTrade"/>
+    <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicOwnerHServiceTrade" interface="com.mycompany.biz.service.TopicOwnerHServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicReplyServiceTrade" interface="com.mycompany.biz.service.TopicReplyServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="topicUpServiceTrade" interface="com.mycompany.biz.service.TopicUpServiceTrade"/>
     <dubbo:reference timeout="8000" retries="0" registry="trade-reg-addr" id="userServiceTrade" interface="com.mycompany.biz.service.UserServiceTrade"/>

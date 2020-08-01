@@ -11,9 +11,10 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.ServiceUtil;
-import org.stategen.framework.util.StringUtil;
 
 import com.mycompany.biz.dao.UserHoppyDao;
 import com.mycompany.biz.domain.UserHoppy;
@@ -30,7 +31,10 @@ import com.mycompany.biz.service.UserHoppyService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class UserHoppyServiceImpl implements UserHoppyService {
+public class UserHoppyServiceImpl implements UserHoppyService, IdGenerateService<Long> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     //<#--
     @Resource(name = "userHoppyDao")
@@ -43,7 +47,7 @@ public class UserHoppyServiceImpl implements UserHoppyService {
      */
     @Override
     public UserHoppy insert(UserHoppy userHoppy) {
-        return userHoppyDao.insert(userHoppy);
+        return userHoppyDao.insert(userHoppy, this);
     }
 
     /**
@@ -154,5 +158,10 @@ public class UserHoppyServiceImpl implements UserHoppyService {
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, Long> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, UserHoppyServiceImpl::getUserHoppysByIds, UserHoppy::getId);
+    }
+
+    @Override
+    public <T> Long generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(Long.class, bizTagClz);
     }
 }

@@ -11,6 +11,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import javax.annotation.Resource;
 
+import org.stategen.framework.lite.IIdGenerator;
+import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.ServiceUtil;
 import org.stategen.framework.util.StringUtil;
@@ -30,7 +32,10 @@ import com.mycompany.biz.service.FloorGoodsService;
  * 因此该类可以修改任何部分
  * </pre>
  */
-public class FloorGoodsServiceImpl implements FloorGoodsService {
+public class FloorGoodsServiceImpl implements FloorGoodsService, IdGenerateService<String> {
+
+    @Resource
+    private IIdGenerator idGenerator;
 
     @Resource(name = "floorGoodsDao")
     FloorGoodsDao floorGoodsDao;
@@ -42,7 +47,7 @@ public class FloorGoodsServiceImpl implements FloorGoodsService {
      */
     @Override
     public FloorGoods insert(FloorGoods floorGoods) {
-        return floorGoodsDao.insert(floorGoods);
+        return floorGoodsDao.insert(floorGoods, this);
     }
 
     /**
@@ -67,12 +72,12 @@ public class FloorGoodsServiceImpl implements FloorGoodsService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodByFloorGoodsId
-     * @see com.mycompany.biz.service.FloorGoodsService#getFloorGoodByFloorGoodsId
+     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodsByFloorGoodsId
+     * @see com.mycompany.biz.service.FloorGoodsService#getFloorGoodsByFloorGoodsId
      */
     @Override
-    public FloorGoods getFloorGoodByFloorGoodsId(String floorGoodsId) {
-        return floorGoodsDao.getFloorGoodByFloorGoodsId(floorGoodsId);
+    public FloorGoods getFloorGoodsByFloorGoodsId(String floorGoodsId) {
+        return floorGoodsDao.getFloorGoodsByFloorGoodsId(floorGoodsId);
     }
 
     /**
@@ -87,12 +92,12 @@ public class FloorGoodsServiceImpl implements FloorGoodsService {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodsByFloorGoodsIds
-     * @see com.mycompany.biz.service.FloorGoodsService#getFloorGoodsByFloorGoodsIds
+     * @see com.mycompany.biz.dao.FloorGoodsDao#getFloorGoodssByFloorGoodsIds
+     * @see com.mycompany.biz.service.FloorGoodsService#getFloorGoodssByFloorGoodsIds
      */
     @Override
-    public List<FloorGoods> getFloorGoodsByFloorGoodsIds(java.util.List<String> floorGoodsIds) {
-        return floorGoodsDao.getFloorGoodsByFloorGoodsIds(floorGoodsIds);
+    public List<FloorGoods> getFloorGoodssByFloorGoodsIds(java.util.List<String> floorGoodsIds) {
+        return floorGoodsDao.getFloorGoodssByFloorGoodsIds(floorGoodsIds);
     }
 
     /**
@@ -130,7 +135,7 @@ public class FloorGoodsServiceImpl implements FloorGoodsService {
 
     @Override
     public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, FloorGoods> destSetMethod) {
-        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, FloorGoodsServiceImpl::getFloorGoodsByFloorGoodsIds, FloorGoods::getFloorGoodsId);
+        ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, FloorGoodsServiceImpl::getFloorGoodssByFloorGoodsIds, FloorGoods::getFloorGoodsId);
     }
 
     @Override
@@ -140,6 +145,11 @@ public class FloorGoodsServiceImpl implements FloorGoodsService {
 
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
-        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, FloorGoodsServiceImpl::getFloorGoodsByFloorGoodsIds, FloorGoods::getFloorGoodsId);
+        ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, FloorGoodsServiceImpl::getFloorGoodssByFloorGoodsIds, FloorGoods::getFloorGoodsId);
+    }
+
+    @Override
+    public <T> String generateId(Class<T> bizTagClz) {
+        return this.idGenerator.generateId(String.class, bizTagClz);
     }
 }

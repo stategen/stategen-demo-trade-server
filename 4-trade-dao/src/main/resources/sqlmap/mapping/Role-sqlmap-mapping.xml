@@ -29,67 +29,68 @@
     
 	<insert id="Role.insert">
 		insert into role (
-            create_time
-            , update_time
-            , delete_flag
-            <isNotNull prepend="," property="roleId"> role_id </isNotNull>
-            <isNotNull prepend="," property="roleName"> role_name </isNotNull>
-            <isNotNull prepend="," property="description"> description </isNotNull>
-            <isNotNull prepend="," property="roleType"> role_type </isNotNull>
-            ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
+             create_time
+             , update_time
+             , delete_flag
+             <isNotNull prepend="," property="roleId"> role_id </isNotNull>
+             <isNotNull prepend="," property="roleName"> role_name </isNotNull>
+             <isNotNull prepend="," property="description"> description </isNotNull>
+             <isNotNull prepend="," property="roleType"> role_type </isNotNull>
+           ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0 
             <isNotNull prepend="," property="roleId"> #roleId# </isNotNull> 
             <isNotNull prepend="," property="roleName"> #roleName# </isNotNull> 
             <isNotNull prepend="," property="description"> #description# </isNotNull> 
             <isNotNull prepend="," property="roleType"> #roleType# </isNotNull>)
-            <selectKey keyProperty="roleId" resultClass="String" type="pre">
-                select if((#roleId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#roleId# ) as roleId
-            </selectKey>
+           <selectKey keyProperty="roleId" resultClass="String" type="pre">
+              select if((#roleId#  is null) ,CONCAT(DATE_FORMAT(CURRENT_TIMESTAMP(6),'%Y%m%d%H%i%s%f'),LPAD(ROUND(RAND()*100000000),8,'0')) ,#roleId# ) as roleId
+           </selectKey>
 	</insert>
 	
 	<update id="Role.delete">
-		UPDATE role SET
-            delete_flag = 1
-            , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            and role_id = #roleId#
+		UPDATE role a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             and a.role_id = #roleId#
 	</update>
 	
     
 	
 	<update id="Role.update">
-		UPDATE role
-            SET update_time= CURRENT_TIMESTAMP(6)
-            
-                <isNotNull prepend="," property="roleName">
-                    role_name =  #roleName# 
-                </isNotNull>
-                <isNotNull prepend="," property="description">
-                    description =  #description# 
-                </isNotNull>
-                <isNotNull prepend="," property="roleType">
-                    role_type =  #roleType# 
-                </isNotNull>
-            where
-            delete_flag = 0
-            and role_id = #roleId#
+		UPDATE role a
+           SET a.update_time= CURRENT_TIMESTAMP(6)
+           
+             <isNotNull prepend="," property="roleName">
+             a.role_name =  #roleName# 
+             </isNotNull>
+             <isNotNull prepend="," property="description">
+             a.description =  #description# 
+             </isNotNull>
+             <isNotNull prepend="," property="roleType">
+             a.role_type =  #roleType# 
+             </isNotNull>
+           where
+             a.delete_flag = 0
+             and a.role_id = #roleId#
 	</update>
 	
     
 	
 	<select id="Role.getRoleByRoleId" resultMap="Role_RM" >
     	select
- /* getRoleByRoleId.Role */             a.role_id,
-            a.role_name,
-            a.description,
-            a.create_time,
-            a.update_time,
-            a.delete_flag,
-            a.role_type
-            from role a
-            where
-            a.delete_flag = 0
-            and a.role_id = #roleId#
+ /* getRoleByRoleId.Role */              a.role_id,
+             a.role_name,
+             a.description,
+             a.create_time,
+             a.update_time,
+             a.delete_flag,
+             a.role_type
+           from role a
+           where
+             a.delete_flag = 0
+             and a.role_id = #roleId#
 	</select>	
 
 	    
@@ -99,159 +100,159 @@
 	
 	<select id="Role.getPageList" resultMap="Role_RM" >
     	select
- /* getPageList.Role */             a.role_id,
-            a.role_name,
-            a.description,
-            a.create_time,
-            a.update_time,
-            a.delete_flag,
-            a.role_type
-            from role a
-            where
-            a.delete_flag = 0
-            <isNotNull property="roleId">
-               and a.role_id=#roleId#
-            </isNotNull>
-            <isNotEmpty property="roleIds">
-                and a.role_id in
-                <iterate close=")" conjunction="," open="(" property="roleIds">
-                    #roleIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="roleName">
-            and a.role_name=#roleName#
-          </isNotNull>
-            <isNotEmpty property="roleNameLike">
-                and a.role_name like CONCAT('%',#roleNameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="description">
-            and a.description=#description#
-          </isNotNull>
-            <isNotEmpty property="descriptionLike">
-                and a.description like CONCAT('%',#descriptionLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNotNull property="roleType">
-               and a.role_type=#roleType#
-            </isNotNull>
-            <isNotEmpty property="roleTypes">
-                and a.role_type in
-                <iterate close=")" conjunction="," open="(" property="roleTypes">
-                    #roleTypes[]#
-                </iterate>
-            </isNotEmpty>
-            <isNull property="roleId">
-            <isEmpty property="roleIds">
-            <isNull property="roleName">
-            <isEmpty property="roleNameLike">
-            <isNull property="description">
-            <isEmpty property="descriptionLike">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-            <isNull property="roleType">
-            <isEmpty property="roleTypes">
-              and 0 = 1
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            order by
-            <include refid="getRolePageListOrderBy"/>
+ /* getPageList.Role */              a.role_id,
+             a.role_name,
+             a.description,
+             a.create_time,
+             a.update_time,
+             a.delete_flag,
+             a.role_type
+           from role a
+           where
+             a.delete_flag = 0
+             <isNotNull property="roleId">
+             and a.role_id=#roleId#
+             </isNotNull>
+             <isNotEmpty property="roleIds">
+             and a.role_id in
+               <iterate close=")" conjunction="," open="(" property="roleIds">
+               #roleIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="roleName">
+             and a.role_name=#roleName#
+             </isNotNull>
+             <isNotEmpty property="roleNameLike">
+             and a.role_name like CONCAT('%',#roleNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="description">
+             and a.description=#description#
+             </isNotNull>
+             <isNotEmpty property="descriptionLike">
+             and a.description like CONCAT('%',#descriptionLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="roleType">
+             and a.role_type=#roleType#
+             </isNotNull>
+             <isNotEmpty property="roleTypes">
+             and a.role_type in
+               <iterate close=")" conjunction="," open="(" property="roleTypes">
+               #roleTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNull property="roleId">
+             <isEmpty property="roleIds">
+             <isNull property="roleName">
+             <isEmpty property="roleNameLike">
+             <isNull property="description">
+             <isEmpty property="descriptionLike">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="roleType">
+             <isEmpty property="roleTypes">
+             and 0 = 1
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+           order by
+             <include refid="getRolePageListOrderBy"/>
 			limit #offset#,#limit#
 	</select>	
 
 	<select id="Role.getPageList_count" resultClass="long" >
     	select  /* getPageList_count.Role */ count(*)  from role a
-            where
-            a.delete_flag = 0
-            <isNotNull property="roleId">
-               and a.role_id=#roleId#
-            </isNotNull>
-            <isNotEmpty property="roleIds">
-                and a.role_id in
-                <iterate close=")" conjunction="," open="(" property="roleIds">
-                    #roleIds[]#
-                </iterate>
-            </isNotEmpty>
-          <isNotNull property="roleName">
-            and a.role_name=#roleName#
-          </isNotNull>
-            <isNotEmpty property="roleNameLike">
-                and a.role_name like CONCAT('%',#roleNameLike#,'%')
-            </isNotEmpty>
-          <isNotNull property="description">
-            and a.description=#description#
-          </isNotNull>
-            <isNotEmpty property="descriptionLike">
-                and a.description like CONCAT('%',#descriptionLike#,'%')
-            </isNotEmpty>
-            <isNotNull property="createTimeMin">
-                and a.create_time >=#createTimeMin#
-            </isNotNull>
-            <isNotNull property="createTimeMax">
-                and a.create_time &lt;#createTimeMax#
-            </isNotNull>
-            <isNotNull property="updateTimeMin">
-                and a.update_time >=#updateTimeMin#
-            </isNotNull>
-            <isNotNull property="updateTimeMax">
-                and a.update_time &lt;#updateTimeMax#
-            </isNotNull>
-            <isNotNull property="roleType">
-               and a.role_type=#roleType#
-            </isNotNull>
-            <isNotEmpty property="roleTypes">
-                and a.role_type in
-                <iterate close=")" conjunction="," open="(" property="roleTypes">
-                    #roleTypes[]#
-                </iterate>
-            </isNotEmpty>
-            <isNull property="roleId">
-            <isEmpty property="roleIds">
-            <isNull property="roleName">
-            <isEmpty property="roleNameLike">
-            <isNull property="description">
-            <isEmpty property="descriptionLike">
-            <isNull property="createTimeMin">
-            <isNull property="createTimeMax">
-            <isNull property="updateTimeMin">
-            <isNull property="updateTimeMax">
-            <isNull property="roleType">
-            <isEmpty property="roleTypes">
-              and 0 = 1
-            </isEmpty>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
-            </isEmpty>
-            </isNull>
+           where
+             a.delete_flag = 0
+             <isNotNull property="roleId">
+             and a.role_id=#roleId#
+             </isNotNull>
+             <isNotEmpty property="roleIds">
+             and a.role_id in
+               <iterate close=")" conjunction="," open="(" property="roleIds">
+               #roleIds[]#
+               </iterate>
+             </isNotEmpty>
+             <isNotNull property="roleName">
+             and a.role_name=#roleName#
+             </isNotNull>
+             <isNotEmpty property="roleNameLike">
+             and a.role_name like CONCAT('%',#roleNameLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="description">
+             and a.description=#description#
+             </isNotNull>
+             <isNotEmpty property="descriptionLike">
+             and a.description like CONCAT('%',#descriptionLike#,'%')
+             </isNotEmpty>
+             <isNotNull property="createTimeMin">
+             and a.create_time >=#createTimeMin#
+             </isNotNull>
+             <isNotNull property="createTimeMax">
+             and a.create_time &lt;#createTimeMax#
+             </isNotNull>
+             <isNotNull property="updateTimeMin">
+             and a.update_time >=#updateTimeMin#
+             </isNotNull>
+             <isNotNull property="updateTimeMax">
+             and a.update_time &lt;#updateTimeMax#
+             </isNotNull>
+             <isNotNull property="roleType">
+             and a.role_type=#roleType#
+             </isNotNull>
+             <isNotEmpty property="roleTypes">
+             and a.role_type in
+               <iterate close=")" conjunction="," open="(" property="roleTypes">
+               #roleTypes[]#
+               </iterate>
+             </isNotEmpty>
+             <isNull property="roleId">
+             <isEmpty property="roleIds">
+             <isNull property="roleName">
+             <isEmpty property="roleNameLike">
+             <isNull property="description">
+             <isEmpty property="descriptionLike">
+             <isNull property="createTimeMin">
+             <isNull property="createTimeMax">
+             <isNull property="updateTimeMin">
+             <isNull property="updateTimeMax">
+             <isNull property="roleType">
+             <isEmpty property="roleTypes">
+             and 0 = 1
+             </isEmpty>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
+             </isEmpty>
+             </isNull>
 	</select>
 	    
 	
@@ -260,27 +261,27 @@
 	
 	<select id="Role.getRolesByRoleIds" resultMap="Role_RM" >
     	select
- /* getRolesByRoleIds.Role */             a.role_id,
-            a.role_name,
-            a.description,
-            a.create_time,
-            a.update_time,
-            a.delete_flag,
-            a.role_type
-            from role a
-            where
-            a.delete_flag = 0
-            <isEmpty property="roleIds">
-            and 1=0
-            </isEmpty>
-            <isNotEmpty property="roleIds">
-                and a.role_id in
+ /* getRolesByRoleIds.Role */              a.role_id,
+             a.role_name,
+             a.description,
+             a.create_time,
+             a.update_time,
+             a.delete_flag,
+             a.role_type
+           from role a
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="roleIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="roleIds">
+             a.role_id in
                 <iterate close=")" conjunction="," open="(" property="roleIds">
-                    #roleIds[]#
+                   #roleIds[]#
                 </iterate>
-            </isNotEmpty>
-            order by
-            <include refid="getRolesByRoleIdsOrderBy"/>
+             </isNotEmpty>
+           order by
+             <include refid="getRolesByRoleIdsOrderBy"/>
 	</select>	
 
 	    
@@ -289,20 +290,21 @@
     
 	
 	<update id="Role.deleteByRoleIds">
-		UPDATE role SET
-               delete_flag = 1
-               , update_time = CURRENT_TIMESTAMP(6)
-            where
-            delete_flag = 0
-            <isEmpty property="roleIds">
-                and 1=0
-            </isEmpty>
-            <isNotEmpty property="roleIds">
-                and role_id in
+		UPDATE role a
+           SET
+             a.delete_flag = 1
+             , a.update_time = CURRENT_TIMESTAMP(6)
+           where
+             a.delete_flag = 0
+             <isEmpty prepend="and" property="roleIds">
+             1=0
+             </isEmpty>
+             <isNotEmpty prepend="and" property="roleIds">
+             a.role_id in
                 <iterate close=")" conjunction="," open="(" property="roleIds">
-                    #roleIds[]#
+                   #roleIds[]#
                 </iterate>
-            </isNotEmpty>
+             </isNotEmpty>
 	</update>
 	
     

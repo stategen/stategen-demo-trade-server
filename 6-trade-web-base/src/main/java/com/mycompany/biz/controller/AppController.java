@@ -22,6 +22,7 @@ import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.StringUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
 
+import com.baidu.fsg.uid.impl.CachedUidGenerator;
 import com.mycompany.biz.domain.City;
 import com.mycompany.biz.domain.Hoppy;
 import com.mycompany.biz.domain.Menu;
@@ -64,6 +65,9 @@ public class AppController {
 
     @Resource
     private RegionService regionService;
+    
+    @Resource
+    private CachedUidGenerator cachedUidGenerator;
 
     //这是一个dubbo服务
     /*
@@ -186,6 +190,17 @@ public class AppController {
     public List<User> getUserOptions(@RequestParam(required = false, name = "userIds")
     ArrayList<String> userIds) {
         return null;
+    }
+    
+    
+    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
+    public String testUid() {
+        long uid = this.cachedUidGenerator.getUID();
+        if (logger.isInfoEnabled()) {
+            logger.info(new StringBuilder("输出info信息: uid:").append(uid).toString());
+        }
+        String parseUID = cachedUidGenerator.parseUID(uid);
+        return parseUID;
     }
 
 }
