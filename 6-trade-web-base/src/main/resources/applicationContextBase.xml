@@ -47,7 +47,9 @@
         <property name="maxRequestPerIpSecond" value="${framework_max_request_per_ip_second}" />
         <property name="enableSwagger" value="${swagger.enable}"/>
     </bean>
-    
+
+
+
     <import resource="classpath*:context/dao-beans-auto-*.xml" />
     <import resource="classpath*:context/dao-beans-manual-*.xml" />
     <import resource="classpath*:context/service-beans-auto-*.xml" />
