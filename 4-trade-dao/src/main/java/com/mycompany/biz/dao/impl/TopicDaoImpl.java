@@ -13,6 +13,7 @@ import com.mycompany.biz.domain.Topic;
 import com.mycompany.biz.dao.TopicDao;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AfterInsertService;
+import org.stategen.framework.util.AssertUtil;
 
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.IdGenerateService;
@@ -60,6 +61,7 @@ public class TopicDaoImpl  extends SqlDaoSupportBase implements TopicDao {
 		params.put("inclCurrOrgId",inclCurrOrgId);
 		params.put("currOrgId",currOrgId);
 		params.put("currUserId",currUserId);
+        AssertUtil.mustTrue((currOrgId != null || currUserId != null),"currOrgId or currOrgId can not be null");
         super.update("Topic.delete", params);
         return topicId;
 	}
@@ -72,6 +74,7 @@ public class TopicDaoImpl  extends SqlDaoSupportBase implements TopicDao {
 		if(topic == null) {
 			throw new IllegalArgumentException("Can't update by a null data object.");
 		}
+        AssertUtil.mustTrue((topic.getCurrOrgId() != null || topic.getCurrUserId() != null),"currOrgId or currOrgId can not be null");
         super.update("Topic.update", topic);
 		return topic;
 	}
@@ -120,6 +123,7 @@ public class TopicDaoImpl  extends SqlDaoSupportBase implements TopicDao {
 		params.put("inclCurrOrgId",inclCurrOrgId);
 		params.put("currOrgId",currOrgId);
 		params.put("currUserId",currUserId);
+        AssertUtil.mustTrue((currOrgId != null || currUserId != null),"currOrgId or currOrgId can not be null");
         super.update("Topic.deleteByTopicIds", params);
         return topicIds;
 	}
