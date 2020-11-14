@@ -160,7 +160,7 @@ public class HoppyServiceImpl implements HoppyService, IdGenerateService<Long> {
     }
 
     @Override
-    public <T> Long generateId(Class<T> bizTagClz) {
-        return this.idGenerator.generateId(Long.class, bizTagClz);
+    public <T> Long generateId() {
+        return this.idGenerator.generateId(Long.class, Hoppy.class);
     }
 }

@@ -1,0 +1,18 @@
+trade
+├── 1-trade-pojo
+├── 2-trade-facade
+├── 3-trade-intergrade
+├── 4-trade-dao
+├── 5-trade-service
+├── 6-trade-web-base
+├── 7-trade-web-app
+│   ├── app-frontend-flutter
+│   ├── app-frontend-h5
+│   └── WebRoot
+├── 7-trade-web-cms
+│   ├── cms-frontend-web
+│   └── WebRoot
+├── opt
+│   └── config
+│       └── stategen
+└── tables

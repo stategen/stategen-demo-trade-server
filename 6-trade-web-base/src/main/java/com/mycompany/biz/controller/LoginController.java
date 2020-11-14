@@ -1,5 +1,7 @@
 package com.mycompany.biz.controller;
 
+import java.util.Arrays;
+
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +57,7 @@ public class LoginController {
     @State(genForm=true)
     public User loginByMobile(@ApiParam("国际区号") @RequestParam() String interCode,
                             @ApiParam("手机号") @RequestParam() String mobile,@ApiParam("密码") @RequestParam() String password) {
-        User loginUser =this.userService.getUserByMobile(interCode, mobile);
+        User loginUser =this.userService.getUserInMobiles(null, Arrays.asList(mobile));
         User theUser =null;
         if (loginUser != null) {
             String userPassword = loginUser.getPassword();

@@ -37,7 +37,7 @@ public class FloorDaoImpl  extends SqlDaoSupportBase implements FloorDao {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && floor.getFloorId() == null) {
-            String floorId = idGenerateService.generateId(Floor.class);
+            String floorId = idGenerateService.generateId();
             if (floorId != null) {
                 floor.setFloorId(floorId);
             }

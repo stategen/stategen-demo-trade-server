@@ -42,7 +42,7 @@
             <isNotNull prepend="," property="name"> #name# </isNotNull> 
             <isNotNull prepend="," property="orgType"> #orgType# </isNotNull>)
            <selectKey keyProperty="orgId" resultClass="long">
-              select  LAST_INSERT_ID()
+              select  if ((#orgId#  is null), LAST_INSERT_ID(), #orgId#) as orgId
            </selectKey>
 	</insert>
 	

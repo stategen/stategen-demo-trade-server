@@ -73,7 +73,7 @@
             <isNotNull prepend="," property="menuType"> #menuType# </isNotNull> 
             <isNotNull prepend="," property="checkType"> #checkType# </isNotNull>)
            <selectKey keyProperty="menuId" resultClass="long">
-              select  LAST_INSERT_ID()
+              select  if ((#menuId#  is null), LAST_INSERT_ID(), #menuId#) as menuId
            </selectKey>
 	</insert>
 	

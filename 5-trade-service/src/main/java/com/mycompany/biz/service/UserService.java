@@ -118,15 +118,15 @@ public interface UserService extends AssignService<User, String>, UserServiceTra
 
     /**
      * 
-     * @see com.mycompany.biz.dao.UserDao#getUserByMobile
-     */
-    public User getUserByMobile(String interCode, String mobile);
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.UserDao#getPageList
      */
     public PageList<User> getPageList(User user, int pageSize, int pageNum);
+
+    /**
+     ** 
+     * @see com.mycompany.biz.dao.UserDao#getUserInMobiles
+     */
+    public User getUserInMobiles(java.util.List<String> interCodeList, java.util.List<String> mobiles);
     //-->
     //
 }

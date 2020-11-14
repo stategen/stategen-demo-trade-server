@@ -199,7 +199,7 @@ public class TopicReplyServiceImpl implements TopicReplyService, IdGenerateServi
     }
 
     @Override
-    public <T> String generateId(Class<T> bizTagClz) {
-        return this.idGenerator.generateId(String.class, bizTagClz);
+    public <T> String generateId() {
+        return this.idGenerator.generateId(String.class, TopicReply.class);
     }
 }

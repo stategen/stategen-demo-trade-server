@@ -20,7 +20,7 @@
              <isNotNull prepend="," property="orgType"> ?  </isNotNull>
            )
            <selectKey resultClass="long" keyProperty="orgId">
-              select  LAST_INSERT_ID()
+              select  if ((#orgId#  is null), LAST_INSERT_ID(), #orgId#) as orgId
            </selectKey>
         </sql>
     </operation>

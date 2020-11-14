@@ -37,7 +37,7 @@ public class OrganizationDaoImpl  extends SqlDaoSupportBase implements Organizat
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && organization.getOrgId() == null) {
-            Long orgId = idGenerateService.generateId(Organization.class);
+            Long orgId = idGenerateService.generateId();
             if (orgId != null) {
                 organization.setOrgId(orgId);
             }

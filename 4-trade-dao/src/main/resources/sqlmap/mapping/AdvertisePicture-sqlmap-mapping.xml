@@ -42,7 +42,7 @@
             <isNotNull prepend="," property="toPlace"> #toPlace# </isNotNull> 
             <isNotNull prepend="," property="urlType"> #urlType# </isNotNull>)
            <selectKey keyProperty="advertiseId" resultClass="long">
-              select  LAST_INSERT_ID()
+              select  if ((#advertiseId#  is null), LAST_INSERT_ID(), #advertiseId#) as advertiseId
            </selectKey>
 	</insert>
 	

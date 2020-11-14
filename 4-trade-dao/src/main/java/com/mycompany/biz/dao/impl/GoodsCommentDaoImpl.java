@@ -37,7 +37,7 @@ public class GoodsCommentDaoImpl  extends SqlDaoSupportBase implements GoodsComm
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && goodsComment.getCommentsId() == null) {
-            String commentsId = idGenerateService.generateId(GoodsComment.class);
+            String commentsId = idGenerateService.generateId();
             if (commentsId != null) {
                 goodsComment.setCommentsId(commentsId);
             }

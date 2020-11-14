@@ -37,7 +37,7 @@ public class HomeAdvertiseDaoImpl  extends SqlDaoSupportBase implements HomeAdve
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && homeAdvertise.getHomeAdvId() == null) {
-            String homeAdvId = idGenerateService.generateId(HomeAdvertise.class);
+            String homeAdvId = idGenerateService.generateId();
             if (homeAdvId != null) {
                 homeAdvertise.setHomeAdvId(homeAdvId);
             }

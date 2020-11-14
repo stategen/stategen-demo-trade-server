@@ -64,10 +64,12 @@
     <entry key="trade.jdbc.url">${mysql.ip.port}</entry>
     <entry key="trade.jdbc.username">${mysql.username}</entry>
     <entry key="trade.jdbc.password">${mysql.password}</entry>  
-    
-    <entry key="trade.dubbo.registry.address">${local.zk.ip.port}</entry>
+
+    <!-- 2种注册方式，哪一种在下面优先  -->
+    <entry key="trade.dubbo.registry.address">zookeeper://${THIS_IP}:2181</entry>
+	<entry key="trade.dubbo.registry.address">nacos://127.0.0.1:8848</entry>
     <entry key="trade.dubbo.protocol.host">${THIS_IP}</entry>
-    <entry key="trade.dubbo.protocol.port">20872</entry>
+    <entry key="trade.dubbo.protocol.port">-1</entry>
 	<entry key="trade.dubbo.qos.port">22221</entry>
     <!--特别注意这一行，检查 elasticsearch 集群名称-->
     <entry key="trade.es.clustername">my-application</entry>

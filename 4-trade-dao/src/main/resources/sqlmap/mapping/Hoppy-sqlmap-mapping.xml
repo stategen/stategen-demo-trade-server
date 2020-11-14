@@ -36,7 +36,7 @@
             <isNotNull prepend="," property="hoppyId"> #hoppyId# </isNotNull> 
             <isNotNull prepend="," property="hoppyName"> #hoppyName# </isNotNull>)
            <selectKey keyProperty="hoppyId" resultClass="long">
-              select  LAST_INSERT_ID()
+              select  if ((#hoppyId#  is null), LAST_INSERT_ID(), #hoppyId#) as hoppyId
            </selectKey>
 	</insert>
 	

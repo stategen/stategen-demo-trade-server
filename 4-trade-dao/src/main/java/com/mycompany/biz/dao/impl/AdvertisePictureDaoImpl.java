@@ -37,7 +37,7 @@ public class AdvertisePictureDaoImpl  extends SqlDaoSupportBase implements Adver
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && advertisePicture.getAdvertiseId() == null) {
-            Long advertiseId = idGenerateService.generateId(AdvertisePicture.class);
+            Long advertiseId = idGenerateService.generateId();
             if (advertiseId != null) {
                 advertisePicture.setAdvertiseId(advertiseId);
             }

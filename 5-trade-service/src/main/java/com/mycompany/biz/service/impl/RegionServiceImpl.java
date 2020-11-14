@@ -194,7 +194,7 @@ public class RegionServiceImpl implements RegionService, IdGenerateService<Long>
     }
 
     @Override
-    public <T> Long generateId(Class<T> bizTagClz) {
-        return this.idGenerator.generateId(Long.class, bizTagClz);
+    public <T> Long generateId() {
+        return this.idGenerator.generateId(Long.class, Region.class);
     }
 }

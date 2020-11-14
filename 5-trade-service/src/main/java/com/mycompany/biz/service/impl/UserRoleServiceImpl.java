@@ -150,7 +150,7 @@ public class UserRoleServiceImpl implements UserRoleService, IdGenerateService<L
     }
 
     @Override
-    public <T> Long generateId(Class<T> bizTagClz) {
-        return this.idGenerator.generateId(Long.class, bizTagClz);
+    public <T> Long generateId() {
+        return this.idGenerator.generateId(Long.class, UserRole.class);
     }
 }

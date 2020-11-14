@@ -205,16 +205,6 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
 
     /**
      * 
-     * @see com.mycompany.biz.dao.UserDao#getUserByMobile
-     * @see com.mycompany.biz.service.UserService#getUserByMobile
-     */
-    @Override
-    public User getUserByMobile(String interCode, String mobile) {
-        return userDao.getUserByMobile(interCode, mobile);
-    }
-
-    /**
-     * 
      * @see com.mycompany.biz.dao.UserDao#getPageList
      * @see com.mycompany.biz.service.UserService#getPageList
      */
@@ -240,8 +230,18 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, UserServiceImpl::getUsersByUserIds, User::getUserId);
     }
 
+    /**
+     * 
+     * @see com.mycompany.biz.dao.UserDao#getUserInMobiles
+     * @see com.mycompany.biz.service.UserService#getUserInMobiles
+     */
     @Override
-    public <T> String generateId(Class<T> bizTagClz) {
-        return this.idGenerator.generateId(String.class, bizTagClz);
+    public User getUserInMobiles(java.util.List<String> interCodeList, java.util.List<String> mobiles) {
+        return userDao.getUserInMobiles(interCodeList, mobiles);
+    }
+
+    @Override
+    public <T> String generateId() {
+        return this.idGenerator.generateId(String.class, User.class);
     }
 }

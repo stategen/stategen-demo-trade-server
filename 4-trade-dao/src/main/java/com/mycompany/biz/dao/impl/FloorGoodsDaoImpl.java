@@ -37,7 +37,7 @@ public class FloorGoodsDaoImpl  extends SqlDaoSupportBase implements FloorGoodsD
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && floorGoods.getFloorGoodsId() == null) {
-            String floorGoodsId = idGenerateService.generateId(FloorGoods.class);
+            String floorGoodsId = idGenerateService.generateId();
             if (floorGoodsId != null) {
                 floorGoods.setFloorGoodsId(floorGoodsId);
             }

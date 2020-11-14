@@ -37,7 +37,7 @@ public class TopicOwnerHDaoImpl  extends SqlDaoSupportBase implements TopicOwner
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && topicOwnerH.getId() == null) {
-            Long id = idGenerateService.generateId(TopicOwnerH.class);
+            Long id = idGenerateService.generateId();
             if (id != null) {
                 topicOwnerH.setId(id);
             }

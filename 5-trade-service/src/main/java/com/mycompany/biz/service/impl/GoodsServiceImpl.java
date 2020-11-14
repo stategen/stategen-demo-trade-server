@@ -159,7 +159,7 @@ public class GoodsServiceImpl implements GoodsService, IdGenerateService<String>
     }
 
     @Override
-    public <T> String generateId(Class<T> bizTagClz) {
-        return this.idGenerator.generateId(String.class, bizTagClz);
+    public <T> String generateId() {
+        return this.idGenerator.generateId(String.class, Goods.class);
     }
 }

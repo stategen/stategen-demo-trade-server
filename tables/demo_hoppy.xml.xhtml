@@ -16,7 +16,7 @@
              <isNotNull prepend="," property="hoppyName"> ?  </isNotNull>
            )
            <selectKey resultClass="long" keyProperty="hoppyId">
-              select  LAST_INSERT_ID()
+              select  if ((#hoppyId#  is null), LAST_INSERT_ID(), #hoppyId#) as hoppyId
            </selectKey>
         </sql>
     </operation>

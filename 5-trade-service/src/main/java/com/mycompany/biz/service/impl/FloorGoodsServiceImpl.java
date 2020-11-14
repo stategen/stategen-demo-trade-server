@@ -149,7 +149,7 @@ public class FloorGoodsServiceImpl implements FloorGoodsService, IdGenerateServi
     }
 
     @Override
-    public <T> String generateId(Class<T> bizTagClz) {
-        return this.idGenerator.generateId(String.class, bizTagClz);
+    public <T> String generateId() {
+        return this.idGenerator.generateId(String.class, FloorGoods.class);
     }
 }

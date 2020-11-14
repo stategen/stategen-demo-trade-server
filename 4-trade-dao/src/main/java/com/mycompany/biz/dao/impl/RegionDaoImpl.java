@@ -37,7 +37,7 @@ public class RegionDaoImpl  extends SqlDaoSupportBase implements RegionDao {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && region.getRegionId() == null) {
-            Long regionId = idGenerateService.generateId(Region.class);
+            Long regionId = idGenerateService.generateId();
             if (regionId != null) {
                 region.setRegionId(regionId);
             }

@@ -37,7 +37,7 @@ public class TopicUpDaoImpl  extends SqlDaoSupportBase implements TopicUpDao {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && topicUp.getUpId() == null) {
-            String upId = idGenerateService.generateId(TopicUp.class);
+            String upId = idGenerateService.generateId();
             if (upId != null) {
                 topicUp.setUpId(upId);
             }

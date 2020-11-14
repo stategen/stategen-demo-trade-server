@@ -6,9 +6,9 @@
 <table sqlName="user" className="User">
     <!-- 不需要配置的列请删除-->
     <!-- <column name="status" javaType="com.mycompany.biz.enums.StatusEnum"/> -->
-    <column name="role_type" javaType="com.mycompany.biz.enums.RoleType"/>
+    <column name="role_type" javaType="com.mycompany.biz.enums.RoleType" />
 
-    <column name="status" javaType="com.mycompany.biz.enums.StatusEnum"/>
+    <column name="status" javaType="com.mycompany.biz.enums.StatusEnum" />
     <sql id="getUserPageListOrderBy">
         a.update_time desc, a.create_time desc
     </sql>
@@ -38,8 +38,11 @@
         </sql>
     </operation>
     -->
-    
-    <operation name="getUserByMobile" multiplicity="one" remarks="">
+
+
+
+
+    <operation name="getUserInMobiles" multiplicity="one" remarks="演示in的简单写法">
         <sql>
             select
             a.user_id,
@@ -70,8 +73,10 @@
             from user a
             where
             a.delete_flag = 0
-            and a.inter_code = ?
-            and a.mobile = ?
+            <isNotEmpty property="interCodeList">
+                and a.inter_code in #interCodeList#
+            </isNotEmpty>
+            and a.mobile in ?
         </sql>
     </operation>
 

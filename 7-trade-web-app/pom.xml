@@ -22,7 +22,7 @@
     <!-- 不需要springboot请将springboot部分注释 -->
 
     <!-- springboot begin -->
-    <dependencyManagement>
+<!--     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -32,7 +32,7 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+    </dependencyManagement> -->
     <!-- springboot end -->
 
     <dependencies>
@@ -109,7 +109,7 @@
         <!--qiniu end -->
 
         <!-- springboot begin -->
-        <dependency>
+<!--         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
@@ -148,14 +148,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <!-- <scope>provided</scope> -->
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-            <!-- <scope>provided</scope> -->
-        </dependency>
+            <scope>provided</scope>
+        </dependency> -->
         <!-- springboot end -->
     </dependencies>
 
@@ -265,7 +265,7 @@
 
 
             <!-- springboot begin -->
-            <plugin>
+<!--             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
@@ -278,7 +278,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
             <!-- springboot end -->
         </plugins>
 

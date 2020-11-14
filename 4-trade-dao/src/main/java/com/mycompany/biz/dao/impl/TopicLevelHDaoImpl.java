@@ -37,7 +37,7 @@ public class TopicLevelHDaoImpl  extends SqlDaoSupportBase implements TopicLevel
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && topicLevelH.getTopicId() == null) {
-            String topicId = idGenerateService.generateId(TopicLevelH.class);
+            String topicId = idGenerateService.generateId();
             if (topicId != null) {
                 topicLevelH.setTopicId(topicId);
             }

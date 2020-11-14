@@ -37,7 +37,7 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && user.getUserId() == null) {
-            String userId = idGenerateService.generateId(User.class);
+            String userId = idGenerateService.generateId();
             if (userId != null) {
                 user.setUserId(userId);
             }
@@ -189,14 +189,14 @@ public class UserDaoImpl  extends SqlDaoSupportBase implements UserDao {
 	}
 
 	/**
-	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.inter_code = ? and a.mobile = ?
+	 * 演示in的简单写法
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.inter_code in ( ? ) and a.mobile in ( ? )
 	 */
-	public User getUserByMobile(String interCode, String mobile) throws DataAccessException {
+	public User getUserInMobiles(java.util.List<String> interCodeList, java.util.List<String> mobiles) throws DataAccessException {
 		Map<String,Object> params = new HashMap<String,Object>(2);
-		params.put("interCode",interCode);
-		params.put("mobile",mobile);
-		return (User)super.selectOne("User.getUserByMobile",params);
+		params.put("interCodeList",interCodeList);
+		params.put("mobiles",mobiles);
+		return (User)super.selectOne("User.getUserInMobiles",params);
 	}
 }
 

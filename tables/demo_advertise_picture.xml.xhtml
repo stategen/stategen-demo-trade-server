@@ -20,7 +20,7 @@
              <isNotNull prepend="," property="urlType"> ?  </isNotNull>
            )
            <selectKey resultClass="long" keyProperty="advertiseId">
-              select  LAST_INSERT_ID()
+              select  if ((#advertiseId#  is null), LAST_INSERT_ID(), #advertiseId#) as advertiseId
            </selectKey>
         </sql>
     </operation>

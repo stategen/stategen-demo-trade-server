@@ -57,7 +57,7 @@
             <isNotNull prepend="," property="namePinyin"> #namePinyin# </isNotNull> 
             <isNotNull prepend="," property="code"> #code# </isNotNull>)
            <selectKey keyProperty="regionId" resultClass="long">
-              select  LAST_INSERT_ID()
+              select  if ((#regionId#  is null), LAST_INSERT_ID(), #regionId#) as regionId
            </selectKey>
 	</insert>
 	

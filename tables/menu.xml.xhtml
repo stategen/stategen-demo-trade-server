@@ -38,7 +38,7 @@
              <isNotNull prepend="," property="checkType"> ?  </isNotNull>
            )
            <selectKey resultClass="long" keyProperty="menuId">
-              select  LAST_INSERT_ID()
+              select  if ((#menuId#  is null), LAST_INSERT_ID(), #menuId#) as menuId
            </selectKey>
         </sql>
     </operation>

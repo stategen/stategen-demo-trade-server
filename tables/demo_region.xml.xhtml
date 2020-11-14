@@ -30,7 +30,7 @@
              <isNotNull prepend="," property="code"> ?  </isNotNull>
            )
            <selectKey resultClass="long" keyProperty="regionId">
-              select  LAST_INSERT_ID()
+              select  if ((#regionId#  is null), LAST_INSERT_ID(), #regionId#) as regionId
            </selectKey>
         </sql>
     </operation>

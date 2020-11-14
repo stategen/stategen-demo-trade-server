@@ -254,13 +254,13 @@ public interface UserDao {
 	
 	/**
     <pre>
-    &#64;ApiParam("国际区号") &#64;RequestParam(required = false) String interCode,
-    &#64;ApiParam("手机号") &#64;RequestParam(required = false) String mobile    
+    &#64;ApiParam("国际区号") &#64;RequestParam(required = false, name="interCodeList") ArrayList&lt;String&gt; interCodeList,
+    &#64;ApiParam("手机号") &#64;RequestParam(required = false, name="mobiles") ArrayList&lt;String&gt; mobiles    
     </pre>
-	 * 
-	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.inter_code = ? and a.mobile = ?
+	 * 演示in的简单写法
+	 * sql:select a.user_id, a.username, a.password, a.role_type, a.name, a.nickName, a.inter_code, a.mobile, a.age, a.address, a.avatar_img_id, a.email, a.vali_datetime, a.birthday_date, a.work_time, a.province_id, a.city_id, a.status, a.grade, a.sex, a.post_address_id, a.remark, a.create_time, a.update_time, a.delete_flag from user a where a.delete_flag = 0 and a.inter_code in ( ? ) and a.mobile in ( ? )
 	 */
-	public User getUserByMobile(String interCode, String mobile) throws DataAccessException;
+	public User getUserInMobiles(java.util.List<String> interCodeList, java.util.List<String> mobiles) throws DataAccessException;
 	
 
 }

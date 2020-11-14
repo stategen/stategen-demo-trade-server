@@ -37,7 +37,7 @@ public class CityDaoImpl  extends SqlDaoSupportBase implements CityDao {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && city.getCityId() == null) {
-            String cityId = idGenerateService.generateId(City.class);
+            String cityId = idGenerateService.generateId();
             if (cityId != null) {
                 city.setCityId(cityId);
             }

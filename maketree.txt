@@ -1,0 +1,2 @@
+treer -e tree.txt -i "/node_modules|.git|.idea|.editorconfig|visitor|dist|readme.md|server|target|.settings|static|build|.project|.classpath|.log|.iml|readme/"
+$ tree -d -I "node_modules|.git|.idea|.editorconfig|visitor|dist|readme.md|server|target|.settings|static|build|.project|.classpath|.log|.iml|readme|mock|src/*|android|images|ios|lib|png|test|pages|WEB-INF|assets|public|json">tree.txt

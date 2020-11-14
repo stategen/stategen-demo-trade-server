@@ -37,7 +37,7 @@ public class RoleMenuDaoImpl  extends SqlDaoSupportBase implements RoleMenuDao {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && roleMenu.getId() == null) {
-            Long id = idGenerateService.generateId(RoleMenu.class);
+            Long id = idGenerateService.generateId();
             if (id != null) {
                 roleMenu.setId(id);
             }

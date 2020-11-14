@@ -37,7 +37,7 @@ public class MenuDaoImpl  extends SqlDaoSupportBase implements MenuDao {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");
 		}
         if (idGenerateService != null && menu.getMenuId() == null) {
-            Long menuId = idGenerateService.generateId(Menu.class);
+            Long menuId = idGenerateService.generateId();
             if (menuId != null) {
                 menu.setMenuId(menuId);
             }

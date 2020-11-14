@@ -39,7 +39,7 @@
             <isNotNull prepend="," property="roleId"> #roleId# </isNotNull> 
             <isNotNull prepend="," property="menuId"> #menuId# </isNotNull>)
            <selectKey keyProperty="id" resultClass="long">
-              select  LAST_INSERT_ID()
+              select  if ((#id#  is null), LAST_INSERT_ID(), #id#) as id
            </selectKey>
 	</insert>
 	
