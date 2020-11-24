@@ -1115,16 +1115,15 @@
             from user a
             where
             a.delete_flag = 0
-            <isNotEmpty property="interCodeList">
-                and a.inter_code in 
-            <iterate property="interCodeList" conjunction="," open="(" close=")">
-            #interCodeList[]#
-            </iterate>
-            </isNotEmpty>
-            and a.mobile in 
-            <iterate property="mobiles" conjunction="," open="(" close=")">
-            #mobiles[]#
-            </iterate>
+             <isNotEmpty property="interCodeList" prepend="and">
+                  a.inter_code in 
+                 <iterate property="interCodeList" conjunction="," open="(" close=")">
+                     #interCodeList[]#
+                 </iterate>
+             </isNotEmpty>and a.mobile in 
+                 <iterate property="mobiles" conjunction="," open="(" close=")">
+                     #mobiles[]#
+                 </iterate>
 	</select>	
 
 	    

@@ -37,6 +37,28 @@
             ...
         </sql>
     </operation>
+            and a.inter_code in ?#interCodeList#
+            and a.mobile In ??
+            oR a.nickName NoT iN ??
+            and a.address =??
+            And a.remark like ??
+            and a.email noT LIKE ??
+            anD a.age > ??
+            and a.age >= ??
+            aNd a.vali_datetime &lt; ??
+            And a.vali_datetime &lt;= ?? 
+            
+            and a.inter_code in ?#interCodeList#
+            and a.mobile In ?#mobiles#
+            oR a.nickName NoT iN ?#nickNameList#
+            and a.address =?#address#
+            And a.remark like ?#remark#
+            and a.email noT LIKE ?#email#
+            anD a.age > ?#age#
+            and a.age >= ?#age#
+            and a.grade !=?#grade#
+            aNd a.vali_datetime &lt; ?#valiDatetime#
+            And a.vali_datetime &lt;= ?#valiDatetime#       
     -->
 
 
@@ -73,9 +95,7 @@
             from user a
             where
             a.delete_flag = 0
-            <isNotEmpty property="interCodeList">
-                and a.inter_code in #interCodeList#
-            </isNotEmpty>
+                and a.inter_code in ?#interCodeList#
             and a.mobile in ?
         </sql>
     </operation>
