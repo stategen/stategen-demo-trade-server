@@ -9,12 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mycompany.biz.domain.UserHoppy;
-import com.mycompany.biz.dao.UserHoppyDao;
-import org.stategen.framework.lite.PageList;
-
 import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.IdGenerateService;
+import org.stategen.framework.lite.PageList;
+
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.mycompany.biz.dao.UserHoppyDao;
+import com.mycompany.biz.domain.UserHoppy;
 /**
  * UserHoppyDao
  * <pre>
@@ -32,6 +33,7 @@ public class UserHoppyDaoImpl  extends SqlDaoSupportBase implements UserHoppyDao
 	 * 
 	 * sql:insert into demo_user_hoppy ( create_time , update_time , delete_flag , id , user_id , hoppy_id ) VALUES (CURRENT_TIMESTAMP(6),CURRENT_TIMESTAMP(6),0,?,?,?)
 	 */
+    @SentinelResource
 	public UserHoppy insert(UserHoppy userHoppy, IdGenerateService<Long> idGenerateService) throws DataAccessException {
 		if(userHoppy == null) {
 			throw new IllegalArgumentException("Can't insert a null data object into db.");

@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.StringUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.baidu.fsg.uid.impl.CachedUidGenerator;
 import com.mycompany.biz.domain.City;
 import com.mycompany.biz.domain.Hoppy;
@@ -68,7 +70,7 @@ public class AppController {
     
     @Resource
     private CachedUidGenerator cachedUidGenerator;
-
+    
     //这是一个dubbo服务
     /*
      * @Resource private UserServiceAuth userServiceAuth;
@@ -145,14 +147,18 @@ public class AppController {
     String provinceId) {
         return this.cityService.getCityOptions(provinceId);
     }
+    
 
+    
     @ApiRequestMappingAutoWithMethodName(name = "爱好", method = RequestMethod.GET)
+    @SentinelResource
     public List<Hoppy> getHoppyOptions() {
         return this.hoppyService.getHoppyOptions();
     }
 
     @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
     @Wrap(exclude = true)
+    @SentinelResource
     public String test() {
         return "test";
     }
@@ -187,8 +193,7 @@ public class AppController {
     }
 
     @ApiRequestMappingAutoWithMethodName(name = "获取用户")
-    public List<User> getUserOptions(@RequestParam(required = false, name = "userIds")
-    ArrayList<String> userIds) {
+    public List<User> getUserOptions(@RequestParam(required = false, name = "userIds") ArrayList<String> userIds){
         return null;
     }
     

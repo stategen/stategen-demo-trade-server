@@ -47,8 +47,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Role implements java.io.Serializable {
 
-    /***不使用或自定义字段在下次生成后，会移到serialVersionUID的上面*/
-    /* 如果字段注释中包括 -inherited 将不生成 */
+    /***不使用或自定义字段在下次生成后，会移到serialVersionUID的上面
+     ** 额外查询字段，自定义方法会自动移到toString()的下面
+     ** 如果字段注释中包括 ‘-inherited’, 将不生成，字段可以从父类中继承
+     ** ps: 该方案既享受生成器的便利，pojo可以同时作为po dto vo使用，而不用担心字段丢失问题,
+     **     同时解决领域模型(DDD)开发中，失血模式下的失忆问题
+     */
     private static final long serialVersionUID = -5216457518046898601L;
 
     /***角色ID   db_column: role_id VARCHAR */

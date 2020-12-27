@@ -2,7 +2,8 @@
  * Do not remove this unless you get business authorization.
  * Copyright (c) 2016 - 2018 All Rights Reserved.
  * Powered By [stategen.dalgen]
- */package com.mycompany.biz.service;
+ */
+package com.mycompany.biz.service;
 
 /**
  * SlideService
@@ -16,8 +17,4 @@
  * </pre>
  */
 public interface SlideServiceTrade {
-
 }
-
-
-

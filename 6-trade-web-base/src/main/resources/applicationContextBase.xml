@@ -18,6 +18,7 @@
     http://www.springframework.org/schema/task/spring-task.xsd"
     default-autowire="byName"
 >
+    <aop:aspectj-autoproxy/>
 
     <context:annotation-config />
 

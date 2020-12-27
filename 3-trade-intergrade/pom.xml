@@ -23,11 +23,6 @@
             <version>${xxx-facade-version}</version>
             </dependency>
         -->
-<!--         <dependency>
-            <groupId>com.mycompany.base</groupId>
-            <artifactId>auth-facade</artifactId>
-            <version>1.0.2</version>
-        </dependency> -->
 
     </dependencies>
 

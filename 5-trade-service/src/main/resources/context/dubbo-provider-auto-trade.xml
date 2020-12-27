@@ -9,39 +9,12 @@
     default-autowire="byName"
 >
 
+    <!-- 执行 dal命令 只过滤相应 ServiceTrade 接口上有方法的接口 ================  -->
     <!-- ================================================================== -->
     <!--  dubbo provider configs: auto generate by dalgenx  不要手动修改本文件 -->
     <!-- 本文件由dalgen生成，任何在本文件上的手工修改将会在下次生成时被覆盖=========== -->
     <!-- ================================================================== -->
     
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="advertisePictureService" interface="com.mycompany.biz.service.AdvertisePictureServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="categoryService" interface="com.mycompany.biz.service.CategoryServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="categorySubService" interface="com.mycompany.biz.service.CategorySubServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="cityService" interface="com.mycompany.biz.service.CityServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="fileSummaryService" interface="com.mycompany.biz.service.FileSummaryServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="floorService" interface="com.mycompany.biz.service.FloorServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="floorGoodsService" interface="com.mycompany.biz.service.FloorGoodsServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="goodsService" interface="com.mycompany.biz.service.GoodsServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="goodsCommentService" interface="com.mycompany.biz.service.GoodsCommentServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="homeAdvertiseService" interface="com.mycompany.biz.service.HomeAdvertiseServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="homeGoodsService" interface="com.mycompany.biz.service.HomeGoodsServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="homeShopService" interface="com.mycompany.biz.service.HomeShopServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="hoppyService" interface="com.mycompany.biz.service.HoppyServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="menuService" interface="com.mycompany.biz.service.MenuServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="organizationService" interface="com.mycompany.biz.service.OrganizationServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="provinceService" interface="com.mycompany.biz.service.ProvinceServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="regionService" interface="com.mycompany.biz.service.RegionServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="roleService" interface="com.mycompany.biz.service.RoleServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="roleMenuService" interface="com.mycompany.biz.service.RoleMenuServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="shopService" interface="com.mycompany.biz.service.ShopServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="slideService" interface="com.mycompany.biz.service.SlideServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="topicService" interface="com.mycompany.biz.service.TopicServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="topicLevelHService" interface="com.mycompany.biz.service.TopicLevelHServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="topicOwnerHService" interface="com.mycompany.biz.service.TopicOwnerHServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="topicReplyService" interface="com.mycompany.biz.service.TopicReplyServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="topicUpService" interface="com.mycompany.biz.service.TopicUpServiceTrade"/>
     <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="userService" interface="com.mycompany.biz.service.UserServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="userHoppyService" interface="com.mycompany.biz.service.UserHoppyServiceTrade"/>
-    <dubbo:service timeout="10000" retries="0" registry="trade-reg-addr" ref="userRoleService" interface="com.mycompany.biz.service.UserRoleServiceTrade"/>
 	
 </beans>

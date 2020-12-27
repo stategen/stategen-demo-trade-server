@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.IIdGenerator;
@@ -16,6 +17,7 @@ import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.ServiceUtil;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.mycompany.biz.dao.UserHoppyDao;
 import com.mycompany.biz.domain.UserHoppy;
 import com.mycompany.biz.service.UserHoppyService;
@@ -46,6 +48,7 @@ public class UserHoppyServiceImpl implements UserHoppyService, IdGenerateService
      * @see com.mycompany.biz.service.UserHoppyService#insert
      */
     @Override
+    @SentinelResource
     public UserHoppy insert(UserHoppy userHoppy) {
         return userHoppyDao.insert(userHoppy, this);
     }
