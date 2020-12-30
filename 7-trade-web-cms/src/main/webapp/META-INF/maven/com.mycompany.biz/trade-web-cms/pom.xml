@@ -35,7 +35,8 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-        </dependency>        
+        </dependency>
+
         <!--qiniu begin -->
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -66,7 +67,6 @@
         </dependency>
         <!--qiniu end -->
 
-        <!--springboot_dependencies-->
     </dependencies>
 
     <profiles>
@@ -134,7 +134,7 @@
                                 </configuration>
                             </execution>
 
-                    <!--APPEND_TAG_DO_NOT_CHANGE-->
+                            <!--APPEND_TAG_DO_NOT_CHANGE-->
                         </executions>
                     </plugin>
                 </plugins>
@@ -146,24 +146,43 @@
 
     <build>
         <finalName>tradeCms</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+
+            <resource>
+                <directory>WebRoot/pages</directory>
+                <targetPath>public/pages</targetPath>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
             </plugin>
 
             <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+            </plugin>
+
+            <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
             </plugin>
-            
+
             <!-- springboot begin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <outputDirectory>D:\java\tomcat\tomcat-9.0.30\webapps</outputDirectory>
+                    <mainClass>com.mycompany.biz.TradeCmsApplication</mainClass>
+                    <addResources />
+
                 </configuration>
             </plugin>
             <!-- springboot end -->
+
         </plugins>
 
     </build>

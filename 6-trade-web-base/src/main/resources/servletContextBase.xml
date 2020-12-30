@@ -124,11 +124,16 @@
     <bean class="org.stategen.framework.checker.DefaultCookieCheckChecker" />
     <bean class="com.mycompany.biz.checker.VisitChecker" />
     <bean class="com.mycompany.biz.checker.LoginChecker" />
+    
     <bean class="org.stategen.framework.spring.mvc.SwaggerConfig" />
 
     <!-- 文档转文档 -->
     <!-- swagger2 {serverName}/doc/index.html -->
-    <mvc:resources mapping="/doc/**" location="classpath:/doc/" />
+    <!-- <mvc:resources mapping="/doc/**" location="classpath:static/doc/" /> -->
+    
+    <!-- <mvc:resources mapping="/swagger-ui.html" location="classpath:/META-INF/resources/" /> -->
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/" />
+    
     <mvc:resources mapping="/uploads/**" location="file:/uploads/" />
 
     <mvc:resources mapping="/**"

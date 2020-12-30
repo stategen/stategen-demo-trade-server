@@ -181,13 +181,13 @@
         <!--默认资源目录 -->
         <!-- <resources>
             <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-                <filtering>true</filtering>
+            <directory>src/main/resources</directory>
+            <includes>
+            <include>**/*.*</include>
+            </includes>
+            <filtering>true</filtering>
             </resource>
-        </resources> -->
+            </resources> -->
         <!--默认测试资源目录 -->
         <testResources>
             <testResource>
@@ -298,6 +298,19 @@
                     </executions>
                 </plugin>
                 <!-- springboot end -->
+
+                <plugin>
+                    <groupId>org.apache.maven.plugin</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.6</version>
+                    <configuration>
+                        <webXml>${basedir}WebRoot/WEB-INF/web.xml</webXml>
+                        <!--如果没有这个plugin,maven->update project后，maven会自动创建src/main/webapp目录，
+                            undertow在测试环境下，只要webapp目录存在，则静态资源这个目录加载
+                            maven在会webapp生成和复制很多脏的class和jar, 导致最后war体积翻倍 -->
+                        <warSourceDirectory>${basedir}/public</warSourceDirectory>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>

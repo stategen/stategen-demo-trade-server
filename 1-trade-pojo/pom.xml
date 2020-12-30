@@ -64,7 +64,7 @@
                         <artifactId>exec-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                            <!-- 执行一条dal命令,第一个tables中的第一个xml，统计2-facade 中的 service相应接口有没有methodCount,如果没有method,则5-serivce的dubbo-provider应该不包括该接口 -->
+                                <!-- 执行一条dal命令,第一个tables中的第一个xml，统计2-facade 中的 service相应接口有没有methodCount,如果没有method,则5-serivce的dubbo-provider应该不包括该接口 -->
                                 <id>>>>>>>>>>>>>>>>> 执行一个dal命令，统计dubbo provider，顺便检查一下全部facade语法错误 &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</id>
                                 <phase>generate-sources</phase>
                                 <goals>

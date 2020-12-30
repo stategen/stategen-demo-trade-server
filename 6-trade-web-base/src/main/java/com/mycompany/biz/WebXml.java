@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.servlet.server.AbstractServletWebServerFactory;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
@@ -150,14 +150,20 @@ public class WebXml {
         private static final long serialVersionUID = 1L;
     }
     
-    public static void printEnv(ConfigurableApplicationContext application) throws UnknownHostException {
+    public static void printEnv(ApplicationContext application) {
         //https://blog.csdn.net/rongbo91/article/details/109645729
         System.out.println("项目启动成功 *^_^* \n" + " .-------.       ____     __        \n"
                 + " |  _ _   \\      \\   \\   /  /    \n" + " | ( ' )  |       \\  _. /  '       \n"
                 + " |(_ o _) /        _( )_ .'         \n" + " | (_,_).' __  ___(_ o _)'          \n"
                 + " |  |\\ \\  |  ||   |(_,_)'         \n" + " |  | \\ `'   /|   `-'  /           \n"
                 + " |  |  \\    /  \\      /           \n" + " ''-'   `'-'    `-..-'              ");
-        String                          ip                      = InetAddress.getLocalHost().getHostAddress();
+        String ip;
+        try {
+            ip = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            log.error("没有获取ip", e);
+            ip ="ip";
+        }
         AbstractServletWebServerFactory servletWebServerFactory = application.getBean(AbstractServletWebServerFactory.class);
         
         int    port = servletWebServerFactory.getPort();//env.getProperty("tradeApp.port");
@@ -165,11 +171,14 @@ public class WebXml {
         if (StringUtil.isEmpty(path)) {
             path = "";
         }
+        
         log.info("\n----------------------------------------------------------\n\t" +
                 "Application  is running! Access URLs:\n\t" +
-                "servletWebServerFactory  类型：" + servletWebServerFactory.getClass().getName() + ":\n\t" +
+                "servletWebServerFactory  类型\t：" + servletWebServerFactory.getClass().getSimpleName() + ":\n\t" +
                 "Local访问网址: \t\thttp://localhost:" + port + path + "\n\t" +
+                
                 "External访问网址: \thttp://" + ip + ":" + port + path + "\n\t" +
+                "Swagger访问网址: \thttp://" + ip + ":" + port + path + "/doc/index.html\n\t" +
                 "----------------------------------------------------------");
     }
 }
