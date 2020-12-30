@@ -20,39 +20,34 @@
 
     <!-- 不需要springboot请将springboot部分注释 -->
     <dependencies>
+        <!-- @since stg2.2.3.RELEASE,架构层jar3由架构上各层自行维护，业务层维护自己的jars -->
+        <dependency>
+            <groupId>org.stategen.framework.layers</groupId>
+            <artifactId>stategen-layers-web-pom</artifactId>
+            <type>pom</type>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+        <!-- <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <version>${spring.boot.version}</version>
+            </dependency> -->
+
         <dependency>
             <groupId>com.mycompany.biz</groupId>
             <artifactId>trade-web-base</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpmime</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.stategen.framework</groupId>
-            <artifactId>progen</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
         </dependency>
 
         <!--qiniu begin -->
@@ -85,11 +80,10 @@
         </dependency>
         <!--qiniu end -->
 
-
     </dependencies>
 
     <profiles>
-        <!--开发和测试-->
+        <!--开发和测试 -->
         <profile>
             <id>front</id>
             <activation>
@@ -101,8 +95,8 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <executions>            
-                                <!-- 生成ts文件模型和app -->
+                        <executions>
+                            <!-- 生成ts文件模型和app -->
                             <execution>
                                 <id>>>>>>>>>>>>>>>>> tradeApp auto generate h5 frondend files 生成前端 h5 代码 &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</id>
                                 <phase>test</phase>
@@ -169,7 +163,7 @@
 
                         </executions>
                     </plugin>
-                    <!--APPEND_TAG_DO_NOT_CHANGE-->
+                    <!--APPEND_TAG_DO_NOT_CHANGE -->
                 </plugins>
             </build>
         </profile>
@@ -177,24 +171,78 @@
 
     <build>
         <finalName>tradeApp</finalName>
+        <resources>
+            <!-- <resource>
+                <directory>WebRoot/pages</directory>
+                <targetPath>public/pages</targetPath>
+                </resource> -->
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+
+            <resource>
+                <directory>WebRoot/pages</directory>
+                <targetPath>public/pages</targetPath>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugin</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <webXml>${basedir}WebRoot/WEB-INF/web.xml</webXml>
+                    <!--如果没有这个plugin,maven->update project后，maven会自动创建src/main/webapp目录，
+                        undertow在测试环境下，只要webapp目录存在，则静态资源这个目录加载
+                        maven在会webapp生成和复制很多脏的class和jar, 导致最后war体积翻倍 -->
+                    <warSourceDirectory>${WebRoot}/public</warSourceDirectory>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
             </plugin>
-            
+
             <!-- springboot begin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <outputDirectory>D:\java\tomcat\tomcat-9.0.30\webapps</outputDirectory>
+                    <mainClass>com.mycompany.biz.TradeAppApplication</mainClass>
+                    <addResources />
+
                 </configuration>
             </plugin>
             <!-- springboot end -->
+            <!-- <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>truezip-maven-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <id>remove-a-file-in-sub-archive</id>
+                        <goals>
+                            <goal>remove</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <fileset>
+                                <directory>target/tradeApp.war/WEB-INF/lib/undertow-core-2.0.29.Final.jar/io/undertow/server/handlers/resource</directory>
+                                <includes>
+                                    <include>PathResourceManager.class</include>
+                                </includes>
+                            </fileset>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+ -->
         </plugins>
 
     </build>

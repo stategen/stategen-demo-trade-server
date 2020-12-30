@@ -16,6 +16,13 @@
     <name>3-trade-intergrade</name>
 
     <dependencies>
+        <!-- @since stg2.2.3.RELEASE,架构层jar3由架构上各层自行维护，业务层维护自己的jars -->
+        <dependency>
+            <groupId>org.stategen.framework.layers</groupId>
+            <artifactId>stategen-layers-intergrade-pom</artifactId>
+            <type>pom</type>
+        </dependency>
+	
         <!--
             <dependency>
             <groupId>com.xxx.xxx</groupId>

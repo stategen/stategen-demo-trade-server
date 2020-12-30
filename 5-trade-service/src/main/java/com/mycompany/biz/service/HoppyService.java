@@ -11,6 +11,7 @@ import org.stategen.framework.lite.PageList;
 import org.stategen.framework.util.AssignService;
 import org.stategen.framework.util.BaseService;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.mycompany.biz.domain.Hoppy;
 
 /**
@@ -67,6 +68,7 @@ public interface HoppyService extends AssignService<Hoppy, Long>, HoppyServiceTr
      * 
      * @see com.mycompany.biz.dao.HoppyDao#getHoppyOptions
      */
+    @SentinelResource
     public List<Hoppy> getHoppyOptions();
 
     /*** 保存hoppy,有id时更新，没有id时插入,并带回新的id，返回 hoppy

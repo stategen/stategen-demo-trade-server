@@ -30,6 +30,7 @@
         <!-<property name="ignoreUnresolvablePlaceholders" value="true" />->
     </bean> -->
     
-    <bean id="urls" class="java.util.HashMap"/>
+    <bean id="urls" class="java.util.HashMap">
+    </bean>
 
 </beans>

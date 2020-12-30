@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -151,7 +150,6 @@ public class AppController {
 
     
     @ApiRequestMappingAutoWithMethodName(name = "爱好", method = RequestMethod.GET)
-    @SentinelResource
     public List<Hoppy> getHoppyOptions() {
         return this.hoppyService.getHoppyOptions();
     }

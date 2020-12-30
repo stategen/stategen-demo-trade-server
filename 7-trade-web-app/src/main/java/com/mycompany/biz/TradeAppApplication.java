@@ -22,9 +22,10 @@ import com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect;
 @EnableAutoConfiguration
 @EnableDiscoveryClient // 表明是一个Nacos客户端，该注解是 SpringCloud 提供的原生注解。
 @ServletComponentScan(basePackageClasses = WebXml.class)
+//@EnableWebMvc不能享受 @ApiRequestMappingAutoWithMethodName的便利
 @Import({
-        CodeConfigSpringBoot.BootServletConfig.class,
-        CodeConfigSpringBoot.ServletFactoryConfig.class })
+        CodeConfigSpringBoot.class,
+ })
 
 public class TradeAppApplication extends SpringBootServletInitializer {
     
@@ -53,7 +54,7 @@ public class TradeAppApplication extends SpringBootServletInitializer {
             System.out.println("arg<===========>:" + arg);
         }
         ConfigurableApplicationContext application = SpringApplication.run(TradeAppApplication.class, args);
-        CodeConfigSpringBoot.printEnv(application);
+        WebXml.printEnv(application);
     }
     
 }

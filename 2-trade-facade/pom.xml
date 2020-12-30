@@ -16,15 +16,16 @@
     <description />
 
     <dependencies>
+        <!-- @since stg2.2.3.RELEASE,架构层jar3由架构上各层自行维护，业务层维护自己的jars -->
+        <dependency>
+            <groupId>org.stategen.framework.layers</groupId>
+            <artifactId>stategen-layers-facade-pom</artifactId>
+            <type>pom</type>
+        </dependency>
+
         <dependency>
             <groupId>com.mycompany.biz</groupId>
             <artifactId>trade-pojo</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo</artifactId>
-            <!-- for validate file dubbo-env-auto-trade-spring.xml -->
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 

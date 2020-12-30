@@ -9,9 +9,7 @@
         <version>1.0.0</version>
         <relativePath>../</relativePath>
     </parent>
-
     <properties>
-        <warName>tradeCms</warName>
         <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
 
@@ -21,45 +19,23 @@
     <name>7-trade-web-cms</name>
     
     <!-- 不需要springboot请将springboot部分注释 -->
-    
-    <!--springboot_import-->
-
     <dependencies>
+        <!-- @since stg2.2.3.RELEASE,架构层jar3由架构上各层自行维护，业务层维护自己的jars -->
+        <dependency>
+            <groupId>org.stategen.framework.layers</groupId>
+            <artifactId>stategen-layers-web-pom</artifactId>
+            <type>pom</type>
+        </dependency>
+
         <dependency>
             <groupId>com.mycompany.biz</groupId>
             <artifactId>trade-web-base</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpmime</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.stategen.framework</groupId>
-            <artifactId>progen</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-        </dependency>
-
+        </dependency>        
         <!--qiniu begin -->
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -88,11 +64,11 @@
             <version>7.1.3</version>
             <scope>test</scope>
         </dependency>
-
         <!--qiniu end -->
 
         <!--springboot_dependencies-->
     </dependencies>
+
     <profiles>
         <!--开发和测试-->
         <profile>
@@ -169,6 +145,7 @@
 
 
     <build>
+        <finalName>tradeCms</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -177,8 +154,16 @@
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
             </plugin>
-
-           <!--springboot_plugin-->
+            
+            <!-- springboot begin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>D:\java\tomcat\tomcat-9.0.30\webapps</outputDirectory>
+                </configuration>
+            </plugin>
+            <!-- springboot end -->
         </plugins>
 
     </build>
