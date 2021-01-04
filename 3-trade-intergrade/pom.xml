@@ -22,12 +22,7 @@
             <artifactId>stategen-layers-intergrade-pom</artifactId>
             <type>pom</type>
         </dependency>
-	<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
-<dependency>
-    <groupId>io.springfox</groupId>
-    <artifactId>springfox-swagger-ui</artifactId>
-    <version>2.9.2</version>
-</dependency>
+
     
         <!--
             <dependency>
@@ -42,6 +37,7 @@
     <build>
         <plugins>
             <plugin>
+			    <!-- 引入即不发布到maven仓库 -->			
                 <artifactId>maven-deploy-plugin</artifactId>
             </plugin>
 

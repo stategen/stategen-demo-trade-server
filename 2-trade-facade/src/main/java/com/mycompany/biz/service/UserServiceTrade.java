@@ -23,4 +23,6 @@ public interface UserServiceTrade {
     public User getUserByUserId(String userId);
 
     public User insert(User user);
+
+    User appendUserAge(String userId);
 }

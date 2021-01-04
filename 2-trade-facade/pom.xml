@@ -22,11 +22,12 @@
             <artifactId>stategen-layers-facade-pom</artifactId>
             <type>pom</type>
         </dependency>
-
+		
         <dependency>
             <groupId>com.mycompany.biz</groupId>
             <artifactId>trade-pojo</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>

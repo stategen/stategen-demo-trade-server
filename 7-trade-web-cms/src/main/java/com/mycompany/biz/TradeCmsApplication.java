@@ -23,9 +23,9 @@ import org.springframework.web.context.WebApplicationContext;
         CodeConfigSpringBoot.class,
 })
 
-public class TradeAppApplication extends SpringBootServletInitializer {
+public class TradeCmsApplication extends SpringBootServletInitializer {
     
-    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TradeAppApplication.class);
+    final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TradeCmsApplication.class);
     
     @Override
     protected WebApplicationContext createRootApplicationContext(ServletContext servletContext) {
@@ -46,7 +46,7 @@ public class TradeAppApplication extends SpringBootServletInitializer {
         for (String arg : args) {
             System.out.println("arg<===========>:" + arg);
         }
-        ConfigurableApplicationContext application = SpringApplication.run(TradeAppApplication.class, args);
+        ConfigurableApplicationContext application = SpringApplication.run(TradeCmsApplication.class, args);
         WebXml.printEnv(application);
     }
     

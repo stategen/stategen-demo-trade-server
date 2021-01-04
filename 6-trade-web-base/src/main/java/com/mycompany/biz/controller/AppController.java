@@ -21,9 +21,10 @@ import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.util.CollectionUtil;
 import org.stategen.framework.util.StringUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
+import com.baidu.fsg.uid.impl.CachedUidGenerator;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.baidu.fsg.uid.impl.CachedUidGenerator;
+
 import com.mycompany.biz.domain.City;
 import com.mycompany.biz.domain.Hoppy;
 import com.mycompany.biz.domain.Menu;
@@ -38,6 +39,7 @@ import com.mycompany.biz.service.ProvinceService;
 import com.mycompany.biz.service.RegionService;
 import com.mycompany.biz.service.UserService;
 
+import ch.qos.logback.classic.joran.ReconfigureOnChangeTask;
 import io.swagger.annotations.ApiParam;
 
 @ApiConfig(menu = false)
@@ -48,13 +50,10 @@ public class AppController {
 
     @Resource
     private CookieGroup<LoginCookieNames> loginCookieGroup;
-
-    @Resource(name = "userService")
-    private UserService userService;
-
+	
     @Resource
-    private MenuService menuService;
-
+    private CachedUidGenerator cachedUidGenerator;
+		
     @Resource
     private ProvinceService provinceService;
 
@@ -67,8 +66,74 @@ public class AppController {
     @Resource
     private RegionService regionService;
     
+
+	
+    @Resource(name = "userService")
+    private UserService userService;
+
     @Resource
-    private CachedUidGenerator cachedUidGenerator;
+    private MenuService menuService;
+
+
+
+    @ApiRequestMappingAutoWithMethodName(name = "")
+    @State(area = User.class)
+    public SimpleResponse logout(HttpServletResponse response) {
+        loginCookieGroup.expireAllCookies();
+        return new SimpleResponse(true, "退出成功");
+    }
+
+    @ApiRequestMappingAutoWithMethodName(name = "")
+    @State(init = true, initCheck = false, dataOpt = DataOpt.FULL_REPLACE)
+    public User getCookieUser() {
+        String userId = this.loginCookieGroup.getCookieValue(LoginCookieNames.userId);
+        if (StringUtil.isEmpty(userId)) {
+            return null;
+        }
+
+        User user = this.userService.getUserByUserId(userId);
+        if (user == null) {
+            return null;
+        }
+
+        List<Long> visitsIds = this.menuService.getMenusByUserId(user.getUserId(), MenuType.MENU);
+        user.setVisitsIds(visitsIds);
+        return user;
+    }
+
+    @ApiRequestMappingAutoWithMethodName(name = "获所所有菜单", method = RequestMethod.GET)
+    @State(init = true, initCheck = false, dataOpt = DataOpt.FULL_REPLACE)
+    public List<Menu> getAllMenus() {
+        return this.menuService.getAllMenus();
+    }
+
+    @ApiRequestMappingAutoWithMethodName(name = "获取用户")
+    public List<User> getUserOptions(@RequestParam(required = false, name = "userIds") ArrayList<String> userIds){
+        return null;
+    }
+    
+    
+    /***测试seata分布式事务*/
+    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
+    public User  testSeataAt() {
+        User appendUserAge = this.userService.appendUserAge("2");
+        ReconfigureOnChangeTask reconfigureOnChangeTask;
+        return appendUserAge;
+    }
+
+    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
+    public String testUid() {
+        long uid = this.cachedUidGenerator.getUID();
+        if (logger.isInfoEnabled()) {
+            logger.info(new StringBuilder("输出info信息: uid:").append(uid).toString());
+        }
+        String parseUID = cachedUidGenerator.parseUID(uid);
+        return parseUID;
+    }
+
+
+
+
     
     //这是一个dubbo服务
     /*
@@ -103,38 +168,7 @@ public class AppController {
      * .setParentRegionIds(Arrays.asList(parentRegionId, 257L)), 100, 1); return
      * pageList.getItems(); }
      */
-
-    @ApiRequestMappingAutoWithMethodName(name = "")
-    @State(area = User.class)
-    public SimpleResponse logout(HttpServletResponse response) {
-        loginCookieGroup.expireAllCookies();
-        return new SimpleResponse(true, "退出成功");
-    }
-
-    @ApiRequestMappingAutoWithMethodName(name = "")
-    @State(init = true, initCheck = false, dataOpt = DataOpt.FULL_REPLACE)
-    public User getCookieUser() {
-        String userId = this.loginCookieGroup.getCookieValue(LoginCookieNames.userId);
-        if (StringUtil.isEmpty(userId)) {
-            return null;
-        }
-
-        User user = this.userService.getUserByUserId(userId);
-        if (user == null) {
-            return null;
-        }
-
-        List<Long> visitsIds = this.menuService.getMenusByUserId(user.getUserId(), MenuType.MENU);
-        user.setVisitsIds(visitsIds);
-        return user;
-    }
-
-    @ApiRequestMappingAutoWithMethodName(name = "获所所有菜单", method = RequestMethod.GET)
-    @State(init = true, initCheck = false, dataOpt = DataOpt.FULL_REPLACE)
-    public List<Menu> getAllMenus() {
-        return this.menuService.getAllMenus();
-    }
-
+	 
     @ApiRequestMappingAutoWithMethodName(name = "省份")
     public List<Province> getProvinceOptions() {
         List<Province> provinceOptions = this.provinceService.getProvinceOptions();
@@ -188,22 +222,6 @@ public class AppController {
             }
         }
         return regionOptions;
-    }
-
-    @ApiRequestMappingAutoWithMethodName(name = "获取用户")
-    public List<User> getUserOptions(@RequestParam(required = false, name = "userIds") ArrayList<String> userIds){
-        return null;
-    }
-    
-    
-    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
-    public String testUid() {
-        long uid = this.cachedUidGenerator.getUID();
-        if (logger.isInfoEnabled()) {
-            logger.info(new StringBuilder("输出info信息: uid:").append(uid).toString());
-        }
-        String parseUID = cachedUidGenerator.parseUID(uid);
-        return parseUID;
     }
 
 }

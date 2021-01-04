@@ -1,3 +1,3 @@
-call "²»Ö´ĞĞÒ»´Îdal, ²»±àÒëÇ°¶Ë"
+call "ä¸æ‰§è¡Œä¸€æ¬¡dal, ä¸ç¼–è¯‘å‰ç«¯"
 call mvn clean package -P!front -P!dal -e
 pause

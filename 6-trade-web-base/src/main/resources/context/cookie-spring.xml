@@ -29,6 +29,5 @@
         <property name="cookieType"><util:constant static-field="com.mycompany.biz.enums.CookieType.LOGIN" /></property>
         <property name="httpOnly" value="${loginCookieGroupHttpOnly}"/>
     </bean>
-    
 
 </beans>

@@ -24,13 +24,11 @@
     http://www.springframework.org/schema/util/spring-util.xsd"
     default-autowire="byName"
 >
-    
-    <!-- 如果不配置 documentRoot,undertow在eclipse调式环境下，只加载src/main/webapp(这个目录没有时，springboot(2.3.3.release)自动创建),导致调试开发完全不同 -->
+ 
     <!-- <bean class="org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory"> -->
     <bean class="org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory">
-        <property name="contextPath" value="/tradeApp" />
-        <property name="port" value="${tradeApp.port:8080}" />
-        <!-- <property name="documentRoot" ref="documentRoot"/> -->
+        <property name="contextPath" value="/tradeCms" />
+        <property name="port" value="${tradeCms.port:8080}" />
     </bean>
     
     <bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">

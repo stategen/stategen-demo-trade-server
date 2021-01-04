@@ -67,7 +67,7 @@ public class WebXml {
     }
     
     /***用自定义配置的tomcat*/
-    @ImportResource("classpath:servlet-factory.xml")
+    @ImportResource("classpath:/servlet/servlet-factory.xml")
     @Configuration
     public static class ServletFactoryConfig {
         
@@ -132,7 +132,6 @@ public class WebXml {
         
     }
     
-    
     /*** {serverName}/druid/index.html*/
     @WebServlet(name = "StatViewServlet", urlPatterns = "/druid/*",
             /*--*/
@@ -152,21 +151,26 @@ public class WebXml {
     
     public static void printEnv(ApplicationContext application) {
         //https://blog.csdn.net/rongbo91/article/details/109645729
-        System.out.println("项目启动成功 *^_^* \n" + " .-------.       ____     __        \n"
-                + " |  _ _   \\      \\   \\   /  /    \n" + " | ( ' )  |       \\  _. /  '       \n"
-                + " |(_ o _) /        _( )_ .'         \n" + " | (_,_).' __  ___(_ o _)'          \n"
-                + " |  |\\ \\  |  ||   |(_,_)'         \n" + " |  | \\ `'   /|   `-'  /           \n"
-                + " |  |  \\    /  \\      /           \n" + " ''-'   `'-'    `-..-'              ");
+        System.out.println("项目启动成功 *^_^* \n"
+                + " .-------.       ____     __        \n"
+                + " |  _ _   \\      \\   \\   /  /    \n" 
+                + " | ( ' )  |       \\  _. /  '       \n"
+                + " |(_ o _) /        _( )_ .'         \n" 
+                + " | (_,_).' __  ___(_ o _)'          \n"
+                + " |  |\\ \\  |  ||   |(_,_)'         \n" 
+                + " |  | \\ `'   /|   `-'  /           \n"
+                + " |  |  \\    /  \\      /           \n" 
+                + " ''-'   `'-'    `-..-'              ");
         String ip;
         try {
             ip = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
             log.error("没有获取ip", e);
-            ip ="ip";
+            ip = "ip";
         }
         AbstractServletWebServerFactory servletWebServerFactory = application.getBean(AbstractServletWebServerFactory.class);
         
-        int    port = servletWebServerFactory.getPort();//env.getProperty("tradeApp.port");
+        int    port = servletWebServerFactory.getPort();
         String path = servletWebServerFactory.getContextPath();//env.getProperty("server.servlet.context-path");
         if (StringUtil.isEmpty(path)) {
             path = "";
@@ -181,4 +185,5 @@ public class WebXml {
                 "Swagger访问网址: \thttp://" + ip + ":" + port + path + "/doc/index.html\n\t" +
                 "----------------------------------------------------------");
     }
+  
 }

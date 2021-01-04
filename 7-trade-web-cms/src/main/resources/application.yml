@@ -1,7 +1,7 @@
 #首先加载 6-web-base中的bootstrap.yml,导入环境设置
 spring:
   application:
-    name: tradeApp
+    name: tradeCms
   main:
     # Spring Boot 2.1 需要设定
     allow-bean-definition-overriding: true
@@ -14,7 +14,7 @@ spring:
     sentinel:
       transport:
         #port: 8721
-        port: ${tradeApp.client.for.sentinel.transport.port}   
+        port: ${tradeCms.client.for.sentinel.transport.port}   
         dashboard: ${sentinel.transport.dashboard}   
       # 设置Sentinel Nacos数据源配置
       datasource:
@@ -35,7 +35,7 @@ seata:
   application-id: ${spring.application.name}
   #向nacos中注册一个配置 service.vgroupMapping.trade-service-group=default
   #事务群组（可以每个应用独立取名，也可以使用相同的名字）
-  tx-service-group: trade-service-group
+  tx-service-group: trade-service-group 
   registry:
     type: nacos
     nacos:
@@ -56,9 +56,9 @@ seata:
 #====================================Seata Config===============================================  
 #server 配置后优先使用  
 #server:
-#  port: ${tradeApp.port:8080}
+#  port: ${tradeCms.port:8080}
 #  servlet:
-#    context-path: /tradeApp
+#    context-path: /tradeCms
 #  undertow:
 #    # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
 #    io-threads: 4

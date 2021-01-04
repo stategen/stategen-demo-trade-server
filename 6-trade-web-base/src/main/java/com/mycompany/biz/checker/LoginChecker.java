@@ -12,7 +12,6 @@ public class LoginChecker extends AbstractMethodChecker<LoginCheck>{
     final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(LoginChecker.class);
     
 
-
     @Override
     public  <T extends Enum<T> & IResponseStatus> T doCheck(Method method, LoginCheck anno, Class<? extends IResponseStatus> defaultResponseStatusTypeClzOfCheckFail) {
         CookieCheck cookieCheck = AnnotationUtils.getAnnotation(anno,CookieCheck.class);

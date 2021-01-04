@@ -9,6 +9,7 @@
         <version>1.0.0</version>
         <relativePath>../</relativePath>
     </parent>
+
     <properties>
         <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
@@ -18,7 +19,8 @@
     <packaging>war</packaging>
     <name>7-trade-web-app</name>
 
-    <!-- 不需要springboot请将springboot部分注释 -->
+
+
     <dependencies>
         <!-- @since stg2.2.3.RELEASE,架构层jar3由架构上各层自行维护，业务层维护自己的jars -->
         <dependency>
@@ -148,7 +150,7 @@
                                 </configuration>
                             </execution>
 							
-							<!--APPEND_TAG_DO_NOT_CHANGE -->
+							<!--APPEND_TAG_DO_NOT_CHANGE-->
 
                         </executions>
                     </plugin>
@@ -173,6 +175,7 @@
 
         <plugins>
             <plugin>
+			    <!-- 引入即不发布到maven仓库 -->
                 <artifactId>maven-deploy-plugin</artifactId>
             </plugin>
 

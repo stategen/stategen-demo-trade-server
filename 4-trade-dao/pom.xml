@@ -23,8 +23,6 @@
             <artifactId>stategen-layers-dao-pom</artifactId>
             <type>pom</type>
         </dependency>
-
-
 	
         <dependency>
             <groupId>com.mycompany.biz</groupId>
@@ -36,6 +34,7 @@
     <build>
         <plugins>
             <plugin>
+			    <!-- 引入即不发布到maven仓库 -->			
                 <artifactId>maven-deploy-plugin</artifactId>
             </plugin>
         </plugins>

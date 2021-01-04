@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mycompany.biz</groupId>
@@ -18,12 +16,14 @@
         <module>5-trade-service</module>
         <module>6-trade-web-base</module>
         <module>7-trade-web-app</module>
-        <!-- <module>7-trade-web-cms</module> -->
+        <module>7-trade-web-cms</module>
     </modules>
 
 
     <properties>
-        <stategen-version>stg.2.2.3.RELEASE</stategen-version>
+        <stategen-version>stg.2.3.0.RELEASE</stategen-version>
+        <stategen-layers.pom.version>stgp.1.0-stg.2.3.0.RELEASE</stategen-layers.pom.version>
+        
         <!-- 发到公司私有maven仓库中，即pojo和facade(dubbo服务的版本)，这个版本跟着pom.version一致 -->
         <trade-facade-version>1.0.0</trade-facade-version>
         <!-- 包含业务逻辑代码的jar，不能被发布到maven仓库中，故以snapshort结尾,请在nexus中控制禁止接收snapshot版本,避免误发 -->
@@ -35,12 +35,21 @@
         <!-- 这个版本对应nacos是的1.3.x(不可上1.4),sentinel dashboard版本可以到 1.8 -->
         <alibaba.spring.cloud.version>2.2.3.RELEASE</alibaba.spring.cloud.version>
         <spring-data-redis-version>2.2.3.RELEASE</spring-data-redis-version>
+        
+        
         <!-- 文件拷贝时的编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- 编译时的编码 -->
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <maven.compiler.target>1.8</maven.compiler.target>
+        
+        <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
+        <sentinel.version>1.8.0</sentinel.version>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <!-- 解决eclipse中第一行报错 error line 1 -->
+        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>     
     </properties>
 
     <distributionManagement>
@@ -68,6 +77,57 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- @since stg.2.3.0.RELEASE,架构层jar3由架构上各层自行维护，业务层维护自己的jars -->
+            <dependency>
+                <groupId>org.stategen.framework.layers</groupId>
+                <artifactId>stategen-layers-pojo-pom</artifactId>
+                <version>${stategen-layers.pom.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.stategen.framework.layers</groupId>
+                <artifactId>stategen-layers-facade-pom</artifactId>
+                <version>${stategen-layers.pom.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.stategen.framework.layers</groupId>
+                <artifactId>stategen-layers-intergrade-pom</artifactId>
+                <version>${stategen-layers.pom.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.stategen.framework.layers</groupId>
+                <artifactId>stategen-layers-dao-pom</artifactId>
+                <version>${stategen-layers.pom.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.stategen.framework.layers</groupId>
+                <artifactId>stategen-layers-service-pom</artifactId>
+                <version>${stategen-layers.pom.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.stategen.framework.layers</groupId>
+                <artifactId>stategen-layers-web-base-pom</artifactId>
+                <version>${stategen-layers.pom.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.stategen.framework.layers</groupId>
+                <artifactId>stategen-layers-web-pom</artifactId>
+                <version>${stategen-layers.pom.version}</version>
+                <type>pom</type>
+            </dependency>
+
+		
             <dependency>
                 <groupId>com.mycompany.biz</groupId>
                 <artifactId>trade-pojo</artifactId>
@@ -103,58 +163,7 @@
                 <artifactId>trade-web-base</artifactId>
                 <version>${system.version.SNAPSHOT}</version>
             </dependency>
-
-            <!-- @since stg.2.2.3.RELEASE,架构层jar3由架构上各层自行维护，业务层维护自己的jars -->
-            <dependency>
-                <groupId>org.stategen.framework.layers</groupId>
-                <artifactId>stategen-layers-pojo-pom</artifactId>
-                <version>${stategen-version}</version>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.stategen.framework.layers</groupId>
-                <artifactId>stategen-layers-facade-pom</artifactId>
-                <version>${stategen-version}</version>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.stategen.framework.layers</groupId>
-                <artifactId>stategen-layers-intergrade-pom</artifactId>
-                <version>${stategen-version}</version>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.stategen.framework.layers</groupId>
-                <artifactId>stategen-layers-dao-pom</artifactId>
-                <version>${stategen-version}</version>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.stategen.framework.layers</groupId>
-                <artifactId>stategen-layers-service-pom</artifactId>
-                <version>${stategen-version}</version>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.stategen.framework.layers</groupId>
-                <artifactId>stategen-layers-web-base-pom</artifactId>
-                <version>${stategen-version}</version>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>org.stategen.framework.layers</groupId>
-                <artifactId>stategen-layers-web-pom</artifactId>
-                <version>${stategen-version}</version>
-                <type>pom</type>
-            </dependency>
-
-
+            
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
@@ -169,6 +178,8 @@
                 <!-- 生成器 DevGenerator.java在test队段 -->
                 <scope>test</scope>
             </dependency>
+            
+
         </dependencies>
     </dependencyManagement>
 
@@ -274,7 +285,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>

@@ -38,6 +38,7 @@
     <build>
         <plugins>
             <plugin>
+			    <!-- 引入即不发布到maven仓库 -->			
                 <artifactId>maven-deploy-plugin</artifactId>
             </plugin>
         </plugins>
