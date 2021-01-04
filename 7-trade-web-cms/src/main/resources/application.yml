@@ -14,7 +14,7 @@ spring:
     sentinel:
       transport:
         #port: 8721
-        port: ${tradeCms.client.for.sentinel.transport.port}   
+        port: '#{T(util.Net).from(${tradeCms.client.for.sentinel.transport.port:8721})}'   
         dashboard: ${sentinel.transport.dashboard}   
       # 设置Sentinel Nacos数据源配置
       datasource:
@@ -35,7 +35,7 @@ seata:
   application-id: ${spring.application.name}
   #向nacos中注册一个配置 service.vgroupMapping.trade-service-group=default
   #事务群组（可以每个应用独立取名，也可以使用相同的名字）
-  tx-service-group: trade-service-group 
+  tx-service-group: trade-service-group
   registry:
     type: nacos
     nacos:
@@ -53,7 +53,7 @@ seata:
   enable-auto-data-source-proxy: true
   data-source-proxy-mode: AT
 
-#====================================Seata Config===============================================  
+#====================================Seata Config===============================================
 #server 配置后优先使用  
 #server:
 #  port: ${tradeCms.port:8080}

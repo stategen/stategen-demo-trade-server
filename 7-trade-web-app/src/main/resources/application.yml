@@ -14,7 +14,7 @@ spring:
     sentinel:
       transport:
         #port: 8721
-        port: ${tradeApp.client.for.sentinel.transport.port}   
+        port: '#{T(util.Net).from(${tradeApp.client.for.sentinel.transport.port:8721})}'   
         dashboard: ${sentinel.transport.dashboard}   
       # 设置Sentinel Nacos数据源配置
       datasource:
@@ -53,7 +53,7 @@ seata:
   enable-auto-data-source-proxy: true
   data-source-proxy-mode: AT
 
-#====================================Seata Config===============================================  
+#====================================Seata Config===============================================
 #server 配置后优先使用  
 #server:
 #  port: ${tradeApp.port:8080}

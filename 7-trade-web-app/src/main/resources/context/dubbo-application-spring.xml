@@ -11,9 +11,9 @@
 
     <!-- 应用配置 各业务平台根据systemName区分 -->
     <dubbo:application name="trade-dubbo-stategen" owner="trade" organization="com.mycompany.biz" >
-        <dubbo:parameter key="qos.enable" value="${tradeApp.dubbo.qos.enable}" />
+        <dubbo:parameter key="qos.enable" value="${tradeApp.dubbo.qos.enable:false}" />
         <dubbo:parameter key="qos.accept.foreign.ip" value="false" />
-        <dubbo:parameter key="qos.port" value="${tradeApp.dubbo.qos.port}"/>
+        <dubbo:parameter key="qos.port" value="#{T(util.Net).from(${tradeApp.dubbo.qos.port:22222})}"/>
     </dubbo:application>
     <dubbo:consumer check="false" />
 </beans>
