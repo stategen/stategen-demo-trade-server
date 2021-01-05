@@ -21,10 +21,10 @@
 
 
     <dependencies>
-        <!-- @since stg2.2.3.RELEASE,架构层jar3由架构上各层自行维护，业务层维护自己的jars -->
+        <!-- @since stg2.2.3.RELEASE,为减少jar维护难度，架构层jars可统一引用各自层的layer-pom -->
         <dependency>
             <groupId>org.stategen.framework.layers</groupId>
-            <artifactId>stategen-layers-web-pom</artifactId>
+            <artifactId>stategen-layer-web-pom</artifactId>
             <type>pom</type>
         </dependency>
 
@@ -83,9 +83,8 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
-
-                            <!-- 生成ts文件模型和cms -->
+                        <executions>                            
+							<!-- 生成ts文件模型和cms -->
                             <execution>
                                 <id>>>>>>>>>>>>>>>>> tradeCms auto generate web frondend files 生成前端 web 代码 &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</id>
                                 <phase>test</phase>
@@ -96,9 +95,9 @@
                                     <mainClass>WebFacadeProcessor</mainClass>
                                     <classpathScope>test</classpathScope>
                                     <cleanupDaemonThreads>false</cleanupDaemonThreads>
+                                    <classpathScope>test</classpathScope>
                                 </configuration>
                             </execution>
-
                             <!-- 安装前端代码需要的插件 -->
                             <execution>
                                 <id>>>>>>>>>>>>>>>>>tradeCms yarn 下载 web 前端 web 依赖 &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</id>
@@ -114,9 +113,7 @@
                                         <argument>--ignore-engines</argument>
                                     </arguments>
                                 </configuration>
-
                             </execution>
-
                             <!-- 编译前端代码 -->
                             <execution>
                                 <id>>>>>>>>>>>>>>>>>tradeCms yarn run build 编译 web 前端 web 代码 &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</id>
@@ -124,7 +121,6 @@
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
-
                                 <configuration>
                                     <workingDirectory>./cms-frontend-web/</workingDirectory>
                                     <executable>yarn</executable>
@@ -135,8 +131,7 @@
                                 </configuration>
                             </execution>
 
-							
-							<!--APPEND_TAG_DO_NOT_CHANGE-->
+                            <!--APPEND_TAG_DO_NOT_CHANGE-->
                         </executions>
                     </plugin>
                 </plugins>
