@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +20,7 @@ import org.stategen.framework.lite.SimpleResponse;
 import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.util.BusinessAssert;
 import org.stategen.framework.util.CollectionUtil;
+import org.stategen.framework.util.MockUtil;
 import org.stategen.framework.util.StringUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
 
@@ -40,6 +40,7 @@ import com.mycompany.biz.service.ProvinceService;
 import com.mycompany.biz.service.RegionService;
 import com.mycompany.biz.service.UserService;
 
+import io.seata.spring.annotation.GlobalTransactional;
 import io.swagger.annotations.ApiParam;
 
 @ApiConfig(menu = false)
@@ -73,6 +74,52 @@ public class AppController {
     @Resource
     private MenuService menuService;
     
+    /**
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public class User implements java.io.Serializable {
+        String username;
+        String password;
+    }
+    */
+    
+    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
+    @SentinelResource
+    @Wrap(false)
+    public String test() {
+        MockUtil.slow(1000L);
+        return "test张三中文";
+    }
+    
+    /***测试seata分布式事务*/
+    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
+    @GlobalTransactional
+    public User testSeata() {
+        User user = this.userService.appendUserAge("2");
+        return user;
+    }
+    
+    /***测试seata分布式事务*/
+    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
+    @SentinelResource(/* blockHandler = "orderBlockHandler",fallback = "orderFallback", */ )
+    public User testSentinel() {
+        MockUtil.throwRandomException(2);
+        User user = this.userService.appendUserAge("2");
+        return user;
+    }
+    
+    /***测试百度分步式id*/
+    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
+    public String testUid() {
+        long uid = this.cachedUidGenerator.getUID();
+        if (logger.isInfoEnabled()) {
+            logger.info(new StringBuilder("输出info信息: uid:").append(uid).toString());
+        }
+        String parseUID = cachedUidGenerator.parseUID(uid);
+        return parseUID;
+    }
+    
     @ApiRequestMappingAutoWithMethodName(name = "")
     @State(area = User.class)
     public SimpleResponse logout(HttpServletResponse response) {
@@ -98,6 +145,22 @@ public class AppController {
         return user;
     }
     
+    @ApiRequestMappingAutoWithMethodName(name = "", method = RequestMethod.POST)
+    public SimpleResponse login(
+            @ApiParam("用户名") @RequestParam() String username,
+            @ApiParam("密码") @RequestParam() String password,
+            @ApiParam(hidden = true) User user) {
+        BusinessAssert.mustNotNull(user, "用户数据不能为空");
+        User loginUser = this.userService.getUserByUsername(username);
+        if (loginUser != null) {
+            String userPassword = loginUser.getPassword();
+            BusinessAssert.mustEqual(String.class, userPassword, password, "密码不正确");
+            loginCookieGroup.addCookie(LoginCookieNames.userId, loginUser.getUserId());
+            return new SimpleResponse(true, "登录成功");
+        }
+        return new SimpleResponse(false, "用户不存在");
+    }
+    
     @ApiRequestMappingAutoWithMethodName(name = "获所所有菜单", method = RequestMethod.GET)
     @State(init = true, initCheck = false, dataOpt = DataOpt.FULL_REPLACE)
     public List<Menu> getAllMenus() {
@@ -108,76 +171,6 @@ public class AppController {
     public List<User> getUserOptions(@RequestParam(required = false, name = "userIds") ArrayList<String> userIds) {
         return null;
     }
-    
-    /***测试seata分布式事务*/
-    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
-    public User testSeataAt() {
-        User user = this.userService.appendUserAge("2");
-        return user;
-    }
-    
-    /***测试seata分布式事务*/
-    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
-    @SentinelResource(/* blockHandler = "orderBlockHandler",fallback = "orderFallback",*/ )
-    public User testSentinel() {
-        User user = this.userService.getUserByUserId("1");
-        
-        Random rand = new Random();
-        int randInt = rand.nextInt(2)+1;
-        BusinessAssert.mustFalse(2==randInt, "演示降级：随机数不能为2");
-        return user;
-    }
-    
-    /**
-     * 定义降级逻辑
-     *  hystrix和sentinel
-     *      熔断执行的降级方法
-     *      抛出异常执行的降级方法
-     */
-//    public User orderBlockHandler() {
-//        BusinessAssert.throwException("触发熔断的降级方法");
-//        return null;
-//    }
-//
-//    public User orderFallback() {
-//        BusinessAssert.throwException("抛出异常执行的降级方法");
-//        return null;
-//    }
-//    
-    
-    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
-    public String testUid() {
-        long uid = this.cachedUidGenerator.getUID();
-        if (logger.isInfoEnabled()) {
-            logger.info(new StringBuilder("输出info信息: uid:").append(uid).toString());
-        }
-        String parseUID = cachedUidGenerator.parseUID(uid);
-        return parseUID;
-    }
-    
-    //这是一个dubbo服务
-    /*
-     * @Resource private UserServiceAuth userServiceAuth;
-     * 
-     * @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET) public List<Long> getLongs(Long parentRegionId) { List<Long>
-     * longParams =new ArrayList<Long>(Arrays.asList(10L,11L,100000000000000L));
-     * 
-     * if (logger.isInfoEnabled()) { logger.info(new StringBuilder("输出info信息: userServiceAuth!=null:").append(userServiceAuth!=
-     * null).toString()); } List<Long> longs = userServiceAuth.getLongs(longParams); for (Long long1 : longs) {
-     * System.out.println("long1<===========>:" + long1); } return longs; }
-     */
-    /*
-     * @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET) public List<Region> testRegions(Long parentRegionId) { User user =
-     * new User(); user.setAddress("abc") .setAddressLike("cde") .setAge(10) .setAgeMax(100) .setAgeMin(10)
-     * .setAvatarImgIds(Arrays.asList("abc", "cde")) .setBirthdayDate(new Date()) .setBirthdayDateMax(new Date()) .setBirthdayDateMin(new
-     * Date()) .setCityId("abc") .setCityIds(Arrays.asList("abc")) .setCreateTime(new Date()) .setCreateTimeMin(new Date()) .setEmail("abc")
-     * .setGrade(1L) .setGradeMax(1L) .setGradeMin(1L) .setPostAddressId(1L) .setPostAddressIds(Arrays.asList(1L))
-     * .setRoleType(RoleType.ADMIN) .setWorkTime(new Date()) .setRoleTypes(Arrays.asList(RoleType.ADMIN, RoleType.DEVELOPER));
-     * this.userService.getPageList(user, 1, 1);
-     * 
-     * PageList<Region> pageList = this.regionService.getPageList(new Region().setCreateTimeMax(new Date())
-     * .setParentRegionId(parentRegionId) .setParentRegionIds(Arrays.asList(parentRegionId, 257L)), 100, 1); return pageList.getItems(); }
-     */
     
     @ApiRequestMappingAutoWithMethodName(name = "省份")
     public List<Province> getProvinceOptions() {
@@ -193,13 +186,6 @@ public class AppController {
     @ApiRequestMappingAutoWithMethodName(name = "爱好", method = RequestMethod.GET)
     public List<Hoppy> getHoppyOptions() {
         return this.hoppyService.getHoppyOptions();
-    }
-    
-    @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
-    @Wrap(exclude = true)
-    @SentinelResource
-    public String test() {
-        return "test";
     }
     
     @ApiRequestMappingAutoWithMethodName(name = "获取地区")

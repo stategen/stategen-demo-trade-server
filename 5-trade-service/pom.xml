@@ -33,6 +33,11 @@
             <artifactId>trade-facade</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.mycompany.biz</groupId>
+            <artifactId>trade-intergrade</artifactId>
+        </dependency>        
+
     </dependencies>
 
     <build>

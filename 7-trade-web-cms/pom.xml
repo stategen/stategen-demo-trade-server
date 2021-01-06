@@ -9,6 +9,7 @@
         <version>1.0.0</version>
         <relativePath>../</relativePath>
     </parent>
+
     <properties>
         <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
@@ -83,8 +84,8 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <executions>                            
-							<!-- 生成ts文件模型和cms -->
+                        <executions>
+                            <!-- 生成ts文件模型和cms -->
                             <execution>
                                 <id>>>>>>>>>>>>>>>>> tradeCms auto generate web frondend files 生成前端 web 代码 &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</id>
                                 <phase>test</phase>
@@ -132,14 +133,14 @@
                             </execution>
 
                             <!--APPEND_TAG_DO_NOT_CHANGE-->
+
                         </executions>
                     </plugin>
+                    
                 </plugins>
             </build>
         </profile>
     </profiles>
-
-
 
     <build>
         <finalName>tradeCms</finalName>

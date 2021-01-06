@@ -23,7 +23,11 @@
             <type>pom</type>
         </dependency>
 
-    
+        <dependency>
+            <groupId>com.mycompany.verify</groupId>
+            <artifactId>auth-facade</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <!--
             <dependency>
             <groupId>com.xxx.xxx</groupId>

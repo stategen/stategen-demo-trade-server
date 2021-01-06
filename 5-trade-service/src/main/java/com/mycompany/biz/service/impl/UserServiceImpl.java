@@ -11,6 +11,7 @@ import java.util.function.Function;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.stategen.framework.lite.IIdGenerator;
 import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
@@ -21,6 +22,7 @@ import org.stategen.framework.util.StringUtil;
 import com.mycompany.biz.dao.UserDao;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.service.UserService;
+import com.mycompany.verify.service.AuthUserServiceAuth;
 
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +47,9 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     //<#--
     @Resource(name = "userDao")
     UserDao userDao;
+    
+    @Autowired
+    AuthUserServiceAuth authUserServiceAuth;
     
     /**
      * 
@@ -272,6 +277,9 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
             //断点，这一步，数据库中年龄是被增加了
             user.setAge(age);
             this.update(user);
+            
+            authUserServiceAuth.appendAuthUserAge(userId);
+            
             if (log.isInfoEnabled()) {
                 log.info(new StringBuilder("输出info信息: age:").append(age).toString());
             }
