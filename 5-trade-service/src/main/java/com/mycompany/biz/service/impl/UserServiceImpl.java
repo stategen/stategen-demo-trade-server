@@ -11,7 +11,6 @@ import java.util.function.Function;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.stategen.framework.lite.IIdGenerator;
 import org.stategen.framework.lite.IdGenerateService;
 import org.stategen.framework.lite.PageList;
@@ -22,7 +21,6 @@ import org.stategen.framework.util.StringUtil;
 import com.mycompany.biz.dao.UserDao;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.service.UserService;
-import com.mycompany.verify.service.AuthUserServiceAuth;
 
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
@@ -40,17 +38,18 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class UserServiceImpl implements UserService, IdGenerateService<String> {
-    
+
     @Resource
     private IIdGenerator idGenerator;
-    
+
     //<#--
     @Resource(name = "userDao")
     UserDao userDao;
-    
-    @Autowired
-    AuthUserServiceAuth authUserServiceAuth;
-    
+
+    /*
+     * //TEST @Autowired AuthUserServiceAuth authUserServiceAuth;
+     */
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#deleteByEmail
@@ -60,7 +59,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public Long deleteByEmail(String email) {
         return userDao.deleteByEmail(email);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#update
@@ -70,7 +69,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public User update(User user) {
         return userDao.update(user);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#getUserByUserId
@@ -78,9 +77,11 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
      */
     @Override
     public User getUserByUserId(String userId) {
+        //测试时，让远程产生一个错误
+        //TEST AuthUser authUser = this.authUserServiceAuth.getAuthUserByUserId(userId);
         return userDao.getUserByUserId(userId);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#getUserByEmail
@@ -90,7 +91,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public User getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#getUsersByUserIds
@@ -100,7 +101,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public List<User> getUsersByUserIds(java.util.List<String> userIds) {
         return userDao.getUsersByUserIds(userIds);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#getUsersByEmails
@@ -110,7 +111,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public List<User> getUsersByEmails(java.util.List<String> emails) {
         return userDao.getUsersByEmails(emails);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#deleteByUserIds
@@ -120,7 +121,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public List<String> deleteByUserIds(java.util.List<String> userIds) {
         return userDao.deleteByUserIds(userIds);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#deleteByEmails
@@ -130,7 +131,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public Long deleteByEmails(java.util.List<String> emails) {
         return userDao.deleteByEmails(emails);
     }
-    
+
     /*** 保存user,有id时更新，没有id时插入,并带回新的id，返回 user*/
     @Override
     public User saveUser(User user) {
@@ -144,7 +145,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
         }
         return user;
     }
-    
+
     /*** 批量保存users,有id时更新，没有id时插入,并带回新的id，返回 users*/
     @Override
     public List<User> saveUsers(List<User> users) {
@@ -153,7 +154,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
         }
         return users;
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#insert
@@ -163,7 +164,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public User insert(User user) {
         return userDao.insert(user, this);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#delete
@@ -173,7 +174,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public String delete(String userId) {
         return userDao.delete(userId);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#deleteByUsername
@@ -183,7 +184,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public Long deleteByUsername(String username) {
         return userDao.deleteByUsername(username);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#getUserByUsername
@@ -193,7 +194,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public User getUserByUsername(String username) {
         return userDao.getUserByUsername(username);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#getUsersByUsernames
@@ -203,7 +204,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public List<User> getUsersByUsernames(java.util.List<String> usernames) {
         return userDao.getUsersByUsernames(usernames);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#deleteByUsernames
@@ -213,7 +214,7 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public Long deleteByUsernames(java.util.List<String> usernames) {
         return userDao.deleteByUsernames(usernames);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#getPageList
@@ -223,30 +224,24 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public PageList<User> getPageList(User user, int pageSize, int pageNum) {
         return userDao.getPageList(user, pageSize, pageNum);
     }
-    
+
     //-->
     //
     @Override
     public <D> void assignBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod, BiConsumer<D, User> destSetMethod) {
         ServiceUtil.interalAssignBeanTo(dests, destGetMethod, destSetMethod, this, UserServiceImpl::getUsersByUserIds, User::getUserId);
     }
-    
+
     @Override
-    public <D, G> void assignBeansTo(
-            Collection<D> dests,
-            Function<? super D, G> destGetMethod,
-            BiConsumer<D, List<User>> destSetMethod,
-            BiConsumer<User, List<G>> resultSetQueryIdsFun,
-            Function<? super User, G> resultGetGoupIdFun) {
-        ServiceUtil.interalAssignBeansTo(dests, destGetMethod, destSetMethod, this, new User(), resultSetQueryIdsFun, resultGetGoupIdFun,
-                100);
+    public <D, G> void assignBeansTo(Collection<D> dests, Function<? super D, G> destGetMethod, BiConsumer<D, List<User>> destSetMethod, BiConsumer<User, List<G>> resultSetQueryIdsFun, Function<? super User, G> resultGetGoupIdFun) {
+        ServiceUtil.interalAssignBeansTo(dests, destGetMethod, destSetMethod, this, new User(), resultSetQueryIdsFun, resultGetGoupIdFun, 100);
     }
-    
+
     @Override
     public <D> void mergeBeanTo(Collection<D> dests, Function<? super D, String> destGetMethod) {
         ServiceUtil.interalMergeBeanTo(dests, destGetMethod, this, UserServiceImpl::getUsersByUserIds, User::getUserId);
     }
-    
+
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#getUserInMobiles
@@ -256,12 +251,12 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     public User getUserInMobiles(java.util.List<String> interCodeList, java.util.List<String> mobiles) {
         return userDao.getUserInMobiles(interCodeList, mobiles);
     }
-    
+
     @Override
     public <T> String generateId() {
         return this.idGenerator.generateId(String.class, User.class);
     }
-    
+
     /***测试seata分布式事务*/
     @Override
     @GlobalTransactional
@@ -272,21 +267,18 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
             if (age == null) {
                 age = 30;
             }
-            
             age += 1;
             //断点，这一步，数据库中年龄是被增加了
             user.setAge(age);
             this.update(user);
-            
-            authUserServiceAuth.appendAuthUserAge(userId);
-            
+            //测时seata分布式事务
+            //TEST authUserServiceAuth.appendAuthUserAge(userId);
             if (log.isInfoEnabled()) {
                 log.info(new StringBuilder("输出info信息: age:").append(age).toString());
             }
             //运行结束后，年龄又被还原了
             BusinessAssert.throwException("业务层不能更新年龄!");
         }
-        
         return user;
     }
 }

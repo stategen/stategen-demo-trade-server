@@ -23,6 +23,7 @@ import lombok.Setter;
 
 /**
  * HomeGoods
+ * @author StateGen.org
  * <pre>
  * database table: demo_home_goods
  * database table comments: HomeGoods

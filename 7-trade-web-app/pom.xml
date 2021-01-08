@@ -15,7 +15,7 @@
     </properties>
 
     <artifactId>trade-web-app</artifactId>
-    <version>${system.version.SNAPSHOT}</version>
+    <version>${system.version-SNAPSHOT}</version>
     <packaging>war</packaging>
     <name>7-trade-web-app</name>
 
@@ -99,7 +99,6 @@
                                     <classpathScope>test</classpathScope>
                                 </configuration>
                             </execution>
-
                             <!-- 安装前端代码需要的插件 -->
                             <execution>
                                 <id>>>>>>>>>>>>>>>>>tradeApp yarn 下载 h5 前端 h5 依赖 &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</id>
@@ -116,7 +115,6 @@
                                     </arguments>
                                 </configuration>
                             </execution>
-
                             <!-- 编译前端代码 -->
                             <execution>
                                 <id>>>>>>>>>>>>>>>>>tradeApp yarn run build 编译 h5 前端 h5 代码 &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</id>
@@ -124,7 +122,6 @@
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
-
                                 <configuration>
                                     <workingDirectory>./app-frontend-h5/</workingDirectory>
                                     <executable>yarn</executable>
@@ -134,8 +131,6 @@
                                     </arguments>
                                 </configuration>
                             </execution>
-
-
                             <!-- 生成dart文件模型和app -->
                             <execution>
                                 <id>>>>>>>>>>>>>>>>>tradeApp auto generate flutter frondend files 生成 flutter 前端代码 &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</id>
@@ -149,8 +144,10 @@
                                     <cleanupDaemonThreads>false</cleanupDaemonThreads>
                                 </configuration>
                             </execution>
-							
-							<!--APPEND_TAG_DO_NOT_CHANGE-->
+
+
+
+                            <!--APPEND_TAG_DO_NOT_CHANGE-->
 
                         </executions>
                     </plugin>

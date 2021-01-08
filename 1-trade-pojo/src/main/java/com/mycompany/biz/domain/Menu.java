@@ -32,6 +32,7 @@ import lombok.Setter;
 
 /**
  * Menu
+ * @author StateGen.org
  * <pre>
  * database table: menu
  * database table comments: Menu

@@ -23,6 +23,7 @@ import lombok.Setter;
 
 /**
  * Organization
+ * @author StateGen.org
  * <pre>
  * database table: demo_organization
  * database table comments: 组织架构表 ，用于水平权限  --tree

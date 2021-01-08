@@ -17,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.IdGenerateService;
 /**
  * CategorySubDao
+ * @author StageGen.org 
  * <pre>
  * database table: demo_category_sub
  * database table comments: CategorySub

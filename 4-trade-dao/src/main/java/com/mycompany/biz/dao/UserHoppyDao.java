@@ -14,6 +14,7 @@ import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * UserHoppyDao
+ * @author StageGen.org
  * <pre>
  * database table: demo_user_hoppy
  * database table comments: 用户喜好 mapping

@@ -24,6 +24,7 @@ import lombok.Setter;
 
 /**
  * Floor
+ * @author StateGen.org
  * <pre>
  * database table: demo_floor
  * database table comments: Floor

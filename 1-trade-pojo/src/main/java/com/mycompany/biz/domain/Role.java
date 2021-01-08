@@ -28,6 +28,7 @@ import lombok.Setter;
 
 /**
  * Role
+ * @author StateGen.org
  * <pre>
  * database table: role
  * database table comments: Role

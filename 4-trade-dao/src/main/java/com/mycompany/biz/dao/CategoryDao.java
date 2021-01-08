@@ -14,6 +14,7 @@ import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * CategoryDao
+ * @author StageGen.org
  * <pre>
  * database table: demo_category
  * database table comments: Category

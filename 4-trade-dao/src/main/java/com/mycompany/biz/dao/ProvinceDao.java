@@ -14,6 +14,7 @@ import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * ProvinceDao
+ * @author StageGen.org
  * <pre>
  * database table: demo_province
  * database table comments: Province

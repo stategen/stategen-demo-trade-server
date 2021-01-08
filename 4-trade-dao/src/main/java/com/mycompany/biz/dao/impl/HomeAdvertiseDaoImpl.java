@@ -17,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.IdGenerateService;
 /**
  * HomeAdvertiseDao
+ * @author StageGen.org 
  * <pre>
  * database table: demo_home_advertise
  * database table comments: HomeAdvertise

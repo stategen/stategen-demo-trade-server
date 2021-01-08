@@ -17,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.IdGenerateService;
 /**
  * OrganizationDao
+ * @author StageGen.org 
  * <pre>
  * database table: demo_organization
  * database table comments: 组织架构表 ，用于水平权限  --tree

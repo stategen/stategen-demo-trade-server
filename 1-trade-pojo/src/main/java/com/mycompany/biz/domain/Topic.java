@@ -27,6 +27,7 @@ import lombok.Setter;
 
 /**
  * Topic
+ * @author StateGen.org
  * <pre>
  * database table: demo_topic
  * database table comments: 主题  -level(demo_organization) -owner(user)

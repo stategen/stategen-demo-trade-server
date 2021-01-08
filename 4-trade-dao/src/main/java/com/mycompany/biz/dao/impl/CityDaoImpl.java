@@ -17,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.IdGenerateService;
 /**
  * CityDao
+ * @author StageGen.org 
  * <pre>
  * database table: demo_city
  * database table comments: City

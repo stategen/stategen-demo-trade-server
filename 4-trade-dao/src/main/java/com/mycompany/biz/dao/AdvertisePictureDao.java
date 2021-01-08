@@ -14,6 +14,7 @@ import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * AdvertisePictureDao
+ * @author StageGen.org
  * <pre>
  * database table: demo_advertise_picture
  * database table comments: AdvertisePicture

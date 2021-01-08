@@ -23,6 +23,7 @@ import lombok.Setter;
 
 /**
  * TopicUp
+ * @author StateGen.org
  * <pre>
  * database table: demo_topic_up
  * database table comments: TopicUp

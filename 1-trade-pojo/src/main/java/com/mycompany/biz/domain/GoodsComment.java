@@ -26,6 +26,7 @@ import lombok.Setter;
 
 /**
  * GoodsComment
+ * @author StateGen.org
  * <pre>
  * database table: demo_goods_comment
  * database table comments: GoodsComment

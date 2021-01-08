@@ -24,6 +24,7 @@ import lombok.Setter;
 
 /**
  * Province
+ * @author StateGen.org
  * <pre>
  * database table: demo_province
  * database table comments: Province

@@ -28,6 +28,7 @@ import lombok.Setter;
 
 /**
  * TopicReply
+ * @author StateGen.org
  * <pre>
  * database table: demo_topic_reply
  * database table comments: TopicReply

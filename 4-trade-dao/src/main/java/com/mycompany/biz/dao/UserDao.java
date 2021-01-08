@@ -14,6 +14,7 @@ import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * UserDao
+ * @author StageGen.org
  * <pre>
  * database table: user
  * database table comments: User

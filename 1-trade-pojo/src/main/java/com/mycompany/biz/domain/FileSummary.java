@@ -24,6 +24,7 @@ import lombok.Setter;
 
 /**
  * FileSummary
+ * @author StateGen.org
  * <pre>
  * database table: file_summary
  * database table comments: FileSummary

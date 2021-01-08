@@ -14,6 +14,7 @@ import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * TopicOwnerHDao
+ * @author StageGen.org
  * <pre>
  * database table: demo_topic_owner_h
  * database table comments: 数据水平权限，只有直系上级有权限

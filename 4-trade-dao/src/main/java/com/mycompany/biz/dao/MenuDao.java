@@ -14,6 +14,7 @@ import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * MenuDao
+ * @author StageGen.org
  * <pre>
  * database table: menu
  * database table comments: Menu

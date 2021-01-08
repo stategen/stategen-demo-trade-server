@@ -14,6 +14,7 @@ import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * RegionDao
+ * @author StageGen.org
  * <pre>
  * database table: demo_region
  * database table comments: 全球地区库，采集自腾讯QQ国内+国际版.ADD.JENA.20141221

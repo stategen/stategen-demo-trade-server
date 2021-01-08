@@ -26,6 +26,7 @@ import lombok.Setter;
 
 /**
  * CategorySub
+ * @author StateGen.org
  * <pre>
  * database table: demo_category_sub
  * database table comments: CategorySub

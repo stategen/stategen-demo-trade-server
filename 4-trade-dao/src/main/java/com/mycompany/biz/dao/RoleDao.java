@@ -14,6 +14,7 @@ import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * RoleDao
+ * @author StageGen.org
  * <pre>
  * database table: role
  * database table comments: Role

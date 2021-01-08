@@ -17,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.IdGenerateService;
 /**
  * RoleMenuDao
+ * @author StageGen.org 
  * <pre>
  * database table: role_menu
  * database table comments: RoleMenu

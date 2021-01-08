@@ -14,6 +14,7 @@ import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * FloorGoodsDao
+ * @author StageGen.org
  * <pre>
  * database table: demo_floor_goods
  * database table comments: FloorGoods

@@ -14,6 +14,7 @@ import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * HoppyDao
+ * @author StageGen.org
  * <pre>
  * database table: demo_hoppy
  * database table comments: Hoppy

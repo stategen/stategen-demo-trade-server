@@ -14,6 +14,7 @@ import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * TopicReplyDao
+ * @author StageGen.org
  * <pre>
  * database table: demo_topic_reply
  * database table comments: TopicReply

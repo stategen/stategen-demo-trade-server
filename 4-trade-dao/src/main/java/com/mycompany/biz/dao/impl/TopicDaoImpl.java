@@ -19,6 +19,7 @@ import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.IdGenerateService;
 /**
  * TopicDao
+ * @author StageGen.org 
  * <pre>
  * database table: demo_topic
  * database table comments: 主题  -level(demo_organization) -owner(user)

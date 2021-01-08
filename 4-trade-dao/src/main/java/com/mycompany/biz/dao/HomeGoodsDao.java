@@ -14,6 +14,7 @@ import org.stategen.framework.lite.IdGenerateService;
 
 /**
  * HomeGoodsDao
+ * @author StageGen.org
  * <pre>
  * database table: demo_home_goods
  * database table comments: HomeGoods

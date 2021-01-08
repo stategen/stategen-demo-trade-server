@@ -17,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.IdGenerateService;
 /**
  * GoodsDao
+ * @author StageGen.org 
  * <pre>
  * database table: demo_goods
  * database table comments: Goods

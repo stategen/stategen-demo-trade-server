@@ -23,6 +23,7 @@ import lombok.Setter;
 
 /**
  * FloorGoods
+ * @author StateGen.org
  * <pre>
  * database table: demo_floor_goods
  * database table comments: FloorGoods

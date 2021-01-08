@@ -88,6 +88,7 @@ public class AppController {
     @SentinelResource
     @Wrap(false)
     public String test() {
+	    //MockUtil只能用于测试，不能打包，执行 mvn package 由 插件 forbiddenapis 检测
         MockUtil.slow(1000L);
         return "test张三中文";
     }
@@ -100,12 +101,13 @@ public class AppController {
         return user;
     }
     
-    /***测试seata分布式事务*/
+    /***测试限流降级分布式事务*/
     @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
     @SentinelResource(/* blockHandler = "orderBlockHandler",fallback = "orderFallback", */ )
-    public User testSentinel() {
-        MockUtil.throwRandomException(2);
-        User user = this.userService.appendUserAge("2");
+    public User testSentinel(@ApiParam(value="用户ID",defaultValue="1") @RequestParam() String  userId) {
+        //MockUtil只能用于测试，不能打包，执行 mvn package 由 插件 forbiddenapis 检测
+//        MockUtil.throwRandomException(2);
+        User user = this.userService.getUserByUserId(userId);
         return user;
     }
     

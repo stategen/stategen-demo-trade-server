@@ -17,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.IdGenerateService;
 /**
  * SlideDao
+ * @author StageGen.org 
  * <pre>
  * database table: demo_slide
  * database table comments: Slide

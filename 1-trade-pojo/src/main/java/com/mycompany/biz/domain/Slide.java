@@ -23,6 +23,7 @@ import lombok.Setter;
 
 /**
  * Slide
+ * @author StateGen.org
  * <pre>
  * database table: demo_slide
  * database table comments: Slide

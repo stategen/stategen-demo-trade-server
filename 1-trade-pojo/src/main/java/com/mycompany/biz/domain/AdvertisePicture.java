@@ -23,6 +23,7 @@ import lombok.Setter;
 
 /**
  * AdvertisePicture
+ * @author StateGen.org
  * <pre>
  * database table: demo_advertise_picture
  * database table comments: AdvertisePicture

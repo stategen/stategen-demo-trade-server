@@ -25,6 +25,7 @@ import lombok.Setter;
 
 /**
  * TopicOwnerH
+ * @author StateGen.org
  * <pre>
  * database table: demo_topic_owner_h
  * database table comments: 数据水平权限，只有直系上级有权限

@@ -24,6 +24,7 @@ import lombok.Setter;
 
 /**
  * Hoppy
+ * @author StateGen.org
  * <pre>
  * database table: demo_hoppy
  * database table comments: Hoppy

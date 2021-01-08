@@ -35,6 +35,7 @@ import lombok.Setter;
 
 /**
  * User
+ * @author StateGen.org
  * <pre>
  * database table: user
  * database table comments: User

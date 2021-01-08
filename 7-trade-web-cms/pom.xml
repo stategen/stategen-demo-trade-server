@@ -15,7 +15,7 @@
     </properties>
 
     <artifactId>trade-web-cms</artifactId>
-    <version>${system.version.SNAPSHOT}</version>
+    <version>${system.version-SNAPSHOT}</version>
     <packaging>war</packaging>
     <name>7-trade-web-cms</name>
 

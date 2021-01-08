@@ -17,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.IdGenerateService;
 /**
  * FloorDao
+ * @author StageGen.org 
  * <pre>
  * database table: demo_floor
  * database table comments: Floor

@@ -17,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.stategen.framework.lite.IdGenerateService;
 /**
  * ShopDao
+ * @author StageGen.org 
  * <pre>
  * database table: demo_shop
  * database table comments: Shop

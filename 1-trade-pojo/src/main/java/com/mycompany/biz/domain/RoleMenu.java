@@ -23,6 +23,7 @@ import lombok.Setter;
 
 /**
  * RoleMenu
+ * @author StateGen.org
  * <pre>
  * database table: role_menu
  * database table comments: RoleMenu
