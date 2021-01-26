@@ -36,7 +36,12 @@
         <dependency>
             <groupId>com.mycompany.biz</groupId>
             <artifactId>trade-intergrade</artifactId>
-        </dependency>        
+        </dependency>
+                
+        <dependency>
+            <groupId>com.mycompany.biz</groupId>
+            <artifactId>trade-sink-facade</artifactId>
+        </dependency>     
 
     </dependencies>
 

@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    #====================================stream Config===============================================  
+    stream:          
+      bindings: 
+        custom-stream:
+          destination: topic-stream-customize
+          # 根据业务指定
+          # 一定要设置,否则会启动报错
+          # 如果使用的是其他的MQ,可以留空
+          group: group-stream-customize            

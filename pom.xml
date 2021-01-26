@@ -13,6 +13,7 @@
     <modules>
         <module>1-trade-pojo</module>
         <module>2-trade-facade</module>
+        <module>2-trade-sink-facade</module>
         <module>3-trade-intergrade</module>
         <module>4-trade-dao</module>
         <module>5-trade-service</module>
@@ -23,28 +24,24 @@
 
 
     <properties>
-        <stategen-version>stg.2.3.0.RELEASE</stategen-version>
-        <stategen-layer.pom.version>stgp.1.0-stg.2.3.0.RELEASE</stategen-layer.pom.version>
-        
+        <stategen-version>stg.2.3.1.RELEASE</stategen-version>
+        <stategen-layer.pom.version>stgp.1.0-stg.2.3.1.RELEASE</stategen-layer.pom.version>
+
         <!-- 发到公司私有maven仓库中，即pojo和facade(dubbo服务的版本)，这个版本跟着pom.version一致 -->
         <trade-facade-version>1.0.0</trade-facade-version>
         <!-- 包含业务逻辑代码的jar，不能被发布到maven仓库中，故以snapshort结尾,请在nexus中控制禁止接收snapshot版本,避免误发 -->
         <system.version-SNAPSHOT>trade-1.0.0-SNAPSHOT</system.version-SNAPSHOT>
 
         <!-- 当项目转会为spring-boot后，这个值必须与spring-boot内的值相同，否则会有兼容问题 -->
-        <spring.version>5.2.3.RELEASE</spring.version>
-        <spring.boot.version>2.2.3.RELEASE</spring.boot.version>
-        <!-- 这个版本对应nacos是的1.3.x(不可上1.4),sentinel dashboard版本可以到 1.8 -->
-        <alibaba.spring.cloud.version>2.2.3.RELEASE</alibaba.spring.cloud.version>
-        <spring-data-redis-version>2.2.3.RELEASE</spring-data-redis-version>
+        <spring.version>5.2.7.RELEASE</spring.version>
+        <spring.boot.version>2.3.1.RELEASE</spring.boot.version>
         <dubbo-version>2.7.8</dubbo-version>
         <sentinel.version>1.8.0</sentinel.version>
-        
-        
+
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <gmaven-plugin.version>1.5</gmaven-plugin.version>
         <maven-shade-plugin.versiion>3.2.4</maven-shade-plugin.versiion>
-        <maven-war-plugin.version>3.3.1</maven-war-plugin.version>        
+        <maven-war-plugin.version>3.3.1</maven-war-plugin.version>
         <!-- 文件拷贝时的编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -54,13 +51,13 @@
         <java.version>1.8</java.version>
         <java.target.version>1.8</java.target.version>
         <!-- 解决eclipse中第一行报错 error line 1 -->
-        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>    
+        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-        <lombok-maven-plugin.version>1.18.16.0</lombok-maven-plugin.version> 
+        <lombok-maven-plugin.version>1.18.16.0</lombok-maven-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>       
-        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>   
+        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
         <forbiddenapis.version>3.1</forbiddenapis.version>
     </properties>
@@ -90,7 +87,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- @since stg.2.3.0.RELEASE,架构层jar3由架构上各层自行维护，业务层维护自己的jars -->
+            <!-- @since stg.2.3.1.RELEASE,架构层jar3由架构上各层自行维护，业务层维护自己的jars -->
             <dependency>
                 <groupId>org.stategen.framework.layers</groupId>
                 <artifactId>stategen-layer-pojo-pom</artifactId>
@@ -101,6 +98,13 @@
             <dependency>
                 <groupId>org.stategen.framework.layers</groupId>
                 <artifactId>stategen-layer-facade-pom</artifactId>
+                <version>${stategen-layer.pom.version}</version>
+                <type>pom</type>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.stategen.framework.layers</groupId>
+                <artifactId>stategen-layer-sink-facade-pom</artifactId>
                 <version>${stategen-layer.pom.version}</version>
                 <type>pom</type>
             </dependency>
@@ -140,7 +144,12 @@
                 <type>pom</type>
             </dependency>
 
-		
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-undertow</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.mycompany.biz</groupId>
                 <artifactId>trade-pojo</artifactId>
@@ -150,6 +159,12 @@
             <dependency>
                 <groupId>com.mycompany.biz</groupId>
                 <artifactId>trade-facade</artifactId>
+                <version>${trade-facade-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.mycompany.biz</groupId>
+                <artifactId>trade-sink-facade</artifactId>
                 <version>${trade-facade-version}</version>
             </dependency>
 
@@ -176,7 +191,7 @@
                 <artifactId>trade-web-base</artifactId>
                 <version>${system.version-SNAPSHOT}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
@@ -191,7 +206,7 @@
                 <!-- 生成器 DevGenerator.java在test队段 -->
                 <scope>test</scope>
             </dependency>
-            
+
 
         </dependencies>
     </dependencyManagement>
@@ -303,7 +318,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
@@ -354,7 +369,7 @@
                         </signaturesFiles>
                         <!-- <bundledSignatures>
                             <bundledSignature>jdk-system-out</bundledSignature>
-                        </bundledSignatures> -->
+                            </bundledSignatures> -->
                     </configuration>
                     <executions>
                         <execution>

@@ -6,3 +6,6 @@ spring:
   config:
     #从环境中加载环境配置
     additional-location: file:/opt/config/stategen/stategen.xml
+logging:
+  #日志由运维维护，线上通常是info级别，至少有一台机器打印详细日志
+  config: /opt/config/stategen/logback-config.xml  
