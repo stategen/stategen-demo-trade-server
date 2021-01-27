@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -40,7 +41,7 @@ public class MenuServiceImpl implements MenuService, IdGenerateService<Long> {
     @Resource
     private IIdGenerator idGenerator;
 
-    @Value("${project.name}")
+    @Value("${spring.application.name}")
     private String projectName;
 
     @Resource(name = "menuDao")

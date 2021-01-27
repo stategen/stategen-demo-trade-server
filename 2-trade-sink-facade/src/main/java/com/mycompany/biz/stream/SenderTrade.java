@@ -17,6 +17,7 @@
 
 package com.mycompany.biz.stream;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import org.springframework.context.annotation.Bean;
@@ -35,29 +36,26 @@ import reactor.core.publisher.Flux;
  */
 @Configuration
 @Slf4j
-public class Sender {
+public class SenderTrade {
     
-    private static final String destination_key = "spring.cloud.stream.sendto.destination";
+    public static final String destination_key = "spring.cloud.stream.sendto.destination";
+    public static final String destination_subfix = "-dest";
     
     private static final EmitterProcessor<Message<?>> processor = EmitterProcessor.create();
     
     @Bean
     public Supplier<Flux<Message<?>>> supplier() {
-        if (log.isInfoEnabled()) {
-            log.info(new StringBuilder("输出info信息: Sender创建 supplier:").append("<<<<<<<<<<<<<<<<<<<<").toString());
-        }
         return () -> processor;
-    }    
+    }
     
-    public static <T> void sendMessage( String destination, T payload) {
+    public static <T> void sendMessage(String destination, T payload) {
         Message<?> message = MessageBuilder.withPayload(payload)
                 .setHeader(destination_key, destination).build();
         processor.onNext(message);
-    }   
-    
-    public static <T> void sendMessage(Class<? extends Receiver<T>> receiverClz, T payload) {
-        sendMessage(StringUtils.uncapitalize(receiverClz.getSimpleName()),payload);
     }
-
-
+    
+    public static <T> void sendMessage(Class<? extends Consumer<T>> receiverClz, T payload) {
+        sendMessage(StringUtils.uncapitalize(receiverClz.getSimpleName())+destination_subfix, payload);
+    }
+    
 }

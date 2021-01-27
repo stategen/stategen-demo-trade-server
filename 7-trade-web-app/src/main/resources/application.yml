@@ -1,5 +1,6 @@
 #首先加载 6-web-base中的bootstrap.yml,导入环境设置
 spring:
+  config:
   application:
     name: tradeApp
   main:
@@ -58,23 +59,15 @@ spring:
       rocketmq:
         binder:
           name-server: 127.0.0.1:9876
-          
-      function:
-        definition: supplier;receive1;receive2;
-      bindings:
-        receive1-in-0:
-          destination: customerId-1
-          group: customerId-1-group
-        receive2-in-0:
-          destination: customerId-2
-          group: customerId-2-group          
-#      bindings: 
-#        # 生产者
-#        output:
-#          # 指定topic
-#          destination: topic-stream
-#        customize-output:
-#          destination: topic-stream-customize     
+#      function:
+#        definition: supplier;receive1;receive2;
+#      bindings:
+#        receive1-in-0:
+#          destination: customerId-1
+#          group: customerId-1-group
+#        receive2-in-0:
+#          destination: customerId-2
+#          group: customerId-2-group             
 #====================================Seata Config===============================================
 seata:
   enabled: true

@@ -37,9 +37,8 @@ import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mycompany.biz.stream.Receive1;
-import com.mycompany.biz.stream.Receive2;
-import com.mycompany.biz.stream.Sender;
+import com.mycompany.biz.stream.ReceiveTrade;
+import com.mycompany.biz.stream.SenderTrade;
 
 /**
  * @author niaoge
@@ -73,7 +72,7 @@ public class StreamProviderController {
         Map<String, String> payload         = jsonMapper.readValue(body, Map.class);
         
         String              destinationName = payload.get("id");
-        Sender.sendMessage(destinationName, payload);
+        SenderTrade.sendMessage(destinationName, payload);
         return "Ok";
     }
     
@@ -86,19 +85,17 @@ public class StreamProviderController {
         final static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(StreamProviderController.TestSink.class);
         
         @Bean
-        public Receive1 receive1() {
-            return new Receive1() {
+        public ReceiveTrade receiveTrade() {
+            return new ReceiveTrade() {
                 @Override
-                public void accept(String t) {
-                    log.info("Data received from customer-1..." + t);
+                public void accept(String data) {
+                    log.info("Data received from receiveTrade-dest..." + data);
                 }
             };
+            //return data -> log.info("Data received from receiveTrade-dest.." + data);
         }
 
-        @Bean
-        public Receive2 receive2() {
-            return data -> log.info("Data received from customer-2..." + data);
-        }
+
     }
 
 }

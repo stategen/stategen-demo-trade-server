@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +39,7 @@ public class FileSummaryServiceImpl implements FileSummaryService, IdGenerateSer
     @Resource
     private IIdGenerator idGenerator;
 
-    @Value("${project.name}")
+    @Value("${spring.application.name}")
     private String projectName;
 
     @Resource(name = "fileSummaryDao")
