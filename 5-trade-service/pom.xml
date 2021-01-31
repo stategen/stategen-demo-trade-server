@@ -37,11 +37,6 @@
             <groupId>com.mycompany.biz</groupId>
             <artifactId>trade-intergrade</artifactId>
         </dependency>
-                
-        <dependency>
-            <groupId>com.mycompany.biz</groupId>
-            <artifactId>trade-sink-facade</artifactId>
-        </dependency>    
          
         <dependency>
             <groupId>com.mycompany.biz</groupId>

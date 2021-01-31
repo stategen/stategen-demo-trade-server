@@ -26,17 +26,6 @@ public class TradeAppApplication extends SpringBootServletInitializer {
     
     final static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TradeAppApplication.class);
     
-    static {
-        //private static final String DEFAULT_SEARCH_LOCATIONS = "classpath:/,classpath:/config/,file:./,file:./config/*/,file:./config/";
-        //增加一个 "classpath:/config/*/ 优先级最低，以便合并不同jar包下的applcation.yml
-//        String DEFAULT_SEARCH_LOCATIONS = "classpath:/config/*/,classpath:/,classpath:/config/,file:./,file:./config/*/,file:./config/";
-//        Reflect.onClass(ConfigFileApplicationListener.class).set("DEFAULT_SEARCH_LOCATIONS", DEFAULT_SEARCH_LOCATIONS);
-//        
-//        final ByteBuddy buddy = new ByteBuddy();
-//        
-//        ReflectionUtil.setValue(null, ConfigFileApplicationListener.class, "DEFAULT_SEARCH_LOCATIONS", DEFAULT_SEARCH_LOCATIONS);
-    }
-    
     @Override
     protected WebApplicationContext createRootApplicationContext(ServletContext servletContext) {
         WebApplicationContext createRootApplicationContext = super.createRootApplicationContext(servletContext);
@@ -51,9 +40,9 @@ public class TradeAppApplication extends SpringBootServletInitializer {
                 log.info(i + "<===========>:" + args[i]);
             }
         }
-        SpringApplication application = new SpringApplication(TradeAppApplication.class);
-        ConfigurableApplicationContext context = application.run(args);
-        WebXml.printEnv(context);
+        
+        ConfigurableApplicationContext application = SpringApplication.run(TradeAppApplication.class, args);
+        WebXml.printEnv(application);
     }
     
 }

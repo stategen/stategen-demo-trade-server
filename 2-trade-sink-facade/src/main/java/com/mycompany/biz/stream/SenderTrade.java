@@ -53,7 +53,7 @@ public class SenderTrade {
     
     @Bean
     @ConditionalOnMissingBean(Supplier.class)
-    public Supplier<Flux<Message<?>>> supplier() {
+    public Supplier<Flux<Message<?>>> supplier() {      
         return () -> processor;
     }
     

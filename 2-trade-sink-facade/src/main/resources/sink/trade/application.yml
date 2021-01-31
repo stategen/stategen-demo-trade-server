@@ -1,4 +1,3 @@
-#　　–file:./config/ > 　–file:./ > –classpath:/config/ >　–classpath:/
 spring:
   cloud:
     stream:

@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
 import javax.annotation.Resource;
 
 import org.stategen.framework.lite.IIdGenerator;
@@ -21,8 +20,8 @@ import org.stategen.framework.util.StringUtil;
 import com.mycompany.biz.dao.UserDao;
 import com.mycompany.biz.domain.User;
 import com.mycompany.biz.service.UserService;
-
 import io.seata.spring.annotation.GlobalTransactional;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -49,7 +48,6 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
     /*
      * //TEST @Autowired AuthUserServiceAuth authUserServiceAuth;
      */
-
     /**
      * 
      * @see com.mycompany.biz.dao.UserDao#deleteByEmail
@@ -77,7 +75,6 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
      */
     @Override
     public User getUserByUserId(String userId) {
-        //测试时，让远程产生一个错误
         //TEST AuthUser authUser = this.authUserServiceAuth.getAuthUserByUserId(userId);
         return userDao.getUserByUserId(userId);
     }
@@ -271,7 +268,6 @@ public class UserServiceImpl implements UserService, IdGenerateService<String> {
             //断点，这一步，数据库中年龄是被增加了
             user.setAge(age);
             this.update(user);
-            //测时seata分布式事务
             //TEST authUserServiceAuth.appendAuthUserAge(userId);
             if (log.isInfoEnabled()) {
                 log.info(new StringBuilder("输出info信息: age:").append(age).toString());

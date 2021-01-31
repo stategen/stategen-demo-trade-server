@@ -17,13 +17,19 @@
 
 package com.mycompany.biz.stream;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author niaoge
- * @version $Id: SinkFacadeProperties.java, v 0.1 2021年1月28日 上午3:12:21 XiaZhengsheng Exp $
+ * @version $Id: DemoBill.java, v 0.1 2021年1月31日 上午9:08:00 XiaZhengsheng Exp $
  */
-@ConfigurationProperties(prefix="spring.cloud.stream")
-public class SinkFacadeProperties {
+@Getter
+@Setter
+@ToString
+public class DemoBill {
+    private String id;
+    private Integer billPay ;
     
 }

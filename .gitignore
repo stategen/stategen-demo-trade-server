@@ -22,5 +22,6 @@ node_modules/
 .springBeans
 .myumldata
 pom.properties
-
-
+.apt_generated/
+.apt_generated_tests/
+.factorypath

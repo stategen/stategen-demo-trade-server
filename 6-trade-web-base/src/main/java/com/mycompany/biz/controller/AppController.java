@@ -5,12 +5,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.util.MimeType;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.stategen.framework.annotation.ApiConfig;
 import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import org.stategen.framework.annotation.State;
@@ -20,12 +29,16 @@ import org.stategen.framework.lite.SimpleResponse;
 import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.util.BusinessAssert;
 import org.stategen.framework.util.CollectionUtil;
-//import org.stategen.framework.util.MockUtil;
+
 import org.stategen.framework.util.StringUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.baidu.fsg.uid.impl.CachedUidGenerator;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mycompany.auth.stream.ReceiveAuth;
 import com.mycompany.biz.domain.City;
 import com.mycompany.biz.domain.Hoppy;
 import com.mycompany.biz.domain.Menu;
@@ -39,6 +52,8 @@ import com.mycompany.biz.service.MenuService;
 import com.mycompany.biz.service.ProvinceService;
 import com.mycompany.biz.service.RegionService;
 import com.mycompany.biz.service.UserService;
+import com.mycompany.biz.stream.ReceiveTrade;
+import com.mycompany.biz.stream.SenderTrade;
 
 import io.seata.spring.annotation.GlobalTransactional;
 import io.swagger.annotations.ApiParam;
@@ -55,24 +70,68 @@ public class AppController {
     
     @Resource
     private CachedUidGenerator cachedUidGenerator;
+	
+    @Autowired
+    private ObjectMapper jsonMapper;
     
-    @Resource
-    private ProvinceService provinceService;
+    @PostConstruct
+    public void mixin_to_specify_creator() throws Exception {
+        jsonMapper.addMixIn(MimeType.class, MimeTypeMixin.class);
+    }
     
-    @Resource
-    private CityService cityService;
+    public static abstract class MimeTypeMixin {
+        
+        @JsonCreator
+        public MimeTypeMixin(@JsonProperty("type") String type) {
+        }
+    }
     
-    @Resource
-    private HoppyService hoppyService;
+    /*** curl -H "Content-Type: application/json" -X POST -d "{\"id\":\"receiveTrade-dest\",\"bill-pay\":\"150\"}" http://localhost:8080/tradeApp/api/app/sendmq */
+    /*** curl -H "Content-Type: application/json" -X POST -d "{\"id\":\"receiveAuth-dest\",\"bill-pay\":\"150\"}" http://localhost:8080/tradeApp/api/app/sendmq */
+    @SuppressWarnings("unchecked")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ApiRequestMappingAutoWithMethodName
+    public String sendmq(@RequestBody String body, @RequestHeader(HttpHeaders.CONTENT_TYPE) Object contentType) throws Exception {
+        Map<String, String> payload         = jsonMapper.readValue(body, Map.class);
+        String              destinationName = payload.get("id");
+        SenderTrade.sendMessage(destinationName, payload);  
+
+//        com.mycompany.biz.stream.DemoBill payload         = jsonMapper.readValue(body, com.mycompany.biz.stream.DemoBill.class);
+//        SenderTrade.sendMessage(ReceiveTrade.class, payload);
+        return "Ok";
+    }
     
-    @Resource
-    private RegionService regionService;
     
+    //Following sink is used as test consumer. It logs the data received through the consumer.
+    static class TestSink {
+        final static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AppController.TestSink.class);
+        
+        @Bean
+        public ReceiveTrade receiveTrade() {
+            return new ReceiveTrade() {
+                @Override
+                public void accept(com.mycompany.biz.stream.DemoBill data) {
+                    log.info("Data received from receiveTrade-dest..." + data);
+                }
+            };
+            //return data -> log.info("Data received from receiveTrade-dest.." + data);
+        }
+        
+        @Bean
+        public ReceiveAuth receiveAuth() {
+          return data -> log.info("Data received from receiveAuth-dest.." + data);
+        }
+
+    }  	
+    
+
     @Resource(name = "userService")
     private UserService userService;
     
     @Resource
     private MenuService menuService;
+    
+  
     
     /**
     @Getter
@@ -87,9 +146,9 @@ public class AppController {
     @ApiRequestMappingAutoWithMethodName(method = RequestMethod.GET)
     @SentinelResource
     @Wrap(false)
-    public String testPlain() {
-        //MockUtil只能用于测试，不能打包，执行 mvn package 由 插件 forbiddenapis 检测
-//        MockUtil.slow(1000L);
+    public String test() {
+	    //MockUtil只能用于测试，不能打包，执行 mvn package 由 插件 forbiddenapis 检测
+        //MockUtil.slow(1000L);
         return "test张三中文";
     }
     
@@ -174,6 +233,20 @@ public class AppController {
         return null;
     }
     
+	
+    @Resource
+    private ProvinceService provinceService;
+    
+    @Resource
+    private CityService cityService;
+    
+    @Resource
+    private HoppyService hoppyService;
+    
+    @Resource
+    private RegionService regionService;
+    
+	
     @ApiRequestMappingAutoWithMethodName(name = "省份")
     public List<Province> getProvinceOptions() {
         List<Province> provinceOptions = this.provinceService.getProvinceOptions();

@@ -14,8 +14,9 @@
     <packaging>jar</packaging>
     <name>2-trade-sink-facade</name>
     <description />
-    <!--
-        消协提供方应该提供消息的适配方式,这个jar提供方自己用，还向consumer提供，否则里面大量的重复工作，增加沟通成本
+    <!-- 
+	    动态消息，引用jar包即可发送，不需要privider方额外配置
+        消协提供方应该提供消息的适配方式,这个jar提供方自己用，还向provider提供，否则里面大量的重复工作，增加沟通成本
     -->
 
     <dependencies>
@@ -41,7 +42,6 @@
         <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-core</artifactId>
-            <version>3.3.6.RELEASE</version>
             <scope>provided</scope>
         </dependency>
 

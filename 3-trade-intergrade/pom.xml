@@ -23,18 +23,25 @@
             <type>pom</type>
         </dependency>
 
-        <!-- <dependency>
-            //TEST
-            <groupId>com.mycompany.verify</groupId>
-            <artifactId>auth-facade</artifactId>
-            <version>1.0.0</version>
-        </dependency> -->
-        <!--
+        <!-- 也可以不引用自己 -->        
+        <dependency>
+            <groupId>com.mycompany.biz</groupId>
+            <artifactId>trade-sink-facade</artifactId>
+        </dependency>  
+		        
+        <!-- 集成别人的dubbo微服务
             <dependency>
             <groupId>com.xxx.xxx</groupId>
             <artifactId>xxx-facade</artifactId>
-            <version>${xxx-facade-version}</version>
             </dependency>
+            
+             -->
+			<!-- 集成别人的消息订阅包,向别人发送消息
+            <dependency>
+            <groupId>com.xxx.xxx</groupId>
+            <artifactId>xxx-sink-facade</artifactId>
+
+            </dependency>			
         -->
 
     </dependencies>
