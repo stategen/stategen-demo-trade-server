@@ -1,0 +1,14 @@
+#　　–file:./config/ > 　–file:./ > –classpath:/config/ >　–classpath:/
+spring:
+  cloud:
+    stream:
+#      function:
+#        definition: supplier;receiveTrade   
+      #上面的  definition 由下面的 definition-method-map根据 map的key动态提供，一个系统有多个订阅方，
+      definition-method-map:
+        supplier: 1
+        receiveTrade: 1    
+      bindings:
+        receiveTrade-in-0:
+          destination: receiveTrade-dest
+          group: receiveTrade-group

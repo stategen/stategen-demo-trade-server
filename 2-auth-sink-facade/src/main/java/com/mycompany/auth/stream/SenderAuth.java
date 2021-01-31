@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.mycompany.biz.stream;
+package com.mycompany.auth.stream;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -39,7 +39,7 @@ import reactor.core.publisher.FluxProcessor;
  */
 @Configuration
 @Slf4j
-public class SenderTrade {
+public class SenderAuth {
     
     public static final String destination_key = "spring.cloud.stream.sendto.destination";
     public static final String destination_subfix = "-dest";
@@ -47,8 +47,8 @@ public class SenderTrade {
     private static FluxProcessor<Message<?>,Message<?>> processor;
     
     @Resource(name="fluxProcessor")
-    public void setProcessor( FluxProcessor<Message<?>, Message<?>> processor) {
-        SenderTrade.processor = processor;
+    public void setProcessor(FluxProcessor<Message<?>, Message<?>> processor) {
+        SenderAuth.processor = processor;
     }
     
     @Bean

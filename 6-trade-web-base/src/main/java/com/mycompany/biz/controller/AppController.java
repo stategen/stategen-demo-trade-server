@@ -20,7 +20,7 @@ import org.stategen.framework.lite.SimpleResponse;
 import org.stategen.framework.lite.enums.MenuType;
 import org.stategen.framework.util.BusinessAssert;
 import org.stategen.framework.util.CollectionUtil;
-import org.stategen.framework.util.MockUtil;
+//import org.stategen.framework.util.MockUtil;
 import org.stategen.framework.util.StringUtil;
 import org.stategen.framework.web.cookie.CookieGroup;
 
@@ -89,7 +89,7 @@ public class AppController {
     @Wrap(false)
     public String testPlain() {
         //MockUtil只能用于测试，不能打包，执行 mvn package 由 插件 forbiddenapis 检测
-        MockUtil.slow(1000L);
+//        MockUtil.slow(1000L);
         return "test张三中文";
     }
     

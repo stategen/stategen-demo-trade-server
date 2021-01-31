@@ -10,9 +10,9 @@
         <relativePath>../</relativePath>
     </parent>
 
-    <artifactId>trade-sink-facade</artifactId>
+    <artifactId>auth-sink-facade</artifactId>
     <packaging>jar</packaging>
-    <name>2-trade-sink-facade</name>
+    <name>2-auth-sink-facade</name>
     <description />
     <!--
         消协提供方应该提供消息的适配方式,这个jar提供方自己用，还向consumer提供，否则里面大量的重复工作，增加沟通成本
@@ -27,10 +27,6 @@
             <scope>import</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.mycompany.biz</groupId>
-            <artifactId>trade-pojo</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -45,13 +41,11 @@
             <scope>provided</scope>
         </dependency>
 
-
         <dependency>
             <groupId>org.stategen.framework</groupId>
             <artifactId>aa-stategen-cloud</artifactId>
             <optional>true</optional>
         </dependency>
-        
     </dependencies>
 
     <build>

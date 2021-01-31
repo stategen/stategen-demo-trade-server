@@ -69,6 +69,8 @@
         </dependency>
         <!--qiniu end -->
 
+
+
     </dependencies>
 
     <profiles>
@@ -147,11 +149,11 @@
 
 
 
-                            <!--APPEND_TAG_DO_NOT_CHANGE-->
+                            <!--APPEND_TAG_DO_NOT_CHANGE -->
 
                         </executions>
                     </plugin>
-                    
+
                 </plugins>
             </build>
         </profile>
@@ -163,16 +165,18 @@
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
-
+            
             <resource>
                 <directory>WebRoot/pages</directory>
                 <targetPath>public/pages</targetPath>
             </resource>
         </resources>
 
+
+
         <plugins>
             <plugin>
-			    <!-- 引入即不发布到maven仓库 -->
+                <!-- 引入即不发布到maven仓库 -->
                 <artifactId>maven-deploy-plugin</artifactId>
             </plugin>
 
@@ -195,7 +199,6 @@
 
                 </configuration>
             </plugin>
-            <!-- springboot end -->
 
         </plugins>
 

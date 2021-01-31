@@ -37,6 +37,7 @@ import org.stategen.framework.annotation.ApiRequestMappingAutoWithMethodName;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mycompany.auth.stream.ReceiveAuth;
 import com.mycompany.biz.stream.ReceiveTrade;
 import com.mycompany.biz.stream.SenderTrade;
 
@@ -48,6 +49,7 @@ import com.mycompany.biz.stream.SenderTrade;
 @Controller
 @Configuration
 public class StreamProviderController {
+    
     @Autowired
     private ObjectMapper jsonMapper;
     
@@ -63,7 +65,7 @@ public class StreamProviderController {
         }
     }
     
-    /*** curl -H "Content-Type: application/json" -X POST -d "{\"id\":\"receive1\",\"bill-pay\":\"150\"}" http://localhost:8080/tradeApp/api/streamProvider/handleMq */
+    /*** curl -H "Content-Type: application/json" -X POST -d "{\"id\":\"receiveTrade-dest\",\"bill-pay\":\"150\"}" http://localhost:8080/tradeApp/api/streamProvider/handleMq */
     
     @SuppressWarnings("unchecked")
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -93,6 +95,11 @@ public class StreamProviderController {
                 }
             };
             //return data -> log.info("Data received from receiveTrade-dest.." + data);
+        }
+        
+        @Bean
+        public ReceiveAuth receiveAuth() {
+          return data -> log.info("Data received from receiveAuth-dest.." + data);
         }
 
 

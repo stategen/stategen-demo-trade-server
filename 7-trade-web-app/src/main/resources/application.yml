@@ -58,16 +58,12 @@ spring:
     stream:          
       rocketmq:
         binder:
-          name-server: 127.0.0.1:9876
+          name-server: ${rocketmq.binder.name-server:'127.0.0.1:9876'}   
+      override-definition-if-exists: false    
 #      function:
-#        definition: supplier;receive1;receive2;
-#      bindings:
-#        receive1-in-0:
-#          destination: customerId-1
-#          group: customerId-1-group
-#        receive2-in-0:
-#          destination: customerId-2
-#          group: customerId-2-group             
+#        definition: supplier;receiveTrade;receiveAuth 
+#上面的  definition 由下面的classpath*/sink/*/application.yml中 definition-method-map根据 map的key动态提供，一个系统有多个订阅方， 
+           
 #====================================Seata Config===============================================
 seata:
   enabled: true

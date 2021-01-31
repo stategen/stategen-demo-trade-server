@@ -41,6 +41,12 @@
         <dependency>
             <groupId>com.mycompany.biz</groupId>
             <artifactId>trade-sink-facade</artifactId>
+        </dependency>    
+         
+        <dependency>
+            <groupId>com.mycompany.biz</groupId>
+            <artifactId>auth-sink-facade</artifactId>
+            <version>1.0.0</version>
         </dependency>     
 
     </dependencies>
