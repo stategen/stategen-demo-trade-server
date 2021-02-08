@@ -3,7 +3,7 @@ package com.mycompany.biz.facadegen;
 import org.dom4j.DocumentException;
 import org.junit.Test;  
 
-public class XmlReadTest {
+public class XmlReadTst {
     
    @Test 
    public void testReader() throws DocumentException{
